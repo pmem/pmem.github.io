@@ -1,0 +1,17 @@
+name: pmem.io
+description: Persistent Memory Programming
+url: http://pmem.io
+
+highlighter: pygments
+
+gems:
+  - jekyll-mentions
+
+defaults:
+  -
+    scope:
+      path: ""                  # all files
+    values:
+      layout: "default"         # default layout is "default"
+
+exclude: ['CNAME', 'LICENSE', 'README.md']

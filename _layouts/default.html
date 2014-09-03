@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% if page.title %}pmem.io: {{ page.title }}{% else %}pmem.io{% endif %}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="/css/pmem.css" type="text/css">
+	<link rel="stylesheet" href="/css/pygment_trac.css" type="text/css">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link href="http://pmem.io/feed.xml" rel="alternate" type="application/atom+xml">
+</head>
+<body>
+<!-- _layouts/default.html -->
+<div id="wrap">
+	<div id="header">
+		<a href="http://pmem.io/">
+			<h2>pmem.io<br>Persistent Memory Programming</h2>
+		</a>
+	</div>
+	<div id="nav">
+		<ul>
+			<li><a href="/" {% if page.title == "Home" %} class="sel" {% endif %}>Home</a></li>
+			<li><a href="/glossary/" {% if page.title == "Glossary" %} class="sel" {% endif %}>Glossary</a></li>
+			<li><a href="/nvml/" {% if page.title == "NVM Library" %} class="sel" {% endif %}>NVM&nbsp;Library</a></li>
+			<li><a href="/blog/" {% if page.title == "Blog" %} class="sel" {% endif %}>Blog</a></li>
+			<li><a href="/about/" {% if page.title == "About" %} class="sel" {% endif %}>About</a></li>
+		</ul>
+	</div>
+	<div id="main">
+		{{ content }}
+	</div>
+	{% if page.title != "Blog" %}
+		<div id="sidebar">
+			<h5>Recent Blog Posts</h5>
+			{% for post in site.posts limit:5 %}
+			<hr>
+			<a href="{{ post.url }}">{{ post.title }}</a><br>
+			<div id="postinfo">Posted {{ post.date | date: '%B %d, %Y' }}</div>
+			{{ post.content | strip_html | truncatewords:20}}
+			<br><br>
+			{% endfor %}
+		</div>
+	{% endif %}
+	<div id="footer">
+		<hr>
+		{% include pagefooter.html %}
+	</div>
+</div>
+</body>
+</html>
