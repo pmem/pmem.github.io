@@ -155,7 +155,7 @@ up the commit messages for each set of squashed commits (twice in this
 example).
 
 **Note: if you haven't used rebase -i before, you should make a copy
-of your tree before doing this, just in case!**
+of your repo before doing this, just in case!**
 
 #### Submitting your change
 
@@ -175,3 +175,8 @@ made sure your changes build correctly!  The NVM Library gatekeeper will
 review your pull request, perhaps comment on it, perhaps accept it.
 If you find you need to make more changes due to comments, just
 continue again from the step above where you are editing & committing.
+* Watch for comments from the gatekeeper and respond to requests for
+updates.  Although this conversation happens in the pull request
+managed by GitHub, you are always welcome to ask questions and make
+suggestions to the entire team using the
+[Google Group](http://groups.google.com/group/pmem).
