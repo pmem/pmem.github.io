@@ -31,7 +31,7 @@ to server-class applications which will explicitly manage the placement
 of data among the three tiers (volatile memory, persistent memory, and
 storage).  This project is not looking at client or mobile uses of
 persistent memory, which are more likely to be transparent to the
-applications (at least, we're not focusing of that yet).  The first
+applications (at least, we're not focusing on that yet).  The first
 focus is to expose the capabilities of this new technology and provide
 software to help applications exploit it.
 
