@@ -9,7 +9,7 @@ does it work?  This blog entry provides some answers,
 which refer to this picture
 showing the overall library architecture:
 
-![alt text](/assets/libarch.jpg)
+![Library Architecture](/assets/libarch.jpg)
 
 #### Why?
 

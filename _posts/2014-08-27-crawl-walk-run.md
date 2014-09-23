@@ -18,7 +18,7 @@ interfaces.  But you have to start somewhere, so this is the
 _crawl_ phase.  The move beyond that, we need a software
 architecture for exposing persistent memory up the stack.
 
-![alt text](/assets/swarch.jpg)
+![SW Architecture](/assets/swarch.jpg)
 
 The picture above shows the _walk_ phase of persistent memory
 support: exposing persistent memory up the stack so applications
