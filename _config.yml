@@ -14,4 +14,4 @@ defaults:
     values:
       layout: "default"         # default layout is "default"
 
-exclude: ['CNAME', 'LICENSE', 'README.md']
+exclude: ['CNAME', 'LICENSE', 'README.md', 'Gemfile' ]
