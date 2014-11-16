@@ -133,6 +133,11 @@ code[data-gist-id] pre {
 	font-size: 12px;
 }
 
+code[data-gist-id] table {
+	border: none;
+	margin: 0;
+}
+
 pre {
 	padding: 10px;
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
