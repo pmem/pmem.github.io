@@ -124,6 +124,15 @@ pre, code {
 	-webkit-border-radius: 2px;
 }
 
+code[data-gist-id] {
+	box-shadow: none;
+	padding: 0;
+}
+
+code[data-gist-id] pre {
+	font-size: 12px;
+}
+
 pre {
 	padding: 10px;
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
