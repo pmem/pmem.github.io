@@ -68,11 +68,12 @@ But following is not:
 And that's the jist of the persistent memory programming.
 
 ### Example
-Now that've learned some valuable knowledge, let's put it to some use. Remember the string example I've talked previously? Seems like a good point to start. As a reminder: we will write 2 applications, one that writes a string to memory and one that reads that exact same string - but only if it was properly written.
+Now that we have learned some valuable knowledge, let's put it to some use. Remember the string example I've talked previously? Seems like a good point to start. As a reminder: we will write 2 applications, one that writes a string to memory and one that reads that exact same string - but only if it was properly written.
 
 For both of the programs, we will need this set of includes:
 
 	#include <stdio.h>
+	#include <string.h>
 	#include <libpmemobj.h>
 	#include "layout.h"
 
@@ -104,8 +105,8 @@ First, we will create the `writer.c` which will do the first part of the work:
 
 Here we create the pool file with name from the first argument. Don't forget to use proper file mode in the create or you will end up with pool you cannot open or modify.
 
-	PMEMoid rootoid = pmemobj_root(pop, sizeof (struct my_root));
-	struct my_root *root = pmemobj_direct(rootoid);
+	PMEMoid root = pmemobj_root(pop, sizeof (struct my_root));
+	struct my_root *rootp = pmemobj_direct(root);
 
 Next we request the root object and translate it to a usable, direct, pointer. Because this is done just after creating the pool we can be sure that the `struct my_root` pointed to by `root` is zeroed.
 
@@ -115,8 +116,8 @@ Next we request the root object and translate it to a usable, direct, pointer. B
 We read maximum of 9 bytes to the temporary buffer.
 
 	root->len = strlen(buf);
-	pmemobj_persist(pop, root->len, sizeof (root->len));
-	pmemobj_memcpy_persist(root->buf, my_buf, root->len);
+	pmemobj_persist(pop, rootp->len, sizeof (rootp->len));
+	pmemobj_memcpy_persist(rootp->buf, my_buf, rootp->len);
 
 And we write this buffer to persistence. This snippet should be clear as day by now. 
 
@@ -130,8 +131,8 @@ It's time for the `reader.c`, the code is very similar up to the scanf line.
 			return 1;
 		}
 	
-		PMEMoid rootoid = pmemobj_root(pop, sizeof (struct my_root));
-		struct my_root *root = pmemobj_direct(rootoid);
+		PMEMoid root = pmemobj_root(pop, sizeof (struct my_root));
+		struct my_root *rootp = pmemobj_direct(root);
 	
 		...
 	
@@ -142,8 +143,8 @@ It's time for the `reader.c`, the code is very similar up to the scanf line.
 
 This time when we open the pool, the root object will not be zeroed - it will contain whatever string the writer was tasked with storing. So, to read it:
 
-	if (root->len == strlen(root->buf))
-		printf("%s\n", root->buf);
+	if (root->len == strlen(rootp->buf))
+		printf("%s\n", rootp->buf);
 
 You should now be able to compile both applications and verify that they do what was advertised. If you want to check that it works for all the error-cases, we have a [tool](https://github.com/pmem/valgrind) for that, but it's a topic for completely different tutorial ;)
 
