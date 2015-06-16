@@ -12,7 +12,7 @@ Transactions are managed by the usage of `pmemobj_tx_*` set of functions. A sing
 
 ![lifecycle](/assets/lifecycle.png)
 
-You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions - this tutorial will exclusively use the them.
+You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions - this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:
 
 	/* TX_STAGE_NONE */
@@ -68,7 +68,7 @@ This is OK because it's guaranteed that the finally block will always be execute
 
 ### Transactional operations
 
-Our library distinguishes 3 different transactional operations: allocation, free and set. Right now we will learn only about the last one, which - as the name suggests, it is used to safely *set* a memory block to some value. This is realized by 2 API functions: `pmemobj_tx_add_range` and `pmemobj_tx_add_range_direct`. Quoting the documentation:
+Our library distinguishes 3 different transactional operations: allocation, free and set. Right now we will learn only about the last one, which - as the name suggests, is used to safely *set* a memory block to some value. This is realized by 2 API functions: `pmemobj_tx_add_range` and `pmemobj_tx_add_range_direct`. Quoting the documentation:
 
  >Takes a "snapshot" of the memory block ... and saves it in the undo log.
  The application is then free to directly modify the object in that memory range. In case of failure or abort, all the changes within this range will be rolled-back automatically.
@@ -132,5 +132,7 @@ We are going to modify the previous example to use a transaction instead of stor
                 memcpy(rootp->buf, buf, strlen(buf));
         } TX_END
 
-And that's about it, looks simpler right? And more similar to how a volatile program might do this. The `reader.c` doesn't change much, just remove the `if` statement that checks the buffer length and you are good to go. This can be further simplified by combining the two lines inside the transaction together - but that's the topic for our next post.
+And that's about it, looks simpler right? And more similar to how a volatile program might do this. The `reader.c` doesn't change much, just remove the `if` statement that checks the buffer length and you are good to go. If you are having trouble correctly modifying the code, you can find the complete example [here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/).
+
+This can be further simplified by combining the two lines inside the transaction together - but that's the topic for our next post.
 
