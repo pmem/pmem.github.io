@@ -8,11 +8,11 @@ By now you should be fairly familiar with the basics persistent memory programmi
 
 ### The lifecycle
 
-Transactions are managed by the usage of `pmemobj_tx_*` set of functions. A single transaction goes through a series of stages listed in `enum pobj_tx_stage` and illustrated by the following diagram:
+Transactions are managed by the usage of `pmemobj_tx_*` family of functions. A single transaction goes through a series of stages listed in `enum pobj_tx_stage` and illustrated by the following diagram:
 
 ![lifecycle](/assets/lifecycle.png)
 
-You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions - this tutorial will exclusively use the them.
+You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:
 
 	/* TX_STAGE_NONE */
@@ -50,7 +50,7 @@ You might wonder why there's the `TX_FINALLY` stage, why not just execute that c
 		do_work();
 	TX_END
 
-This snippet has a memory leak. The `free` will never be called, because the `TX_END` will eventually make a `longjmp` back to the inner transaction. The correct way of implementing the `do_work` is to use `TX_FINALLY`:
+This snippet has a memory leak. The `free` will never be called, because the `TX_END` in `do_work` will eventually make a `longjmp` back to the inner transaction. The correct way of implementing the `do_work` is to use `TX_FINALLY`:
 
 	void do_work() {
 		struct my_task *task = malloc(sizeof *task);
@@ -68,7 +68,7 @@ This is OK because it's guaranteed that the finally block will always be execute
 
 ### Transactional operations
 
-Our library distinguishes 3 different transactional operations: allocation, free and set. Right now we will learn only about the last one, which - as the name suggests, it is used to safely *set* a memory block to some value. This is realized by 2 API functions: `pmemobj_tx_add_range` and `pmemobj_tx_add_range_direct`. Quoting the documentation:
+Our library distinguishes 3 different transactional operations: allocation, free and set. Right now we will learn only about the last one, which - as the name suggests, is used to safely *set* a memory block to some value. This is realized by 2 API functions: `pmemobj_tx_add_range` and `pmemobj_tx_add_range_direct`. Quoting the documentation:
 
  >Takes a "snapshot" of the memory block ... and saves it in the undo log.
  The application is then free to directly modify the object in that memory range. In case of failure or abort, all the changes within this range will be rolled-back automatically.
@@ -76,7 +76,7 @@ Our library distinguishes 3 different transactional operations: allocation, free
 What this means is that when you call any of those two functions, a new object is allocated and the existing content of the memory range is copied into it. Most of the time that object will be then discarded, unless the library needs that old memory in the transaction rollback.
 Also, note that the library assumes that when you add the memory range you intend to write to it and the memory is automatically persisted when committing the transaction - so you don't have to call pmemobj_persist yourself.
 
-So how to use those functions? The `pmemobj_tx_add_range` takes a raw persistent memory pointer (PMEMoid), an offset from it and it's size. So let's set some values inside this structure:
+So how to use those functions? The `pmemobj_tx_add_range` takes a raw persistent memory pointer (PMEMoid), an offset from it and its size. So let's set some values inside this structure:
 
 	struct vector {
 		int x;
@@ -132,5 +132,7 @@ We are going to modify the previous example to use a transaction instead of stor
                 memcpy(rootp->buf, buf, strlen(buf));
         } TX_END
 
-And that's about it, looks simpler right? And more similar to how a volatile program might do this. The `reader.c` doesn't change much, just remove the `if` statement that checks the buffer length and you are good to go. This can be further simplified by combining the two lines inside the transaction together - but that's the topic for our next post.
+And that's about it, looks simpler right? And more similar to how a volatile program might do this. The `reader.c` doesn't change much, just remove the `if` statement that checks the buffer length and you are good to go. If you are having trouble correctly modifying the code, you can find the complete example [here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/).
+
+This can be further simplified by combining the two lines inside the transaction together - but that's the topic for our next post.
 
