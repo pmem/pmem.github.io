@@ -1,5 +1,5 @@
 ---
-title: An introduction to pmemobj (part 1) - Accessing the persistent memory
+title: An introduction to pmemobj (part 1) - accessing the persistent memory
 author: pbalcer
 layout: post
 ---
@@ -116,8 +116,8 @@ Next we request the root object and translate it to a usable, direct, pointer. B
 We read maximum of 9 bytes to the temporary buffer.
 
 	root->len = strlen(buf);
-	pmemobj_persist(pop, rootp->len, sizeof (rootp->len));
-	pmemobj_memcpy_persist(rootp->buf, my_buf, rootp->len);
+	pmemobj_persist(pop, &rootp->len, sizeof (rootp->len));
+	pmemobj_memcpy_persist(pop, rootp->buf, my_buf, rootp->len);
 
 And we write this buffer to persistence. This snippet should be clear as day by now. 
 
@@ -147,4 +147,6 @@ This time when we open the pool, the root object will not be zeroed - it will co
 		printf("%s\n", rootp->buf);
 
 You should now be able to compile both applications and verify that they do what was advertised. If you want to check that it works for all the error-cases, we have a [tool](https://github.com/pmem/valgrind) for that, but it's a topic for completely different tutorial ;)
+
+The complete source code for this example (and more) can be found in [our repository](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj).
 
