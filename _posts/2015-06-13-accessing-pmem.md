@@ -8,34 +8,34 @@ In the previous post, you learned a little bit about the general concept of the 
 
 ### Memory pools
 
-If you've read the [NVML overview]({% post_url 2014-09-01-nvm-library-overview %}) you know that the persistent memory is exposed by the OS as a memory-mapped file, we call them pools. 
+If you've read the [NVML overview]({% post_url 2014-09-01-nvm-library-overview %}) you know that persistent memory is exposed by the OS as memory-mapped files, we call them pools. 
 
-The pmemobj library provides an interface to easily manage those pools, so that you don't have to manually create the files or `mmap` them. Creating a pool is done using the `pmemobj_create` API function, which takes the usual parameters you would expect for a function creating a file plus a `layout`, which is a string of your choosing that identifies the pool. It is required that the `layout` you pass to `pmemobj_open` matches the one the pool was created with. As with any other OS resource, you have to release the pool using `pmemobj_close` when the persistent memory is no longer needed, usually at the end of the application. To verify the integrity of the pool there's a `pmemobj_check` function that verifies if all the required metadata is consistent.
+The pmemobj library provides an interface to easily manage those pools, so that you don't have to manually create the files or `mmap` them. Creating a pool is done using the `pmemobj_create` API function, which takes the usual parameters you would expect for a function creating a file plus a `layout`, which is a string of your choosing that identifies the pool. It is required that the `layout` you pass to `pmemobj_open` matches the one the pool was created with. As with any other OS resource, you have to release the pool using `pmemobj_close` when the persistent memory pool is no longer needed, usually at the end of the application. To verify the integrity of the pool there's a `pmemobj_check` function that verifies if all the required metadata is consistent.
 
 ### Persistent pointers
 
-Now that we have the memory region mapped, how can one access it? Let's think about regular pointers for a second. Boiling it down to the very basics, a pointer is a number of bytes between the start of the virtual address space to the beginning of the thing it points to. And now to translate this to persistent memory, note here that you can have more then one pool open in one application, the persistent pointer is twice the size of a regular pointer and contains the offset from the start of the pool (not the VAS) and unique id of the pool. The structure itself looks like this:
+Now that we have the memory region mapped, how can one access it? Let's think about regular pointers for a second. Boiling it down to the very basics, a pointer is a number of bytes between the start of the virtual address space to the beginning of the thing it points to. And now to translate this to persistent memory. Note that you can have more than one pool open in one application, the persistent pointer is twice the size of a regular pointer and contains the offset from the start of the pool (not the VAS) and unique id of the pool. The structure itself looks like this:
 
 	typedef struct pmemoid {
 		uint64_t pool_uuid_lo;
 		uint64_t off;
 	} PMEMoid;
 
-If you know the virtual address the pool is mapped at, a simple addition can be performed to get the **direct** pointer, like this: `(void *)((uint64_t)pool + oid.off)` and this is exactly what the `pmemobj_direct` does, it takes the `PMEMoid` (persistent pointer) and turns it into a regular one that can be dereferenced. The pool id is used to figure out where the pool is currently mapped (because the actual address of the memory mapped region can be different each time you start your application). How exactly does the *figuring out* works? All open pools are stored in a [cuckoo hash table](http://en.wikipedia.org/wiki/Cuckoo_hashing) with 2 hashing functions, so it means that when you call `pmemobj_direct` maximum of two table lookups will happen to locate the pool address. 
+If you know the virtual address the pool is mapped at, a simple addition can be performed to get the **direct** pointer, like this: `(void *)((uint64_t)pool + oid.off)` and this is exactly what the `pmemobj_direct` does, it takes the `PMEMoid` (persistent pointer) and turns it into a regular one that can be dereferenced. The pool id is used to figure out where the pool is currently mapped (because the actual address of the memory mapped region can be different each time you start your application). How exactly does the *figuring out* work? All open pools are stored in a [cuckoo hash table](http://en.wikipedia.org/wiki/Cuckoo_hashing) with 2 hashing functions, so it means that when you call `pmemobj_direct` a maximum of two table lookups will happen to locate the pool address. 
 
 ### The root object
 
 Think about following scenario:
 
-	- allocate a block of persistent memory (let's assume malloc-like interface)
+	- allocate a block of persistent memory (let's assume a malloc-like interface)
 	- write a string to it
 	- close the application
 
-How do you locate the pointer which contains your string? The data you want will be somewhere in the pool, but apart from scanning the entire file for matching characters you can't really find it. Unless you store the persistent pointer someplace you know in the pool, for example you could pick a random offset into the pool. But that would be wrong, like writing randomly in the virtual address space wrong, it would most likely unintentionally overwrite something. The known location you can always look for in the memory pool is the root object. It's the anchor to which all the memory structures can be attached. In a case where all you really need is one, not dynamically changing, data structure you can just solely rely on the root object. The `size` in the `pmemobj_root` function is the size of the structure you want as root object, so typically you might want to write something like this:
+How do you locate the pointer which contains your string? The data you want will be somewhere in the pool, but apart from scanning the entire file for matching characters you can't really find it. Unless you store the persistent pointer someplace you know in the pool, for example you could pick a random offset into the pool. But that would be wrong, like writing randomly in the virtual address space wrong - it would most likely unintentionally overwrite something. The known location you can always look for in the memory pool is the root object. It's the anchor to which all the memory structures can be attached. In a case where all you really need is one, not dynamically changing, data structure you can just solely rely on the root object. The `size` in the `pmemobj_root` function is the size of the structure you want as root object, so typically you might want to write something like this:
 
 	PMEMoid root = pmemobj_root(pop, sizeof (struct my_root));
 
-The root object is initially zeroed, so no need to worry about initialization. Also, if you want to resize your object, you are free to do so just by passing different size to the function - so when you add a new variable to your structure there's no need to worry, the new region will also be zeroed. Keep in mind that the root object is allocated from the pool and when an in-place reallocation is impossible a new object will be created with a different offset, so don't store the root persistent pointer anywhere without **really** thinking it through.
+The root object is initially zeroed, so there is no need to worry about initialization. Also, if you want to resize your object, you are free to do so just by passing different size to the function - so when you add a new variable to your structure there's no need to worry, the new region will also be zeroed. Keep in mind that the root object is allocated from the pool and when an in-place reallocation is impossible a new object will be created with a different offset, so don't store the root persistent pointer anywhere without **really** thinking it through.
 
 ### Safely storing data
 All of the previous information was about *where* to store data, it's time to learn *how*. Consider the following example:
@@ -52,7 +52,7 @@ This would be a perfectly valid code if the `root` variable were volatile, but i
 	4: 	pmemobj_memcpy_persist(root->name, my_name, root->length);
 	5: }
 
-Notice that here we store the length of the buffer before copying, so when reading we can double-check if the name is correct. The `_persist` suffixed functions make sure that the range of memory they operate on is flushed from the CPU and safely stored on the medium, whatever that might be. So, at line 4 we are 100% sure that the `root->length` contains what we want. The pmemobj library has way more convenient methods of doing this, like transactions, but I think that knowing the basics can help in understanding the more advanced techniques. But no need to worry - I'll write the exact same example in at least two different ways later on in the series.
+Notice that here we store the length of the buffer before copying, so when reading we can double-check if the name is correct. The `_persist` suffixed functions make sure that the range of memory they operate on is flushed from the CPU and safely stored on the medium, whatever that might be. So, at line 4 we are 100% sure that the `root->length` contains what we want. The pmemobj library has way more convenient methods of doing this, like transactions, but knowing the basics can help in understanding the more advanced techniques. But no need to worry - I'll write the exact same example in at least two different ways later on in the series.
 
 The fundamental principle is that, on the current hardware architecture, only 8 bytes of memory can be written in an **atomic** way. So something like this is correct:
 
@@ -65,10 +65,10 @@ But following is not:
 	root->u32var = 321;
 	pmemobj_persist(&root->u64var, 12);
 
-And that's the jist of the persistent memory programming.
+And that's the gist of the persistent memory programming.
 
 ### Example
-Now that we have learned some valuable knowledge, let's put it to some use. Remember the string example I've talked previously? Seems like a good point to start. As a reminder: we will write 2 applications, one that writes a string to memory and one that reads that exact same string - but only if it was properly written.
+Now that we have learned some valuable knowledge, let's put it to use. Remember the string example I've talked previously? Seems like a good point to start. As a reminder: we will write 2 applications, one that writes a string to memory and one that reads that exact same string - but only if it was properly written.
 
 For both of the programs, we will need this set of includes:
 
@@ -77,17 +77,17 @@ For both of the programs, we will need this set of includes:
 	#include <libpmemobj.h>
 	#include "layout.h"
 
-As a general rule you don't need **libpmem** when using **libpmemobj**, the former provides all the required functionality. The `layout.h` file has the declaration of stuff we will need for both `.c` files:
+As a general rule you don't need **libpmem** when using **libpmemobj**, the latter provides all the required functionality. The `layout.h` file has the declaration of stuff we will need for both `.c` files:
 	
 	#define LAYOUT_NAME "intro_0" /* will use this in create and open */
 	#define MAX_BUF_LEN 10 /* maximum length of our buffer */
 	
-	struct my_root { /* strlen(buf) == len */
-		size_t len;
+	struct my_root {
+		size_t len; /* = strlen(buf) */
 		char buf[MAX_BUF_LEN];
 	};
 
-First, we will create the `writer.c` which will do the first part of the work:
+First, we will create `writer.c` which will do the first part of the work:
 
 	int main(int argc, char *argv[])
 	{
@@ -103,12 +103,12 @@ First, we will create the `writer.c` which will do the first part of the work:
 		return 0;
 	}
 
-Here we create the pool file with name from the first argument. Don't forget to use proper file mode in the create or you will end up with pool you cannot open or modify.
+Here we create the pool file with the name from the first argument. Don't forget to use proper file mode in `pmemobj_create` or you will end up with pool you cannot open or modify.
 
 	PMEMoid root = pmemobj_root(pop, sizeof (struct my_root));
 	struct my_root *rootp = pmemobj_direct(root);
 
-Next we request the root object and translate it to a usable, direct, pointer. Because this is done just after creating the pool we can be sure that the `struct my_root` pointed to by `root` is zeroed.
+Next we request the root object and translate it to a usable, direct pointer. Because this is done just after creating the pool we can be sure that the `struct my_root` pointed to by `root` is zeroed.
 
 	char buf[MAX_BUF_LEN];
 	scanf("%9s", buf);
@@ -146,7 +146,7 @@ This time when we open the pool, the root object will not be zeroed - it will co
 	if (root->len == strlen(rootp->buf))
 		printf("%s\n", rootp->buf);
 
-You should now be able to compile both applications and verify that they do what was advertised. If you want to check that it works for all the error-cases, we have a [tool](https://github.com/pmem/valgrind) for that, but it's a topic for completely different tutorial ;)
+You should now be able to compile both applications and verify that they do what was advertised. If you want to check that it works for all the error-cases, we have a [tool](https://github.com/pmem/valgrind) for that, but it's a topic for a completely different tutorial ;)
 
 The complete source code for this example (and more) can be found in [our repository](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj).
 
