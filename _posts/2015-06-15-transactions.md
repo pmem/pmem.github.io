@@ -73,8 +73,8 @@ Our library distinguishes 3 different transactional operations: allocation, free
  >Takes a "snapshot" of the memory block ... and saves it in the undo log.
  The application is then free to directly modify the object in that memory range. In case of failure or abort, all the changes within this range will be rolled-back automatically.
 
-What this means is that when you call any of those two functions, a new object is allocated and the existing content of the memory range is copied into it. Most of the time that object will be then discarded, unless the library needs that old memory in the transaction rollback.
-Also, note that the library assumes that when you add the memory range you intend to write to it and the memory is automatically persisted when committing the transaction - so you don't have to call pmemobj_persist yourself.
+What this means is that when you call any of those two functions, a new object is allocated and the existing content of the memory range is copied into it. Unless the library needs that old memory in the transaction rollback, that object will be discarded.
+Also, note that the library assumes that when you add the memory range you intend to write to it and the memory is automatically persisted when committing the transaction - so you don't have to call `pmemobj_persist` yourself.
 
 So how to use those functions? The `pmemobj_tx_add_range` takes a raw persistent memory pointer (PMEMoid), an offset from it and its size. So let's set some values inside this structure:
 
@@ -122,6 +122,52 @@ The `pmemobj_tx_add_range_direct` does the same thing, but in a more convenient 
 	} TX_END
 	
 This is useful when you don't have an easy way of accessing the PMEMoid this memory block belongs to.
+
+### Conditional transaction blocks
+
+It might seem that `TX_ONCOMMIT` and `TX_ONABORT` explanation isn't really required, one is called when the transaction commits and the other one when it aborts - simple as that. As long as there are no inner transactions, that is true. But once we start nesting, things get a little bit more complicated. Consider the following example:
+
+	#define MAX_HASHMAP 1000
+	TOID(struct hash_entry) hashmap[MAX_HASHMAP]; /* volatile hashmap */
+
+	void hash_set(int key, int value) {
+		TOID(struct hash_entry) nentry;
+		
+		TX_BEGIN(pop) {
+			nentry = TX_NEW(struct hash_entry);
+			D_RW(nentry)->key = key;
+			D_RW(nentry)->value = value;
+		} TX_ONCOMMIT {
+			size_t hash = hash_func(key);
+			if (TOID_IS_NULL(hashmap[hash]))
+				hashmap[hash] = nentry;
+			else
+				/* ... */
+		} TX_END
+	}
+
+	TX_BEGIN(pop) {
+		hash_set(5, 10);
+		pmemobj_tx_abort(-1);
+	} TX_END
+
+So, a hashmap with entries in persistent memory but with a volatile table containing them. Is this code correct? Well, the `hash_set` on its own is perfectly OK - but not inside another transaction. When the `pmemobj_tx_abort` function is called everything in the `TX_BEGIN` block is reverted but the `TX_ONCOMMIT` of the nested transaction was already executed (and the `TX_ONABORT` won't be called in that function), the end result is an invalid persistent pointer in the volatile table. This is generally difficult to solve and requires per-problem solution - I recommend designing your applications to actively avoid it. For this specific use case you can have an extra `hash_revert_previous` function that is called from the `TX_ONABORT` block of the outer-most transaction.
+
+The intended use of the `TX_ONCOMMIT` and `TX_ONABORT` is to print log information and set return variable of the function with nested transaction, like so:
+
+	int do_work() {
+		int ret;
+		TX_BEGIN(pop) {
+		} TX_ONABORT {
+			LOG_ERR("work transaction failed");
+			ret = 1;
+		} TX_ONCOMMIT {
+			LOG("work transaction successful");
+			ret = 0;
+		} TX_END
+
+		return ret;
+	}
 
 ### Example
 
