@@ -19,7 +19,7 @@ And this, in a nutshell, is what our library provides - persistent pointers and 
 
 This tutorial will include embedded code for you to type, compile and run. Please study them carefully and if you are ever left wondering - feel free to [contact us](http://pmem.io/about/). In addition to that, our library comes with ever-growing collection of [examples](https://github.com/pmem/nvml/tree/master/src/examples), I encourage you to check them out to see some simple use-cases we implemented.
 
-To run applications based on libpmemobj you don't need real persistent memory in the platform, all that's really necessary is a device with a file system (doesn't have to be DAX) - the only difference will be performance. Depending on the configuration, the library will issue a lot of `clflush` or `msync` calls, the former being obviously way slower. If you end up with unbearable performance while testing your programs without real pmem, you can do something like this:
+To run applications based on libpmemobj you don't need real persistent memory in the platform, all that's really necessary is a device with a file system (doesn't have to be DAX) - the only difference will be performance. Depending on the configuration, the library will issue a lot of `clflush` or `msync` calls, the latter being obviously way slower. If you end up with unbearable performance while testing your programs without real pmem, you can do something like this:
 
 	PMEM_IS_PMEM_FORCE=1 ./app
 
