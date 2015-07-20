@@ -1,5 +1,5 @@
 ---
-title: An introduction to pmemcheck
+title: An introduction to pmemcheck (part 1) - basics
 author: tomaszkapela
 layout: post
 ---

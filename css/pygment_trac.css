@@ -74,3 +74,6 @@
 .lineno::-moz-selection {background-color: transparent;} /* Mozilla specific */
 .lineno::selection {background-color: transparent;} /* Other major browsers */
 .highlight pre code { display: block; white-space: pre; overflow-x: auto; word-wrap: normal; }
+
+/* set hl_lines highlight style */
+.hll, .special { background-color: #BEF2A5 !important; font-weight: bold }
