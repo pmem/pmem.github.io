@@ -68,3 +68,12 @@
 .type-csharp .highlight .nn { color: #000000 }
 .type-csharp .highlight .s { color: #A31515 }
 .type-csharp .highlight .sc { color: #A31515 }
+
+/* Make line numbers unselectable: excludes line numbers from copy-paste user ops */
+.highlight .lineno { -webkit-user-select: none;-moz-user-select: none; -o-user-select: none; color: #ccc; display:inline-block; padding: 0 5px; border-right:1px solid #ccc; }
+.lineno::-moz-selection {background-color: transparent;} /* Mozilla specific */
+.lineno::selection {background-color: transparent;} /* Other major browsers */
+.highlight pre code { display: block; white-space: pre; overflow-x: auto; word-wrap: normal; }
+
+/* set hl_lines highlight style */
+.hll, .special { background-color: #BEF2A5 !important; font-weight: bold }
