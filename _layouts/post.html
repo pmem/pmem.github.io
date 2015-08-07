@@ -29,12 +29,28 @@
 	</div>
 	<br>
 	<h3>{{ page.title }}</h3>
-	<div id="postinfo">Posted {{ page.date | date: '%B %d, %Y' }}</div>
+	<ul>
+	</ul>
+	<div id="postinfo">Posted {{ page.date | date: '%B %d, %Y' }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	{% if page.previous.url %}
+	<font size="-1"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&laquo;&nbsp;Previous&nbsp;post</a></font>&nbsp;&nbsp;&nbsp;&nbsp;
+	{% endif %}
+	{% if page.next.url %}
+	<font size="-1"><a href="{{ page.next.url }}" title="{{ page.next.title }}">Next&nbsp;post&nbsp;&raquo;</a></font>
+	{% endif %}
+	</div>
 	<br>
 	{{ content }}
 	<br>
 	<br>
-	<div id="postinfo">Posted by <a href="https://github.com/{{ page.author }}">@{{ page.author }}</a></div>
+	<div id="postinfo">Posted by <a href="https://github.com/{{ page.author }}">@{{ page.author }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	{% if page.previous.url %}
+	<font size="-1"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&laquo;&nbsp;Previous&nbsp;post</a></font>&nbsp;&nbsp;&nbsp;&nbsp;
+	{% endif %}
+	{% if page.next.url %}
+	<font size="-1"><a href="{{ page.next.url }}" title="{{ page.next.title }}">Next&nbsp;post&nbsp;&raquo;</a></font>
+	{% endif %}
+	</div>
 	<div id="footer">
 		<hr>
 		{% include pagefooter.html %}
