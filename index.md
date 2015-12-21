@@ -15,7 +15,9 @@ yet ready for production use.**
 
 The Linux NVM Library builds on the **Direct Access** (DAX) changes
 under development in Linux.  Check out the
-[PRD repo](https://github.com/01org/prd) for the latest snapshot of this work.
+[Persistent Memory Wiki](https://nvdimm.wiki.kernel.org) for the link
+to the latest snapshot of this work, and for all the other information
+related to persistent memory enabling in Linux.
 
 #### What Is It?
 
