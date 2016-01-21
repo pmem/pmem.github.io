@@ -12,7 +12,7 @@ Transactions are managed by the usage of `pmemobj_tx_*` family of functions. A s
 
 ![lifecycle](/assets/lifecycle.png)
 
-You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
+You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/libpmemobj.3.html). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:
 
 {% highlight C linenos %}
