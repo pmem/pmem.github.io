@@ -2,7 +2,7 @@ name: pmem.io
 description: Persistent Memory Programming
 url: http://pmem.io
 
-highlighter: pygments
+highlighter: rouge
 
 gems:
   - jekyll-mentions
