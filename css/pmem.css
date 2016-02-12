@@ -139,7 +139,6 @@ code[data-gist-id] table {
 }
 
 pre {
-	padding: 10px;
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
 	overflow: auto;
 }
@@ -150,9 +149,29 @@ code {
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
+code table {
+	border: 0;
+	margin-bottom: 0;
+}
+
+code table td {
+	border: 0;
+	vertical-align: top;
+}
+
+td pre {
+	padding: 0;
+	display: block;
+	box-shadow: none;
+}
+
 pre code {
 	display: block;
 	box-shadow: none;
+}
+
+pre.highlight code {
+	padding: 10px;
 }
 
 blockquote {
