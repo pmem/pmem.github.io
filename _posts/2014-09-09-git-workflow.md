@@ -105,12 +105,14 @@ $ make check
 We also require all the above to pass using the `clang` compiler:
 {% highlight sh %}
 $ make clobber
-$ make CC=clang
-$ make CC=clang test
-$ make CC=clang check
+$ make CC=clang CXX=clang++
+$ make CC=clang CXX=clang++ test
+$ make CC=clang CXX=clang++ check
 {% endhighlight %}
 
 Please add the appropriate unit tests to verify new features you've added.
+
+Please note that the C++ compiler must support the C++11 standard.
 
 #### Cleaning up your commits
 
