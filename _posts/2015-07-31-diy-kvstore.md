@@ -27,7 +27,7 @@ this comes at almost no implementation cost, since we will rely heavily on the
 libpmemobj.
 
 The header file is available
-[here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/tree_map/tree_map.h).
+[here](https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/map/map.h).
 It's pretty simple, but extending it should be fairly easy.
 
 ### Implementation
@@ -107,7 +107,7 @@ assert(OID_INSTANCEOF(oid, struct store_item));
 tree_map_delete(pop, &D_RW(root)->map);
 {% endhighlight %}
 So a fairly standard kv-store. There's a more complete example
-[here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/tree_map/data_store.c).
+[here](https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/map/data_store.c).
 
 ### Performance
 
