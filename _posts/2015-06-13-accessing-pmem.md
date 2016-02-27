@@ -136,7 +136,7 @@ scanf("%9s", buf);
 We read maximum of 9 bytes to the temporary buffer.
 
 {% highlight C linenos %}
-root->len = strlen(buf);
+rootp->len = strlen(buf);
 pmemobj_persist(pop, &rootp->len, sizeof (rootp->len));
 pmemobj_memcpy_persist(pop, rootp->buf, my_buf, rootp->len);
 {% endhighlight %}
