@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
 This time when we open the pool, the root object will not be zeroed - it will contain whatever string the writer was tasked with storing. So, to read it:
 
 {% highlight C linenos %}
-if (root->len == strlen(rootp->buf))
+if (rootp->len == strlen(rootp->buf))
 	printf("%s\n", rootp->buf);
 {% endhighlight %}
 
