@@ -27,6 +27,14 @@ $ make nconfig
 			<M>PMEM; <M>BLK; <*>BTT
 {% endhighlight %}
 
+Additionally you need to enable treatment of memory marked using the non-standard e820 type of 12 as used by the Intel Sandy Bridge-EP reference BIOS as protected memory. The kernel will offer these regions to the 'pmem' driver so they can be used for persistent storage.
+
+{% highlight console %}
+$ make nconfig
+	-> Processor type and features
+			<*>Support non-standard NVDIMMs and ADR protected memory
+{% endhighlight %}
+
 You are ready to build your Kernel
 
 {% highlight console %}
