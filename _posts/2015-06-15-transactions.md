@@ -58,10 +58,12 @@ This snippet has a memory leak. The `free` will never be called, because the `TX
 
 {% highlight C linenos %}
 void do_work() {
-	struct my_task *task = malloc(sizeof *task);
-	if (task == NULL) return;
+	volatile struct my_task *task = NULL;
 
 	TX_BEGIN(pop) {
+		task = malloc(sizeof *task);
+		if (task == NULL) pmemobj_tx_abort(ENOMEM);
+
 		/* important work */
 		pmemobj_tx_abort(-1);
 	} TX_FINALLY {
@@ -71,6 +73,14 @@ void do_work() {
 {% endhighlight %}
 
 This is OK because it's guaranteed that the finally block will always be executed.
+
+Please also note the usage of `volatile`-qualified variable in TX_FINALLY block.
+This is because local non-volatile qualified objects have undefined values after
+execution of longjmp if their value have changed after setjmp. So in the case
+of libpmemobj transaction blocks every local variable modified in TX_STAGE_WORK and used in
+TX_STAGE_ONABORT/TX_STAGE_FINALLY needs to be volatile-qualified - otherwise you might
+encounter undefined behavior. Please see the CAVEATS section in libpmemobj
+[manpage](http://pmem.io/nvml/libpmemobj/libpmemobj.3.html) for more information.
 
 ### Transactional operations
 
