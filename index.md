@@ -10,9 +10,6 @@ You can [read more about the NVM Library](/nvml/) or
 [go directly to the source](https://github.com/pmem/nvml/).
 Contributions are welcome!
 
-**Note: The NVM Library is still under development and is not
-yet ready for production use.**
-
 The Linux NVM Library builds on the **Direct Access** (DAX) changes
 under development in Linux.  Check out the
 [Persistent Memory Wiki](https://nvdimm.wiki.kernel.org) for the link
