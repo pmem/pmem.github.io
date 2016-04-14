@@ -2,6 +2,7 @@
 title: Persistent allocator design - fragmentation
 author: pbalcer
 layout: post
+identifier: pmem_alloc_fragmentation
 ---
 
 Implementing a memory allocator is a balance between numerous properties with
