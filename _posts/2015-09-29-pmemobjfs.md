@@ -2,6 +2,7 @@
 title: pmemobjfs - The simple FUSE based on libpmemobj
 author: plebioda
 layout: post
+identifier: pmemobjfs_example
 ---
 
 ### How to use it

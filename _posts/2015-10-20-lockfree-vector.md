@@ -2,6 +2,7 @@
 title: Evaluation of a better object container
 author: pbalcer
 layout: post
+identifier: pmem_lockfree_vec
 ---
 
 During performance evaluation of our library, I asked myself a following

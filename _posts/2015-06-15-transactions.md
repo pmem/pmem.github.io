@@ -2,6 +2,7 @@
 title: An introduction to pmemobj (part 2) - transactions
 author: pbalcer
 layout: post
+identifier: pmemobj_tutorial_02
 ---
 
 By now you should be fairly familiar with the basics persistent memory programming, but to make sure the application is always in a consistent state you had to rely on your own solutions and tricks - like the length of a buffer in the previous example. Now, we will learn a generic solution provided by pmemobj to this type of problems - transactions. For now we will focus on a single-threaded applications with no locking.

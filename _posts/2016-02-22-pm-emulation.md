@@ -2,6 +2,7 @@
 title: How to emulate Persistent Memory
 author: Maciej Maciejewski
 layout: post
+identifier: pmem_emulation
 ---
 Data allocated with NVML is put to the virtual memory address space, and concrete ranges are relying on result of `mmap(2)` operation performed on the user defined files.
 Such files can exist on any storage media, however data consistency assurance embedded within NVML requires frequent synchronisation of data that is being modified.
