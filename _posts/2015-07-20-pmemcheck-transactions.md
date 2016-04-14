@@ -2,6 +2,7 @@
 title: An introduction to pmemcheck (part 2) - transactions
 author: tomaszkapela
 layout: post
+identifier: pmemcheck_02
 ---
 
 In my previous blog post I described the key features of the new persistent memory analysis tool we created - pmemcheck. You should now be aware of the main pitfalls of persistent memory programming and of ways pmemcheck informs you about possible misuses of PMEM. We should now dive into a more general approach of using persistent memory in a failsafe manner - transactions. This shouldn't be an alien concept for anybody who had anything to do with databases. The idea of transactions in persistent memory is very similar. You enclose a set of operations, which are to be performed as a whole, inside a transaction. The transaction should ensure that on transaction commit you get a durable and consistent state. By durable I mean that all changes will be made persistent and by consistent I mean you will get either the state from before the transaction or after all of the modifications were made. I mentioned databases, because the concept is similar and everybody should be familiar with it, but you have to remember that this is on a slightly different level of abstraction. This is raw access of memory and not database inserts. This of course depends on the implementation of transactions, but it might prove very helpful not to think, that all persistent memory transactions will have ACID properties. Or at least they won't be on a level you expect them to be.

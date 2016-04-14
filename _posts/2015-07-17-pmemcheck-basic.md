@@ -2,6 +2,7 @@
 title: An introduction to pmemcheck (part 1) - basics
 author: tomaszkapela
 layout: post
+identifier: pmemcheck_01
 ---
 
 As you probably noticed from the previous posts, persistent memory programming isn't really that easy. There are a couple of things you have to consider - data consistency being the most important one. The contemporary x86_64 architecture supports at most 8-byte atomic stores. You probably know by now, that by atomic I mean non-torn and not thread-safe. This means that you can be confident that you will not get 4 out of the 8 bytes with the new value and the rest will not be updated. However, there aren't many real-life programs that think in 8 byte chunks of data. Therefore [NVML][c5f40b9e] resorts to **non-trivial tricks** to ensure larger portions of memory can be updated in a failsafe manner.

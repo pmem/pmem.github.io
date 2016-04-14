@@ -2,6 +2,7 @@
 title: Type safety macros in libpmemobj
 author: plebioda
 layout: post
+identifier: libpmemobj_typesafety
 ---
 The *PMEMoid* plays the role of a persistent pointer in a *pmemobj* pool.
 It consist of a shortened UUID of the pool which the object comes from and an

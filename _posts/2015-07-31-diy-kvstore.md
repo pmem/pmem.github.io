@@ -2,6 +2,7 @@
 title: Transactional key-value store using libpmemobj - DIY
 author: pbalcer
 layout: post
+identifier: kvstore_base
 ---
 
 Our library often gets compared to NoSQL databases because it stores things on

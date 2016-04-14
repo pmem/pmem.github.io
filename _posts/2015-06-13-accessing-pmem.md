@@ -2,6 +2,7 @@
 title: An introduction to pmemobj (part 1) - accessing the persistent memory
 author: pbalcer
 layout: post
+identifier: pmemobj_tutorial_01
 ---
 
 In the previous post, you learned a little bit about the general concept of the persistent memory programming model, now it's time to start the coding ;)

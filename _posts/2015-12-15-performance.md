@@ -2,6 +2,7 @@
 title: Performance improvements
 author: tomaszkapela
 layout: post
+identifier: pmem_perf_improv
 ---
 
 I would like to inform you about the performance improvements that have been going on in NVML and libpmemobj in particular. We have not been standing still and we are trying out a couple of ideas on how to make our libraries even faster. Some of the improvements are smaller, some are larger. Some of them have already made it to the master branch and some are just ideas on how to rework the internals of libpmemobj to make it even faster. All measurements were made on a two socket, sixteen core machine.

@@ -2,6 +2,7 @@
 title: An introduction to replication
 author: tomaszkapela
 layout: post
+identifier: intro_replication
 ---
 
 Replication is a means for raising the reliability of your _pmemobj_ based applications. You can basically think of it as RAID 1 within _NVML_. What happens is, when you write to your pool using the **pmemobj_*** (memcpy, persist, and so on) primitives, it gets copied to your replicas. Yes, you can have more than one replica. In fact you can have as many as you want, but you have to keep in mind the performance penalty.

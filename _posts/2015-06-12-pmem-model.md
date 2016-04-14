@@ -2,6 +2,7 @@
 title: An introduction to pmemobj (part 0) - new programming model
 author: pbalcer
 layout: post
+identifier: pmemobj_tutorial_00
 ---
 
 The aim of this tutorial series is to introduce you to programming with persistent, byte-addressable memory using the pmemobj library. We will go over all the available features, implement an example application and learn something about the inner workings of libpmemobj. If you haven't read the [NVML overview]({% post_url 2014-09-01-nvm-library-overview %}) I encourage you to do that now.
