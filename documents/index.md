@@ -18,7 +18,7 @@ The following documents are available:
   This document specifically discusses the block window HW interface and persistent memory
   interface that Intel is proposing for NVDIMMs.
 
-* The [NVDIMM DSM Interface Example](NVDIMM_DSM_Interface_Example.pdf) [pdf]
+* The [NVDIMM DSM Interface Example](NVDIMM_DSM_Interface_Example-V1.2.pdf) [pdf], Version 1.2,
   is targeted to writers of BIOS and OS drivers for NVDIMMs whose design adheres to the
-  NFIT Tables in the ACPI V6.0 specification.  The document specifically discusses th
+  NFIT Tables in the ACPI specification.  The document specifically discusses the
   NVDIMM Device Specific Method (_DSM) example.
