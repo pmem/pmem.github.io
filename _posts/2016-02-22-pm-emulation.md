@@ -24,16 +24,24 @@ To configure proper driver installation run `nconfig` and enable driver.
 
 {% highlight console %}
 $ make nconfig
-	-> Device Drivers -> NVDIMM Support ->
-			<M>PMEM; <M>BLK; <*>BTT
+	Device Drivers ---> 
+		{*} NVDIMM (Non-Volatile Memory Device) Support --->
+			<M>   PMEM: Persistent memory block device support
+			<M>   BLK: Block data window (aperture) device support
+			[*]   BTT: Block Translation Table (atomic sector updates)
+			[*]   PFN: Map persistent (device) memory 
 {% endhighlight %}
 
 Additionally you need to enable treatment of memory marked using the non-standard e820 type of 12 as used by the Intel Sandy Bridge-EP reference BIOS as protected memory. The kernel will offer these regions to the 'pmem' driver so they can be used for persistent storage.
 
 {% highlight console %}
 $ make nconfig
-	-> Processor type and features
-			<*>Support non-standard NVDIMMs and ADR protected memory
+	Processor type and features --->
+		[*] Support non-standard NVDIMMs and ADR protected memory
+		[*] Device memory (pmem, etc...) hotplug support
+	File systems --->
+		[*] Direct Access (DAX) support 
+
 {% endhighlight %}
 
 You are ready to build your Kernel
