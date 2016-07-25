@@ -16,7 +16,7 @@ The following documents are available:
   Advanced Configuration and Power Interface (ACPI) V6.0 specification,
   the Device Specific Method (DSM) specification and the NVDIMM Namespace Specification.
   This document specifically discusses the block window HW interface and persistent memory
-  interface that Intel is proposing for NVDIMMs. A version of the document with [chnage bars](NVDIMM_DriverWritersGuide-July-2016_wChanges.pdf) [pdf] from the previous version is also available.
+  interface that Intel is proposing for NVDIMMs. A version of the document with [change bars](NVDIMM_DriverWritersGuide-July-2016_wChanges.pdf) [pdf] from the previous version is also available.
 
 * The [NVDIMM DSM Interface Example](NVDIMM_DSM_Interface_Example-V1.2.pdf) [pdf], Version 1.2,
   is targeted to writers of BIOS and OS drivers for NVDIMMs whose design adheres to the
