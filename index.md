@@ -18,7 +18,7 @@ related to persistent memory enabling in Linux.
 
 #### What Is It?
 
-For many years computer applications organize their data between two
+For many years computer applications organized their data between two
 tiers: memory and storage.  We believe the emerging _persistent memory_
 technologies introduce a third tier.  Persistent memory (or _pmem_
 for short) is accessed like volatile memory, using processor load
