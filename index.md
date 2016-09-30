@@ -3,14 +3,14 @@ title: Home
 ---
 
 This site is focused on making _persistent memory programming_ easier.
-The current focus is on the Linux NVM Library, which is
+The current focus is on the NVM Library, which is
 a library (set of libraries, actually) designed to provide some
 useful APIs for server applications wanting to use persistent memory.
 You can [read more about the NVM Library](/nvml/) or
 [go directly to the source](https://github.com/pmem/nvml/).
 Contributions are welcome!
 
-The Linux NVM Library builds on the **Direct Access** (DAX) changes
+The NVM Library builds on the **Direct Access** (DAX) changes
 under development in Linux.  Check out the
 [Persistent Memory Wiki](https://nvdimm.wiki.kernel.org) for the link
 to the latest snapshot of this work, and for all the other information

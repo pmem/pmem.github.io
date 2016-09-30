@@ -6,7 +6,7 @@ This open source project is dedicated to making
 _persistent memory programming_ easier for application developers.
 Over time, we hope to host several libraries, examples, and
 documents related to persistent memory.  Current activity is
-focused on the [Linux NVM Library](/nvml/), which builds on the
+focused on the [NVM Library](/nvml/), which builds on the
 programming model for persistent memory recommended by the
 [SNIA NVM Programming Technical Workgroup](http://snia.org/nvmp).
 
