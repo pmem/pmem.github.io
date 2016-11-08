@@ -15,7 +15,8 @@ This term refers to the category of solid-state storage devices,
 from the [Flash Memory](http://en.wikipedia.org/wiki/Flash_memory)
 used in Solid State Disk (SSD) drives, to battery-backed up
 memory cards, to the emerging non-volatile technologies such
-as [PCM](http://en.wikipedia.org/wiki/Phase-change_memory),
+as [3D XPoint](http://en.wikipedia.org/wiki/3D_XPoint),
+[PCM](http://en.wikipedia.org/wiki/Phase-change_memory),
 [Memristor](http://en.wikipedia.org/wiki/Memristor),
 [STT-RAM](http://en.wikipedia.org/wiki/Spin-transfer_torque), etc.
 
