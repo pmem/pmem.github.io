@@ -6,7 +6,8 @@ layout: post
 
 Throughout 2016 a team of engineers from Microsoft, Intel, HPE and HPI have
 been working to port the NVML project to Windows and we are happy to
-announce that Technical Preview release is now available!
+announce that [Technical Preview release]
+(https://github.com/pmem/nvml/releases/tag/1.2%2Bwtp1) is now available!
 
 Our main goal in porting the library was to make it as easy as
 possible for developers to use the library in both Linux and Windows
