@@ -60,7 +60,7 @@ As part of the port, the team used Trello to track our backlog and will
 continue to do so until the UNICODE work is complete at which time any
 Windows issues will be visible right alongside Linux issues in Github.
 The Trello webpage for the porting effort is publicly available at:
-[NVML for Windows](https://trello.com/b/IMPSJ4Iu/nvml-for-windows}
+[NVML for Windows](https://trello.com/b/IMPSJ4Iu/nvml-for-windows)
 
 #### Windows Non-Volatile Memory Support
 
