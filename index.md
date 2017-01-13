@@ -10,11 +10,13 @@ You can [read more about the NVM Library](/nvml/) or
 [go directly to the source](https://github.com/pmem/nvml/).
 Contributions are welcome!
 
-The NVM Library builds on the **Direct Access** (DAX) changes
-under development in Linux.  Check out the
-[Persistent Memory Wiki](https://nvdimm.wiki.kernel.org) for the link
-to the latest snapshot of this work, and for all the other information
-related to persistent memory enabling in Linux.
+The NVM Library builds on the **Direct Access** (DAX) capabilities
+available in Linux and Windows 10. To learn more about the latest
+persistent memory developments for Linux, go to the
+[Persistent Memory Wiki](https://nvdimm.wiki.kernel.org).
+If you want to learn more about how DAX is made available in Windows,
+check out this
+[Channel9 video](https://channel9.msdn.com/Events/Build/2016/P470).
 
 #### What Is It?
 
