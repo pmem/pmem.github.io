@@ -57,7 +57,7 @@ Install the kernel
 # sudo make modules_install install
 {% endhighlight %}
 
-Reserve memory region so it appears to be a persistent memory by modifying Kernel command line parameters.
+[Reserve memory region](https://nvdimm.wiki.kernel.org/how_to_choose_the_correct_memmap_kernel_parameter_for_pmem_on_your_system) so it appears to be a persistent memory by modifying Kernel command line parameters.
 Region of memory to be used, from ss to ss+nn. [KMG] refers to kilo, mega, giga.
 {% highlight text %}
 memmap=nn[KMG]!ss[KMG]
