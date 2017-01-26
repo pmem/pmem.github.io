@@ -4,40 +4,44 @@ author: RobDickinson
 layout: post
 ---
 
-C++ developers using libpmemobj have multiple options for modeling strings,
+C++ developers using libpmemobj have more than one option for modeling strings,
 depending on the size of the strings and whether they are fixed or varying
-in length.
+in length. In this post we'll review the representations that work,
+known variations to avoid, and finally present a persistent string
+class that implements these best practices.
 
-For small fixed-length strings, use of `p<char[size]>` is efficient and easy.
-For large or variable-length strings, or for structs or arrays of such
-strings, then things get a little more complicated.
+#### Avoid wrapping fixed-size arrays
 
-#### Avoiding use of std::string
+You might expect (like I did at first!) that `p<char[size]>` is a proper way
+to simply model a fixed-size string, but actually this is not correct.
+The `p<>` template does not implement the subscript `operator[]` and so
+`p<char[size]>` won't even compile.
 
-For starters, never use `p<std::string>` or `persistent_ptr<std::string>`.
-These forms might seem a logical place to start, but these implementations
-will not be power-fail safe (at best) and might be unstable (at worst).
-This advice applies to using `p<>` or `persistent_ptr<>` wrappers around
-any complex types that perform their own memory management.
-Don't make this obvious mistake!
+#### Avoid wrapping std::string
 
-#### Avoiding arrays of persistent pointers to single chars
+Never use `p<std::string>` or `persistent_ptr<std::string>`. This code will
+compile, but these implementations will not be power-fail safe (at best)
+and might be unstable (at worst). This advice applies to using `p<>`
+or `persistent_ptr<>` wrappers around any complex types that perform
+their own memory management. Don't make this obvious mistake!
 
-Don't model a variable-length string with `p<char> X[]`. This is power-fail
-safe, but wastes a lot of memory. Let's consider what's happening behind the
-scenes here. With this representation, each char in the variable-length
+#### Avoid arrays of persistent pointers to single chars
+
+Don't model a variable-length string using `persistent_ptr<char> X[]`. This
+works, and is power-fail safe, but wastes a lot of memory. Let's consider
+what's happening behind the scenes here. Each char in the variable-length
 string will be stored as one char in persistent memory, plus another 16 bytes
-for the persistent pointer to that char. So writing a single char results in
-16x more bytes written than necessary. Reading a single char results in 16x
-more bytes read than necessary, since reading every persistent char requires
-dereferencing a 16-byte persistent pointer. Obviously this is quite wasteful.
+for the persistent pointer to that char. So writing a single char results
+in 16x more bytes written than necessary. Reading a single char results
+in 16x more bytes read than necessary, since reading every persistent char
+requires dereferencing a 16-byte persistent pointer. These are not the strings
+you're looking for.
 
-#### Using fixed-length strings inside persistent structs
+#### Use fixed-length strings inside persistent structs
 
-While `p<char[size]>` is the obvious starting point for modeling fixed-size
-strings, we'll frequently be modeling strings within nested persistent
-structs and classes as well. So we'll use a `p<>` wrapper around a complex
-type that contains one or more strings, as with `MyAssocations` below.
+The easiest proper way to model a fixed-length string is within a
+persistent struct or class. The char array will be stored inside the
+struct/class, which is wrapped in a `persistent_ptr`, as in the example below.
 
 ```
 class MyAssociation {
@@ -50,29 +54,27 @@ private:
 };
 
 struct MyAssociations {
-  p<MyAssociation> preferred_association;
-  p<MyAssociation> alternate_associations[SIZE];
+  persistent_ptr<MyAssociation> preferred_association;
+  persistent_ptr<MyAssociation> alternate_associations[SIZE];
 };
 ```
 
-The downside of this approach is that the `set_key` and `set_value` methods
-must call `pmemobj_tx_add_range_direct` prior to modifying their respective
-internal fields.
+A small complication here is that the `set_key` and `set_value` methods
+must always call `pmemobj_tx_add_range_direct` prior to modifying their
+respective internal fields. (This call would typically be done automatically
+by a `p<>` wrapper, if we had one.)
 
-However, calling `pmemobj_tx_add_range_direct` is not required
-when modifying a newly allocated object, as the entire memory range of a new
-object is already in the current transaction.
+Technically, calling `pmemobj_tx_add_range_direct` is redundant when
+modifying a newly allocated object, as the entire memory range of a new
+object is already in the current transaction. However, the performance
+improvement from skipping `pmemobj_tx_add_range_direct` is very low,
+especially considering the risk of corruption from missing one of these calls.
 
-So for best performance, we could add `init_key` and `init_value` setter
-methods, which don't call `pmemobj_tx_add_range_direct` by convention, and so
-would only be safe to use in the context of a newly allocated object. These
-would be slightly faster than `set_key` and `set_value`.
+#### Use variable-length strings inside persistent structs
 
-#### Using variable-length strings inside persistent structs
-
-The most efficient way to model a long variable-length string within a
-persistent struct or class is by using `persistent_ptr<char[]>`.
-A version of `MyAssociation` for this case is shown below.
+For a long or variable-length string, it's best to use `persistent_ptr<char[]>`
+within a persistent struct or class. A version of `MyAssociation` for this
+case is shown below.
 
 ```
 class MyAssociation {
@@ -85,19 +87,18 @@ private:
 };
 
 struct MyAssociations {
-  p<MyAssociation> preferred_association;
-  p<MyAssociation> alternate_associations[SIZE];
+  persistent_ptr<MyAssociation> preferred_association;
+  persistent_ptr<MyAssociation> alternate_associations[SIZE];
 };
 ```
 
-This approach requires the actual string data (the `char[]` instances) to be
-allocated separately from the persistent struct itself. In the example above,
-`set_key` and `set_value` methods will each call `make_persistent` to
+Here the `set_key` and `set_value` methods will each call `make_persistent` to
 allocate a char array (including the null termination char). This is a
 significant increase in number of persistent allocations over the previous
-version for small strings.
+version for small strings. These methods will also have to use
+`delete_persistent` properly to avoid leaking persistent memory.
 
-#### Using a persistent string class
+#### Use a persistent string class
 
 All these guidelines so far are a lot to remember, so a simple persistent
 string class like the example below can provide some relief.
@@ -109,11 +110,17 @@ string class like the example below can provide some relief.
 class PersistentString {
 public:
   char* data() const { return str ? str.get() : const_cast<char*>(sso); }
+  void reset();
   void set(std::string* value);
 private:
   char sso[SSO_SIZE];
   persistent_ptr<char[]> str;
 };
+
+void PersistentString::reset() { 
+  sso[0] = 0;
+  if (str) delete_persistent<char[]>(str, strlen(str.get()) + 1);
+}
 
 void PersistentString::set(std::string* value) {
   unsigned long length = value->length();
@@ -145,6 +152,4 @@ persistent field requires more journaling overhead. This might be a good case
 for using a volatile field within a persistent type, should NVML support
 that concept someday.
 
-*Please note that `PersistentString` above is not complete -- a finished
-implementation would at a minimum also have a method to recover
-any persistent memory that's been allocated!*
+*Many thanks to @tomaszkapela and @pbalcer for contributing to this post!*
