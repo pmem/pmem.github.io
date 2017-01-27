@@ -23,19 +23,20 @@ Never use `p<std::string>` or `persistent_ptr<std::string>`. This code will
 compile, but these implementations will not be power-fail safe (at best)
 and might be unstable (at worst). This advice applies to using `p<>`
 or `persistent_ptr<>` wrappers around any complex types that perform
-their own memory management. Don't make this obvious mistake!
+their own memory management.
 
 #### Avoid arrays of persistent pointers to single chars
 
-Don't model a variable-length string using `persistent_ptr<char> X[]`. This
-works, and is power-fail safe, but wastes a lot of memory. Let's consider
-what's happening behind the scenes here. Each char in the variable-length
-string will be stored as one char in persistent memory, plus another 16 bytes
-for the persistent pointer to that char. So writing a single char results
-in 16x more bytes written than necessary. Reading a single char results
-in 16x more bytes read than necessary, since reading every persistent char
-requires dereferencing a 16-byte persistent pointer. These are not the strings
-you're looking for.
+Don't model a variable-length string with representations like
+`persistent_ptr<char> X[]` or `persistent_ptr<p<char>[]>`. These are
+horribly inefficient and should always be avoided. Let's consider what
+happening behind the scenes here. Each char in the variable-length string
+will be stored as one char in persistent memory and so each char requires
+another 16 bytes for its individual persistent pointer. So writing a
+single char results in 16x more bytes written than necessary. Reading a
+single char results in 16x more bytes read than necessary, since every
+persistent char read requires dereferencing a 16-byte persistent pointer.
+These are not the strings you're looking for.
 
 #### Use fixed-length strings inside persistent structs
 
@@ -139,8 +140,8 @@ void PersistentString::set(std::string* value) {
 }
 ```
 
-Note how `PersistentString` uses a small internal buffer, or allocates a
-second persistent buffer, automatically based on the length of the string.
+Note how `PersistentString` uses a small internal array, or allocates a
+second persistent array, automatically based on the length of the string.
 The `set` method follows the proper rules for calling
 `pmemobj_tx_add_range_direct`, based on the length of the incoming string.
 
