@@ -29,13 +29,14 @@ their own memory management.
 
 Don't model a variable-length string with representations like
 `persistent_ptr<char> X[]` or `persistent_ptr<p<char>[]>`. These are
-horribly inefficient and should always be avoided. Let's consider what
-happening behind the scenes here. Each char in the variable-length string
-will be stored as one char in persistent memory and so each char requires
-another 16 bytes for its individual persistent pointer. So writing a
-single char results in 16x more bytes written than necessary. Reading a
-single char results in 16x more bytes read than necessary, since every
-persistent char read requires dereferencing a 16-byte persistent pointer.
+horribly inefficient and should always be avoided. Let's consider what is
+happening behind the scenes here. In case of `persistent_ptr<char> X[]`,
+each char in the variable-length string will be stored as one char in
+persistent memory and so each char requires another 16 bytes for its
+individual persistent pointer. So allocating a single char results in 16
+more bytes written than necessary. Reading or writing a single char
+results in 16 more bytes read than necessary, since every persistent char
+accessed requires dereferencing a 16-byte persistent pointer.
 These are not the strings you're looking for.
 
 #### Use fixed-length strings inside persistent structs
