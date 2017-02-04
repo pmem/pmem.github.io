@@ -120,6 +120,7 @@ private:
 };
 
 void PersistentString::reset() { 
+  pmemobj_tx_add_range_direct(sso, 1);
   sso[0] = 0;
   if (str) delete_persistent<char[]>(str, strlen(str.get()) + 1);
 }
