@@ -25,7 +25,7 @@ persistent memory. Mixing types of memory allows pmemkv to offer both
 per-operation consistency and good performance. The diagram below shows
 a simple example of what pmemkv looks like internally.
 
-![pmemkv internals]({{site.url}}/assets/pmemkv1.png)
+![pmemkv internals](/assets/pmemkv1.png)
 
 Obviously [pmemkv](https://github.com/pmem/pmemkv) is still in its early
 stages and is not yet ready for production use, but a good
