@@ -10,16 +10,16 @@ identifier: apache_kudu_pmem_block_cache
 An early project done with the NVM libraries was adding persistent memory support, both volatile and persistent mode, into the Apache Kudu storage engine block cache. This project required modification of existing code.
 
 Apache Kudu:
-http://github.com/apache/kudu
+<http://github.com/apache/kudu>
 
 My repository with the modified code:
-https://github.com/sarahjelinek/kudu, branch: sarah_kudu_pmem
+<https://github.com/sarahjelinek/kudu>, branch: sarah_kudu_pmem
 
 The volatile mode support for persistent memory has been fully integrated into the Kudu source base. The persistent mode support is not integrated but is ready, has been reviewed and is waiting for official integration.
 
 My repository, noted above, has the source for both modes integrated into the kudu project.
 
-## <a name="goals"/>High Level Goals</a>
+## <a name="goals">High Level Goals</a>
 The high level goals of this project were:
 
 1. Reduce DRAM footprint required for the Kudu storage engine
@@ -104,7 +104,7 @@ For the Kudu block cache I chose to use the atomic memory allocation rather than
 
 **Key Kudu Block Cache Data Structures**
 
-## <a name="lruhandle"/>LRUHandle</a>
+## <a name="lruhandle">LRUHandle</a>
 
 Each Kudu block cache entry has an associated LRUHandle instance. The LRUHandle is the object that represents the block cache entry to other Kudu components. My design keeps the LRUHandle instances in DRAM when operating in persistent mode. When the Kudu block cache is using persistent media but running in volatile mode the LRUHandle structures are store on the persistent media.
 
@@ -155,7 +155,7 @@ struct LRUHandle {
 };
 ```
 
-## <a name="hashtable"/>HashTable</a>
+## <a name="hashtable">HashTable</a>
 The Kudu block cache has a hash table of the LRUHandle entries.
 
 ```c
@@ -245,7 +245,7 @@ class HandleTable {
   }
 };
 ```
-## <a name="keyval"/>KeyValue</a>
+## <a name="keyval">KeyValue</a>
 ```c
 // This is a variable length structure. The length of the structure is
 // determined by the key and value sizes. This structure is the physical entry
