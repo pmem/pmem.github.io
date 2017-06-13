@@ -333,3 +333,24 @@ h2 {
 	font-size: 10px;
 	color: #606060;
 }
+
+#shortcut {
+	float: right;
+}
+
+#shortcut table {
+	background: #f7f9f9;
+}
+
+#man a {
+	text-decoration: none;
+	color: #f04040;
+}
+
+#man a.sel {
+	color: #000;
+}
+
+#man a:hover {
+	color: #000;
+}
