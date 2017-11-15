@@ -354,3 +354,55 @@ h2 {
 #man a:hover {
 	color: #000;
 }
+
+#menu{
+margin: 0;
+margin-left: 15px;
+padding: 0;
+list-style: none;
+}
+
+#menu li a{
+display: block;
+width: 200px;
+padding: 16px 20px;
+text-decoration: none;
+color: #ccc;
+background: #f7f9f9;
+}
+
+#menu li a:hover{
+background: #f7f9f9;
+color: #000;
+}
+
+#menu ul{
+display: none;
+width: 240px;
+margin: 0;
+padding: 0;
+background: #f7f9f9;
+z-index: 200;
+list-style: none;
+}
+
+#menu ul li a{
+color: #333;
+width: 200px;
+text-align: left;
+font-size: 14px;
+}
+
+#menu ul li a:hover{
+color: #333;
+background: #F0F0F0;
+}
+
+#menu li.sys_header a{
+background-color: #333;
+}
+
+#menu li.sys_header a:hover{
+background-color: #333;
+color: #ccc;
+}
