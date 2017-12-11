@@ -7,7 +7,7 @@ identifier: pmemcheck_02
 
 In my previous blog post I described the key features of the new persistent memory analysis tool we created - pmemcheck. You should now be aware of the main pitfalls of persistent memory programming and of ways pmemcheck informs you about possible misuses of PMEM. We should now dive into a more general approach of using persistent memory in a failsafe manner - transactions. This shouldn't be an alien concept for anybody who had anything to do with databases. The idea of transactions in persistent memory is very similar. You enclose a set of operations, which are to be performed as a whole, inside a transaction. The transaction should ensure that on transaction commit you get a durable and consistent state. By durable I mean that all changes will be made persistent and by consistent I mean you will get either the state from before the transaction or after all of the modifications were made. I mentioned databases, because the concept is similar and everybody should be familiar with it, but you have to remember that this is on a slightly different level of abstraction. This is raw access of memory and not database inserts. This of course depends on the implementation of transactions, but it might prove very helpful not to think, that all persistent memory transactions will have ACID properties. Or at least they won't be on a level you expect them to be.
 
-As always examples will be the best way to show what I mean. I will be showing all of my examples with the use of [NVML][806fc533] and the transactions available in [libpmemobj][40b153e7]. I will not cover how they work, because that has already been done by @pbalcer in this great blog [post][57acd504]. This is roughly how a transaction in pmemobj looks like:
+As always examples will be the best way to show what I mean. I will be showing all of my examples with the use of [PMDK][806fc533] and the transactions available in [libpmemobj][40b153e7]. I will not cover how they work, because that has already been done by @pbalcer in this great blog [post][57acd504]. This is roughly how a transaction in pmemobj looks like:
 
 {% highlight C linenos %}
 TX_BEGIN(pop) {
@@ -26,7 +26,7 @@ TX_BEGIN_LOCK(pop,
 } TX_END
 {% endhighlight %}
 
-The locks specified in `TX_BEGIN_LOCK` are held throughout the whole transaction. This is pretty much all you are going to get from the library. There is however still the issue of *Consistency*. NVML ensures that all pool metadata will be consistent, but the consistency of your data depends on the usage. The most frequent and probable cause of errors pertaining *Consistency* is modifying objects that are not part of the transaction. I'll give you an example which has no real use, but will show you what I mean.
+The locks specified in `TX_BEGIN_LOCK` are held throughout the whole transaction. This is pretty much all you are going to get from the library. There is however still the issue of *Consistency*. libpmemobj ensures that all pool metadata will be consistent, but the consistency of your data depends on the usage. The most frequent and probable cause of errors pertaining *Consistency* is modifying objects that are not part of the transaction. I'll give you an example which has no real use, but will show you what I mean.
 
 {% highlight C linenos %}
 #include <fcntl.h>
@@ -42,7 +42,7 @@ POBJ_LAYOUT_ROOT(example, struct my_root);
 POBJ_LAYOUT_END(example);
 {% endhighlight %}
 
-The aforementioned piece of code is common for all of the examples which are base on NVML, hence I will not repeat it anymore.
+The aforementioned piece of code is common for all of the examples which are based on libpmemobj, hence I will not repeat it anymore.
 
 {% highlight C linenos hl_lines="11 12 14" %}
 int main(int argc, char** argv)
@@ -74,7 +74,7 @@ Finally after a long introduction we get back to pmemcheck. As you can read in p
 
 It tells you that during a transaction, you modified a region of persistent memory, which wasn't tracked by the active transaction. This is rather simple and obvious - do not modify something you know won't be rolled-back on transaction abort. Remembering to add all necessary objects in a transaction as short as in the given example is easy. Now imagine a longer transaction, where more objects get modified and you forgot to add one to the transaction undo log. Debugging this memory corruption situation would be a nightmare. Thanks to pmemcheck, you get the full stacktrace, where the store has been made. The only things left are: analyze and fix the issue - things couldn't get much simpler.
 
-How does pmemcheck do this? Well it is actually quite straightforward. Conceptually it keeps track of all transactions the given thread contributes to, and each transaction has a set of regions it keeps track of. Since we already analyze each store made to persistent memory, it would be a waste not to to check them against some kind of transactions. Once again, pmemcheck is oblivious to the type and implementation of transactions. Just like before, it uses macros to gain knowledge of the active transactions and the regions tracked by them. In case of NVML, things are rather simple, because transactions are flattened. This means that each thread can be in exactly one active transaction in each given moment. Moreover NVML **does not support** multiple threads cooperating within single transactions. If you want to know more about challanges of multi-threaded transactions please read our [blog post][aa87ca41] about this topic. Pmemcheck however does not limit itself to this transaction model, it is legal for threads to contribute to other threads' transactions. For example:
+How does pmemcheck do this? Well it is actually quite straightforward. Conceptually it keeps track of all transactions the given thread contributes to, and each transaction has a set of regions it keeps track of. Since we already analyze each store made to persistent memory, it would be a waste not to to check them against some kind of transactions. Once again, pmemcheck is oblivious to the type and implementation of transactions. Just like before, it uses macros to gain knowledge of the active transactions and the regions tracked by them. In case of libpmemobj, things are rather simple, because transactions are flattened. This means that each thread can be in exactly one active transaction in each given moment. Moreover libpmemobj **does not support** multiple threads cooperating within single transactions. If you want to know more about challanges of multi-threaded transactions please read our [blog post][aa87ca41] about this topic. Pmemcheck however does not limit itself to this transaction model, it is legal for threads to contribute to other threads' transactions. For example:
 
 {% highlight C linenos %}
 #include "common.h"
@@ -169,7 +169,7 @@ int main(int argc, char** argv)
 }
 {% endhighlight %}
 
-You can see that we started a new thread in line 29 and the new thread started a new transaction. In NVML transactions are flattened per-thread, so these are in fact to separate transactions. The library will allow you to add `root->value` to both transactions, but as I mentioned previously, the result in case of failure is undefined. If you run this under pmemcheck, the result would be:
+You can see that we started a new thread in line 29 and the new thread started a new transaction. In libpmemobj, transactions are flattened per-thread, so these are in fact to separate transactions. The library will allow you to add `root->value` to both transactions, but as I mentioned previously, the result in case of failure is undefined. If you run this under pmemcheck, the result would be:
 
     Number of overlapping regions registered in different transactions: 1
     Overlapping regions:
@@ -242,10 +242,12 @@ This concludes the pmemcheck's built-in transaction support. If you want to know
 
 [a7a3d90c]: http://valgrind.org/info/tools.html#drd "DRD"
 [717a4630]: http://valgrind.org/info/tools.html#helgrind "Helgrind"
-[806fc533]: http://pmem.io/nvml/ "NVM Library"
-[40b153e7]: http://pmem.io/nvml/libpmemobj/ "pmemobj"
+[806fc533]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"
+[40b153e7]: http://pmem.io/pmdk/libpmemobj/ "pmemobj"
 [57acd504]: http://pmem.io/2015/06/15/transactions.html "pmemobj transactions"
 [c749cb90]: http://pmem.io/blog/ "Blog posts"
 [d324cfe0]: http://htmlpreview.github.com/?https://github.com/pmem/valgrind/blob/pmem/docs/html/pmc-manual.html "Pmemcheck documentation"
 [aa87ca41]: http://pmem.io/2015/09/16/mt-tx.html "Challenges of multi-threaded transactions"
 [051ba546]: https://github.com/pmem/valgrind/blob/pmem/pmemcheck/tests/trans_mt_cross.c "Pmemcheck test"
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

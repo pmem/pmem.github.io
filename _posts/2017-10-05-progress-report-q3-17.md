@@ -34,7 +34,7 @@ allocation classes were finally merged last quarter.
 
 For anyone to whom this is a topic of interest, I suggest looking at the
 [slab
-allocator example](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/slab_allocator)
+allocator example](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/slab_allocator)
 that shows the exact use case this feature is intended for.
 
 ### Optimized startup time
@@ -65,7 +65,7 @@ Our initial approach focuses on letting the application terminate when a `SIGBUS
 is encountered, and then provide a set of offline tools that allow seamless
 recovery of data from replicas.
 
-The work is still in progress and the relevant PR is [here](https://github.com/pmem/nvml/pull/2246).
+The work is still in progress and the relevant PR is [here](https://github.com/pmem/pmdk/pull/2246).
 
 ### Conclusion
 
@@ -76,3 +76,5 @@ fixes and tiny improvements.
 For more exciting developments, take a look at
 [pmemkv](https://github.com/pmem/pmemkv),
 [pynvm](https://github.com/pmem/pynvm) or [pmse](https://github.com/pmem/pmse).
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

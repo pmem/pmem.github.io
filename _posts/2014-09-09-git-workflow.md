@@ -4,8 +4,8 @@ author: andyrudoff
 layout: post
 ---
 
-Now that we've created the [GitHub Repository](https://github.com/pmem/nvml)
-for the NVM Library, here's a more detailed description of the git
+Now that we've created the [GitHub Repository](https://github.com/pmem/pmdk)
+for the PMDK, here's a more detailed description of the git
 workflow we've chosen.  The basic idea is:
 
 1. Current development happens on the `master` branch
@@ -32,12 +32,12 @@ At the same time, another user has forked the repo to work on
 `feature-branch-B` locally.  Forking and creating a local feature
 branch are the first steps in development and are done like this:
 
-* [Fork the repo](https://github.com/pmem/nvml) using the GitHub web interface
+* [Fork the repo](https://github.com/pmem/pmdk) using the GitHub web interface
 * Create a local clone of your repo and add a remote called `upstream` to point to the original repo:
 {% highlight sh %}
-$ git clone git@github.com:username/nvml.git
-$ cd nvml
-$ git remote add upstream git://github.com/pmem/nvml.git
+$ git clone git@github.com:username/pmdk.git
+$ cd pmdk
+$ git remote add upstream git://github.com/pmem/pmdk.git
 $ git checkout -b my-feature-branch
 {% endhighlight %}
 
@@ -182,3 +182,5 @@ updates.  Although this conversation happens in the pull request
 managed by GitHub, you are always welcome to ask questions and make
 suggestions to the entire team using the
 [Google Group](http://groups.google.com/group/pmem).
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

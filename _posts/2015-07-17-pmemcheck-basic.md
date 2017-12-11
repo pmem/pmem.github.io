@@ -5,7 +5,7 @@ layout: post
 identifier: pmemcheck_01
 ---
 
-As you probably noticed from the previous posts, persistent memory programming isn't really that easy. There are a couple of things you have to consider - data consistency being the most important one. The contemporary x86_64 architecture supports at most 8-byte atomic stores. You probably know by now, that by atomic I mean non-torn and not thread-safe. This means that you can be confident that you will not get 4 out of the 8 bytes with the new value and the rest will not be updated. However, there aren't many real-life programs that think in 8 byte chunks of data. Therefore [NVML][c5f40b9e] resorts to **non-trivial tricks** to ensure larger portions of memory can be updated in a failsafe manner.
+As you probably noticed from the previous posts, persistent memory programming isn't really that easy. There are a couple of things you have to consider - data consistency being the most important one. The contemporary x86_64 architecture supports at most 8-byte atomic stores. You probably know by now, that by atomic I mean non-torn and not thread-safe. This means that you can be confident that you will not get 4 out of the 8 bytes with the new value and the rest will not be updated. However, there aren't many real-life programs that think in 8 byte chunks of data. Therefore [PMDK][c5f40b9e] resorts to **non-trivial tricks** to ensure larger portions of memory can be updated in a failsafe manner.
 
 Since our libraries are quite complicated, we needed a way to check for possible issues with persistent memory usage. As the persistent memory programming concept is fairly new, there aren't any free, widely available tools, which could help us with this task. This is why we came up with the idea to write one ourselves. We ruled out static analysis, because keeping track of pointers to persistent memory would be really tedious (we don't have any language additions for them). This leaves us with dynamic, runtime analysis. After some pathfinding we decided to use Valgrind, mostly because of its popularity and familiarity within the C/C++ developer community. Another very important factor was that Valgrind enables us to recognize and instrument at instruction level. As such we plan to add automatic support for flushes and memory barriers (PCOMMIT included) - at least for the x86_64 architecture. This is in short how the **pmemcheck** side-project started.
 
@@ -64,7 +64,7 @@ Now the output looks more or less like this:
 
 	Number of stores not made persistent: 0
 
-Yay! We assigned a value to a stack variable and made sure it stays there, sort of. Firstly, without a fair amount of [magic][e0997ea1], the stack will not be persistent memory. Secondly, we only informed pmemcheck that the data was made persistent. The macros defined in `pmemcheck.h`, and I couldn't stress this more, **DO NOT** affect your code in any way. In this example there is no code related to persistence. This is where libraries such as [NVML][c5f40b9e] come in. They do all the magic for you. Once again revisiting the example:
+Yay! We assigned a value to a stack variable and made sure it stays there, sort of. Firstly, without a fair amount of [magic][e0997ea1], the stack will not be persistent memory. Secondly, we only informed pmemcheck that the data was made persistent. The macros defined in `pmemcheck.h`, and I couldn't stress this more, **DO NOT** affect your code in any way. In this example there is no code related to persistence. This is where libraries such as [PMDK][c5f40b9e] come in. They do all the magic for you. Once again revisiting the example:
 
 {% highlight C linenos %}
 #include <valgrind/pmemcheck.h>
@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 }
 {% endhighlight %}
 
-A lot tidier, don't you think? And it has the added bonus of doing the actual persisting. NVML has full support for pmemcheck and does all the work for you behind the scenes. It will register the persistent memory region on each pool create/open and do the persisting, not to mention the other features such as transactions in pmemobj. By the way, pmemcheck supports transactions as well, but that's a topic for a different blog post.
+A lot tidier, don't you think? And it has the added bonus of doing the actual persisting. PMDK has full support for pmemcheck and does all the work for you behind the scenes. It will register the persistent memory region on each pool create/open and do the persisting, not to mention the other features such as transactions in pmemobj. By the way, pmemcheck supports transactions as well, but that's a topic for a different blog post.
 
 ### Advanced features
 
@@ -179,4 +179,6 @@ This concludes the introduction to basic and advanced features of pmemcheck. In 
 [e0997ea1]: http://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "Magic"
 [8f99b01c]: http://www.valgrind.org/docs/pubs.html "Valgrind Research Papers"
 [5428585d]: http://www.valgrind.org/docs/manual/manual-core-adv.html#manual-core-adv.clientreq "Client Request Mechanism"
-[c5f40b9e]: http://pmem.io/nvml/ "NVM Library"
+[c5f40b9e]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

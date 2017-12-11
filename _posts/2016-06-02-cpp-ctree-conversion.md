@@ -66,12 +66,12 @@ entry *root;
 Change to:
 
 {% highlight cpp linenos %}
-typedef nvml::obj::persistent_ptr<T> value_type;
+typedef pmem::obj::persistent_ptr<T> value_type;
 ...
-nvml::obj::p<key_type> key;
-nvml::obj::persistent_ptr<node> inode;
+pmem::obj::p<key_type> key;
+pmem::obj::persistent_ptr<node> inode;
 ...
-nvml::obj::persistent_ptr<entry> root;
+pmem::obj::persistent_ptr<entry> root;
 {% endhighlight %}
 
 The next thing you have to take into account are the allocations and frees. You
@@ -85,10 +85,10 @@ ctree_map_transient() : root(new entry())
 // changes to
 ctree_map_persistent()
 {
-	auto pop = nvml::obj::pool_by_vptr(this); // get the pool handle
+	auto pop = pmem::obj::pool_by_vptr(this); // get the pool handle
 
-	nvml::obj::transaction::exec_tx( // make the allocation atomic
-		pop, [&] { root = nvml::obj::make_persistent<entry>(); });
+	pmem::obj::transaction::exec_tx( // make the allocation atomic
+		pop, [&] { root = pmem::obj::make_persistent<entry>(); });
 }
 {% endhighlight %}
 
@@ -102,7 +102,7 @@ Besides the constructor, all the other allocations are just mechanical changes:
 {% highlight cpp linenos %}
 auto new_node = new node();
 // changes to
-auto new_node = nvml::obj::make_persistent<node>();
+auto new_node = pmem::obj::make_persistent<node>();
 {% endhighlight %}
 
 The necessary changes to deletions are also straightforward:
@@ -110,7 +110,7 @@ The necessary changes to deletions are also straightforward:
 {% highlight cpp linenos %}
 delete dest_entry->value;
 // changes to
-nvml::obj::delete_persistent<T>(dest_entry->value);
+pmem::obj::delete_persistent<T>(dest_entry->value);
 {% endhighlight %}
 
 Because the API of the ctree has to be atomic with respect to persistence, there
@@ -143,9 +143,11 @@ give us feedback. Remember the C++ bindings are still an **experimental API**.
 We are doing our best to see whether this API holds or if it needs some tweaks,
 but your feedback is invaluable. [Thank you!][ecfe85f3]
 
-[27f95bc8]: https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/cpp_map/ctree_map_transient.hpp "transient ctree"
-[2ee5f9a5]: https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/tree_map/ctree_map.c "C ctree"
+[27f95bc8]: https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/cpp_map/ctree_map_transient.hpp "transient ctree"
+[2ee5f9a5]: https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/tree_map/ctree_map.c "C ctree"
 [b60cbeed]: http://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "unicorns and rainbows"
 [033d3abb]: https://github.com/pmem/valgrind "pmemcheck"
-[c14a5bbd]: https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/cpp_map "ctree examples"
+[c14a5bbd]: https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/cpp_map "ctree examples"
 [ecfe85f3]: http://giphy.com/gifs/end-looney-tunes-thats-all-folks-jYAGkoghdmD9S "That's all folks!"
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

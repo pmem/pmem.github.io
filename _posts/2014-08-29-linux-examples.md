@@ -4,6 +4,8 @@ author: andyrudoff
 layout: post
 ---
 
+###### [Edit on 2017-12-11: The Linux examples are outdated now, look at [PMDK](/pmdk/) instead.]
+
 The [basic architecture]({% post_url 2014-08-27-crawl-walk-run %})
 for exposing persistent memory gives applications a very **raw**
 type of access.  Applications can load/store directly to the

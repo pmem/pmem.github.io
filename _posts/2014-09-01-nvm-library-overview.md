@@ -4,6 +4,9 @@ author: andyrudoff
 layout: post
 ---
 
+
+###### [Edit on 2017-12-11: In the years since this entry was written, this work has evolved into [PMDK](/pmdk/).]
+
 Why are we building an NVM Library?  Where does it live?  How
 does it work?  This blog entry provides some answers,
 which refer to this picture

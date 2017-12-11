@@ -28,7 +28,7 @@ this comes at almost no implementation cost, since we will rely heavily on the
 libpmemobj.
 
 The header file is available
-[here](https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/map/map.h).
+[here](https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/map/map.h).
 It's pretty simple, but extending it should be fairly easy.
 
 ### Implementation
@@ -51,7 +51,7 @@ important to note that internal nodes do not hold values and there can be a lot
 of internal nodes when dealing with non-sparse collection of keys.
 
 The complete implementation can be found
-[here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/tree_map/ctree_map.c).
+[here](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/tree_map/ctree_map.c).
 
 #### [B-Tree](https://en.wikipedia.org/wiki/B-tree)
 
@@ -62,7 +62,7 @@ comes at a cost of considerably more complicated algorithm and far heavier
 usage of transactions. And this is exactly why I've chosen B-Trees.
 
 The implementation is available
-[here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/tree_map/btree_map.c).
+[here](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/tree_map/btree_map.c).
 
 ### The end result
 
@@ -108,7 +108,7 @@ assert(OID_INSTANCEOF(oid, struct store_item));
 tree_map_delete(pop, &D_RW(root)->map);
 {% endhighlight %}
 So a fairly standard kv-store. There's a more complete example
-[here](https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/map/data_store.c).
+[here](https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/map/data_store.c).
 
 ### Performance
 
@@ -165,3 +165,5 @@ quite substantial reduction in allocations. And also, we need to optimize the
 `pmemobj_tx_add_range_direct` function to perform similarly to the
 `pmemobj_tx_add_range`. I plan on revisiting this topic once we finish
 optimizing the library functions, including the allocator.
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
