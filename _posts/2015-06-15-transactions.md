@@ -13,7 +13,7 @@ Transactions are managed by the usage of `pmemobj_tx_*` family of functions. A s
 
 ![lifecycle](/assets/lifecycle.png)
 
-You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/nvml/libpmemobj/libpmemobj.3.html). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
+You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](http://pmem.io/pmdk/libpmemobj/libpmemobj.3.html). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:
 
 {% highlight C linenos %}
@@ -81,7 +81,7 @@ execution of longjmp if their value have changed after setjmp. So in the case
 of libpmemobj transaction blocks every local variable modified in TX_STAGE_WORK and used in
 TX_STAGE_ONABORT/TX_STAGE_FINALLY needs to be volatile-qualified - otherwise you might
 encounter undefined behavior. Please see the CAVEATS section in libpmemobj
-[manpage](http://pmem.io/nvml/libpmemobj/libpmemobj.3.html) for more information.
+[manpage](http://pmem.io/pmdk/libpmemobj/libpmemobj.3.html) for more information.
 
 ### Transactional operations
 
@@ -209,6 +209,8 @@ TX_BEGIN(pop) {
 } TX_END
 {% endhighlight %}
 
-And that's about it, looks simpler right? And more similar to how a volatile program might do this. The `reader.c` doesn't change much, just remove the `if` statement that checks the buffer length and you are good to go. If you are having trouble correctly modifying the code, you can find the complete example [here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/).
+And that's about it, looks simpler right? And more similar to how a volatile program might do this. The `reader.c` doesn't change much, just remove the `if` statement that checks the buffer length and you are good to go. If you are having trouble correctly modifying the code, you can find the complete example [here](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/).
 
 This can be further simplified by combining the two lines inside the transaction together - but that's the topic for our next post.
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

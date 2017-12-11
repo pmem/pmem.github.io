@@ -27,7 +27,7 @@ The high level goals of this project were:
 3. Keep performance as close to DRAM speed as possible.
 
 # Integration Challenges #
-There were several things considered when designing the integration of NVML into Kudu:
+There were several things considered when designing the integration of PMDK into Kudu:
 
 1. Where to integrate SW entry points to access enable persistent memory.
 2. What data/metadata to store on persistent memory.
@@ -356,4 +356,6 @@ if (IsPersistentMode()) {
 
 This code is fairly straightforward to read. I simply iterate over the object type I am interested in, which is a 'struct KeyVal', and look for entries that are marked valid. Any entry found that is not marked valid is discarded.
 
-There were three high level goals stated at the beginning of this blog post, [High Level Goals](#goals). The next post will provide details on the performance and DRAM reduction using the NVML libraries to enable persistent memory support in the Kudu block cache.
+There were three high level goals stated at the beginning of this blog post, [High Level Goals](#goals). The next post will provide details on the performance and DRAM reduction using the PMDK libraries to enable persistent memory support in the Kudu block cache.
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

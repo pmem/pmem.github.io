@@ -4,7 +4,7 @@ title: Home
 
 #### The [Persistent Memory Development Kit](/pmdk/)
 
-The **Persistent Memory Development Kit** ([**PMDK**](/pmdk/)),
+The **Persistent Memory Development Kit** ([**PMDK**][pmdk]),
 formerly known as [**NVML**]({% post_url 2017-12-11-NVML-is-now-PMDK %}),
 is a growing collection of libraries (currently ten of them) which have been
 developed for various use cases, tuned, validated to production quality,
@@ -15,7 +15,7 @@ memory-mapping files on a persistent memory aware file system.
 PMDK also includes a collection of tools, examples, and tutorials
 on persistent memory programming.
 
-* [read more about PMDK](/pmdk/)
+* [read more about PMDK][pmdk]
 * [go directly to the source on GitHub](https://github.com/pmem/pmdk/)
 
 To learn more about the latest
@@ -52,3 +52,5 @@ reading material.
 Your questions, comments, and contributions are welcome!  Join our
 [Google Group](http://groups.google.com/group/pmem) find us on
 IRC on the **#pmem** channel on [OFTC](http://www.oftc.net).
+
+[pmdk]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"

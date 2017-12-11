@@ -4,12 +4,12 @@ author: Maciej Maciejewski
 layout: post
 identifier: pmem_emulation
 ---
-Data allocated with NVML is put to the virtual memory address space, and concrete ranges are relying on result of `mmap(2)` operation performed on the user defined files.
-Such files can exist on any storage media, however data consistency assurance embedded within NVML requires frequent synchronisation of data that is being modified.
+Data allocated with PMDK is put to the virtual memory address space, and concrete ranges are relying on result of `mmap(2)` operation performed on the user defined files.
+Such files can exist on any storage media, however data consistency assurance embedded within PMDK requires frequent synchronisation of data that is being modified.
 Depending on platform capabilities, and underlying device where the files are, a different set of commands is used to facilitate synchronisation.
 It might be `msync(2)` for the regular hard drives, or combination of cache flushing instructions followed by memory fence instruction for the real persistent memory.
 
-Although application adaptation to NVML usage, and ability to operate on persistent memory might be done by relying on regular hard drive, it is not recommended due to the performance hit coming from `msync(2)` operation.
+Although application adaptation to PMDK usage, and ability to operate on persistent memory might be done by relying on regular hard drive, it is not recommended due to the performance hit coming from `msync(2)` operation.
 That is the reason to work either with the real equipment or emulated environment. Since persistent memory is not yet commonly available we do recommend setting up emulation system, that will speed up development, and testing of the application you are converting. In the following steps we shall cover how to setup such system.
 
 ### Hardware and system requirements
@@ -101,6 +101,8 @@ Install filesystem with DAX (available today for ext4 and xfs):
 # sudo mount -o dax /dev/pmem0 /mnt/mem
 {% endhighlight %}
 
-Now files can be created on the freshly mounted partition, and given as an input to NVML pools.
+Now files can be created on the freshly mounted partition, and given as an input to PMDK pools.
 
 It is additionally worth mentioning you can emulate persistent memory with ramdisk (i.e. `/dev/shm`), or force pmem-like behavior by setting environment variable `PMEM_IS_PMEM_FORCE=1`, that would eliminate performance hit caused by `msync(2)`.
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

@@ -5,7 +5,7 @@ layout: post
 identifier: pmemobj_tutorial_00
 ---
 
-The aim of this tutorial series is to introduce you to programming with persistent, byte-addressable memory using the pmemobj library. We will go over all the available features, implement an example application and learn something about the inner workings of libpmemobj. If you haven't read the [NVML overview]({% post_url 2014-09-01-nvm-library-overview %}) I encourage you to do that now.
+The aim of this tutorial series is to introduce you to programming with persistent, byte-addressable memory using the pmemobj library. We will go over all the available features, implement an example application and learn something about the inner workings of libpmemobj. If you haven't read the [NVM Library overview]({% post_url 2014-09-01-nvm-library-overview %}) I encourage you to do that now.
 
 When designing the library API, we've put a heavy emphasis on ease of use and "management explainability", as well as flexibility and performance. Our hope is that the most intuitive solution to a problem is the correct one, but usually there is more than one way of implementing something. In the course of this tutorial I'll make it clear when that's the case and explain what are the pros and cons of the different approaches.
 
@@ -18,7 +18,7 @@ And this, in a nutshell, is what our library provides - persistent pointers and 
 
 #### Code snippets and examples
 
-This tutorial will include embedded code for you to type, compile and run. Please study them carefully and if you are ever left wondering - feel free to [contact us](http://pmem.io/about/). In addition to that, our library comes with ever-growing collection of [examples](https://github.com/pmem/nvml/tree/master/src/examples), I encourage you to check them out to see some simple use-cases we implemented.
+This tutorial will include embedded code for you to type, compile and run. Please study them carefully and if you are ever left wondering - feel free to [contact us](http://pmem.io/about/). In addition to that, our library comes with ever-growing collection of [examples](https://github.com/pmem/pmdk/tree/master/src/examples), I encourage you to check them out to see some simple use-cases we implemented.
 
 To run applications based on libpmemobj you don't need real persistent memory in the platform, all that's really necessary is a device with a file system (doesn't have to be DAX) - the only difference will be performance. Depending on the configuration, the library will issue a lot of `clflush` or `msync` calls, the latter being obviously way slower. If you end up with unbearable performance while testing your programs without real pmem, you can do something like this:
 
@@ -26,3 +26,4 @@ To run applications based on libpmemobj you don't need real persistent memory in
 
 This will make the library think you are using persistent memory and not issue `msync`. Keep in mind that this breaks the persistence of your application and is only advisable for basic testing.
 
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

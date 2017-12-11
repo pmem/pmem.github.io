@@ -38,7 +38,7 @@ for (int slot = LEAF_KEYS; slot--;) {
 }
 ```
 
-Note that memory allocated by NVML is always zero-filled, and a
+Note that memory allocated by libpmemobj is always zero-filled, and a
 zero-filled slot is considered unused by convention. So there is no
 need to explicitly clear slots on a new leaf during a split. This
 explains why the loop above skips any slot where the key sorts below
@@ -255,4 +255,6 @@ and storage efficiency for larger strings easily outweigh losses in
 storage efficiency for the specific case of very small strings. This
 seems like the right tradeoffs for the large and semi-structured
 datasets that we'd like to enable with
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
 [pmemkv](https://github.com/pmem/pmemkv).

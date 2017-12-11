@@ -5,7 +5,7 @@ layout: post
 identifier: pmem_perf_improv
 ---
 
-I would like to inform you about the performance improvements that have been going on in NVML and libpmemobj in particular. We have not been standing still and we are trying out a couple of ideas on how to make our libraries even faster. Some of the improvements are smaller, some are larger. Some of them have already made it to the master branch and some are just ideas on how to rework the internals of libpmemobj to make it even faster. All measurements were made on a two socket, sixteen core machine.
+I would like to inform you about the performance improvements that have been going on in PMDK and libpmemobj in particular. We have not been standing still and we are trying out a couple of ideas on how to make our libraries even faster. Some of the improvements are smaller, some are larger. Some of them have already made it to the master branch and some are just ideas on how to rework the internals of libpmemobj to make it even faster. All measurements were made on a two socket, sixteen core machine.
 
 #### Pmemobj allocations' thread scaling
 The first thing we noticed, is that allocations aren't scaling properly to the expected twice the number of logical CPUs.
@@ -44,14 +44,16 @@ We are however not content with the speed of this mechanism, therefore we starte
 We are still working on this, because it could greatly improve performance, especially for highly multi-threaded applications.
 
 ### Allocations and type numbers
-In libpmemobj we have this notion of type numbers. This is among other things used to internally locate objects of a given type. Users of NVML should however be wary of a possible huge performance drop, should the typenum be neglected and all objects used the same type. On the chart below one data series uses one type number for all threads and the other one allocates on a type-per-thread basis. Don't fret though, we think we have a solution for this.
+In libpmemobj we have this notion of type numbers. This is among other things used to internally locate objects of a given type. Users of libpmemobj should however be wary of a possible huge performance drop, should the typenum be neglected and all objects used the same type. On the chart below one data series uses one type number for all threads and the other one allocates on a type-per-thread basis. Don't fret though, we think we have a solution for this.
 
 ![tx_alloc_one_type_vs_per_thread](/assets/tx_alloc_one_type_vs_per_thread.png)
 
 ### Summary
-We are constantly looking for places where we could improve the performance of NVML and libpmemobj in particular. For example, we are thinking of redoing the whole internal object storage module and we hope to gain some additional percents there. If you have any other idea, let us know in [pmem/issues][41493750], or better yet, do a pull request!
+We are constantly looking for places where we could improve the performance of PMDK and libpmemobj in particular. For example, we are thinking of redoing the whole internal object storage module and we hope to gain some additional percents there. If you have any other idea, let us know in [pmem/issues][41493750], or better yet, do a pull request!
 
 [41493750]: https://github.com/pmem/issues/issues "pmem/issues"
 [f242534b]: http://pmem.io/2015/07/17/pmemcheck-basic.html "pmemcheck blog entry"
 [efed04e3]: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html "__builtin_expect"
-[a8ef08e9]: https://github.com/pmem/nvml/commit/5606aa41461cc0e7278bb059f1adae88ff6fbf04 "fix merge"
+[a8ef08e9]: https://github.com/pmem/pmdk/commit/5606aa41461cc0e7278bb059f1adae88ff6fbf04 "fix merge"
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

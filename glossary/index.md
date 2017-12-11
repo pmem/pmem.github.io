@@ -36,13 +36,29 @@ as persistent memory when accessed directly, but battery-backed DRAM
 or (hopefully) the emerging non-volatile memory technologies would
 qualify for direct access.
 
-**NVM Library**
+**Persistent Memory Development Kit**
 
-Given the above definitions, one might ask why the current project
-is called the _NVM Library_ and not the _Persistent Memory Library_.
-The goal is to design the [NVM Library](/nvml/) so it can leverage the direct
-load/store capabilities of persistent memory, but also work on other NVM
-technologies (albeit not as optimally).
+[PMDK][pmdk] is a project with the goal of making persistent memory
+programming easier.  It currently supports **ten libraries**,
+targeted at various use cases for persistent
+memory, along with language support for
+**C**, **C++**, **Java**, and **Python**,
+tools like the **pmemcheck**
+plug-in for valgrind, and an increasing body of documentation, code examples,
+tutorials, and [blog entries](/blog/).  The libraries are tuned and validated
+to **production quality** and issued with a license that allows their use in
+both open- and closed-source products.  And the project continues to grow as we
+learn about new use cases.
+
 Since the programming model for persistent memory is based on
-memory-mapped files, the library will work correctly on top of any
-NVM technology (like an SSD with a traditional file system on it).
+memory-mapped files, the PMDK libraries will work correctly on top of any
+NVM technology (like an SSD with a traditional file system on it).  However,
+it is optimized for the fine-grained, load/store persistence provided
+by persistent memory, so the performance will on traditional storage
+will be non-optimal, as operations like cache line flushes get turned
+into page writes to a block device on traditional storage.  This means you
+can use storage (like your laptop's disk) to try out the PMDK libraries
+and you will get correct results.  But you won't see performant
+results unless you use actual persistent memory.
+
+[pmdk]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"
