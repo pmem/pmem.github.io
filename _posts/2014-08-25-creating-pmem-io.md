@@ -33,23 +33,35 @@ area can have [GitHub Pages](https://pages.github.com/) associated
 with them with almost no effort.  We simply created a repository
 named **pmem.github.io** to hold the pages.  GitHub pages use
 Jekyll automatically, but it is convenient to install it locally
-for previewing content before pushing changes to the repo.  On the
-Debian-based distro known as _CrunchBang_, these steps did the trick:
+for previewing content before pushing changes to the repo.  On Debian Linux,
+these steps did the trick:
 
 {% highlight sh %}
 $ sudo apt-get install ruby ruby-dev node python-pygments
 $ sudo gem install jekyll
 $ sudo gem install jekyll-mentions
-{% endhighlight %}
-
-After creating the appropriate Jekyll files in the local copy
-of the repo, we used this command:
-
-{% highlight sh %}
+# to start the jekyll server:
 $ jekyll serve --watch
 {% endhighlight %}
 
-This watches for changes, re-generating
+
+[Edit: Fedora steps added December 11, 2017]
+
+On Fedora 26, here are steps that for running jekyll locally:
+
+{% highlight sh %}
+$ sudo dnf install ruby ruby-devel python-pygments nodejs
+$ sudo dnf install redhat-rpm-config zlib-devel gcc-c++
+$ gem install jekyll
+$ gem install jekyll-mentions
+$ gem install bundler
+# change directory to jekyll tree, such as pmem.github.io repo clone
+$ bundle install
+# to start the jekyll server:
+$ bundle exec jekyll serve --watch
+{% endhighlight %}
+
+Once the jekyll server is running, it watches for changes, re-generating
 the web pages as necessary, and provides the content for preview
 at the local URL `http://0.0.0.0:4000/`.
 
