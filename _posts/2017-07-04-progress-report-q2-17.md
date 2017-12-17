@@ -73,8 +73,8 @@ by changing the size of the memory block given to a thread for exclusive use.
 
 The API we are planning on exposing is split in two:
 
-* creation of allocation class & allocating from it directly - [PR](https://github.com/pmem/nvml/pull/1985)
-* changing the mappings between size <> class - [PR](https://github.com/pmem/nvml/pull/1986)
+* creation of allocation class & allocating from it directly - [PR](https://github.com/pmem/pmdk/pull/1985)
+* changing the mappings between size <> class - [PR](https://github.com/pmem/pmdk/pull/1986)
 
 We are still looking for input on those two pull requests, so if this is
 something that you find useful, please share your thoughts on the proposed
@@ -150,6 +150,8 @@ focused on stabilizing and generally improving the library rather than
 introducing changes of the core algorithms.
 
 And speaking of the release, it contains many more improvements than what I've
-managed to list here. Changelog is [here](https://raw.githubusercontent.com/pmem/nvml/master/ChangeLog).
+managed to list here. Changelog is [here](https://raw.githubusercontent.com/pmem/pmdk/master/ChangeLog).
 
 See you next time.
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

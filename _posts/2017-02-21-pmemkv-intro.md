@@ -32,7 +32,8 @@ stages and is not yet ready for production use, but a good
 [issue backlog](https://github.com/pmem/pmemkv/issues)
 has been started to capture what we intend to do next.
 
-Like NVML itself, [pmemkv](https://github.com/pmem/pmemkv) is
+Like PMDK itself, [pmemkv](https://github.com/pmem/pmemkv) is
 open-source software (under BSD license) and community contributions
 are welcomed!
  
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

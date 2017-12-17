@@ -1,12 +1,12 @@
 ---
-title: NVML for Windows
+title: PMDK for Windows
 author: peluse
 layout: post
 ---
 
 Throughout 2016 a team of engineers from Microsoft, Intel, HPE and HPI have
-been working to port the NVML project to Windows and we are happy to
-announce that [Technical Preview release](https://github.com/pmem/nvml/releases/tag/1.2%2Bwtp1)
+been working to port the PMDK project to Windows and we are happy to
+announce that [Technical Preview release](https://github.com/pmem/pmdk/releases/tag/1.2%2Bwtp1)
 is now available!
 
 Our main goal in porting the library was to make it as easy as
@@ -50,7 +50,7 @@ scripts are nearly identical.
 #### Tools
 
 To build the Windows versions, simply use Visual Studio to open up the
-NVML.SLN file in the source directory and build the debug and release
+PMDK.SLN file in the source directory and build the debug and release
 versions and you are ready to go. Details are in the README files.
 
 The Windows unit tests are executed automatically when a pull request
@@ -61,14 +61,15 @@ As part of the port, the team used Trello to track our backlog and will
 continue to do so until the UNICODE work is complete at which time any
 Windows issues will be visible right alongside Linux issues in Github.
 The Trello webpage for the porting effort is publicly available at:
-[NVML for Windows](https://trello.com/b/IMPSJ4Iu/nvml-for-windows)
+[PMDK for Windows](https://trello.com/b/IMPSJ4Iu/nvml-for-windows)
 
 #### Windows Non-Volatile Memory Support
 
-Obviously NVML isn't much use under Windows without native NVM support.
+Obviously PMDK isn't much use under Windows without native NVM support.
 The following two videos provide a great overview of Windows NVM
 capabilities:
 
 * [Using Non-volatile Memory (NVDIMM-N) as Block Storage in Windows Server 2016](https://channel9.msdn.com/Events/Build/2016/P466)
 * [Using Non-volatile Memory (NVDIMM-N) as Byte-Addressable Storage in Windows Server 2016](https://channel9.msdn.com/Events/Build/2016/P470)
 
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

@@ -9,7 +9,7 @@ In the previous post, you learned a little bit about the general concept of the 
 
 ### Memory pools
 
-If you've read the [NVML overview]({% post_url 2014-09-01-nvm-library-overview %}) you know that persistent memory is exposed by the OS as memory-mapped files, we call them pools.
+If you've read the [overview]({% post_url 2014-09-01-nvm-library-overview %}) you know that persistent memory is exposed by the OS as memory-mapped files, we call them pools.
 
 The pmemobj library provides an interface to easily manage those pools, so that you don't have to manually create the files or `mmap` them. Creating a pool is done using the `pmemobj_create` API function, which takes the usual parameters you would expect for a function creating a file plus a `layout`, which is a string of your choosing that identifies the pool. It is required that the `layout` you pass to `pmemobj_open` matches the one the pool was created with. As with any other OS resource, you have to release the pool using `pmemobj_close` when the persistent memory pool is no longer needed, usually at the end of the application. To verify the integrity of the pool there's a `pmemobj_check` function that verifies if all the required metadata is consistent.
 
@@ -175,4 +175,6 @@ if (rootp->len == strlen(rootp->buf))
 
 You should now be able to compile both applications and verify that they do what was advertised. If you want to check that it works for all the error-cases, we have a [tool](https://github.com/pmem/valgrind) for that, but it's a topic for a completely different tutorial ;)
 
-The complete source code for this example (and more) can be found in [our repository](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj).
+The complete source code for this example (and more) can be found in [our repository](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj).
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

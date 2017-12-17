@@ -5,14 +5,14 @@ layout: post
 identifier: intro_replication
 ---
 
-Replication is a means for raising the reliability of your _pmemobj_ based applications. You can basically think of it as RAID 1 within _NVML_. What happens is, when you write to your pool using the **pmemobj_*** (memcpy, persist, and so on) primitives, it gets copied to your replicas. Yes, you can have more than one replica. In fact you can have as many as you want, but you have to keep in mind the performance penalty.
+Replication is a means for raising the reliability of your _pmemobj_ based applications. You can basically think of it as RAID 1 within _PMDK_. What happens is, when you write to your pool using the **pmemobj_*** (memcpy, persist, and so on) primitives, it gets copied to your replicas. Yes, you can have more than one replica. In fact you can have as many as you want, but you have to keep in mind the performance penalty.
 
 Replication, although not directly, is related to pool sets. This is a simple concept which I will try to briefly explain.
 
 ### Replication and pool sets
 Imagine you want to create a really big _pmemobj_ pool, so big that it exceeds the capacity of a single non-volatile memory device. However, you have more than one of those and would like to leverage that fact. Well, now you can. Taken from the _libpmemobj_ manual: _"The libpmemobj allows building transactional object stores spanning multiple memory devices by creation of persistent memory pools consisting of multiple files, where each part of such a pool set may be stored on different pmem-aware filesystem"_. That just about sums it up.
 
-As you might have noticed, I specifically mention _pmemobj_ pools. That is because we only support this feature for _libpmemobj_. There is in fact no technical obstacle keeping us from supporting this feature for the other libraries in _NVML_, but we decided to do it one step at a time. One other constraint is that for now we only envision local replication. What I mean is not that you cannot do remote replication, just that we don't have any native support in the library itself. If you have a remote filesystem that supports the [mmap()][b4af9cfb] syscall, it **should** be OK to put replicas there. If you have a setup like that and experience issues using replication, let us know in our [issues][6534d9c4] section.
+As you might have noticed, I specifically mention _pmemobj_ pools. That is because we only support this feature for _libpmemobj_. There is in fact no technical obstacle keeping us from supporting this feature for the other libraries in _PMDK_, but we decided to do it one step at a time. One other constraint is that for now we only envision local replication. What I mean is not that you cannot do remote replication, just that we don't have any native support in the library itself. If you have a remote filesystem that supports the [mmap()][b4af9cfb] syscall, it **should** be OK to put replicas there. If you have a setup like that and experience issues using replication, let us know in our [issues][6534d9c4] section.
 
 Replicas can also be made of multiple files, just like your primary pool. These two features in combination give you a lot of leeway in the way you compose and backup your _pmemobj_ pools. These are two powerful concepts.
 
@@ -48,7 +48,7 @@ If pmempool does not report an error, you're good to go, to do a **pmemobj_open*
 
 
 ### How does it perform?
-Pool replication is a very neat feature, but it shouldn't be abused. Adding replicas has a quite substantial, unavoidable performance penalty. Let me show you exactly what I mean. I ran the *pmembench_map, pmemobx_tx and pmalloc* benchmarks from the _NVML_ tree to see what replication does to performance. These are pretty much the standard benchmarks made to work with my custom set with replication. Do not look at the absolute values, but the difference between the number of operations per second as a function of replicas. Depending on the algorithm used, the overhead is different and not always a show-stopper. Our current implementation of replication basically does a binary copy of the original pool, hence the possible differences.
+Pool replication is a very neat feature, but it shouldn't be abused. Adding replicas has a quite substantial, unavoidable performance penalty. Let me show you exactly what I mean. I ran the *pmembench_map, pmemobx_tx and pmalloc* benchmarks from the _PMDK_ tree to see what replication does to performance. These are pretty much the standard benchmarks made to work with my custom set with replication. Do not look at the absolute values, but the difference between the number of operations per second as a function of replicas. Depending on the algorithm used, the overhead is different and not always a show-stopper. Our current implementation of replication basically does a binary copy of the original pool, hence the possible differences.
 
 ![map_insert](/assets/map_insert_repl.png)
 
@@ -59,9 +59,11 @@ Pool replication is a very neat feature, but it shouldn't be abused. Adding repl
 ### Further plans
 For now, we envision adding more administrative functions to the pmempool tool. We would like to enable adding/removing replicas to an active set, changing the partitioning between files. For now, this is not supported and you have to start the new set from scratch each time you decide to make a change. Another thing worth considering is an interactive _.set_ file creator.
 
-We plan on supporting basic 1:1 remote replication using standard network transports.  The design of the remote replication will be such that existing NVML based applications that utilize 1:1 local replication can also utilize 1:1 remote replication without changes to the application.
+We plan on supporting basic 1:1 remote replication using standard network transports.  The design of the remote replication will be such that existing PMDK based applications that utilize 1:1 local replication can also utilize 1:1 remote replication without changes to the application.
 
 [6534d9c4]: https://github.com/pmem/issues/issues "pmem-issues"
 [b4af9cfb]: http://linux.die.net/man/2/mmap "mmap"
-[6d977c8e]: http://pmem.io/nvml/pmempool/ "pmempool"
-[1d90594e]: http://pmem.io/nvml/libpmemobj/libpmemobj.3.html "pmemobj-manpages"
+[6d977c8e]: http://pmem.io/pmdk/pmempool/ "pmempool"
+[1d90594e]: http://pmem.io/pmdk/libpmemobj/libpmemobj.3.html "pmemobj-manpages"
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

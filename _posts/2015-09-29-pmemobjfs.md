@@ -7,8 +7,8 @@ identifier: pmemobjfs_example
 
 ### How to use it
 The sources of the **pmemobjfs** file system are available
-[here](https://github.com/pmem/nvml/tree/master/src/examples/libpmemobj/pmemobjfs). Please refer
-to [README](https://github.com/pmem/nvml/blob/master/src/examples/libpmemobj/pmemobjfs/README)
+[here](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/pmemobjfs). Please refer
+to [README](https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/pmemobjfs/README)
 file for instructions on how to create a file system layout and mount it.
 
 **NOTE:** This is just an example implementation of file system in user space using
@@ -493,3 +493,4 @@ file system test suites. If you have any questions or ideas for improvement
 of the **pmemobjfs** please feel free to join a discussion on our
 [Google Group](http://groups.google.com/group/pmem).
 
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

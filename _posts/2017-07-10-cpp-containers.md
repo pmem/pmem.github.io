@@ -7,7 +7,7 @@ identifier: cpp_containers
 
 ### Introduction
 
-Somewhere along the road, when we were doing the C++ bindings for NVML, we found the need for some kind of containers. We were faced with two viable solutions: write everything from scratch or adapt an existing implementation. The obvious choice was NOT to implement from scratch. We would have to implement at least the basic containers from the C++ standard: vector, list, set, map and their multi- companions. That would be a lot of work, not to mention the testing and maintenance effort. I'd say it would be the last resort, should all of our other options fail.
+Somewhere along the road, when we were doing the C++ bindings for libpmemobj, we found the need for some kind of containers. We were faced with two viable solutions: write everything from scratch or adapt an existing implementation. The obvious choice was NOT to implement from scratch. We would have to implement at least the basic containers from the C++ standard: vector, list, set, map and their multi- companions. That would be a lot of work, not to mention the testing and maintenance effort. I'd say it would be the last resort, should all of our other options fail.
 
 Ideally, if there we a set of containers, which were standard compliant, maintained by the community and enabled the user to substitute the allocation scheme and pointer type, that would be ideal. As it turns out, there is more than one. The C++ standard has long ago defined something called the...
 
@@ -15,7 +15,7 @@ Ideally, if there we a set of containers, which were standard compliant, maintai
 
 There have been a lot of bad things said about the std::allocator and it's usability. Despite all of the bad press the allocator has, it was exactly the thing we needed. We have our own, persistent memory friendly allocator written in C and we have our custom pointer type - the persistent_ptr. All of the containers defined in the C++ standard use the std::allocator for the memory management of both own and user's data. Since this is defined in the standard, all we needed to do was implement the interface described by the standard, bind it together with the persistent_ptr and hope for the best. As it turned out, it wasn't that easy, but we'll get to that in a moment.
 
-The `nvml::obj::allocator` is actually pretty straightforward. It is able to allocate sufficient storage and construct the specific object in the specified place. It can as well destroy the object and return the memory afterwards. The design is modular, so the user can override the construction/destruction of a specific object type as well as the allocation and deallocation. The latter two are however discouraged, unless you know what you're doing. The default rules implemented in the allocator work *as expected*, so in the 99% case, you don't really have to bother with the details. One of the most important parts of the allocator are the public typedefs, and in our case that would be the `pointer_type`, which is set to the `persistent_ptr`.
+The `pmem::obj::allocator` is actually pretty straightforward. It is able to allocate sufficient storage and construct the specific object in the specified place. It can as well destroy the object and return the memory afterwards. The design is modular, so the user can override the construction/destruction of a specific object type as well as the allocation and deallocation. The latter two are however discouraged, unless you know what you're doing. The default rules implemented in the allocator work *as expected*, so in the 99% case, you don't really have to bother with the details. One of the most important parts of the allocator are the public typedefs, and in our case that would be the `pointer_type`, which is set to the `persistent_ptr`.
 
 Now that we have a standard compliant, persistent memory specific implementation of the allocator, we have to check if it actually works with any of the containers from a popular standard library implementations.
 
@@ -50,9 +50,9 @@ using pointer = persistent_ptr<value_type>;
 This is a common pattern for all standard library containers. And finally how to use it:
 
 {% highlight cpp linenos %}
-using foovec = std::vector<foo, nvml::obj::allocator<foo>>;
-nvml::obj::transaction::exec_tx(pop, [] {
-        auto pvec = nvml::obj::make_persistent<foovec>();
+using foovec = std::vector<foo, pmem::obj::allocator<foo>>;
+pmem::obj::transaction::exec_tx(pop, [] {
+        auto pvec = pmem::obj::make_persistent<foovec>();
         pvec->push_back(foo());
         pvec->emplace_back(Last_val);
 });
@@ -100,7 +100,7 @@ class __tree_node_base
 {% endhighlight %}
 ### Let's tell the containers they're persistent!
 
-The vector was just a couple of pointers, but here we can see that nodes have state, and rightfully so, it's a red-black tree. The `__is_black` flag will change during the lifetime of the container. This means, it needs to be tracked by libpmemobj inside transactions, in case we need to roll back the state of the container. If you recall, it's the `nvml::obj::p` that wraps basic types for transactional modifications. So we somehow have to tell `__tree_node_base` that there's this thing called `p` that it has to use for it's own data. Up to this point, we used the allocator as the entry point for all typedefs and it would be the ideal to place this new typedef as well. However, as you can see in the class definition, the `__tree_node_base` has absolutely no notion of an allocator. Therefore no way to fetch `p` from it.
+The vector was just a couple of pointers, but here we can see that nodes have state, and rightfully so, it's a red-black tree. The `__is_black` flag will change during the lifetime of the container. This means, it needs to be tracked by libpmemobj inside transactions, in case we need to roll back the state of the container. If you recall, it's the `pmem::obj::p` that wraps basic types for transactional modifications. So we somehow have to tell `__tree_node_base` that there's this thing called `p` that it has to use for it's own data. Up to this point, we used the allocator as the entry point for all typedefs and it would be the ideal to place this new typedef as well. However, as you can see in the class definition, the `__tree_node_base` has absolutely no notion of an allocator. Therefore no way to fetch `p` from it.
 
 ## std::pointer_traits::persistency_type?
 
@@ -112,7 +112,7 @@ But we can leverage the fact that it does have a `pointer` typedef. So if we pla
 using persistency_type = p<T>;
 {% endhighlight %}
 
-And this is all we could do within NVML to help support more complex containers. The rest of the work has to be done within the standard library. The `pointer_traits` implementation is placed in the _memory_ header file. The `persistency_type` has to be optional and have a default value, not to break existing code. There is a trick for that:
+And this is all we could do within PMDK to help support more complex containers. The rest of the work has to be done within the standard library. The `pointer_traits` implementation is placed in the _memory_ header file. The `persistency_type` has to be optional and have a default value, not to break existing code. There is a trick for that:
 {% highlight cpp linenos %}
 template <class _Ptr>
 struct __has_persistency_type
@@ -145,10 +145,12 @@ pointer          __right_;
 __parent_pointer __parent_;
 bool_type __is_black_;
 {% endhighlight %}
-The `__rebind_persistency_type` is a helper for simple type change. Here this means that for `pointer` being `nvml::obj::persistent_ptr`, `bool_type` is in fact `std::pointer_traits<pointer>::persistency_type<bool>::type` so in fact `nvml::obj::p<bool>`. All in one clean line. This, in a big shortcut is how we adapted the containers from libc++.
+The `__rebind_persistency_type` is a helper for simple type change. Here this means that for `pointer` being `pmem::obj::persistent_ptr`, `bool_type` is in fact `std::pointer_traits<pointer>::persistency_type<bool>::type` so in fact `pmem::obj::p<bool>`. All in one clean line. This, in a big shortcut is how we adapted the containers from libc++.
 
 ### Conclusion
 
 It is always better to reuse well written and tested code, than to write everything from scratch. At least as a first attempt. The upside to the approach we have taken is that all standard library containers could be adapted with little effort and it doesn't brake legacy code. The downside is that this is a non-standard approach that will not hit upstream in the nearest future. You can see the changes made to libc++ in our [repo][33a989af] under pmem. Please note that this is an experimental implementation and should *NOT* be used in a production environment.
 
 [33a989af]: https://github.com/pmem/libcxx "Pmem libc++"
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

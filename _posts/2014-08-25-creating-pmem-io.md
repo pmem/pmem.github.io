@@ -70,3 +70,5 @@ templates or includes) can all be found in the
 [Jekyll documentation](http://jekyllrb.com/) or you can look
 at the [source for this web site](https://github.com/pmem/pmem.github.io/)
 for details.
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

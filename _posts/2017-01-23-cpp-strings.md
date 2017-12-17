@@ -152,7 +152,9 @@ persistent string, we chose not to do so above for two reasons -- first
 because this reduces space for storing short strings (making the long string
 case more probable), and second because maintaining the length as a separate
 persistent field requires more journaling overhead. This might be a good case
-for using a volatile field within a persistent type, should NVML support
+for using a volatile field within a persistent type, should PMDK support
 that concept someday.
 
 *Many thanks to @tomaszkapela and @pbalcer for contributing to this post!*
+
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
