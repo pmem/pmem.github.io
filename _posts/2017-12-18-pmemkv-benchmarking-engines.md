@@ -91,7 +91,7 @@ latency data, which is all highly informative for benchmarking and tuning.
 ### Why LevelDB?
 
 We chose to port `db_bench` from LevelDB (even though the RocksDB fork has some nice additions)
-because of license compatibility. LevelDB is BSD licensed (like all of NVML) where RocksDB is GPL.
+because of license compatibility. LevelDB is BSD licensed (like all of PMDK) where RocksDB is GPL.
 
 The `pmemkv_bench` utility relies on significant code ported from LevelDB.  This code is located
 in a new `leveldb` source directory, with all original license and copyright headers intact. 
