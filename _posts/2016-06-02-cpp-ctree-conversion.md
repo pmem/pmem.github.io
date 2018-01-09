@@ -143,11 +143,11 @@ give us feedback. Remember the C++ bindings are still an **experimental API**.
 We are doing our best to see whether this API holds or if it needs some tweaks,
 but your feedback is invaluable. [Thank you!][ecfe85f3]
 
-[27f95bc8]: https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/cpp_map/ctree_map_transient.hpp "transient ctree"
+[27f95bc8]: https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj++/map_cli/ctree_map_transient.hpp "transient ctree"
 [2ee5f9a5]: https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/tree_map/ctree_map.c "C ctree"
 [b60cbeed]: http://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "unicorns and rainbows"
 [033d3abb]: https://github.com/pmem/valgrind "pmemcheck"
-[c14a5bbd]: https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/cpp_map "ctree examples"
+[c14a5bbd]: https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj++/map_cli "ctree examples"
 [ecfe85f3]: http://giphy.com/gifs/end-looney-tunes-thats-all-folks-jYAGkoghdmD9S "That's all folks!"
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
