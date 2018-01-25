@@ -2,6 +2,11 @@
 title: Home
 ---
 
+The [Persistent Memory Summit 2018](https://www.snia.org/pm-summit), held
+January 24th, 2018, provided a day full of informative talks and panels
+on persistent memory.  You'll find links to slides and videos for each session
+on [SNIA's PM Summit page](https://www.snia.org/pm-summit).
+
 #### The [Persistent Memory Development Kit](/pmdk/)
 
 The **Persistent Memory Development Kit** ([**PMDK**][pmdk]),
@@ -42,9 +47,8 @@ storage).
 #### More Information
 
 See our [blog entries](/blog/) for more information.  If you're just
-starting out, you might find the entry on the
-[overall architecture]({% post_url 2014-08-27-crawl-walk-run %})
-useful.
+starting out, you might find the overview provided by this
+[USENIX ;login: article](https://www.usenix.org/system/files/login/articles/login_summer17_07_rudoff.pdf) useful.
 
 The [Documents](/documents/) page contains links to additional
 reading material.

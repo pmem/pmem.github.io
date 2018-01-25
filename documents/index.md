@@ -15,6 +15,11 @@ This article is actually a follow-on to an
 [earlier article](https://www.usenix.org/system/files/login/articles/08_rudoff_040-045_final.pdf),
 published in the Summer 2013 issue of USENIX ;login:.
 
+The [Persistent Memory Summit 2018](https://www.snia.org/pm-summit), held
+January 24th, 2018, provided a day full of informative talks and panels
+on persistent memory (slides and videos of the sesssions are available at
+above link).
+
 The projects on this site,
 like [PMDK][pmdk], are product-neutral, meant to work on any
 product that provides the persistent memory programming model.
