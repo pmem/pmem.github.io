@@ -35,7 +35,7 @@ feedback, and questions are welcome.  You can:
 
 #### More Info
 
-See the [Documents area](/Documents/) for a list
+See the [Documents area](/documents/) for a list
 of interesting publications related to persistent memory programming.
 
 You can also subscribe to this blog [via RSS](/feed.xml).
