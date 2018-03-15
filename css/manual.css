@@ -364,8 +364,8 @@ list-style: none;
 
 #menu li a{
 display: block;
-width: 200px;
-padding: 16px 20px;
+width: 240px;
+padding: 4px 8px;
 text-decoration: none;
 color: #ccc;
 background: #f7f9f9;
@@ -388,7 +388,7 @@ list-style: none;
 
 #menu ul li a{
 color: #333;
-width: 200px;
+width: 240px;
 text-align: left;
 font-size: 14px;
 }
