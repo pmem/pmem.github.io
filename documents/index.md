@@ -75,7 +75,7 @@ interface that Intel is proposing for NVDIMMs. A version of the document with
 [change bars](NVDIMM_DriverWritersGuide-July-2016_wChanges.pdf) [pdf] from the previous
 version is also available.
 
-The [NVDIMM DSM Interface](NVDIMM_DSM_Interface-V1.6.pdf) [pdf], Version 1.6,
+The [NVDIMM DSM Interface](NVDIMM_DSM_Interface-V1.7.pdf) [pdf], Version 1.7,
 is targeted to writers of BIOS and OS drivers for NVDIMMs whose design adheres to the
 NFIT Tables in the ACPI specification.  The document specifically discusses the
 NVDIMM Device Specific Method (_DSM) example.
