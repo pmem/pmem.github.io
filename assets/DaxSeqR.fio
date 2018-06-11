@@ -1,0 +1,31 @@
+#
+# run command for this workload:
+# numactl -N 0 fio DaxSeqR.fio  # it binds this FIO workload to CPU 0 only, according to /dev/daxX socket's number
+#
+[global]
+thread
+group_reporting
+norandommap
+overwrite=1
+sync=0
+thinktime=0
+
+ioengine=dev-dax
+iodepth=1
+direct=0
+
+filename=/dev/dax6.0  # Need to work on a file daxX.0
+filesize=1TB		  # file will be of this size
+offset_increment=45G  # and each of 'numjobs' will get its own space within the file
+
+time_based
+runtime=300
+ramp_time=30
+
+[SeqRead]
+bs=2M
+numjobs=20  # depending on CPU core count more can be better, but also can be a bottleneck
+
+rw=randrw
+rwmixread=100
+percentage_random=0

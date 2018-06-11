@@ -1,0 +1,36 @@
+#
+# run command for this workload:
+# numactl -N 0 fio PmemblkSeqR.fio  # it binds this FIO workload to CPU 0 only, according to /dev/pmem6 socket's number
+#
+[global]
+thread
+group_reporting
+norandommap
+overwrite=1
+sync=0
+thinktime=0
+
+ioengine=pmemblk
+iodepth=1
+direct=1
+
+#
+# Preparing namespace with commands:
+# mkfs.ext4 /dev/pmem6
+# mount /dev/pmem6 /mnt/pmem6/ -o dax
+#
+filename=/mnt/pmem6/testjob,4096,1024000
+#size=1024000M
+unlink=1
+
+time_based
+runtime=300
+ramp_time=30
+
+[SeqRead]
+#bs=4k
+numjobs=18
+
+rw=randrw
+rwmixread=100
+percentage_random=0
