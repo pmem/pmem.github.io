@@ -98,7 +98,7 @@ This engine is using libpmemblk library. Results delivered by this engine will
 not show you the best performance of your hardware, only what this specific
 library is capable of. While using this engine, `blocksize` and
 `size` of a file are given as part of `filename` option, like here:
-{% highlight %}
+{% highlight ini %}
 filename=/mnt/pmem6/testjob,512,1024000
 #size=1024000M
 #bs=512
