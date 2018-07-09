@@ -1,4 +1,4 @@
 ---
 layout: redirect
-newurl: http://pmem.io/pmdk/cpp_obj/master/cpp_html/classes.html
+newurl: http://pmem.io/libpmemobj-cpp/master/doxygen/classes.html
 ---
