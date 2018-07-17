@@ -1,4 +1,4 @@
 ---
 layout: redirect
-newurl: http://pmem.io/pmdk/cpp_obj/master/cpp_html/integer__sequence_8hpp.html
+newurl: http://pmem.io/libpmemobj-cpp/master/doxygen/integer__sequence_8hpp.html
 ---

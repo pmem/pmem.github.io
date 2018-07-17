@@ -1,4 +1,4 @@
 ---
 layout: redirect
-newurl: http://pmem.io/pmdk/cpp_obj/master/cpp_html/classnvml_1_1obj_1_1transaction_1_1automatic-members.html
+newurl: http://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1transaction_1_1automatic-members.html
 ---

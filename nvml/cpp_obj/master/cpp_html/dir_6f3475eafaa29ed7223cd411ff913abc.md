@@ -1,4 +1,4 @@
 ---
 layout: redirect
-newurl: http://pmem.io/pmdk/cpp_obj/master/cpp_html/dir_6f3475eafaa29ed7223cd411ff913abc.html
+newurl: http://pmem.io/libpmemobj-cpp/master/doxygen/dir_78fd0ef1c12e2c4e76100e472fbc448e.html
 ---

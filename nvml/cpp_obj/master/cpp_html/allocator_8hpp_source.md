@@ -1,4 +1,4 @@
 ---
 layout: redirect
-newurl: http://pmem.io/pmdk/cpp_obj/master/cpp_html/allocator_8hpp_source.html
+newurl: http://pmem.io/libpmemobj-cpp/master/doxygen/allocator_8hpp_source.html
 ---
