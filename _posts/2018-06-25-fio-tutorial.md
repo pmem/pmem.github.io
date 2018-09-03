@@ -41,7 +41,7 @@ Namespace with **devdax** mode is a character device and is a raw access
 analogue of filesystem-dax. Configuration is simpler, because there's no need
 for file system preparation:
 {% highlight bash %}
-ndctl create-namespace --type=pmem --mode=dax --region=X [--align=4k]
+ndctl create-namespace --type=pmem --mode=devdax --region=X [--align=4k]
 {% endhighlight %}
 
 To sum up, when you execute the following commands:
@@ -127,14 +127,14 @@ Command to run FIO is: `fio [options] [jobfile] ...`.
 Since we use workloads defined in a file (as opposed to specifying parameters
 in command line), we execute FIO with command like:
 
-`numactl -N 0 fio --output=my_workload.log --output-format=json my_workload.fio`
+`numactl -N 0 fio --output=my_workload.json --output-format=json my_workload.fio`
 
 [numactl command][nctl1234] guarantees that processes are pinned to selected 
 numa node. The same can also be achieved by assigning CPU mask for FIO using 
 option `cpus_allowed`. We chose JSON format to save our results in 
 it, for more convenient automatic parsing. Last parameter is our input file.
 
-In the resulting file (here called my_workload.log) we look for a list 
+In the resulting file (here called my_workload.json) we look for a list 
 of ["jobs"] and then a section with the name of our job ("jobname"). 
 There is all the benchmark results that our simulated traffic has 
 delivered, including i.a. bw (bandwidth averaged per second, in kiB), 
@@ -145,6 +145,8 @@ page][191te3w2] (you can look at "normal" output, since it has similar
 attributes as in "json" formatted output).
 
 
+###### [This entry was edited on 2018-09-03 to update one of the ndctl's legacy parameter and change the way workloads are presented.]
+
 [1fioLink]: https://github.com/axboe/fio
 [ndctlLnk]: https://github.com/pmem/ndctl
 [13rde117]: http://pmem.io/2016/02/22/pm-emulation.html
@@ -153,7 +155,7 @@ attributes as in "json" formatted output).
 [44ku0112]: https://github.com/axboe/fio/tree/master/engines
 [55ku0123]: https://github.com/axboe/fio/tree/master/examples
 [nctl1234]: https://linux.die.net/man/8/numactl
-[fiolibPM]: http://pmem.io/assets/LibpmemSeqR.fio
-[fiodevDX]: http://pmem.io/assets/DaxSeqR.fio
-[fioPMblk]: http://pmem.io/assets/PmemblkSeqR.fio
-[fioMMap1]: http://pmem.io/assets/MmapSeqR.fio
+[fiolibPM]: https://gist.github.com/lukaszstolarczuk/b358293ad818447f0f0388161bbaa332
+[fiodevDX]: https://gist.github.com/lukaszstolarczuk/d78d069eaedbe8e35024ef23fcaa5bed
+[fioPMblk]: https://gist.github.com/lukaszstolarczuk/b97f2650a29233e7a8aa0dee26892339
+[fioMMap1]: https://gist.github.com/lukaszstolarczuk/939a1241485d51ec7947ad9caf26d00b
