@@ -1,0 +1,6 @@
+Although the nav bar no longer points to this directory, it is still in use
+when we publish specs.  The GitBook document will link to the spec using
+http://pmem.io/documents/SPECNAME.
+
+We tend to leave old versions of specs here as well when they might still
+be useful to have around.
