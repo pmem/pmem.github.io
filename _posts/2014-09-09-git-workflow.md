@@ -10,9 +10,9 @@ workflow we've chosen.  The basic idea is:
 
 1. Current development happens on the `master` branch
 2. Releases are created periodically by _tagging_
-3. Release branches are usually not used (`master` contains everything)
-unless it is decided that a patch to a previous release is needed,
-at which point a release branch will be created for that work.
+3. After a major release, a `stable-1.x` branch  is created.
+All bug fixes should be committed to the oldest affected branch which is currently
+supported. Stable branches will be merged periodically to later branches and master.
 4. All changes are done using the common GitHub _fork and merge_ model, where
 GitHub users fork the repository, make their changes, and submit
 _pull requests_.
@@ -62,7 +62,7 @@ repeat as necessary...
 
 Please follow the common conventions for git commit messages:
 
-* The first line is 50 characters or shorter and contains a prefix describing the area being changed, followed by a brief description
+* The first line should be 50 characters or shorter and contains a prefix describing the area being changed, followed by a brief description
 * The second line is blank
 * The remaining lines are 72 characters or shorter and contain English sentences.
 * Any references to GitHub issues are at the end of the commit message.
