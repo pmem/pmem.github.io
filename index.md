@@ -32,7 +32,7 @@ ownership.
 
 #### The [Persistent Memory Development Kit](/pmdk/)
 
-The **Persistent Memory Development Kit** [PMDK](/pmdk/),
+The **Persistent Memory Development Kit**, [PMDK](/pmdk/),
 is a growing collection of libraries which have been
 developed for various use cases, tuned, validated to production quality,
 and thoroughly documented.  These libraries build on the
