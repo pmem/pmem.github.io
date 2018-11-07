@@ -24,7 +24,7 @@ has aspects that are like memory, and aspects that are like storage, but
 it doesn't typically replace either memory or storage.  Instead, persistent
 memory is a third tier, used in conjunction with memory and storage.
 
-With this new ingrediant, systems containing persistent memory can
+With this new ingredient, systems containing persistent memory can
 outperform legacy configurations, providing faster start-up times,
 faster access to large in-memory datasets, and often improved total cost of
 ownership.
