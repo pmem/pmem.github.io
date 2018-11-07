@@ -36,13 +36,13 @@ The **Persistent Memory Development Kit** [PMDK](/pmdk/),
 is a growing collection of libraries which have been
 developed for various use cases, tuned, validated to production quality,
 and thoroughly documented.  These libraries build on the
-**Direct Access** (**DAX**) feature available in both Linux and Windows,
+**Direct Access** (DAX) feature available in both Linux and Windows,
 which allows applications direct load/store access to persistent memory by
 memory-mapping files on a persistent memory aware file system.
 PMDK also includes a collection of tools, examples, and tutorials
 on persistent memory programming.
 
-* [read more about PMDK][pmdk]
+* [read more about PMDK](/pmdk/)
 * [go directly to the source on GitHub](https://github.com/pmem/pmdk/)
 
 PMDK is vendor-neutral, started by Intel,
