@@ -182,5 +182,9 @@ updates.  Although this conversation happens in the pull request
 managed by GitHub, you are always welcome to ask questions and make
 suggestions to the entire team using the
 [Google Group](http://groups.google.com/group/pmem).
+* After review usually it's best to squash your commits with fixes the same
+way as described above (`git rebase -i`). When you try again to push your
+changes you may encounter git error "failed to push". In such case it's
+required to use "--force" option (`git push -f origin ...`).
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
