@@ -10,9 +10,9 @@ workflow we've chosen.  The basic idea is:
 
 1. Current development happens on the `master` branch
 2. Releases are created periodically by _tagging_
-3. Release branches are usually not used (`master` contains everything)
-unless it is decided that a patch to a previous release is needed,
-at which point a release branch will be created for that work.
+3. After a major release, a `stable-1.x` branch is created.
+All bug fixes should be committed to the oldest affected branch which is currently
+supported. Stable branches will be merged periodically to later branches and master.
 4. All changes are done using the common GitHub _fork and merge_ model, where
 GitHub users fork the repository, make their changes, and submit
 _pull requests_.
@@ -62,7 +62,7 @@ repeat as necessary...
 
 Please follow the common conventions for git commit messages:
 
-* The first line is 50 characters or shorter and contains a prefix describing the area being changed, followed by a brief description
+* The first line should be 50 characters or shorter and contains a prefix describing the area being changed, followed by a brief description
 * The second line is blank
 * The remaining lines are 72 characters or shorter and contain English sentences.
 * Any references to GitHub issues are at the end of the commit message.
@@ -167,13 +167,12 @@ push them back to your fork of the repo on GitHub:
 $ git push origin my-feature-branch
 {% endhighlight %}
 
-And finally, send the changes back to the original NVM Library
-repository:
+And finally, send the changes back to the original PMDK repository:
 
 * Using the GitHub web interface, navigate to your repo
 and submit a **pull request**.  This will automatically trigger
 a [Travis Build](http://travis-ci.org), so good thing you already
-made sure your changes build correctly!  The NVM Library gatekeeper will
+made sure your changes build correctly!  The PMDK gatekeeper will
 review your pull request, perhaps comment on it, perhaps accept it.
 If you find you need to make more changes due to comments, just
 continue again from the step above where you are editing & committing.
@@ -187,4 +186,5 @@ way as described above (`git rebase -i`). When you try again to push your
 changes you may encounter git error "failed to push". In such case it's
 required to use "--force" option (`git push -f origin ...`).
 
+###### [This entry was edited on 2018-11-15 to reflect the changes in stable branch tracking.]
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
