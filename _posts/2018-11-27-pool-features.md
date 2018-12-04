@@ -38,9 +38,9 @@ Resulting in the following alternatives:
 
 - if a feature is disabled, it's disabled (obviously)
 - if a feautre is enabled, and supprted by the library, it's enabled
-- if a feature is enabled, and NOT supported, there are two things that might happen:
+- if a feature is enabled, and not supported, there are two things that might happen:
 	- if it's a compatible feature, it's disabled
-	- if it's a incompatible feature, the pool can NOT be opened
+	- if it's a incompatible feature, the pool can not be opened
 
 ## CKSUM_2K dependant features
 
@@ -56,7 +56,7 @@ those features will need to be disabled prior to disabling `CKSUM_2K` feature.
 
 # Feature toggling and querying
 
-Toggling and querying features for already existing and NOT opened pools can
+Toggling and querying features for already existing and not open pools can
 be performed using the `pmempool` tool:
 
 ```bash
