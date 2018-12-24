@@ -1,6 +1,6 @@
 ---
 title: Pool features
-author: jmmichal
+author: janekmi
 layout: post
 identifier: pool_features
 ---
