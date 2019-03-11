@@ -60,7 +60,7 @@ in our case.
 It is very important to mention here that storing volatile memory pointers in persistent
 memory is almost always a design error (after application crash, pointer to virtual
 memory is no longer valid). Using persistent_ptr is safe and it provides only way
-to to access specific memory area after application crash.
+to access specific memory area after application crash.
 
 ### API extensions
 
@@ -172,7 +172,7 @@ when calling modifier methods whatsoever.
 As you can see, we are checking `i < pvector.size()` on every loop iteration.
 Since `pvector` is a reference to dereferenced persistent pointer, this check is
 fast and can be optimized by compiler. But if you will use `root->vec_p->size()`
-from the other hand, you will notice perfromance overhead. The reason behind
+from the other hand, you will notice performance overhead. The reason behind
 that is dereferencing of persistent_ptr in current implementation cannot be
 optimized and cached by compilers. We are working on workaround for this issue,
 but it is recommended to avoid unnecessary persistent_ptr dereferencing operations.
