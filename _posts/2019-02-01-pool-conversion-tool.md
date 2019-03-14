@@ -113,7 +113,6 @@ To convert such pools, the following workaround must be used.
 1. A remote replica needs to be removed by [pmempool transform command](http://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html).
 Before calling pmempool transform, you have to prepare a new poolset file
 without a remote replica.
-
 ```bash
 $ cat tests/poolset
 PMEMPOOLSET
