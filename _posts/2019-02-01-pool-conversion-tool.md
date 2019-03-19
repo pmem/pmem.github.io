@@ -146,4 +146,4 @@ $ pmempool transform poolset2 poolset
 In 1.5 release we introduced an extra features flags. After upgrading pmdk
 (and pool conversion for libpmemobj pools), they can be turned on for
 existing pools. Detailed information about feature flags can be found in
-the [pool features] (https://pmem.io/2018/12/05/pool-features.html) blog post.
+the [pool features](https://pmem.io/2018/12/05/pool-features.html) blog post.
