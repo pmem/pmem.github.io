@@ -131,7 +131,7 @@ To get the list of all memory operations we are going to use pmemcheck
 logging functionality. To turn on logging use `log-stores` parameter:
 
 {% highlight sh %}
-$ valgrind --tool=pmemcheck --log-stores=yes --print-summary=yes --log-file=store_log.log pmreorder_list
+$ valgrind --tool=pmemcheck -q --log-stores=yes --print-summary=yes --log-file=store_log.log pmreorder_list
 {% endhighlight %}
 
 The above command outputs a text file with a list of stores, flushes,
