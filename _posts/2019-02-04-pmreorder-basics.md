@@ -116,7 +116,7 @@ check_consistency(struct list_root *root)
 		node = NODE_PTR(root, node->next);
 	} while (node != NULL);
 
-return 0;
+	return 0;
 }
 {% endhighlight %}
 
