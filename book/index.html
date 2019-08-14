@@ -19,12 +19,14 @@
 }.cid-rx5kK4x1jt .mbr-section-title{text-align:center}.cid-rx4qia0SLM{padding-top:45px;padding-bottom:30px;background-color:#5981C0;background-image: linear-gradient(to right top, #fccf31, #ffb02f, #ff9139, #ff7247, #f55555);}.cid-rx4qia0SLM .mbr-title{padding-bottom:1rem}.cid-rx4oPSLGTl{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx4oPSLGTl .counter-container ol{margin-bottom:0;counter-reset:myCounter}.cid-rx4oPSLGTl .counter-container ol li{margin-bottom:2rem}.cid-rx4oPSLGTl .counter-container ol li{z-index:3;list-style:none;padding-left:.5rem}.cid-rx4oPSLGTl .counter-container ol li:before{z-index:2;position:absolute;left:0px;counter-increment:myCounter;content:counter(myCounter);text-align:center;margin:0 10px;line-height:30px;transition:all .2s;width:35px;height:35px;color:#4ea2e3;font-size:20px;font-weight:bold;border-radius:50%;border:2px solid #4ea2e3;opacity:0.5}.cid-rx5l8OgZM6{padding-top:60px;padding-bottom:60px;background-color:#37a5bf;background-image: linear-gradient(to right top, #37a5bf, #3599c4, #488cc4, #627cbd, #7b6baf);}.cid-rx5l8OgZM6 .mbr-section-title{text-align:center}.cid-rxldMsnipa{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rxldMsnipa .section-title{z-index:2;background-color:#efefef;padding:1.3rem 2rem;border:1px solid #dfdfdf}.cid-rxldMsnipa p{z-index:1;background-color:#ffffff;box-shadow:inset 1px 36px 20px -30px rgba(121,121,121,0.13);padding:1.5rem}.cid-rxldMsnipa .accordion{padding-top:2rem}.cid-rx5k5phMuZ{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx5k5phMuZ h1{margin-bottom:20px}.cid-rx5k5phMuZ .wrapper{text-align:center}.cid-rx4p0rOvmw{padding-top:30px;padding-bottom:30px;background-color:#232323}.cid-rx4p0rOvmw p{margin:0;color:#ffffff}.engine{position:absolute;text-indent:-2400px;text-align:center;padding:0;top:0;left:-2400px}[class*="-iconfont"]{display:inline-flex}</style>
  
   <script async  src="https://cdn.ampproject.org/v0.js"></script>
-  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <!-- <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script> -->
+  <!-- <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script> -->
+  <!-- <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script> -->
   <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
   <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
   <script src="https://kit.fontawesome.com/fa0026050e.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
   
 </head>
 <body>
@@ -41,6 +43,71 @@
 
 </script>
 <!-- /Google Analytics -->
+
+<!-- Mailchimp CORS Workaround for XHR Form Submission -->
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+     $("#mc-embedded-subscribe-form").validate({
+         // Specify validation rules
+    	rules: {
+      	    // The key name on the left side is the name attribute
+      	    // of an input field. Validation rules are defined
+      	    // on the right side
+      	    FNAME: "required",
+            LNAME: "required",
+            EMAIL: {
+                required: true,
+                // Specify that email should be validated
+                // by the built-in "email" rule
+                email: true
+            }
+        },
+        // Specify validation error messages
+        messages: {
+            FNAME: "Please enter your firstname",
+            LNAME: "Please enter your lastname",
+            EMAIL: "Please enter a valid email address"
+        }
+    });
+
+    $("#mc-embedded-subscribe-form").submit(function (e) {
+        e.preventDefault();
+
+        var $form=$('#mc-embedded-subscribe-form');
+
+        $.ajax({
+            type: $form.attr('method'),
+	    method: 'POST',
+            url: 'https://pmem.us3.list-manage.com/subscribe/post-json?u=2b1e3e6f31132c32f059aa108&id=47c0023ce1&c=?', 
+            data: $form.serialize(),
+            cache       : false,
+            dataType    : 'jsonp',
+            contentType: "application/json; charset=utf-8",
+            error       : function(err) { 
+                    console.log("Form Submission Error: ", err);
+	    },
+            success     : function(data) {
+                if (data.result != "success") {
+                    // Something went wrong, do something to notify the user. maybe alert(data.msg);
+                    console.log("Subscription Failed: " + data.msg);
+		    $('#mce-error-response').html("Oops. Something went wrong. " + data.msg);
+                } else {
+                    // It worked, carry on...
+                    console.log("Subscription Success: " + data.msg);
+		    $('#mce-success-response').html( "Subscription successful! Thank you." );
+		    // Hide the form as the user doesn't want to register twice
+		    $('#contacts1-b').hide();
+		    $('#mce-error-response').hide();
+		    $('#mce-success-response').fadeOut(15);
+                }
+            }
+        });
+    });
+});
+</script>
+<!-- End Mailchimp CORS Workaround -->
 
 
   <section class="mbr-section content18 cid-rxldW5mKR3" id="content18-h">
@@ -106,24 +173,24 @@
             <div class="mbr-col-lg-10  mbr-col-md-12" style="margin-top:0px">
                 <!-- Begin Mailchimp Signup Form -->
 		<div class="mbr-row mbr-justify-content-center">
-                <form action-xhr="https://pmem.us3.list-manage.com/subscribe/post-json?c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-		    <input type="hidden" name="u" value="2b1e3e6f31132c32f059aa108">
-    		    <input type="hidden" name="id" value="47c0023ce1">
+                <form action-xhr="https://pmem.us3.list-manage.com/subscribe/post?u=2b1e3e6f31132c32f059aa108&id=47c0023ce1&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	  	    <!-- 
                     <div submit-success="">
-                      <template data-form-alert="" type="amp-mustache">Subscription successful!</template>
+                      <template data-form-alert="" type="amp-mustache">Subscription successful! Thank you.</template>
                     </div>
                     <div submit-error="">
                       <template data-form-alert="" type="amp-mustache">Subscription failed!</template>
                     </div>
+		    -->
                     <div class="fieldset">
                         <label>
-							<input type="text" value="" name="FNAME" class="required" id="mce-FNAME" placeholder="First Name">
+			    <input type="text" name="FNAME" class="required" id="mce-FNAME" placeholder="First Name">
                         </label>
                         <label>
-                            <input type="text" value="" name="LNAME" class="required" id="mce-LNAME" placeholder="Last Name">
+                            <input type="text" name="LNAME" class="required" id="mce-LNAME" placeholder="Last Name">
                         </label>
                         <label>
-                            <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="EMail">
+                            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="EMail">
                         </label>
                         <label>
                             <button type="submit" class="btn btn-primary btn-form display-4">Subscribe</button>
@@ -131,15 +198,16 @@
                     </div>
                 </form>
 				<div id="mce-responses" class="clear">
-					<div class="response" id="mce-error-response" style="display:none"></div>
-					<div class="response" id="mce-success-response" style="display:none"></div>
+					<div class="response" id="mce-error-response"></div>
+					<div class="response" id="mce-success-response"></div>
 				</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
 				<div style="position: absolute; left: -5000px;" aria-hidden="true">
 					<input type="text" name="b_2b1e3e6f31132c32f059aa108_47c0023ce1" tabindex="-1" value="">
 				</div>
             </div>
         </div>
-				<!--End mc_embed_signup-->
+	<!--End mc_embed_signup-->
+
 
             </div>
         </div>
