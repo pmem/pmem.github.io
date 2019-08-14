@@ -9,10 +9,11 @@ of additional information.
 
 Here are some of the top links to related information:
 
-* The [Persistent Memory Development Kit](/pmdk/)
-* Information on the [PMDK 1.5 release]({% post_url 2018-10-22-release-1-5 %})
-* The [Persistent Memory Summit 2018](https://www.snia.org/pm-summit)
-* The [Intel Developer Zone for persistent memory](https://software.intel.com/en-us/persistent-memory)
+* [Persistent Memory Development Kit](/pmdk/)
+* Work-in-Progress [Programming Persistent Memory book](/book/)
+* [Persistent Memory Summit](https://www.snia.org/pm-summit)
+* [Intel Developer Zone for persistent memory](https://software.intel.com/en-us/persistent-memory)
+* [PIRL Conference](https://pirl.nvsl.io/program/) (Persistent Programming In Real Life)
 
 
 #### What Is Persistent Memory?
