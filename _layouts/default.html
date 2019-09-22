@@ -28,6 +28,9 @@
 			<li><a href="/about/" title="About This Project" {% if page.title == "About" %} class="sel" {% endif %}>About</a></li>
 		</ul>
 	</div>
+	{% if page.onecol %}
+		{{ content }}
+	{% else %}
 	<div id="main">
 		{{ content }}
 	</div>
@@ -42,6 +45,7 @@
 			<br><br>
 			{% endfor %}
 		</div>
+	{% endif %}
 	{% endif %}
 	<div id="footer">
 		<hr>

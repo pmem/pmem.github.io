@@ -1,8 +1,8 @@
 /* reset */
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote,
 body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt,
-em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6,
-header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu,
+em, embed, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6,
+header, hgroup, html, i, iframe, img, ins, kbd, label, li, mark, menu,
 nav, object, ol, output, p, pre, q, s, samp, section, small, span, strike,
 strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u,
 ul, var, video {
@@ -11,6 +11,44 @@ ul, var, video {
 	border: 0;
 	font: inherit;
 	vertical-align: baseline;
+}
+
+
+fieldset.repo {
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	margin-top: 3em;
+}
+
+fieldset.repo legend {
+	font-weight: bold;
+	background: lightyellow;
+	border: solid 1px black;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	padding: 6px 10px;
+}
+
+fieldset.repo table {
+	width: 100%;
+	border: none;
+}
+fieldset.repo table td {
+	border: none;
+	vertical-align: middle;
+}
+fieldset.repo table td:first-child {
+	width: 10em;
+	text-align: center;
+}
+fieldset.repo table th:first-child {
+	text-align: center;
+}
+fieldset.repo table tr:nth-child(even) td {
+	background: #e8ecf0;
+}
+fieldset.repo table tr:nth-child(odd) td {
+	background: #f0f0ff;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu,
