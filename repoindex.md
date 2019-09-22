@@ -66,31 +66,31 @@ organization in GitHub under
 			<td>JavaScript bindings for libpmemobj</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv">libpmemkv</a></td>
+			<td><a href="https://github.com/pmem/pmemkv">pmemkv</a></td>
 			<td>Transactional Key-Value Store: Top-Level C API</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv-tools">libpmemkv-tools</a></td>
+			<td><a href="https://github.com/pmem/pmemkv-tools">pmemkv-tools</a></td>
 			<td>Benchmarks and tools for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv-python">libpmemkv-python</a></td>
+			<td><a href="https://github.com/pmem/pmemkv-python">pmemkv-python</a></td>
 			<td>Python bindings for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv-nodejs">libpmemkv-nodejs</a></td>
+			<td><a href="https://github.com/pmem/pmemkv-nodejs">pmemkv-nodejs</a></td>
 			<td>NodeJS bindings for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv-ruby">libpmemkv-ruby</a></td>
+			<td><a href="https://github.com/pmem/pmemkv-ruby">pmemkv-ruby</a></td>
 			<td>Ruby bindings for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv-java">libpmemkv-java</a></td>
+			<td><a href="https://github.com/pmem/pmemkv-java">pmemkv-java</a></td>
 			<td>Java bindings for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libpmemkv-jni">libpmemkv-jni</a></td>
+			<td><a href="https://github.com/pmem/pmemkv-jni">pmemkv-jni</a></td>
 			<td>Java bindings via JNI for pmemkv</td>
 		</tr>
 		<tr>
