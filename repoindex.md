@@ -129,7 +129,7 @@ organization in GitHub under
 			since it has a life outside of pmem as well)</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/libvmemcache">libvmemcache</a></td>
+			<td><a href="https://github.com/pmem/vmemcache">vmemcache</a></td>
 			<td>A buffer based LRU cache</td>
 		</tr>
 	</table>
@@ -220,7 +220,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmse">pmse</a></td>
-			<td>MySQL pmem Storage Engine Prototype</td>
+			<td>MongoDB pmem Storage Engine Prototype</td>
 		</tr>
 	</table>
 </fieldset>
