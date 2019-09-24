@@ -48,7 +48,7 @@ organization in GitHub under
 					<li>libpmemobj
 					<li>libpmemblk
 					<li>libpmemlog
-					<li>libpmemrpmem
+					<li>librpmem
 					<li>libpmempool
 					<li>libvmem
 					<li>pmempool utility
