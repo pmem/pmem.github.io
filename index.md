@@ -60,5 +60,7 @@ The [Documents](/documents/) page contains links to additional
 reading material.
 
 Your questions, comments, and contributions are welcome!  Join our
-[Google Group](http://groups.google.com/group/pmem) find us on
-IRC on the **#pmem** channel on [OFTC](http://www.oftc.net).
+[Google Group](http://groups.google.com/group/pmem), find us on
+IRC on the **#pmem** channel on [OFTC](http://www.oftc.net), or
+join our **#pmem** Slack channel using this
+[invite link](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg).
