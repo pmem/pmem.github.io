@@ -15,7 +15,7 @@ organization in GitHub under
 		PMDK Repositories
 	</legend>
 	<p>
-	The <a href="http://pmem.io/pmdk/">Persistent Memory Development Kit</a> is a collection
+	The <a href="//pmem.io/pmdk/">Persistent Memory Development Kit</a> is a collection
 	of libraries and tools.  The source is spread across
 	many repositories.  Components are separated like this to
 	help with the logistics of parallel development and
@@ -50,7 +50,7 @@ organization in GitHub under
 					<li>libpmemlog
 					<li>librpmem
 					<li>libpmempool
-					<li>libvmem
+					<li>libvmem (move to its own <strong>vmem</strong> repo is in progress)
 					<li>pmempool utility
 					<li>Core PMDK C examples
 					<li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)
@@ -94,14 +94,6 @@ organization in GitHub under
 			<td>Java bindings via JNI for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/pcj">pcj</a></td>
-			<td>Persistent Collections for Java</td>
-		</tr>
-		<tr>
-			<td><a href="https://github.com/pmem/llpl">llpl</a></td>
-			<td>Low-Level Persistence Library for Java</td>
-		</tr>
-		<tr>
 			<td><a href="https://github.com/pmem/pmdk-convert">pmdk-convert</a></td>
 			<td>Conversion tool for PMDK pools</td>
 		</tr>
@@ -131,6 +123,44 @@ organization in GitHub under
 		<tr>
 			<td><a href="https://github.com/pmem/vmemcache">vmemcache</a></td>
 			<td>A buffer based LRU cache</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/vmem">vmem</a></td>
+			<td>libvmem, the predecessor to <strong>libmemkind</strong>.<br>
+			Maintenance-only -- use <strong>libmemkind</strong> for all new development.<br>
+			Moving <strong>libvmem</strong> here from the <strong>pmdk</strong> repo is currently in progress.</td>
+		</tr>
+	</table>
+	<br><br>
+	<strong>Experimental PMDK components (not yet ready for production use):</strong>
+	<table>
+		<tr>
+			<th>Repo Name</td>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/pcj">pcj</a></td>
+			<td>Persistent Collections for Java</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/llpl">llpl</a></td>
+			<td>Low-Level Persistence Library for Java</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/pmemfile">pmemfile</a></td>
+			<td>Userspace implementation of file APIs using pmem</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/syscall_intercept">syscall_intercept</a></td>
+			<td>Syscall intercepting library used by libpmemfile</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/vltrace">vltrace</a></td>
+			<td>Tool for tracing syscalls</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/pynvm">pynvm</a></td>
+			<td>Experimental prototype Python bindings for libpmemobj</td>
 		</tr>
 	</table>
 </fieldset>
@@ -250,24 +280,8 @@ organization in GitHub under
 			<td>Initial pmem enhancements to RocksDB</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/pynvm">pynvm</a></td>
-			<td>Experimental prototype Python bindings for libpmemobj</td>
-		</tr>
-		<tr>
 			<td><a href="https://github.com/pmem/libcxx">libcxx</a></td>
 			<td>Experimental pmem-aware libcxx</td>
-		</tr>
-		<tr>
-			<td><a href="https://github.com/pmem/pmemfile">pmemfile</a></td>
-			<td>Userspace implementation of file APIs using pmem</td>
-		</tr>
-		<tr>
-			<td><a href="https://github.com/pmem/syscall_intercept">syscall_intercept</a></td>
-			<td>Syscall intercepting library used by libpmemfile</td>
-		</tr>
-		<tr>
-			<td><a href="https://github.com/pmem/vltrace">vltrace</a></td>
-			<td>Tool for tracing syscalls</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/mpi-pmem-ext">mpi-pmem-ext</a></td>
