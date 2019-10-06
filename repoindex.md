@@ -128,7 +128,7 @@ organization in GitHub under
 			<td><a href="https://github.com/pmem/vmem">vmem</a></td>
 			<td>libvmem, the predecessor to <strong>libmemkind</strong>.<br>
 			Maintenance-only -- use <strong>libmemkind</strong> for all new development.<br>
-			Moving <strong>libvmem</strong> here from the <strong>pmdk</strong> repo is currently in progress.</td>
+			Move from the <strong>pmdk</strong> repo is in progress.</td>
 		</tr>
 	</table>
 	<br><br>
