@@ -44,7 +44,7 @@ PMDK also includes a collection of tools, examples, and tutorials
 on persistent memory programming.
 
 * [read more about PMDK](/pmdk/)
-* [go directly to the source on GitHub](https://github.com/pmem/pmdk/)
+* [go directly to the source on GitHub](/repoindex)
 
 PMDK is vendor-neutral, started by Intel,
 motivated by the introduction of [Optane DC persistent
