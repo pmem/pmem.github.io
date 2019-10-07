@@ -30,7 +30,7 @@ organization in GitHub under
 		<tr>
 			<td><a href="https://github.com/pmem/issues">issues</a></td>
 			<td>Empty repo for issue tracking of
-			<a href="https://github.com/pmem/pmdk">pmdk</a> repo
+			<a href="https://github.com/pmem/pmdk">pmdk</a> repo<br>
 			(file new issues here)</td>
 		</tr>
 	</table>
