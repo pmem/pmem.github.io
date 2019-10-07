@@ -29,7 +29,8 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/issues">issues</a></td>
-			<td>Empty repo for centralized issue tracking<br>
+			<td>Empty repo for issue tracking of
+			<a href="https://github.com/pmem/pmdk">pmdk</a> repo
 			(file new issues here)</td>
 		</tr>
 	</table>
@@ -99,8 +100,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/valgrind">valgrind</a></td>
-			<td>Enhanced valgrind containg the<br>
-			<strong>pmemcheck</strong> plugin</td>
+			<td>Enhanced valgrind containg the <strong>pmemcheck</strong> plugin</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmdk-tests">pmdk-tests</a></td>
