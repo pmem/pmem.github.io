@@ -56,8 +56,7 @@ It is open source and welcomes community contributions.
 
 #### More Information
 
-The [Documents](/documents/) page contains links to additional
-reading material.
+The [Documents](https://docs.pmem.io) page contains more information.
 
 Your questions, comments, and contributions are welcome!  Join our
 [Google Group](http://groups.google.com/group/pmem), find us on

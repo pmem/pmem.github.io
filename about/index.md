@@ -10,32 +10,32 @@ programming model for persistent memory recommended by the
 [SNIA NVM Programming Technical Workgroup](http://snia.org/nvmp).
 
 What is _persistent memory_?  See the full definition used by this
-project on the [Glossary page](/glossary/).  In short, it is an
-emerging technology that introduces a new tier between memory and
-storage, a byte-addressable storage, accessed by the application
-using loads and stores like memory.  This new technology comes
-with a number of challenges which is why this project was created.
+project on the [Glossary page](/glossary/).  In short, it is a
+tier between memory and
+storage, with attributes of both: it is byte-addressable like memory,
+and persistent like storage.
 
 #### Contacting Us
 
 The PMDK team at
-[Intel Corporation](http://www.intel.com), led by
+[Intel Corporation](http://www.intel.com), started by
 [Andy Rudoff](mailto:andy.rudoff@intel.com), created this project
-on GitHub to encourage community development.
-Your participation,
-feedback, and questions are welcome.  You can:
+on GitHub to encourage community development.  To find the source
+for a specific component of PMDK, see the [repo index page](/repoindex).
 
+Your participation, feedback, and questions are welcome!
+
+* [Join our Google Group](http://groups.google.com/group/pmem) to
+  participate in discussions on persistent memory programming, including
+  the design of the libraries and future directions.
+* Join our **#pmem** Slack channel using this [invite link](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg).
+* Find us on IRC on the **#pmem** channel on [OFTC](http://www.oftc.net).
 * [Create an issue](https://github.com/pmem/issues/issues) in our GitHub
   issues database.  This is a good way to report problems or request new
   features.
-* [Join our Google Group](http://groups.google.com/group/pmem) to
-  participate in discussions on persistent memory programming, including
-  the design of the NVM Library API and future directions.
-* Find us on IRC on the **#pmem** channel on [OFTC](http://www.oftc.net).
 
 #### More Info
 
-See the [Documents area](/documents/) for a list
-of interesting publications related to persistent memory programming.
+The [Documents](https://docs.pmem.io) page contains more information.
 
 You can also subscribe to this blog [via RSS](/feed.xml).
