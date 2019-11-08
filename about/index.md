@@ -30,7 +30,7 @@ Your participation, feedback, and questions are welcome!
   the design of the libraries and future directions.
 * Join our **#pmem** Slack channel using this [invite link](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg).
 * Find us on IRC on the **#pmem** channel on [OFTC](http://www.oftc.net).
-* Create an issue in the appropriate [GitHub repo](/repoindex).  I you're unsure which
+* Create an issue in the appropriate [GitHub repo](/repoindex).  If you're unsure which
   repo the issue belongs in, file it as a [core PMDK](https://github.com/pmem/pmdk/issues) issue.
 
 #### More Info
