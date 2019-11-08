@@ -21,20 +21,6 @@ organization in GitHub under
 	help with the logistics of parallel development and
 	asynchronous delivery.
 	<br><br>
-	<strong>Issues Tracking:</strong>
-	<table>
-		<tr>
-			<th>Repo Name</td>
-			<th>Description</th>
-		</tr>
-		<tr>
-			<td><a href="https://github.com/pmem/issues">issues</a></td>
-			<td>Empty repo for issue tracking of
-			<a href="https://github.com/pmem/pmdk">pmdk</a> repo<br>
-			(file new issues here)</td>
-		</tr>
-	</table>
-	<br><br>
 	<strong>Components Focused on Persistence:</strong>
 	<table>
 		<tr>
@@ -286,6 +272,10 @@ organization in GitHub under
 		<tr>
 			<td><a href="https://github.com/pmem/mpi-pmem-ext">mpi-pmem-ext</a></td>
 			<td>MPI Extensions for pmem</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/issues">issues</a></td>
+			<td>Archive of some old issues.  No longer in-use.</td>
 		</tr>
 	</table>
 </fieldset>
