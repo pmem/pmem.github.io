@@ -149,6 +149,18 @@ organization in GitHub under
 			<td>Experimental prototype Python bindings for libpmemobj</td>
 		</tr>
 	</table>
+	<br><br>
+	<strong>Other:</strong>
+	<table>
+		<tr>
+			<th>Repo Name</td>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/dev-utils-kit">dev-utils-kit</a></td>
+			<td>Tools used for development of projects under pmem organization (WIP)</td>
+		</tr>
+	</table>
 </fieldset>
 <fieldset class="repo">
 	<legend>
