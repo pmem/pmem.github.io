@@ -37,7 +37,6 @@ organization in GitHub under
 					<li>libpmemlog
 					<li>librpmem
 					<li>libpmempool
-					<li>libvmem (move to its own <strong>vmem</strong> repo is in progress)
 					<li>pmempool utility
 					<li>Core PMDK C examples
 					<li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)
@@ -86,7 +85,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/valgrind">valgrind</a></td>
-			<td>Enhanced valgrind containg the <strong>pmemcheck</strong> plugin</td>
+			<td>Enhanced valgrind containing the <strong>pmemcheck</strong> plugin</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmdk-tests">pmdk-tests</a></td>
