@@ -1,0 +1,83 @@
+---
+title: libmemkind
+author: jschmieg
+layout: post
+identifier: libmemkind
+---
+
+
+# Introduction
+
+One of the components of PMDK is Libmemkind, a library which was developed to
+simplify
+usage of Persistent Memory in a volatile mode. NVDIMMs technology provides
+not only persistency, byte-addressability, but also a high capacity when
+compared
+with DRAM modules. By extension, they can be used as augmentation of
+main memory and utilized by applications which consume large amount of memory
+and
+ do not require persistency e.g. in-memory databases, caching engines and
+scientific simulations.
+
+# Libmemkind
+
+To benefit from NVDIMMs provided by Operating System as a new device on which
+the user
+can create file-system, it is necessary to have a way to provide memory to
+application / enable that application with new memory. Libmemkind fills this gap
+by utilizing jemalloc on temporary files created on NVDIMMs and acts as a memory
+allocator for applications.
+Libmemkind provides various memory pools called “kinds” for memories with
+miscellaneous characteristics: DRAM, Persistent Memory and High-Bandwidth
+Memory. This
+allows to partition a heap of the application between these kinds. On a system
+equipped
+with DRAM and NVDIMMs, it is possible to re-design the application in a way 
+to store objects that are accessed frequently and require fast access in DRAM
+while larger objects which are accessed less frequently can be stored on
+Persistent
+Memory. 
+
+# Managing application heap
+
+With libmemkind it is possible to allocate from DRAM by calling `memkind_malloc`
+function with static kind ` MEMKIND_DEFAULT`:
+```c
+void * ptr_default = memkind_malloc(MEMKIND_DEFAULT, size);
+```
+and from PMEM by calling the same function with dynamically created pmem kind
+pointing to directory on FS DAX:
+```c
+struct memkind *pmem_kind = NULL;
+memkind_create_pmem("/mnt/pmem", PMEM_MAX_SIZE, &pmem_kind);
+void * ptr_pmem = memkind_malloc(pmem_kind, size);
+```
+
+Freeing allocated objects is done by calling:
+```c
+memkind_free(MEMKIND_DEFAULT, ptr_default);
+memkind_free(pmem_kind, ptr_pmem);
+```
+To simplify the adoption of applications to many memory pools, it is worth using
+another library feature: calling `free` without specifying a kind that was used
+for the allocation. Library will automatically recognize if a given pointer
+belongs to DRAM or to PM. This precludes tracking each allocation origin in the
+application:
+```c
+memkind_free(NULL, ptr_default);
+memkind_free(NULL, ptr_pmem);
+```
+
+# Other features
+Libmemkind provides also:
+* rest of malloc-style API functions, 
+* an automatically increased pool size,
+* configuring memory policy: performance vs fragmentation,
+* C++ bindings,
+* choosing alternative heap manager (TBB).
+
+
+# Documentation
+The complete libmemkind manual can be found at 
+[memkind.github.io](http://memkind.github.io/memkind/man_pages/memkind.html).
+
