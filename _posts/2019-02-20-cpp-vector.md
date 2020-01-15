@@ -5,6 +5,8 @@ layout: post
 identifier: cpp_vector
 ---
 
+###### [Note: [pmem::obj::vector&lt;&gt;][pmem_obj_vector] is no longer experimental.  The rest of the information in this blog post is still accurate.]
+
 ### Introduction
 
 The main idea behind pmem containers is to fully exploit persistent memory potential
@@ -259,3 +261,4 @@ stay tuned!
 [cpp_containers]: http://pmem.io/2018/11/20/cpp-persistent-containers.html "blog post"
 [cpp_vector]: http://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html "pmem::obj:experimental:vector"
 [cpp_array_blogpost]: http://pmem.io/2018/11/02/cpp-array.html "here"
+[pmem_obj_vector]: https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html "pmem::obj::vector"
