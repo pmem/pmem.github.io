@@ -3,7 +3,7 @@ title: Home
 ---
 
 <p style="border:3px; border-style:solid; border-color:#FF0000; padding: 1em;">
-The [Programming Persistent Memory book](/book/) has been published!  This
+The <a href="book/">Programming Persistent Memory book</a> has been published!  This
 is a great resource, free to read online, for learning about the details
 of persistent memory programming.</p>
 
