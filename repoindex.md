@@ -37,7 +37,6 @@ organization in GitHub under
 					<li>libpmemlog
 					<li>librpmem
 					<li>libpmempool
-					<li>libvmem (move to its own <strong>vmem</strong> repo is in progress)
 					<li>pmempool utility
 					<li>Core PMDK C examples
 					<li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)
@@ -113,8 +112,7 @@ organization in GitHub under
 		<tr>
 			<td><a href="https://github.com/pmem/vmem">vmem</a></td>
 			<td>libvmem, the predecessor to <strong>libmemkind</strong>.<br>
-			Maintenance-only -- use <strong>libmemkind</strong> for all new development.<br>
-			Move from the <strong>pmdk</strong> repo is in progress.</td>
+			Maintenance-only -- use <strong>libmemkind</strong> for all new development.
 		</tr>
 	</table>
 	<br><br>
