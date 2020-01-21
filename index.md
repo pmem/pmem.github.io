@@ -10,7 +10,7 @@ of additional information.
 Here are some of the top links to related information:
 
 * [Persistent Memory Development Kit](/pmdk/)
-* Work-in-Progress [Programming Persistent Memory book](/book/)
+* [Programming Persistent Memory book](/book/)
 * [Persistent Memory Summit](https://www.snia.org/pm-summit)
 * [Intel Developer Zone for persistent memory](https://software.intel.com/en-us/persistent-memory)
 * [PIRL Conference](https://pirl.nvsl.io/program/) (Persistent Programming In Real Life)
