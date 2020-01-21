@@ -2,6 +2,11 @@
 title: Home
 ---
 
+<p style="border:3px; border-style:solid; border-color:#FF0000; padding: 1em;">
+The [Programming Persistent Memory book](/book/) has been published!  This
+is a great resource, free to read online, for learning about the details
+of persistent memory programming.</p>
+
 This site is dedicated to persistent memory programming.  If you're just
 getting started, head to the [Documentation Area](https://docs.pmem.io)
 for links to background information, a Getting Started Guide, and lots
@@ -10,7 +15,6 @@ of additional information.
 Here are some of the top links to related information:
 
 * [Persistent Memory Development Kit](/pmdk/)
-* Work-in-Progress [Programming Persistent Memory book](/book/)
 * [Persistent Memory Summit](https://www.snia.org/pm-summit)
 * [Intel Developer Zone for persistent memory](https://software.intel.com/en-us/persistent-memory)
 * [PIRL Conference](https://pirl.nvsl.io/program/) (Persistent Programming In Real Life)
