@@ -2,10 +2,13 @@
 title: Home
 ---
 
-<p style="border:4px; border-style:solid; border-color:#3498DB; padding: 1em;">
-The <a href="book/">Programming Persistent Memory book</a> has been published!  This
-is a great resource, free to read online, for learning about the details
-of persistent memory programming.</p>
+<table style="border:4px; border-style:solid; border-color:#3498DB; padding: 1em;">
+<tr><td>
+<a href="book/"><img src="assets/book.jpg" style="float:left"></a>
+The <a href="book/">Programming Persistent Memory book</a> is now available!
+This is a great resource, whether you're just learning about persistent memory
+or you want to deep dive into the programming details.
+You can read the book on-line <b>for free!</b></td></tr></table>
 
 This site is dedicated to persistent memory programming.  If you're just
 getting started, head to the [Documentation Area](https://docs.pmem.io)
