@@ -2,7 +2,7 @@
 title: Home
 ---
 
-<p style="border:3px; border-style:solid; border-color:#FF0000; padding: 1em;">
+<p style="border:4px; border-style:solid; border-color:#3498DB; padding: 1em;">
 The <a href="book/">Programming Persistent Memory book</a> has been published!  This
 is a great resource, free to read online, for learning about the details
 of persistent memory programming.</p>
