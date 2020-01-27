@@ -32,6 +32,7 @@ organization in GitHub under
 			<td>PMDK Core C libraries and tools:<br>
 				<ul>
 					<li>libpmem
+					<li>libpmem2 (in development)
 					<li>libpmemobj
 					<li>libpmemblk
 					<li>libpmemlog
