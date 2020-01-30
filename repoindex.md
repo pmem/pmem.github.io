@@ -49,6 +49,10 @@ organization in GitHub under
 			<td>C++ bindings &amp; containers for libpmemobj</td>
 		</tr>
 		<tr>
+			<td><a href="https://github.com/pmem/llpl">llpl</a></td>
+			<td>Low-Level Persistence Library for Java</td>
+		</tr>
+		<tr>
 			<td><a href="https://github.com/pmem/libpmemobj-js">libpmemobj-js</a></td>
 			<td>JavaScript bindings for libpmemobj</td>
 		</tr>
@@ -126,10 +130,6 @@ organization in GitHub under
 		<tr>
 			<td><a href="https://github.com/pmem/pcj">pcj</a></td>
 			<td>Persistent Collections for Java</td>
-		</tr>
-		<tr>
-			<td><a href="https://github.com/pmem/llpl">llpl</a></td>
-			<td>Low-Level Persistence Library for Java</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmemfile">pmemfile</a></td>
