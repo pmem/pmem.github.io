@@ -1,0 +1,151 @@
+---
+title: Language bindings for pmemkv
+author: lukaszstolarczuk
+layout: post
+identifier: pmemkv-bindings
+---
+
+[pmemkv][pmemkv_pmem_io] is a local/embedded key-value datastore optimized for persistent memory.
+It is written in C and C++, but to satisfy a wider audience it comes with several bindings
+for high-level languages. Currently: Java (with JNI), Node.js, Python and Ruby.
+
+Picture below illustrates architecture and software stack of pmemkv and its bindings.
+![pmemkv_bindings_image](/assets/pmemkv_bindings.png)
+
+The most up-to-date information about pmemkv and its bindings are located in
+[pmemkv's README file][pmemkv_bindings_readme].
+
+### Common for bindings
+
+There are few common characteristics of all bindings:
+
+#### Compatibility with libpmemkv 1.0
+
+All of our currently released bindings work properly with libpmemkv 1.0. Unfortunately their API
+may not be functionally equivalent to the native C/C++ API. **Bindings which are
+in version 1.0** deliver API compatible with **pmemkv 1.0**. Pmemkv's binding
+released in version X.Y is always compatible with pmemkv in the same X.Y version.
+Additionally, bindings with major version 0 should be considered experimental.
+
+The pmemkv project is currently undergoing constant development, and it is likely that
+the core library feature set will outpace features of the various bindings. Moreover,
+individual bindings are developed independently. To see if a feature is present,
+it is recommended to check documentation or a changelog for specific bindings.
+
+#### Idiomatic language support
+
+Each binding is developed to be as natural to the language as possible and hence
+some parts of the API may slightly differ from the one known from pmemkv.
+
+For example, statuses returned by pmemkv are translated into numeric value or wrapped
+into exceptions. What's more, bindings using exceptions do not use status "OK", they just
+return nothing or a numeric value (of `PMEMKV_STATUS_OK`) if no error occurred.
+
+In various functions return values may also differ - to see details of each API
+read binding's documentation or (to compare) pmemkv's man pages.
+
+Each language has also different system of packaging and installation, so we use approach
+native to (or one of the most common for) each binding's language.
+
+#### Not always direct access to data
+
+Only half of our bindings (explicitly noted below) do support direct access to the data stored
+in the persistent memory. The other half need to use buffer to copy the data to.
+
+#### Examples, tests and CI
+
+Each repository includes:
+* examples, showing basic library usage,
+* tests, verifying current implementation,
+* Continuous Integration system, to check all incoming changes.
+
+#### Contributions are welcome
+
+All pmemkv related repositories are open source and BSD-licensed, so we welcome any contributions.
+
+### pmemkv-nodejs
+
+Node.js binding is the first one to be released in the stable version (1.0). This guarantees
+backward compatibility and stable API, compatible with **libpmemkv 1.0**. This binding supports
+direct access to the data stored in the persistent memory.
+
+It also delivers API description in form of JSDoc documentation (accessible e.g. as html in
+[here](nodejs_pmem_io)) and NodeJS-native support for configuring engines by JSON object.
+This binding uses exception for error handling. It uses npm for distribution, and can be installed
+with command `npm install` executed within the source directory. It then installs the dependencies
+listed in package.json in the local node_modules folder.
+
+For more information, such as required dependencies, usage and full installation guide,
+see [pmemkv-nodejs github repository][nodejs_gh].
+
+### pmemkv-python
+
+This is the second binding to be released in version 1.0. This guarantees backward compatibility
+and stable API, compatible with **libpmemkv 1.0**. It supports direct access to the data
+on the persistent memory.
+
+It also delivers API description in form of PyDoc documentation (accessible e.g. as html in
+[here](py_pmem_io)) and Python-native data type (`dict`) to store engine's configuration items.
+It uses exception for error handling. To install this project in your system it's required
+to type in: `python3 setup.py install [--user]`, and then it is installed in a system path
+or (when optional parameter `--user` is given) within user's files (`~/.local/lib/`).
+
+For more information, such as required dependencies, usage and full installation guide,
+see [pmemkv-python github repository][py_gh].
+
+### pmemkv-java
+
+Latest released version is 0.9 and and is compatible with libpmemkv 1.0, but comes with no
+guarantees of stable API. It uses exception for error handling. This binding uses JNI to
+interoperate with C and that pmemkv C JNI implementation is delivered in a separate repository.
+Installation process, when pmemkv and pmemkv-jni are installed in the system, comes down to
+executing, within source directory, command: `mvn install`.
+
+For more information, such as required dependencies, usage and full installation guide,
+see [pmemkv-java github repository][java_gh]. To see the repository of JNI content,
+see [pmemkv-jni github repository][jni_gh].
+
+### pmemkv-ruby
+
+It's currently released in version 0.9 and is compatible with libpmemkv 1.0, but comes
+with no guarantees of stable API. It uses exception for error handling.
+Installation of this project and its dependencies is done using bundler
+(`gem install bundler -v '< 2.0'`) and it then comes down to executing command: `bundle install`.
+
+For more information, such as required dependencies, usage and full installation guide,
+see [pmemkv-ruby github repository][ruby_gh].
+
+### Summary
+
+| Language  | Version | URL |
+| --------- | ------- | --- |
+| **Node.js** | **1.0** | **[GitHub][nodejs_gh]**, **[docs][nodejs_pmem_io]** |
+| **Python** | **1.0** | **[GitHub][py_gh]**, **[docs][py_pmem_io]** |
+| Java | 0.9 | [GitHub][java_gh] |
+| Ruby | 0.9 | [GitHub][ruby_gh] |
+
+### Looking forward
+
+If resources allow us, we may deliver more bindings in the future, but we also encourage all
+to create their own bindings. We are currently aware of two community developed bindings:
+* [Rust binding][rust_binding_iss],
+* [Go binding][go_binding_iss].
+
+If you feel like we're missing some language, that may be useful to have in our portfolio,
+or you just want to let us know we don't have information about some (possibly yours) pmemkv's binding,
+or your feel like we're missing some functionalities, please [file an issue in pmemkv's repository][new_pmemkv_iss]
+to let us know. We are always eager to help our community grow.
+
+
+[pmemkv_pmem_io]: https://pmem.io/pmemkv/
+[pmemkv_bindings_readme]: https://github.com/pmem/pmemkv/#language-bindings
+[nodejs_gh]: https://github.com/pmem/pmemkv-nodejs
+[nodejs_pmem_io]: https://pmem.io/pmemkv-nodejs
+[py_gh]: https://github.com/pmem/pmemkv-python
+[py_pmem_io]: https://pmem.io/pmemkv-python
+[java_gh]: https://github.com/pmem/pmemkv-java
+[jni_gh]: https://github.com/pmem/pmemkv-jni
+[ruby_gh]: https://github.com/pmem/pmemkv-ruby
+[rust_binding_iss]: https://github.com/pmem/pmemkv/issues/192
+[go_binding_iss]: https://github.com/pmem/pmemkv/issues/190
+[new_pmemkv_iss]: https://github.com/pmem/pmemkv/issues
