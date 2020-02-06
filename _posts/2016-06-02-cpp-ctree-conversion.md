@@ -151,4 +151,4 @@ but your feedback is invaluable. [Thank you!][ecfe85f3]
 [ecfe85f3]: http://giphy.com/gifs/end-looney-tunes-thats-all-folks-jYAGkoghdmD9S "That's all folks!"
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
-###### [This entry was edited on 2018-07-06 to chnage links to examples]
+###### [This entry was edited on 2018-07-06 to change links to examples]

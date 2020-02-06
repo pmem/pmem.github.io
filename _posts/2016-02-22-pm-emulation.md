@@ -83,7 +83,7 @@ On UEFI-based machines:
 # sudo grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
 {% endhighlight %}
 
-After machine reboot you should be able to see the emulated device as `/dev/pmem0`. Please be aware of the memory ranges available to your OS, and try not to overlap with those. Trying to get reserved memory regions for persistent memory emulation will result in splitted memory ranges defining persistent (type 12) regions. General recommendation would be to either use memory from 4GB+ range (`memmap=nnG!4G`) or checking upfront e820 memory map and fitting within.
+After machine reboot you should be able to see the emulated device as `/dev/pmem0`. Please be aware of the memory ranges available to your OS, and try not to overlap with those. Trying to get reserved memory regions for persistent memory emulation will result in split memory ranges defining persistent (type 12) regions. General recommendation would be to either use memory from 4GB+ range (`memmap=nnG!4G`) or checking upfront e820 memory map and fitting within.
 If you don't see the device, verify the `memmap` setting correctness, followed by `dmesg(1)` analysis. You should be able to see reserved ranges as shown on the dmesg output snapshot:
 ![dmesg](/assets/dmesg.png)
 
@@ -91,7 +91,7 @@ You can see that there can be multiple non-overlapping regions reserved as a per
 
 ### DAX - Direct Access
 The DAX (direct access) extensions to the filesystem creates PM-aware environment.
-Having filesystem brings easy and reliable rights management, while with DAX add-on, any file that is memory maped with `mmap(2)` is directly mapped from physical addres range into process virtual memory addresses.
+Having filesystem brings easy and reliable rights management, while with DAX add-on, any file that is memory mapped with `mmap(2)` is directly mapped from physical address range into process virtual memory addresses.
 For those files there is no paging, and load/store operations provide direct access to persistent memory.
 
 Install filesystem with DAX (available today for ext4 and xfs):

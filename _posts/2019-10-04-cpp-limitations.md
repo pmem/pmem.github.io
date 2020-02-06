@@ -253,7 +253,7 @@ template <typename T>
 struct std::is_standard_layout;
 {% endhighlight %}
 
-They are corelated with each other. The most general and restrictive is definition of POD type
+They are correlated with each other. The most general and restrictive is definition of POD type
 (however, `std::is_pod` will be deprecated in C++20): 
 
 ![diagram](/assets/cpptraitsdiagram.png)
