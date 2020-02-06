@@ -5,8 +5,8 @@ layout: post
 ---
 
 We've blogged before about
-[building](http://pmem.io/2015/07/31/diy-kvstore.html) and
-[optimizing](http://pmem.io/2015/09/10/kvstore2.html)
+[building](https://pmem.io/2015/07/31/diy-kvstore.html) and
+[optimizing](https://pmem.io/2015/09/10/kvstore2.html)
 key-value stores for persistent memory, and we're excited to
 put these ideas to the test in a more formal way.
 

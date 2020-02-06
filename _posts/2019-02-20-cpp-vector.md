@@ -258,7 +258,7 @@ libpmemobj-cpp library provides two persistent containers now: `pmem::obj:array`
 and `pmem::obj:experimental:vector`. We are currently working on `pmem::obj::string` implementation,
 stay tuned!
 
-[cpp_containers]: http://pmem.io/2018/11/20/cpp-persistent-containers.html "blog post"
-[cpp_vector]: http://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html "pmem::obj:experimental:vector"
-[cpp_array_blogpost]: http://pmem.io/2018/11/02/cpp-array.html "here"
+[cpp_containers]: https://pmem.io/2018/11/20/cpp-persistent-containers.html "blog post"
+[cpp_vector]: https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html "pmem::obj:experimental:vector"
+[cpp_array_blogpost]: https://pmem.io/2018/11/02/cpp-array.html "here"
 [pmem_obj_vector]: https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html "pmem::obj::vector"

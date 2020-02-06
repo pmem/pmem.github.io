@@ -149,7 +149,7 @@ attributes as in "json" formatted output).
 
 [1fioLink]: https://github.com/axboe/fio
 [ndctlLnk]: https://github.com/pmem/ndctl
-[13rde117]: http://pmem.io/2016/02/22/pm-emulation.html
+[13rde117]: https://pmem.io/2016/02/22/pm-emulation.html
 [191te3w1]: https://github.com/axboe/fio/blob/master/HOWTO
 [191te3w2]: https://github.com/axboe/fio/blob/master/HOWTO#L3292
 [44ku0112]: https://github.com/axboe/fio/tree/master/engines

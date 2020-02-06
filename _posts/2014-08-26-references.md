@@ -22,7 +22,7 @@ Systems (ASPLOS 2011), March 2011, Newport Beach, California.
 
 and explore the website, which includes full source and documentation:
 
-- [http://research.cs.wisc.edu/sonar/projects/mnemosyne/](http://research.cs.wisc.edu/sonar/projects/mnemosyne/)
+- [https://research.cs.wisc.edu/sonar/projects/mnemosyne/](https://research.cs.wisc.edu/sonar/projects/mnemosyne/)
 
 Another very relevant project is **NV-Heaps**.  Read the paper:
 
@@ -41,8 +41,8 @@ companies working together on NVM programming models, including
 Persistent Memory.  You can read more about the TWG and see the
 programming model specification here:
 
-- [http://snia.org/nvmp](http://snia.org/nvmp)
+- [https://snia.org/nvmp](https://snia.org/nvmp)
 
 The basics of NVDIMM at Wikipedia, with lots of additional links:
 
-- [http://en.wikipedia.org/wiki/NVDIMM](http://en.wikipedia.org/wiki/NVDIMM)
+- [https://en.wikipedia.org/wiki/NVDIMM](https://en.wikipedia.org/wiki/NVDIMM)

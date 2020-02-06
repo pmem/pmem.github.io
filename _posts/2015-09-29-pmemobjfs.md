@@ -470,7 +470,7 @@ The tests were run on the following file systems:
 The *pmemobjfs (NTB)* is a **pmemobjfs** version without tracking file blocks
 (PMEMOBJFS_TRACK_BLOCKS=0).
 The *fusexmp_fh* is a file system which redirects all operations to the
-root file system. It is available in the [FUSE](http://sourceforge.net/projects/fuse/)
+root file system. It is available in the [FUSE](https://sourceforge.net/projects/fuse/)
 examples.
 
 The results are presented in the following table:
@@ -491,6 +491,6 @@ The **pmemobjfs** example shows how the **libpmemobj** API works in a real
 application. It can be used to run some performance tests using well known
 file system test suites. If you have any questions or ideas for improvement
 of the **pmemobjfs** please feel free to join a discussion on our
-[Google Group](http://groups.google.com/group/pmem).
+[Google Group](https://groups.google.com/group/pmem).
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

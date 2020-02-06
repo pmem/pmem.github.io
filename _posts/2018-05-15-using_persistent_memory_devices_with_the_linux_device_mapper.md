@@ -17,11 +17,11 @@ The Linux device mapper is a framework provided by the kernel for mapping physic
 
 Support for persistent memory devices and emulation of devices is present in Kernel v4.0 or later.  Kernel v4.2 or newer has the feature is enabled by default.  Kernel v4.15 or newer is recommended for production as it has performance improvements.
 
-DAX support is a feature of the individual device-mapper target driver.  Not all target drivers have or require DAX support.  Both the 'linear' and 'stripe' target drivers have the DAX feature.  The downside of these configurations is when a single device fails, access to the data also fails.  Applications will need to be designed to handle all failure conditions.  On the plus side, creating virtual devices allows for more flexible configuration options.  DAX has not been added to the 'raid' module due to metadata overhead, IO to page alignment requirements, and performance reasons.  Data can be protected and replicated using 'replication pool sets' which you can read more about in '[An Introduction to Replication](http://pmem.io/2015/11/23/replication-intro.html)'.
+DAX support is a feature of the individual device-mapper target driver.  Not all target drivers have or require DAX support.  Both the 'linear' and 'stripe' target drivers have the DAX feature.  The downside of these configurations is when a single device fails, access to the data also fails.  Applications will need to be designed to handle all failure conditions.  On the plus side, creating virtual devices allows for more flexible configuration options.  DAX has not been added to the 'raid' module due to metadata overhead, IO to page alignment requirements, and performance reasons.  Data can be protected and replicated using 'replication pool sets' which you can read more about in '[An Introduction to Replication](https://pmem.io/2015/11/23/replication-intro.html)'.
 
 The `dmsetup` utility is a low-level tool used to create and manage devices.  Linux Volume Manager (LVM) commands also allow the creation of logical volumes using all DAX capable devices, such as pmem.  The logical volume inherits DAX features if created using DAX devices.  Once a logical volume is set to DAX capable, the volume may not be extended with non-DAX capable devices.
 
-The rest of this article assumes either physical or emulated persistent memory devices exist and are accessible via /dev/pmem{N}.  Refer to [How To Emulate Persistent Memory](http://pmem.io/2016/02/22/pm-emulation.html) for instructions.
+The rest of this article assumes either physical or emulated persistent memory devices exist and are accessible via /dev/pmem{N}.  Refer to [How To Emulate Persistent Memory](https://pmem.io/2016/02/22/pm-emulation.html) for instructions.
 
 
 <br/>

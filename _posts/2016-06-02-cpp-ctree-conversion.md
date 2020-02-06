@@ -145,10 +145,10 @@ but your feedback is invaluable. [Thank you!][ecfe85f3]
 
 [27f95bc8]: https://github.com/pmem/libpmemobj-cpp/blob/master/examples/map_cli/ctree_map_transient.hpp "transient ctree"
 [2ee5f9a5]: https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/tree_map/ctree_map.c "C ctree"
-[b60cbeed]: http://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "unicorns and rainbows"
+[b60cbeed]: https://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "unicorns and rainbows"
 [033d3abb]: https://github.com/pmem/valgrind "pmemcheck"
 [c14a5bbd]: https://github.com/pmem/libpmemobj-cpp/blob/master/examples/map_cli "ctree examples"
-[ecfe85f3]: http://giphy.com/gifs/end-looney-tunes-thats-all-folks-jYAGkoghdmD9S "That's all folks!"
+[ecfe85f3]: https://giphy.com/gifs/end-looney-tunes-thats-all-folks-jYAGkoghdmD9S "That's all folks!"
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]
 ###### [This entry was edited on 2018-07-06 to change links to examples]

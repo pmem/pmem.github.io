@@ -22,7 +22,7 @@ programmers with efficient and useful containers.
 Code reuse is a common programming principle, and we took it to heart when
 sometime ago we experimented with persistent memory containers by introducing
 custom persistent allocator for `libc++` STL containers. You can read more about
-this approach [in this blog post](http://pmem.io/2017/07/10/cpp-containers.html).
+this approach [in this blog post](https://pmem.io/2017/07/10/cpp-containers.html).
 As it turns out, there are some hard to overcome obstacles with using existing
 STL containers. The two main downsides are:
 
@@ -74,7 +74,7 @@ list the most important ideas:
 	as a design error.
 
 You can read more about template parameter type restrictions for
-`pmem::obj::persistent_ptr<T>` class in PMDK C++ bindings [doxygen documentation](http://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1persistent__ptr.html).
+`pmem::obj::persistent_ptr<T>` class in PMDK C++ bindings [doxygen documentation](https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1persistent__ptr.html).
 
 ### Data structures
 
@@ -84,7 +84,7 @@ implementation is quite important.
 
 We have already finished the first container - an `array`. It is included in
 `pmem::obj::experimental` namespace and you can read more about it in
-[this blog post](http://pmem.io/2018/11/02/cpp-array.html).
+[this blog post](https://pmem.io/2018/11/02/cpp-array.html).
 
 We have been working on implementation of `vector` for some time and the next
 scheduled containers are `string`, `map` and `unordered_map`. We might change
@@ -107,4 +107,4 @@ programming models.
 
 We will continue our research efforts in area of purely functional persistent
 data structures, concepts of filters and further optimizations (like
-`pmem::obj::slice` idea, also described in [blog post about array](http://pmem.io/2018/11/02/cpp-array.html)).
+`pmem::obj::slice` idea, also described in [blog post about array](https://pmem.io/2018/11/02/cpp-array.html)).

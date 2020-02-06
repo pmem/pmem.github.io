@@ -22,7 +22,7 @@ architecture for exposing persistent memory up the stack.
 
 The picture above shows the _walk_ phase of persistent memory
 support: exposing persistent memory up the stack so applications
-can leverage it.  When the [SNIA NVM Programming TWG](http://snia.org/nvmp)
+can leverage it.  When the [SNIA NVM Programming TWG](https://snia.org/nvmp)
 (Technical Work Group) was discussing how persistent memory was
 exposed, there was a pervasive feeling in the group that the
 best approach would leverage existing mechanisms, like the file system
@@ -49,7 +49,7 @@ directly work without modification.  But the more disruptive path
 (and the more interesting to this project) is the rightmost path
 where the application opens a file using a _persistent memory aware
 file system_ and then memory-maps that file.  This is done in Linux
-using the [mmap(2)](http://linux.die.net/man/2/mmap) system call.
+using the [mmap(2)](https://linux.die.net/man/2/mmap) system call.
 
 So this is the _walk_ phase for persistent memory: when an application
 memory-maps a file from a _persistent memory aware file system_ it
