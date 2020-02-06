@@ -171,7 +171,7 @@ And finally, send the changes back to the original PMDK repository:
 
 * Using the GitHub web interface, navigate to your repo
 and submit a **pull request**.  This will automatically trigger
-a [Travis Build](http://travis-ci.org), so good thing you already
+a [Travis Build](https://travis-ci.org), so good thing you already
 made sure your changes build correctly!  The PMDK gatekeeper will
 review your pull request, perhaps comment on it, perhaps accept it.
 If you find you need to make more changes due to comments, just
@@ -180,7 +180,7 @@ continue again from the step above where you are editing & committing.
 updates.  Although this conversation happens in the pull request
 managed by GitHub, you are always welcome to ask questions and make
 suggestions to the entire team using the
-[Google Group](http://groups.google.com/group/pmem).
+[Google Group](https://groups.google.com/group/pmem).
 * After review usually it's best to squash your commits with fixes the same
 way as described above (`git rebase -i`). When you try again to push your
 changes you may encounter git error "failed to push". In such case it's

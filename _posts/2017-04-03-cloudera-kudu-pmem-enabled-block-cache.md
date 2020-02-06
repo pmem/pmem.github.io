@@ -10,7 +10,7 @@ identifier: apache_kudu_pmem_block_cache
 An early project done with the NVM libraries was adding persistent memory support, both volatile and persistent mode, into the Apache Kudu storage engine block cache. This project required modification of existing code.
 
 Apache Kudu:
-<http://github.com/apache/kudu>
+<https://github.com/apache/kudu>
 
 My repository with the modified code:
 <https://github.com/sarahjelinek/kudu>, branch: sarah_kudu_pmem

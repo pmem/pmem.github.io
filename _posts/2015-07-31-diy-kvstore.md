@@ -39,7 +39,7 @@ implementation itself doesn't not differ too much from what a volatile one would
 look like. I suspect that if one removed all the pmemobj specific stuff both
 trees would probably work fine as a volatile structures.
 
-#### [Crit-bit Tree](http://cr.yp.to/critbit.html)
+#### [Crit-bit Tree](https://cr.yp.to/critbit.html)
 
 This is a very simple to implement data structure whose insert operation, once
 the destination node of the new entry is found, does exactly **one** store to

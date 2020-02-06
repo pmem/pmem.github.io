@@ -173,12 +173,12 @@ The first message tells you that you flushed the first store twice (you get one 
 This concludes the introduction to basic and advanced features of pmemcheck. In the next blog post I will explain how the built-in transaction support in pmemcheck works.
 
 [655a3db3]: https://github.com/pmem/valgrind "Valgrind-pmemcheck"
-[d324cfe0]: http://htmlpreview.github.com/?https://github.com/pmem/valgrind/blob/pmem/docs/html/pmc-manual.html "Pmemcheck documentation"
-[b4b537ec]: http://valgrind.org/ "Valgrind"
+[d324cfe0]: https://htmlpreview.github.com/?https://github.com/pmem/valgrind/blob/pmem/docs/html/pmc-manual.html "Pmemcheck documentation"
+[b4b537ec]: https://valgrind.org/ "Valgrind"
 [41493750]: https://github.com/pmem/valgrind/issues "pmemcheck issues"
-[e0997ea1]: http://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "Magic"
-[8f99b01c]: http://www.valgrind.org/docs/pubs.html "Valgrind Research Papers"
-[5428585d]: http://www.valgrind.org/docs/manual/manual-core-adv.html#manual-core-adv.clientreq "Client Request Mechanism"
-[c5f40b9e]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"
+[e0997ea1]: https://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "Magic"
+[8f99b01c]: https://www.valgrind.org/docs/pubs.html "Valgrind Research Papers"
+[5428585d]: https://www.valgrind.org/docs/manual/manual-core-adv.html#manual-core-adv.clientreq "Client Request Mechanism"
+[c5f40b9e]: https://pmem.io/pmdk/ "Persistent Memory Development Kit"
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

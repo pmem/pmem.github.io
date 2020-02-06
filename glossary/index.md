@@ -12,13 +12,13 @@ are different.  Here's how these terms are used by this project.
 **Non-Volatile Memory (NVM)**
 
 This term refers to the category of solid-state storage devices,
-from the [Flash Memory](http://en.wikipedia.org/wiki/Flash_memory)
+from the [Flash Memory](https://en.wikipedia.org/wiki/Flash_memory)
 used in Solid State Disk (SSD) drives, to battery-backed up
 memory cards, to the emerging non-volatile technologies such
-as [3D XPoint](http://en.wikipedia.org/wiki/3D_XPoint),
-[PCM](http://en.wikipedia.org/wiki/Phase-change_memory),
-[Memristor](http://en.wikipedia.org/wiki/Memristor),
-[STT-RAM](http://en.wikipedia.org/wiki/Spin-transfer_torque), etc.
+as [3D XPoint](https://en.wikipedia.org/wiki/3D_XPoint),
+[PCM](https://en.wikipedia.org/wiki/Phase-change_memory),
+[Memristor](https://en.wikipedia.org/wiki/Memristor),
+[STT-RAM](https://en.wikipedia.org/wiki/Spin-transfer_torque), etc.
 
 In this project we use the term _NVM_ to refer to the entire class
 of non-volatile technologies.  For the faster varieties, where direct,
@@ -61,4 +61,4 @@ can use storage (like your laptop's disk) to try out the PMDK libraries
 and you will get correct results.  But you won't see performant
 results unless you use actual persistent memory.
 
-[pmdk]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"
+[pmdk]: https://pmem.io/pmdk/ "Persistent Memory Development Kit"

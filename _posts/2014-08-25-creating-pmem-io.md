@@ -11,7 +11,7 @@ open source under the "three-clause" BSD license.
 
 Some educational [Linux examples](https://github.com/pmem/linux-examples)
 are included, which demonstrate the
-[SNIA NVM programming model](http://snia.org/nvmp) and some of the
+[SNIA NVM programming model](https://snia.org/nvmp) and some of the
 interesting features and challenges associated with persistent memory.
 
 The team's initial focus is the Linux [NVM Library](/nvml/) which
@@ -67,7 +67,7 @@ at the local URL `http://0.0.0.0:4000/`.
 
 The rest of the details (like how to write a `_config.yml` or create
 templates or includes) can all be found in the
-[Jekyll documentation](http://jekyllrb.com/) or you can look
+[Jekyll documentation](https://jekyllrb.com/) or you can look
 at the [source for this web site](https://github.com/pmem/pmem.github.io/)
 for details.
 

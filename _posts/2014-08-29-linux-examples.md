@@ -34,4 +34,4 @@ free to ask questions, comment on it, or contribute to it.
 contains all sorts of details on the examples.)
 A good
 place to send questions or comments is our
-[Google Group](http://groups.google.com/group/pmem).
+[Google Group](https://groups.google.com/group/pmem).

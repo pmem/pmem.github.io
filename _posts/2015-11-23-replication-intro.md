@@ -62,8 +62,8 @@ For now, we envision adding more administrative functions to the pmempool tool. 
 We plan on supporting basic 1:1 remote replication using standard network transports.  The design of the remote replication will be such that existing PMDK based applications that utilize 1:1 local replication can also utilize 1:1 remote replication without changes to the application.
 
 [6534d9c4]: https://github.com/pmem/issues/issues "pmem-issues"
-[b4af9cfb]: http://linux.die.net/man/2/mmap "mmap"
-[6d977c8e]: http://pmem.io/pmdk/pmempool/ "pmempool"
-[1d90594e]: http://pmem.io/pmdk/libpmemobj/libpmemobj.3.html "pmemobj-manpages"
+[b4af9cfb]: https://linux.die.net/man/2/mmap "mmap"
+[6d977c8e]: https://pmem.io/pmdk/pmempool/ "pmempool"
+[1d90594e]: https://pmem.io/pmdk/libpmemobj/libpmemobj.3.html "pmemobj-manpages"
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

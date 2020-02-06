@@ -21,9 +21,9 @@ a memory-mapped file, using a _persistent memory aware file system_
 as shown in the picture.  But that's a very **raw** form of access.
 Stopping there would be like telling applications they have all the
 dynamic memory they need because the OS provides the
-[sbrk(2)](http://linux.die.net/man/2/sbrk) system call.  Just as
+[sbrk(2)](https://linux.die.net/man/2/sbrk) system call.  Just as
 libc and most other language run-time environments provide memory
-management APIs like [malloc(3) and free(3)](http://linux.die.net/man/3/malloc),
+management APIs like [malloc(3) and free(3)](https://linux.die.net/man/3/malloc),
 which build on the raw interfaces like sbrk(), we need to do something
 similar for persistent memory.  Memory-mapping a pmem file gets you
 direct access, but then you will want to carve it up into data structures
