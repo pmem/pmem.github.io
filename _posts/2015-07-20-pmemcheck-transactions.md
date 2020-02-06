@@ -246,7 +246,7 @@ This concludes the pmemcheck's built-in transaction support. If you want to know
 [40b153e7]: https://pmem.io/pmdk/libpmemobj/ "pmemobj"
 [57acd504]: https://pmem.io/2015/06/15/transactions.html "pmemobj transactions"
 [c749cb90]: https://pmem.io/blog/ "Blog posts"
-[d324cfe0]: https://htmlpreview.github.com/?https://github.com/pmem/valgrind/blob/pmem/docs/html/pmc-manual.html "Pmemcheck documentation"
+[d324cfe0]: https://github.com/pmem/valgrind/blob/pmem-3.15/pmemcheck/docs/pmc-manual.xml "Pmemcheck documentation"
 [aa87ca41]: https://pmem.io/2015/09/16/mt-tx.html "Challenges of multi-threaded transactions"
 [051ba546]: https://github.com/pmem/valgrind/blob/pmem/pmemcheck/tests/trans_mt_cross.c "Pmemcheck test"
 

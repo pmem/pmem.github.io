@@ -173,7 +173,7 @@ The first message tells you that you flushed the first store twice (you get one 
 This concludes the introduction to basic and advanced features of pmemcheck. In the next blog post I will explain how the built-in transaction support in pmemcheck works.
 
 [655a3db3]: https://github.com/pmem/valgrind "Valgrind-pmemcheck"
-[d324cfe0]: https://htmlpreview.github.com/?https://github.com/pmem/valgrind/blob/pmem/docs/html/pmc-manual.html "Pmemcheck documentation"
+[d324cfe0]: https://github.com/pmem/valgrind/blob/pmem-3.15/pmemcheck/docs/pmc-manual.xml "Pmemcheck documentation"
 [b4b537ec]: https://valgrind.org/ "Valgrind"
 [41493750]: https://github.com/pmem/valgrind/issues "pmemcheck issues"
 [e0997ea1]: https://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "Magic"
