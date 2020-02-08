@@ -90,7 +90,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/valgrind">valgrind</a></td>
-			<td>Enhanced valgrind containg the <strong>pmemcheck</strong> plugin</td>
+			<td>Enhanced valgrind containing the <strong>pmemcheck</strong> plugin</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmdk-tests">pmdk-tests</a></td>

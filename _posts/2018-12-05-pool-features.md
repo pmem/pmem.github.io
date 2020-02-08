@@ -42,7 +42,7 @@ Resulting in the following alternatives:
 	- if it's a compatible feature, it's disabled
 	- if it's an incompatible feature, the pool cannot be opened
 
-## CKSUM_2K dependant features
+## CKSUM_2K dependent features
 
 The first 4K of a pool is reserved for a pool header. The pool header is
 checksummed to ensure its consistency. If `CKSUM_2K` feature is enabled, only

@@ -197,7 +197,7 @@ next process that attaches to the same persistent memory region to somehow deal
 with the interrupted operation.
 And finally, we have to ask ourselves if this is really what we want to do? Is
 making a persistent doubly-linked list the goal? From my experience,
-creating a data structure or an alogrithm is just a means to an end. Once we
+creating a data structure or an algorithm is just a means to an end. Once we
 change our assumptions about memory a little bit, it might make more sense
 to reconsider our initial instinct of just using what we know.
 

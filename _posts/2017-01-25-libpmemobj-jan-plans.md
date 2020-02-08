@@ -36,7 +36,7 @@ POBJ_CANCEL(my_data);
 
 ```
 
-We are adopting this approach in libpmemobj for improved flexibilty of our API.
+We are adopting this approach in libpmemobj for improved flexibility of our API.
 There are many, otherwise impossible, constructs that this enables. For example,
 you can reserve and initialize objects from multiple threads but publish
 them in a single transaction.
