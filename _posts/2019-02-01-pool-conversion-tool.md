@@ -110,7 +110,7 @@ and then use pmdk-convert.
 pmdk-convert does not support conversion of pools with remote replicas.
 To convert such pools, the following workaround must be used.
 
-1. A remote replica needs to be removed by [pmempool transform command](http://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html).
+1. A remote replica needs to be removed by [pmempool transform command](https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html).
 Before calling pmempool transform, you have to prepare a new poolset file
 without a remote replica.
 ```bash

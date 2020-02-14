@@ -240,14 +240,14 @@ This means that on line 8 we started a transaction that didn't end. This means t
 This concludes the pmemcheck's built-in transaction support. If you want to know more about pmemcheck please take a look at the provided [documentation][d324cfe0]. I hope this tool will prove useful in your endeavor into persistent memory programming.
 
 
-[a7a3d90c]: http://valgrind.org/info/tools.html#drd "DRD"
-[717a4630]: http://valgrind.org/info/tools.html#helgrind "Helgrind"
-[806fc533]: http://pmem.io/pmdk/ "Persistent Memory Development Kit"
-[40b153e7]: http://pmem.io/pmdk/libpmemobj/ "pmemobj"
-[57acd504]: http://pmem.io/2015/06/15/transactions.html "pmemobj transactions"
-[c749cb90]: http://pmem.io/blog/ "Blog posts"
-[d324cfe0]: http://htmlpreview.github.com/?https://github.com/pmem/valgrind/blob/pmem/docs/html/pmc-manual.html "Pmemcheck documentation"
-[aa87ca41]: http://pmem.io/2015/09/16/mt-tx.html "Challenges of multi-threaded transactions"
+[a7a3d90c]: https://valgrind.org/info/tools.html#drd "DRD"
+[717a4630]: https://valgrind.org/info/tools.html#helgrind "Helgrind"
+[806fc533]: https://pmem.io/pmdk/ "Persistent Memory Development Kit"
+[40b153e7]: https://pmem.io/pmdk/libpmemobj/ "pmemobj"
+[57acd504]: https://pmem.io/2015/06/15/transactions.html "pmemobj transactions"
+[c749cb90]: https://pmem.io/blog/ "Blog posts"
+[d324cfe0]: https://github.com/pmem/valgrind/blob/pmem-3.15/pmemcheck/docs/pmc-manual.xml "Pmemcheck documentation"
+[aa87ca41]: https://pmem.io/2015/09/16/mt-tx.html "Challenges of multi-threaded transactions"
 [051ba546]: https://github.com/pmem/valgrind/blob/pmem/pmemcheck/tests/trans_mt_cross.c "Pmemcheck test"
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK]({% post_url 2017-12-11-NVML-is-now-PMDK %}).]

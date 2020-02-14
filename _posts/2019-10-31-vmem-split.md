@@ -20,7 +20,7 @@ tagged -- except for defects and new requirements of underlying platforms.
 for volatile allocations on Windows.
 
 On Linux, though, you are better served by
-[memkind](http://memkind.github.io/memkind/) instead of **libvmem** in new
+[memkind](https://memkind.github.io/memkind/) instead of **libvmem** in new
 code -- it provides extra features such as NUMA awareness and handling of
 other kinds of memory.
 

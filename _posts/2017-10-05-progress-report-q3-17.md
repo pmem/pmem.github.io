@@ -47,7 +47,7 @@ strategic usage of lazy initialization.
 
 Just as in traditional disks, NVDIMMs can have bad physical blocks on the medium.
 The specification on how those blocks are exposed has been recently published
-with [ACPI 6.2](http://www.uefi.org/sites/default/files/resources/ACPI_6_2.pdf).
+with [ACPI 6.2](https://www.uefi.org/sites/default/files/resources/ACPI_6_2.pdf).
 
 From linux kernel file system perspective, the NVDIMM badblocks are exposed
 like in traditional storage, and can be cleared through normal fs interfaces.

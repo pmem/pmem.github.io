@@ -66,7 +66,7 @@ It is open source and welcomes community contributions.
 The [Documents](https://docs.pmem.io) page contains more information.
 
 Your questions, comments, and contributions are welcome!  Join our
-[Google Group](http://groups.google.com/group/pmem), find us on
-IRC on the **#pmem** channel on [OFTC](http://www.oftc.net), or
+[Google Group](https://groups.google.com/group/pmem), find us on
+IRC on the **#pmem** channel on [OFTC](https://www.oftc.net), or
 join our **#pmem** Slack channel using this
 [invite link](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg).

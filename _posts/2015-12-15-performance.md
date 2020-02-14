@@ -52,7 +52,7 @@ In libpmemobj we have this notion of type numbers. This is among other things us
 We are constantly looking for places where we could improve the performance of PMDK and libpmemobj in particular. For example, we are thinking of redoing the whole internal object storage module and we hope to gain some additional percents there. If you have any other idea, let us know in [pmem/issues][41493750], or better yet, do a pull request!
 
 [41493750]: https://github.com/pmem/issues/issues "pmem/issues"
-[f242534b]: http://pmem.io/2015/07/17/pmemcheck-basic.html "pmemcheck blog entry"
+[f242534b]: https://pmem.io/2015/07/17/pmemcheck-basic.html "pmemcheck blog entry"
 [efed04e3]: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html "__builtin_expect"
 [a8ef08e9]: https://github.com/pmem/pmdk/commit/5606aa41461cc0e7278bb059f1adae88ff6fbf04 "fix merge"
 

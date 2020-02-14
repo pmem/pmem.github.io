@@ -115,7 +115,7 @@ Github issue link: <https://github.com/pmem/issues/issues/378>
 # References
 
 [1] Atlas: Leveraging Locks for Non-volatile Memory Consistency
-<http://www.hpl.hp.com/techreports/2013/HPL-2013-78.pdf>
+<https://www.hpl.hp.com/techreports/2013/HPL-2013-78.pdf>
 
 [2] Makalu: Fast Recoverable Allocation of Non-volatile Memory
-<http://makalu.blogs.rice.edu/files/2016/09/oopsla2016-copyright-1s0zst5.pdf>
+<https://makalu.blogs.rice.edu/files/2016/09/oopsla2016-copyright-1s0zst5.pdf>

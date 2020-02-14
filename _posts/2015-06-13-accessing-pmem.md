@@ -24,7 +24,7 @@ typedef struct pmemoid {
 } PMEMoid;
 {% endhighlight %}
 
-If you know the virtual address the pool is mapped at, a simple addition can be performed to get the **direct** pointer, like this: `(void *)((uint64_t)pool + oid.off)` and this is exactly what the `pmemobj_direct` does, it takes the `PMEMoid` (persistent pointer) and turns it into a regular one that can be dereferenced. The pool id is used to figure out where the pool is currently mapped (because the actual address of the memory mapped region can be different each time you start your application). How exactly does the *figuring out* work? All open pools are stored in a [cuckoo hash table](http://en.wikipedia.org/wiki/Cuckoo_hashing) with 2 hashing functions, so it means that when you call `pmemobj_direct` a maximum of two table lookups will happen to locate the pool address.
+If you know the virtual address the pool is mapped at, a simple addition can be performed to get the **direct** pointer, like this: `(void *)((uint64_t)pool + oid.off)` and this is exactly what the `pmemobj_direct` does, it takes the `PMEMoid` (persistent pointer) and turns it into a regular one that can be dereferenced. The pool id is used to figure out where the pool is currently mapped (because the actual address of the memory mapped region can be different each time you start your application). How exactly does the *figuring out* work? All open pools are stored in a [cuckoo hash table](https://en.wikipedia.org/wiki/Cuckoo_hashing) with 2 hashing functions, so it means that when you call `pmemobj_direct` a maximum of two table lookups will happen to locate the pool address.
 
 ### The root object
 

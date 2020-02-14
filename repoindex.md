@@ -166,7 +166,7 @@ organization in GitHub under
 		ndctl
 	</legend>
 	<p>
-	<a href="http://pmem.io/ndctl">ndctl</a> is the Linux utility for managing persistent memory.
+	<a href="https://pmem.io/ndctl">ndctl</a> is the Linux utility for managing persistent memory.
 	<p>
 	<table>
 		<tr>
@@ -184,7 +184,7 @@ organization in GitHub under
 		Web Content
 	</legend>
 	<p>
-	The <a href="http://pmem.io">pmem.io website</a> is implemented as static content
+	The <a href="https://pmem.io">pmem.io website</a> is implemented as static content
 	on GitHub using Jekyll, GitHub-flavored MarkDown, and
 	some tool-generated HTML here and there.  Some sub-areas
 	of the website live in the <strong>gh-pages</strong>
@@ -210,7 +210,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/book">book</a></td>
-			<td>Examples used in the <a href="http://pmem.io/book/">pmem Programming Book</a></td>
+			<td>Examples used in the <a href="https://pmem.io/book/">pmem Programming Book</a></td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/knowledge-base">knowledge-base</a></td>

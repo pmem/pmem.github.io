@@ -21,8 +21,8 @@ to **production quality** and issued with a license that allows their use in
 both open- and closed-source products.  And the project continues to grow as we
 learn about new use cases.  So the term _Development Kit_ seems much more
 appropriate.  The new name, [PMDK](/pmdk/), also follows the pattern of similar
-development kits like the Data Plane Development Kit ([DPDK](http://dpdk.org))
-and the Storage Performance Development Kit ([SPDK](http://spdk.io)).
+development kits like the Data Plane Development Kit ([DPDK](https://dpdk.org))
+and the Storage Performance Development Kit ([SPDK](https://spdk.io)).
 
 #### What is the impact of the change?
 
