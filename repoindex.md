@@ -58,7 +58,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmemkv">pmemkv</a></td>
-			<td>Transactional Key-Value Store: Top-Level C API</td>
+			<td>Transactional Key-Value Store: Top-Level C & C++ API</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmemkv-tools">pmemkv-tools</a></td>
@@ -90,11 +90,15 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/valgrind">valgrind</a></td>
-			<td>Enhanced valgrind containing the <strong>pmemcheck</strong> plugin</td>
+			<td>Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmdk-tests">pmdk-tests</a></td>
 			<td>Extended PMDK tests</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/rpma">rpma</a></td>
+			<td>Low-level library for Remote Persistent Memory Access (in development)</td>
 		</tr>
 	</table>
 	<br><br>
