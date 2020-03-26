@@ -219,4 +219,4 @@ about persistent memory.
 
 I wish you wonderful holidays and a happy New Year.
 
-[Link to part 2.][second](https://pmem.io/2020/03/26/performance-2.html)
+[Link to part 2.](https://pmem.io/2020/03/26/performance-2.html)
