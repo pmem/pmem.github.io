@@ -218,3 +218,5 @@ self reflections that we've had after we reconsidered our initial assumptions
 about persistent memory.
 
 I wish you wonderful holidays and a happy New Year.
+
+[Link to part 2.][second](https://pmem.io/2020/03/26/performance-2.html)
