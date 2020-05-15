@@ -75,6 +75,7 @@ body {
 		Helvetica, sans-serif;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
+	padding: 12px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -137,9 +138,18 @@ strong {
 img {
 	position: relative;
 	margin: 0 auto;
-	max-width: 739px;
+
+	max-width: 100%;
+	height: auto;
+
 	padding: 5px;
 	margin: 10px 0 10px 0;
+}
+
+@media only screen and (min-width: 750px) {
+	img {
+		max-width: 739px;
+	}
 }
 
 p img {
@@ -276,8 +286,13 @@ form {
 
 /* region definitions */
 #wrap {
-	width: 750px;
 	margin: 0 auto;
+}
+
+@media only screen and (min-width: 770px) {
+	#wrap {
+		width: 750px;
+	}
 }
 
 #header {
@@ -330,7 +345,7 @@ h1 {
 
 #main {
 	float: left;
-	width: 480px;
+	max-width: 480px;
 	padding: 20px;
 }
 
@@ -340,10 +355,16 @@ h2 {
 
 #sidebar {
 	float: right;
-	width: 190px;
+	max-width: 90%;
 	padding: 20px;
 	background: #e8f8f8;
 	margin: 100px 0 50px 0;
+}
+
+@media only screen and (min-width: 770px) {
+	#sidebar {
+		max-width: 190px;
+	}
 }
 
 #footer {
