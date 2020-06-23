@@ -1,0 +1,14 @@
+.pix-cover-shape-300 img, .pix-cover-shape-180 img, .pix-cover-shape-150 img {
+    position: absolute;
+    display: block;
+    min-height: 100%;
+    width: auto;
+    max-width: inherit;
+    left: 0px !important;
+    top: 0px !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.pix-cover-shape-220 img {
+    position: absolute;display: block;min-height: 100%;width: auto;max-width: inherit;left: 0;top: 0;height: 100%;
+}
