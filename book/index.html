@@ -1,374 +1,659 @@
 <!DOCTYPE html>
-<html amp>
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/book_logo.png" type="image/x-icon">
-  <meta name="description" content="This is a comprehensive guide to Persistent memory programming, targeted towards experienced programmers.  You will understand how persistent memory brings together several new software/hardware requirements, and offers great promise for better performance and faster application startup times—a huge leap forward in byte-addressable capacity compared with current DRAM offerings.">
-  
-  <title>Programming Persistent Memory: A Comprehensive Guide for Developers</title>
-  
-<link rel="canonical" href="./">
- <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic" rel="stylesheet">
- 
- <style amp-custom>div, span, h1, h2, h3, h4, p, a, ol, ul, li{font:inherit}*{-webkit-box-sizing:border-box;box-sizing:border-box}body{position:relative;font-style:normal;line-height:1.5}section{background-color:#eeeeee;background-position:50% 50%;background-repeat:no-repeat;background-size:cover}section, .container{position:relative;word-wrap:break-word}h1, h2, h3{margin:auto}h1, h3, p{padding:10px 0;margin-bottom:15px}p, li{color:#15181b;letter-spacing:0.5px;line-height:1.7}ul, ol{margin-bottom:0;margin-top:0}p{margin-top:0}a{font-style:normal;font-weight:400;cursor:pointer}a, a:hover{text-decoration:none}h1, h2, h3, h4, .display-1, .display-2, .display-4{line-height:1;word-break:break-word;word-wrap:break-word}strong{font-weight:bold}input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active{-webkit-transition-delay:9999s;transition-delay:9999s;-webkit-transition-property:background-color,color;-o-transition-property:background-color,color;transition-property:background-color,color}body{height:auto;min-height:100vh}.mbr-section-title{font-style:normal;line-height:1.2}.mbr-section-subtitle{line-height:1.3}.mbr-text{font-style:normal;line-height:1.6}.btn{font-weight:400;border-width:2px;border-style:solid;font-style:normal;letter-spacing:2px;margin:.4rem .5rem;white-space:normal;-webkit-transition:all .3s ease-in-out,-webkit-box-shadow 2s ease-in-out;transition:all .3s ease-in-out,-webkit-box-shadow 2s ease-in-out;-o-transition:all .3s ease-in-out,box-shadow 2s ease-in-out;transition:all .3s ease-in-out,box-shadow 2s ease-in-out;transition:all .3s ease-in-out,box-shadow 2s ease-in-out,-webkit-box-shadow 2s ease-in-out;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;word-break:break-word;-webkit-align-items:center;-webkit-justify-content:center;display:-webkit-inline-flex}.btn-form{border-radius:0}.btn-form:hover{cursor:pointer}form .btn{margin:0}input{padding:15px 0.5rem}section.slider .amp-carousel-button{cursor:pointer}amp-image-lightbox a.control{position:absolute;width:32px;height:32px;right:16px;top:16px;z-index:1000}amp-image-lightbox a.control .close{position:relative}amp-image-lightbox a.control .close:before, amp-image-lightbox a.control .close:after{position:absolute;left:15px;content:' ';height:33px;width:2px;background-color:#fff}amp-image-lightbox a.control .close:before{-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}amp-image-lightbox a.control .close:after{-webkit-transform:rotate(-45deg);-ms-transform:rotate(-45deg);transform:rotate(-45deg)}#scrollToTop{display:none}.mbr-white{color:#ffffff}.align-left{text-align:left}.align-center{text-align:center}@media (max-width: 767px){.align-left, .align-center, .mbr-section-btn, .mbr-section-title{text-align:center}}.mbr-light{font-weight:300}.mbr-bold{font-weight:700}.mbr-section-btn{margin-left:-.25rem;margin-right:-.25rem;font-size:0}nav .mbr-section-btn{margin-left:0rem;margin-right:0rem}.btn .mbr-iconfont{cursor:pointer;margin-right:0.5rem}[type="submit"]{-webkit-appearance:none}amp-img img{max-height:100%;max-width:100%}.is-builder amp-img>a+img[async], .is-builder amp-img>a+img[decoding="async"]{display:none}html:not(.is-builder) amp-img>a{position:absolute;top:0;bottom:0;left:0;right:0;z-index:1}.is-builder .temp-amp-sizer{position:absolute}.is-builder amp-youtube .temp-amp-sizer, .is-builder amp-vimeo .temp-amp-sizer{position:static}.is-builder section.horizontal-menu .ampstart-btn{display:none}@media (max-width: 991px){.is-builder section.horizontal-menu .navbar-toggler{display:block}}.is-builder section.horizontal-menu .dropdown-menu{z-index:auto;opacity:1;pointer-events:auto}.is-builder section.horizontal-menu .nav-dropdown .link.dropdown-toggle[aria-expanded="true"]{margin-right:0;padding:0.667em 1em}.mobirise-spinner{position:absolute;top:50%;left:40%;margin-left:10%;-webkit-transform:translate3d(-50%,-50%,0);z-index:4}.mobirise-spinner em{width:24px;height:24px;background:#3ac;border-radius:100%;display:inline-block;-webkit-animation:slide 1s infinite}.mobirise-spinner em:nth-child(1){-webkit-animation-delay:0.1s}.mobirise-spinner em:nth-child(2){-webkit-animation-delay:0.2s}.mobirise-spinner em:nth-child(3){-webkit-animation-delay:0.3s}@-moz-keyframes slide{}@-webkit-keyframes slide{}@-o-keyframes slide{}@keyframes slide{}.mobirise-loader .amp-active>div{display:none}.mbr-container{max-width:800px;padding:0 10px;margin:0 auto;position:relative}.container{padding-right:15px;padding-left:15px;width:100%;margin-right:auto;margin-left:auto}@media (max-width: 767px){.container{max-width:540px}}@media (min-width: 768px){.container{max-width:720px}}@media (min-width: 992px){.container{max-width:960px}}@media (min-width: 1200px){.container{max-width:1140px}}.mbr-row{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-1rem;margin-left:-1rem}.mbr-justify-content-center{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-justify-content:center}@media (max-width: 767px){.mbr-col-sm-12{-ms-flex:0 0 100%;-webkit-box-flex:0;flex:0 0 100%;max-width:100%;padding-right:15px;padding-left:15px;-webkit-flex:0 0 100%}.mbr-row{margin:0}}@media (min-width: 768px){.mbr-col-md-6{-ms-flex:0 0 50%;-webkit-box-flex:0;flex:0 0 50%;max-width:50%;padding-right:15px;padding-left:15px;-webkit-flex:0 0 50%}.mbr-col-md-10{-ms-flex:0 0 83.333333%;-webkit-box-flex:0;flex:0 0 83.333333%;max-width:83.333333%;padding-left:15px;padding-right:15px;-webkit-flex:0 0 83.333333%}.mbr-col-md-12{-ms-flex:0 0 100%;-webkit-box-flex:0;flex:0 0 100%;max-width:100%;padding-right:15px;padding-left:15px;-webkit-flex:0 0 100%}}@media (min-width: 992px){.mbr-col-lg-3{-ms-flex:0 0 25%;-webkit-box-flex:0;flex:0 0 25%;max-width:25%;padding-right:15px;padding-left:15px;-webkit-flex:0 0 25%}.mbr-col-lg-8{-ms-flex:0 0 66.666667%;-webkit-box-flex:0;flex:0 0 66.666667%;max-width:66.666667%;padding-left:15px;padding-right:15px;-webkit-flex:0 0 66.666667%}.mbr-col-lg-10{-ms-flex:0 0 83.3333%;-webkit-box-flex:0;flex:0 0 83.3333%;max-width:83.3333%;padding-right:15px;padding-left:15px;-webkit-flex:0 0 83.3333%}}amp-sidebar{background:transparent}#scrollToTopMarker{position:absolute;width:0px;height:0px;top:300px}#scrollToTopButton{position:fixed;bottom:25px;right:25px;opacity:.4;z-index:5000;font-size:32px;height:60px;width:60px;border:none;border-radius:3px;cursor:pointer}#scrollToTopButton:focus{outline:none}#scrollToTopButton a:before{content:'';position:absolute;height:40%;top:36%;width:2px;left:calc(50% - 1px)}#scrollToTopButton a:after{content:'';position:absolute;border-top:2px solid;border-right:2px solid;width:40%;height:40%;left:calc(30% - 1px);bottom:30%;-ms-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}.is-builder #scrollToTopButton a:after{left:30%}.field:not(:nth-last-child(1)){margin-bottom:1rem}.field-input{display:block;width:100%}body{font-family:Roboto}.display-1{font-family:'Roboto',sans-serif;font-size:4.5rem}.display-2{font-family:'Roboto',sans-serif;font-size:2.2rem}.display-4{font-family:'Roboto',sans-serif;font-size:0.9rem}.display-5{font-family:'Roboto',sans-serif;font-size:1.8rem}.display-7{font-family:'Roboto',sans-serif;font-size:1.1rem}input{font-family:'Roboto',sans-serif;font-size:0.9rem}.display-4 .mbr-iconfont-btn{font-size:0.9rem;width:0.9rem}@media (max-width: 768px){.display-1{font-size:3.6rem;font-size:calc( 2.225rem + (4.5 - 2.225) * ((100vw - 20rem) / (48 - 20)));line-height:calc( 1.4 * (2.225rem + (4.5 - 2.225) * ((100vw - 20rem) / (48 - 20))))}.display-2{font-size:1.76rem;font-size:calc( 1.42rem + (2.2 - 1.42) * ((100vw - 20rem) / (48 - 20)));line-height:calc( 1.4 * (1.42rem + (2.2 - 1.42) * ((100vw - 20rem) / (48 - 20))))}.display-4{font-size:0.72rem;font-size:calc( 0.965rem + (0.9 - 0.965) * ((100vw - 20rem) / (48 - 20)));line-height:calc( 1.4 * (0.965rem + (0.9 - 0.965) * ((100vw - 20rem) / (48 - 20))))}.display-5{font-size:1.44rem;font-size:calc( 1.28rem + (1.8 - 1.28) * ((100vw - 20rem) / (48 - 20)));line-height:calc( 1.4 * (1.28rem + (1.8 - 1.28) * ((100vw - 20rem) / (48 - 20))))}}.btn{padding:1rem 2rem;border-radius:0px}.btn-primary, .btn-primary:active{background-color:#37A5BF;border-color:#37A5BF;color:#ffffff}.btn-primary:hover, .btn-primary:focus{color:#ffffff;background-color:#1f7dc5;border-color:#1f7dc5}.btn-primary:disabled{color:#ffffff;background-color:#1f7dc5;border-color:#1f7dc5}a, a:hover{color:#F55555}.mobirise-spinner em:nth-child(1){background:#4ea2e3}.mobirise-spinner em:nth-child(2){background:#4addff}.mobirise-spinner em:nth-child(3){background:#0dcd7b}#scrollToTopMarker{display:none}#scrollToTopButton{background-color:#4ea2e3}#scrollToTopButton a:before{background:#ffffff}#scrollToTopButton a:after{border-top-color:#ffffff;border-right-color:#ffffff}.field-input{font-family:'Roboto',sans-serif;font-size:0.9rem}.cid-rxldW5mKR3{padding-top:60px;padding-bottom:60px;background-color:#37a5bf;background-image:linear-gradient(to right top, #37a5bf, #3599c4, #488cc4, #627cbd, #7b6baf);}.cid-rxldW5mKR3 .mbr-title{padding-bottom:1rem}.cid-rx4B9DQI3q{padding-top:30px;padding-bottom:30px;background-color:#ffffff}.cid-rx4B9DQI3q .text-block{margin:auto}.cid-rx4B9DQI3q amp-img{text-align:center}@media (min-width: 768px){.cid-rx4B9DQI3q .image-block{padding-right:2rem}}@media (max-width: 767px){.cid-rx4B9DQI3q .image-block{padding-bottom:1rem}}.cid-rx5jb3DF4S{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx5jb3DF4S .mbr-section-btn{margin-bottom:1rem}.cid-rx5jb3DF4S .mbr-section-btn > *{margin:0}.cid-rx5jb3DF4S .mbr-form{justify-content:center;margin-left:-0.5rem;margin-right:-0.5rem}@media (min-width: 768px){.cid-rx5jb3DF4S .mbr-form{display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-align-items:center;align-items:center}}.cid-rx5jb3DF4S .mbr-row{margin-top:2rem}.cid-rx5jb3DF4S .mbr-row{align-items:center}.cid-rx5jb3DF4S input{color:#000000;border:1px solid #767676;background:#ffffff}.cid-rx5jb3DF4S input:hover, .cid-rx5jb3DF4S input:focus{border-color:#4ea2e3}.cid-rx5jb3DF4S input::-webkit-input-placeholder{color:rgba(0,0,0,0.5)}.cid-rx5jb3DF4S input::-moz-placeholder{color:rgba(0,0,0,0.5)}.cid-rx5jb3DF4S form input{margin:.5rem}.cid-rx4y6XDzty{padding-top:30px;padding-bottom:30px;background-color:#37a5bf;background-image: linear-gradient(to right top, #37a5bf, #3599c4, #488cc4, #627cbd, #7b6baf);
-}.cid-rx4y6XDzty .mbr-text{padding:2rem 0}.cid-rx4uwDhsC2{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx4uwDhsC2 .mbr-text{margin-bottom:0}.cid-rx4uwDhsC2 .mbr-section-title{margin:0}.cid-rx4xm9YLa4{padding-top:60px;padding-bottom:60px;background-color:#5981C0;background-image: linear-gradient(to right top, #fccf31, #ffb02f, #ff9139, #ff7247, #f55555);}.cid-rx4xm9YLa4 .mbr-title{padding-bottom:1rem;color:#ffffff}.cid-rx4xgZQyBp{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx4xgZQyBp .counter-container ul{margin-bottom:0}.cid-rx4xgZQyBp .counter-container ul li{color:inherit;padding-bottom:1rem;list-style:none}.cid-rx4xgZQyBp .counter-container ul li:before{box-sizing:inherit;position:absolute;left:0px;padding-top:3px;content:'';display:inline-block;text-align:center;margin:10px 15px;line-height:20px;transition:all .2s;color:#ffffff;background:#4ea2e3;width:10px;height:10px;border-radius:50%;border-radius:0;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.cid-rx5kK4x1jt{padding-top:60px;padding-bottom:60px;background-color:#37a5bf;background-image: linear-gradient(to right top, #37a5bf, #3599c4, #488cc4, #627cbd, #7b6baf);
-}.cid-rx5kK4x1jt .mbr-section-title{text-align:center}.cid-rx4qia0SLM{padding-top:45px;padding-bottom:30px;background-color:#5981C0;background-image: linear-gradient(to right top, #fccf31, #ffb02f, #ff9139, #ff7247, #f55555);}.cid-rx4qia0SLM .mbr-title{padding-bottom:1rem}.cid-rx4oPSLGTl{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx4oPSLGTl .counter-container ol{margin-bottom:0;counter-reset:myCounter}.cid-rx4oPSLGTl .counter-container ol li{margin-bottom:2rem}.cid-rx4oPSLGTl .counter-container ol li{z-index:3;list-style:none;padding-left:.5rem}.cid-rx4oPSLGTl .counter-container ol li:before{z-index:2;position:absolute;left:0px;counter-increment:myCounter;content:counter(myCounter);text-align:center;margin:0 10px;line-height:30px;transition:all .2s;width:35px;height:35px;color:#4ea2e3;font-size:20px;font-weight:bold;border-radius:50%;border:2px solid #4ea2e3;opacity:0.5}.cid-rx5l8OgZM6{padding-top:60px;padding-bottom:60px;background-color:#37a5bf;background-image: linear-gradient(to right top, #37a5bf, #3599c4, #488cc4, #627cbd, #7b6baf);}.cid-rx5l8OgZM6 .mbr-section-title{text-align:center}.cid-rxldMsnipa{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rxldMsnipa .section-title{z-index:2;background-color:#efefef;padding:1.3rem 2rem;border:1px solid #dfdfdf}.cid-rxldMsnipa p{z-index:1;background-color:#ffffff;box-shadow:inset 1px 36px 20px -30px rgba(121,121,121,0.13);padding:1.5rem}.cid-rxldMsnipa .accordion{padding-top:2rem}.cid-rx5k5phMuZ{padding-top:60px;padding-bottom:60px;background-color:#ffffff}.cid-rx5k5phMuZ h1{margin-bottom:20px}.cid-rx5k5phMuZ .wrapper{text-align:center}.cid-rx4p0rOvmw{padding-top:30px;padding-bottom:30px;background-color:#232323}.cid-rx4p0rOvmw p{margin:0;color:#ffffff}.engine{position:absolute;text-indent:-2400px;text-align:center;padding:0;top:0;left:-2400px}[class*="-iconfont"]{display:inline-flex}</style>
- 
-  <script async  src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script> -->
-  <!-- <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script> -->
-  <!-- <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script> -->
-  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-  <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
-  <script src="https://kit.fontawesome.com/fa0026050e.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
-
-  <!-- Open Graph Tags for Crawlers -->
-  <meta property='og:title' content='[Book] Programming Persistent Memory: A Comprehensive Guide for Developers'/>
-  <meta property='og:image' content='https://pmem.io/book/assets/images/3d-digital-and-print-1048x705.jpg'/>
-  <meta property='og:description' content='This is a comprehensive guide to persistent memory programming, targeted towards experienced programmers. You will understand how persistent memory brings together several new software/hardware requirements, and offers great promise for better performance and faster application startup times, a huge leap forward in byte-addressable capacity compared with current DRAM offerings.'/>
-  <meta property='og:url' content='https://pmem.io/book/' />
-  <!-- End Open Graph Tags -->
-  
-</head>
-<body>
-
-<!-- Google Analytics -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-74199634-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-<!-- /Google Analytics -->
-
-<!-- Mailchimp CORS Workaround for XHR Form Submission -->
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-     $("#mc-embedded-subscribe-form").validate({
-         // Specify validation rules
-    	rules: {
-      	    // The key name on the left side is the name attribute
-      	    // of an input field. Validation rules are defined
-      	    // on the right side
-      	    FNAME: "required",
-            LNAME: "required",
-            EMAIL: {
-                required: true,
-                // Specify that email should be validated
-                // by the built-in "email" rule
-                email: true
-            }
-        },
-        // Specify validation error messages
-        messages: {
-            FNAME: "Please enter your firstname",
-            LNAME: "Please enter your lastname",
-            EMAIL: "Please enter a valid email address"
-        }
-    });
-
-    $("#mc-embedded-subscribe-form").submit(function (e) {
-        e.preventDefault();
-
-        var $form=$('#mc-embedded-subscribe-form');
-
-        $.ajax({
-            type: $form.attr('method'),
-	    method: 'POST',
-            url: 'https://pmem.us3.list-manage.com/subscribe/post-json?u=2b1e3e6f31132c32f059aa108&id=47c0023ce1&c=?', 
-            data: $form.serialize(),
-            cache       : false,
-            dataType    : 'jsonp',
-            contentType: "application/json; charset=utf-8",
-            error       : function(err) { 
-                    console.log("Form Submission Error: ", err);
-	    },
-            success     : function(data) {
-                if (data.result != "success") {
-                    // Something went wrong, do something to notify the user. maybe alert(data.msg);
-                    console.log("Subscription Failed: " + data.msg);
-		    $('#mce-error-response').html("Oops. Something went wrong. " + data.msg);
-                } else {
-                    // It worked, carry on...
-                    console.log("Subscription Success: " + data.msg);
-		    $('#mce-success-response').html( "Subscription successful! Thank you." );
-		    // Hide the form as the user doesn't want to register twice
-		    $('#contacts1-b').hide();
-		    $('#mce-error-response').hide();
-		    $('#mce-success-response').fadeOut(15);
-                }
-            }
-        });
-    });
-});
-</script>
-<!-- End Mailchimp CORS Workaround -->
-
-
-  <section class="mbr-section content18 cid-rxldW5mKR3" id="content18-h">
-
-    
-
-    <div class="mbr-container">
-        <h2 class="mbr-title align-center mbr-fonts-style mbr-bold mbr-white display-1">
-            Master Persistent Memory Programming with our Comprehensive Guide
-	</h2>
-        <h3 class="mbr-section-subtitle align-center mbr-light  mbr-fonts-style mbr-white display-5">
-            <em>Are you ready to begin?</em>
-	</h3>
-        
-    </div>
-</section>
-
-<section class="features10 cid-rx4B9DQI3q" id="features10-a">
-
-    
-       
-    <div class="container">
-        <div class="mbr-row mbr-justify-content-center">
-            <div class="image-block mbr-col-sm-12 mbr-col-md-6">
-                <amp-img src="assets/images/3d-digital-and-print-1048x705.jpg" layout="responsive" width="524" height="353" alt="Mobirise" class="mobirise-loader">
-                    <div placeholder="" class="placeholder">
-                                <div class="mobirise-spinner">
-                                    <em></em>
-                                    <em></em>
-                                    <em></em>
-                                </div></div>
-                    
-                </amp-img>
-            </div>
-            <div class="text-block mbr-col-sm-12 mbr-col-md-6">
-                <h3 class="mbr-section-title mbr-fonts-style align-left display-5">
-                    Now Available in Print and Digital Formats</h3>
-                <p class="mbr-fonts-style mbr-text align-left display-7"><strong>Programming Persistent Memory: A Comprehensive Guide for Developers</strong> is published through <a href="https://www.apress.com/us/apress-open" target="_blank">Apress Open</a> using a <a href="https://creativecommons.org" target="_blank">Creative Commons Attribution license</a>. &nbsp;The eBook is freely available online and accessible to everyone. &nbsp;In addition to the <strong>FREE</strong> digital version, a print edition is offered for those readers who want a physical copy.</p>
-		<p>
-		    <a href="https://www.apress.com/us/book/9781484249314" target="_blank" class="btn btn-secondary">Read this book for free</a>
-		    <a href="https://www.apress.com/us/book/9781484249314" target="_blank" class="btn btn-secondary">Buy this Book</a>
-		    <a href="https://github.com/pmem/book" target="_blank" class="btn btn-secondary">Access the Source Code</a>
-		</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="contact1 cid-rx5jb3DF4S" id="contacts1-b">
-    <div class="container">
-        <h2 class="align-center mbr-fonts-style mbr-light display-2">
-            EMail Me With Updates<br></h2>
-        <h3 class="mbr-section-subtitle align-center mbr-fonts-style mbr-light display-7"><div>We promise to only use your email address for the sole purpose of providing book announcements to request your feedback on our work.</div></h3>
-
-        <div class="mbr-row mbr-justify-content-center">
-            <div class="mbr-col-lg-10  mbr-col-md-12" style="margin-top:0px">
-                <!-- Begin Mailchimp Signup Form -->
-		<div class="mbr-row mbr-justify-content-center">
-                <form action-xhr="https://pmem.us3.list-manage.com/subscribe/post?u=2b1e3e6f31132c32f059aa108&id=47c0023ce1&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-	  	    <!-- 
-                    <div submit-success="">
-                      <template data-form-alert="" type="amp-mustache">Subscription successful! Thank you.</template>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="shortcut icon" href="uploads/favicon.png"> 
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <!-- CSS dependencies -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/pix_style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="css/font-style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/animations.min.css" media="all"/>
+        <!--[if IE]>
+		<link rel="stylesheet" type="text/css" href="css/ie-fix.css" />
+		<![endif]-->
+        <title>Programming Persistent Memory: A Comprehensive Guide for Developers Book</title>
+        <style type="text/css" id="pix_page_style"></style>
+    </head>
+    <body>
+        <div class="pix_section pix-padding" id="section_content_1" style="display: block; background-image: url(&quot;https://pixfort.com/items/1/images/software/intro-bg.jpg&quot;); background-repeat: repeat-x; padding-top: 60px; padding-bottom: 60px;" data-bg-img="url(&quot;https://pixfort.com/items/1/images/software/intro-bg.jpg&quot;)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 column ui-droppable col-md-6">
+                        <div class="pix-content pix-padding-top-60" style="background-repeat: repeat-x; padding: 0px 0px 0px; margin: 0px; text-align: center;">
+                            <h2 class="pix-white pix-no-margin-top secondary-font"> <span class="pix_edit_text"><strong>Master Persistent Memory Programming</strong></span> </h2>
+                            <p class="pix-margin-bottom-20"> 
+                                <span class="pix_edit_text pix-white big-text-20">Our complete guide for developers delivers comprehensive information with detailed code examples.<span><br></span><br>
+                                <span class="pix_edit_text pix-pmem-book-orange big-text-20"><strong>Download the eBook to learn how you can build the next generation application.</strong></span></span> 
+                            </p>
+                        </div>
                     </div>
-                    <div submit-error="">
-                      <template data-form-alert="" type="amp-mustache">Subscription failed!</template>
+                    <div class="col-md-6 col-xs-12 text-center col-sm-6 column ui-droppable padding: 10px 0px 0px">
+                        <div class="pix-content">
+                            <img src="uploads/book_cover_3d_600-4rk.png" alt="" class="img-responsive">
+                        </div>
                     </div>
-		    -->
-                    <div class="fieldset">
-                        <label>
-			    <input type="text" name="FNAME" class="required" id="mce-FNAME" placeholder="First Name">
-                        </label>
-                        <label>
-                            <input type="text" name="LNAME" class="required" id="mce-LNAME" placeholder="Last Name">
-                        </label>
-                        <label>
-                            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="EMail">
-                        </label>
-                        <label>
-                            <button type="submit" class="btn btn-primary btn-form display-4">Subscribe</button>
-                        </label>
+                </div>
+            </div>
+        </div>
+        <div class="pix_section pix-padding-v-40" id="signup_form" style="display: block;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 column ui-droppable">
+                        <div class="pix-content pix-padding-bottom-30 text-center">
+                            <h2 class="pix-black-gray-dark text-center pix-no-margin-top secondary-font"> <span class="pix_edit_text"><strong>Get the FREE eBook now!</strong></span> </h2>
+                            <div>
+                                <span class="pix-bar blue-bg pix-margin-bottom-102"></span>
+                            </div>
+                            <h5 class="pix-black-gray-light text-center pix-padding-bottom-20"> <span class="pix_edit_text">Signup to download the free eBook now and receive future communications for persistent memory training, conferences, webinars, and other exciting news and information.&nbsp;</span> </h5>
+                            <div class="text-center">
+                                <div class="pix-inline-block pix-fixed-width-380">
+                                    <p class="text-right"><small><em>Required Fields(*)</em></small></p>
+                                    <form class="pix-form-style pixfort-form pix-padding-top-10 pix-form-light-white-bg-2 ui-sortable ui-droppable" method="post" name="FORM-MKA-18980" id="FORM-MKA-18980" action="https://s334284386.t.eloqua.com/e/f2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter Your First Name*" required="" style="background-image: none; background-repeat: initial; background-attachment: initial; background-size: initial; background-position: initial;">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Your Last Name*" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="email" name="emailAddress" placeholder="Enter Your Email Address*" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control" name="profession" id="profession" aria-invalid="false">
+                                                <option value="">Please Select Your Profession</option>
+                                                <option value="CIO (Chief Information Officer)">CIO (Chief Information Officer)</option>
+                                                <option value="CTO (Chief Technology Officer)">CTO (Chief Technology Officer)</option>
+                                                <option value="COO (Chief Operating Officer)">COO (Chief Operating Officer)</option>
+                                                <option value="CISO (Chief Information Security Officer)">CISO (Chief Information Security Officer)</option>
+                                                <option value="Owner/Executive Management">Owner/Executive Management</option>
+                                                <option value="IT Management">IT Management</option>
+                                                <option value="Data Sciences">Data Sciences</option>
+                                                <option value="Software/Application Development/Engineering">Software/Application Development/Engineering</option>
+                                                <option value="Hardware Development/Engineering">Hardware Development/Engineering</option>
+                                                <option value="Solution/System Architecture">Solution/System Architecture</option>
+                                                <option value="Infrastructure/Datacenter Architecture">Infrastructure/Datacenter Architecture</option>
+                                                <option value="Network Architecture/Engineering">Network Architecture/Engineering</option>
+                                                <option value="IT Information Security">IT Information Security</option>
+                                                <option value="IT Storage">IT Storage</option>
+                                                <option value="IT User Devices - PCs tablets etc">IT User Devices - PCs tablets etc</option>
+                                                <option value="IT Generalist/Other IT">IT Generalist/Other IT</option>
+                                                <option value="Facilities/Audio Video">Facilities/Audio Video</option>
+                                                <option value="Product/Service Management">Product/Service Management</option>
+                                                <option value="Finance/Procurement">Finance/Procurement</option>
+                                                <option value="Sales">Sales</option>
+                                                <option value="Marketing">Marketing</option>
+                                                <option value="Other Business Department - Operations HR etc">Other Business Department - Operations HR etc</option>
+                                                <option value="Consultant/Analyst">Consultant/Analyst</option>
+                                                <option value="Hobbyist/Maker">Hobbyist/Maker</option>
+                                                <option value="Professor/Teacher">Professor/Teacher</option>
+                                                <option value="Student">Student</option>
+                                                <option value="Scientist/Researcher">Scientist/Researcher</option>
+                                                <option value="Other">Other</option>
+                                              </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="hidden" name="autoPopCountry" value="United States">
+                                            <select class="form-control input-lg" id="country" name="country" required="required">
+                                                <option value="">Please Select your Country/Region*</option>
+                                                <option value="Afghanistan">Afghanistan</option>
+                                                <option value="Aland Islands">Aland Islands</option>
+                                                <option value="Albania">Albania</option>
+                                                <option value="Algeria">Algeria</option>
+                                                <option value="American Samoa">American Samoa</option>
+                                                <option value="Andorra">Andorra</option>
+                                                <option value="Angola">Angola</option>
+                                                <option value="Anguilla">Anguilla</option>
+                                                <option value="Antarctica">Antarctica</option>
+                                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                                <option value="Argentina">Argentina</option>
+                                                <option value="Armenia">Armenia</option>
+                                                <option value="Aruba">Aruba</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Azerbaijan">Azerbaijan</option>
+                                                <option value="Bahamas">Bahamas</option>
+                                                <option value="Bahrain">Bahrain</option>
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="Barbados">Barbados</option>
+                                                <option value="Belarus">Belarus</option>
+                                                <option value="Belgium">Belgium</option>
+                                                <option value="Belize">Belize</option>
+                                                <option value="Benin">Benin</option>
+                                                <option value="Bermuda">Bermuda</option>
+                                                <option value="Bhutan">Bhutan</option>
+                                                <option value="Bolivia">Bolivia</option>
+                                                <option value="Bonaire">Bonaire</option>
+                                                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                                                <option value="Botswana">Botswana</option>
+                                                <option value="Bouvet Island">Bouvet Island</option>
+                                                <option value="Brazil">Brazil</option>
+                                                <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                                                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                                <option value="Bulgaria">Bulgaria</option>
+                                                <option value="Burkina Faso">Burkina Faso</option>
+                                                <option value="Burundi">Burundi</option>
+                                                <option value="Cambodia">Cambodia</option>
+                                                <option value="Cameroon">Cameroon</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Cape Verde">Cape Verde</option>
+                                                <option value="Cayman Islands">Cayman Islands</option>
+                                                <option value="Central African Republic">Central African Republic</option>
+                                                <option value="Chad">Chad</option>
+                                                <option value="Chile">Chile</option>
+                                                <option value="China">China</option>
+                                                <option value="Christmas Island">Christmas Island</option>
+                                                <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                                                <option value="Colombia">Colombia</option>
+                                                <option value="Comoros">Comoros</option>
+                                                <option value="Congo">Congo</option>
+                                                <option value="Congo, The Democratic Republic of the">Congo, The Democratic Republic of the</option>
+                                                <option value="Cook Islands">Cook Islands</option>
+                                                <option value="Costa Rica">Costa Rica</option>
+                                                <option value="Cote D'ivoire">Cote D'ivoire</option>
+                                                <option value="Croatia">Croatia</option>
+                                                <option value="Cuba">Cuba</option>
+                                                <option value="Curacao">Curacao</option>
+                                                <option value="Cyprus">Cyprus</option>
+                                                <option value="Czech Republic">Czech Republic</option>
+                                                <option value="Denmark">Denmark</option>
+                                                <option value="Djibouti">Djibouti</option>
+                                                <option value="Dominica">Dominica</option>
+                                                <option value="Dominican Republic">Dominican Republic</option>
+                                                <option value="Ecuador">Ecuador</option>
+                                                <option value="Egypt">Egypt</option>
+                                                <option value="El Salvador">El Salvador</option>
+                                                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                                                <option value="Eritrea">Eritrea</option>
+                                                <option value="Estonia">Estonia</option>
+                                                <option value="Eswatini">Eswatini</option>
+                                                <option value="Ethiopia">Ethiopia</option>
+                                                <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+                                                <option value="Faroe Islands">Faroe Islands</option>
+                                                <option value="Fiji">Fiji</option>
+                                                <option value="Finland">Finland</option>
+                                                <option value="France">France</option>
+                                                <option value="French Guiana">French Guiana</option>
+                                                <option value="French Poly.">French Poly.</option>
+                                                <option value="French S. Terr.">French S. Terr.</option>
+                                                <option value="Gabon">Gabon</option>
+                                                <option value="Gambia">Gambia</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="Ghana">Ghana</option>
+                                                <option value="Gibraltar">Gibraltar</option>
+                                                <option value="Greece">Greece</option>
+                                                <option value="Greenland">Greenland</option>
+                                                <option value="Grenada">Grenada</option>
+                                                <option value="Guadeloupe">Guadeloupe</option>
+                                                <option value="Guam">Guam</option>
+                                                <option value="Guatemala">Guatemala</option>
+                                                <option value="Guernsey">Guernsey</option>
+                                                <option value="Guinea">Guinea</option>
+                                                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                                <option value="Guyana">Guyana</option>
+                                                <option value="Haiti">Haiti</option>
+                                                <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+                                                <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                                                <option value="Honduras">Honduras</option>
+                                                <option value="Hong Kong">Hong Kong</option>
+                                                <option value="Hungary">Hungary</option>
+                                                <option value="Iceland">Iceland</option>
+                                                <option value="India">India</option>
+                                                <option value="Indonesia">Indonesia</option>
+                                                <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+                                                <option value="Iraq">Iraq</option>
+                                                <option value="Ireland">Ireland</option>
+                                                <option value="Isle of Man">Isle of Man</option>
+                                                <option value="Israel">Israel</option>
+                                                <option value="Italy">Italy</option>
+                                                <option value="Jamaica">Jamaica</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="Jersey">Jersey</option>
+                                                <option value="Jordan">Jordan</option>
+                                                <option value="Kazakhstan">Kazakhstan</option>
+                                                <option value="Kenya">Kenya</option>
+                                                <option value="Kiribati">Kiribati</option>
+                                                <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                                                <option value="Korea, Republic of">Korea, Republic of</option>
+                                                <option value="Kuwait">Kuwait</option>
+                                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                                <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                                                <option value="Latvia">Latvia</option>
+                                                <option value="Lebanon">Lebanon</option>
+                                                <option value="Lesotho">Lesotho</option>
+                                                <option value="Liberia">Liberia</option>
+                                                <option value="Libya">Libya</option>
+                                                <option value="Liechtenstein">Liechtenstein</option>
+                                                <option value="Lithuania">Lithuania</option>
+                                                <option value="Luxembourg">Luxembourg</option>
+                                                <option value="Macau">Macau</option>
+                                                <option value="Macedonia">Macedonia</option>
+                                                <option value="Madagascar">Madagascar</option>
+                                                <option value="Malawi">Malawi</option>
+                                                <option value="Malaysia">Malaysia</option>
+                                                <option value="Maldives">Maldives</option>
+                                                <option value="Mali">Mali</option>
+                                                <option value="Malta">Malta</option>
+                                                <option value="Marshall Islands">Marshall Islands</option>
+                                                <option value="Martinique">Martinique</option>
+                                                <option value="Mauritania">Mauritania</option>
+                                                <option value="Mauritius">Mauritius</option>
+                                                <option value="Mayotte">Mayotte</option>
+                                                <option value="Mexico">Mexico</option>
+                                                <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                                                <option value="Moldova, Republic of">Moldova, Republic of</option>
+                                                <option value="Monaco">Monaco</option>
+                                                <option value="Mongolia">Mongolia</option>
+                                                <option value="Montenegro">Montenegro</option>
+                                                <option value="Montserrat">Montserrat</option>
+                                                <option value="Morocco">Morocco</option>
+                                                <option value="Mozambique">Mozambique</option>
+                                                <option value="Myanmar">Myanmar</option>
+                                                <option value="Namibia">Namibia</option>
+                                                <option value="Nauru">Nauru</option>
+                                                <option value="Nepal">Nepal</option>
+                                                <option value="Netherlands">Netherlands</option>
+                                                <option value="Netherlands Antilles">Netherlands Antilles</option>
+                                                <option value="New Caledonia">New Caledonia</option>
+                                                <option value="New Zealand">New Zealand</option>
+                                                <option value="Nicaragua">Nicaragua</option>
+                                                <option value="Niger">Niger</option>
+                                                <option value="Nigeria">Nigeria</option>
+                                                <option value="Niue">Niue</option>
+                                                <option value="Norfolk Island">Norfolk Island</option>
+                                                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                                                <option value="Norway">Norway</option>
+                                                <option value="Oman">Oman</option>
+                                                <option value="Pakistan">Pakistan</option>
+                                                <option value="Palau">Palau</option>
+                                                <option value="Palestine, State">Palestine, State</option>
+                                                <option value="Panama">Panama</option>
+                                                <option value="Papua New Guinea">Papua New Guinea</option>
+                                                <option value="Paraguay">Paraguay</option>
+                                                <option value="Peru">Peru</option>
+                                                <option value="Philippines">Philippines</option>
+                                                <option value="Pitcairn">Pitcairn</option>
+                                                <option value="Poland">Poland</option>
+                                                <option value="Portugal">Portugal</option>
+                                                <option value="Puerto Rico">Puerto Rico</option>
+                                                <option value="Qatar">Qatar</option>
+                                                <option value="Reunion">Reunion</option>
+                                                <option value="Romania">Romania</option>
+                                                <option value="Russian Federation">Russian Federation</option>
+                                                <option value="Rwanda">Rwanda</option>
+                                                <option value="Saint Helena">Saint Helena</option>
+                                                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                                                <option value="Saint Lucia">Saint Lucia</option>
+                                                <option value="Saint Martin">Saint Martin</option>
+                                                <option value="Saint Pierre">Saint Pierre</option>
+                                                <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                                                <option value="Samoa">Samoa</option>
+                                                <option value="San Marino">San Marino</option>
+                                                <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                                <option value="Senegal">Senegal</option>
+                                                <option value="Serbia">Serbia</option>
+                                                <option value="Serbia and Montenegro">Serbia and Montenegro</option>
+                                                <option value="Seychelles">Seychelles</option>
+                                                <option value="Sierra Leone">Sierra Leone</option>
+                                                <option value="Singapore">Singapore</option>
+                                                <option value="Sint Maarten">Sint Maarten</option>
+                                                <option value="Slovakia">Slovakia</option>
+                                                <option value="Slovenia">Slovenia</option>
+                                                <option value="Solomon Islands">Solomon Islands</option>
+                                                <option value="Somalia">Somalia</option>
+                                                <option value="South Africa">South Africa</option>
+                                                <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                                                <option value="South Sudan">South Sudan</option>
+                                                <option value="Spain">Spain</option>
+                                                <option value="Sri Lanka">Sri Lanka</option>
+                                                <option value="St. Barthelemy">St. Barthelemy</option>
+                                                <option value="Sudan">Sudan</option>
+                                                <option value="Suriname">Suriname</option>
+                                                <option value="Svalbard">Svalbard</option>
+                                                <option value="Sweden">Sweden</option>
+                                                <option value="Switzerland">Switzerland</option>
+                                                <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+                                                <option value="Taiwan">Taiwan</option>
+                                                <option value="Tajikistan">Tajikistan</option>
+                                                <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                                                <option value="Thailand">Thailand</option>
+                                                <option value="Timor-Leste">Timor-Leste</option>
+                                                <option value="Togo">Togo</option>
+                                                <option value="Tokelau">Tokelau</option>
+                                                <option value="Tonga">Tonga</option>
+                                                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                                                <option value="Tunisia">Tunisia</option>
+                                                <option value="Turkey">Turkey</option>
+                                                <option value="Turkmenistan">Turkmenistan</option>
+                                                <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                                                <option value="Tuvalu">Tuvalu</option>
+                                                <option value="Uganda">Uganda</option>
+                                                <option value="Ukraine">Ukraine</option>
+                                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="United States">United States</option>
+                                                <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                                                <option value="Uruguay">Uruguay</option>
+                                                <option value="Uzbekistan">Uzbekistan</option>
+                                                <option value="Vanuatu">Vanuatu</option>
+                                                <option value="Venezuela">Venezuela</option>
+                                                <option value="Vietnam">Vietnam</option>
+                                                <option value="Virgin Islands, British">Virgin Islands, British</option>
+                                                <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                                                <option value="Wallis and Futuna">Wallis and Futuna</option>
+                                                <option value="Western Sahara">Western Sahara</option>
+                                                <option value="Yemen">Yemen</option>
+                                                <option value="Yugoslavia">Yugoslavia</option>
+                                                <option value="Zambia">Zambia</option>
+                                                <option value="Zimbabwe">Zimbabwe</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group checkbox">
+                                            <!-- START Eloqua Shared Content - Template EU Opt-in -->                                                 
+                                            <!-- START - Opt-In Use Case #1 EU/EEA Consent -->                                                 
+                                            <!-- Copy has already been setup for all supported languages. Replace the <span> tags elqid with the corresponding id of the language that matches your landing page. The default English copy of the template will be replaced.
+
+                                                    Language        <span elqid=
+                                                    English                 427246
+                                                    Arabic                  427247
+                                                    Chinese Simplified      427263
+                                                    Chinese Traditional     427264
+                                                    ES-Spanish              427249
+                                                    French                  427251
+                                                    German                  427248
+                                                    Hebrew                  427252
+                                                    Indonesian              427253
+                                                    Italian                 427254
+                                                    Japanese                427255
+                                                    Korean                  427256
+                                                    Polish                  427257
+                                                    Portuguese              427258
+                                                    Russian                 427259
+                                                    Thai                    427260
+                                                    Turkish                 427261
+                                                    Vietnamese              427262
+                                                    XL-Spanish              427250
+                                                    -->                                                 
+                                            <input id="optinConsent" name="optinConsent" type="hidden" value="No">
+                                            <label class="opt-in-EU" for="optinEU">
+                                                <input class="opt-in-EU checkbox" id="optinEU" name="optinEU" type="checkbox" value="Yes" required="">
+                                                <span>Yes, I would like to subscribe to stay connected to the latest Intel technologies and industry trends by email and telephone. I can unsubscribe at any time.</span>
+                                            </label>                                                 
+                                            <!-- END - Opt-In Use Case #1 EU/EEA Consent -->                                                 
+
+                                            <!-- END Eloqua Shared Content - Template EU Opt-in -->                                                 
+                                        </div>
+                                        <button type="submit" class="btn orange-bg btn-lg pix-white btn-block small-text">
+                                            <span class="pix_edit_text"><strong>Download my eBook</strong></span>
+                                        </button>
+                                        <!-- Hidden form elements -->
+                                        <input value="FORM-MKA-18980" type="hidden" name="elqFormName"/>
+                                        <input value="334284386" type="hidden" name="elqSiteId"/> 
+                                        <input name="sourceId" id="sourceId" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980"/>
+                                        <input name="tacticId" id="tacticId" type="hidden" value="MKA-18980"/>
+                                        <input name="mktgLeadSourceOriginal" id="mktgLeadSourceOriginal" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980"/>
+                                        <input name="mktgLeadSourceRecent" id="mktgLeadSourceRecent" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980"/>
+                                        <!-- End hidden form elements -->
+                                    </form>
+                                    <p class="pix-black-gray-light"> <span class="pix_edit_text">By submitting this form, you are confirming you are an adult 18 years or older and you agree to share your personal information with Intel to use for this business request.  By completing the registration process, you are providing Intel your business contact information, travel information, dietary preferences, badge location among others ("Personal Information").  If you choose to share some content through social media about this event, Intel may use such content to promote the event in social media channels.  Intel’s web sites and communications are subject to our <a href="http://www.intel.com/privacy" target="_blank">Privacy Notice</a> and <a href="http://www.intel.com/content/www/us/en/legal/terms-of-use.html" target="_blank">Terms of Use</a>.&nbsp;&nbsp;</span> </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </form>
-				<div id="mce-responses" class="clear">
-					<div class="response" id="mce-error-response"></div>
-					<div class="response" id="mce-success-response"></div>
-				</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-				<div style="position: absolute; left: -5000px;" aria-hidden="true">
-					<input type="text" name="b_2b1e3e6f31132c32f059aa108_47c0023ce1" tabindex="-1" value="">
-				</div>
+                </div>
             </div>
         </div>
-	<!--End mc_embed_signup-->
+        <div class="pix_section pix-padding" id="download_links" style="display: block;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 column ui-droppable">
+                        <div class="pix-content text-center">
+                            <h2 class="pix-navy-blue pix-no-margin-top secondary-font"> <span class="pix_edit_text"><span style="font-weight: bold;">Thank you!</span></span> </h2>
+                            <p class="pix-navy-blue-2 big-text pix-margin-bottom-50"> <span class="pix_edit_text">Here are the links to download the eBook and buy a physical printed copy.</span> </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-sm-4 column ui-droppable">
+                        <div class="pix-content text-center pix-border-box-3 pix-padding-v-50 pix-margin-v-10 pix-padding-h-10">
+                            <div class="pix-margin-bottom-20">
+                                <i class="pixicon-download4" style="color: rgb(89, 163, 252); font-size: 100px;"></i>
+                            </div>
+                            <h5 class="pix-black-gray-dark secondary-font"> <span class="pix_edit_text"><strong>PDF</strong></span> </h5>
+                            <a href="https://link.springer.com/content/pdf/10.1007/978-1-4842-4932-1.pdf" class="btn pix-purple-line wide pix-line btn-round-lg" style="background: transparent; border-color: rgb(89, 163, 252); color: rgb(89, 163, 252);" target="_blank"> <span class="pix_edit_text"> <strong>Download PDF</strong></span> </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4 column ui-droppable">
+                        <div class="pix-content text-center pix-border-box-3 pix-padding-v-50 pix-margin-v-10 pix-padding-h-10">
+                            <div class="pix-margin-bottom-20">
+                                <i class="pixicon-download4" style="color: rgb(89, 163, 252); font-size: 100px;"></i>
+                            </div>
+                            <h5 class="pix-black-gray-dark secondary-font"> <span class="pix_edit_text"><strong>ePUB</strong></span> </h5>
+                            <a href="https://link.springer.com/download/epub/10.1007/978-1-4842-4932-1.epub" class="btn pix-purple-line wide pix-line btn-round-lg" style="background: transparent; border-color: rgb(89, 163, 252); color: rgb(89, 163, 252);" target="_blank"> <span class="pix_edit_text"> <strong>Download ePUB</strong></span> </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-4 column ui-droppable">
+                        <div class="pix-content text-center pix-border-box-3 pix-padding-v-50 pix-margin-v-10 pix-padding-h-10">
+                            <div class="pix-margin-bottom-20">
+                                <i class="pixicon-amazon2" style="color: rgb(89, 163, 252); font-size: 100px;"></i>
+                            </div>
+                            <h5 class="pix-black-gray-dark secondary-font"> <span class="pix_edit_text"><strong>Amazon</strong></span> </h5>
+                            <a href="https://amzn.to/2V7FqRz" class="btn pix-purple-line wide pix-line btn-round-lg" style="background: transparent; border-color: rgb(89, 163, 252); color: rgb(89, 163, 252);" target="_blank"> <span class="pix_edit_text"> <strong>Buy on Amazon</strong></span> </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="content16 mbr-section article cid-rx4y6XDzty" id="content16-9">
-    <div class="container">
-        <div class="mbr-text align-center mbr-fonts-style mbr-white mbr-bold display-2"><em>This is the first book to fully explain the revolutionary persistent memory technology and how developers can fully utilize it.&nbsp;</em></div>
-    </div>
-</section>
-
-<section class="content2 mbr-section article cid-rx4uwDhsC2" id="content2-6">
-    <div class="container">
-        <div class="mbr-row mbr-justify-content-center">
-            <div class="mbr-col-sm-12 mbr-col-md-10 mbr-col-lg-8">
-                <h3 class="mbr-fonts-style mbr-section-title mbr-light display-2"><strong>
-                    Programming Persistent Memory: </strong><br><strong><em>A Comprehensive Guide for Developers</em></strong></h3>
-		<p class="mbr-text mbr-fonts-style display-7">This is a comprehensive guide to persistent memory programming, targeted towards experienced programmers.  You will understand how persistent memory brings together several new software/hardware requirements, and offers great promise for better performance and faster application startup times—a huge leap forward in byte-addressable capacity compared with current DRAM offerings.<br><br>This revolutionary new technology gives applications significant performance and capacity improvements over existing technologies. It requires a new way of thinking and developing, which makes this highly disruptive to the IT/computing industry. The full spectrum of industry sectors that will benefit from this technology include, but are not limited to, in-memory and traditional databases, AI, analytics, HPC, virtualization, and big data.<br> <br><strong>Programming Persistent Memory</strong> describes the technology and why it is exciting the industry. It covers the operating system and hardware requirements as well as how to create development environments using emulated or real persistent memory hardware. The book explains fundamental concepts, provides an introduction to persistent memory programming APIs for C, C++, Javascript, and other languages, discusses RMDA with persistent memory, reviews security features, and presents many examples. Source code and examples that you can run on your own systems are included.</p>
+        <div class="pix_section pix-padding" id="section_features_1" style="display: block; background-color: rgb(244, 244, 244); background-repeat: repeat-x; padding-top: 60px; padding-bottom: 60px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 column ui-droppable">
+                        <div class="pix-content pix-padding-bottom-30">
+                            <h2 class="pix-black-gray-dark text-center pix-no-margin-top secondary-font"> <span class="pix_edit_text"><strong>A Few Things To Know!</strong></span> </h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 column ui-droppable">
+                        <div class="pix-content pix-margin-v-30">
+                            <div class="media">
+                                <div class="media-left media-top">
+                                    <div class="pix-margin-top-10 pix-cirlce-2">
+                                        <i class="pixicon-book" style="color: rgb(89, 163, 252); font-size: 60px;"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <div class="pix-padding-left-5">
+                                        <h5 class="media-heading pix-black-gray-dark secondary-font"> <span class="pix_edit_text"> <strong>The first book of its kind</strong></span> </h5>
+                                        <p class="pix-black-gray-light pix-margin-bottom-20"> <span class="pix_edit_text">This is the first book to fully explain the revolutionary persistent memory technology.</span> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 column ui-droppable">
+                        <div class="pix-content pix-margin-v-30">
+                            <div class="media">
+                                <div class="media-left media-top">
+                                    <div class="pix-margin-top-10 pix-cirlce-2">
+                                        <i class="pixicon-study2" style="color: rgb(89, 163, 252); font-size: 60px;"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <div class="pix-padding-left-5">
+                                        <h5 class="media-heading pix-black-gray-dark secondary-font"> <span class="pix_edit_text"> <strong>Learn by example</strong></span> </h5>
+                                        <p class="pix-black-gray-light pix-margin-bottom-20"> <span class="pix_edit_text">The book uses fully working code examples to demonstrate concepts that will accelerate your learning path.</span> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 column ui-droppable">
+                        <div class="pix-content pix-margin-v-30">
+                            <div class="media">
+                                <div class="media-left media-top">
+                                    <div class="pix-margin-top-10 pix-cirlce-2">
+                                        <i class="pixicon-unlock3" style="color: rgb(89, 163, 252); font-size: 60px;"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <div class="pix-padding-left-5">
+                                        <h5 class="media-heading pix-black-gray-dark secondary-font"> <span class="pix_edit_text"> <strong>Unlock your application's true potential</strong></span> </h5>
+                                        <p class="pix-black-gray-light pix-margin-bottom-20"> <span class="pix_edit_text">Persistent memory technology enables new features and capabilities not previously possible. Learn how to utilize the new memory-storage tier to accelerate application performance, access large memory capacities, deliver crash consistency, fast restarts, and much, much more.</span> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6 column ui-droppable">
+                        <div class="pix-content pix-margin-v-30">
+                            <div class="media">
+                                <div class="media-left media-top">
+                                    <div class="pix-margin-top-10 pix-cirlce-2">
+                                        <i class="pixicon-speedometer" style="color: rgb(89, 163, 252); font-size: 60px;"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <div class="pix-padding-left-5">
+                                        <h5 class="media-heading pix-black-gray-dark secondary-font"> <span class="pix_edit_text"> <strong>Rapid Development</strong></span> </h5>
+                                        <p class="pix-black-gray-light pix-margin-bottom-20"> <span class="pix_edit_text">Learn how to use the Persistent Memory Development Kit (PMDK), a set of libraries and tools designed to standardize and streamline your work.</span> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="mbr-section content1 cid-rx4xm9YLa4" id="content1-8">
-
-    
-
-    <div class="mbr-container">
-        <h2 class="mbr-title align-center mbr-fonts-style mbr-bold display-1">
-            What You Will Learn</h2>
+        <div class="pix_section gray-bg pix-padding" id="section_content_2" style="display: block; background-color: rgb(255, 255, 255); background-repeat: repeat-x; padding-top: 60px; padding-bottom: 60px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 column ui-droppable">
+                        <div class="pix-content pix-padding-bottom-30 text-center">
+                            <h1 class="pix-black-gray-dark text-center pix-no-margin-top pix-md-width-text"> <span class="pix_edit_text">About Programming Persistent Memory: A Comprehensive Guide for Developers</span> </h1>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 column ui-droppable col-md-12 col-sm-12">
+                        <div class="pix-content pix-padding-top-20">
+                            <p class="pix-black-gray-light big-text pix-margin-bottom-20"> <span class="pix_edit_text">
+			This is a comprehensive guide to persistent memory programming, is targeted towards experienced programmers. You will understand how persistent memory brings together several new software/hardware requirements, and offers great promise for better performance and faster application startup times—a huge leap forward in byte-addressable capacity compared with current DRAM offerings. <br><span><br><span>This revolutionary new technology gives applications significant performance and capacity improvements over existing technologies. It requires a new way of thinking and development, which makes this highly disruptive to the IT/computing industry. The full spectrum of industry sectors that will benefit from this technology include, but are not limited to, in-memory and traditional databases, AI, analytics, HPC, virtualization, and big data. </span><br><br><span>Programming Persistent Memory describes the technology and why it is exciting in the industry. It covers the operating system and hardware requirements as well as how to create development environments using emulated or real persistent memory hardware. The book explains fundamental concepts, provides an introduction to persistent memory programming APIs for C, C++, Javascript, and other languages, discusses RMDA with persistent memory, reviews security features, and presents many examples. Source code and examples that you can run on your own systems are included.</span></span></span> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pix_section gray-bg pix-padding" id="section_content_3" style="display: block;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 column ui-droppable">
+                        <div class="pix-content pix-padding-bottom-30 text-center">
+                            <h1 class="pix-black-gray-dark text-center pix-no-margin-top pix-md-width-text"> <span class="pix_edit_text">Table of Contents</span> </h1>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 column ui-droppable col-md-12 col-sm-12">
+                        <div class="pix-content pix-padding-top-20">
+                            <p class="pix-black-gray-light big-text pix-margin-bottom-20"> 
+                                <span class="pix_edit_text"> 
+                                    <span><span style="font-weight: bold;">Chapter 1.&nbsp;Introduction to Persistent Memory</span> - Introduces persistent memory and dips our toes in the water with a simple persistent key-value store example using libpmemkv.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 2.&nbsp;Persistent Memory Architecture</span> - Describes the persistent memory architecture and focuses on the hardware requirements developers should know.<br><br></span> 
+                                    <span><span style="font-weight: bold;">Chapter 3.&nbsp;Operating System Support for Persistent Memory</span> - Provides information relating to operating system changes and features and how persistent memory is seen by the OS.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 4.&nbsp;Fundamental Concepts of Persistent Memory Programming</span> - Builds on the first three chapters and describes the fundamental concepts of persistent memory programming.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 5.&nbsp;Introducing the Persistent Memory Development Kit (PMDK)</span> - Introduces the Persistent Memory Development Kit (PMDK), a suite of libraries to assist software developers.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 6.&nbsp;libpmem: Low-Level Persistent Memory Support</span> - Describes and shows how to use libpmem from the PMDK, a low-level library providing persistent memory support.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 7.&nbsp;libpmemobj: A Native Transactional Object Store</span> - Provides information and examples using libpmemobj, a C native object store library from the PMDK.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 8.&nbsp;libpmemobj++: The Adaptable Language</span> - C++ and Persistent memory - Shows the C++ libpmemobj++ store from the PMDK, similar to libpmemobj.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 9.&nbsp;pmemkv: A Persistent In-Memory Key-Value Store</span> - Expands upon the introduction to libpmemkv from Chapter 1 with a more in-depth discussion using examples.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 10.&nbsp;Volatile Use of Persistent Memory</span> - Is for those who want to take advantage of persistent memory, but do not require data to be stored persistently. libmemkind is a user-extensible heap manager built on top of jemalloc which enables control of memory characteristics and partitioning of the heap between kinds of memory, including persistent memory. libvmemcache is an embeddable and lightweight in-memory caching solution. It's designed to fully take advantage of large-capacity memory, such as Persistent Memory with DAX, through memory mapping in an efficient and scalable way.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 11.&nbsp;Designing Data Structures for Persistent Memory</span> - Provides a wealth of information for designing data structures for persistent memory.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 12.&nbsp;Debugging Persistent Memory Applications</span> - Introduces tools and walks through several examples of how software developers can debug persistent memory enabled applications.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 13.&nbsp;Enabling Persistence in a Real World Application</span> - Discusses how a real world application was modified to enable persistent memory features.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 14.&nbsp;Concurrency and Persistent Memory</span> - Describes how concurrency in applications should be implemented for use with persistent memory.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 15.&nbsp;Profiling and Performance</span> - Teaches performance concepts and demonstrates how to use the Intel® VTune suite of tools to profile systems and applications before and after code changes are made.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 16.&nbsp;PMDK Internals: Algorithms and Data Structures Underpinning PMDK</span> - Takes us on a deep dive through some of the PMDK internals.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 17.&nbsp;Reliability, Availability, and Serviceability (RAS)</span> - Describes the implementation of Reliability, Availability, and Serviceability (RAS) with the hardware and operating system layers.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 18.&nbsp;Remote Persistent Memory</span> - Discusses how applications can scale-out across multiple systems using local and remote persistent memory.<br><br></span>
+                                    <span><span style="font-weight: bold;">Chapter 19.&nbsp;Advanced Topics</span> - Describes things such as NUMA considerations, using volume managers, and more on CPU machine instructions.</span>
+                                </span> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pix_section pix-padding-v-40 gray-bg" id="section_faq_1" style="display: block; background-color: rgb(255, 255, 255); background-repeat: repeat-x; padding-top: 40px; padding-bottom: 40px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 column ui-droppable">
+                        <div class="pix-content pix-padding-bottom-20 text-center">
+                            <h2 class="pix-black-gray-dark pix-no-margin-top secondary-font"> <span class="pix_edit_text"><strong>Frequently Asked Questions</strong></span> </h2>
+                            <div>
+                                <span class="pix-bar blue-bg pix-margin-bottom-20 pix-margin-top-10"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 column ui-droppable col-md-12">
+                        <div class="pix-content pix-padding-top-30">
+                            <h5 class="pix-black-gray-dark pix-no-margin-top"> <span class="pix_edit_text"><strong>1. Why do I need to register to access the eBook?</strong></span> </h5>
+                            <p class="pix-black-gray-light pix-margin-bottom-20 big-text"> <span class="pix_edit_text">The persistent memory ecosphere is a rapidly evolving sector. We would like to keep you updated with all the latest persistent memory news, information, announcements, training, events, and more. We promise never to sell your information or spam you with irrelevant information. You can unsubscribe at any time.</span> </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 column ui-droppable col-md-12">
+                        <div class="pix-content pix-padding-top-30">
+                            <h5 class="pix-black-gray-dark pix-no-margin-top"> <span class="pix_edit_text"><strong>2. I found an error in the source code or book content, what do I do?</strong></span> </h5>
+                            <p class="pix-black-gray-light pix-margin-bottom-20 big-text"> <span class="pix_edit_text">Thank you! We did our best to ensure the book was a high-quality product, but mistakes happen. Please create a new issue in our <a href="https://github.com/pmem/book/issues" target="_blank">GitHub project</a> and we'll resolve the problem.</span> </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 column ui-droppable col-md-12">
+                        <div class="pix-content pix-padding-top-30">
+                            <h5 class="pix-black-gray-dark pix-no-margin-top"> <span class="pix_edit_text"><strong>3. I have a question or need help</strong></span> </h5>
+                            <p class="pix-black-gray-light pix-margin-bottom-20 big-text"> <span class="pix_edit_text">We are here to help. Please join our <a href="https://groups.google.com/forum/#!forum/pmem" target="_blank">Persistent Memory Google Forum</a> and ask your question.<br><br><span>You can find a lot of great information in these resources:<br><span>- Intel Persistent Memory Developer Zone - <a href="https://software.intel.com/pmem" target="_blank">https://software.intel.com/pmem</a></span><br><span>- Persistent Memory Programming Home - <a href="https://pmem.io" target="_blank">https://pmem.io</a></span><br><span>- Persistent Memory Documentation - <a href="https://docs.pmem.io" target="_blank">https://docs.pmem.io</a></span><span><br></span></span></span> </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 column ui-droppable col-md-12">
+                        <div class="pix-content pix-padding-top-30">
+                            <h5 class="pix-black-gray-dark pix-no-margin-top"> <span class="pix_edit_text"><strong>4. Can I use the book and code examples for personal, commercial, or academic use?</strong></span> </h5>
+                            <p class="pix-black-gray-light pix-margin-bottom-20 big-text"> <span class="pix_edit_text">Absolutely. <span style="font-weight: bold;">Programming Persistent Memory: A Comprehensive Guide for Developers</span> is published through <a href="https://www.apress.com/us/apress-open" target="_blank">Apress Open</a> using a <a href="https://creativecommons.org/" target="_blank">Creative Commons Attribution license</a>. You may use the book content and source code examples for any purpose. All we ask is that you attribute the book and its author.</span> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pix_section pix-padding-v-20 gray-bg" id="section_footer_1" style="display: block; background-color: rgb(68, 68, 68); background-repeat: repeat-x; padding-top: 20px; padding-bottom: 20px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 column ui-droppable">
+                        <div class="pix-content">
+                            <div class="pix-padding-top-30 text-center">
+                                <span class="pix-gray big-text"><span class="pix_edit_text">Copyright © 2020 pmem.io. All Rights Reserved</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        
-    </div>
-</section>
+        <!-- Javascript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="js/velocity.min.js"></script> -->
+        <!-- <script src="js/velocity.ui.min.js"></script> -->
+        <!-- <script src="js/appear.min.js" type="text/javascript"></script> -->
+        <!-- <script src="js/animations.js" type="text/javascript"></script> -->
+        <script src="js/plugins.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" type="text/javascript" crossorigin="anonymous"></script>
+        <script src="js/custom.js"></script>
 
-<section class="content7 mbr-section cid-rx4xgZQyBp" id="content7-7">
-     
+        <!-- Form Opt-In JavaScript File Hosted in Eloqua -->         
+        <script type='text/javascript'>
+            document.write('<scr'+'ipt type="text/javascript" src="https://img03.en25.com/Web/IntelCorporation/{ea96a698-db49-4e74-8d97-ee404e6be11a}_elq-template-form-opt-in-v1.1.js?v='+new Date().getDate()+'"></sc'+'ript>');
+        </script>         
 
-    <div class="mbr-container">
-        <div class="mbr-text counter-container mbr-fonts-style display-7">
-            <ul>
-                <li>Understand what persistent memory is, what it does, and the value it brings to the industry</li>
-                <li>Become familiar with the operating system and hardware requirements to use persistent memory</li>
-                <li>Learn the fundamentals of persistent memory programming: why it is different from current programming methods, and what developers need to keep in mind when programming for persistence</li><li>Persistent memory application development by example using the <a href="https://pmem.io/pmdk" target="_blank">Persistent Memory Development Kit</a> (PMDK)</li><li>Designing and optimizing data structures for persistent memory</li><li>How real-world applications are modified to leverage persistent memory</li><li>Utilize the tools available for persistent memory programming, application performance profiling, and debugging</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section class="info1 cid-rx5kK4x1jt" id="info1-d">
-
-    
-
-    <div class="container">
-        <div class="mbr-row mbr-justify-content-center">
-            <div class="mbr-col-sm-12 mbr-col-md-6 mbr-col-lg-8">
-                <h2 class="mbr-section-title align-left mbr-fonts-style mbr-bold mbr-white display-2"><em>This book provides vendor-neutral coverage of persistent memory technologies, including reference to existing real-world products and services</em></h2>
-                
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-<section class="mbr-section content18 cid-rx4qia0SLM" id="TOC">
-
-    
-
-    <div class="mbr-container">
-        <h2 class="mbr-title align-center mbr-fonts-style mbr-bold mbr-white display-1">
-            Table of Contents</h2>
-        
-        
-    </div>
-</section>
-
-<section class="mbr-section content9 cid-rx4oPSLGTl" id="content9-1">
-     
-
-    <div class="mbr-container">
-        <div class="mbr-text counter-container mbr-fonts-style display-7">
-            <ol>
-                <li><strong>Introduction to Persistent Memory</strong> - Introduces persistent memory and dips our toes in the water with a simple persistent key-value store example using libpmemkv. &nbsp;</li>
-                <li><strong>Persistent Memory Architecture</strong> - Describes the persistent memory architecture and focuses on the hardware requirements developers should know.&nbsp;</li>
-                <li><strong>Operating System Support for Persistent Memory</strong> - Provides information relating to operating system changes and features and how persistent memory is seen by the OS. &nbsp;</li>
-		<li><strong>Fundamental Concepts of Persistent Memory Programming</strong> - Builds on the first three chapters and describes the fundamental concepts of persistent memory programming.&nbsp; </li>
-		<li><strong>Introducing the Persistent Memory Development Kit (PMDK)</strong> - Introduces the Persistent Memory Development Kit (PMDK), a suite of libraries to assist software developers.&nbsp; </li>
-		<li><strong>libpmem: Low-Level Persistent Memory Support</strong> - Describes and shows how to use libpmem from the PMDK, a low-level library providing persistent memory support.&nbsp; </li>
-		<li><strong>libpmemobj: A Native Transactional Object Store</strong> - Provides information and examples using libpmemobj, a C native object store library from the PMDK.&nbsp; </li>
-		<li><strong>libpmemobj++: The Adaptable Language - C++ and Persistent memory</strong> - Shows the C++ libpmemobj++ store from the PMDK, similar to libpmemobj.&nbsp; </li>
-		<li><strong>pmemkv: A Persistent In-Memory Key-Value Store</strong> - Expands upon the introduction to libpmemkv from Chapter 1 with a more in-depth discussion using examples.&nbsp; </li>
-		<li><strong>Volatile Use of Persistent Memory</strong> - Is for those who want to take advantage of persistent memory, but do not require data to be stored persistently.  libmemkind is a user extensible heap manager built on top of jemalloc which enables control of memory characteristics and a partitioning of the heap between kinds of memory, including persistent memory.  libvmemcache is an embeddable and lightweight in-memory caching solution. It's designed to fully take advantage of large capacity memory, such as Persistent Memory with DAX, through memory mapping in an efficient and scalable way.&nbsp; </li>
-		<li><strong>Designing Data Structures for Persistent Memory</strong> - Provides a wealth of information for designing data structures for persistent memory.&nbsp; </li>
-		<li><strong>Debugging Persistent Memory Applications</strong> - Introduces tools and walks through several examples for how software developers can debug persistent memory enabled applications.&nbsp; </li>
-		<li><strong>Enabling Persistence in a Real World Application</strong> - Discusses how a real world application was modified to enable persistent memory features.&nbsp;</li>
-		<li><strong>Concurrency and Persistent Memory</strong> - Describes how concurrency in applications should be implemented for use with persistent memory.&nbsp;</li>
-		<li><strong>Profiling and Performance</strong> - Teaches performance concepts and demonstrates how to use the Intel® VTune suite of tools to profile systems and applications before and after code changes are made.&nbsp;</li>
-		<li><strong>PMDK Internals: Algorithms and Data Structures Underpinning PMDK </strong>- Takes us on a deep dive through some of the PMDK internals.&nbsp;</li>
-		<li><strong>Reliability, Availability, and Serviceability (RAS)</strong> - Describes the implementation of Reliability, Availability, and Serviceability (RAS) with the hardware and operating system layers.&nbsp;</li>
-		<li><strong>Remote Persistent Memory</strong> - Discusses how applications can scale-out across multiple systems using local and remote persistent memory.&nbsp;</li>
-		<li><strong>Advanced Topics</strong> - Describes things such as NUMA considerations, using volume managers, and more on CPU machine instructions.&nbsp;</li>
-            </ol>
-        </div>
-    </div>
-</section>
-
-<section class="info1 cid-rx5l8OgZM6" id="info1-e">
-    <div class="container">
-        <div class="mbr-row mbr-justify-content-center">
-            <div class="mbr-col-sm-12 mbr-col-md-6 mbr-col-lg-8">
-                <h2 class="mbr-section-title align-left mbr-fonts-style mbr-bold mbr-white display-2"><em>The book describes a set of development libraries and tools designed to standardize and streamline work for developers looking to create or adapt an application to use persistent memory</em></h2>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="accordion cid-rxldMsnipa" id="accordion1-g">
-    <div class="mbr-container">
-        <h3 class="mbr-fonts-style mbr-section-title mbr-light align-center display-2">FAQ</h3>
-        <amp-accordion class="accordion" expand-single-section="">
-          <section expanded="">
-            <h4 class="section-title mbr-fonts-style display-5">Is the book really FREE?</h4>
-            <p class="mbr-fonts-style display-7">
-              Yes! &nbsp;<strong>Programming Persistent Memory: A Guide for Developers</strong> is published through Apress Open using a Creative Commons Attribution license.  The eBook is freely available online and accessible to everyone.  In addition to the FREE digital version, a print edition is offered for those readers who want a physical copy. &nbsp;The printed copy will not be free.</p>
-          </section>
-	  <section>
-            <h4 class="section-title mbr-fonts-style display-5">I found an issue with the source code or chapter content</h4>
-            <p class="mbr-fonts-style display-7">
-              Thank you!  We've created a <a href="https://groups.google.com/forum/#!topic/pmem/5hTR3PHvOLQ" target="_blank">Google Forum thread</a> to discuss the book and chapter content and to report issues. For source code bugs, please create a new issue on our <a href="https://github.com/pmem/book/issues" target="_blank">GitHub project repository</a> and we'll take care of it.</p>
-          </section>
-          <section>
-            <h4 class="section-title mbr-fonts-style display-5">I have a persistent memory question</h4>
-            <p class="mbr-fonts-style display-7">
-              We are here to help. &nbsp;You can find a lot of good information in these locations:<br>- Intel Persistent Memory Developer Zone - <a href="https://software.intel.com/pmem" target="_blank">https://software.intel.com/pmem</a><br>- Persistent Memory Programming Home - <a href="https://pmem.io" target="_blank">https://pmem.io</a><br>- Persistent Memory Documentation - <a href="https://docs.pmem.io" target="_blank">https://docs.pmem.io</a><br/><br/>
-             If you can't find an answer, please ask in the <a href="https://groups.google.com/forum/#!forum/pmem" target="_blank">Persistent Memory Google Forum</a><br><a href="https://docs.pmem.io" target="_blank"><br></a><br><a href="https://pmem.io" target="_blank"><br></a><br><br></p>
-          </section>
-        </amp-accordion>
-    </div>
-</section>
-
-<section class="social-share cid-rx5k5phMuZ" id="social-share-c">
-    <div class="wrapper">
-        <h1 class="mbr-fonts-style align-center display-2">
-            Spread the persistent word!</h1>
-        <amp-social-share type="email"></amp-social-share>
-        <amp-social-share type="facebook" data-param-app_id="884200135290570"></amp-social-share>
-	<amp-social-share type="linkedin">
-	</amp-social-share>
-        <amp-social-share type="twitter"></amp-social-share>
-        <amp-social-share type="whatsapp"></amp-social-share>
-    </div>
-</section>
-
-<section class="footer1 cid-rx4p0rOvmw" id="footer1-4">
-    <div class="container">
-        <div class="mbr-col-sm-12 align-center mbr-white">
-            <p class="mbr-text mbr-fonts-style display-7">
-                &copy;Copyright 2019-2020 pmem.io - All Rights Reserved
-            </p>
-        </div>
-    </div>
-</section>
-
-</body>
+    </body>
 </html>
