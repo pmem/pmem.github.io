@@ -127,6 +127,15 @@ $( window ).on("load", function() {
                          * $("#download_links").prepend(alert_msg);
                          * $('.alert').slideDown();
                          */
+
+			/* Stack Overflow Ad Conversion Tracking */
+			var axel = Math.random()+"";
+			var a = axel * 10000000000000;
+			var stackoverflow_code = "<img src=\"https://pubads.g.doubleclick.net/activity;xsp=4681854;ord=" + a + "?\" width=1 height=1 border=0>";
+			stackoverflow_code += "<noscript>";
+			stackoverflow_code += "<img src=\"https://pubads.g.doubleclick.net/activity;xsp=4681854;ord=1?\" width=1 height=1 border=0>";
+			stackoverflow_code += "</" + "noscript>";
+			$("#download_links").append(stackoverflow_code);
                     }, 500);
             }, 'html')
             // Handle errors returned from the server to the POST request
