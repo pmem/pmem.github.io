@@ -81,10 +81,6 @@ organization in GitHub under
 			<td>Java bindings for pmemkv</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/pmemkv-jni">pmemkv-jni</a></td>
-			<td>Java bindings via JNI for pmemkv</td>
-		</tr>
-		<tr>
 			<td><a href="https://github.com/pmem/pmdk-convert">pmdk-convert</a></td>
 			<td>Conversion tool for PMDK pools</td>
 		</tr>
@@ -292,6 +288,11 @@ organization in GitHub under
 			<td><a href="https://github.com/pmem/issues">issues</a></td>
 			<td>Archive of some old issues.  No longer in-use.</td>
 		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/pmemkv-jni">pmemkv-jni</a></td>
+			<td>Java bindings via JNI for pmemkv</td>
+		</tr>
+
 	</table>
 </fieldset>
 {:/}
