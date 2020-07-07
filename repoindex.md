@@ -159,6 +159,10 @@ organization in GitHub under
 			<td><a href="https://github.com/pmem/dev-utils-kit">dev-utils-kit</a></td>
 			<td>Tools used for development of projects under pmem organization (WIP)</td>
 		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/autoflushtest">autoflushtest</a></td>
+			<td>Basic data integrity test for platforms with flush-on-fail CPU caches</td>
+		</tr>
 	</table>
 </fieldset>
 <fieldset class="repo">
