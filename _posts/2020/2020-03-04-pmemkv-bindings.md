@@ -97,15 +97,19 @@ see [pmemkv-python github repository][py_gh].
 
 ### pmemkv-java
 
-Latest released version is 0.9 and and is compatible with libpmemkv 1.0, but comes with no
-guarantees of stable API. It uses exceptions for error handling. This binding uses JNI to
-interoperate with C and that pmemkv C JNI implementation is delivered in a separate repository.
-Installation process, when pmemkv and pmemkv-jni are installed in the system, comes down to
-executing, within source directory, command: `mvn install`.
+Latest released version is 1.0 - it guarantees backward compatibility and stable API,
+compatible with **libpmemkv 1.0**. It supports direct data access and it uses Builder pattern
+for configuring database. This binding uses JNI to interoperate with C and that
+pmemkv C JNI implementation is delivered as a sub-module in the same repository.
+
+It also delivers API description in form of JavaDoc documentation (accessible e.g. as html in
+[here][java_pmem_io]) and it uses exceptions for error handling. Installation process, when pmemkv
+is installed in the system, comes down to executing, within the source directory, command: `mvn install`.
 
 For more information, such as required dependencies, usage and full installation guide,
-see [pmemkv-java github repository][java_gh]. To see the repository of JNI content,
-see [pmemkv-jni github repository][jni_gh].
+see [pmemkv-java github repository][java_gh].
+
+As an alternative for java programmers, there is a low-level library for pmem, called [LLPL][llpl_blog].
 
 ### pmemkv-ruby
 
@@ -123,7 +127,7 @@ see [pmemkv-ruby github repository][ruby_gh].
 | --------- | ------- | ------------- | --- |
 | **Node.js** | **1.0** | **yes** | **[GitHub][nodejs_gh]**, **[docs][nodejs_pmem_io]** |
 | **Python** | **1.0** | **yes** | **[GitHub][py_gh]**, **[docs][py_pmem_io]** |
-| Java | 0.9 | no | [GitHub][java_gh] |
+| **Java** | **1.0** | **yes** | **[GitHub][java_gh]**, **[docs][java_pmem_io]** |
 | Ruby | 0.9 | no | [GitHub][ruby_gh] |
 
 ### Looking forward
@@ -140,6 +144,7 @@ or you just want to let us know we don't have information about some (possibly y
 or you believe we're missing some functionalities, please [file an issue in pmemkv's repository][new_pmemkv_iss]
 to let us know. We are always eager to help our community grow.
 
+###### [This entry was edited on 2020-07-29 to reflect pmemkv-java recent release.]
 
 [pmemkv_pmem_io]: https://pmem.io/pmemkv/
 [pmemkv_bindings_readme]: https://github.com/pmem/pmemkv/#language-bindings
@@ -148,7 +153,8 @@ to let us know. We are always eager to help our community grow.
 [py_gh]: https://github.com/pmem/pmemkv-python
 [py_pmem_io]: https://pmem.io/pmemkv-python
 [java_gh]: https://github.com/pmem/pmemkv-java
-[jni_gh]: https://github.com/pmem/pmemkv-jni
+[java_pmem_io]: https://pmem.io/pmemkv-java
+[llpl_blog]: https://pmem.io/2020/05/27/llpl-intro1.html
 [ruby_gh]: https://github.com/pmem/pmemkv-ruby
 [rust_binding_iss]: https://github.com/pmem/pmemkv/issues/192
 [go_binding_iss]: https://github.com/pmem/pmemkv/issues/190
