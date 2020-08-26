@@ -22,7 +22,7 @@ and a fresh look to an old problem :).
 
 [PVS-Studio][pvs-studio] is a static-analysis tool for detecting bugs and
 security weaknesses in the source code of programs. What distinguishes
-PVS-Studio is their comprehensive support support for open-source projects.
+PVS-Studio is their comprehensive support for open-source projects.
 After a quick e-mail exchange, the PVS-Studio team agreed to perform an analysis
 of the PMDK project. The analysis is available in this [post][viva64-post].
 
