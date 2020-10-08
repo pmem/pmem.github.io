@@ -100,7 +100,7 @@ see [pmemkv-python github repository][py_gh].
 Latest released version is 1.0 - it guarantees backward compatibility and stable API,
 compatible with **libpmemkv 1.0**. It supports direct data access and it uses Builder pattern
 for configuring a database. This binding uses JNI to interoperate with C and that
-pmemkv C JNI implementation is delivered as a sub-module in the same repository.
+pmemkv C JNI implementation is delivered as a part of the same repository.
 
 It also delivers API description in form of JavaDoc documentation (accessible e.g. as html in
 [here][java_pmem_io]). It uses exceptions for error handling. To install pmemkv-java in the system,
@@ -147,6 +147,7 @@ or you believe we're missing some functionalities, please [file an issue in pmem
 to let us know. We are always eager to help our community grow.
 
 ###### [This entry was edited on 2020-07-29 to reflect pmemkv-java recent release.]
+###### [This entry was edited on 2020-10-08 to fix java binding implementation detail.]
 
 [pmemkv_pmem_io]: https://pmem.io/pmemkv/
 [pmemkv_bindings_readme]: https://github.com/pmem/pmemkv/#language-bindings
