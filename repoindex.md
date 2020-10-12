@@ -94,7 +94,8 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/rpma">rpma</a></td>
-			<td>Low-level library for Remote Persistent Memory Access (in development)</td>
+			<td>C library to simplify accessing persistent memory (PMem)
+			on remote hosts over Remote Direct Memory Access (RDMA)</td>
 		</tr>
 	</table>
 	<br><br>
