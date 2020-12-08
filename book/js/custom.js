@@ -128,12 +128,12 @@ $( window ).on("load", function() {
                          * $('.alert').slideDown();
                          */
 
-			/* Stack Overflow Ad Conversion Tracking */
+			/* Cafelli/Stack Overflow Ad Conversion Tracking */
 			var axel = Math.random()+"";
 			var a = axel * 10000000000000;
-			var stackoverflow_code = "<img src=\"https://pubads.g.doubleclick.net/activity;xsp=4681854;ord=" + a + "?\" width=1 height=1 border=0>";
+			var stackoverflow_code = "<img src=\"https://pubads.g.doubleclick.net/activity;xsp=4718423;ord=" + a + "?\" width=1 height=1 border=0>";
 			stackoverflow_code += "<noscript>";
-			stackoverflow_code += "<img src=\"https://pubads.g.doubleclick.net/activity;xsp=4681854;ord=1?\" width=1 height=1 border=0>";
+			stackoverflow_code += "<img src=\"https://pubads.g.doubleclick.net/activity;xsp=4718423;ord=1?\" width=1 height=1 border=0>";
 			stackoverflow_code += "</" + "noscript>";
 			$("#download_links").append(stackoverflow_code);
                     }, 500);
