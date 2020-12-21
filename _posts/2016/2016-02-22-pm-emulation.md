@@ -97,7 +97,7 @@ For those files there is no paging, and load/store operations provide direct acc
 Install filesystem with DAX (available today for ext4 and xfs):
 {% highlight console linenos %}
 # sudo mkdir /mnt/mem
-# sudo mkfs.ext4 /dev/pmem0    OR    #sudo mkfs.xfs /dev/pmem0
+# sudo mkfs.ext4 /dev/pmem0    OR    #sudo mkfs.xfs -m reflink=0 /dev/pmem0
 # sudo mount -o dax /dev/pmem0 /mnt/mem
 {% endhighlight %}
 
