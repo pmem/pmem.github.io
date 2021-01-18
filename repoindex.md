@@ -32,12 +32,13 @@ organization in GitHub under
 			<td>PMDK Core C libraries and tools:<br>
 				<ul>
 					<li>libpmem
-					<li>libpmem2 (in development)
+					<li>libpmem2
 					<li>libpmemobj
 					<li>libpmemblk
 					<li>libpmemlog
 					<li>librpmem
 					<li>libpmempool
+					<li>libpmemset (in development)
 					<li>pmempool utility
 					<li>Core PMDK C examples
 					<li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)
@@ -61,8 +62,8 @@ organization in GitHub under
 			<td>Transactional Key-Value Store: Top-Level C & C++ API</td>
 		</tr>
 		<tr>
-			<td><a href="https://github.com/pmem/pmemkv-tools">pmemkv-tools</a></td>
-			<td>Benchmarks and tools for pmemkv</td>
+			<td><a href="https://github.com/pmem/pmemkv-bench">pmemkv-bench</a></td>
+			<td>Benchmarks for pmemkv</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmemkv-python">pmemkv-python</a></td>
