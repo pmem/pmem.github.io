@@ -5,6 +5,11 @@ layout: post
 identifier: hazelcast_memkind
 ---
 
+
+This blog post is published on the Hazelcast [blog][hazelcast_blog] as well.
+If interested in Hazelcast, check the other posts there too.
+
+
 ## Introduction
 
 The mission of the PMDK team has always been and will always be to make programming persistent memory
@@ -311,6 +316,7 @@ capacities of memory than possible before, all with a lower cost for the end use
 
 Article written together by Zoltán Baranyi and Michal Biesek.
 
+[hazelcast_blog]:https://hazelcast.com/blog/using-memkind-in-hazelcast/
 [hazelcast]: https://hazelcast.com
 [hazelcast_hd_post]:https://hazelcast.org/blog/introduction-hazelcast-hd-memory/
 [libvmem]:https://pmem.io/pmdk/libvmem/
