@@ -1,4 +1,4 @@
 ---
 layout: redirect
-newurl: http://pmem.io/pmdk/cpp_obj/
+newurl: http://pmem.io/libpmemobj-cpp/
 ---
