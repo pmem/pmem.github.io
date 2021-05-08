@@ -1,0 +1,20 @@
+When accessing data structures on [block storage](#block-storage), **paging**
+is used to bring the appropriate blocks into DRAM as required.  The paging
+can be transparent to the application (i.e. kernel paging), or the application
+can manage the paging itself (the case for most high-end databases).
+
+[Persistent memory](#persistent-memory) doesn't require paging for access,
+since it is, by definition, byte-addressable.  This is an advantage over
+storage in multiple ways, since the lack of paging means lower latency,
+consistent latency, and it removes the need to evict other data from DRAM
+to make room for the inbound pages.  However, some PMem-aware applications
+may still move blocks between PMem and DRAM to leverage the higher
+performance of DRAM for hot data.
+
+![Paging](paging/paging.jpg)
+
+The diagram above illustrates how a storage-based memory mapped file
+is implemented with paging.  The application accesses the file data in
+DRAM as if it were byte-addressable, but when there's a **page cache miss**,
+the system suspends the application while it moves the page from block
+storage into DRAM, potentially evicting another page first to make room.

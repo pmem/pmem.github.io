@@ -1,0 +1,3 @@
+**LLPL** is the Java Low Level Persistence Library offering
+access to blocks of persistent memory allocated on a persistent heap.
+More information can be found on the [LLPL GitHub Page](https://github.com/pmem/llpl).

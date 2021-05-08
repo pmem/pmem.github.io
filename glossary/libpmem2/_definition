@@ -1,0 +1,11 @@
+The **libpmem2** library provides low level persistent memory support, and
+is a replacement for the original [libpmem](#libpmem) library.
+**libpmem2** provides a more universal and platform-agnostic interface.
+Developers wishing to roll their own persistent memory algorithms will find
+this library useful, but most developers will likely use
+[libpmemobj](#libpmemobj) which provides memory allocation and transaction
+support.  Higher level libraries like [libpmemobj](#libpmemobj) are implemented
+on top of **libpmem2**.
+The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+the PMDK libraries, which are open source and available on
+[GitHub](https://pmem.io/repoindex).

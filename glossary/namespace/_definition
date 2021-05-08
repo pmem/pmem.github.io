@@ -1,0 +1,18 @@
+A **namespace** is a way to partition capacity into logical devices.  It is
+a similar concept to the way a SCSI storage array can be
+partitioned into SCSI logical units
+(LUNs).  The NVM Express specification defines how namespaces work on NVMe
+SSDs, and the ACPI specification defines how namespaces work on
+[NVDIMMs](#nvdimm).  The NVDIMM version was extended and added to the
+[CXL](#cxl) specification in CXL 2.0 so that PMem on CXL can define
+namespaces in the same way.
+
+Persistent Memory namespaces are more complex to manage than traditional
+storage, since the capacity is often interleaved across devices.  To manage
+this, namespaces are defined by storing _namespace labels_ on each device
+that contributes to a namespace.  These labels are stored
+in a [label storage area](#label-storage-area) on each device.
+
+On Linux, the [ndctl](#ndctl) command provides a product-neutral way to
+manage namespaces.  See the [create-namespace](https://pmem.io/ndctl/ndctl-create-namespace.html)
+command for more details.

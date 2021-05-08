@@ -1,0 +1,6 @@
+The **memkind** library is focused on the volatile use of PMem, where
+software ignores the persistence aspect of the PMem and uses it for
+its capacity and price point.  **memkind** uses the popular **jemalloc**
+library internally to offer a flexible allocator for multiple,
+independent heaps.
+More information can be found on the [memkind web page](http://memkind.github.io/memkind/).

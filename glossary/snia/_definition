@@ -1,0 +1,9 @@
+According to the [SNIA website](https://snia.org), their mission statement is:
+
+>Lead the storage industry worldwide in developing and promoting vendor-neutral
+>architectures, standards, and educational services that facilitate the
+>efficient management, movement, and security of information.
+
+For [persistent memory](#persistent-memory), SNIA played a central role
+in defining the [PMem programming model](#programming-model) which is
+described by the [NVM Programming Specification](https://www.snia.org/tech_activities/standards/curr_standards/npm).

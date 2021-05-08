@@ -1,0 +1,16 @@
+The Windows file API includes the ability to memory map
+a file using the system call **MapViewOfFile**.
+
+A memory mapped file appears as a range of virtual memory
+in the application's address space, allowing the application
+to access it like memory with loads and stores.  For files on
+storage, this works because the OS uses [paging](#paging) to
+bring the contents of a page into [DRAM](#dram) when the application
+accesses that page.  For [persistent memory](#persistent-memory),
+a PMem-aware file system allows a memory mapped file to access
+the PMem directly, a feature known as [DAX](#dax).
+
+The [Windows documentation](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile) contains the details on how to use this system call.
+
+The equivalent system call on POSIX based systems (like Linux)
+is [mmap](#mmap).

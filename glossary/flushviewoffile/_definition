@@ -1,0 +1,17 @@
+One principle of the [PMem programming model](#programming-model)
+is that standard file APIs work as expected on PMem files.  For
+Windows, the standard API for memory mapping a file is
+[MapViewOfFile](#mapviewoffile) and the standard way to flush
+any stores to that range to make them persistent is **FlushViewOfFile**.
+
+On Windows, when a PMem file is [DAX](#dax) mapped, it is also
+possible to flush stores directly from user space using flush
+instructions like [CLWB](#clwb).  This is typically much faster
+than using the system calls for flushing, but both will work.
+
+It is important to note that, according to [Microsoft's documentation](https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-flushviewoffile),
+FlushViewOfFile may return before the flushing is complete, so
+it is common to call _FlushFileBuffers_ after using FlushViewOfFile.
+
+FlushViewOfFile on Windows is roughly equivalent to [msync](#msync) on POSIX
+systems.

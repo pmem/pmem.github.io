@@ -1,0 +1,14 @@
+**Optane** is the brand name for Intel's product line using
+[3D XPoint](#3d-xpoint) media.  The line includes
+Optane SSDs, providing the [block storage](#block-storage) interfaces,
+and Optane PMem, providing the [PMem programming model](#programming-model).
+![Optane](optane/optane.jpg)
+As shown in the diagram above, the Optane PMem product supports a volatile
+mode, known as [Memory Mode](#memory-mode), which uses [DRAM](#dram) as a
+cache in front of the PMem.  Optane PMem also supports a persistent mode,
+known as [App Direct](#app-direct), for PMem use cases.
+
+The [PMDK](#pmdk) libraries are design for PMem programming, so their use
+with Optane PMem is intended for App Direct mode.
+
+For details on Optane, see [Intel's Optane page](https://intel.com/optane).

@@ -1,0 +1,11 @@
+3D XPoint (pronounced _three dee cross point_) is the media used in
+[Intel's Optane](#optane) product line, where the media is organized
+into Solid State Disk (SSD) products, and Persistent Memory (PMem)
+products.  More details can be found on
+[Intel's website](http://intel.com/optane).  There is also a fairly
+extensive [Wikipedia](https://en.wikipedia.org/wiki/3D_XPoint) entry
+for it.
+
+| ![3D XPoint](3d-xpoint/3dxpoint.jpg) |
+|:--:|
+| *3D XPoint* |

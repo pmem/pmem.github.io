@@ -1,0 +1,6 @@
+The term **Persistence Domain** refers to the portion of the data
+path where a store operation is considered persistent by software.
+For [ADR](#adr) systems, the persistence domain is the memory controller --
+applications can assume a store is persistent once it has been accepted
+by the memory sub-system.  For [eADR](#eadr) systems, the persistence
+domain is reached when a store reached global visibility.

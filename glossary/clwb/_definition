@@ -1,0 +1,15 @@
+The **CLWB** instruction is the preferred way to flush
+PMem stores to persistence, when required by the platform.
+This is the case for platforms that only support [ADR](#adr).
+Platforms that support [eADR](#eadr) allow software to skip
+the CLWB instructions for better performance.
+<img src="clwb/flush_isa.jpg" alt="Flush ISA" style="float: right">
+Unlike the CLFLUSH and [CLFLUSHOPT](#clflushopt) instructions,
+CLWB tells the CPU it is desirable to leave the cache line
+valid in the CPU cache after writing our any dirty data.  This
+provides better performance for the cases where the application
+accesses the line again, soon after flushing.
+
+Like [CLFLUSHOPT](#clflushopt), the CLWB instruction does not
+contain an implied [fence](#fence), so after flushing a range
+using this instruction, it is typical to issue an SFENCE instruction.

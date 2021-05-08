@@ -1,0 +1,12 @@
+[NVDIMM](#nvdimm) products may provide an interface that allows the
+operating system
+to discover the known poison locations on the device.
+Knowing about these [bad blocks](#bad-blocks)
+ahead of time allows applications
+to avoid consuming poison, thereby avoiding the associated exception
+that typically kills the application.
+
+The ARS interface is exposed as a [DSM](#dsm).
+The DSM for Address Range Scrub is
+described by the ACPI specification, available on the
+[UEFI web site](https://uefi.org/).

@@ -1,0 +1,26 @@
+In the world of persistent memory programming, **transactions** are a
+common tool to maintain a consistent persistent data structure.
+Traditionally, programmers are familiar with the need to maintain
+consistent data structures on storage, such as a database stored on
+a disk.  Techniques such as _write ahead logging_ are often used to ensure
+the database is in a consistent state in the face of unexpected failure
+such as a system crash or power failure.
+
+For data structures in traditional [DRAM](#dram), application programmers
+are familiar with _multi-threaded_ programming techniques, to ensure each
+thread sees a consistent state when accessing the data structure.  But
+if the program crashes or the system looses power, those DRAM-resident
+data structures are gone so there's no need for logging like the above
+database example.
+
+[Persistent memory](#persistent-memory)
+brings these two worlds together:  a persistent memory
+resident data structure is often covered by multi-threaded programming
+techniques, as well as transaction/logging techniques to ensure consistency
+of the persistent data structure in the face of failure.  Since PMem is
+load/store accessible, it is possible to implement transactions in a
+much more optimal and fine-grained manner than with
+[block storage](#block-storage).
+
+The [PMDK](#pmdk) library [libpmemobj](#libpmemobj) provides support
+for arbitrary transactions on PMem-resident data structures.

@@ -1,0 +1,14 @@
+One principle of the [PMem programming model](#programming-model)
+is that standard file APIs work as expected on PMem files.  For
+POSIX systems like Linux, the standard API for memory mapping a file is
+[mmap](#mmap) and the standard way to flush
+any stores to that range to make them persistent is **msync**.
+
+On Linux, when a PMem file is successfully [DAX](#dax) mapped using the
+`MAP_SYNC` flag to mmap, it is also
+possible to flush stores directly from user space using flush
+instructions like [CLWB](#clwb).  This is typically much faster
+than using the system calls for flushing, but both will work.
+
+msync on POSIX systems is roughly equivalent to
+[FlushViewOfFile](#flushviewoffile) on Windows.

@@ -1,0 +1,9 @@
+A **pool** is a [PMDK](#pmdk) concept which refers to an allocation of
+some [persistent memory](#persistent-memory) capacity by the system.  A pool
+is often just a file on a PMem-aware file system, available for use
+with the PMDK libraries.  The term _pool_ is used instead of _file_ because
+sometimes a pool may consist of multiple files (see the entry on
+[poolset](#poolset)), and sometimes a pool may be a [device DAX](#device-dax)
+device.  The application using PMDK has these differences abstracted away,
+depending on the pool concept instead of having to deal with all the ways
+the capacity might be presented to PMDK.

@@ -1,0 +1,6 @@
+The **libpmemlog** library
+provides a PMem-resident log file. This is useful for programs like databases
+that append frequently to a log file.
+The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+the PMDK libraries, which are open source and available on
+[GitHub](https://pmem.io/repoindex).

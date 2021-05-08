@@ -1,0 +1,3 @@
+The term **PMoF** has been used in the past to refer to using RDMA to
+access remote persistent memory.  The newer term, [rpmem](#rpmem) is
+now more commonly used.

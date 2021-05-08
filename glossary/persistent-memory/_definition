@@ -1,0 +1,12 @@
+The [SNIA](#snia) NVM Programming Technical Workgroup defined
+**persistent memory** in their paper defining the
+[PMem programming model](#programming-model):
+
+>storage technology with performance characteristics suitable
+>for a load and store programming model
+
+For a device to be considered persistent memory, it must support the
+load/store programming model and be fast enough that it is reasonable
+for software use it that way.
+
+The full [SNIA NVM Programming Specification](https://www.snia.org/tech_activities/standards/curr_standards/npm) contains more detail on persistent memory semantics.

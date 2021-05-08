@@ -1,0 +1,47 @@
+The OS may track a list of known **bad blocks** on a persistent
+memory device.  These blocks may be discovered using the Address
+Range Scan ([ARS](#ars)) operation supported by some NVDIMMs,
+or they may be discovered on the fly when software tries to use
+a location and is returned poison instead.
+
+For normal volatile memory (i.e. DRAM) on a server class machine,
+an uncorrectable error will result in a _poison_ value returned
+to the application that consumes it.
+On Intel platforms,
+consuming poison causes a _machine check_ which, in turn, will cause
+the kernel to send an exception to the process consuming the poison.
+On Linux, the exception takes the form of a SIGBUS signal, and most
+applications will die as a result.  On restart, the problem is gone
+since the application starts allocating volatile memory from scratch
+and the OS will have sequestered the page containing the poison.
+
+Persistent memory adds complexity to this case.  Poison consumption
+results in the same SIGBUS in the Linux example above, but if the application
+dies and restarts it is likely to return to reading the same location
+since there's an expectation of persistence -- the OS can't just replace
+the old page with a new one like it can for volatile memory since it
+needs the poison to remain there to indicate the loss of data.
+
+ECC information, which is used to detect uncorrectable errors,
+is typically maintained for each cache line, which
+on an Intel system is 64-bytes.  But that small range can be rounded
+up to a larger range due to the [blast radius](#blast-radius) effect.
+
+To prevent the ugly behavior where a PMem-aware application repeatedly
+starts up, consumes poison, and dies, the OS provides a way for the
+application to access the list of known bad blocks.  On Linux, the
+**ndctl** command can be used to view this information as well:
+
+`# ndctl list --media-errors`
+
+An API provided by **libndctl** allows applications to access this
+information directly, and the PMDK libraries use that API to prevent
+opening a PMem pool when it contains known bad blocks.  The common
+action taken by an application in this case is to refuse to continue,
+forcing the system administrator to restore the pool data from a
+backup or redundant copy.  Of course it is possible for the application
+to attempt to repair the pool directly, but that leads to much more
+complex application logic.
+
+[Intel's PMem RAS page](https://software.intel.com/content/www/us/en/develop/articles/pmem-RAS.html)
+contains more information on this topic, focused on the Optane PMem product.

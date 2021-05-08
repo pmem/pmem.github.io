@@ -1,0 +1,16 @@
+The [Interleaved Memory](https://en.wikipedia.org/wiki/Interleaved_memory) entry
+on Wikipedia describes how interleaving is used for performance, similar to
+striping across disks in a storage array.  For [persistent memory](#persistent-memory),
+there's another consideration.  Since PMem is persistent, the interleave set must
+be constructed the same way each time the PMem is configured by the system, or
+else the persistent data will appear garbled to software.
+
+Exactly how PMem interleave sets are created the same way each time is a
+product specific detail for [NVDIMMs](#nvdimm).  For persistent memory on
+[CXL](#cxl), a standard mechanism for this has been defined: _region labels_.
+These labels are stored persistently in a
+[label storage area](#label-storage-area),
+also defined by the CXL specification.
+
+An interleave set is also called a [region](#region) by Linux, as well as by
+the CXL specification.

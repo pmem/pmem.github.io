@@ -1,0 +1,9 @@
+Since PMem is accessible like memory, technologies that work directly with
+memory also work with PMem.  RDMA is an exciting example of this, allowing
+low-latency, direct access to **remote persistent memory**.
+
+The [PMDK](#pmdk) library [librpma](#librpma) was designed to help applications
+use RDMA with [persistent memory](#persistent-memory).
+
+One major application that has published impressive results around RPMEM
+is Oracle Exadata, as described in [their blog](https://blogs.oracle.com/exadata/persistent-memory-in-exadata-x8m).

@@ -1,0 +1,9 @@
+The [ACPI specification](https://uefi.org) defines a table known as
+the NVDIMM Firmware Interface Table, or **NFIT**.  This table is used
+to report the existence of [persistent memory](#persistent-memory) in
+the system.  When the OS detects this table, it typically triggers the
+loading of the various modules/drivers that support NVDIMMs.
+
+As the name implies, the NFIT only applies to NVDIMMs.  PMem attached
+to [CXL](#cxl) will be found by the OS using the standard PCIe bus
+enumeration, just like any PCIe devices.

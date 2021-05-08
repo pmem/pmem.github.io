@@ -1,0 +1,18 @@
+**DRAM** is the traditional main memory connected to virtually all
+computers today.
+
+[Persistent memory](#persistent-memory) can be
+made out of DRAM, which is exactly what the NVDIMM-N products
+on the market do.  With NVDIMM-N, the PMem runs at DRAM speeds
+because it is actually DRAM, and when power is lost, the NVDIMM-N
+saves the data persistently on a NAND flash chip.
+
+[Persistent memory](#persistent-memory) can be
+made out of other media types which are not DRAM.  Intel's
+[Optane](#optane) PMem uses [3D XPoint](#3d-xpoint) as its
+media, for example.
+
+The comparison between NVDIMM-N and Intel's Optane points out
+that whether or not a product is considered PMem is more
+about the [programming model](#programming-model) it provides,
+rather than which media type it uses to implement that model.

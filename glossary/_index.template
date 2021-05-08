@@ -1,0 +1,40 @@
+---
+title: Glossary
+---
+
+#### Glossary of Terms
+
+Here you'll find a list of terms related to
+[Persistent Memory](#persistent-memory) (PMem).
+Many of these terms have a broader meaning,
+but the definitions below focus specifically
+on their relationship to PMem.
+
+Click on the term to go to the definition in this page,
+or scroll down to read them all.  Related terms are
+shown in parentheses.
+
+<div style="opacity: 0.5;">
+<table style="font-size: .75em; border: 2px; padding: 1em;">
+<tr><td>
+Compute Express Link™ and CXL™ are trademarks of the
+<a href="https://computeexpresslink.org">CXL Consortium</a>.
+Intel® and Intel® Optane™ are trademarks of
+<a href="https://intel.com">Intel Corporation</a>.
+JEDEC® is a trademark of the
+<a href="https://jedec.org">JEDEC Organization</a>.
+SNIA® is a trademark of the
+<a href="https://snia.org">Storage Networking Industry Association</a>.
+</td></tr></table>
+</div>
+
+
+##### Contents
+%TOC%
+
+<br style="margin-top: 5em">
+
+%GLOSSARY%
+
+<!-- lots of blank space at the bottom to help anchors work better -->
+<br style="margin-top: 30em">

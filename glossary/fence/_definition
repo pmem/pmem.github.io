@@ -1,0 +1,24 @@
+The term **fence** refers to ordering instructions that programmers typically
+use to order operations to memory.  For the Intel architecture, the intricate
+details of the fence instructions are described in the
+[Software Development Manuals](http://intel.com/sdm) (SDM).
+For [persistent memory](#persistent-memory) programming, the _SFENCE_
+instruction is particularly interesting.  The ordering properties of
+SFENCE are described by Intel's SDM as follows:
+
+>The processor ensures that every store prior to SFENCE is globally visible before any store after SFENCE becomes globally visible.
+
+For systems with [eADR](#eadr), where global visibility means persistence,
+the SFENCE instruction takes on a double meaning of making the stores both
+visible to other threads and persistent.
+
+For [ADR](#adr) systems, where cache flushing is required to make stores
+persistent, it is necessary to ensure that flushed stores have been accepted
+by the memory subsystem, so that they may be considered persistent.  Cache
+flush instructions like [CLWB](#clwb) are _launched_ and run asynchronously.
+Before software can continue under the assumption that the flushed range
+is persistent, it must issue an SFENCE instruction.
+
+Libraries like [PMDK](#pmdk) are designed to abstract away the details of
+complex instructions like SFENCE, in order to make PMem programming easier
+for application developers.

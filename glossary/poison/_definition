@@ -1,0 +1,11 @@
+On Intel servers, a special **poison** value is returned when accessing
+a memory location that has experienced data loss, such as an uncorrectable
+error.  Consuming poison triggers a _machine check_ event, which the kernel
+will turn into an exception to the application consuming the poison if
+possible (it isn't possible if the poisons is consumed by the kernel itself,
+which is can cause a system crash, if the kernel has no way to recover).
+
+For more information about how poison impacts
+[persistent memory](#persistent-memory) aware applications,
+see the entry on [uncorrectable errors](#uncorrectable-error)
+and on the [blast radius](#blast-radius) concept.

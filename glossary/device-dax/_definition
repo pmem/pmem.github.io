@@ -1,0 +1,57 @@
+Linux supports [DAX](#dax), which allows a PMem-aware file system to
+give applications _direct access_ to PMem when they memory map a file.
+Linux also supports DAX without using a file system via a configuration
+known as **device DAX**.  The Linux `ndctl` command uses the terms
+`fsdax` and `devdax` to choose between these two types of DAX, as
+described in the
+[ndctl-create-namespace](https://pmem.io/ndctl/ndctl-create-namespace.html)
+man page.
+
+In most cases, the ability to manage PMem like files, including naming,
+permissions, and POSIX file APIs, makes fsdax the preferred choice.  devdax
+does not follow the [PMem programming model](#programming-model) since
+the normal file APIs do not work with it.  Here are the main differences
+between fsdax and devdax on Linux:
+
+- In both cases, fsdax and devdax, the normal I/O path is load
+and store instructions which allow access directly from user space, with no
+kernel code in the data path.
+
+- devdax exposes the entire namespace as a single device, since there's
+no file system to divide the space into named files.
+
+- The lack of file system also means the lack of file permissions, so devdax
+requires either running the application as root, or changing permissions
+on the device itself.
+
+- devdax provides more raw access to the PMem, so it is easier for an
+application to guarantee alignment for large pages.  This is the most common
+reason for an application to use devdax, as described by RedHat
+in [this page](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/configuring-persistent-memory-for-use-in-device-dax-mode).
+
+- When the system knows about [bad blocks](#bad-blocks) in PMem, fsdax will
+map invalid pages in those areas to prevent applications from consuming
+poison.  Consuming poison on Intel servers causes _machine checks_ which
+can be difficult to deal with.  devdax access is more raw, allowing pages
+containing poison to be mapped so applications will experience machine checks
+when they touch those areas, even if the poison is already known to the system.
+
+- devdax allows long-lived RDMA memory registrations, like those required
+by some RDMA-based libraries.  This is the next most common reason for an
+application to use device DAX.  With fsdax, long-lived memory
+registrations are disallowed, and only RDMA cards that support _On-Demand Paging_
+(ODP) will work.
+
+- devdax does not implement all of POSIX.  For example, [msync](#msync)
+does not work and user space flushing with instructions like [CLWB](#clwb)
+must be used instead.  Finding the size of the PMem is more complex than
+just calling `stat(2)`, but the [PMDK](#pmdk) libraries abstract away these
+differences and work with devdax as expected.
+
+- Since devdax does not include a file system, the usual security
+provided by a file system, where allocated blocks are zeroed, is not
+provided.  This means applications can see old data left there from
+previous runs so the application designer must take this into account.
+
+PMDK provides a utility, [daxio](https://pmem.io/pmdk/manpages/linux/v1.10/daxio/daxio.1.html)
+for saving/restoring/zeroing a devdax device.
