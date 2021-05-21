@@ -56,6 +56,7 @@ SNIA® is a trademark of the
 - [Fence](#fence) (SFENCE)
 - [FlushViewOfFile](#flushviewoffile) (Windows Flush System Call)
 - [Interleave Set](#interleave-set)
+- [KMEM DAX](#kmem-dax)
 - [Label Storage Area](#label-storage-area) (LSA)
 - [libmemkind](#libmemkind)
 - [libpmem](#libpmem)
@@ -702,6 +703,18 @@ also defined by the CXL specification.
 
 An interleave set is also called a [region](#region) by Linux, as well as by
 the CXL specification.
+
+[Back to top](#contents)
+<br><br><br>
+#### KMEM DAX
+
+For a volatile use of persistent memory, there is an alternative for [Memory Mode](#memory-mode).
+[Device DAX](#device-dax) can be configured in [system-ram mode](https://pmem.io/ndctl/daxctl-reconfigure-device.html).
+This mode allows to exposed PMem as a hotplugged memory region - **KMEM DAX**.
+Persistent memory takes a form of separate memory-only NUMA Node(s). In contrast to
+**Memory Mode** - PMem is represented as independent memory resources
+explicitly managed by the Operating System, not implicitly by the memory controller.
+More information can be found on the [KMEM DAX blog post](https://pmem.io/2020/01/20/memkind-dax-kmem.html).
 
 [Back to top](#contents)
 <br><br><br>
