@@ -1,0 +1,6 @@
+**KMEM DAX** is a semi-transparent alternative to [Memory Mode](#memory-mode) for volatile use of PMem.
+[Device DAX](#device-dax) can be configured in [system-ram mode](https://pmem.io/ndctl/daxctl-reconfigure-device.html).
+This mode exposes PMem as a hotplugged memory region - KMEM DAX.
+Persistent Memory takes the form of a separate memory-only NUMA Node(s). In contrast to **Memory Mode**,
+PMem is represented as independent memory resources explicitly managed by the Operating System.
+For more information about KMEM DAX, see [KMEM DAX blog post](https://pmem.io/2020/01/20/memkind-dax-kmem.html).
