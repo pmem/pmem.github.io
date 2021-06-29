@@ -255,6 +255,10 @@ organization in GitHub under
 			<td><a href="https://github.com/pmem/pmse">pmse</a></td>
 			<td>MongoDB pmem Storage Engine Prototype</td>
 		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/kvdk">kvdk</a></td>
+			<td>Reference code of key/value store design for pmem</td>
+		</tr>
 	</table>
 </fieldset>
 <fieldset class="repo">
