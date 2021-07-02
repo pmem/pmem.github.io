@@ -5,7 +5,7 @@ title: Home
 <tr><td>
 The <a href="pmdksummit2021/">PMDK videos and presentations </a> are now available!<br>
 PMDK presentations from the recent 2021 SPDK, PMDK & Intel Performance Analyzers Virtual Forum
-now available for downloads</b></td></tr></table>
+now available for downloads</td></tr></table>
 
 
 <table style="border:4px; border-style:solid; border-color:#3498DB; padding: 1em;">
