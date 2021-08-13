@@ -1,5 +1,5 @@
 The **libpmemblk** library
-library supports arrays of pmem-resident blocks, all the same size, that are
+supports arrays of pmem-resident blocks, all the same size, that are
 atomically updated. For example, a program keeping a cache of fixed-size
 objects in pmem might find this library useful.
 The algorithm used by **libpmemblk** is the same as the [BTT](#btt)
