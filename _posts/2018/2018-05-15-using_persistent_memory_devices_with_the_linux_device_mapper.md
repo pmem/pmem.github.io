@@ -34,7 +34,7 @@ Persistent Memory devices are accessible via the Virtual Memory System.  Therefo
 Linux supports two page sizes:
 
 - Default Page Size; is commonly 4KiB by default on all architectures.  Linux often refers to these as a Page Table Entry (PTE). 
-- [Huge Pages](https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt); requires Kernel support having configured `CONFIG_HUBETLB_PAGE` and `CONFIG_HUGETLBFS`.  Often referred to as the 'Page Middle Directory (PMD)', huge pages are commonly 2MiB in size.
+- [Huge Pages](https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt); requires Kernel support having configured `CONFIG_HUGETLB_PAGE` and `CONFIG_HUGETLBFS`.  Often referred to as the 'Page Middle Directory (PMD)', huge pages are commonly 2MiB in size.
 
 More information can be found in "[Chapter 3  Page Table Management](https://www.kernel.org/doc/gorman/html/understand/understand006.html)" of Mel Gorman's book "[Understanding the Linux Virtual Memory Manager](https://www.kernel.org/doc/gorman/html/understand/)".
 
