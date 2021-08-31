@@ -69,6 +69,8 @@ SNIA® is a trademark of the
 - [LLPL](#llpl) (Java Low Level Persistence Library)
 - [MapViewOfFile](#mapviewoffile) (Windows Memory Map System Call)
 - [Memory Mode](#memory-mode) (2LM)
+- [Memory Pooling](#memory-pooling)
+- [Memory Tiering](#memory-tiering)
 - [mmap](#mmap) (POSIX Memory Map System Call)
 - [msync](#msync) (POSIX Flush System Call)
 - [Namespace](#namespace)
@@ -707,7 +709,6 @@ the CXL specification.
 [Back to top](#contents)
 <br><br><br>
 #### KMEM DAX
-
 **KMEM DAX** is a semi-transparent alternative to [Memory Mode](#memory-mode) for volatile use of PMem.
 [Device DAX](#device-dax) can be configured in [system-ram mode](https://pmem.io/ndctl/daxctl-reconfigure-device.html).
 This mode exposes PMem as a hotplugged memory region. Configured this way,
@@ -774,7 +775,7 @@ the PMDK libraries, which are open source and available on
 <br><br><br>
 #### libpmemblk
 The **libpmemblk** library
-library supports arrays of pmem-resident blocks, all the same size, that are
+supports arrays of pmem-resident blocks, all the same size, that are
 atomically updated. For example, a program keeping a cache of fixed-size
 objects in pmem might find this library useful.
 The algorithm used by **libpmemblk** is the same as the [BTT](#btt)
@@ -891,6 +892,63 @@ to ensure the expected volatile semantics.
 Although this **2LM** configuration is technically possible between any
 two tiers of memory, its primary popularity is to provide a high-capacity
 system main memory without incurring the cost of DRAM for the entire capacity.
+
+[Back to top](#contents)
+<br><br><br>
+#### Memory Pooling
+In this glossary, we use the term
+**Memory Pooling** to refer to the disaggregation of memory into a shared
+pool, such that memory could be assigned to different hosts that are
+physically connected to the pool.  The reason to use Memory Pooling is
+to more efficiently leverage the memory capacity among a group of machines,
+avoiding _stranded memory_ where a host's compute resources are exhausted
+while having unused memory capacity.  Typically, an _orchestrator_
+determines the optimal use of resources in a group of machines, and
+with Memory Pooling, that would include the assignment of memory
+capacity to individual hosts.
+
+The [CXL](#cxl) 2.0 specification includes some support for Memory Pooling.
+
+Do not confuse this term with [Memory Tiering](#memory-tiering), which is
+a different concept.  Memory Pooling is about sharing capacity between
+multiple hosts, where Memory Tiering is how a host chooses to use multiple
+types of memory available to it.
+
+Note that the term [Memory Pool](https://en.wikipedia.org/wiki/Memory_pool)
+is also in common use and is unrelated to the concept described here.
+
+[Back to top](#contents)
+<br><br><br>
+#### Memory Tiering
+The term **Memory Tiering** refers to data placement between multiple
+types of memory in order to take advantage of the most useful attributes
+of each type.  For example, tiering between DRAM and Optane is done to
+leverage the higher performance of DRAM with the cheaper capacity of Optane.
+The most common reason for Memory Tiering configurations is cost
+reduction because if cost isn't an issue, one could just populate the
+entire system with the fastest type of memory available.  However, in
+some cases tiering is used to provide capacities otherwise unavailable,
+for example creating a 6 TB main memory system using 512 GB Optane modules
+when 512 GB DRAM modules are not yet available.
+
+Memory Tiering can be done by modifying the application to perform the
+data placement in the appropriate tiers.  [libmemkind](#libmemkind) is
+commonly used to provide malloc-like interfaces to such applications.
+The [libnuma library](https://man7.org/linux/man-pages/man3/numa.3.html)
+provides a lower-level, page-based interface for application-aware
+memory tiering.
+
+Memory Tiering can also be done in a way that is transparent to applications.
+A hardware implementation of this is [Memory Mode](#memory-mode).  Software
+implementations of transparent Memory Tiering include the experimental
+[Linux Memory Tiering](https://git.kernel.org/pub/scm/linux/kernel/git/vishal/tiering.git/tree/README-tiering.txt?h=tiering-0.72),
+and the [MemVerge product](https://www.memverge.com/).
+
+Do not confuse Memory Tiering with [Memory Pooling](#memory-pooling), which is
+a different concept.  The two concepts can work together, though, for example
+if memory accessed from a pool has high latency, a platform could use
+Memory Tiering to cache data from the pooled memory in a lower-latency
+tier such as local DRAM.
 
 [Back to top](#contents)
 <br><br><br>

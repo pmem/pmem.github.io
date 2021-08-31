@@ -1,0 +1,20 @@
+In this glossary, we use the term
+**Memory Pooling** to refer to the disaggregation of memory into a shared
+pool, such that memory could be assigned to different hosts that are
+physically connected to the pool.  The reason to use Memory Pooling is
+to more efficiently leverage the memory capacity among a group of machines,
+avoiding _stranded memory_ where a host's compute resources are exhausted
+while having unused memory capacity.  Typically, an _orchestrator_
+determines the optimal use of resources in a group of machines, and
+with Memory Pooling, that would include the assignment of memory
+capacity to individual hosts.
+
+The [CXL](#cxl) 2.0 specification includes some support for Memory Pooling.
+
+Do not confuse this term with [Memory Tiering](#memory-tiering), which is
+a different concept.  Memory Pooling is about sharing capacity between
+multiple hosts, where Memory Tiering is how a host chooses to use multiple
+types of memory available to it.
+
+Note that the term [Memory Pool](https://en.wikipedia.org/wiki/Memory_pool)
+is also in common use and is unrelated to the concept described here.
