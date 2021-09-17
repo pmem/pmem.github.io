@@ -13,7 +13,7 @@ We wanted the tool to be as flexible as possible, so that it could be used with 
 
 ### Basic usage
 
-Because our tool is still a prototype, it is only available on [github][655a3db3]. Once you get the tree, you have to manually build and install it. If you have any trouble installing, look at either the provided github page or the official [Valgrind homepage][b4b537ec] for more info. If you still experience trouble building and installing pmemcheck, either contact me @tomaszkapela or file an [issue][41493750]. Once that is done, to run an application under pmemcheck type:
+Because our tool is still a prototype, it is only available on [github][655a3db3]. Once you get the tree, you have to manually build and install it. If you have any trouble installing, look at either the provided github page or the official [Valgrind homepage][b4b537ec] for more info. If you still experience trouble building and installing pmemcheck, please file an [issue][41493750]. Once that is done, to run an application under pmemcheck type:
 
 {% highlight sh %}
 $ valgrind --tool=pmemcheck [valgrind options] <your_app> [your_app options]
@@ -173,7 +173,7 @@ The first message tells you that you flushed the first store twice (you get one 
 This concludes the introduction to basic and advanced features of pmemcheck. In the next blog post I will explain how the built-in transaction support in pmemcheck works.
 
 [655a3db3]: https://github.com/pmem/valgrind "Valgrind-pmemcheck"
-[d324cfe0]: https://github.com/pmem/valgrind/blob/pmem-3.15/pmemcheck/docs/pmc-manual.xml "Pmemcheck documentation"
+[d324cfe0]: https://pmem.io/valgrind/generated/pmc-manual.html "Pmemcheck documentation"
 [b4b537ec]: https://valgrind.org/ "Valgrind"
 [41493750]: https://github.com/pmem/valgrind/issues "pmemcheck issues"
 [e0997ea1]: https://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q "Magic"
