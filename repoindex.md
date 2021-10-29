@@ -263,6 +263,34 @@ organization in GitHub under
 </fieldset>
 <fieldset class="repo">
 	<legend>
+		pmem-related workloads
+	</legend>
+	<p>
+	These repos contain non-volatile memory related workloads.
+	Their concept is based on combined market ready solutions with
+	persistent memory. Workloads are delivered in SaaC (Solution as
+	a Code) concept, in the form of bash/ansible scripts operating
+	on the provided infrastructure. The infrastructure requirements are
+	described in the documentation (README.md). They use multiplication
+	based on virtualization, contenerization or clustering.
+	<p>
+	<table>
+		<tr>
+			<th>Repo Name</td>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/kvm-redis">kvm-redis</a></td>
+			<td>Workload using memtier_benchmark @ client: VMs and Redis database @ server: VMs</td>
+		</tr>
+		<tr>
+			<td><a href="https://github.com/pmem/k8s-redis-cluster">k8s-redis-cluster</a></td>
+			<td>Workload using memtier_benchmark @ client: K8s and Redis database @ server: K8s</td>
+		</tr>
+	</table>
+</fieldset>
+<fieldset class="repo">
+	<legend>
 		Inactive
 	</legend>
 	<p>
