@@ -1,0 +1,44 @@
+{{ define "main" }}
+
+<!-- silder -->
+{{ if .Params.slider_enable }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.Params.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+    <div class="container clearfix mt-4">
+      <div class="slider-title text-light">
+        <h2 style="color: white">{{ .Params.header | markdownify }}</h2>
+      </div>
+    </div>
+  </section>
+{{ end }}
+
+<div class="section m-0 kb-bg dark-mode">
+    <div class="container position-relative">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Document Title</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            {{ $category := slice .Params.category }}
+            {{ $filtered := where .Data.Pages "Params.categories" "intersect" $category}}
+            {{ $sorted := ($filtered.ByParam "creation_date").Reverse }}
+            {{ $paginator := .Paginate $sorted }} {{ range $paginator.Pages }}
+            <tr>
+                <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
+                <td>{{ .Params.creation_date }}</td>
+            </tr>
+            {{ end }}
+        </table>
+        <!-- Pager -->
+        <div class="col-12 mt-4">{{ template "_internal/pagination.html" . }}</div>
+        <!-- disclaimer -->
+        {{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.disclaimer.enable }} {{ with $data.knowledgebase.disclaimer }}
+        <div class="divider"></div>
+        <p class="text-center"><small>{{ .content | markdownify }}</small></p>
+        {{ end }} {{ end }}
+    </div>
+  </div>
+
+{{ end }}

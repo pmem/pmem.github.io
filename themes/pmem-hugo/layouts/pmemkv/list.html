@@ -18,7 +18,7 @@
     <div class="container">
       <div class="row justify-content-between">
         
-        <div class="col mt-0">
+        <div class="col mt-0 lib-content">
             <!-- c api -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemkv.c_api.enable }} {{ with $data.pmemkv.c_api }}
           
@@ -63,6 +63,15 @@
             {{ end }}  
             {{ end }} {{ end }}
             <!-- end language bindings-->
+
+            <!-- performance reports -->
+
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemkv.performance_reports.enable }} {{ with $data.pmemkv.performance_reports }}
+            <h3 class>{{ .title | markdownify }}</h3>
+            <p>{{ .content | safeHTML }}</p>
+            {{ end }} {{ end }}
+
+            <!-- end performance reports -->
 
             <!-- blog entries -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemkv.blog_entries.enable }} {{ with $data.pmemkv.blog_entries }}

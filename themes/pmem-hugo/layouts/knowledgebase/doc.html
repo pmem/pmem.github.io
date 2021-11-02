@@ -1,0 +1,57 @@
+{{ define "main" }}
+
+<div class="section m-0 bg-transparent library-section dark-mode">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col mt-0 lib-content">
+          <h1 class="kb-doc-header">{{ .Params.title }}</h1>
+          <div class="kb-content-container">
+            {{ .Content | replaceRE "<table>" "<table class=\"table table-bordered pmem-table dark-mode\">" | safeHTML }}
+          </div>
+          <!-- doc info -->
+          <ul class="list-group doc-info">
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.disclaimer.enable }} {{ with $data.knowledgebase.disclaimer }}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <p><strong>Disclaimer</strong></p>
+                {{ .content | markdownify }}
+              </div>
+            </li>
+            {{ end }} {{ end }}
+            {{ if .Params.docid }}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <p><strong>Document ID</strong></p>
+                {{ .Params.docid }}
+              </div>
+            </li>
+            {{ end }}
+            {{ if .Params.creation_date }}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <p><strong>Creation Date</strong></p>
+                {{ .Params.creation_date }}
+              </div>
+            </li>
+            {{ end }}
+            {{ if .Params.modified_date }}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <p><strong>Modified Date</strong></p>
+                {{ .Params.modified_date }}
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+          <!-- end doc info -->
+        </div>
+      </div>
+      <!-- disclaimer -->
+      {{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.disclaimer.enable }} {{ with $data.knowledgebase.disclaimer }}
+      <div class="divider"></div>
+      <p class="text-center"><small>{{ .content | markdownify }}</small></p>
+      {{ end }} {{ end }}
+    </div>
+  </div>
+  
+{{ end }}

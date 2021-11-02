@@ -1,0 +1,87 @@
+{{ define "main" }}
+
+<!-- silder -->
+{{ if .Params.slider_enable }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.Params.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+    <div class="container clearfix mt-4">
+      <div class="slider-title text-light">
+        <h2 style="color: white">{{ .Params.header | markdownify }}</h2>
+      </div>
+    </div>
+  </section>
+{{ end }}
+
+<!-- topics -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.topics.enable }} {{ with $data.knowledgebase.topics }}
+<div class="section m-0 event-wrapper kb-bg dark-mode">
+    <div class="container position-relative">
+      <div class="heading-block border-bottom-0 center">
+        <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+        <p>{{ .content | markdownify }}</p>
+      </div>
+      <div class="row col-mb-30 align-content-stretch">
+        {{ range .topics }}
+        <div class="col-lg-4 col-md-6 d-flex">
+          <div class="card h-shadow h-translate-y-sm all-ts dark-mode border kb-card text-center">
+            <div class="card-body p-5">
+                <a class="kb-link" href="{{ .link }}"></a>
+                <span class="i-plain i-xlarge mx-auto mb-0 {{ .icon | markdownify}} kb-icon dark-mode"></span>
+                <h3 class="nott ls0 text-larger">{{ .title | markdownify }}</h3>
+                <p class="text-smaller">{{ .content | markdownify }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }} {{ end }}
+
+  <!-- faq -->
+  {{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.faq.enable }} {{ with $data.knowledgebase.faq }}
+  <div class="section m-0 kb-bg dark-mode">
+    <div class="container position-relative">
+      <div class="heading-block border-bottom-0 center">
+        <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+        <p>{{ .content | markdownify }}</p>
+      </div>
+        <div class="accordion">
+            {{ range .questions }}
+            <div class="accordion-item kb-faq">
+                <h2 class="mb-0" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ .id | markdownify }}" aria-expanded="false" aria-controls="collapseOne">  
+                  {{ .question | markdownify }}
+                </button>
+                </h2>
+                <div id="{{ .id | markdownify}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+                    <div class="accordion-body">
+                        {{ .answer | markdownify }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+  </div>
+  {{ end }} {{ end }}
+
+  <!-- ask the community -->
+  <!-- faq -->
+  {{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.askcommunity.enable }} {{ with $data.knowledgebase.askcommunity }}
+  <div class="section m-0 kb-bg dark-mode">
+    <div class="container position-relative">
+      <div class="heading-block border-bottom-0 center">
+        <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+        <p>{{ .content | markdownify }}</p>
+        <a href="{{ .buttonlink }}" class="kb-btn button button-medium button-rounded ms-0 ls0">{{ .buttontext | markdownify }}</a>
+      </div>
+      {{ end }} {{ end }}
+      <!-- disclaimer -->
+      {{ $data := index site.Data site.Language.Lang }} {{ if $data.knowledgebase.disclaimer.enable }} {{ with $data.knowledgebase.disclaimer }}
+      <div class="divider"></div>
+      <p class="text-center"><small>{{ .content | markdownify }}</small></p>
+      {{ end }} {{ end }}
+    </div>
+  </div>
+
+{{ end }}
