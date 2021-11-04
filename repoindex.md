@@ -263,16 +263,14 @@ organization in GitHub under
 </fieldset>
 <fieldset class="repo">
 	<legend>
-		pmem-related workloads
+		Persistent Memory workloads
 	</legend>
 	<p>
 	These repos contain non-volatile memory related workloads.
-	Their concept is based on combined market ready solutions with
-	persistent memory. Workloads are delivered in SaaC (Solution as
-	a Code) concept, in the form of bash/ansible scripts operating
+	They are ment to be production ready solutions for PMem. For
+	repeatability, delivered in the form of bash/ansible scripts operating
 	on the provided infrastructure. The infrastructure requirements are
-	described in the documentation (README.md). They use multiplication
-	based on virtualization, contenerization or clustering.
+	described in the documentation (README.md).
 	<p>
 	<table>
 		<tr>
