@@ -249,7 +249,7 @@ organization in GitHub under
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmem-rocksdb-plugin">pmem-rocksdb-plugin</a></td>
-			<td>Updated RocksDB modification to use pmem by plugin</td>
+			<td>RocksDB plugin for optimized PMem support</td>
 		</tr>
 		<tr>
 			<td><a href="https://github.com/pmem/pmem-redis">pmem-redis</a></td>
