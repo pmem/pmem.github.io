@@ -1,0 +1,6 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/learn_header.jpg'
+  title: 'Videos'
+  content: 'Videos About Persistent Memory'

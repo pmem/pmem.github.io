@@ -1,6 +1,0 @@
-The **libpmem** library provides low level persistent memory support.
-Higher level libraries like [libpmemobj](#libpmemobj) were implemented
-on top of **libpmem** until the newer [libpmem2](#libpmem2) came along.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
-the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).

@@ -1,9 +1,0 @@
-On Linux systems, the **ndctl** command provides the management of
-[NVDIMM](#nvdimm) devices.  This command is vendor-neutral, following
-open standards like the NVDIMM details on the ACPI specification.
-
-Some products may also have a vendor-specific command to perform
-additional management tasks.  For example, Intel's [Optane PMem](#optane)
-is managed using the command `ipmctl`.
-
-See the [ndctl man pages](https://pmem.io/ndctl/) for details.

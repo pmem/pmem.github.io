@@ -1,3 +1,0 @@
-A **region** is another term for [interleave set](#interleave-set).  The
-Linux tools, such as [ndctl](#ndctl) use this term, as does the [CXL](#cxl)
-specification.

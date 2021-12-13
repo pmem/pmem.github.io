@@ -1,0 +1,20 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.books.get_book_no_btn.enable }} {{ with $data.books.get_book_no_btn }}
+<div class="section m-0 bg-transparent get-book-wrapper border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p class=>{{ .content | safeHTML }}</p>
+      </div>
+
+      <div class="col-lg-6 mt-4">
+        <div class="img-container book-img">
+          <img class="get-book-img" src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}

@@ -1,0 +1,6 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'Documents'
+  content: 'The Persistent Memory Documentation has moved to <a href="https://docs.pmem.io">docs.pmem.io</a>'

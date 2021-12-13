@@ -1,0 +1,22 @@
+{{ define "main" }}
+
+<!-- slider -->
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{ .Params.bg_image }}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .Title }}</h2>
+      <p style="color: white">{{ .Description }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- content -->
+<div class="section m-0 bg-transparent library-section glossary border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col mt-0">{{ .Content | safeHTML }}</div>
+    </div>
+  </div>
+</div>
+<!---->
+{{end}}

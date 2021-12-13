@@ -1,8 +1,0 @@
-The **libpmemobj** library is the most popular and powerful library in
-the [PMDK](#pmdk) collection.
-It provides a transactional object store, providing memory allocation,
-transactions, and general facilities for persistent memory programming.
-Developers new to persistent memory probably want to start with this library.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
-the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).

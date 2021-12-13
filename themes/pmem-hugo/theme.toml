@@ -1,0 +1,21 @@
+# theme.toml template for a Hugo theme
+# See https://github.com/gohugoio/hugoThemes#themetoml for an example
+
+name = "Pmem_theme"
+license = "MIT"
+licenselink = "https://github.com/yourname/yourtheme/blob/master/LICENSE"
+description = "PMem theme"
+homepage = "https://pmem.io/"
+demosite = "https://pmem.io/"
+tags = []
+features = []
+min_version = "0.70.0"
+
+[author]
+  name = "PMem"
+  homepage = ""
+
+# If porting an existing theme
+[original]
+  name = ""
+  homepage = ""

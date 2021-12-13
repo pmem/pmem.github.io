@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: 404.html
+Disallow: /404/
+Disallow: /search/
+
+{{ range where .Data.Pages "Params.robotsdisallow" true }}
+Disallow: {{ .RelPermalink }}
+{{ end }}
+
+Sitemap: {{ "sitemap.xml" | absLangURL }}

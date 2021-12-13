@@ -1,5 +1,0 @@
-The term **1LM** refers to how memory is usually connected to
-the system, without any memory-side cache.  Normally, the
-terms **DRAM** or **system main memory** are used, but **1LM** is
-sometimes used to specifically state that the memory in question
-is not configured as [2LM](#2lm).

@@ -1,7 +1,0 @@
-The JEDEC standards organization defines multiple types of
-**NVDIMM** which provide some sort of persistence in the DIMM
-form factor.  For [persistent memory](#persistent-memory), the
-two types of NVDIMM that can provide the
-[PMem programming model](#programming-model) are _NVDIMM-N_ and _NVDIMM-P_.
-A third type of PMem in the DIMM form factor is Intel's [Optane PMem](#optane),
-which uses the proprietary [DDR-T](#ddr-t) protocol.

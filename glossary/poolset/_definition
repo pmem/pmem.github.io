@@ -1,9 +1,0 @@
-A **poolset** is a [PMDK](#pmdk) concept where multiple files or
-[device DAX](#device-dax) devices are combined and used as a single,
-logical pool.  Poolsets also support replication that is application
-transparent (at least until a failure occurs and administrative
-actions are required).
-
-See the
-[poolset man page](https://pmem.io/pmdk/manpages/linux/v1.4/poolset/poolset.5)
-for details.

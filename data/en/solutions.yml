@@ -1,0 +1,16 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/solutions_header.jpg'
+  title: 'Persistent Memory Ecosphere'
+  content: 'The Persistent Memory Ecosphere is a place to showcase innovations and solutions. The projects listed on this portal feature third party applications, hardware solutions, academic research, and services that are not endorsed by pmem.io or sponsored by their owners. The intent is to show how rapidly the persistent memory ecosphere at large is growing, allow the community to learn and understand what others are doing in this space, and to encourage innovation.'
+
+################################# Show your work #####################################
+show_work:
+  enable: true
+  bg_image: ''
+  title: 'Show your work'
+  content: 'Did you build something that uses persistent memory? Share your story and wisdom with the community.'
+  join_btn:
+    label: 'Share'
+    link: '/'

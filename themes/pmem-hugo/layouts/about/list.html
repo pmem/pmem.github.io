@@ -1,0 +1,52 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.about.slider.enable }} {{ with $data.about.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- About -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.about.slider.enable }} {{ with $data.about.slider }}
+<div class="section m-0 pb-0 pt-3 dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <p>{{ .content | markdownify }}</p>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- Contact us -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.about.contact_us.enable }} {{ with $data.about.contact_us }}
+<div class="section m-0 p-0 dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+      <ul>
+        {{range .list}}
+        <li style="text-align: left; margin-left: 30px">{{. | markdownify}}</li>
+        {{end}}
+      </ul>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- More info -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.about.more.enable }} {{ with $data.about.more }}
+<div class="section m-0 p-0 pt-3 dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }} {{ end }}

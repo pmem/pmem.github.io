@@ -1,0 +1,132 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.videos.slider.enable }} {{ with $data.videos.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | markdownify}}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- Content -->
+<section id="content">
+  <div class="content-wrap border-top dark-mode">
+    <div class="container clearfix">
+      <div class="row gutter-40 col-mb-80">
+        <!-- Sidebar -->
+        <div class="sidebar col-lg-3">
+          <div class="sidebar-widgets-wrap">
+            <div class="widget clearfix">
+              <h4>Filter by</h4>
+              <div class="posts-sm row col-mb-30" id="post-list-sidebar">
+                <div class="entry col-12 pb-3">
+                  <div class="grid-inner row g-0">
+                    <div class="col">
+                      <div class="entry-title">
+                        <h4 class="fw-normal mt-2"><a href="/videos" class="text-capitalize">View all</a></h4>
+                        {{ range $key, $taxonomy := .Site.Taxonomies.videos }}
+                        <h4 class="fw-normal mt-2"><a href="{{ .Page.RelPermalink }}" class="text-capitalize">{{ $key }} ({{ len $taxonomy.Pages }})</a></h4>
+                        {{ end }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post Content -->
+        <div class="postcontent col-lg-9 order-lg-last">
+          <!-- Portfolio Items -->
+          <div id="portfolio" class="portfolio row grid-container gutter-20" data-layout="fitRows">
+            <!-- get last element from URL, assign to var lastUrlElement -->
+            {{ $lastUrlElement := index (last 1 (split (delimit (split .Permalink "/") "," "") ",")) 0 }}
+
+            <!-- Check if lastUrlElement equal to video (no filter applied) -->
+            {{ if eq $lastUrlElement "videos" }}
+            <!-- Iterate taxonomies -->
+            {{ range $key, $taxonomy := .Site.Taxonomies.videos }}
+            <div style="display: flex; justify-content: space-between">
+              <h4 class="text-capitalize m-0 mt-3" style="float: left">{{ $key }}</h4>
+              <p class="m-0 mt-3" style="right: 0"><a href="{{ .Page.RelPermalink }}">View all ({{ len $taxonomy.Pages }})</a></p>
+            </div>
+            <!-- Iterate through each video -->
+            {{ range first 4 $taxonomy.Pages }}
+            <article class="card h-shadow h-translate-y-sm all-ts portfolio-item col-md-5 col-12 m-3 border dark-mode">
+              <div class="grid-inner">
+                <div class="portfolio-desc" style="height: 100px">
+                  <h3><a href="{{ .Params.video_url }}">{{ .Title | markdownify }}</a></h3>
+                </div>
+                <div class="portfolio-image">
+                  {{ if .Params.video_url }}
+                  <iframe src="{{ .Params.video_url }}" width="300" height="157" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  {{end}}
+                  <!--  -->
+                  {{ if .Params.link }}
+                  <img src="{{ .Params.image | absURL }}" alt="" />
+                  {{end}}
+                </div>
+                <div class="portfolio-desc">
+                  <p>{{ .Params.description | truncate 100 | markdownify}}</p>
+                  <span><a href="#">{{ .Date.Format "Jan 2, 2006" }}</a></span>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+            <!--  -->
+            {{ end }}
+            <!--  -->
+            {{end}}
+            <!--  -->
+
+            <!-- Check if lastUrlElement notequal to video (filter applied) -->
+            {{ if ne $lastUrlElement "videos" }}
+            <!-- Iterate taxonomies -->
+            {{ range $key, $taxonomy := .Site.Taxonomies.videos }}
+            <!-- Show taxonomy if it is equal to applied filter (applied filter is lastUrlElement)  -->
+            {{ if eq $lastUrlElement $key }}
+            <div style="display: flex; justify-content: space-between">
+              <h4 class="text-capitalize m-0 mt-3" style="float: left">{{ $key }}</h4>
+            </div>
+            {{end}}
+            <!--  -->
+            {{end}}
+            <!-- Iterate through each video -->
+            {{ range .Data.Pages }}
+            <article class="card h-shadow h-translate-y-sm all-ts portfolio-item col-md-5 col-12 m-3 border dark-mode">
+              <div class="grid-inner">
+                <div class="portfolio-desc" style="height: 100px">
+                  <h3><a href="{{ .Params.video_url }}">{{ .Title | markdownify }}</a></h3>
+                </div>
+                <div class="portfolio-image">
+                  {{ if .Params.video_url }}
+                  <iframe src="{{ .Params.video_url }}" width="300" height="157" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  {{end}}
+                  <!--  -->
+                  {{ if .Params.link }}
+                  <img src="{{ .Params.image | absURL }}" alt="" />
+                  {{end}}
+                </div>
+                <div class="portfolio-desc">
+                  <p>{{ .Params.description | truncate 100 | markdownify}}</p>
+                  <span><a href="#">{{ .Date.Format "Jan 2, 2006" }}</a></span>
+                </div>
+              </div>
+            </article>
+            {{ end }}
+            <!--  -->
+            {{end}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--  -->
+
+{{end}}

@@ -1,0 +1,361 @@
+################################# Heading #################################
+heading:
+  enable: true
+  title: "PMem Repositories"
+  description: "Here is a list of all the repositories in the pmem organization in GitHub under <a href=\"https://github.com/pmem\">https://github.com/pmem</a>."
+
+################################# Cards #################################
+card_groups:
+  enable: true
+  cards: 
+    card1:
+      title: "PMDK Repositories"
+      description: "The <a href=\"https://pmem.io/pmdk/\">Persistent Memory Development Kit</a> is a collection of libraries and tools. The source is spread across many repositories. Components are separated like this to help with the logistics of parallel development and asynchronous delivery."
+      tables:
+        table1:
+          title: "Components Focused on Persistence:"
+          headers:
+            header1: 
+              content: "Repo Name"
+            header2: 
+              content: "Description"
+          rows: 
+            row1: 
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmdk\">pmdk</a>"
+                cell2: 
+                  content: "PMDK Core C libraries and tools:
+                  <br>
+                  <ul class=\"repoindex-list\">
+                    <li>libpmem</li>
+                    <li>libpmem2</li
+                    <li>libpmemobj</li>
+                    <li>libpmemblk</li>
+                    <li>libpmemlog</li>
+                    <li>librpmem</li>
+                    <li>libpmempool</li>
+                    <li>libpmemset (in development)</li>
+                    <li>pmempool utility</li>
+                    <li>Core PMDK C examples</li>
+                    <li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)</li>
+                  </ul>"
+            row2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\">libpmemobj-cpp</a>"
+                cell2:
+                  content: "C++ bindings & containers for libpmemobj"
+            row3:
+              cells:
+                cell1: 
+                  content: "<a href=\"https://github.com/pmem/llpl\">llpl</a>"
+                cell2: 
+                  content: "Low-Level Persistence Library for Java"
+            row4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/libpmemobj-js\">libpmemobj-js</a>"
+                cell2:
+                  content: "JavaScript bindings for libpmemobj"
+            row5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv\">pmemkv</a>"
+                cell2:
+                  content: "Transactional Key-Value Store: Top-Level C & C++ API"
+            row6:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-bench\">pmemkv-bench</a>"
+                cell2:
+                  content: "Benchmarks for pmemkv"
+            row7:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-python\">pmemkv-python</a>"
+                cell2:
+                  content: "Python bindings for pmemkv"
+            row8:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
+                cell2:
+                  content: "NodeJS bindings for pmemkv"
+            row9:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
+                cell2:
+                  content: "Ruby bindings for pmemkv"
+            rowA1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-java\">pmemkv-java</a>"
+                cell2:
+                  content: "Java bindings for pmemkv"
+            rowA2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmdk-convert\">pmdk-convert</a>"
+                cell2:
+                  content: "Conversion tool for PMDK pools"
+            rowA3:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/valgrind\">valgrind</a>"
+                cell2:
+                  content: "Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin"
+            rowA4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmdk-tests\">pmdk-tests</a>"
+                cell2:
+                  content: "Extended PMDK tests"
+            rowA5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/rpma\">rpma</a>"
+                cell2:
+                  content: "C library to simplify accessing persistent memory (PMem) on remote hosts over Remote Direct Memory Access (RDMA)"
+        table2:
+            title: "Components Focused on Volatile Usages of pmem:"
+            headers:
+              header1: 
+                content: "Repo Name"
+              header2: 
+                content: "Description"
+            rows:
+              row1:
+                cells:
+                  cell1:
+                    content: "<a href=\"https://github.com/memkind/memkind\">memkind</a>"
+                  cell2:
+                    content: "General-purpose malloc/free-style library<br/>(Actually lives outside the pmem GitHub org since it has a life outside of pmem as well)" 
+              row2:
+                cells:
+                  cell1:
+                    content: "<a href=\"https://github.com/pmem/vmemcache\">vmemcache</a>"
+                  cell2:
+                    content: "A buffer based LRU cache"
+              row3:
+                cells:
+                  cell1:
+                    content: "<a href=\"https://github.com/pmem/vmem\">vmem</a>"
+                  cell2:
+                    content: "ibvmem, the predecessor to <strong>libmemkind</strong>.<br/>Maintenance-only -- use <strong>libmemkind</strong> for all new development."
+        table3:
+          title: "Experimental PMDK components (not yet ready for production use):"
+          headers:
+            header1:
+              content: "Repo Name"
+            header2:
+              content: "Description"
+          rows:
+            row1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pcj\">pcj</a>"
+                cell2:
+                  content: "Persistent Collections for Java"
+            row2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemfile\">pmemfile</a>"
+                cell2:
+                  content: "Userspace implementation of file APIs using pmem"
+            row3:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/syscall_intercept\">syscall_intercept</a>"
+                cell2:
+                  content: "Syscall intercepting library used by libpmemfile"
+            row4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/vltrace\">vltrace</a>"
+                cell2:
+                  content: "Tool for tracing syscalls"
+            row5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pynvm\">pynvm</a>"
+                cell2:
+                  content: "Experimental prototype Python bindings for libpmemobj"
+        table4:
+          title: "Other:"
+          headers:
+            header1:
+              content: "Repo Name"
+            header2:
+              content: "Description"
+          rows:
+            row1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/dev-utils-kit\">dev-utils-kit</a>"
+                cell2:
+                  content: "Tools used for development of projects under pmem organization (WIP)"
+            row2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/autoflushtest\">autoflushtest</a>"
+                cell2:
+                  content: "Basic data integrity test for platforms with flush-on-fail CPU caches"
+    card2:
+      title: "ndctl"
+      description: "<a href=\"https://pmem.io/ndctl\">ndctl</a> is the Linux utility for managing persistent memory."
+      tables:
+        table1:
+          headers:
+            header1:
+              content: "Repo Name"
+            header2:
+              content: "Description"
+          rows:
+            row1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/ndctl\">ndctl</a>"
+                cell2:
+                  content: "ndctl, daxctl, and related libraries"
+    card3:
+      title: "Web Content"
+      description: "The <a href=\"https://pmem.io\">pmem.io website</a> is implemented as static content on GitHub using Jekyll, GitHub-flavored MarkDown, and some tool-generated HTML here and there.  Some sub-areas of the website live in the <strong>gh-pages</strong> branch of the corresponding repo (for example, pmdk and ndctl)."
+      tables:
+        table1:
+          headers:
+            header1:
+              content: "Repo Name"
+            header2:
+              content: "Description"
+          rows:
+            row1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/docs\">docs</a>"
+                cell2:
+                  content: "Persistent Memory <a href=\"https://docs.pmem.io/\">Docbook</a>"
+            row2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmem.github.io\">pmem.github.io</a>"
+                cell2:
+                  content: "Repo containing the pmem.io website (including blogs)"
+            row3:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmdk-examples\">pmdk-examples</a>"
+                cell2:
+                  content: "PMDK examples and tutorials"
+            row4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/book\">book</a>"
+                cell2:
+                  content: "Examples used in the <a href=\"https://pmem.io/book/\">pmem Programming Book</a>"
+            row5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/knowledge-base\">knowledge-base</a>"
+                cell2:
+                  content: "Knowledge Base for pmem.io"
+    card4:
+      title: "pmem-aware Software"
+      description: "These repos contain <strong>experimental</strong> versions of software modified to leverage persistent memory. Typically, when the features are mature and tested they become part of the upstream repo."
+      tables:
+        table1:
+          headers:
+            header1:
+              content: "Repo Name"
+            header2:
+              content: "Description"
+          rows:
+            row1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pelikan\">pelikan</a>"
+                cell2:
+                  content: "Working tree for development of pmem-related features for Twitter's Pelikan"
+            row2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmem-rocksdb\">pmem-rocksdb</a>"
+                cell2:
+                  content: "RocksDB modified to use pmem"
+            row3:
+              cells: 
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmem-redis\">pmem-redis</a>"
+                cell2:
+                  content: "Redis, enhanced to use pmem"
+            row4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmse\">pmse</a>"
+                cell2:
+                  content: "MongoDB pmem Storage Engine Prototype"
+            row5:
+              cells:
+                cell1: 
+                  content: "<a href=\"https://github.com/pmem/kvdk\">kvdk</a>"
+                cell2:
+                  content: "Reference code of key/value store design for pmem"
+    card5:
+      title: "Inactive"
+      description: "These repos are no longer under active development or use. We archive them here for reference."
+      tables:
+        table1:
+          headers:
+            header1: 
+              content: "Repo Name"
+            header2:
+              content: "Description"
+          rows:
+            row1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/linux-examples\">linux-examples</a>"
+                cell2:
+                  content: "Original ideas"
+            row2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/redis\">redis</a>"
+                cell2:
+                  content: "Initial pmem enhancements to Redis"
+            row3:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/rocksdb\">rocksdb</a>"
+                cell2:
+                  content: "Initial pmem enhancements to RocksDB"
+            row4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/libcxx\">libcxx</a>"
+                cell2:
+                  content: "Experimental pmem-aware libcxx"
+            row5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/mpi-pmem-ext\">mpi-pmem-ext</a>"
+                cell2:
+                  content: "MPI Extensions for pmem"
+            row6:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/issues\">issues</a>"
+                cell2:
+                  content: "Archive of some old issues. No longer in-use."
+            row7:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-jni\">pmemkv-jni</a>"
+                cell2:
+                  content: "Java bindings via JNI for pmemkv"
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."    

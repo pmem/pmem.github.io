@@ -1,0 +1,64 @@
+<head>
+  <!-- PMem -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Redirect if front matter has url specified -->
+  {{ if .Params.redirectUrl }}
+  <meta http-equiv="refresh" content="0;url={{ .Params.redirectUrl }}" />
+  {{ end }}
+
+  <title>{{ .Title }}</title>
+
+  {{ with site.Params.author }}
+  <meta name="author" content="{{ . }}" />
+  {{ end }}
+
+  <meta
+    name="description"
+    content="{{ with .Params.Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}"
+  />
+
+  <!-- Robots -->
+  {{ with .Params.robotsdisallow }}<meta name="robots" content="noindex, nofollow, noarchive">{{ else }}<meta name="robots" content="index, follow, archive">{{ end }}
+
+
+  <!-- Stylesheets
+	============================================= -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="/css/dark.css" type="text/css" />
+  <link rel="stylesheet" href="/css/font-icons.css" type="text/css" />
+  <link rel="stylesheet" href="/css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css" />
+  <link rel="stylesheet" href="/css/et-line.css" type="text/css" />
+
+  <!-- Bootstrap Switch CSS -->
+  <link rel="stylesheet" href="/css/components/bs-switches.css" type="text/css" />
+
+  <link rel="stylesheet" href="/css/custom.css" type="text/css" />
+  <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
+
+  <!-- Bootstrap icon css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" type="text/css" />
+
+  <!-- Seo Demo Specific Stylesheet -->
+  <link rel="stylesheet" href="/css/colors.php?color=FE9603" type="text/css" />
+  <!-- Theme Color -->
+  <link rel="stylesheet" href="/css/template/fonts.css" type="text/css" />
+  <link rel="stylesheet" href="/css/template/seo.css" type="text/css" />
+  <!-- / -->
+</head>

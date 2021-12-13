@@ -1,4 +1,0 @@
-Persistent memory is sometimes configured as **2LM** where hardware
-manages two levels (tiers) of memory.  This is a feature of the
-[Intel's Optane PMem](#optane), which calls this configuration
-[Memory Mode](#memory-mode) (more detail in that glossary entry).

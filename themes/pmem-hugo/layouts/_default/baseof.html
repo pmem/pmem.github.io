@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="{{ with site.LanguageCode }}{{ . }}{{ else }}en-US{{ end }}">
+  {{- partial "head.html" . -}}
+
+  {{ if not .Params.redirectUrl}}
+  <body class="stretched">
+    <div id="wrapper" class="clearfix">
+      {{- partial "header.html" . -}} {{- block "main" . }} {{- end }} {{- partial "footer.html" . -}}
+    </div>
+
+    <!-- Go To Top
+      ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    {{- partial "script.html" . -}}
+  </body>
+  {{ end }}
+</html>

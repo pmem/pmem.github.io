@@ -1,7 +1,0 @@
-ACPI defines the notion of a Device Specific Method, often written as **_DSM**,
-which allows the pre-boot environment to abstract away some hardware details
-and provide a uniform interface for the OS to call.
-The standard DSMs for NVDIMMs are
-described by the ACPI specification, available on the
-[UEFI web site](https://uefi.org/).
-In addition, Intel has published the [DSM Interface for Optane](https://pmem.io/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf) (pdf).

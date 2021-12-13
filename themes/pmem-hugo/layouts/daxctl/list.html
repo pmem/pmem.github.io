@@ -1,0 +1,37 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.daxctl.slider.enable }} {{ with $data.daxctl.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | markdownify}}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- content -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.daxctl.feature.enable }} {{ with $data.daxctl.feature }}
+<div class="section m-0 bg-transparent get-book-wrapper border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0">{{ .title | markdownify }}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="section m-0 bg-transparent p-0 dark-mode pb-5">
+  <div class="container">
+    <ul class="w-50 mx-auto" style="columns: 2">
+      {{range $data.daxctl.feature.daxctl_pages}}
+      <li style="margin-right: 5px"><a href="{{ .link | absURL}}">{{.label | markdownify}}</a></li>
+      {{end}}
+    </ul>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!---->
+{{end}}

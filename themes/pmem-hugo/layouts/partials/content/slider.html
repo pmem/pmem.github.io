@@ -1,0 +1,23 @@
+{{ $data := index site.Data site.Language.Lang }}
+<!-- slider -->
+{{ if $data.homepage.slider.enable }} {{ with $data.homepage.slider }}
+<div class="section bg-transparent m-0">
+  <div class="container">
+    <div class="row justify-content-between dark-mode">
+      <div class="col-lg-6 mt-0">
+        <div class="slider-title">
+          <h2>{{ .title | markdownify }}</h2>
+          <p>{{ .content | markdownify }}</p>
+          <a href="{{ .apply_btn.link | absLangURL }}" class="button button-rounded button-medium nott ls0">{{ .apply_btn.label}}</a>
+          <a href="{{ .community_btn.link | absLangURL }}" class="button button-rounded button-medium button-light text-dark bg-white border nott ls0 dark-mode">{{ .community_btn.label}}</a>
+        </div>
+      </div>
+
+      <div class="img-container header">
+        <img src="{{ .bg_image | absURL}}" alt="{{ .title | markdownify}}" />
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+<!-- / slider -->

@@ -1,9 +1,0 @@
-The term **DDR** is a generalization of the various versions of
-the DDR protocol.  For example, DDR4 is explained
-[here on Wikipedia](https://en.wikipedia.org/wiki/DDR4_SDRAM).
-
-When talking about persistent memory, this term is used to talk about
-what types of memory are plugged into what types of sockets.  For example,
-NVDIMM-N products typically plug into DDR sockets, like normal DRAM.
-Intel's Optane PMem plugs into DDR sockets but runs the [DDR-T](#ddrt)
-protocol over the DDR electricals.

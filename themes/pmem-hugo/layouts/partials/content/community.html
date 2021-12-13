@@ -1,0 +1,11 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.join_community.enable }} {{ with $data.homepage.join_community }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+      <a href="{{ .join_btn.link | absLangURL }}" class="button button-medium button-rounded ms-0 ls0">{{ .join_btn.label }}</a>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}

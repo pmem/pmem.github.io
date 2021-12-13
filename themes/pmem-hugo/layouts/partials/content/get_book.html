@@ -1,0 +1,21 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.get_book.enable }} {{ with $data.homepage.get_book }}
+<div class="section m-0 get-book-wrapper border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+        <a href="{{ .download_btn.link | absLangURL }}" class="nott ls0 pmem-color">{{ .download_btn.label | markdownify }} <i class="icon-angle-right"></i></a>
+      </div>
+
+      <div class="col-lg-6 mt-4">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}

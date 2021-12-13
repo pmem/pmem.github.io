@@ -1,7 +1,0 @@
-A series of workshops about programming with
-[persistent memory](#persistent-memory) have been held over the years,
-often referred to as **PMem Hackathons**.  Each workshop includes a
-series of fully-functional examples, meant to me used as starting points
-for PMem programming.  The archive of these workshop examples is
-at [pmemhackathon.io](https://pmemhackathon.io),
-each named after the date of the workshop.

@@ -1,0 +1,252 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.slider.enable }} {{ with $data.community.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | markdownify}}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- social section -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.social_section.enable }} {{ with $data.community.social_section }}
+<div class="section m-0 border-top dark-mode" style="background-color: #e3faff" id="social-media">
+  <div class="container clearfix">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+    </div>
+    <div class="row col-mb-50 justify-content-center">
+      {{ range .social_links}}
+      <div class="col-sm-6 col-lg-2 text-center bounceIn animated" data-animate="bounceIn">
+        <a href="{{ .link | absLangURL }}"><span class="i-plain i-xlarge mx-auto mb-0 {{ .icon | markdownify}} social-font dark-mode"></span></a>
+        <h3 class="social-font">{{ .title | markdownify }}</h3>
+      </div>
+      {{ end }}
+    </div>
+    {{ if $data.community.social_section.image }} 
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-8 mt-4">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- get connected section -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.get_connected_section.enable }} {{ with $data.community.get_connected_section }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- section1 -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.connected_section_1.enable }} {{ with $data.community.connected_section_1 }}
+<div class="section m-0 bg-transparent connected-wrapper border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 mt-4">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+      <div class="col-lg-5 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+        <a href="{{ .link | absLangURL }}" class="nott ls0 pmem-color">{{ .link_text | markdownify }} <i class="icon-angle-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- section2 -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.connected_section_2.enable }} {{ with $data.community.connected_section_2 }}
+<div class="section m-0 bg-transparent connected-wrapper border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+        <a href="{{ .link | absLangURL }}" class="nott ls0 pmem-color">{{ .link_text | markdownify }} <i class="icon-angle-right"></i></a>
+      </div>
+
+      <div class="col-lg-6 mt-4">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- events -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.community_event.enable }} {{ with $data.community.community_event }}
+<div class="section m-0 event-wrapper border-top dark-mode">
+  <div class="container position-relative">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+
+    <div id="portfolio" class="portfolio row grid-container gutter-20">{{ range first 3 (where site.RegularPages "Type" "community_event")}} {{ .Render "event" }} {{ end }}</div>
+    <a href="{{ .button.link | absLangURL }}" class="nott ls0 position-absolute end-0 pmem-color">{{ .button.label }} <i class="icon-angle-right"></i></a>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- videos -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.videos.enable }} {{ with $data.community.videos }}
+<div class="section m-0 community-videos-bg event-wrapper border-top dark-mode">
+  <div class="container position-relative">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }} </h3>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+    <div id="portfolio" class="portfolio row grid-container gutter-20" style="height: 320px">
+      {{ $count := 0 }}
+      <!--  -->
+      {{ $taxo := "videos" }}
+      <!--  -->
+      {{ with ($.Site.GetPage (printf "/%s" $taxo)) }}
+      <!--  -->
+      {{ range (where .Pages.ByWeight ".Params.featured" "=" true) }}
+      <!--  -->
+      {{ if le $count 2 }}
+      <article class="portfolio-item col-12 col-sm-6 col-md-4" style="height: 300px">
+        <div class="grid-inner">
+          <div class="portfolio-desc text-center">
+            {{ if .Params.video_url }}
+            <iframe src="{{ .Params.video_url }}" width="300" height="157" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            {{end}}
+            <!--  -->
+            {{ if .Params.link }}
+            <img src="{{ .Params.image | absURL }}" alt="{{ .Title | markdownify }}" />
+            {{end}}
+            <h3><a href="{{ .Params.video_url }}">{{ .Title | markdownify }}</a></h3>
+          </div>
+        </div>
+      </article>
+      {{ $count = add $count 1 }}
+      <!--  -->
+      {{ end }}
+      <!--  -->
+      {{ end }}
+      <!--  -->
+      {{ end }}
+    </div>
+    <a href="{{ .button.link | absLangURL }}" class="nott ls0 position-absolute end-0 pmem-color">{{ .button.label }} <i class="icon-angle-right"></i></a>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- Newsletter -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.newsletter.enable }} {{ with $data.community.newsletter }}
+<div class="section m-0 bg-transparent border-top dark-mode" id="newsletter">
+  <div class="container" id="signup_form">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+    </div>
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-lg-5 col-sm-7 col-10">
+        <p class="text-right"><small><em>{{ .required_message | markdownify }}</em></small></p>
+        <form class="mb-0" method="post" name="FORM-MKA-18980" id="FORM-MKA-18980" action="https://s334284386.t.eloqua.com/e/f2">
+          <div class="form-group">
+              <input type="text" class="form-control form-control-lg" id="firstName" name="firstName" placeholder="Enter Your First Name*" required="" style="background-image: none; background-repeat: initial; background-attachment: initial; background-size: initial; background-position: initial;">
+          </div>
+          <div class="form-group">
+              <input type="text" class="form-control form-control-lg" id="lastName" name="lastName" placeholder="Enter Your Last Name*" required="">
+          </div>
+          <div class="form-group">
+              <input type="email" class="form-control form-control-lg" id="email" name="emailAddress" placeholder="Enter Your Email Address*" required="">
+          </div>
+          <div class="form-group">
+              <select class="form-select newsletter-select" name="profession" id="profession" aria-invalid="false">
+                  {{ .professions | safeHTML }}
+                </select>
+          </div>
+          <div class="form-group">
+              <input type="hidden" name="autoPopCountry" value="United States">
+              <select class="form-select newsletter-select" id="country" name="country" required="required">
+                  {{ .regions | safeHTML }}
+              </select>
+          </div>
+          <div class="form-group checkbox">
+              <!-- START Eloqua Shared Content - Template EU Opt-in -->                                                 
+              <!-- START - Opt-In Use Case #1 EU/EEA Consent -->                                                 
+              <!-- Copy has already been setup for all supported languages. Replace the <span> tags elqid with the corresponding id of the language that matches your landing page. The default English copy of the template will be replaced.
+
+                      Language        <span elqid=
+                      English                 427246
+                      Arabic                  427247
+                      Chinese Simplified      427263
+                      Chinese Traditional     427264
+                      ES-Spanish              427249
+                      French                  427251
+                      German                  427248
+                      Hebrew                  427252
+                      Indonesian              427253
+                      Italian                 427254
+                      Japanese                427255
+                      Korean                  427256
+                      Polish                  427257
+                      Portuguese              427258
+                      Russian                 427259
+                      Thai                    427260
+                      Turkish                 427261
+                      Vietnamese              427262
+                      XL-Spanish              427250
+                      -->                                                 
+              <input id="optinConsent" name="optinConsent" type="hidden" value="Yes">
+              <label class="opt-in-EU" for="optinEU" style="display: none;">
+                  <input class="opt-in-EU checkbox" id="optinEU" name="optinEU" type="checkbox" checked="checked" value="Yes" required="" style="display: none;">
+                  <span>Yes, I would like to subscribe to stay connected to the latest Intel technologies and industry trends by email and telephone. I can unsubscribe at any time.</span>
+              </label>                                                 
+              <!-- END - Opt-In Use Case #1 EU/EEA Consent -->                                                 
+
+              <!-- END Eloqua Shared Content - Template EU Opt-in -->                                                 
+          </div>
+
+          <div class="col-12">
+                <button type="submit" class="btn w-100 text-white sign-up-btn rounded-3 py-3 fw-semibold text-uppercase mt-2 books-submit-btn">Sign Up</button>
+                <p class="book-font-color submit-disclaimer"><small>{{ .disclaimer | safeHTML }}</small></p>
+          </div>
+
+          <!-- Hidden form elements -->
+          <input value="FORM-MKA-18980" type="hidden" name="elqFormName">
+          <input value="334284386" type="hidden" name="elqSiteId"> 
+          <input name="sourceId" id="sourceId" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980">
+          <input name="tacticId" id="tacticId" type="hidden" value="MKA-18980">
+          <input name="mktgLeadSourceOriginal" id="mktgLeadSourceOriginal" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980">
+          <input name="mktgLeadSourceRecent" id="mktgLeadSourceRecent" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980">
+          <!-- End hidden form elements -->
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="signup_result">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">Thank you!</h3>
+      <p class="book-font-color">We'll be in touch</p>
+    </div>
+  </div>
+</div>
+
+{{ end }} {{ end }} {{ end }}
