@@ -20,11 +20,11 @@ dev_section:
     card1:
       title: 'Persistent Memory Key-Value Store (PMemKV)'
       content: 'pmemkv is a local/embedded key-value datastore optimized for persistent memory that provides options for language bindings and pluggable storage engines.'
-      link: '/developer-hub/pmemkv'
+      link: '/pmemkv'
     card2:
       title: 'Persistent Memory Developer Kit (PMDK)'
       content: 'A collection of libraries and tools that allow developers to rapidly integrate persistent memory into new or existing applications.'
-      link: '/developer-hub/pmdk'
+      link: '/pmdk'
     card3:
       title: 'Low-Level Persistence Library for Java (LLPL)'
       content: 'The Low-Level Persistence Library (LLPL) is a Java library that provides access to off- heap persistent memory. LLPL includes several kinds of components that can be allocated and used in building applications.'
