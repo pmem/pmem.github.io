@@ -1,0 +1,19 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.news.enable }} {{ with $data.homepage.news }}
+<div class="section m-0 event-wrapper border-top dark-mode" id="news">
+  <div class="container position-relative">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+
+    <div id="portfolio" class="portfolio row grid-container gutter-20">
+      {{ $announcements2show := where site.RegularPages "Type" "announcement" }}
+      {{ $announcements2show := $announcements2show | union (sort (where (where site.RegularPages "Type" "announcement") ".Params.featured" "=" true ) ".Params.date" "desc") }}
+      {{ range first 3 $announcements2show }} 
+        {{ .Render "announcement" }}
+      {{ end }}
+    </div>
+    <a href="{{ .button.link | absLangURL }}" class="nott ls0 position-absolute end-0 pmem-color">{{ .button.label }} <i class="icon-angle-right"></i></a>
+  </div>
+</div>
+{{ end }} {{ end }}

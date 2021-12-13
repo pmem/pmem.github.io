@@ -1,0 +1,121 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.learn.slider.enable }} {{ with $data.learn.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | markdownify }}</p>
+      {{ if .cta_btn }}
+      <a href="{{ .cta_btn | absLangURL }}" class="button button-rounded button-medium button-light bg-white border nott ls0 slack-btn text-capitalize">{{ .cta_btn }}</a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{end}}{{end}}
+
+<!-- feature -->
+<!-- section1 -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.learn.feature_section1.enable }} {{ with $data.learn.feature_section1 }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+      </div>
+
+      <div class="col-lg-6 mt-4">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- section2 -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.learn.feature_section2.enable }} {{ with $data.learn.feature_section2 }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 mt-4">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+      <div class="col-lg-5 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+<!-- feature end -->
+
+<!-- get book -->
+{{- partial "content/get_book.html" . -}}
+
+<!-- news -->
+{{- partial "content/announcements.html" . -}}
+
+<!-- join community -->
+{{- partial "content/community.html" . -}}
+
+<!-- videos -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.learn.videos.enable }} {{ with $data.learn.videos }}
+<div class="section m-0 event-wrapper border-top dark-mode">
+  <div class="container position-relative">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .label | markdownify }}</h3>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+    <div id="portfolio" class="portfolio row grid-container gutter-20" style="height: 320px">
+      {{ $count := 0 }}
+      <!--  -->
+      {{ $taxo := "videos" }}
+      <!--  -->
+      {{ with ($.Site.GetPage (printf "/%s" $taxo)) }}
+      <!--  -->
+      {{ range (where .Pages.ByWeight ".Params.featured" "=" true) }}
+      <!--  -->
+      {{ if le $count 2 }}
+      <article class="portfolio-item col-12 col-sm-6 col-md-4" style="height: 300px">
+        <div class="grid-inner">
+          <div class="portfolio-desc text-center">
+            {{ if .Params.video_url }}
+            <iframe src="{{ .Params.video_url }}" width="300" height="157" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            {{end}}
+            <!--  -->
+            {{ if .Params.link }}
+            <img src="{{ .Params.image | absURL }}" alt="{{ .Title | markdownify }}" />
+            {{end}}
+            <h3><a href="{{ .Params.video_url }}">{{ .Title | markdownify }}</a></h3>
+          </div>
+        </div>
+      </article>
+      {{ $count = add $count 1 }}
+      <!--  -->
+      {{ end }}
+      <!--  -->
+      {{ end }}
+      <!--  -->
+      {{ end }}
+    </div>
+    <a href="{{ .button.link | absLangURL }}" class="nott ls0 position-absolute end-0 pmem-color">{{ .button.label }} <i class="icon-angle-right"></i></a>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- form -->
+{{- partial "content/form.html" . -}}
+
+<!-- events -->
+{{- partial "content/events.html" . -}} {{end}}

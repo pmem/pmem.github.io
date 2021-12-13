@@ -1,0 +1,8 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/learn_header.jpg'
+  title: 'News and Announcements'
+  content: 'Read articles from product experts.'
+
+

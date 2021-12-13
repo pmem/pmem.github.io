@@ -1,0 +1,75 @@
+{{ define "main" }}
+
+<!-- event single -->
+<section class="section-sm pt-5 pb-5 border-top dark-mode">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title">{{ .Title }}</h2>
+      </div>
+      <!-- event image -->
+      <div class="col-12 mb-4">
+        <img style="height: 300px; width: 100%; object-fit: cover" src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="img-fluid w-100" />
+      </div>
+    </div>
+    <!-- event info -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <ul class="list-inline m-0">
+          <li class="mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-location-pin text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <p class="mb-0">Location: {{ .Params.Location | markdownify }}</p>
+              </div>
+            </div>
+          </li>
+          <li class="mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-calendar text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <p class="mb-0">Event start date: {{ with .Params.event_start_date }} {{ (dateFormat "02 Jan 06 15:04 MST" .) }} {{ end }}</p>
+              </div>
+            </div>
+          </li>
+          <li class=" mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-calendar text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <p class="mb-0">Event end date: {{ with .Params.event_end_date }} {{ (dateFormat "02 Jan 06 15:04 MST" .) }} {{ end }}</p>
+              </div>
+            </div>
+          </li>
+          <li class="mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-time text-primary icon-md mr-2"></i>
+              <div class="text-left">
+		{{ $t := time .Params.event_start_date }}
+                {{ if ($t.After now) }}
+                  {{ if .Params.event_registration }}
+                <span><a href="{{ .Params.event_registration | absURL }}">Register here</a></span>
+                  {{ else }}
+                <span><a href="{{ .Params.event_utl | absURL }}">Register here</a></span>
+                  {{ end }}
+	        {{ else }}
+                <span>This event has concluded. <a href="{{ .Params.event_utl | absURL }}">Go to the event site</a></span>
+                {{ end }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- border -->
+      <div class="col-12 mt-4 order-4">
+        <div class="border-bottom border-primary"></div>
+      </div>
+    </div>
+    <!-- event details -->
+    <div class="row">
+      <div class="col-12 mb-50 content">{{ .Content }}</div>
+    </div>
+  </div>
+</section>
+<!-- /event single -->
+
+{{ end }}

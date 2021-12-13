@@ -1,0 +1,312 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'pmemkv'
+  content: "<strong>pmemkv</strong> is a local/embedded key-value datastore optimized for persistent memory. Rather than being tied to a single language or backing implementation, <strong>pmemkv</strong> provides different options for language bindings and storage engines."
+
+################################# C API #################################
+c_api:
+  enable: true
+  lists:
+    branch_list1: 
+      content: "<p>The <strong>C API</strong> of pmemkv is documented in the manuals and the <strong>C++ API</strong> is documented in the form of Doxygen documentation:</p>
+                <p>for the current <strong>master:</strong></p>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/master/doxygen/index.html\">C++ Doxygen doc</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
+            child_5:
+              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_6:
+              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+    branch_list2:
+      content: "<p>for the latest stable branch (<strong>1.5</strong>):</p>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/v1.5/doxygen/index.html\">C++ Doxygen doc</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
+            child_5:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_6:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+
+################################# Language Bindings #################################
+language_bindings:
+  enable: true
+  title: "Language Bindings"
+  lists:
+    link_list1:
+      content: "<p>Up-to-date overview information about language bindings for pmemkv can be found in <a href=\"https://github.com/pmem/pmemkv#language-bindings\">pmemkv’s README on GitHub</a>.</p><p>Each of bindings has its own detailed API documentation on pmem.io:</p>"  
+      list_items:
+        list_item1:
+          content: "<strong>pmemkv-java</strong> <a href=\"https://pmem.io/pmemkv-java\">docs</a>"
+        list_item2:
+          content: "<strong>pmemkv-nodejs</strong> <a href=\"https://pmem.io/pmemkv-nodejs\">docs</a>"
+        list_item3:
+          content: "<strong>pmemkv-python</strong> <a href=\"https://pmem.io/pmemkv-python\">docs</a>"
+    link_list2:
+      content: "or just a readme (on GitHub’s repository page):"
+      list_items:
+        list_item1:
+          content: "<strong>pmemkv-ruby</strong> <a href=\"https://github.com/pmem/pmemkv-ruby\">readme</a>"
+
+################################# Blog Entries #################################
+blog_entries:
+  enable: true
+  title: "Blog Entries"
+  content: "The following blog articles relates to <strong>pmemkv:</strong>"
+  blog_list:
+    list_items:
+      list_item1:
+        content: "<a href=\"https://pmem.io/2017/02/21/pmemkv-intro.html\">Introduction</a>"
+      list_item2:
+        content: "<a href=\"https://pmem.io/2017/03/09/pmemkv-zero-copy-leaf-splits.html\">Zero-copy leaf splits in pmemkv</a>"
+      list_item3:
+        content: "<a href=\"https://pmem.io/2017/12/27/pmemkv-benchmarking-engines.html\">Benchmarking with different storage engines using pmemkv</a>"
+      list_item4:
+        content: "<a href=\"https://pmem.io/2020/03/04/pmemkv-bindings.html\">Language bindings for pmemkv</a>"
+      list_item5:
+        content: "<a href=\"https://pmem.io/2020/10/30/pmemkv-java-binding.html\">API overview of pmemkv-java binding</a>"
+
+################################# Releases Support Status #################################
+releases_support_status:
+  enable: true
+  title: "Releases' Support Status"
+  content:
+    recent_release_content: "Only some of the latest branches/releases are fully supported. The most recent releases can be found on the <a href=\"https://github.com/pmem/pmemkv/releases\">\"releases\" tab on the Github page</a>."
+    possible_statuses_content: "Possible statuses:"
+  table:
+    headers:
+      header1:
+        content: "Version branch"
+      header2:
+        content: "First release date"
+      header3:
+        content: "Last patch release"
+      header4:
+        content: "Maintenance status"
+    rows:
+      row1:
+        cols:
+          col1:
+            content: "stable-1.5"
+          col2:
+            content: "Jul 27, 2021"
+          col3:
+            content: "N/A"
+          col4:
+            content: "Full"
+      row2:
+        cols:
+          col1:
+            content: "stable-1.4"
+          col2:
+            content: "Feb 15, 2021"
+          col3:
+            content: "N/A"
+          col4:
+            content: "Full"
+      row3:
+        cols:
+          col1:
+            content: "stable-1.3"
+          col2:
+            content: "Oct 02, 2020"
+          col3:
+            content: "N/A"
+          col4:
+            content: "Full"   
+      row4:
+        cols:
+          col1:
+            content: "stable-1.2"
+          col2:
+            content: "May 29, 2020"
+          col3:
+            content: "1.2.1 (Jul 06, 2021)"
+          col4:
+            content: "EOL"   
+      row5:
+        cols:
+          col1:
+            content: "stable-1.1"
+          col2:
+            content: "Jan 31, 2020"
+          col3:
+            content: "1.1.1 (Jun 28, 2021)"
+          col4:
+            content: "EOL"   
+      row6:
+        cols:
+          col1:
+            content: "stable-1.0"
+          col2:
+            content: "Oct 4, 2019"
+          col3:
+            content: "1.0.3 (Oct 06, 2020)"
+          col4:
+            content: "EOL"     
+  possible_statuses_list:
+      list_items:
+        list_item1:
+          content: "Full maintenance:"
+          children:
+            child_1:
+              content: "All/most of bugs fixed (if possible),"
+            child_2:
+              content: "Patch releases issued based on a number of fixes and their severity,"
+            child_3:
+              content: "At least one release at the end of the maintenance period,"
+            child_4:
+              content: "Full support for at least a year since the initial release."
+        list_item2:
+          content: "Limited scope:"
+          children:
+            child_1:
+              content: "Only critical bugs (security, data integrity, etc.) will be backported,"
+            child_2:
+              content: "Patch versions will be released when needed (based on severity of found issues),"
+            child_3:
+              content: "Branch will remain in “limited maintanance” status based on original release availability in popular distros,"
+        list_item3:
+          content: "EOL:"
+          children:
+            child_1:
+              content: "No support,"
+            child_2:
+              content: "No bug fixes,"
+            child_3:
+              content: "No official releases."
+
+################################# Older Documentation #################################
+older_documentation:
+  enable: true
+  title: "Older Documentation"
+  lists:
+    documentation_list_1:
+      content: "For branch <strong>stable-1.4:</strong>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/v1.4/doxygen/index.html\">C++ Doxygen docs</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
+            child_5:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_6:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+    documentation_list_2:
+      content: "For branch <strong>stable-1.3:</strong>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/v1.3/doxygen/index.html\">C++ Doxygen docs</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+      
+################################# Archived Documentation #################################
+archived_documentation:
+  enable: true
+  title: "Archived Documentation"
+  lists:
+    documentation_list_1:
+      content: "For branch <strong>stable-1.2.1:</strong>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/v1.2/doxygen/index.html\">C++ Doxygen docs</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+    documentation_list_2:
+      content: "For branch <strong>stable-1.1.1:</strong>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/v1.1/doxygen/index.html\">C++ Doxygen docs</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+    documentation_list_3:
+      content: "For branch <strong>stable-1.0.3:</strong>"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://pmem.io/pmemkv/v1.0/doxygen/index.html\">C++ Doxygen docs</a>"
+          children:
+        list_item2:
+          content: "C manpages:"
+          children:
+            child_1:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+            child_2:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+            child_3:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+            child_4:
+              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
+  
+  
+      

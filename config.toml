@@ -1,0 +1,338 @@
+######################## Default configuration ####################
+baseURL = "https://pmem.io/"
+title = "PMem.io"
+theme = "pmem-hugo"
+# post pagination
+paginate = "5"
+# post excerpt how many words are in excerpts of post on preview
+summaryLength = "70"
+
+# Allow Hugo to auto-generate robots.txt
+# A custom robots.txt template exists in /layouts/robots.txt
+enableRobotsTXT = "true"
+
+
+#################### default parameters ################################
+[params]
+  logo = "images/pmem_logo.png"
+  logo_light = "images/pmem_logo_white.png"
+  # Meta data
+  description = "Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"
+  author = "PMem.io"
+  tagLimit = 30
+
+# Google Analitycs
+google_analitycs_id = "" # your id
+
+# Render raw HTML from md files
+[markup.goldmark.renderer]
+  unsafe = true
+
+# Allow Hugo to auto-generate the sitemap.xml file
+# A custom sitemap.xml template exists in /layouts/sitemap.xml
+[sitemap]
+  changefreq = 'weekly'
+  filename = 'sitemap.xml'
+  priority = 0.5
+
+# Permalink for posts
+[permalinks]
+  blog = 'blog/:year/:month/:title'
+
+# Build related blog posts using this criteria
+[related]
+  includeNewer = false
+  threshold = 80
+  toLower = false
+[[related.indices]]
+  name = 'blogs'
+  weight = 80
+[[related.indices]]
+  name = 'keywords'
+  weight = 100
+[[related.indices]]
+  name = 'date'
+  weight = 10
+
+############################# social site ########################
+[[params.social]]
+title = "facebook"
+icon = "ti-facebook" 
+link = "#"
+
+[[params.social]]
+title = "twitter"
+icon = "ti-twitter-alt" 
+link = "#"
+
+[[params.social]]
+title = "instagram"
+icon = "ti-instagram" 
+link = "#"
+
+[[params.social]]
+title = "github"
+icon = "ti-github" 
+link = "#"
+
+[[params.social]]
+title = "linkedin"
+icon = "ti-linkedin" 
+link = "#"
+
+
+################### navigation ####################
+
+# main menu  
+[[Languages.en.menu.main]]
+name = "Developer Hub"
+url = "/developer-hub"
+weight = 1
+
+  [[Languages.en.menu.main]]
+  parent = "Developer Hub"
+  name = "For Developers"
+  weight = 1
+  Pre = "Everything you need to know about Persistent Memory."
+
+  [[Languages.en.menu.main]]
+  parent = "Developer Hub"
+  name = "dev-hub-column1"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column1"
+    name = "Get started"
+    url = "https://docs.pmem.io/persistent-memory/getting-started-guide"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column1"
+    name = "PMDK"
+    url = "/pmdk"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column1"
+    name = "PMemKV"
+    url = "/pmemkv"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column1"
+    name = "PMem Repositories"
+    url = "/repoindex"
+
+  [[Languages.en.menu.main]]
+  parent = "Developer Hub"
+  name = "dev-hub-column2"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column2"
+    name = "MemKind"
+    url = "http://memkind.github.io/memkind/"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column2"
+    name = "MemKeyDB"
+    url = "https://memkeydb.io"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column2"
+    name = "Newsletter "
+    url = "/community/#newsletter"
+
+[[Languages.en.menu.main]]
+name = "Learn"
+url = "/learn"
+weight = 2
+
+  [[Languages.en.menu.main]]
+  parent = "Learn"
+  name = "Access our Documentation"
+  weight = 1
+  Pre = "Learn more about Persistent Memory features and capabilities."
+
+  [[Languages.en.menu.main]]
+  parent = "Learn"
+  name = "learn-column1"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column1"
+    name = "Docs"
+    url = "https://docs.pmem.io/persistent-memory/"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column1"
+    name = "Books"
+    url = "/books"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column1"
+    name = "ipmctl User Guide"
+    url = "https://docs.pmem.io/ipmctl-user-guide/"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column1"
+    name = "ndctl User Guide"
+    url = "https://docs.pmem.io/ndctl-user-guide/"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column1"
+    name = "Glossary"
+    url = "/glossary"
+
+  [[Languages.en.menu.main]]
+  parent = "Learn"
+  name = "learn-column2"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column2"
+    name = "Knowledge base"
+    url = "https://kb.pmem.io/"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column2"
+    name = "Webinars"
+    url = "/webinars"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column2"
+    name = "Tutorials"
+    url = "/tutorials"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column2"
+    name = "Videos"
+    url = "/videos"
+
+    [[Languages.en.menu.main]]
+    parent = "learn-column2"
+    name = "FAQ"
+    url = "/faq"
+
+[[Languages.en.menu.main]]
+name = "Community"
+url = "/community"
+weight = 3
+
+  [[Languages.en.menu.main]]
+  parent = "Community"
+  name = "Get Connected"
+  weight = 1
+  Pre = "Join an ever-growing community of PMDK-PMEM developers online or in person."
+
+  [[Languages.en.menu.main]]
+  parent = "Community"
+  name = "community-column1"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column1"
+    name = "Forum"
+    url = "https://groups.google.com/group/pmem"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column1"
+    name = "Slack channel"
+    url = "https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column1"
+    name = "Events"
+    url = "/events"
+
+  [[Languages.en.menu.main]]
+  parent = "Community"
+  name = "community-column2"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column2"
+    name = "Announcements"
+    url = "/announcements"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column2"
+    name = "Contribute"
+    url = "/blog/2021/10/how-to-contribute-to-pmem.io/"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column2"
+    name = "Newsletter"
+    url = "/community/#newsletter"
+
+    [[Languages.en.menu.main]]
+    parent = "community-column2"
+    name = "Social Media"
+    url = "/community/#social-media"
+
+[[Languages.en.menu.main]]
+name = "Solutions"
+url = "solutions"
+weight = 4
+
+[[Languages.en.menu.main]]
+name = "Blog"
+url = "blog"
+weight = 5
+  
+[[Languages.en.menu.main]]
+name = "About"
+url = "about"
+weight = 6
+
+# footer menu
+
+[[Languages.en.menu.footer]]
+name = "developer Hub"
+url = "developer-hub"
+
+[[Languages.en.menu.footer]]
+name = "learn"
+url = "learn"
+
+[[Languages.en.menu.footer]]
+name = "community"
+url = "community"
+
+[[Languages.en.menu.footer]]
+name = "solutions"
+url = "solutions"
+
+[[Languages.en.menu.footer]]
+name = "blog"
+url = "blog"
+
+[[Languages.en.menu.footer]]
+name = "about"
+url = "about"
+
+[[Languages.en.menu.footer]]
+name = "Privacy"
+url = "/privacy.html"
+
+[[Languages.en.menu.footer]]
+name = "Terms"
+url = "/terms.html"
+
+[[Languages.en.menu.footer]]
+name = "Cookies"
+url = "/cookies.html"
+
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  solution = "solutions"
+
+  blog = "blogs"
+  tutorial = "tutorials"
+  webinar = "webinars"
+  video = 'videos'
+  announcement = 'announcements'
+  event = 'events'
+
+
+[redirects]
+  force = true
+  from = '/test'
+  status = 200
+  to = 'https://www.google.com'
+
+
+

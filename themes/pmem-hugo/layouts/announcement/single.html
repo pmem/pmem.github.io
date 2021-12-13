@@ -1,0 +1,33 @@
+{{ define "main" }}
+<!-- blog details -->
+<section class="section-sm pt-5 border-top dark-mode">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 order-2 order-lg-1">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="section-title">{{ .Title }}</h2>
+          </div>
+          <div class="col-12 mb-4">
+            <img style="height: 300px; width: 100%; object-fit: cover" src="{{ .Params.image | relURL }}" alt="blog-thumb" class="img-fluid w-100" />
+          </div>
+          <div class="col-12">
+            <ul class="list-inline m-0">
+              <li class="list-inline-item mr-4 mb-3 mb-md-0 text-dark"><span class="font-weight-bold mr-2">Date: </span>{{ .PublishDate.Format "02 Jan, 2006" }}</li>
+            </ul>
+          </div>
+          <!-- border -->
+          <div class="col-12 my-4">
+            <div class="border-bottom"></div>
+          </div>
+          <!-- blog contect -->
+          <div class="col-12 mb-5">{{ .Content }}</div>
+          <!-- comments -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /blog details -->
+
+{{ end }}

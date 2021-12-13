@@ -1,9 +1,0 @@
-The **libpmemblk** library
-supports arrays of pmem-resident blocks, all the same size, that are
-atomically updated. For example, a program keeping a cache of fixed-size
-objects in pmem might find this library useful.
-The algorithm used by **libpmemblk** is the same as the [BTT](#btt)
-algorithm standardized as part of the [UEFI specification](https://uefi.org).
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
-the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).

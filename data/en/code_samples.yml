@@ -1,0 +1,66 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'Code Samples'
+  content: 'Learn, build, and deploy persistent memory features in your application using an extensive collection of <a href="https://docs.pmem.io">documentation</a>, <a href="/tutorials">structured tutorials</a>, <a href="/webinars">webinars</a>, <a href="https://groups.google.com/group/pmem">forum</a>, and API documentation. The following are useful links to code examples across several projects.'
+
+################################# Libraries Section #################################
+libraries_section:
+  enable: true
+  libraries:
+    library_item1:
+      title: 'PMDK'
+      content: '<p>The base directory for the code examples for <strong>PMDK</strong> can be found at  <a href="https://github.com/pmem/pmdk/tree/master/src/examples">https://github.com/pmem/pmdk/tree/master/src/examples</a>. Each directory contains code samples for each library:</p>'
+      libraries_list: '
+        <li> Libpmem - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmem">https://github.com/pmem/pmdk/tree/master/src/examples/libpmem</a> </li>
+        <li> Libpmem2 - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmem2">https://github.com/pmem/pmdk/tree/master/src/examples/libpmem2</a> </li>
+        <li> Libpmemblk - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmemblk">https://github.com/pmem/pmdk/tree/master/src/examples/libpmemblk</a> </li>
+        <li> Libpmemlog - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmemlog">https://github.com/pmem/pmdk/tree/master/src/examples/libpmemlog</a> </li>
+        <li> Libpmemobj++ - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj%2B%2B">https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj%2B%2B</a> </li>
+        <li> Libpmemobj - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj">https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj</a> </li>
+        <li> Libpmempool - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmempool">https://github.com/pmem/pmdk/tree/master/src/examples/libpmempool</a> </li>
+        <li> Librpmem - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/librpmem">https://github.com/pmem/pmdk/tree/master/src/examples/librpmem</a> </li>
+        <li> Pmemreorder - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder">https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder</a> </li>
+        '
+    library_item2:
+      title: 'PMemKV'
+      content: '<p>The base directory is <a href="https://github.com/pmem/pmemkv/tree/master/examples">https://github.com/pmem/pmemkv/tree/master/examples</a>, again with directories/folders of examples for different languages.</p>'
+      libraries_list: ''
+    library_item3:
+      title: 'IDZ'
+      content: '<p>We have 19 additional code samples on IDZ</p>'
+      libraries_list: '
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-creating-a-persistent-memory-aware-caching-engine-for-pmemkv-a-local-embedded.html"> Creating a Persistent Memory-Aware Caching Engine for pmemkv, a Local Embedded Key-Value Store </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-create-a-c-persistent-memory-hello-world-program-using-libpmemblk.html"> Create a C Persistent Memory “Hello World” Program Using libpmemblk </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-create-a-persistent-memory-hello-world-program-using-libpmemobj-with-c.html"> Create a C Persistent Memory “Hello World” Program Using libpmemobj </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-create-a-c-persistent-memory-hello-world-program-using-libpmem.html"> Create a C Persistent Memory “Hello World” Program Using libpmem </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-implement-a-persistent-memory-cache-a-simple-find-example.html"> Implement a Persistent Memory Cache-A Simple Find Example </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-convert-your-transient-c-map-application-to-use-persistent-memory.html"> Convert Your Transient C++ Map Application to Use Persistent Memory </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-enable-your-application-for-persistent-memory-with-mysql-storage-engine.html"> Enable Your Application for Persistent Memory with MySQL Storage Engine </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-create-a-hello-world-program-using-the-low-level-persistence-library-llpl-for-java.html"> Create a “Hello World” Program Using the Low Level Persistence Library (LLPL) for Java* </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-create-a-hello-world-program-using-persistent-collections-for-java-pcj.html"> Create a “Hello World” Program Using Persistent Collections for Java* (PCJ) </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-create-a-cpp-persistent-memory-hello-world-program-using-libpmemobj.html"> Create a C++ Persistent Memory ‘Hello World’ Program Using libpmemobj </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-using-libpmemobj-to-manage-persistent-memory-arrays-in-c.html"> Using Libpmemobj to Manage Persistent Memory Arrays in C++ </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-how-to-use-the-persistent-memory-development-kit-pmdk-in-a-multithreaded.html"> How to use the Persistent Memory Development Kit (PMDK) in a Multithreaded Environment </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-pman-a-persistent-memory-version-of-the-game-pac-man.html"> PMAN – A Persistent Memory Version of the Game Pac-Man </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-panaconda-a-persistent-memory-version-of-the-game-snake.html"> Panaconda - A Persistent Memory Version of the Game “Snake” </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/code-sample-introduction-to-java-api-for-persistent-memory-programming.html"> Introduction to Java* API for Persistent Memory Programming </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/find-your-leaked-persistent-memory-objects-using-persistent-memory-development-kit-pmdk.html"> Find Your Leaked Persistent Memory Objects Using the Persistent Memory Development Kit (PMDK) </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/create-a-persistent-memory-aware-queue-using-the-persistent-memory-development-kit-pmdk.html"> Create a Persistent Memory-Aware Queue Using the Persistent Memory Development Kit (PMDK) </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/boost-your-c-applications-with-persistent-memory-a-simple-grep-example.html"> Boost Your C++ Applications with Persistent Memory – A Simple grep Example </a> </li>
+        <li> Code Sample: <a href="https://software.intel.com/content/www/us/en/develop/articles/how-to-use-persistent-memory-and-pmdk-for-application-fault-tolerance.html"> Implementing a Fault-Tolerant Algorithm for Persistent Memory Using PMDK - A MapReduce Example </a> </li>
+        '
+    library_item4:
+      title: 'Programming Persistent Memory Book'
+      content: '<p>All the code samples for each chapter can be found at <a href="https://github.com/pmem/book">https://github.com/pmem/book</a></p>'
+      libraries_list: ''
+    library_item5:
+      title: 'Memkind'
+      content: '<p>Code examples are all in a single directory -<a href="https://github.com/memkind/memkind/tree/master/examples">https://github.com/memkind/memkind/tree/master/examples</a></p>'
+      libraries_list: ''
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: 'The contents of this web site and the associated <a href="https://github.com/pmem">GitHub repositories</a> are BSD-licensed open source.'

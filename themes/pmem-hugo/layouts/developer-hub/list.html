@@ -1,0 +1,208 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.slider.enable }} {{ with $data.dev_hub.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | markdownify}}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- banner -->
+{{- partial "content/banner.html" . -}}
+
+<!-- pmem section -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.pmem_section.enable }} {{ with $data.dev_hub.pmem_section }}
+<div class="section m-0 bg-transparent dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- get book -->
+{{- partial "content/get_book.html" . -}}
+
+<!-- features -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.dev_section.enable }} {{ with $data.dev_hub.dev_section }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+    </div>
+
+    <div class="container">
+      <div class="row col-mb-30 align-content-stretch">
+        {{ range $data.dev_hub.dev_section.cards}}
+        <div class="col-lg-6 col-md-6 d-flex">
+          <div class="card h-shadow h-translate-y-sm all-ts dark-mode border">
+            <div class="card-body p-5">
+              <div class="feature-box flex-column">
+                <div class="fbox-content">
+                  <h3 class="nott ls0 text-larger">{{ .title | markdownify }}</h3>
+                  <p class="text-smaller">{{ .content | markdownify }}</p>
+                </div>
+              </div>
+              <a href="{{ .link | absLangURL }}" class="nott ls0 pmem-color position-absolute fw-bold" style="bottom: 20px; font-size: 13px">Learn more <i class="icon-angle-right fw-bold position-absolute" style="right: -15px"></i></a>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- community & tutorials -->
+<div class="section m-0 border-top dark-mode">
+  <div class="container">
+    {{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.community.enable }} {{ with $data.dev_hub.community }}
+    <div class="row justify-content-between">
+      <div class="col-lg-5 mt-0">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+        <a href="{{ .join_btn.link | absLangURL }}" class="button button-rounded button-medium nott ls0">{{ .join_btn.label}}</a>
+        <a href="{{ .discuss_btn.link | absLangURL }}" class="button button-rounded button-medium button-light bg-white border nott ls0 slack-btn dark-mode">{{ .discuss_btn.label}}</a>
+      </div>
+
+      <div class="col-lg-6 mt-0 p-0">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+    </div>
+    {{ end }} {{ end }}
+  </div>
+  <div class="container">
+    {{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.tutorials.enable }} {{ with $data.dev_hub.tutorials }}
+    <div class="row justify-content-between">
+      <div class="col-lg-6 mt-0 p-0">
+        <div class="img-container">
+          <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" />
+        </div>
+      </div>
+      <div class="col-lg-5 mt-4">
+        <div class="heading-block border-bottom-0 bottommargin-sm">
+          <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+        </div>
+        <p>{{ .content | markdownify }}</p>
+        <a href="{{ .button1.link | absLangURL }}" class="button button-rounded button-medium button-light bg-white border nott ls0 dark-mode" style="width: 190px; text-align: center">{{ .button1.label}}</a>
+        <a href="{{ .button2.link | absLangURL }}" class="button button-rounded button-medium button-light bg-white border nott ls0 dark-mode" style="width: 190px; text-align: center">{{ .button2.label}}</a>
+        <a href="{{ .button3.link | absLangURL }}" class="button button-rounded button-medium button-light bg-white border nott ls0 dark-mode" style="width: 190px; text-align: center">{{ .button3.label}}</a>
+        <a href="{{ .button4.link | absLangURL }}" class="button button-rounded button-medium button-light bg-white border nott ls0 dark-mode" style="width: 190px; text-align: center">{{ .button4.label}}</a>
+      </div>
+    </div>
+  </div>
+  {{ end }} {{ end }}
+</div>
+
+<!-- developer tools -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.dev_tools.enable }} {{ with $data.dev_hub.dev_tools }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+  </div>
+</div>
+
+<section id="content">
+  <div class="content-wrap p-0 dark-mode">
+    <div class="container clearfix">
+      <div class="grid-filter-wrap">
+        <!-- portfolio Filter-->
+        <ul class="grid-filter dark-mode border" data-container="#portfolio">
+          <li class="activeFilter border"><a href="#" data-filter="*">Show All</a></li>
+          {{ range $data.dev_hub.dev_tools.filters}}
+          <li class="border"><a href="#" data-filter=".pf-{{.}}">{{ . }}</a></li>
+          {{end}}
+        </ul>
+        <!-- .grid-filter end -->
+      </div>
+
+      <div id="portfolio" class="portfolio row grid-container gutter-20 developer-tools">
+        <!-- Portfolio Item: Start fisrt 4 to show -->
+        {{ range $data.dev_hub.dev_tools.tools_primary}}
+        <article class="portfolio-item col-lg-3 col-md-4 col-sm-6 col-12 {{range .categories }} pf-{{.}} {{end}}">
+          <!-- Grid Inner: Start -->
+          <div class="grid-inner">
+            <div class="portfolio-desc">
+              <div class="card border dark-mode">
+                <div class="card-header border-bottom"><a href="{{ .link | absLangURL }}" class="fw-bold">{{ .label | markdownify }}</a></div>
+                <div class="card-body position-relative">
+                  <p class="card-text">{{ .description | markdownify }}</p>
+                  <span class="categories position-absolute bottom-0 mb-3">
+                    {{ $currentPage := . }} {{ $list := (.categories) }} {{ $len := (len $list) }} {{ range $index, $element := $list }} {{ if eq (add $index 1) $len }}
+                      {{ . }}
+                    {{ else }}
+                      {{ . }}, {{ end }} {{ end }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Grid Inner: End -->
+        </article>
+        {{end}}
+        <!-- Portfolio Item: End -->
+
+        <!-- Portfolio Item: Start -->
+        {{ range $data.dev_hub.dev_tools.tools_secondary}}
+        <article class="portfolio-item col-lg-3 col-md-4 col-sm-6 col-12 {{range .categories }} pf-{{.}} {{end}}">
+          <!-- Grid Inner: Start -->
+          <div class="grid-inner">
+            <div class="portfolio-desc">
+              <div class="card border dark-mode">
+                <div class="card-header border-bottom"><a href="{{ .link | absLangURL }}" class="fw-bold">{{ .label | markdownify }}</a></div>
+                <div class="card-body position-relative">
+                  <p class="card-text">{{ .description | markdownify }}</p>
+                  <span class="categories position-absolute bottom-0 mb-3">
+                    {{ $currentPage := . }} {{ $list := (.categories) }} {{ $len := (len $list) }} {{ range $index, $element := $list }} {{ if eq (add $index 1) $len }}
+                      {{ . }}
+                    {{ else }}
+                      {{ . }}, {{ end }} {{ end }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Grid Inner: End -->
+        </article>
+        {{end}}
+        <!-- Portfolio Item: End -->
+      </div>
+      <!-- #portfolio end -->
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- share work -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.dev_hub.share_work.enable }} {{ with $data.dev_hub.share_work }}
+<div class="section m-0 border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <p>{{ .content | markdownify }}</p>
+      <a href="{{ .button.link | absLangURL }}" class="button button-medium button-rounded ms-0 ls0">{{ .button.label }}</a>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- form -->
+{{- partial "content/form.html" . -}}
+
+<!-- events -->
+{{- partial "content/events.html" . -}} {{end}}

@@ -1,0 +1,60 @@
+{{ define "main" }}
+
+<div class="section m-0 bg-transparent dark-mode">
+    <div class = "container">
+        {{ $data := index site.Data site.Language.Lang }} {{ if $data.repoindex.heading.enable }} {{ with $data.repoindex.heading }}
+        <div class="row justify-content-between">
+            <div class="col mt-0">
+              <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
+                <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+              </div>
+              <p>{{ .description | safeHTML }}</p>
+            </div>
+        </div>
+        {{ end }} {{ end }}
+
+        {{ $data := index site.Data site.Language.Lang }} {{ if $data.repoindex.card_groups.enable }} {{ with $data.repoindex.card_groups }}
+        {{ range .cards }}
+        <div class="card repoindex-card mt-4 dark-mode">
+            <div class="card-header dark-mode"><strong>{{ .title | markdownify }}</strong></div>
+            <div class="card-body dark-mode">
+                <p class="card-text">{{ .description | safeHTML }}</p>
+                {{ range .tables }}
+                {{ if .title }}
+                <p class="card-text mt-3 repoindex-card-heading"><strong>{{ .title | safeHTML }}</strong></p>
+                {{ end }}
+                <table class="table mb-0 repoindex-table table-striped dark-mode">
+                    <thead>
+                        <tr>
+                            {{ range .headers }}
+                            <th>{{ .content | markdownify }}</th>
+                            {{ end }}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{ range .rows }}
+                        <tr class="dark-mode">
+                            {{ range .cells }}
+                            <td>
+                                {{ .content | safeHTML}}
+                            </td>
+                            {{ end }}
+                        </tr>
+                        {{ end }}
+                    </tbody>
+                </table>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+        {{ end }} {{ end }}
+
+        {{$data := index site.Data site.Language.Lang }} {{ if $data.repoindex.disclaimer.enable }} {{ with $data.repoindex.disclaimer }}
+        <!-- disclaimer -->
+        <div class="divider"></div>
+        <p class="text-center"><small>{{ .content | safeHTML }}</small></p>
+        <!-- end disclaimer -->
+        {{ end }} {{ end }}
+    </div>
+</div>
+{{ end }}

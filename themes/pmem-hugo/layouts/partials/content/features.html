@@ -1,0 +1,30 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.feature.enable }} {{ with $data.homepage.feature }}
+<div class="section bg-transparent mt-0 mb-0">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-4 col-sm-6">
+        <div class="feature-box flex-md-row-reverse text-md-end border-0">
+          <div class="fbox-content">
+            <h3 class="nott ls0">{{ .column_left.column_title | markdownify }}</h3>
+            <p>{{ .column_left.column_content | markdownify }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-7 offset-3 offset-sm-0 d-sm-none d-lg-block center my-5">
+        <img src="{{ .image | absURL }}" alt="{{ .title | markdownify}}" class="rounded parallax" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(30px)" />
+      </div>
+
+      <div class="col-lg-4 col-sm-6">
+        <div class="feature-box border-0">
+          <div class="fbox-content">
+            <h3 class="nott ls0">{{ .column_right.column_title | markdownify }}</h3>
+            <p>{{ .column_right.column_content | markdownify }}</p>
+          </div>
+        </div>
+        <a href="{{ .download_btn.link | absLangURL }}" class="button button-rounded button-medium nott ls0">{{ .download_btn.label | markdownify }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}

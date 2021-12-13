@@ -1,0 +1,19 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.event.enable }} {{ with $data.homepage.event }}
+<div class="section m-0 bg-transparent event-wrapper border-top dark-mode">
+  <div class="container position-relative">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+      <p>{{ .content | markdownify }}</p>
+    </div>
+
+    <div id="portfolio" class="portfolio row grid-container gutter-20">
+      {{ $events2show := ( sort (where site.RegularPages "Type" "event" ) ".Params.event_start_date" "desc" ) }}
+      {{ $events2show := $events2show | union (sort (where (where site.RegularPages "Type" "event") ".Params.featured" "=" true ) ".Params.event_start_date" "desc") }}
+      {{ range first 3 $events2show }} 
+        {{ .Render "event" }}
+      {{ end }}
+    </div>
+    <a href="{{ .button.link | absLangURL }}" class="nott ls0 position-absolute end-0 pmem-color">{{ .button.label }} <i class="icon-angle-right"></i></a>
+  </div>
+</div>
+{{ end }} {{ end }}

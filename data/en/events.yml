@@ -1,0 +1,6 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/learn_header.jpg'
+  title: 'Events'
+  content: 'Join PMem experts and ISVs at upcoming events or watch replays of past events.'

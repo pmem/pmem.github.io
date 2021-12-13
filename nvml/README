@@ -1,5 +1,0 @@
-This nvml directory tree exists purely to make old URLs which contain
-the name "nvml" redirect to new "pmdk" URLs.  There's no need to update
-files here -- only the old URLs that existed at the time of the name change
-need to be handled.  This tree should not be removed -- no need to ever
-break the legacy URLs and there's no ongoing maintenance required.

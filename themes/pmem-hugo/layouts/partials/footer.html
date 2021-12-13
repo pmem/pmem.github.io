@@ -1,0 +1,33 @@
+<!-- Footer
+  ============================================= -->
+<footer id="footer" class="border-0 bg-white">
+  <!-- Copyrights
+    ============================================= -->
+  <div id="copyrights">
+    <div class="container clearfix">
+      <div class="row justify-content-between col-mb-30">
+        <div class="col-12 col-lg-auto text-center text-lg-start">
+          <div id="logo">
+            <a href="{{ site.BaseURL | relLangURL }}" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{{ site.Params.logo | absURL }}" alt="PMem Logo" /></a>
+            <a href="{{ site.BaseURL | relLangURL }}" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="{{ site.Params.logo | absURL }}" alt="PMem Logo" /></a>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-auto text-center text-lg-end">
+          <div class="copyrights-menu copyright-links clearfix text-uppercase">
+            {{ $currentPage := . }} {{ $list := ( .Site.Menus.footer) }} {{ $len := (len $list) }} {{ range $index, $element := $list }} {{ if eq (add $index 1) $len }}
+            <a href="{{ .URL | absURL }}">{{ .Name }}</a>
+            {{ else }}
+            <a href="{{ .URL | absURL }}">{{ .Name }}</a>/ {{ end }} {{ end }}
+          </div>
+	  <div class="col-lg-auto text-center mt-0">
+            <p>Copyright &copy; {{ dateFormat "2006" now }} pmem.io</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- #copyrights end -->
+</footer>
+<!-- #footer end -->

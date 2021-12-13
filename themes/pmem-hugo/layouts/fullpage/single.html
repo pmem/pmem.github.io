@@ -1,0 +1,23 @@
+{{ define "main" }}
+<section id="content">
+  <div class="content-wrap">
+    <div class="container clearfix">
+      <div class="row gutter-40 col-mb-80">
+        <!-- Post Content -->
+        <div class="postcontent col-lg-9 order-lg-last">
+          <div class="single-post mb-0">
+            <!-- Single Post -->
+            <div class="entry clearfix">
+              <!-- Entry Content -->
+              <div class="entry-content mt-0">
+                {{ .Content | markdownify}}
+	      </div>
+            </div>
+          </div>
+        </div>
+        <!-- postcontent end -->
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

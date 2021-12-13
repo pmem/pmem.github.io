@@ -1,0 +1,40 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.ndctl.slider.enable }} {{ with $data.ndctl.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | markdownify}}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- content -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.ndctl.feature.enable }} {{ with $data.ndctl.feature }}
+<div class="section m-0 bg-transparent get-book-wrapper">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h2 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h2>
+      <h4 class="nott ls0 bottommargin-sm">{{ .subtitle | markdownify }}</h4>
+      <p>{{ .content | markdownify }}</p>
+      <a href="{{ .join_btn.link | absLangURL }}" class="nott ls0 pmem-color text-medium">{{ .cta_btn.label | markdownify }} <i class="icon-angle-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="section m-0 bg-transparent pt-0">
+  <div class="container">
+    <ul class="w-50 mx-auto" style="columns: 2">
+      {{range $data.ndctl.feature.ndctl_pages}}
+      <li style="margin-right: 5px"><a href="{{ .link | absURL}}">{{.label | markdownify}}</a></li>
+      {{end}}
+    </ul>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!---->
+{{end}}

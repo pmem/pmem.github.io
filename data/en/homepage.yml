@@ -1,0 +1,97 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/home_banner.png'
+  title: 'Persistent Memory is Revolutionary'
+  content: 'This site brings the world of Persistent Memory (PMem) to a community of diverse skill levels from beginner to expert across many different job functions – Developers, Infrastructure, DevOps, CTO, and more.'
+  apply_btn:
+    label: 'Start your journey'
+    link: '/learn/'
+  community_btn:
+    label: 'Join the community'
+    link: '/community'
+
+################################# Banner #####################################
+banner:
+  enable: true
+  bg_image: ''
+  title: ''
+  content_banner:
+    bold_text: 'Persistent Memory Developer Kit Version v1.11.0 is now available!'
+    text: 'Adds new libpmem2 APIs, makes pmemobj_open/close() functions thread safe, plus other bug fixes and performance improvements.'
+  download_link:
+    label: 'Download now!'
+    link: 'https://github.com/pmem/pmdk/releases/tag/1.11.0'
+
+################################# Feature #####################################
+feature:
+  enable: true
+  bg_image: ''
+  title: ''
+  image: '/images/girl_swirl.png'
+  column_left:
+    column_title: 'What is Persistent Memory?'
+    column_content: 'The term persistent memory is used to describe technologies which allow programs to access data as memory, directly byte- addressable, while the contents are non- volatile, preserved across power cycles. It has aspects that are like memory, and aspects that are like storage, but it doesn’t typically replace either memory or storage. Instead, persistent memory is a third tier, used in conjunction with memory and storage. Systems containing persistent memory can outperform legacy configurations, providing faster start-up times, faster access to large in-memory datasets, and often improved total cost of ownership.'
+  column_right:
+    column_title: 'Persistent Memory Development Kit'
+    column_content: 'The Persistent Memory Development Kit (PMDK) is a suite of open-source libraries that have been developed for various use cases. Each library is tuned, validated to production quality, and thoroughly documented. These libraries provide stable APIs so developers can rapidly implement PMem features into applications without worrying about the hardware implementation details or generational changes.'
+  download_btn:
+    label: 'Learn More'
+    link: '/pmdk/'
+
+################################# Get book #####################################
+get_book:
+  enable: true
+  bg_image: ''
+  title: 'Master Persistent Memory Programming'
+  content: 'Whether you’re beginning your learning journey about persistent memory or you want to dive deeper into the programming details, Programming Persistent Memory is a great resource that with information for everyone. The book is available in English, Simplified Chinese, and Korean languages.'
+  image: '/images/programming_pmem_book_420x350px.png'
+  download_btn:
+    label: 'Get your FREE eBook'
+    link: 'https://pmem.io/book/'
+
+################################# Join community #####################################
+join_community:
+  enable: true
+  bg_image: ''
+  title: 'Join the PMem.io Community'
+  content: 'Join the PMem Community and collaborate with peers and product experts to learn, contribute, and solve your toughest business challenges.'
+  join_btn:
+    label: 'Join Now'
+    link: 'https://github.community/'
+
+################################# News #####################################
+news:
+  enable: true
+  title: 'News and Announcements'
+  content: 'Read articles from product experts.'
+  button:
+    label: 'Continue Reading'
+    link: '/announcements'
+  # news item comes from "content/**/news" folder.
+
+################################# Form #####################################
+form:
+  enable: true
+  bg_image: '/images/devinstance.jpg'
+  title: 'Develop, Build, and Experiment with Persistent Memory'
+  content: 'Need a development environment with PMem? PMem Development Instances are a perfect environment to integrate persistent memory functionality into your application(s). All the libraries and tools developers need to be productive when writing, testing, and debugging PMem applications are available in a simple and easy to use environment.'
+  button:
+    label: 'Reserve a PMem Developer Instance'
+    link: 'mailto:james.mclaurin@intel.com?Subject=Reserve%20a%20PMem%20Developer%20Instance'
+
+################################# Events #####################################
+event:
+  enable: true
+  title: 'Events'
+  content: 'Join PMem experts and ISVs at upcoming events or watch replays of past events.'
+  button:
+    label: 'More Events'
+    link: '/events'
+  # event item comes from "content/**/event" folder.
+
+############################# Blog ################################
+blog:
+  enable: true
+  title: 'Latest News'
+  # blog item comes from "content/**/blog" folder.

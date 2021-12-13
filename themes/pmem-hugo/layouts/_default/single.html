@@ -1,0 +1,182 @@
+{{ define "main" }}
+<!-- Blog -->
+<section id="content">
+  <div class="content-wrap dark-mode">
+    <div class="container clearfix">
+      <div class="row gutter-40 col-mb-80">
+        <!-- Post Content -->
+        <div class="postcontent col-lg-9 order-lg-last">
+          <div class="single-post mb-0">
+            <!-- Single Post -->
+            <div class="entry clearfix">
+              <!-- Entry Title -->
+              <div class="entry-title">
+                <h2>{{.Title | markdownify}}</h2>
+              </div>
+
+              <!-- Entry Meta -->
+              <div class="entry-meta">
+                <ul>
+                  <li><i class="icon-calendar3"></i> {{ .PublishDate.Format "02 Jan, 2006" }}</li>
+                  <li><i class="icon-user"></i> {{ .Params.Author | title }}</li>
+                  <li>
+                    <i class="icon-folder-open"></i>
+                    {{ range $index, $elements:= .Params.blogs}}
+                    <!--  -->
+                    {{ if ne $index 0 }}, {{ end }} {{ . | title }}
+                    <!--  -->
+                    {{end}}
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Entry Image -->
+              {{if .Params.image }}
+              <div class="entry-image">
+                <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" />
+              </div>
+              {{end}}
+              <!-- Entry Content -->
+              <div class="entry-content mt-0">
+                {{ .Content | markdownify}}
+
+                <!-- Tag Cloud -->
+                {{if .Params.tags}}
+                <div class="tagcloud clearfix bottommargin">
+                  {{ $tagLimit := $.Site.Params.tagLimit }} {{range first $tagLimit .Params.tags}}
+                  <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ . }}</a>
+                  {{end}}
+                </div>
+                {{end}}
+
+                <div class="clear"></div>
+
+                <!-- Post Single - Share -->
+                <div class="si-share border-0 d-flex justify-content-between align-items-center">
+                  {{ $pageurl := .Permalink }}
+                  <span>Share this Post:</span>
+                  <div id="share-buttons">
+                    <div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u={{ $pageurl }}');">
+                      <i class="icon-facebook"></i>
+                      <i class="icon-facebook"></i>
+                    </div>
+                    <div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text={{.Title}}&url={{ $pageurl }}');">
+                      <i class="icon-twitter"></i>
+                      <i class="icon-twitter"></i>
+                    </div>
+                    <div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url={{ $pageurl }}&title=&summary=&source=');">
+                      <i class="icon-linkedin"></i>
+                      <i class="icon-linkedin"></i>
+                    </div>
+                    <div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media={{ .Params.image }}&description=');">
+                      <i class="icon-pinterest"></i>
+                      <i class="icon-pinterest"></i>
+                    </div>
+                    <div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body={{ $pageurl }}');">
+                      <i class="icon-email3"></i>
+                      <i class="icon-email3"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- .entry end -->
+
+            <!-- Post Navigation -->
+            <div class="row justify-content-between col-mb-30 post-navigation">
+              <div class="col-12 col-md-auto text-center">
+                {{ if .NextInSection }}
+                <a href="{{ .NextInSection.Permalink }}?ref=footer">&lArr; {{ .NextInSection.Title | truncate 30 "..." }}</a>
+                {{ end }}
+              </div>
+              <div class="col-12 col-md-auto text-center">
+                {{ if .PrevInSection }}
+                <a href="{{ .PrevInSection.Permalink }}?ref=footer">{{ .PrevInSection.Title | truncate 30 "..."}} &rArr;</a>
+                {{ end }}
+              </div>
+            </div>
+
+            <div class="line"></div>
+
+            <h4>Related Posts:</h4>
+
+            <div class="related-posts row posts-md col-mb-30">
+              {{ $related := .Site.RegularPages.Related . }} {{ range first 4 $related }}
+              <div class="entry col-12 col-md-6">
+                <div class="grid-inner row align-items-center gutter-20">
+                  <div class="col-4">
+                    {{if .Params.image}}
+                    <div class="entry-image">
+                      <a href="{{ .Permalink | relURL }}" data-lightbox="image"><img src="{{ .Params.image | relURL }}" alt="{{.Title}}" /></a>
+                    </div>
+                    {{else}}
+                    <div class="entry-image">
+                      <a href="{{ .Permalink }}" data-lightbox="image"><img src="/images/pmem_logo.png" alt="{{.Title}}" /></a>
+                    </div>
+                    {{end}}
+                  </div>
+                  <div class="col-8">
+                    <div class="entry-title title-xs">
+                      <h3><a href="{{ .Permalink }}">{{.Title}}</a></h3>
+                    </div>
+                    <div class="entry-meta">
+                      <ul>
+                        <li><i class="icon-user"></i> {{ .Params.Author | title }}</li>
+                        <li><i class="icon-calendar3"></i> {{ .PublishDate.Format "02 Jan, 2006" }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{end}}
+            </div>
+          </div>
+        </div>
+        <!-- postcontent end -->
+
+        <!-- Sidebar -->
+        <div class="sidebar col-lg-3">
+          <div class="sidebar-widgets-wrap">
+            <!-- Popular posts -->
+            <!-- <div class="widget clearfix">
+              <div class="tabs mb-0 clearfix" id="sidebar-tabs">
+                <h4>Popular</h4>
+
+                <div class="tab-container">
+                  <div class="tab-content clearfix" id="tabs-1">
+                    <div class="posts-sm row col-mb-30" id="popular-post-list-sidebar">
+                      <div class="entry col-12">
+                        <div class="grid-inner row g-0">
+                          <div class="col-auto">
+                            <div class="entry-image">
+                              <a href="#"><img class="rounded-circle" src="" alt="Image" /></a>
+                            </div>
+                          </div>
+                          <div class="col ps-3">
+                            <div class="entry-title">
+                              <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="widget clearfix">
+              <h4>Tag Cloud</h4>
+              <div class="tagcloud">
+                {{ $tags := $.Site.Taxonomies.tags.ByCount }} {{ $tagLimit := $.Site.Params.tagLimit }} {{ $v1 := where $tags "Term" "not in" (slice "hugo" "tags" "rss") }} {{ range first $tagLimit $v1 }} {{ if .Term }} {{ $tagURL := printf "tags/%s" .Term | relURL }}
+                <a href="{{ $tagURL }}" class="block" role="button">{{ .Term }}</a>
+                {{ end }} {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,115 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/ndctl_banner.jpg'
+  title: 'ndctl'
+  content: 'Manage and monitor non-volatile memory devices in Linux. Create and manage dimms, regions, and namespaces, update firmware, perform secure erase operations, and much more!'
+
+################################# Feature #####################################
+feature:
+  enable: true
+  title: 'Documentation for ndctl'
+  subtitle: 'Generated from ndctl-71.1 [tree]'
+  cta_btn:
+    label: 'View on Github'
+    link: 'https://github.com/pmem/ndctl'
+  ndctl_pages:
+    ndctl:
+      label: 'ndctl'
+      link: 'https://pmem.io/ndctl/ndctl.html'
+    ndctl-activate-firmware:
+      label: 'ndctl-activate-firmware'
+      link: 'https://pmem.io/ndctl/ndctl-activate-firmware.html'
+    ndctl-check-labels:
+      label: 'ndctl-check-labels'
+      link: 'https://pmem.io/ndctl/ndctl-check-labels.html'
+    ndctl-check-namespace:
+      label: 'ndctl-check-namespace'
+      link: 'https://pmem.io/ndctl/ndctl-check-namespace.html'
+    ndctl-clear-errors:
+      label: 'ndctl-clear-errors'
+      link: 'https://pmem.io/ndctl/ndctl-clear-errors.html'
+    ndctl-create-namespace:
+      label: 'ndctl-create-namespace'
+      link: 'https://pmem.io/ndctl/ndctl-create-namespace.html'
+    ndctl-destroy-namespace:
+      label: 'ndctl-destroy-namespace'
+      link: 'https://pmem.io/ndctl/ndctl-destroy-namespace.html'
+    ndctl-disable-dimm:
+      label: 'ndctl-disable-dimm'
+      link: 'https://pmem.io/ndctl/ndctl-disable-dimm.html'
+    ndctl-disable-namespace:
+      label: 'ndctl-disable-namespace'
+      link: 'https://pmem.io/ndctl/ndctl-disable-namespace.html'
+    ndctl-disable-region:
+      label: 'ndctl-disable-region'
+      link: 'https://pmem.io/ndctl/ndctl-disable-region.html'
+    ndctl-enable-dimm:
+      label: 'ndctl-enable-dimm'
+      link: 'https://pmem.io/ndctl/ndctl-enable-dimm.html'
+    ndctl-enable-namespace:
+      label: 'ndctl-enable-namespace'
+      link: 'https://pmem.io/ndctl/ndctl-enable-namespace.html'
+    ndctl-enable-region:
+      label: 'ndctl-enable-region'
+      link: 'https://pmem.io/ndctl/ndctl-enable-region.html'
+    ndctl-freeze-security:
+      label: 'ndctl-freeze-security'
+      link: 'https://pmem.io/ndctl/ndctl-freeze-security.html'
+    ndctl-init-labels:
+      label: 'ndctl-init-labels'
+      link: 'https://pmem.io/ndctl/ndctl-init-labels.html'
+    ndctl-inject-error:
+      label: 'ndctl-inject-error'
+      link: 'https://pmem.io/ndctl/ndctl-inject-error.html'
+    ndctl-inject-smart:
+      label: 'ndctl-inject-smart'
+      link: 'https://pmem.io/ndctl/ndctl-inject-smart.html'
+    ndctl-list:
+      label: 'ndctl-list'
+      link: 'https://pmem.io/ndctl/ndctl-list.html'
+    ndctl-load-keys:
+      label: 'ndctl-load-keys'
+      link: 'https://pmem.io/ndctl/ndctl-load-keys.html'
+    ndctl-monitor:
+      label: 'ndctl-monitor'
+      link: 'https://pmem.io/ndctl/ndctl-monitor.html'
+    ndctl-read-infoblock:
+      label: 'ndctl-read-infoblock'
+      link: 'https://pmem.io/ndctl/ndctl-read-infoblock.html'
+    ndctl-read-labels:
+      label: 'ndctl-read-labels'
+      link: 'https://pmem.io/ndctl/ndctl-read-labels.html'
+    ndctl-remove-passphrase:
+      label: 'ndctl-remove-passphrase'
+      link: 'https://pmem.io/ndctl/ndctl-remove-passphrase.html'
+    ndctl-sanitize-dimm:
+      label: 'ndctl-sanitize-dimm'
+      link: 'https://pmem.io/ndctl/ndctl-sanitize-dimm.html'
+    ndctl-setup-passphrase:
+      label: 'ndctl-setup-passphrase'
+      link: 'https://pmem.io/ndctl/ndctl-setup-passphrase.html'
+    ndctl-start-scrub:
+      label: 'ndctl-start-scrub'
+      link: 'https://pmem.io/ndctl/ndctl-start-scrub.html'
+    ndctl-update-firmware:
+      label: 'ndctl-update-firmware'
+      link: 'https://pmem.io/ndctl/ndctl-update-firmware.html'
+    ndctl-update-passphrase:
+      label: 'ndctl-update-passphrase'
+      link: 'https://pmem.io/ndctl/ndctl-update-passphrase.html'
+    ndctl-wait-overwrite:
+      label: 'ndctl-wait-overwrite'
+      link: 'https://pmem.io/ndctl/ndctl-wait-overwrite.html'
+    ndctl-wait-scrub:
+      label: 'ndctl-wait-scrub'
+      link: 'https://pmem.io/ndctl/ndctl-wait-scrub.html'
+    ndctl-write-infoblock:
+      label: 'ndctl-write-infoblock'
+      link: 'https://pmem.io/ndctl/ndctl-write-infoblock.html'
+    ndctl-write-labels:
+      label: 'ndctl-write-labels'
+      link: 'https://pmem.io/ndctl/ndctl-write-labels.html'
+    ndctl-zero-labels:
+      label: 'ndctl-zero-labels'
+      link: 'https://pmem.io/ndctl/ndctl-zero-labels.html'

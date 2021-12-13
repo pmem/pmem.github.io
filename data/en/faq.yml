@@ -1,0 +1,55 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'Frequently Asked Questions (FAQ)'
+  content: ''
+
+################################# Some of your questions section #################################
+questions_section:
+  enable: true 
+  title: 'The Popular Questions'
+  content: 'The community gets asked a lot of questions. Here are some of the most frequentl asked questions we receive. If your question is not answere here, go to the [Community](/community) and seek assistance from experts and peers using the many resources available.'
+  accordions:
+    accordion1:
+      title: 'Introduction'
+      questions:
+        question1:
+          title: 'I do not have access to a system with persistent memory, what do I do?'
+          content: 'Check with your preferred cloud service provider(s) as persistent memory instancess may be available, or coming soon. For local development you can emulate persistent memory on Linux using DRAM or Disks in a KVM environment. In most cases, emulating persistent memory is good enough for development and functional testing, but not benchmarking. Read the [Creating Developer Environments](https://docs.pmem.io/persistent-memory/getting-started-guide/creating-development-environments) documentation for more information.'
+        question2:
+          title: 'I am new to persistent memory, where do I start learning?'
+          content: 'We recommend you start with our [learning](/learn) resources. The active [community](/community) is an invaluable resource to ask your questions. The [Getting Started Guide](https://docs.pmem.io/persistent-memory/getting-started-guide) and [Intel Optane Persistent Memory Quick Start Guide](https://software.intel.com/content/www/us/en/develop/articles/qsg-intro-to-provisioning-pmem.html) are useful guides.'
+        question3:
+          title: 'I want to contribute, what do I do?'
+          content: 'The PMem community welcomes your contribution. If you wish to contribute content to this pmem.io website, please follow the Contributions for Content Authors information. If you wish to contribute to any of the open-source projects linked to pmem.io, you should follow instructions provided by the project via their GitHub or website.'
+    accordion2:
+      title: 'Developers'
+      questions:
+        question1:
+          title: 'Where do I learn how to integrate persistent memory into my application?'
+          content: 'The [Developer Hub](/developer-hub) has a wealth of information to help developers, whether you are a beginner or advanced programmer. The [Programming Persistent Memory](/books) book is the best place to start. '
+        question2:
+          title: 'I have a technical question, how do I get help?'
+          content: 'The [community](/community) is here to help. Post a question to the [PMem forum](https://groups.google.com/g/pmem) or [join the Slack #pmem channel](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg). We can only answer persistent memory questions or simple config issues. If you have a question specific to an OEM/ODM server, please contact your support team.'
+#    accordion3:
+#      title: 'Authors'
+#      questions:
+#        question1:
+#          title: 'Can I offer my items for free on a promotional basis?'
+#          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.'
+#        question2:
+#          title: 'An Introduction to the Marketplaces for Authors'
+#          content: 'Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'
+#        question3:
+#          title: 'How do I pay for items on the Marketplaces?'
+#          content: 'Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper.'
+#    accordion4:
+#      title: 'Affiliates'
+#      questions:
+#        question1:
+#          title: 'How does the Tuts+Premium affiliate program work?'
+#          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.'
+#        question2:
+#          title: 'Tips for Increasing Your Referral Income'
+#          content: 'Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'

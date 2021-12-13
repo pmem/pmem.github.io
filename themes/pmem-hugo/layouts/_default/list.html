@@ -1,0 +1,131 @@
+{{ define "main" }}
+<!-- slider -->
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('/images/backgrounds/blog_banner.jpg'); background-size: cover; padding: 120px 0px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .Title | markdownify}}</h2>
+      <p style="color: white">{{ .Description | markdownify}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Blog -->
+<section id="content" class="bg-transparent border-top dark-mode">
+  <div class="content-wrap">
+    <div class="container clearfix">
+      <div class="row gutter-40 col-mb-80">
+        <!-- Post Content -->
+        <div class="postcontent col-lg-9 order-lg-last">
+          <!-- Posts -->
+          {{ $paginator := .Paginate ( where .Data.Pages "Type" "post") }} {{ range $paginator.Pages }}
+          <div id="posts" class="row grid-container gutter-40">
+            <div class="entry col-12">
+              <div class="grid-inner row g-0">
+                <div class="col-md-4">
+                  {{if .Params.image}}
+                  <div class="entry-image">
+                    <a href="{{ .Params.image | relURL }}" data-lightbox="image"><img src="{{ .Params.image | relURL }}" alt="{{.Title}}" /></a>
+                  </div>
+                  {{else}}
+                  <div class="entry-image">
+                    <a href="{{ .Permalink }}" data-lightbox="image"><img src="/images/pmem_logo.png" alt="{{.Title}}" /></a>
+                  </div>
+                  {{end}}
+                </div>
+                <div class="col-md-8 ps-md-4">
+                  <div class="entry-title title-sm">
+                    <h2><a href="{{ .Permalink }}">{{.Title}}</a></h2>
+                  </div>
+                  <div class="entry-meta">
+                    <ul>
+                      <li><i class="icon-calendar3"></i> {{ .Date.Format "Jan 2, 2006" }}</li>
+                      <li><i class="icon-user"></i>{{ .Params.Author | title }}</li>
+                      <li>
+                        <i class="icon-folder-open"></i>
+                        {{ range $index, $elements:= .Params.blogs}}
+                        <!--  -->
+                        {{ if ne $index 0 }}, {{ end }} {{ . | title }}
+                        <!--  -->
+                        {{end}}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="entry-content">
+                    <p>{{ .Summary | truncate 300 | markdownify}}</p>
+                    <a href="{{ .Permalink }}" class="more-link">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ end }}
+          <!-- posts end -->
+
+          <!-- Pager -->
+          <div class="col-12 mt-4">{{ template "_internal/pagination.html" . }}</div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar col-lg-3">
+          <div class="sidebar-widgets-wrap">
+            <div class="widget clearfix">
+              <h4>Filter by</h4>
+              <div class="posts-sm row col-mb-30" id="post-list-sidebar">
+                <div class="entry col-12 pb-3">
+                  <div class="grid-inner row g-0">
+                    <div class="col">
+                      <div class="entry-title">
+                        <h4 class="fw-normal mt-2"><a href="/blog" class="text-capitalize">View all</a></h4>
+                        {{ range $key, $taxonomy := .Site.Taxonomies.blogs }}
+                        <h4 class="fw-normal mt-2"><a href="{{ .Page.RelPermalink }}" class="text-capitalize">{{ $key }} ({{ len $taxonomy.Pages }})</a></h4>
+                        {{ end }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Popular posts -->
+            <!-- <div class="widget clearfix">
+              <div class="tabs mb-0 clearfix" id="sidebar-tabs">
+                <h4>Popular</h4>
+
+                <div class="tab-container">
+                  <div class="tab-content clearfix" id="tabs-1">
+                    <div class="posts-sm row col-mb-30" id="popular-post-list-sidebar">
+                      <div class="entry col-12">
+                        <div class="grid-inner row g-0">
+                          <div class="col-auto">
+                            <div class="entry-image">
+                              <a href="#"><img class="rounded-circle" src="" alt="Image" /></a>
+                            </div>
+                          </div>
+                          <div class="col ps-3">
+                            <div class="entry-title">
+                              <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="widget clearfix">
+              <h4>Tag Cloud</h4>
+              <div class="tagcloud">
+                {{ $tags := $.Site.Taxonomies.tags.ByCount }} {{ $tagLimit := $.Site.Params.tagLimit }} {{ $v1 := where $tags "Term" "not in" (slice "hugo" "tags" "rss") }} {{ range first $tagLimit $v1 }} {{ if .Term }} {{ $tagURL := printf "tags/%s" .Term | relURL }}
+                <a href="{{ $tagURL }}" class="block" role="button">{{ .Term }}</a>
+                {{ end }} {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

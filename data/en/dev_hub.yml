@@ -1,0 +1,205 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/devhub_header.jpg'
+  title: 'Persistent Memory Developer Hub'
+  content: 'Learn, build, and deploy persistent memory features in your application using an extensive collection of resources, examples, structured tutorials, webinars, forums, and API documentation.'
+
+############################# Build with Persistent Memory section ################################
+pmem_section:
+  enable: true
+  title: 'Build with Persistent Memory'
+  content: 'Utilize the extensive array of libraries available from low-level to highly abstracted across a broad set of programming languages.'
+
+############################# For Developers section ################################
+dev_section:
+  enable: true
+  title: 'For Developers'
+  content: ''
+  cards:
+    card1:
+      title: 'Persistent Memory Key-Value Store (PMemKV)'
+      content: 'pmemkv is a local/embedded key-value datastore optimized for persistent memory that provides options for language bindings and pluggable storage engines.'
+      link: '/developer-hub/pmemkv'
+    card2:
+      title: 'Persistent Memory Developer Kit (PMDK)'
+      content: 'A collection of libraries and tools that allow developers to rapidly integrate persistent memory into new or existing applications.'
+      link: '/developer-hub/pmdk'
+    card3:
+      title: 'Low-Level Persistence Library for Java (LLPL)'
+      content: 'The Low-Level Persistence Library (LLPL) is a Java library that provides access to off- heap persistent memory. LLPL includes several kinds of components that can be allocated and used in building applications.'
+      link: 'https://github.com/pmem/llpl'
+    card4:
+      title: 'Persistent Collections for Java (PCJ)'
+      content: 'PCJ is a library for Java objects stored in persistent memory. Persistent collections are emphasized because many applications for persistent memory map well for collections.'
+      link: 'https://github.com/pmem/pcj'
+
+################################# Share work #####################################
+share_work:
+  enable: true
+  bg_image: ''
+  title: 'Show your work'
+  content: 'Did you build something that uses persistent memory? Share your story and wisdom with the community.'
+  button:
+    label: 'Share'
+    link: 'solutions/'
+
+################################# Community & tutorials #####################################
+community:
+  enable: true
+  bg_image: ''
+  title: 'Engage with the Community'
+  content: 'Learning from peers and experts is a great way to engage with the community. Use the persistent memory social ecosystem to ask questions, help others, or talk shop.'
+  image: '/images/general/works/5.jpg'
+  join_btn:
+    label: 'Join the Forum'
+    link: 'https://groups.google.com/group/pmem'
+  discuss_btn:
+    label: 'Discuss on Slack'
+    link: 'https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email'
+
+tutorials:
+  enable: true
+  bg_image: ''
+  title: 'Tutorials and Examples'
+  content: 'Learning by example with code samples developed by experts. Copy the code, customize it to meet your needs, and deploy it in your application.'
+  image: '/images/general/works/4.jpg'
+  button1:
+    label: 'Code Samples'
+    link: '/developer-hub/code-samples'
+  button2:
+    label: 'Our Blog'
+    link: '/blog'
+  button3:
+    label: 'Intel Developer Zone'
+    link: 'https://software.intel.com/content/www/us/en/develop/library.html?query=&currentPage=1&externalFilter=guid:etm-bc7a5787fc704f86ac1cfec692ad5c5f;guid:etm-d1226306deb8452f85d1ecab59e3dbf9'
+  button4:
+    label: 'Webinars'
+    link: '/webinars'
+
+################################# Developer tools #####################################
+dev_tools:
+  enable: true
+  bg_image: ''
+  title: 'Developer tools'
+  content: 'A wide range of tools are available that allow you to inspect, analyze, debug, and collect performance data of the platform and application(s).'
+  button:
+    label: 'Share'
+    link: '/'
+  filters:
+    - 'Performance'
+    - 'Benchmark'
+    - 'Debug'
+    - 'Admin'
+    - 'Monitoring'
+
+  tools_primary:
+    vTune_platform:
+      label: 'Intel® VTune Platform Profiler'
+      link: 'https://software.intel.com/content/www/us/en/develop/articles/vtune-amplifier-platform-profiler.html'
+      description: 'Use the Platform Profiler for Intel® VTune™ Profiler to view performance metrics and learn how your application can benefit from large capacity persistent or volatile memory.'
+      secret: 'main'
+      categories:
+        - 'Performance'
+        - 'Debug'
+        - 'Analysis'
+    vTune_profiler:
+      label: 'Intel® VTune Profiler'
+      link: 'https://software.intel.com/content/www/us/en/develop/documentation/vtune-cookbook/top/tuning-recipes/frequent-dram-accesses.html'
+      description: 'Profile application memory accesses to identify code and code paths that are sensitive to memory bandwidth and latency issues. Identify hot, warm, or cool data to optimize memory usage and placement.'
+      categories:
+        - 'Performance'
+        - 'Debug'
+        - 'Analysis'
+    inspector:
+      label: 'Intel® Inspector'
+      link: 'https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/inspector.html#gs.asmtyp'
+      description: 'This tool finds persistence errors quickly to make software fast and reliable. It checks that all caches only flush once to persistent memory and written in the correct order.'
+      categories:
+        - 'Debug'
+        - 'Analysis'
+    ndctl:
+      label: 'ndctl'
+      link: '/developer-hub/ndctl'
+      description: 'Manage and monitor non-volatile memory devices in Linux. Create and manage dimms, regions, and namespaces, update firmware, perform secure erase operations, and much more!'
+      categories:
+        - 'Admin'
+    daxctl:
+      label: 'daxctl'
+      link: '/daxctl'
+      description: 'Manage and monitor direct access (DAX) devices backed by persistent memory. Create, destroy, and convert dax devices for use with the Linux Kernel and applications.'
+      categories:
+        - 'Admin'
+    daxio:
+      label: 'daxio'
+      link: 'https://pmem.io/pmdk/daxio/'
+      description: 'daxio is a standalone utility that can transfer data to or from DAX devices, or erase data from a device.'
+      categories:
+        - 'Admin'
+    ipmctl:
+      label: 'ipmctl'
+      link: 'https://docs.pmem.io/ipmctl-user-guide/'
+      description: 'ipmctl is an open source utility to discover, configure, and manage Intel® Optane™ persistent memory modules. ipmctl, works on both Linux and Windows.'
+      categories:
+        - 'Admin'
+        - 'Hardware'
+    pmemcheck:
+      label: 'pmemcheck'
+      link: 'https://software.intel.com/content/www/us/en/develop/articles/discover-persistent-memory-programming-errors-with-pmemcheck.html'
+      description: 'Perform a dynamic runtime analysis with an enhanced version of Valgrind.'
+      categories:
+        - 'Admin'
+
+  tools_secondary:
+    pmemreorder:
+      label: 'pmemreorder'
+      link: 'https://pmem.io/pmdk/pmreorder/'
+      description: 'The pmreorder is a utility that performs a consistency check of a persistent program.'
+      categories:
+        - 'Admin'
+    pmempool:
+      label: 'pmempool'
+      link: 'https://pmem.io/pmdk/pmempool/'
+      description: 'Manage, analyze, troubleshoot, and debug persistent memory pools with this utility.'
+      categories:
+        - 'Admin'
+    pmdk_convert:
+      label: 'pmdk-convert'
+      link: 'https://pmem.io/pmdk-convert/manpages/master/pmdk-convert.1.html'
+      description: 'The pmdk-convert tool converts the specified memory pool from an old layout version to the newest one supported by this tool.'
+      categories:
+        - 'Admin'
+    pmembench:
+      label: 'pmembench'
+      link: ''
+      description: 'Run benchmarks using libraries from the Persistent Memory Development Kit'
+      categories:
+        - 'Benchmark'
+    valgrind:
+      label: 'Valgrind'
+      link: 'https://valgrind.org/'
+      description: 'Valgrind is an instrumentation framework for building dynamic analysis tools. Valgrind tools can automatically detect many memory management and threading bugs and profile your programs in detail. Use the pmemcheck utility with persistent memory.'
+      categories:
+        - 'Debug'
+        - 'Analysis'
+    fio:
+      label: 'FIO'
+      link: 'https://software.intel.com/content/www/us/en/develop/videos/testing-pmdk-using-fio-workloads.html'
+      description: 'Use the open-source Flexible I/O Tester (FIO) utility to run benchmarks against persistent memory devices and file systems.'
+      categories:
+        - 'Benchmark'
+    pcm:
+      label: 'Processor Counter Monitor (PCM)'
+      link: 'https://github.com/opcm/pcm'
+      description: 'Processor Counter Monitor (PCM) is an API and a set of tools to monitor the performance and energy metrics of Intel® CPUs. PCM runs on Linux and Windows. pcm-memory monitors memory bandwidth per channel and per DIMM for DDR and persistent memory.'
+      categories:
+        - 'Performance'
+        - 'Monitoring'
+    eBPF:
+      label: 'Linux Perf|eBPF'
+      link: 'https://perf.wiki.kernel.org/index.php/Main_Page'
+      description: 'perf and eBPF are performance analyzing, tracing, and profiling tools in Linux for hardware, the Kernel, and applications. '
+      categories:
+        - 'Performance'
+        - 'Debug'
+        - 'Analysis'

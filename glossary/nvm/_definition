@@ -1,6 +1,0 @@
-In modern usage, the term **NVM** refers to a class of products that do not
-lose their contents when power is removed.  Compare this to the modern usage of
-the term [persistent memory(#persistent-memory), which adds attribute that it
-is load/store accessible.  The general term, NVM, can refer to storage like
-SSDs, or PMem.  The more specific term, persistent memory, does not refer to a
-product that can only be used as [block storage](#block-storage).

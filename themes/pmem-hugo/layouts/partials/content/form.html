@@ -1,0 +1,11 @@
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.form.enable }} {{ with $data.homepage.form }}
+<div class="section m-0" style="background: url('{{ .bg_image}}') no-repeat center center; background-size: cover">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center m-0">
+      <h3 class="nott ls0 text-white bottommargin-sm">{{ .title | markdownify }}</h3>
+      <p class="text-white">{{ .content | markdownify }}</p>
+      <a href="{{ .button.link | absLangURL }}" class="button button-medium button-rounded ms-0 ls0">{{ .button.label }}</a>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}

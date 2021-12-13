@@ -1,0 +1,186 @@
+{{ define "main" }}
+
+<!-- get book -->
+{{- partial "content/get_book_no_btn.html" . -}}
+
+<!-- Form -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.books.form.enable }} {{ with $data.books.form }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container" id="signup_form">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+    </div>
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-lg-5 col-sm-7 col-10">
+        <p class="text-right"><small><em>{{ .required_message | markdownify }}</em></small></p>
+        <form class="mb-0" method="post" name="FORM-MKA-18980" id="FORM-MKA-18980" action="https://s334284386.t.eloqua.com/e/f2">
+          <div class="form-group">
+              <input type="text" class="form-control form-control-lg" id="firstName" name="firstName" placeholder="Enter Your First Name*" required="" style="background-image: none; background-repeat: initial; background-attachment: initial; background-size: initial; background-position: initial;">
+          </div>
+          <div class="form-group">
+              <input type="text" class="form-control form-control-lg" id="lastName" name="lastName" placeholder="Enter Your Last Name*" required="">
+          </div>
+          <div class="form-group">
+              <input type="email" class="form-control form-control-lg" id="email" name="emailAddress" placeholder="Enter Your Email Address*" required="">
+          </div>
+          <div class="form-group">
+              <select class="form-select newsletter-select" name="profession" id="profession" aria-invalid="false">
+                  {{ .professions | safeHTML }}
+                </select>
+          </div>
+          <div class="form-group">
+              <input type="hidden" name="autoPopCountry" value="United States">
+              <select class="form-select newsletter-select" id="country" name="country" required="required">
+                  {{ .regions | safeHTML }}
+              </select>
+          </div>
+          <div class="form-group checkbox">
+              <!-- START Eloqua Shared Content - Template EU Opt-in -->                                                 
+              <!-- START - Opt-In Use Case #1 EU/EEA Consent -->                                                 
+              <!-- Copy has already been setup for all supported languages. Replace the <span> tags elqid with the corresponding id of the language that matches your landing page. The default English copy of the template will be replaced.
+
+                      Language        <span elqid=
+                      English                 427246
+                      Arabic                  427247
+                      Chinese Simplified      427263
+                      Chinese Traditional     427264
+                      ES-Spanish              427249
+                      French                  427251
+                      German                  427248
+                      Hebrew                  427252
+                      Indonesian              427253
+                      Italian                 427254
+                      Japanese                427255
+                      Korean                  427256
+                      Polish                  427257
+                      Portuguese              427258
+                      Russian                 427259
+                      Thai                    427260
+                      Turkish                 427261
+                      Vietnamese              427262
+                      XL-Spanish              427250
+                      -->                                                 
+              <input id="optinConsent" name="optinConsent" type="hidden" value="Yes">
+              <label class="opt-in-EU" for="optinEU" style="display: none;">
+                  <input class="opt-in-EU checkbox" id="optinEU" name="optinEU" type="checkbox" checked="checked" value="Yes" required="" style="display: none;">
+                  <span>Yes, I would like to subscribe to stay connected to the latest Intel technologies and industry trends by email and telephone. I can unsubscribe at any time.</span>
+              </label>                                                 
+              <!-- END - Opt-In Use Case #1 EU/EEA Consent -->                                                 
+
+              <!-- END Eloqua Shared Content - Template EU Opt-in -->                                                 
+          </div>
+
+          <div class="col-12">
+                <button type="submit" class="btn w-100 text-white sign-up-btn rounded-3 py-3 fw-semibold text-uppercase mt-2 books-submit-btn">Sign Up</button>
+                <p class="book-font-color submit-disclaimer"><small>{{ .disclaimer | safeHTML }}</small></p>
+          </div>
+
+          <!-- Hidden form elements -->
+          <input value="FORM-MKA-18980" type="hidden" name="elqFormName">
+          <input value="334284386" type="hidden" name="elqSiteId"> 
+          <input name="sourceId" id="sourceId" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980">
+          <input name="tacticId" id="tacticId" type="hidden" value="MKA-18980">
+          <input name="mktgLeadSourceOriginal" id="mktgLeadSourceOriginal" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980">
+          <input name="mktgLeadSourceRecent" id="mktgLeadSourceRecent" type="hidden" value="dcg_NAR_dcgitt3_FMOI_EN_2020_PMEM-Optin-Form_C-MKA-17347_T-MKA-18980">
+          <!-- End hidden form elements -->
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="signup_result">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .download_links_content.header_above | markdownify }}</h3>
+      <p class="book-font-color">{{ .download_links_content.content_above | markdownify }}</p>
+    </div>
+    <div class="row justify-content-center">
+      {{ range .book_links }}
+      <div class="col-xl-3 col-md-6 text-center">
+        <div class="card download-link-card">
+          <div class="card-body">
+            <span class="i-plain mx-auto mb-0 {{ .icon | markdownify }} book-link-icon"></span>
+            <h3>{{ .content | markdownify }}</h3>
+            <a href="{{ .link | absLangURL }}" class="button button-large button-circle bg-white border nott ls0 book-link-btn" target="_blank">{{ .button_content | markdownify }}</a>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    <div class="heading-block footer-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .download_links_content.header_below | markdownify }}</h3>
+      <p class="book-font-color">{{ .download_links_content.content_below | safeHTML }}</p>
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- Icons List -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.books.iconlist.enable }} {{ with $data.books.iconlist }}
+<div class="section m-0 border-top dark-mode">
+    <div class="container">
+        <div class="heading-block border-bottom-0 center">
+            <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+        </div>
+        <div class="row col-mb-50 mb-0">
+            {{ range .icons }}
+            <div class="col-sm-6">
+                <div class="feature-box fbox-outline">
+                    <div class="fbox-icon">
+                        <a class= "books-icon"><i class="{{ .class | markdownify }}"></i></a>
+                    </div>
+                    <div class="fbox-content">
+                        <h3>{{ .title | markdownify }}</h3>
+                        <p class="book-font-color">{{ .content | markdownify }}</p>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- guide description -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.books.guide_description.enable }} {{ with $data.books.guide_description }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container center clearfix">
+    <div class="emphasis-title emphasis-md">
+      <h2>{{ .title | markdownify }}</h2>
+    </div>
+    <p class="book-font-color">{{ .content | safeHTML }}</p>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- table of contents -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.books.table_of_contents.enable }} {{ with $data.books.table_of_contents }}
+<div class="section m-0 border-top dark-mode">
+  <div class="container clearfix">
+    <div class="emphasis-title emphasis-md center">
+      <h2>{{ .title | markdownify }}</h2>
+    </div>
+    <p class="book-font-color">{{ .content | safeHTML }}</p>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- questions section -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.books.questions.enable }} {{ with $data.books.questions }}
+<div class="section m-0 bg-transparent border-top dark-mode">
+  <div class="container">
+    <div class="heading-block border-bottom-0 center">
+      <h3 class="nott ls0 bottommargin-sm">{{ .title | markdownify }}</h3>
+      <div class="book-faq-divider"></div>
+    </div>
+  {{ range .questions }}
+  <div class="row">
+    <div class="col">
+      <h3 class="faq-header">{{ .title | safeHTML }}</h3>
+      <p class="book-font-color"> {{ .content | safeHTML }}</p>
+    </div>
+  </div>
+  {{ end }}
+  </div>
+</div>
+{{ end }} {{ end }}
+
+{{end}}

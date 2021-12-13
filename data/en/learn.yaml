@@ -1,0 +1,59 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/learn_header.jpg'
+  title: 'Persistent Memory is Revolutionary'
+  content: 'This site brings the world of Persistent Memory (PMem) to a community of diverse skill levels from beginner to expert across many different job functions - Developers, Infrastructure, DevOps, CTO, and more. Your journey to learning what persistent memory is, why it is disrupting the industry, and how you can leverage this revolutionary technology begins here.'
+  #cta_btn: 'Start your journey'
+
+################################# Feature #####################################
+feature_section1:
+  enable: true
+  bg_image: ''
+  image: '/images/Learn_whatispmem.png'
+  title: 'What is Persistent Memory?'
+  content: 'The term persistent memory is used to describe technologies which allow programs to access data as memory, directly byte- addressable, while the contents are non- volatile, preserved across power cycles. It has aspects that are like memory, and aspects that are like storage, but it doesn’t typically replace either memory or storage. Instead, persistent memory is a third tier, used in conjunction with memory and storage. Systems containing persistent memory can outperform legacy configurations, providing faster start-up times, faster access to large in-memory datasets, and often improved total cost of ownership.'
+
+feature_section2:
+  enable: true
+  bg_image: ''
+  image: '/images/Learn_pmdk.png'
+  title: 'The Persistent Memory Development Kit'
+  content: 'The Persistent Memory Development Kit (PMDK) is a suite of open-source libraries that have been developed for various use cases. Each library is tuned, validated to production quality, and thoroughly documented. These libraries provide stable APIs so developers can rapidly implement PMem features into applications without worrying about the hardware implementation details or generational changes.'
+
+################################# video #####################################
+videos:
+  enable: true
+  label: 'Videos'
+  button:
+    label: 'See more videos'
+    link: '/videos/'
+  summit:
+    title: '2021 PMDK Summit'
+    link: 'https://intel.ly/384aHLz'
+    image: '/images/pmdk_summit.png'
+  videos_content:
+    video1:
+      title: 'Managing Volatile Memory with Memkind'
+      link: 'https://www.youtube.com/embed/SPubcBJVflA'
+    video2:
+      title: 'Get Started with Intel® Optane™ DC Persistent Memory'
+      link: 'https://www.youtube.com/embed/s2Oqb9C_4K4'
+
+################################# faq #####################################
+faq:
+  enable: true
+  title: 'FAQ'
+  button:
+    label: 'See more FAQs'
+    link: '/'
+  faqs:
+    faq1:
+      quesiton: 'Question 1'
+      answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta laboriosam pariatur nisi tempore iure nesciunt praesentium omnis explicabo culpa molestias?'
+    faq2:
+      quesiton: 'Question 2'
+      answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta laboriosam pariatur nisi tempore iure nesciunt praesentium omnis explicabo culpa molestias?'
+    faq3:
+      quesiton: 'Question 3'
+      answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta laboriosam pariatur nisi tempore iure nesciunt praesentium omnis explicabo culpa molestias?'

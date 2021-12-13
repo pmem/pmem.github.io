@@ -1,0 +1,7 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/learn_header.jpg'
+  title: 'Webinars'
+  content: 'Webinars About Persistent Memory'
+################################# Webinars #####################################

@@ -1,0 +1,41 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.slider.enable }} {{ with $data.pmdk.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title text-light">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | safeHTML }}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<!-- libraries -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section.enable }} {{ with $data.pmdk.libraries_section }}
+
+<div class="section m-0 bg-transparent library-section border-top dark-mode">
+    <div class="container">
+      {{ range .libraries }}
+      <div class="row justify-content-between">
+        <div class="col mt-0">
+          <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
+            <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+          </div>
+          <p>{{ .content | safeHTML }}</p>
+        </div>
+      </div>
+      {{ end }}
+      <!-- disclaimer -->
+      {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.disclaimer.enable }} {{ with $data.pmdk.disclaimer }}
+      <div class="divider"></div>
+      <p class="text-center"><small>{{ .content | safeHTML }}</small></p>
+      {{ end }} {{ end }}
+      <!-- end disclaimer -->
+    </div>
+  </div>
+  {{ end }} {{ end }}
+  <!-- end libraries -->
+
+{{ end }}

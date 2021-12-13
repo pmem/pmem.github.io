@@ -1,0 +1,406 @@
+################################# Get book no button #####################################
+get_book_no_btn:
+  enable: true
+  bg_image: ''
+  title: 'Master Persistent Memory Programming'
+  content: "Our complete guide for developers delivers comprehensive information with detailed code examples.
+            <br />
+            <br />
+            <strong>Download the eBook to learn how you can build the next generation application.</strong>"
+  image: '/images/programming_pmem_book_420x350px.png'
+
+################################# Form ################################# 
+form: 
+  enable: true
+  title: 'Get the FREE eBook now!'
+  content: "Sign up to download the free eBook now and receive future communicatons for persistent memory training, conferences, webinars, and other exciting news and information."
+  required_message: 'Required Fields(*)'
+  disclaimer: "By submitting this form, you are confirming you are an adult 18 years or older and you agree to share your personal information with Intel to use for this business request. You also agree to subscribe to stay connected to the latest Intel technologies and industry trends by email and telephone. You may unsubscribe at any time. Intel’s web sites and communications are subject to our <a href=\"http://www.intel.com/privacy\" target=\"_blank\">Privacy Notice</a> and <a href=\"http://www.intel.com/content/www/us/en/legal/terms-of-use.html\" target=\"_blank\">Terms of Use</a>."
+  download_links_content:
+    header_above: "Thank you!"
+    content_above: "Here are the links to download the eBook and buy a physical printed copy."
+    header_below: "Do you have 3 mins?"
+    content_below: "Read <a href=\"https://software.intel.com/content/www/us/en/develop/articles/developer-tips-and-tricks-for-persistent-memory.html\">\"Developer Tips and Tricks for Persistent Memory\"</a> to begin your PMem developer journey. The book covers these tips in detail, and much, much more!"
+    
+  book_links:
+    link_1:
+      icon: 'bi-cloud-download'
+      content: 'PDF'
+      button_content: 'Download PDF'
+      link: "https://link.springer.com/content/pdf/10.1007/978-1-4842-4932-1.pdf"
+    link_2:
+      icon: 'bi-cloud-download'
+      content: 'ePUB'
+      button_content: 'Download ePUB'
+      link: "https://link.springer.com/download/epub/10.1007/978-1-4842-4932-1.epub"
+    link_3:
+      icon: 'icon-amazon'
+      content: 'Amazon'
+      button_content: 'Buy on Amazon'
+      link: "https://amzn.to/2V7FqRz"
+    link_4:
+      icon: 'icon-book3'
+      content: 'Chinese Version'
+      button_content: 'Buy Chinese Version'
+      link: "https://item.m.jd.com/product/13201774.html#summary"
+  professions: "<option value=\"\">Please Select Your Profession</option>
+                <option value=\"CIO (Chief Information Officer)\">CIO (Chief Information Officer)</option>
+                <option value=\"CTO (Chief Technology Officer)\">CTO (Chief Technology Officer)</option>
+                <option value=\"COO (Chief Operating Officer)\">COO (Chief Operating Officer)</option>
+                <option value=\"CISO (Chief Information Security Officer)\">CISO (Chief Information Security Officer)</option>
+                <option value=\"Owner/Executive Management\">Owner/Executive Management</option>
+                <option value=\"IT Management\">IT Management</option>
+                <option value=\"Data Sciences\">Data Sciences</option>
+                <option value=\"Software/Application Development/Engineering\">Software/Application Development/Engineering</option>
+                <option value=\"Hardware Development/Engineering\">Hardware Development/Engineering</option>
+                <option value=\"Solution/System Architecture\">Solution/System Architecture</option>
+                <option value=\"Infrastructure/Datacenter Architecture\">Infrastructure/Datacenter Architecture</option>
+                <option value=\"Network Architecture/Engineering\">Network Architecture/Engineering</option>
+                <option value=\"IT Information Security\">IT Information Security</option>
+                <option value=\"IT Storage\">IT Storage</option>
+                <option value=\"IT User Devices - PCs tablets etc\">IT User Devices - PCs tablets etc</option>
+                <option value=\"IT Generalist/Other IT\">IT Generalist/Other IT</option>
+                <option value=\"Facilities/Audio Video\">Facilities/Audio Video</option>
+                <option value=\"Product/Service Management\">Product/Service Management</option>
+                <option value=\"Finance/Procurement\">Finance/Procurement</option>
+                <option value=\"Sales\">Sales</option>
+                <option value=\"Marketing\">Marketing</option>
+                <option value=\"Other Business Department - Operations HR etc\">Other Business Department - Operations HR etc</option>
+                <option value=\"Consultant/Analyst\">Consultant/Analyst</option>
+                <option value=\"Hobbyist/Maker\">Hobbyist/Maker</option>
+                <option value=\"Professor/Teacher\">Professor/Teacher</option>
+                <option value=\"Student\">Student</option>
+                <option value=\"Scientist/Researcher\">Scientist/Researcher</option>
+                <option value=\"Other\">Other</option>"
+  regions: "<option value=\"\">Please Select your Country/Region*</option>
+            <option value=\"Afghanistan\">Afghanistan</option>
+            <option value=\"Aland Islands\">Aland Islands</option>
+            <option value=\"Albania\">Albania</option>
+            <option value=\"Algeria\">Algeria</option>
+            <option value=\"American Samoa\">American Samoa</option>
+            <option value=\"Andorra\">Andorra</option>
+            <option value=\"Angola\">Angola</option>
+            <option value=\"Anguilla\">Anguilla</option>
+            <option value=\"Antarctica\">Antarctica</option>
+            <option value=\"Antigua and Barbuda\">Antigua and Barbuda</option>
+            <option value=\"Argentina\">Argentina</option>
+            <option value=\"Armenia\">Armenia</option>
+            <option value=\"Aruba\">Aruba</option>
+            <option value=\"Australia\">Australia</option>
+            <option value=\"Austria\">Austria</option>
+            <option value=\"Azerbaijan\">Azerbaijan</option>
+            <option value=\"Bahamas\">Bahamas</option>
+            <option value=\"Bahrain\">Bahrain</option>
+            <option value=\"Bangladesh\">Bangladesh</option>
+            <option value=\"Barbados\">Barbados</option>
+            <option value=\"Belarus\">Belarus</option>
+            <option value=\"Belgium\">Belgium</option>
+            <option value=\"Belize\">Belize</option>
+            <option value=\"Benin\">Benin</option>
+            <option value=\"Bermuda\">Bermuda</option>
+            <option value=\"Bhutan\">Bhutan</option>
+            <option value=\"Bolivia\">Bolivia</option>
+            <option value=\"Bonaire\">Bonaire</option>
+            <option value=\"Bosnia and Herzegovina\">Bosnia and Herzegovina</option>
+            <option value=\"Botswana\">Botswana</option>
+            <option value=\"Bouvet Island\">Bouvet Island</option>
+            <option value=\"Brazil\">Brazil</option>
+            <option value=\"British Indian Ocean Territory\">British Indian Ocean Territory</option>
+            <option value=\"Brunei Darussalam\">Brunei Darussalam</option>
+            <option value=\"Bulgaria\">Bulgaria</option>
+            <option value=\"Burkina Faso\">Burkina Faso</option>
+            <option value=\"Burundi\">Burundi</option>
+            <option value=\"Cambodia\">Cambodia</option>
+            <option value=\"Cameroon\">Cameroon</option>
+            <option value=\"Canada\">Canada</option>
+            <option value=\"Cape Verde\">Cape Verde</option>
+            <option value=\"Cayman Islands\">Cayman Islands</option>
+            <option value=\"Central African Republic\">Central African Republic</option>
+            <option value=\"Chad\">Chad</option>
+            <option value=\"Chile\">Chile</option>
+            <option value=\"China\">China</option>
+            <option value=\"Christmas Island\">Christmas Island</option>
+            <option value=\"Cocos (Keeling) Islands\">Cocos (Keeling) Islands</option>
+            <option value=\"Colombia\">Colombia</option>
+            <option value=\"Comoros\">Comoros</option>
+            <option value=\"Congo\">Congo</option>
+            <option value=\"Congo, The Democratic Republic of the\">Congo, The Democratic Republic of the</option>
+            <option value=\"Cook Islands\">Cook Islands</option>
+            <option value=\"Costa Rica\">Costa Rica</option>
+            <option value=\"Cote D'ivoire\">Cote D'ivoire</option>
+            <option value=\"Croatia\">Croatia</option>
+            <option value=\"Cuba\">Cuba</option>
+            <option value=\"Curacao\">Curacao</option>
+            <option value=\"Cyprus\">Cyprus</option>
+            <option value=\"Czech Republic\">Czech Republic</option>
+            <option value=\"Denmark\">Denmark</option>
+            <option value=\"Djibouti\">Djibouti</option>
+            <option value=\"Dominica\">Dominica</option>
+            <option value=\"Dominican Republic\">Dominican Republic</option>
+            <option value=\"Ecuador\">Ecuador</option>
+            <option value=\"Egypt\">Egypt</option>
+            <option value=\"El Salvador\">El Salvador</option>
+            <option value=\"Equatorial Guinea\">Equatorial Guinea</option>
+            <option value=\"Eritrea\">Eritrea</option>
+            <option value=\"Estonia\">Estonia</option>
+            <option value=\"Eswatini\">Eswatini</option>
+            <option value=\"Ethiopia\">Ethiopia</option>
+            <option value=\"Falkland Islands (Malvinas)\">Falkland Islands (Malvinas)</option>
+            <option value=\"Faroe Islands\">Faroe Islands</option>
+            <option value=\"Fiji\">Fiji</option>
+            <option value=\"Finland\">Finland</option>
+            <option value=\"France\">France</option>
+            <option value=\"French Guiana\">French Guiana</option>
+            <option value=\"French Poly.\">French Poly.</option>
+            <option value=\"French S. Terr.\">French S. Terr.</option>
+            <option value=\"Gabon\">Gabon</option>
+            <option value=\"Gambia\">Gambia</option>
+            <option value=\"Georgia\">Georgia</option>
+            <option value=\"Germany\">Germany</option>
+            <option value=\"Ghana\">Ghana</option>
+            <option value=\"Gibraltar\">Gibraltar</option>
+            <option value=\"Greece\">Greece</option>
+            <option value=\"Greenland\">Greenland</option>
+            <option value=\"Grenada\">Grenada</option>
+            <option value=\"Guadeloupe\">Guadeloupe</option>
+            <option value=\"Guam\">Guam</option>
+            <option value=\"Guatemala\">Guatemala</option>
+            <option value=\"Guernsey\">Guernsey</option>
+            <option value=\"Guinea\">Guinea</option>
+            <option value=\"Guinea-Bissau\">Guinea-Bissau</option>
+            <option value=\"Guyana\">Guyana</option>
+            <option value=\"Haiti\">Haiti</option>
+            <option value=\"Heard Island and Mcdonald Islands\">Heard Island and Mcdonald Islands</option>
+            <option value=\"Holy See (Vatican City State)\">Holy See (Vatican City State)</option>
+            <option value=\"Honduras\">Honduras</option>
+            <option value=\"Hong Kong\">Hong Kong</option>
+            <option value=\"Hungary\">Hungary</option>
+            <option value=\"Iceland\">Iceland</option>
+            <option value=\"India\">India</option>
+            <option value=\"Indonesia\">Indonesia</option>
+            <option value=\"Iran, Islamic Republic of\">Iran, Islamic Republic of</option>
+            <option value=\"Iraq\">Iraq</option>
+            <option value=\"Ireland\">Ireland</option>
+            <option value=\"Isle of Man\">Isle of Man</option>
+            <option value=\"Israel\">Israel</option>
+            <option value=\"Italy\">Italy</option>
+            <option value=\"Jamaica\">Jamaica</option>
+            <option value=\"Japan\">Japan</option>
+            <option value=\"Jersey\">Jersey</option>
+            <option value=\"Jordan\">Jordan</option>
+            <option value=\"Kazakhstan\">Kazakhstan</option>
+            <option value=\"Kenya\">Kenya</option>
+            <option value=\"Kiribati\">Kiribati</option>
+            <option value=\"Korea, Democratic People's Republic of\">Korea, Democratic People's Republic of</option>
+            <option value=\"Korea, Republic of\">Korea, Republic of</option>
+            <option value=\"Kuwait\">Kuwait</option>
+            <option value=\"Kyrgyzstan\">Kyrgyzstan</option>
+            <option value=\"Lao People's Democratic Republic\">Lao People's Democratic Republic</option>
+            <option value=\"Latvia\">Latvia</option>
+            <option value=\"Lebanon\">Lebanon</option>
+            <option value=\"Lesotho\">Lesotho</option>
+            <option value=\"Liberia\">Liberia</option>
+            <option value=\"Libya\">Libya</option>
+            <option value=\"Liechtenstein\">Liechtenstein</option>
+            <option value=\"Lithuania\">Lithuania</option>
+            <option value=\"Luxembourg\">Luxembourg</option>
+            <option value=\"Macau\">Macau</option>
+            <option value=\"Macedonia\">Macedonia</option>
+            <option value=\"Madagascar\">Madagascar</option>
+            <option value=\"Malawi\">Malawi</option>
+            <option value=\"Malaysia\">Malaysia</option>
+            <option value=\"Maldives\">Maldives</option>
+            <option value=\"Mali\">Mali</option>
+            <option value=\"Malta\">Malta</option>
+            <option value=\"Marshall Islands\">Marshall Islands</option>
+            <option value=\"Martinique\">Martinique</option>
+            <option value=\"Mauritania\">Mauritania</option>
+            <option value=\"Mauritius\">Mauritius</option>
+            <option value=\"Mayotte\">Mayotte</option>
+            <option value=\"Mexico\">Mexico</option>
+            <option value=\"Micronesia, Federated States of\">Micronesia, Federated States of</option>
+            <option value=\"Moldova, Republic of\">Moldova, Republic of</option>
+            <option value=\"Monaco\">Monaco</option>
+            <option value=\"Mongolia\">Mongolia</option>
+            <option value=\"Montenegro\">Montenegro</option>
+            <option value=\"Montserrat\">Montserrat</option>
+            <option value=\"Morocco\">Morocco</option>
+            <option value=\"Mozambique\">Mozambique</option>
+            <option value=\"Myanmar\">Myanmar</option>
+            <option value=\"Namibia\">Namibia</option>
+            <option value=\"Nauru\">Nauru</option>
+            <option value=\"Nepal\">Nepal</option>
+            <option value=\"Netherlands\">Netherlands</option>
+            <option value=\"Netherlands Antilles\">Netherlands Antilles</option>
+            <option value=\"New Caledonia\">New Caledonia</option>
+            <option value=\"New Zealand\">New Zealand</option>
+            <option value=\"Nicaragua\">Nicaragua</option>
+            <option value=\"Niger\">Niger</option>
+            <option value=\"Nigeria\">Nigeria</option>
+            <option value=\"Niue\">Niue</option>
+            <option value=\"Norfolk Island\">Norfolk Island</option>
+            <option value=\"Northern Mariana Islands\">Northern Mariana Islands</option>
+            <option value=\"Norway\">Norway</option>
+            <option value=\"Oman\">Oman</option>
+            <option value=\"Pakistan\">Pakistan</option>
+            <option value=\"Palau\">Palau</option>
+            <option value=\"Palestine, State\">Palestine, State</option>
+            <option value=\"Panama\">Panama</option>
+            <option value=\"Papua New Guinea\">Papua New Guinea</option>
+            <option value=\"Paraguay\">Paraguay</option>
+            <option value=\"Peru\">Peru</option>
+            <option value=\"Philippines\">Philippines</option>
+            <option value=\"Pitcairn\">Pitcairn</option>
+            <option value=\"Poland\">Poland</option>
+            <option value=\"Portugal\">Portugal</option>
+            <option value=\"Puerto Rico\">Puerto Rico</option>
+            <option value=\"Qatar\">Qatar</option>
+            <option value=\"Reunion\">Reunion</option>
+            <option value=\"Romania\">Romania</option>
+            <option value=\"Russian Federation\">Russian Federation</option>
+            <option value=\"Rwanda\">Rwanda</option>
+            <option value=\"Saint Helena\">Saint Helena</option>
+            <option value=\"Saint Kitts and Nevis\">Saint Kitts and Nevis</option>
+            <option value=\"Saint Lucia\">Saint Lucia</option>
+            <option value=\"Saint Martin\">Saint Martin</option>
+            <option value=\"Saint Pierre\">Saint Pierre</option>
+            <option value=\"Saint Vincent and The Grenadines\">Saint Vincent and The Grenadines</option>
+            <option value=\"Samoa\">Samoa</option>
+            <option value=\"San Marino\">San Marino</option>
+            <option value=\"Sao Tome and Principe\">Sao Tome and Principe</option>
+            <option value=\"Saudi Arabia\">Saudi Arabia</option>
+            <option value=\"Senegal\">Senegal</option>
+            <option value=\"Serbia\">Serbia</option>
+            <option value=\"Serbia and Montenegro\">Serbia and Montenegro</option>
+            <option value=\"Seychelles\">Seychelles</option>
+            <option value=\"Sierra Leone\">Sierra Leone</option>
+            <option value=\"Singapore\">Singapore</option>
+            <option value=\"Sint Maarten\">Sint Maarten</option>
+            <option value=\"Slovakia\">Slovakia</option>
+            <option value=\"Slovenia\">Slovenia</option>
+            <option value=\"Solomon Islands\">Solomon Islands</option>
+            <option value=\"Somalia\">Somalia</option>
+            <option value=\"South Africa\">South Africa</option>
+            <option value=\"South Georgia and The South Sandwich Islands\">South Georgia and The South Sandwich Islands</option>
+            <option value=\"South Sudan\">South Sudan</option>
+            <option value=\"Spain\">Spain</option>
+            <option value=\"Sri Lanka\">Sri Lanka</option>
+            <option value=\"St. Barthelemy\">St. Barthelemy</option>
+            <option value=\"Sudan\">Sudan</option>
+            <option value=\"Suriname\">Suriname</option>
+            <option value=\"Svalbard\">Svalbard</option>
+            <option value=\"Sweden\">Sweden</option>
+            <option value=\"Switzerland\">Switzerland</option>
+            <option value=\"Syrian Arab Republic\">Syrian Arab Republic</option>
+            <option value=\"Taiwan\">Taiwan</option>
+            <option value=\"Tajikistan\">Tajikistan</option>
+            <option value=\"Tanzania, United Republic of\">Tanzania, United Republic of</option>
+            <option value=\"Thailand\">Thailand</option>
+            <option value=\"Timor-Leste\">Timor-Leste</option>
+            <option value=\"Togo\">Togo</option>
+            <option value=\"Tokelau\">Tokelau</option>
+            <option value=\"Tonga\">Tonga</option>
+            <option value=\"Trinidad and Tobago\">Trinidad and Tobago</option>
+            <option value=\"Tunisia\">Tunisia</option>
+            <option value=\"Turkey\">Turkey</option>
+            <option value=\"Turkmenistan\">Turkmenistan</option>
+            <option value=\"Turks and Caicos Islands\">Turks and Caicos Islands</option>
+            <option value=\"Tuvalu\">Tuvalu</option>
+            <option value=\"Uganda\">Uganda</option>
+            <option value=\"Ukraine\">Ukraine</option>
+            <option value=\"United Arab Emirates\">United Arab Emirates</option>
+            <option value=\"United Kingdom\">United Kingdom</option>
+            <option value=\"United States\">United States</option>
+            <option value=\"United States Minor Outlying Islands\">United States Minor Outlying Islands</option>
+            <option value=\"Uruguay\">Uruguay</option>
+            <option value=\"Uzbekistan\">Uzbekistan</option>
+            <option value=\"Vanuatu\">Vanuatu</option>
+            <option value=\"Venezuela\">Venezuela</option>
+            <option value=\"Vietnam\">Vietnam</option>
+            <option value=\"Virgin Islands, British\">Virgin Islands, British</option>
+            <option value=\"Virgin Islands, U.S.\">Virgin Islands, U.S.</option>
+            <option value=\"Wallis and Futuna\">Wallis and Futuna</option>
+            <option value=\"Western Sahara\">Western Sahara</option>
+            <option value=\"Yemen\">Yemen</option>
+            <option value=\"Yugoslavia\">Yugoslavia</option>
+            <option value=\"Zambia\">Zambia</option>
+            <option value=\"Zimbabwe\">Zimbabwe</option>"
+
+################################# Icon List #################################
+iconlist:
+  enable: true
+  title: "A Few Things To Know!"
+  icons: 
+    icon1:
+      title: 'The first book of its kind'
+      content: 'This is the first book to fully explain the revolutionary persistent memory technology.'
+      class: 'icon-line-book'
+    icon2:
+      title: 'Learn by example'
+      content: 'The book uses fully working code examples to demonstrate concepts that will accelerate your learning path.'
+      class: 'icon-graduation-cap'
+    icon3:
+      title: "Unlock you application's true potential"
+      content: 'Persistent memory technology enables new features and capabilities not previously possible. Learn how to utilize the new memory-storage tier to accelerate application performance, access large memory capacities, deliver crash consistency, fast restarts, and much, much more.'
+      class: 'icon-line-unlock'
+    icon4:
+      title: 'Rapid Development'
+      content: 'Learn how to use the Persistent Memory Development Kit (PMDK), a set of libraries and tools designed to standardize and streamline your work.'
+      class: 'icon-et-speedometer'
+
+################################# Guide description #####################################
+guide_description:
+  enable: true
+  title: 'About Programming Persistent Memory: A Comprehensive Guide for Developers'
+  content: "This is a comprehensive guide to persistent memory programming, is targeted towards experienced programmers. You will understand how persistent memory brings together several new software/hardware requirements, and offers great promise for better performance and faster application startup times—a huge leap forward in byte-addressable capacity compared with current DRAM offerings.<br /><br />
+            This revolutionary new technology gives applications significant performance and capacity improvements over existing technologies. It requires a new way of thinking and development, which makes this highly disruptive to the IT/computing industry. The full spectrum of industry sectors that will benefit from this technology include, but are not limited to, in-memory and traditional databases, AI, analytics, HPC, virtualization, and big data.<br /><br />
+            Programming Persistent Memory describes the technology and why it is exciting in the industry. It covers the operating system and hardware requirements as well as how to create development environments using emulated or real persistent memory hardware. The book explains fundamental concepts, provides an introduction to persistent memory programming APIs for C, C++, Javascript, and other languages, discusses RMDA with persistent memory, reviews security features, and presents many examples. Source code and examples that you can run on your own systems are included."
+
+################################# Table of contents ################################# 
+table_of_contents:
+  enable: true 
+  title: 'Table of Contents'
+  content: "<span><span style=\"font-weight: bold;\">Chapter 1.&nbsp;Introduction to Persistent Memory</span> - Introduces persistent memory and dips our toes in the water with a simple persistent key-value store example using libpmemkv.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 2.&nbsp;Persistent Memory Architecture</span> - Describes the persistent memory architecture and focuses on the hardware requirements developers should know.<br><br></span> 
+            <span><span style=\"font-weight: bold;\">Chapter 3.&nbsp;Operating System Support for Persistent Memory</span> - Provides information relating to operating system changes and features and how persistent memory is seen by the OS.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 4.&nbsp;Fundamental Concepts of Persistent Memory Programming</span> - Builds on the first three chapters and describes the fundamental concepts of persistent memory programming.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 5.&nbsp;Introducing the Persistent Memory Development Kit (PMDK)</span> - Introduces the Persistent Memory Development Kit (PMDK), a suite of libraries to assist software developers.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 6.&nbsp;libpmem: Low-Level Persistent Memory Support</span> - Describes and shows how to use libpmem from the PMDK, a low-level library providing persistent memory support.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 7.&nbsp;libpmemobj: A Native Transactional Object Store</span> - Provides information and examples using libpmemobj, a C native object store library from the PMDK.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 8.&nbsp;libpmemobj++: The Adaptable Language</span> - C++ and Persistent memory - Shows the C++ libpmemobj++ store from the PMDK, similar to libpmemobj.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 9.&nbsp;pmemkv: A Persistent In-Memory Key-Value Store</span> - Expands upon the introduction to libpmemkv from Chapter 1 with a more in-depth discussion using examples.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 10.&nbsp;Volatile Use of Persistent Memory</span> - Is for those who want to take advantage of persistent memory, but do not require data to be stored persistently. libmemkind is a user-extensible heap manager built on top of jemalloc which enables control of memory characteristics and partitioning of the heap between kinds of memory, including persistent memory. libvmemcache is an embeddable and lightweight in-memory caching solution. It's designed to fully take advantage of large-capacity memory, such as Persistent Memory with DAX, through memory mapping in an efficient and scalable way.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 11.&nbsp;Designing Data Structures for Persistent Memory</span> - Provides a wealth of information for designing data structures for persistent memory.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 12.&nbsp;Debugging Persistent Memory Applications</span> - Introduces tools and walks through several examples of how software developers can debug persistent memory enabled applications.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 13.&nbsp;Enabling Persistence in a Real World Application</span> - Discusses how a real world application was modified to enable persistent memory features.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 14.&nbsp;Concurrency and Persistent Memory</span> - Describes how concurrency in applications should be implemented for use with persistent memory.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 15.&nbsp;Profiling and Performance</span> - Teaches performance concepts and demonstrates how to use the Intel® VTune suite of tools to profile systems and applications before and after code changes are made.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 16.&nbsp;PMDK Internals: Algorithms and Data Structures Underpinning PMDK</span> - Takes us on a deep dive through some of the PMDK internals.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 17.&nbsp;Reliability, Availability, and Serviceability (RAS)</span> - Describes the implementation of Reliability, Availability, and Serviceability (RAS) with the hardware and operating system layers.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 18.&nbsp;Remote Persistent Memory</span> - Discusses how applications can scale-out across multiple systems using local and remote persistent memory.<br><br></span>
+            <span><span style=\"font-weight: bold;\">Chapter 19.&nbsp;Advanced Topics</span> - Describes things such as NUMA considerations, using volume managers, and more on CPU machine instructions.</span>"
+
+################################# Questions #################################
+questions: 
+  enable: true 
+  title: 'Frequently Asked Questions'
+  questions:
+    question_1:
+      title: "1. Why do I need to register to access the eBook?"
+      content: "The persistent memory ecosphere is a rapidly evolving sector. We would like to keep you updated with all the latest persistent memory news, information, announcements, training, events, and more. We promise never to sell your information or spam you with irrelevant information. You can unsubscribe at any time."
+    question_2:
+      title: "2. I found an error in the source code or book content, what do I do?"
+      content: "Thank you! We did our best to ensure the book was a high-quality product, but mistakes happen. Please create a new issue in our <a href=\"https://github.com/pmem/book/issues\">GitHub project</a> and we'll resolve the problem."
+    question_3:
+      title: "3. I have a question or need help"
+      content: "We are here to help. Please join our <a href=\"https://groups.google.com/forum/#!forum/pmem\">Persistent Memory Google Forum</a> and ask your question.<br /><br /> 
+                You can find a lot of great information in these resources:<br />
+                - Intel Persistent Memory Developer Zone - <a href=\"https://software.intel.com/pmem\">https://software.intel.com/pmem</a><br /> 
+                - Persistent Memory Programming Home - <a href=\"https://pmem.io/\">https://pmem.io</a><br /> 
+                - Persistent Memory Documentation - <a href=\"https://docs.pmem.io/\">https://docs.pmem.io</a>"
+    question_4:
+      title: "4. Can I use the book and code examples for personal, commercial, or academic use?"
+      content: "Absolutely. <strong>Programming Persistent Memory: A Comprehensive Guide for Developers</strong> is published through <a href=\"https://www.apress.com/us/apress-open\">Apress Open</a> using a <a href=\"https://creativecommons.org/\">Creative Commons Attribution license</a>. You may use the book content and source code examples for any purpose. All we ask is that you attribute the book and its author."
+    question_5:
+      title: "5. I encountered an error when submitting the form"
+      content: "Sorry about that. Occasionally there may be an issue on the back end. Please wait a few mins and try again. If that doesn't work, try disabling any Ad Blocker or Virus Protection that scans websites. We have found several of these plugins block the javascript that runs on this page, resulting in form submission errors. If none of this works, contact us on the <a href=\"https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg\">#pmem Slack Channel</a> or the <a href=\"https://groups.google.com/forum/#!forum/pmem\">PMem Forum</a>."
