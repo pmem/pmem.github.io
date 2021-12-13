@@ -1,0 +1,215 @@
+<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Concurrency considerations in libpmemobj-cpp</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Concurrency considerations in libpmemobj-cpp</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 17 Sep, 2021</li><li><i class=icon-user></i> Igchor</li><li><i class=icon-folder-open></i>
+Libpmemobj</li></ul></div><div class="entry-content mt-0"><h3 id=introduction>Introduction</h3><p>Ensuring data consistency on pmem is a challenging task. It gets even more
+complicated if data is modified concurrently. This blog post describes several
+challenges related to data visibility, using transactions in multi-threaded
+environments, and memory leaks.</p><h3 id=lock-free-programming-on-pmem>Lock-free programming on pmem</h3><p>A fundamental issue (if <a href=https://pmem.io/glossary/#eadr>eADR</a> is not used) is data visibility. When a
+thread issues a temporal (e.g., MOV) store instruction, the modification might
+be visible to other threads before it is persistent (data can still be in a CPU
+cache). Consider the following scenario with one thread writing to a variable
+using atomic operations and the second one reading from it:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#75715e>// thread 1
+</span><span style=color:#75715e>// initial value of pmem-&gt;a is 0
+</span><span style=color:#75715e></span>atomic_store(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>a, <span style=color:#ae81ff>1</span>);                  <span style=color:#75715e>// visible = 1, persistent = ?
+</span><span style=color:#75715e></span>pmem_persist(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>a, <span style=color:#66d9ef>sizeof</span>(pmem<span style=color:#f92672>-&gt;</span>a));    <span style=color:#75715e>// visible = 1, persistent = 1
+</span></code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#75715e>// thread 2
+</span><span style=color:#75715e>// initial value of pmem-&gt;b is 0
+</span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> (atomic_load(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>a) <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>) {
+    pmem<span style=color:#f92672>-&gt;</span>b <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;                                <span style=color:#75715e>// visible = 1, persistent = ?
+</span><span style=color:#75715e></span>    pmem_persist(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>b, <span style=color:#66d9ef>sizeof</span>(pmem<span style=color:#f92672>-&gt;</span>b));    <span style=color:#75715e>// visible = 1, persistent = 1
+</span><span style=color:#75715e></span>}
+</code></pre></div><p>Let&rsquo;s analyze the values of pmem->a and pmem->b from the second thread
+perspective for a x86 architecture (visibility vs persistency guarantees
+might differ for different architectures). If a crash happened during the
+application execution, the possible values on restart are:</p><ul><li>(<code>pmem->a = 0</code>, <code>pmem->b = 0</code>) – e.g., when the crash happened before the
+first thread started</li><li>(<code>pmem->a = 1</code>, <code>pmem->b = 1</code>) – e.g., when the crash happened after both
+threads completed</li><li>(<code>pmem->a = 1</code>, <code>pmem->b = 0</code>) – e.g., when the crash happened after the
+first thread completed but before the second one started</li></ul><p>But what happens if there was a crash just after the first thread set the
+value, but before it called <code>pmem_persist</code>? The second thread could have
+observed the new value (which is not yet persistent) and set the <code>pmem->b</code>
+variable to <code>1</code>. On restart, it&rsquo;s possible that <code>pmem->a</code> is equal to <code>0</code>,
+and <code>pmem->b</code> is equal to <code>1</code>. All four combinations of values are possible
+on restart. The fact that the second thread might take some actions based
+on a non-persistent state is problematic as it causes data inconsistency.
+One possible way of preventing this situation is by persisting all values just
+after reading them (but before any other action is taken based on the
+value). This guarantees that the value was persistent at some point in time.
+The second thread from the earlier example could look like presented below:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#75715e>// thread 2
+</span><span style=color:#75715e>// initial value of pmem-&gt;b is 0
+</span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> (atomic_load(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>a) <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>) {
+    pmem_persist(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>a, <span style=color:#66d9ef>sizeof</span>(pmem<span style=color:#f92672>-&gt;</span>a));    <span style=color:#75715e>// visible = 1, persistent = 1
+</span><span style=color:#75715e></span>    pmem<span style=color:#f92672>-&gt;</span>b <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;                                <span style=color:#75715e>// visible = 1, persistent = ?
+</span><span style=color:#75715e></span>    pmem_persist(<span style=color:#f92672>&amp;</span>pmem<span style=color:#f92672>-&gt;</span>b, <span style=color:#66d9ef>sizeof</span>(pmem<span style=color:#f92672>-&gt;</span>b));    <span style=color:#75715e>// visible = 1, persistent = 1
+</span><span style=color:#75715e></span>}
+</code></pre></div><p>This solution makes (<code>pmem->a = 0</code>, <code>pmem->b = 1</code>) case impossible at the cost
+of additional persist on each read. To optimize this approach, we can add a
+dirty bit inside the value, which indicates whether the value was explicitly
+persisted or not. When modifying the value, the dirty flag is set to true. All
+readers first check this flag and proceed as follows:</p><ul><li>If a flag is set: a reader uses compare-and-swap to clear the bit and then
+persists the value.</li><li>If a flag is not set: the value is for sure persistent, and the reader can
+proceed.</li></ul><p>You can see an example of such implementation <a href=https://github.com/pmem/pmdk/blob/317a11cfc131681ace43e2865e1dd244a177ed00/src/examples/libpmem2/ringbuf/ringbuf.c#L212-L241>here</a>.</p><h3 id=shared-state-consistency>Shared state consistency</h3><p>One other problem which arises in concurrent applications is keeping shared
+state consistent. For example, to guarantee that calculating the number of
+elements in a data structure has O(1) time complexity, a size variable is
+usually used. In a case where only a single thread modifies the variable, one
+can safely use pmemobj transaction to ensure the size consistency like this:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list</span> {
+    pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>p<span style=color:#f92672>&lt;</span>size_t<span style=color:#f92672>&gt;</span> size;
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#a6e22e&quot;&gt;push_back&lt;/span&gt;(Value v) {
+    pmem&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;obj&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;transaction&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;run(pop, [&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;]{
+        ... &lt;span style=&quot;color:#75715e&quot;&gt;// allocate new node and insert it at the end
+</code></pre><p></span><span style=color:#75715e></span>size<span style=color:#f92672>++</span>;
+});
+}
+};</code></pre></div><p>Just as a reminder (more details can be found <a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-1-pmem-resident-variables>here</a>)
+when a variable of type <code>pmem::obj::p</code> (or other persistent-aware structure
+like persistent_ptr or self_relative_ptr) is modified, its old value is saved
+in an undo log. In case the enclosing transaction aborts or there is a power
+failure, the value is rolled back. If the transaction succeeds, all modified
+variables of persistent-aware types are persisted.</p></p><p>In a concurrent case, when multiple threads can insert new elements and update
+the size, this becomes more problematic. A shared variable cannot be simply
+modified in a pmemobj (undo log based) transaction without taking a global
+lock. To see why consider the following example:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list</span> {
+    pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>p<span style=color:#f92672>&lt;</span>std<span style=color:#f92672>::</span>atomic<span style=color:#f92672>&lt;</span>size_t<span style=color:#f92672>&gt;&gt;</span> size;
+<pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;// This function is called concurrently from multiple threads
+</code></pre><p></span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>push_back</span>(Value v) {
+pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&</span>]{
+&mldr; <span style=color:#75715e>// allocate new node and insert it at the end
+</span><span style=color:#75715e></span>size<span style=color:#f92672>++</span>;
+});
+}
+};</code></pre></div><p>Let’s assume that there are two threads calling <code>push_back()</code> concurrently, and
+they start incrementing size simultaneously. They will both store the same
+initial <code>size</code> value in theirs undo logs. If the transaction in the first
+thread aborts, it will abort the <code>size</code> value to the initial state. It will
+completely ignore the changes made by the second transaction.</p></p><p>One other problem is that readers might suffer from the &lsquo;dirty reads&rsquo;
+phenomenon. If a reader reads size variable while another thread modifies it
+inside a transaction, it reads uncommitted data. If a transaction aborts or a
+power failure happens, the size variable can be rolled back, and the reader&rsquo;s
+view of the data might be incorrect. In addition to that, the rollback itself
+is not thread-safe.</p><p>One possible solution is to make the global size volatile. The volatile
+variable can be modified using atomic instructions (after the transaction
+completes) while providing the number of elements in O(1) time. To avoid losing
+size on application restart we can introduce a persistent, per-thread <code>diff</code>
+variable which will track how many elements were inserted or deleted by a
+thread. Since it is per-thread, it can be safely modified in a transaction.
+On recovery, all <code>diff</code> variables can be summed-up to provide the actual size.
+Libpmemobj-cpp implements a helper data structure (which as of publish date
+of this blog post is not yet released as a public API) called
+<a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html>enumerable_thread_specific</a>. It provides API to request memory which
+will be private to a thread and iteration API. Enumerable thread-specific is
+used in concurrent_map and concurrent_hash_map to solve the shared state
+problem.</p><p>Following example shows <code>recover</code> and reimplemented <code>push_back</code> method for list
+data structure considered above:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list</span> {
+    std<span style=color:#f92672>::</span>atomic<span style=color:#f92672>&lt;</span>size_t<span style=color:#f92672>&gt;</span> global_size;
+    enumerable_thread_specific<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>p<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int64_t</span><span style=color:#f92672>&gt;&gt;</span> ptls;
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#a6e22e&quot;&gt;push_back&lt;/span&gt;(Value v) {
+    &lt;span style=&quot;color:#75715e&quot;&gt;// `diff` is a reference to thread-local storage on pmem
+</code></pre><p></span><span style=color:#75715e></span><span style=color:#66d9ef>auto</span> <span style=color:#f92672>&</span>diff <span style=color:#f92672>=</span> ptls.local();</p><pre><code>    pmem&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;obj&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;transaction&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;run(pop, [&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;]{
+        ... &lt;span style=&quot;color:#75715e&quot;&gt;// allocate new node and insert it at the end
+</code></pre><p></span><span style=color:#75715e></span>diff<span style=color:#f92672>++</span>;
+});</p><pre><code>    global_size&lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;;
+}
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#a6e22e&quot;&gt;recover&lt;/span&gt;() {
+    &lt;span style=&quot;color:#66d9ef&quot;&gt;int64_t&lt;/span&gt; size &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+    &lt;span style=&quot;color:#66d9ef&quot;&gt;for&lt;/span&gt; (&lt;span style=&quot;color:#66d9ef&quot;&gt;auto&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;diff : ptls)
+        size &lt;span style=&quot;color:#f92672&quot;&gt;+=&lt;/span&gt; diff;
+
+    global_size &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; size;
+}
+</code></pre><p>};</code></pre></div><h4 id=publishing-allocations>Publishing allocations</h4></p><p>In the above example, we ignored allocating and publishing new nodes - let&rsquo;s
+look at this now. The example below shows an attempt at implementing the
+push_back method in a concurrent, lock-free list. For simplicity, this example
+will assume that there can be multiple concurrent operations on the list, but
+only one of them can be <code>push_back</code> (it will be a single-writer,
+multi-reader list).</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>using</span> pmem<span style=color:#f92672>::</span>obj;
+<span style=color:#66d9ef>using</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>experimental;
+<p><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list</span> {
+<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>Node</span> {
+Value v;
+std<span style=color:#f92672>::</span>atomic<span style=color:#f92672>&lt;</span>self_relative_ptr<span style=color:#f92672>&lt;</span>Node<span style=color:#f92672>&gt;&gt;</span> next;
+};</p>
+<pre><code>std&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;atomic&lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt;self_relative_ptr&lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt;Node&lt;span style=&quot;color:#f92672&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; head;
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#a6e22e&quot;&gt;push_back&lt;/span&gt;(Value v) {
+    self_relative_ptr&lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt;Node&lt;span style=&quot;color:#f92672&quot;&gt;&amp;gt;&lt;/span&gt; new_node;
+    pmem&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;obj&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;transaction&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;run(pop, [&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;]{
+        new_node &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; make_persistent&lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt;Node&lt;span style=&quot;color:#f92672&quot;&gt;&amp;gt;&lt;/span&gt;(v);
+        find_last()&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next.store(new_node);
+    });
+}
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#a6e22e&quot;&gt;iterate&lt;/span&gt;(F callback) {
+    self_relative_ptr&lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt;Node&lt;span style=&quot;color:#f92672&quot;&gt;&amp;gt;&lt;/span&gt; ptr &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; head.load();
+    &lt;span style=&quot;color:#66d9ef&quot;&gt;while&lt;/span&gt; (ptr &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;nullptr&lt;/span&gt;) {
+        callback(ptr&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;v);
+        ptr &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; ptr&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next.load();
+    }
+}
+</code></pre><p>};</code></pre></div><p>The implementation uses self_relative_ptr as it’s currently the only pmem::obj
+pointer type that is working with std::atomic.</p></p><p>A careful reader will notice that the implementation will not work correctly.
+Here, we encounter the same problem with dirty reads which was described in
+&lsquo;Shared state consistency&rsquo;.</p><p>To solve this problem, one can try to move atomic store outside of the
+transaction:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>push_back</span>(Value v) {
+    self_relative_ptr<span style=color:#f92672>&lt;</span>Node<span style=color:#f92672>&gt;</span> new_node;
+    pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>]{
+        new_node <span style=color:#f92672>=</span> make_persistent<span style=color:#f92672>&lt;</span>Node<span style=color:#f92672>&gt;</span>(v);
+    });
+<pre><code>find_last()&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next.store(new_node);
+pop.persist(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;find_last()&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next, &lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt;(new_node));
+</code></pre><p>}</code></pre></div><p>To make sure there are no visibility problems, iterate method would need to be
+changed to use persist on read, as described in ‘Lock-free programming on pmem’:</p></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>iterate</span>(F callback) {
+    self_relative_ptr<span style=color:#f92672>&lt;</span>Node<span style=color:#f92672>&gt;</span> ptr <span style=color:#f92672>=</span> head.load();
+    pop.persist(<span style=color:#f92672>&amp;</span>head, <span style=color:#66d9ef>sizeof</span>(head));
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;while&lt;/span&gt; (ptr &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;nullptr&lt;/span&gt;) {
+    callback(ptr&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;v);
+
+    &lt;span style=&quot;color:#66d9ef&quot;&gt;auto&lt;/span&gt; next &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; ptr&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next.load();
+    pop.persist(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;ptr&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next, &lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt;(ptr&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next));
+
+    ptr &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; next;
+}
+</code></pre><p>}</code></pre></div><p>However, there is still one other issue - a possible memory leak. If a crash
+happens during the <code>push_back</code> method just after the new node is allocated,
+but before it is linked to the list, it will not be reachable after a restart.
+<code>new_node</code> pointer is kept on the stack, which means it will not survive a restart.</p></p><p>A solution to this problem is to move <code>new_node</code> pointer variable from stack to
+persistent memory. In this example it can be a separate variable within the
+<code>list</code> structure.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>push_back</span>(Value v) {
+    pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>]{
+        <span style=color:#75715e>// new_node resides on pmem.
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>this</span><span style=color:#f92672>-&gt;</span>new_node <span style=color:#f92672>=</span> make_persistent<span style=color:#f92672>&lt;</span>Node<span style=color:#f92672>&gt;</span>(v);
+    });
+<pre><code>find_last()&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next.store(tls_ref);
+pop.persist(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;find_last()&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next, &lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt;(tls_ref));
+</code></pre><p>}</code></pre></div><p>Because <code>new_node</code> now resides on persistent memory, even if it is not linked
+to the list, it is always reachable on restart. There are no problems with
+dirty reads or visibility as <code>new_node</code> is never read during normal execution
+(only on recovery). If <code>push_back</code> would need to be thread-safe, <code>new_node</code>
+variable could be replaced with enumerable_thread_specific.</p></p><h3 id=summary>Summary</h3><p>In this blog post, I highlighted a few challenges related to concurrent
+programming on persistent memory.</p><p>First, I discussed the fact that data modification might be visible before
+becoming persistent, which can lead to data inconsistencies in lock-free
+programming.</p><p>Then, I moved on to discuss how to handle shared state on persistent memory.
+I proposed a solution for keeping the shared state consistent by using
+persistent, per-thread storage.</p><p>Finally, I talked about avoiding memory leaks in pmemobj-based, lock-free
+applications. I suggested splitting global state modifications into two steps.
+First, store a pointer to newly allocated memory to a private (possibly
+per-thread) persistent variable and only then make it visible for other
+threads.</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2021/09/concurrency-considerations-in-libpmemobj-cpp/')"><i class=icon-facebook></i>
+<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Concurrency considerations in libpmemobj-cpp&url=https://pmem.io/blog/2021/09/concurrency-considerations-in-libpmemobj-cpp/')"><i class=icon-twitter></i>
+<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2021/09/concurrency-considerations-in-libpmemobj-cpp/&title=&summary=&source=')"><i class=icon-linkedin></i>
+<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
+<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2021/09/concurrency-considerations-in-libpmemobj-cpp/')"><i class=icon-email3></i>
+<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2021/09/libpmemobj-cpp-lessons-learned/?ref=footer">&lArr; Libpmemobj-cpp - lessons...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/?ref=footer">Memkind support for... &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2017/01/modeling-strings-with-libpmemobj-c-bindings/ data-lightbox=image><img src=/images/pmem_logo.png alt="Modeling strings with libpmemobj C++ bindings"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2017/01/modeling-strings-with-libpmemobj-c-bindings/>Modeling strings with libpmemobj C++ bindings</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> RobDickinson</li><li><i class=icon-calendar3></i> 23 Jan, 2017</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2016/12/libpmemobj-a-year-in-review/ data-lightbox=image><img src=/images/pmem_logo.png alt="libpmemobj - a year in review"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2016/12/libpmemobj-a-year-in-review/>libpmemobj - a year in review</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Pbalcer</li><li><i class=icon-calendar3></i> 20 Dec, 2016</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2016/06/c-bindings-for-libpmemobj-epilogue-converting-existing-applications/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (epilogue) - converting existing applications"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2016/06/c-bindings-for-libpmemobj-epilogue-converting-existing-applications/>C++ bindings for libpmemobj (epilogue) - converting existing applications</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Tomaszkapela</li><li><i class=icon-calendar3></i> 02 Jun, 2016</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-7-synchronization-primitives/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 7) - synchronization primitives"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-7-synchronization-primitives/>C++ bindings for libpmemobj (part 7) - synchronization primitives</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Tomaszkapela</li><li><i class=icon-calendar3></i> 31 May, 2016</li></ul></div></div></div></div></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+<a href=/tags/how-to class=block role=button>how-to</a>
+<a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/kafka class=block role=button>kafka</a>
+<a href=/tags/oracle class=block role=button>oracle</a>
+<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PMemKV on PMem.io</title><link>https://pmem.io/announcements/pmemkv/</link><description>Recent content in PMemKV on PMem.io</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Fri, 02 Oct 2020 20:32:56 +0000</lastBuildDate><atom:link href="https://pmem.io/announcements/pmemkv/index.xml" rel="self" type="application/rss+xml"/><item><title>PMemKV v1.3 Release</title><link>https://pmem.io/announcements/2020/pmemkv-v1-3-release/</link><pubDate>Fri, 02 Oct 2020 20:32:56 +0000</pubDate><guid>https://pmem.io/announcements/2020/pmemkv-v1-3-release/</guid><description>Hello Community,
+I’m pleased to announce that pmemkv 1.3 has been released and is available from our GitHub pages.
+This release introduces a new experimental engine - radix (single-threaded sorted map, backed by libpmemobj-cpp&amp;rsquo;s radix_tree container).
+We have also extended the configuration class API and redesigned the optimized version of stree engine.
+Features:
+radix engine (single-threaded sorted map) config setters with type safety for common config fields stree engine optimization (single-threaded sorted map with custom comparator support) Major fixes:</description></item></channel></rss>

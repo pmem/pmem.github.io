@@ -1,0 +1,408 @@
+<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Implementing (simple) MySQL storage engine with libpmemobj</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Implementing (simple) MySQL storage engine with libpmemobj</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 02 Jun, 2015</li><li><i class=icon-user></i> Pbalcer</li><li><i class=icon-folder-open></i>
+Mysql</li></ul></div><div class="entry-content mt-0"><p>The focus of the pmemobj library, like the name suggests, is storing <strong>objects</strong> on a <strong>persistent</strong> medium. A different, but very common, approach of doing exactly the same is to use a database with a specialized interface to manipulate the collection of data. MySQL is one such database, it processes SQL queries by calling (usually) multiple methods of the storage engine used for the data tables that query operates on. This tutorial covers basics of the pmemobj library, including non-transactional allocations and very simple transactions.</p><p>For simplicity sake the engine described here is very rudimentary. It does not support multiple simultaneous connections and there&rsquo;s no implementation of indexes nor transactions.</p><h3 id=design>Design</h3><p>To have a working storage engine, implementation of a few methods is required. First of all, a table has to be created, opened and then closed - for our engine a table will be represented by a single pmemobj pool in a file with <strong>.obj</strong> extension. Once that&rsquo;s done we have to decide on the record representation in the internal database engine, the easiest way is simply to use the mysql format and not to parse the record data at all - just note that for more advanced engines that may be not the best choice. Only one major design decision left - there has to be a way of iterating through the records, thankfully the pmemobj library internally stores the allocated objects for us and has an interface to access them one at a time, so our engine doesn&rsquo;t have to do anything special, but of course if you want to implement indexing it won&rsquo;t be sufficient.</p><p>Since the engine will handle the record data directly, the implementation of INSERT will be simple, allocate an object to the internal collection and copy the data. How to handle SELECTs? That should be obvious by now. MySQL requires implementation of a simple iterator with 2 operations: init and next which can be almost directly mapped to <code>POBJ_FIRST</code> and <code>POBJ_NEXT</code> pmemobj API functions. The only two operations left that the engine will support are UPDATE and DELETE. They both operate on the most recently read object by the iterator, the UPDATE is a simple memcpy and DELETE is a free. Yes, it&rsquo;s really that simple :)</p><h3 id=implementation>Implementation</h3><p>This tutorial covers only the essential information about MySQL internals required to implement storage engine, for more information visit <a href=https://dev.mysql.com/doc/internals/en/custom-engine.html>this excellent tutorial</a>. Our starting point will be the example storage engine available on the <a href=https://github.com/mysql/mysql-server>MySQL github page</a>. You can modify the example itself or copy it with a different name to the same directory, CMake will automatically build it with the entire project.</p><h4 id=defining-pool-extension>Defining pool extension</h4><p>To make use of MySQL automagically cleaning up the tables for us on DROP TABLE the extension of the pool file has to be specified, to do that we have to define the extension:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>#define PMEMOBJ_EXT &#34;.obj&#34;</span></code></pre></td></tr></table></div></div><p>Declare a table with extensions terminated by <code>NullS</code> variable:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>ha_obj_exts[] <span style=color:#f92672>=</span> {
+PMEMOBJ_EXT,
+NullS
+};</code></pre></td></tr></table></div></div><p>and then implement the bas_ext method of the handler class:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>ha_obj<span style=color:#f92672>::</span>bas_ext() <span style=color:#66d9ef>const</span>
+{
+<span style=color:#66d9ef>return</span> ha_obj_exts;
+}</code></pre></td></tr></table></div></div><p>From now on, we don&rsquo;t have to worry about leftover pool files created by the engine, all files with the <code>.obj</code> extension in the database directory will get erased when no longer needed.</p><h4 id=creating-the-table>Creating the table</h4><p>As mentioned previously, we will create a new pmemobj pool for each table. We have to remember to add the file extension to the table name and then just create the pool. A good candidate for the <code>layout</code> parameter of the <code>pmemobj_create</code> method is the <code>name</code>, because it uniquely identifies that table in the database. Since the pmemobj pool cannot grow we have to choose some arbitrary value here represented by the <code>DEFAULT_TAB_SIZE</code>. Keep in mind that <code>create</code> function does not mean <code>open</code>, so there&rsquo;s no need to hold the <code>PMEMobjpool</code> pointer anywhere.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>create(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>name, TABLE <span style=color:#f92672>*</span>table_arg,
+HA_CREATE_INFO <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>create_info)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::create&#34;</span>);
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; path[MAX_PATH_LEN];
+snprintf(path, MAX_PATH_LEN, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;%s%s&amp;#34;&lt;/span&gt;, name, PMEMOBJ_EXT);
+
+PMEMobjpool &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;pop &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemobj_create(path, name, DEFAULT_TAB_SIZE, S_IRWXU);
+&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (pop &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; NULL)
+	DBUG_RETURN(HA_ERR_OUT_OF_MEM);
+
+pmemobj_close(pop);
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>Just to keep things simple, the <code>MAX_PATH_LEN</code> evaluates to <code>255</code> in the example code, actual implementation might want to do this properly.</p><h4 id=opening-the-table>Opening the table</h4><p>Now that we have the pool created, it would be a good idea to open it and this time actually keep the pointer. To do that, add a new variable to the table class that will hold the <code>PMEMobjpool</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>class ha_obj: public handler
+{
+...
+private:
+PMEMobjpool <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>objtab;
+};</code></pre></td></tr></table></div></div><p>The function this variable should be initialized in is <code>open</code>, and it looks like this:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>open(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>name, <span style=color:#66d9ef>int</span> mode, uint test_if_locked)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::open&#34;</span>);
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; path[MAX_PATH_LEN];
+snprintf(path, MAX_PATH_LEN, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;%s%s&amp;#34;&lt;/span&gt;, name, PMEMOBJ_EXT);
+
+objtab &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemobj_open(path, name);
+&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (objtab &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; NULL)
+	DBUG_RETURN(HA_ERR_CRASHED_ON_USAGE);
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>No surprises here: add the extension and open the pool - done.</p><h4 id=closing-the-table>Closing the table</h4><p>For sake of completeness, here&rsquo;s the <code>close</code> method:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>close(<span style=color:#66d9ef>void</span>)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::close&#34;</span>);
+<pre><code>pmemobj_close(objtab);
+objtab &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; NULL;
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><h4 id=implementing-insert-statement>Implementing INSERT statement</h4><p>Now that we can properly manage tables it&rsquo;s time to populate them. Here&rsquo;s the method that has to be implemented:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>virtual <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>write_row</span>(uchar <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>buf);</code></pre></td></tr></table></div></div><p>The return value is 0 when the row was properly written and <code>HA_ERR_OUT_OF_MEM</code> when a new row cannot be allocated. The byte buffer <code>buf</code> contains the record data in MySQL internal format - this engine will not interpret it in any way. You might have noticed that there&rsquo;s no length accompanying this buffer, this is because its maximum size is equal to the record length - which the user has to specify in <code>CREATE TABLE</code>, that size is stored in <code>table->s->reclength</code> variable.
+Now let&rsquo;s define the row structure we are going to allocate. Since at compile time the <code>reclength</code> is not known, this has to suffice:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>POBJ_LAYOUT_BEGIN(mysql_obj);
+POBJ_LAYOUT_TOID(mysql_obj, <span style=color:#66d9ef>struct</span> table_row);
+POBJ_LAYOUT_END(mysql_obj);
+<p><span style=color:#66d9ef>struct</span> table_row {
+uchar buf[];
+};</code></pre></td></tr></table></p></div></div><p>Now that we have everything we need, just allocate an object from the table pool and do a memcpy:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>TOID(<span style=color:#66d9ef>struct</span> table_row) row;
+row <span style=color:#f92672>=</span> POBJ_ZALLOC(objtab, <span style=color:#f92672>&amp;</span>row, <span style=color:#66d9ef>struct</span> table_row, table<span style=color:#f92672>-&gt;</span>s<span style=color:#f92672>-&gt;</span>reclength);
+<span style=color:#66d9ef>if</span> (TOID_IS_NULL(row))
+DBUG_RETURN(HA_ERR_OUT_OF_MEM);
+memcpy(D_RW(row)<span style=color:#f92672>-&gt;</span>buf, buf, table<span style=color:#f92672>-&gt;</span>s<span style=color:#f92672>-&gt;</span>reclength);</code></pre></td></tr></table></div></div><p>Looks good, right? Maybe at the first glance, but there are in fact two things wrong here. First of all, the data is never &lsquo;persisted&rsquo; to the memory which means that there&rsquo;s no way of knowing when the record data will be in fact stored on the desired storage medium and not in cache. Luckily there&rsquo;s an easy fix for that in the library - the <code>pmemobj_memcpy_persist</code> function, that, where possible, uses non-temporal stores to bypass the cache and write the data directly to the memory. So what&rsquo;s the other wrong thing? Well, imagine someone pulled the plug from the server right in the middle of the memcpy operation - the object will be there in the table but with only half the data and, what&rsquo;s worse, there is no way of detecting if this row is invalid. There are two different tools our library provides to combat this fundamental problem: transactions and allocation constructors. Using the first approach, correct implementation of this method might look like this:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>TX<span style=color:#f92672>*</span><span style=color:#a6e22e>BEGIN</span>(objtab) {
+TOID(<span style=color:#66d9ef>struct</span> table_row) row <span style=color:#f92672>=</span> TX_ALLOC(<span style=color:#66d9ef>struct</span> table_row, table<span style=color:#f92672>-&gt;</span>s<span style=color:#f92672>-&gt;</span>reclength);
+<span style=color:#75715e>/* don&#39;t do pmemobj*tx_add_range, the object is new */</span>
+memcpy(D_RW(row)<span style=color:#f92672>-&gt;</span>buf, buf, table<span style=color:#f92672>-&gt;</span>s<span style=color:#f92672>-&gt;</span>reclength);
+} TX_ONABORT {
+err <span style=color:#f92672>=</span> HA_ERR_OUT_OF_MEM;
+} TX_END</code></pre></td></tr></table></div></div><p>Which is perfectly OK, the allocation will be placed in the <code>TABLE_ROW_TYPE</code> collection only if the entire transaction successfully finishes. Also notice that there&rsquo;s no NULL-check like before, this is because the transaction will get aborted if any of the <code>pmemobj_tx_*</code> methods inside it fails. Even though we invested a lot of effort in making sure the transactions don&rsquo;t add too much overhead, far more is done behind the scenes here then with a simple allocation and that&rsquo;s where the constructor comes in to play, so let&rsquo;s write slightly more efficient, and final, version of the entire method.</p><p>First - the constructor, its only task is to copy persistently the MySQL-provided buffer to the allocated object. The constructor callback has two arguments: raw pointer to allocated object and context argument. There&rsquo;s no need to use <code>pmemobj_direct</code> or <code>D_*</code> on the ptr because it&rsquo;s already a direct pointer, and don&rsquo;t forget to persist the modified data. It might be tempting, for other uses, to allocate another pmem object within the constructor but that is not permitted and leads to undefined behavior. The constructor is invoked after the memory has been reserved in a volatile state, but before any persistent changes to the heap layout has been made, so when an interruption happens there&rsquo;s nothing to rollback - there simply won&rsquo;t be a trace of this allocation. Also it&rsquo;s important to note that no locks are held during the constructor call, hence the user is responsible for providing any synchronization.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>struct</span> row_args {
+uchar <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>buf;
+size_t len;
+};
+<p><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>row_construct</span>(PMEMobjpool <span style=color:#f92672><em></span>pop, <span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>ptr, <span style=color:#66d9ef>void</span> <span style=color:#f92672><em></span>args)
+{
+<span style=color:#66d9ef>struct</span> row_args <span style=color:#f92672></em></span>r <span style=color:#f92672>=</span> (<span style=color:#66d9ef>struct</span> row_args <span style=color:#f92672><em></span>)args;
+<span style=color:#66d9ef>struct</span> table_row <span style=color:#f92672></em></span>row <span style=color:#f92672>=</span> (<span style=color:#66d9ef>struct</span> table_row <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;<span style=color:#f92672>*</span>)ptr;
+pmemobj_memcpy_persist(pop, row<span style=color:#f92672>-&gt;</span>buf, r<span style=color:#f92672>-&gt;</span>buf, r<span style=color:#f92672>-&gt;</span>len);
+}</code></pre></td></tr></table></p></div></div><p>The rest is very simple, allocate the object and check if the operation succeeded.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>write_row(uchar <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>buf)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::write_row&#34;</span>);
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;timestamp_field_type &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt; TIMESTAMP_AUTO_SET_ON_INSERT)
+	table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;timestamp_field&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;set_time();
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;struct&lt;/span&gt; row_args args &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; {buf, table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;s&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;reclength};
+TOID(&lt;span style=&quot;color:#66d9ef&quot;&gt;struct&lt;/span&gt; table_row) row;
+POBJ_ALLOC(objtab, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;row, &lt;span style=&quot;color:#66d9ef&quot;&gt;struct&lt;/span&gt; table_row, table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;s&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;reclength, row_construct, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;args);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (row.oid.off &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;)
+	DBUG_RETURN(HA_ERR_OUT_OF_MEM);
+
+stats.records&lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;;
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>Just to showcase different methods of achieving the same thing, raw <code>PMEMoid</code> is used here and NULL-checked.</p><h4 id=implementing-select-statement>Implementing SELECT statement</h4><p>The engine wouldn&rsquo;t be very useful if the only supported operation was INSERT. Let&rsquo;s implement the methods to read row data, but keep in mind that locks and generally synchronization of the storage engine isn&rsquo;t topic of this tutorial, for that please refer to the MySQL documentation.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>virtual <span style=color:#66d9ef>int</span> rnd<span style=color:#f92672>*</span><span style=color:#a6e22e>init</span>(<span style=color:#66d9ef>bool</span> scan) <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+virtual <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rnd_end</span>();
+virtual <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rnd_next</span>(uchar <span style=color:#960050;background-color:#1e0010>\</span>_buf) <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+virtual <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rnd_pos</span>(uchar <span style=color:#f92672>*</span> buf, uchar <span style=color:#f92672>*</span>pos) <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+virtual <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>position</span>(<span style=color:#66d9ef>const</span> uchar <span style=color:#f92672>*</span>record) <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;</code></pre></td></tr></table></div></div><p>As you can see there is quite a lot of functions to implement, but no worries, it&rsquo;s quite easy. First we have to add two persistent memory pointers to the table class that will serve us as iterators. The reason for the two variables will become clear later.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>class ha_obj: public handler
+{
+...
+private:
+...
+TOID(<span style=color:#66d9ef>struct</span> table_row) iter;
+TOID(<span style=color:#66d9ef>struct</span> table_row) current;
+};</code></pre></td></tr></table></div></div><p>The <code>rnd_init</code> is called before table scans, here we initialize the iterator, pointing it to the first object in the collection. Similarly the <code>rnd_end</code> is called after table scans, it is where the cleanup happens.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>rnd_init(<span style=color:#66d9ef>bool</span> scan)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::rnd_init&#34;</span>);
+<pre><code>iter &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; POBJ_FIRST(objtab, &lt;span style=&quot;color:#66d9ef&quot;&gt;struct&lt;/span&gt; table_row);
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</p><p><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>rnd_end()
+{
+DBUG_ENTER(<span style=color:#e6db74>"ha_obj::rnd_end"</span>);</p><pre><code>TOID_ASSIGN(iter, OID_NULL);
+TOID_ASSIGN(current, OID_NULL);
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>Hope that&rsquo;s clear and easy to understand.</p><p>Moving on to the <code>rnd_next</code> which is required for sequential reads, basically the whole job is to populate a buffer with data from current object and move the iterator forward. If there are no more objects to read the return value has to be <code>HA_ERR_END_OF_FILE</code>. Here&rsquo;s the complete implementation:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>rnd_next(uchar <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>buf)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::rnd_next&#34;</span>);
+MYSQL_READ_ROW_START(table_share<span style=color:#f92672>-&gt;</span>db.str, table_share<span style=color:#f92672>-&gt;</span>table_name.str,
+TRUE);
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (OID_IS_NULL(iter)) {
+	MYSQL_READ_ROW_DONE(HA_ERR_END_OF_FILE);
+	DBUG_RETURN(HA_ERR_END_OF_FILE);
+}
+
+memcpy(buf, D_RO(iter)&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;buf, table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;s&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;reclength);
+
+current &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; iter;
+iter &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; POBJ_NEXT(iter);
+
+MYSQL_READ_ROW_DONE(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>One might wonder why this time a regular memcpy is used, look at the destination of the copying - it is into volatile memory.</p><p>The remaining two methods are for non-sequential access. The <code>position</code> is called to save the most recently read row pointer into the record buffer, there&rsquo;s a helper macro to do just that. The <code>off</code> variable of <code>PMEMoid</code> stores the offset of the pointer relative to the pool, that&rsquo;s why this simple trick works:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>void</span> ha_obj<span style=color:#f92672>::</span>position(<span style=color:#66d9ef>const</span> uchar <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>record)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::position&#34;</span>);
+<pre><code>my_store_ptr(ref, ref_length, current.oid.off);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>The opposite operation <code>rnd_pos</code> has to read the buffer based on the previously stored value. This method is similar to the <code>rnd_next</code>, but notice the way <code>PMEMoid</code> is recreated basing on the stored offset.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>rnd_pos(uchar <span style=color:#f92672>*</span>buf, uchar <span style=color:#f92672>*</span>pos)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::rnd_pos&#34;</span>);
+<pre><code>MYSQL_READ_ROW_START(table_share&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;db.str, table_share&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;table_name.str,
+        FALSE);
+
+PMEMoid oid &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; {iter.oid.pool_uuid_lo, my_get_ptr(pos,ref_length)};
+&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (oid.off &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;) {
+	MYSQL_READ_ROW_DONE(HA_ERR_END_OF_FILE);
+	DBUG_RETURN(HA_ERR_END_OF_FILE);
+}
+
+TOID_ASSIGN(iter, oid);
+TOID_ASSIGN(current, oid);
+
+memcpy(buf, D_RO(iter)&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;buf, table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;s&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;reclength);
+
+MYSQL_READ_ROW_DONE(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>Now we have a functional storage engine that actually works ;) You can INSERT and SELECT rows, and even ORDER BY works.</p><h4 id=implementing-delete-statement>Implementing DELETE statement</h4><p>To do this operation the MySQL server first reads the row to be deleted and then calls the <code>delete_row</code> method. So we just have to free the <code>current</code> variable.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>delete_row(<span style=color:#66d9ef>const</span> uchar <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>buf)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::delete_row&#34;</span>);
+<pre><code>POBJ_FREE(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;current);
+stats.records&lt;span style=&quot;color:#f92672&quot;&gt;--&lt;/span&gt;;
+
+DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><h4 id=implementing-update-statement>Implementing UPDATE statement</h4><p>This is the same deal as with DELETE, but instead of free we have to do a memcpy. You might be tempted to write something like this:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>memcpy(D_RW(current)<span style=color:#f92672>-&gt;</span>buf, new_data, table<span style=color:#f92672>-&gt;</span>s<span style=color:#f92672>-&gt;</span>reclength);</code></pre></td></tr></table></div></div><p>That would be obviously wrong, remember INSERT? Here we have to use a transaction:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> ha_obj<span style=color:#f92672>::</span>update_row(<span style=color:#66d9ef>const</span> uchar <span style=color:#f92672>*</span>old_data, uchar <span style=color:#f92672>*</span>new_data)
+{
+DBUG_ENTER(<span style=color:#e6db74>&#34;ha_obj::update_row&#34;</span>);
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;timestamp_field_type &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt; TIMESTAMP_AUTO_SET_ON_UPDATE)
+	table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;timestamp_field&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;set_time();
+
+TX_BEGIN(objtab) {
+	TX_MEMCPY(D_RW(current)&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;buf, new_data, table&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;s&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;reclength);
+	&lt;span style=&quot;color:#75715e&quot;&gt;// don&amp;#39;t persist, the TX will know to flush this memory range
+</code></pre><p></span><span style=color:#75715e></span>} TX_END</p><pre><code>DBUG_RETURN(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>This will store the old value in the pool and, in case of an interruption, will do a rollback or, when everything succeeds, discards the old data backup.</p><h3 id=conclusion>Conclusion</h3><p>Just to verify if the implementation works, run the following command:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ ./mysqlslap -u<span style=color:#f92672>[</span>user<span style=color:#f92672>]</span> -p<span style=color:#f92672>[</span>pass<span style=color:#f92672>]</span> --auto-generate-sql --auto-generate-sql-execute-number<span style=color:#f92672>=</span><span style=color:#ae81ff>5000</span> --engine<span style=color:#f92672>=</span>obj --verbose --iterations<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> --number-int-cols<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span> --number-char-cols<span style=color:#f92672>=</span><span style=color:#ae81ff>20</span></code></pre></div><p>If it doesn&rsquo;t segfault then congratulations, you&rsquo;ve just implemented a MySQL storage engine using only libpmemobj. I personally hope the experience wasn&rsquo;t too bad.</p><p>Here&rsquo;s an example output of the above command:</p><pre><code>Benchmark
+	Running for engine obj
+	Average number of seconds to run all queries: 6.334 seconds
+	Minimum number of seconds to run all queries: 6.334 seconds
+	Maximum number of seconds to run all queries: 6.334 seconds
+	Number of clients running queries: 1
+	Average number of queries per client: 5000
+</code></pre><p>Keep in mind that while this isn&rsquo;t made up, the numbers don&rsquo;t matter ;)</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2015/06/implementing-simple-mysql-storage-engine-with-libpmemobj/')"><i class=icon-facebook></i>
+<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Implementing (simple) MySQL storage engine with libpmemobj&url=https://pmem.io/blog/2015/06/implementing-simple-mysql-storage-engine-with-libpmemobj/')"><i class=icon-twitter></i>
+<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2015/06/implementing-simple-mysql-storage-engine-with-libpmemobj/&title=&summary=&source=')"><i class=icon-linkedin></i>
+<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
+<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2015/06/implementing-simple-mysql-storage-engine-with-libpmemobj/')"><i class=icon-email3></i>
+<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2015/06/type-safety-macros-in-libpmemobj/?ref=footer">&lArr; Type safety macros in...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2014/09/using-the-block-translation-table-for-sector-atomicity/?ref=footer">Using the Block Translation... &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+<a href=/tags/how-to class=block role=button>how-to</a>
+<a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/kafka class=block role=button>kafka</a>
+<a href=/tags/oracle class=block role=button>oracle</a>
+<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
