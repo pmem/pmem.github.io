@@ -21,7 +21,7 @@ solution_url: "http://memkind.github.io/memkind/"
 image: "https://opengraph.githubassets.com/8f1e6defe093913092c82779b99e23cf24d4dbd81ee3f3f9e1f1a624405345e3/memkind/memkind"
 
 # Brief description
-description: "This interposer library enables the memkind memory tiering mechanism. With this funcionality, allocations will be split between different types of memory automatically. The library allows making allocations with the usage of multiple kinds keeping a specified ratio between them. "
+description: "This interposer library enables the memkind memory tiering mechanism. With this functionality, allocations will be split between different types of memory automatically. The library allows making allocations with the usage of multiple kinds keeping a specified ratio between them. "
 
 # Taxonomy
 # Solutions examples: Databases, Healthcare, Security, Financial Services, Cloud Service Provider, Developer Libraries, Developer Tools, Operating Systems, etc...
