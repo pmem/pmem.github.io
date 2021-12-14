@@ -1,26 +1,367 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Pool features</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Pool features</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 05 Dec, 2018</li><li><i class=icon-user></i> Janekmi</li><li><i class=icon-folder-open></i>
-Pool_features</li></ul></div><div class="entry-content mt-0"><h1 id=introduction>Introduction</h1><p>Since the very first release, PMDK pools had internal feature flags. They were
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Pool features</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Pool features</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 05 Dec, 2018</li>
+<li><i class=icon-user></i> Janekmi</li>
+<li>
+<i class=icon-folder-open></i>
+Pool_features
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<h1 id=introduction>Introduction</h1>
+<p>Since the very first release, PMDK pools had internal feature flags. They were
 mostly a hidden implementation detail. The more observant users might have
 noticed pool features listing in <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-info.1.html>pmempool info</a> output,
-but that&rsquo;s about it.</p><p><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk>Release 1.5</a> introduced a set of new feature flags.
+but that&rsquo;s about it.</p>
+<p><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk>Release 1.5</a> introduced a set of new feature flags.
 And since it&rsquo;s imperative that system administrators have the ability to manage
-enabled features, we&rsquo;ve added functionality that helps with that:</p><ul><li><code>pmempool</code> tool <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html>commands for managing features</a></li><li><em>libpmempool</em> <a href=https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>API for managing features</a></li><li>CTL namespace for
-<a href=#enabling-feature-at-creation-time>setting a <code>SHUTDOWN_STATE</code> initial value</a></li></ul><h1 id=taxonomy-of-pool-features>Taxonomy of pool features</h1><p>Each of the toggleable features can be disabled or enabled for the given pool
+enabled features, we&rsquo;ve added functionality that helps with that:</p>
+<ul>
+<li><code>pmempool</code> tool <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html>commands for managing features</a></li>
+<li><em>libpmempool</em> <a href=https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>API for managing features</a></li>
+<li>CTL namespace for
+<a href=#enabling-feature-at-creation-time>setting a <code>SHUTDOWN_STATE</code> initial value</a></li>
+</ul>
+<h1 id=taxonomy-of-pool-features>Taxonomy of pool features</h1>
+<p>Each of the toggleable features can be disabled or enabled for the given pool
 and the support for these features might vary depending on the library version.
-All features are divided into two groups:</p><ul><li>compatible features:<ul><li><code>CHECK_BAD_BLOCKS</code></li></ul></li><li>incompatible features:<ul><li><code>SINGLEHDR</code></li><li><code>CKSUM_2K</code></li><li><code>SHUTDOWN_STATE</code></li></ul></li></ul><p>Resulting in the following alternatives:</p><ul><li>if a feature is disabled, it&rsquo;s disabled (obviously)</li><li>if a feature is enabled and supported by the library, it&rsquo;s enabled</li><li>if a feature is enabled and not supported, two things that might happen:<ul><li>if it&rsquo;s a compatible feature, it&rsquo;s disabled</li><li>if it&rsquo;s an incompatible feature, the pool cannot be opened</li></ul></li></ul><h2 id=cksum_2k-dependent-features>CKSUM_2K dependent features</h2><p>The first 4K of a pool is reserved for a pool header. The pool header is
+All features are divided into two groups:</p>
+<ul>
+<li>compatible features:
+<ul>
+<li><code>CHECK_BAD_BLOCKS</code></li>
+</ul>
+</li>
+<li>incompatible features:
+<ul>
+<li><code>SINGLEHDR</code></li>
+<li><code>CKSUM_2K</code></li>
+<li><code>SHUTDOWN_STATE</code></li>
+</ul>
+</li>
+</ul>
+<p>Resulting in the following alternatives:</p>
+<ul>
+<li>if a feature is disabled, it&rsquo;s disabled (obviously)</li>
+<li>if a feature is enabled and supported by the library, it&rsquo;s enabled</li>
+<li>if a feature is enabled and not supported, two things that might happen:
+<ul>
+<li>if it&rsquo;s a compatible feature, it&rsquo;s disabled</li>
+<li>if it&rsquo;s an incompatible feature, the pool cannot be opened</li>
+</ul>
+</li>
+</ul>
+<h2 id=cksum_2k-dependent-features>CKSUM_2K dependent features</h2>
+<p>The first 4K of a pool is reserved for a pool header. The pool header is
 checksummed to ensure its consistency. If <code>CKSUM_2K</code> feature is enabled, only
 first 2K of the pool header is checksummed; otherwise, the entire header is.
 This feature gives the library more flexibility which is needed for features
-that require extra pool header capacity.</p><p>Some features will depend on that. Currently, that&rsquo;s only <code>SHUTDOWN_STATE</code> feature.
+that require extra pool header capacity.</p>
+<p>Some features will depend on that. Currently, that&rsquo;s only <code>SHUTDOWN_STATE</code> feature.
 This means that it will need to be enabled prior to enabling those features and
-they will need to be disabled prior to disabling <code>CKSUM_2K</code> feature.</p><h1 id=feature-toggling-and-querying>Feature toggling and querying</h1><p>Toggling and querying features for already existing and not open pools can
-be performed using the <code>pmempool</code> tool:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ pmempool feature --enable SHUTDOWN_STATE /path/to/poolset.file <span style=color:#75715e># to enable</span>
+they will need to be disabled prior to disabling <code>CKSUM_2K</code> feature.</p>
+<h1 id=feature-toggling-and-querying>Feature toggling and querying</h1>
+<p>Toggling and querying features for already existing and not open pools can
+be performed using the <code>pmempool</code> tool:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ pmempool feature --enable SHUTDOWN_STATE /path/to/poolset.file <span style=color:#75715e># to enable</span>
 <p>$ pmempool feature &ndash;disable SHUTDOWN_STATE /path/to/poolset.file <span style=color:#75715e># to disable</span></p>
 <p>$ pmempool feature &ndash;query SHUTDOWN_STATE /path/to/poolset.file <span style=color:#75715e># to query</span>
 <span style=color:#ae81ff>0</span> <span style=color:#75715e># query result: 0 == disabled, 1 == enabled</span>
-</code></pre></div><p>or using <em>libpmempool</em> API calls:</p></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/path/to/poolset.file&#34;</span>;
+</code></pre></div><p>or using <em>libpmempool</em> API calls:</p></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/path/to/poolset.file&#34;</span>;
 <span style=color:#66d9ef>enum</span> pmempool_feature f <span style=color:#f92672>=</span> SHUTDOWN_STATE;
 <span style=color:#66d9ef>unsigned</span> flags <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>/* only currently supported value */</span>
 <span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
@@ -41,34 +382,105 @@ fprintf(stderr, <span style=color:#e6db74>&quot;pmempool_feature_query failed wi
 } <span style=color:#66d9ef>else</span> {
 printf(<span style=color:#e6db74>&quot;pmempool_feature_query results is %s&quot;</span>, result <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&quot;disabled&quot;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&quot;enabled&quot;</span>);
 }
-</code></pre></div><p><strong>Disclaimers</strong>:</p></p><ul><li>toggling features is not supported for poolsets with remote replicas</li><li><code>SINGLEHDR</code> feature is read-only (enabling or disabling it will fail)</li></ul><h2 id=enabling-feature-at-creation-time>Enabling feature at creation time</h2><p>Some features might be disabled by default. To enable them at creation time,
+</code></pre></div><p><strong>Disclaimers</strong>:</p></p>
+<ul>
+<li>toggling features is not supported for poolsets with remote replicas</li>
+<li><code>SINGLEHDR</code> feature is read-only (enabling or disabling it will fail)</li>
+</ul>
+<h2 id=enabling-feature-at-creation-time>Enabling feature at creation time</h2>
+<p>Some features might be disabled by default. To enable them at creation time,
 use appropriate query from the <a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3>CTL namespace</a>.
-An example using <strong>pmem_ctl</strong>(5) environment variable:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ PMEMOBJ_CONF<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sds.at_create=1&#34;</span> pmempool create obj /path/to/poolset.file
+An example using <strong>pmem_ctl</strong>(5) environment variable:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ PMEMOBJ_CONF<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sds.at_create=1&#34;</span> pmempool create obj /path/to/poolset.file
 $ pmempool feature --query SHUTDOWN_STATE /path/to/poolset.file
 <span style=color:#ae81ff>1</span>
-</code></pre></div><p>An example using <strong>pmemobj_ctl_set</strong>(3) API:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> path[] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/path/to/poolset.file&#34;</span>;
+</code></pre></div><p>An example using <strong>pmemobj_ctl_set</strong>(3) API:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> path[] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/path/to/poolset.file&#34;</span>;
 <p><span style=color:#75715e>/* force-enable SDS feature during pool creation*/</span>
 <span style=color:#66d9ef>int</span> sds_write_value <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
 pmemobj_ctl_set(NULL, <span style=color:#e6db74>&quot;sds.at_create&quot;</span>, <span style=color:#f92672>&amp;</span>sds_write_value);</p>
-<p><span style=color:#75715e>/* create pool and use it */</span>
-PMEMobjpool <span style=color:#f92672>*</span>pop <span style=color:#f92672>=</span> pmemobj_create(path, LAYOUT_NAME, POOL_SIZE, <span style=color:#ae81ff>0644</span>);
+<p><span style=color:#75715e>/* create pool and use it <em>/</span>
+PMEMobjpool <span style=color:#f92672></em></span>pop <span style=color:#f92672>=</span> pmemobj_create(path, LAYOUT_NAME, POOL_SIZE, <span style=color:#ae81ff>0644</span>);
 <span style=color:#75715e>/* &hellip; */</span>
 pmemobj_close(pop);</p>
-<p><span style=color:#75715e>/* check SDS feature */</span>
+<p><span style=color:#75715e>/* check SDS feature <em>/</span>
 <span style=color:#66d9ef>int</span> sds_read_value <span style=color:#f92672>=</span> pmempool_feature_query(path, PMEMPOOL_FEAT_SHUTDOWN_STATE, <span style=color:#ae81ff>0</span>);
-<span style=color:#75715e>/* now sds_write_value == sds_read_value */</span>
-</code></pre></div></p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2018/12/pool-features/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Pool features&url=https://pmem.io/blog/2018/12/pool-features/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2018/12/pool-features/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2018/12/pool-features/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2019/01/extended-memcpy-in-pmdk-1.5/?ref=footer">&lArr; Extended memcpy in PMDK 1.5</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2018/11/bad-blocks/?ref=footer">Bad blocks &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+<span style=color:#75715e>/</em> now sds_write_value == sds_read_value */</span>
+</code></pre></div></p>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2018/12/pool-features/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Pool features&url=https://pmem.io/blog/2018/12/pool-features/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2018/12/pool-features/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2018/12/pool-features/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2019/01/extended-memcpy-in-pmdk-1.5/?ref=footer">&lArr; Extended memcpy in PMDK 1.5</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2018/11/bad-blocks/?ref=footer">Bad blocks &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -76,4 +488,23 @@ pmemobj_close(pop);</p>
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

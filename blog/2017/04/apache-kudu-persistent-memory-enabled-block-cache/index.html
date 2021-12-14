@@ -1,15 +1,387 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Apache Kudu Persistent Memory Enabled Block Cache</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Apache Kudu Persistent Memory Enabled Block Cache</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 03 Apr, 2017</li><li><i class=icon-user></i> Sarahjelinek</li><li><i class=icon-folder-open></i>
-Apache</li></ul></div><div class="entry-content mt-0"><h1 id=using-nvm-libraries-to-add-persistent-memory-support-to-apache-kudu-block-cache>Using NVM Libraries To Add Persistent Memory Support to Apache Kudu Block Cache</h1><p>An early project done with the NVM libraries was adding persistent memory support, both volatile and persistent mode, into the Apache Kudu storage engine block cache. This project required modification of existing code.</p><p>Apache Kudu:
-<a href=https://github.com/apache/kudu>https://github.com/apache/kudu</a></p><p>My repository with the modified code:
-<a href=https://github.com/sarahjelinek/kudu>https://github.com/sarahjelinek/kudu</a>, branch: sarah_kudu_pmem</p><p>The volatile mode support for persistent memory has been fully integrated into the Kudu source base. The persistent mode support is not integrated but is ready, has been reviewed and is waiting for official integration.</p><p>My repository, noted above, has the source for both modes integrated into the kudu project.</p><h2 id=a-namegoalshigh-level-goalsa><a name=goals>High Level Goals</a></h2><p>The high level goals of this project were:</p><ol><li>Reduce DRAM footprint required for the Kudu storage engine</li><li>Provide warm cache when data is persistent and tablet server is restarted.</li><li>Keep performance as close to DRAM speed as possible.</li></ol><h1 id=integration-challenges>Integration Challenges</h1><p>There were several things considered when designing the integration of PMDK into Kudu:</p><ol><li>Where to integrate SW entry points to access enable persistent memory.</li><li>What data/metadata to store on persistent memory.</li><li>How do you design seamless integration of SW entry points for persistent memory access in an existing application?</li><li>What happens if a failure occurs?</li></ol><h1 id=volatile-vs-persistent-mode-design-differences>Volatile vs. Persistent Mode Design Differences</h1><ol><li>In Volatile mode the <a href=#lruhandle>LRUHandle</a> entry is stored on the persistent media. Otherwise it&rsquo;s stored in DRAM.</li><li>In Persistent Mode the addition of a new structure <a href=#keyval>KeyValue</a> was added to store the data persistently and guarantee consistency across failures.</li><li>In all cases the <a href=#hashtable>HashTable</a> is stored in DRAM.</li></ol><p>Why these design differences?</p><ol><li>The LRUHandle is common for all three modes of the Kudu block cache (DRAM, persistent memory volatile mode and persistent memory persistent mode). The LRUHandle was initially designed for the DRAM block cache and I just carried that design forward. This handle is used by other components of Kudu and changing the structure of it would have required more changes in other parts of Kudu.</li><li>It was a straightforward process to simply store the LRUHandle in persistent memory when running in volatile mode since I did not have to worry about consistency in the event of a failure. At the start of this project the only NVM library support that was available was libvmem and I made my initial design decisions based on that.</li><li>Once I started adding the persistent mode support I realized that changes would have to be made to the LRUHandle structure to manage consistency and to separate out the methods that are part of the C++ struct. For storing key/value data this was unnecessary.</li></ol><p>In hindsight I would go back and use the <a href=#keyval>KeyValue</a> structure for both volatile and persistent mode support and keep the LRUHandle in DRAM in all cases.</p><p>I never considered putting the hash table on persistent memory. I didn&rsquo;t feel there was a need to do this to reach the goals of the project.</p><h1 id=kudu-architectural-overview>Kudu Architectural Overview</h1><p>Kudu is an open source storage engine for structured data which supports low-latency random access together with efficient analytical access patterns.</p><h2 id=high-level-concepts-and-terms>High Level Concepts and Terms</h2><p><strong>Columnar Data Store</strong>
-Kudu is a columnar data store. A columnar data store stores data in strongly-typed columns.</p><p><strong>Tablet</strong>
-A tablet is a contiguous segment of a table, similar to a partition in other data storage engines or relational databases. A given tablet is replicated on multiple tablet servers, and at any given point in time, one of these replicas is considered the leader tablet. Any replica can service reads, and writes require consensus among the set of tablet servers serving the tablet.</p><p><strong>Tablet Server</strong>
-A tablet server stores and serves tablets to clients. For a given tablet, one tablet server acts as a leader, and the others act as follower replicas of that tablet. Only leaders service write requests, while leaders or followers each service read requests. Leaders are elected using Raft Consensus Algorithm. One tablet server can serve multiple tablets, and one tablet can be served by multiple tablet servers.</p><p><strong>Master</strong>
-The master keeps track of all the tablets, tablet servers, the Catalog Table, and other metadata related to the cluster. At a given point in time, there can only be one acting master (the leader). If the current leader disappears, a new master is elected using Raft Consensus Algorithm.</p><p><img src=/images/posts/kudu-architecture-2.png alt="kudu network architecture"></p><h2 id=kudu-block-cache>Kudu Block Cache</h2><p>As part of every tablet server Kudu provides a LRU block cache. Conceptually the design looks as follows(with the inclusion of persistent memory support):</p><p><img src=/images/posts/KuduBlockCacheDesign.png alt=kudu_block_cache_design></p><p>Each tablet server has one block cache. The Kudu Block Cache is an interface that maps keys to values. It has internal synchronization and may be safely accessed concurrently from multiple threads. It may automatically
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Apache Kudu Persistent Memory Enabled Block Cache</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Apache Kudu Persistent Memory Enabled Block Cache</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 03 Apr, 2017</li>
+<li><i class=icon-user></i> Sarahjelinek</li>
+<li>
+<i class=icon-folder-open></i>
+Apache
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<h1 id=using-nvm-libraries-to-add-persistent-memory-support-to-apache-kudu-block-cache>Using NVM Libraries To Add Persistent Memory Support to Apache Kudu Block Cache</h1>
+<p>An early project done with the NVM libraries was adding persistent memory support, both volatile and persistent mode, into the Apache Kudu storage engine block cache. This project required modification of existing code.</p>
+<p>Apache Kudu:
+<a href=https://github.com/apache/kudu>https://github.com/apache/kudu</a></p>
+<p>My repository with the modified code:
+<a href=https://github.com/sarahjelinek/kudu>https://github.com/sarahjelinek/kudu</a>, branch: sarah_kudu_pmem</p>
+<p>The volatile mode support for persistent memory has been fully integrated into the Kudu source base. The persistent mode support is not integrated but is ready, has been reviewed and is waiting for official integration.</p>
+<p>My repository, noted above, has the source for both modes integrated into the kudu project.</p>
+<h2 id=a-namegoalshigh-level-goalsa><a name=goals>High Level Goals</a></h2>
+<p>The high level goals of this project were:</p>
+<ol>
+<li>Reduce DRAM footprint required for the Kudu storage engine</li>
+<li>Provide warm cache when data is persistent and tablet server is restarted.</li>
+<li>Keep performance as close to DRAM speed as possible.</li>
+</ol>
+<h1 id=integration-challenges>Integration Challenges</h1>
+<p>There were several things considered when designing the integration of PMDK into Kudu:</p>
+<ol>
+<li>Where to integrate SW entry points to access enable persistent memory.</li>
+<li>What data/metadata to store on persistent memory.</li>
+<li>How do you design seamless integration of SW entry points for persistent memory access in an existing application?</li>
+<li>What happens if a failure occurs?</li>
+</ol>
+<h1 id=volatile-vs-persistent-mode-design-differences>Volatile vs. Persistent Mode Design Differences</h1>
+<ol>
+<li>In Volatile mode the <a href=#lruhandle>LRUHandle</a> entry is stored on the persistent media. Otherwise it&rsquo;s stored in DRAM.</li>
+<li>In Persistent Mode the addition of a new structure <a href=#keyval>KeyValue</a> was added to store the data persistently and guarantee consistency across failures.</li>
+<li>In all cases the <a href=#hashtable>HashTable</a> is stored in DRAM.</li>
+</ol>
+<p>Why these design differences?</p>
+<ol>
+<li>The LRUHandle is common for all three modes of the Kudu block cache (DRAM, persistent memory volatile mode and persistent memory persistent mode). The LRUHandle was initially designed for the DRAM block cache and I just carried that design forward. This handle is used by other components of Kudu and changing the structure of it would have required more changes in other parts of Kudu.</li>
+<li>It was a straightforward process to simply store the LRUHandle in persistent memory when running in volatile mode since I did not have to worry about consistency in the event of a failure. At the start of this project the only NVM library support that was available was libvmem and I made my initial design decisions based on that.</li>
+<li>Once I started adding the persistent mode support I realized that changes would have to be made to the LRUHandle structure to manage consistency and to separate out the methods that are part of the C++ struct. For storing key/value data this was unnecessary.</li>
+</ol>
+<p>In hindsight I would go back and use the <a href=#keyval>KeyValue</a> structure for both volatile and persistent mode support and keep the LRUHandle in DRAM in all cases.</p>
+<p>I never considered putting the hash table on persistent memory. I didn&rsquo;t feel there was a need to do this to reach the goals of the project.</p>
+<h1 id=kudu-architectural-overview>Kudu Architectural Overview</h1>
+<p>Kudu is an open source storage engine for structured data which supports low-latency random access together with efficient analytical access patterns.</p>
+<h2 id=high-level-concepts-and-terms>High Level Concepts and Terms</h2>
+<p><strong>Columnar Data Store</strong>
+Kudu is a columnar data store. A columnar data store stores data in strongly-typed columns.</p>
+<p><strong>Tablet</strong>
+A tablet is a contiguous segment of a table, similar to a partition in other data storage engines or relational databases. A given tablet is replicated on multiple tablet servers, and at any given point in time, one of these replicas is considered the leader tablet. Any replica can service reads, and writes require consensus among the set of tablet servers serving the tablet.</p>
+<p><strong>Tablet Server</strong>
+A tablet server stores and serves tablets to clients. For a given tablet, one tablet server acts as a leader, and the others act as follower replicas of that tablet. Only leaders service write requests, while leaders or followers each service read requests. Leaders are elected using Raft Consensus Algorithm. One tablet server can serve multiple tablets, and one tablet can be served by multiple tablet servers.</p>
+<p><strong>Master</strong>
+The master keeps track of all the tablets, tablet servers, the Catalog Table, and other metadata related to the cluster. At a given point in time, there can only be one acting master (the leader). If the current leader disappears, a new master is elected using Raft Consensus Algorithm.</p>
+<p><img src=/images/posts/kudu-architecture-2.png alt="kudu network architecture"></p>
+<h2 id=kudu-block-cache>Kudu Block Cache</h2>
+<p>As part of every tablet server Kudu provides a LRU block cache. Conceptually the design looks as follows(with the inclusion of persistent memory support):</p>
+<p><img src=/images/posts/KuduBlockCacheDesign.png alt=kudu_block_cache_design></p>
+<p>Each tablet server has one block cache. The Kudu Block Cache is an interface that maps keys to values. It has internal synchronization and may be safely accessed concurrently from multiple threads. It may automatically
 evict entries to make room for new entries. Values have a specified charge against the cache
-capacity.</p><h2 id=persistent-mode-support>Persistent Mode Support</h2><p>The rest of this blog post addresses the details of the Persistent Mode support.</p><p><strong>To Transact or not to Transact</strong></p><p>The NVM libpmemobj library provides the interfaces to allocate and manage the persistent memory object store. This library provides both atomic allocation functions and transactional object manipulation functions.</p><p>In general terms, transaction processing is information processing that is divided into individual, indivisible operations called transactions. Each transaction must succeed or fail as a complete unit; it can never be only partially complete. Using the transactional object interfaces in libpmemobj allows the programmer to worry less about the consistency of the data in the event of a failure. As long as the transactions are coded correctly it is guaranteed that anything inside the TX_BEGIN and TX_END block using libpmemobj are indivisible operations. They either succeed or fail as a whole.</p><p>libpmemobj provides atomic memory management interfaces as well. These functions guarantee that within the scope of the function the operation is atomic. For example, calling pmemobj_alloc(&mldr;) is guaranteed to allocate the entire object or fail to allocate the entire object but will never leave a partial object in place.</p><p>For the Kudu block cache I chose to use the atomic memory allocation rather than transactions. Why? There were a few reasons doing it this way made more sense for this application.</p><ol><li><p>When the block entry is not found in the cache memory is allocated from the cache. The memory allocation can fail with the persistent memory cache. This cache has a hard size limit and a defined number of retries before it gives up on the allocation. If a transaction was opened and held during the time of the retry multiple threads would be blocked on the transaction since memory allocation is an exclusive operation in the block cache. It is locked by a mutex so that others cannot allocate memory out from underneath a competing thread.</p></li><li><p>Once the memory was allocated, while the initial transaction was open, the data would have to be read from slower media prior to insertion into the cache. The IO could stall and keep the transaction open for an unacceptable period of time.</p></li><li><p>The overhead of the transactions was not necessary based on the size of and scope of the data structure that is being used to store the key/value data.</p></li><li><p>This was the least invasive way to add the use of persistent memory into the Kudu block cache.</p></li></ol><h1 id=technical-details>Technical Details</h1><p><strong>Key Kudu Block Cache Data Structures</strong></p><h2 id=a-namelruhandlelruhandlea><a name=lruhandle>LRUHandle</a></h2><p>Each Kudu block cache entry has an associated LRUHandle instance. The LRUHandle is the object that represents the block cache entry to other Kudu components. My design keeps the LRUHandle instances in DRAM when operating in persistent mode. When the Kudu block cache is using persistent media but running in volatile mode the LRUHandle structures are store on the persistent media.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// LRU cache implementation
+capacity.</p>
+<h2 id=persistent-mode-support>Persistent Mode Support</h2>
+<p>The rest of this blog post addresses the details of the Persistent Mode support.</p>
+<p><strong>To Transact or not to Transact</strong></p>
+<p>The NVM libpmemobj library provides the interfaces to allocate and manage the persistent memory object store. This library provides both atomic allocation functions and transactional object manipulation functions.</p>
+<p>In general terms, transaction processing is information processing that is divided into individual, indivisible operations called transactions. Each transaction must succeed or fail as a complete unit; it can never be only partially complete. Using the transactional object interfaces in libpmemobj allows the programmer to worry less about the consistency of the data in the event of a failure. As long as the transactions are coded correctly it is guaranteed that anything inside the TX_BEGIN and TX_END block using libpmemobj are indivisible operations. They either succeed or fail as a whole.</p>
+<p>libpmemobj provides atomic memory management interfaces as well. These functions guarantee that within the scope of the function the operation is atomic. For example, calling pmemobj_alloc(&mldr;) is guaranteed to allocate the entire object or fail to allocate the entire object but will never leave a partial object in place.</p>
+<p>For the Kudu block cache I chose to use the atomic memory allocation rather than transactions. Why? There were a few reasons doing it this way made more sense for this application.</p>
+<ol>
+<li>
+<p>When the block entry is not found in the cache memory is allocated from the cache. The memory allocation can fail with the persistent memory cache. This cache has a hard size limit and a defined number of retries before it gives up on the allocation. If a transaction was opened and held during the time of the retry multiple threads would be blocked on the transaction since memory allocation is an exclusive operation in the block cache. It is locked by a mutex so that others cannot allocate memory out from underneath a competing thread.</p>
+</li>
+<li>
+<p>Once the memory was allocated, while the initial transaction was open, the data would have to be read from slower media prior to insertion into the cache. The IO could stall and keep the transaction open for an unacceptable period of time.</p>
+</li>
+<li>
+<p>The overhead of the transactions was not necessary based on the size of and scope of the data structure that is being used to store the key/value data.</p>
+</li>
+<li>
+<p>This was the least invasive way to add the use of persistent memory into the Kudu block cache.</p>
+</li>
+</ol>
+<h1 id=technical-details>Technical Details</h1>
+<p><strong>Key Kudu Block Cache Data Structures</strong></p>
+<h2 id=a-namelruhandlelruhandlea><a name=lruhandle>LRUHandle</a></h2>
+<p>Each Kudu block cache entry has an associated LRUHandle instance. The LRUHandle is the object that represents the block cache entry to other Kudu components. My design keeps the LRUHandle instances in DRAM when operating in persistent mode. When the Kudu block cache is using persistent media but running in volatile mode the LRUHandle structures are store on the persistent media.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// LRU cache implementation
 </span><span style=color:#75715e></span>
 <span style=color:#75715e>// An entry is a variable length heap-allocated structure when running in volatile
 </span><span style=color:#75715e>// mode.  When operating in persistent mode the structure is fixed length.
@@ -50,7 +422,9 @@ capacity.</p><h2 id=persistent-mode-support>Persistent Mode Support</h2><p>The r
 <span style=color:#66d9ef>return</span> <span style=color:#f92672>&amp;</span>kv_data[key_length];
 }
 };
-</code></pre></div><h2 id=a-namehashtablehashtablea><a name=hashtable>HashTable</a></h2></p><p>The Kudu block cache has a hash table of the LRUHandle entries.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// We provide our own simple hash table since it removes a whole bunch
+</code></pre></div><h2 id=a-namehashtablehashtablea><a name=hashtable>HashTable</a></h2></p>
+<p>The Kudu block cache has a hash table of the LRUHandle entries.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// We provide our own simple hash table since it removes a whole bunch
 </span><span style=color:#75715e>// of porting hacks and is also faster than some of the built-in hash
 </span><span style=color:#75715e>// table implementations in some of the compiler/runtime combinations
 </span><span style=color:#75715e>// we have tested.  E.g., readrandom speeds up by ~5% over the g++
@@ -97,28 +471,28 @@ LRUHandle<span style=color:#f92672>**</span> list_;</p>
 </span><span style=color:#75715e></span>  <span style=color:#75715e>// pointer to the trailing slot in the corresponding linked list.
 </span><span style=color:#75715e></span>  LRUHandle<span style=color:#f92672><strong></span> <span style=color:#a6e22e>FindPointer</span>(<span style=color:#66d9ef>const</span> Slice<span style=color:#f92672>&amp;</span> key, <span style=color:#66d9ef>uint32_t</span> hash) {
 LRUHandle<span style=color:#f92672></strong></span> ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>list_[hash <span style=color:#f92672>&amp;</span> (length_ <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)];
-<span style=color:#66d9ef>while</span> (<span style=color:#f92672>*</span>ptr <span style=color:#f92672>!=</span> NULL <span style=color:#f92672>&amp;&amp;</span>
-((<span style=color:#f92672>*</span>ptr)<span style=color:#f92672>-&gt;</span>hash <span style=color:#f92672>!=</span> hash <span style=color:#f92672>||</span> key <span style=color:#f92672>!=</span> (<span style=color:#f92672>*</span>ptr)<span style=color:#f92672>-&gt;</span>key())) {
-ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>(<span style=color:#f92672>*</span>ptr)<span style=color:#f92672>-&gt;</span>next_hash;
+<span style=color:#66d9ef>while</span> (<span style=color:#f92672><em></span>ptr <span style=color:#f92672>!=</span> NULL <span style=color:#f92672>&amp;&amp;</span>
+((<span style=color:#f92672></em></span>ptr)<span style=color:#f92672>-&gt;</span>hash <span style=color:#f92672>!=</span> hash <span style=color:#f92672>||</span> key <span style=color:#f92672>!=</span> (<span style=color:#f92672><em></span>ptr)<span style=color:#f92672>-&gt;</span>key())) {
+ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>(<span style=color:#f92672></em></span>ptr)<span style=color:#f92672>-&gt;</span>next_hash;
 }
 <span style=color:#66d9ef>return</span> ptr;
 }</p>
 <p><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>Resize</span>() {
 <span style=color:#66d9ef>uint32_t</span> new_length <span style=color:#f92672>=</span> <span style=color:#ae81ff>16</span>;
-<span style=color:#66d9ef>while</span> (new_length <span style=color:#f92672>&lt;</span> elems_ <span style=color:#f92672>*</span> <span style=color:#ae81ff>1.5</span>) {
-new_length <span style=color:#f92672>*=</span> <span style=color:#ae81ff>2</span>;
+<span style=color:#66d9ef>while</span> (new_length <span style=color:#f92672>&lt;</span> elems_ <span style=color:#f92672><em></span> <span style=color:#ae81ff>1.5</span>) {
+new_length <span style=color:#f92672></em>=</span> <span style=color:#ae81ff>2</span>;
 }
-LRUHandle<span style=color:#f92672>**</span> new_list <span style=color:#f92672>=</span> new LRUHandle<span style=color:#f92672>*</span>[new_length];
-memset(new_list, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(new_list[<span style=color:#ae81ff>0</span>]) <span style=color:#f92672>*</span> new_length);
+LRUHandle<span style=color:#f92672><strong></span> new_list <span style=color:#f92672>=</span> new LRUHandle<span style=color:#f92672><em></span>[new_length];
+memset(new_list, <span style=color:#ae81ff>0</span>, <span style=color:#66d9ef>sizeof</span>(new_list[<span style=color:#ae81ff>0</span>]) <span style=color:#f92672></em></span> new_length);
 <span style=color:#66d9ef>uint32_t</span> count <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
 <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>uint32_t</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> length_; i<span style=color:#f92672>++</span>) {
-LRUHandle<span style=color:#f92672>*</span> h <span style=color:#f92672>=</span> list_[i];
+LRUHandle<span style=color:#f92672><em></span> h <span style=color:#f92672>=</span> list_[i];
 <span style=color:#66d9ef>while</span> (h <span style=color:#f92672>!=</span> NULL) {
-LRUHandle<span style=color:#f92672>*</span> next <span style=color:#f92672>=</span> h<span style=color:#f92672>-&gt;</span>next_hash;
+LRUHandle<span style=color:#f92672></em></span> next <span style=color:#f92672>=</span> h<span style=color:#f92672>-&gt;</span>next_hash;
 <span style=color:#66d9ef>uint32_t</span> hash <span style=color:#f92672>=</span> h<span style=color:#f92672>-&gt;</span>hash;
-LRUHandle<span style=color:#f92672>**</span> ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>new_list[hash <span style=color:#f92672>&amp;</span> (new_length <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)];
-h<span style=color:#f92672>-&gt;</span>next_hash <span style=color:#f92672>=</span> <span style=color:#f92672>*</span>ptr;
-<span style=color:#f92672>*</span>ptr <span style=color:#f92672>=</span> h;
+LRUHandle<span style=color:#f92672></strong></span> ptr <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>new_list[hash <span style=color:#f92672>&amp;</span> (new_length <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)];
+h<span style=color:#f92672>-&gt;</span>next_hash <span style=color:#f92672>=</span> <span style=color:#f92672><em></span>ptr;
+<span style=color:#f92672></em></span>ptr <span style=color:#f92672>=</span> h;
 h <span style=color:#f92672>=</span> next;
 count<span style=color:#f92672>++</span>;
 }
@@ -129,7 +503,8 @@ list_ <span style=color:#f92672>=</span> new_list;
 length_ <span style=color:#f92672>=</span> new_length;
 }
 };
-</code></pre></div><h2 id=a-namekeyvalkeyvaluea><a name=keyval>KeyValue</a></h2></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// This is a variable length structure. The length of the structure is
+</code></pre></div><h2 id=a-namekeyvalkeyvaluea><a name=keyval>KeyValue</a></h2></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// This is a variable length structure. The length of the structure is
 </span><span style=color:#75715e>// determined by the key and value sizes. This structure is the physical entry
 </span><span style=color:#75715e>// that is persisted as the pmemobj object.
 </span><span style=color:#75715e></span><span style=color:#66d9ef>struct</span> KeyVal {
@@ -147,13 +522,21 @@ length_ <span style=color:#f92672>=</span> new_length;
 </span><span style=color:#75715e></span>  <span style=color:#66d9ef>uint8_t</span>   valid;
 <span style=color:#66d9ef>uint8_t</span>   kv_data[]; <span style=color:#75715e>// holds key and value data
 </span><span style=color:#75715e></span>};
-</code></pre></div><h2 id=kudu-cache-lookup-and-insert>Kudu Cache Lookup and Insert</h2></p><p>The Kudu block cache is updated on lookup. If the data is not found in the tablet server block cache it is read from the media and added to the block cache as a result. For the persistent memory implementation this means that we must allocate the buffer for the key/value data from the persistent memory media. We do this rather than allocating DRAM and then copying the information from DRAM to the persistent memory media.</p><p><img src=/images/posts/KuduCacheLookupandInsert.png alt=kudu_block_cache_landi></p><h2 id=persistent-memory-constructor>Persistent Memory Constructor</h2><p>With atomic memory allocation a constructor is required to ensure that the initial memory allocation is done atomically as defined by the user. I have defined atomic in this case to be: a) creation of the KeyVal structure, setting kv->valid = 0 and then persisting the value of kv->valid to ensure that until this bit it set to 1 this KeyVal instance is not considered valid.</p><p>The kv_data[] member holds both the key and value data, and are simply found by knowing the length of the key and value members. At the time of allocation the key value is known, the size of the data is known but the data has not been read from the media. The kv_data[] data value is filled in by reading the data from the disk during the read operation.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>KvConstructor</span>(PMEMobjpool<span style=color:#f92672>*</span> pop, <span style=color:#66d9ef>void</span><span style=color:#f92672>*</span> ptr, <span style=color:#66d9ef>void</span><span style=color:#f92672>*</span> arg) {
+</code></pre></div><h2 id=kudu-cache-lookup-and-insert>Kudu Cache Lookup and Insert</h2></p>
+<p>The Kudu block cache is updated on lookup. If the data is not found in the tablet server block cache it is read from the media and added to the block cache as a result. For the persistent memory implementation this means that we must allocate the buffer for the key/value data from the persistent memory media. We do this rather than allocating DRAM and then copying the information from DRAM to the persistent memory media.</p>
+<p><img src=/images/posts/KuduCacheLookupandInsert.png alt=kudu_block_cache_landi></p>
+<h2 id=persistent-memory-constructor>Persistent Memory Constructor</h2>
+<p>With atomic memory allocation a constructor is required to ensure that the initial memory allocation is done atomically as defined by the user. I have defined atomic in this case to be: a) creation of the KeyVal structure, setting kv->valid = 0 and then persisting the value of kv->valid to ensure that until this bit it set to 1 this KeyVal instance is not considered valid.</p>
+<p>The kv_data[] member holds both the key and value data, and are simply found by knowing the length of the key and value members. At the time of allocation the key value is known, the size of the data is known but the data has not been read from the media. The kv_data[] data value is filled in by reading the data from the disk during the read operation.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>KvConstructor</span>(PMEMobjpool<span style=color:#f92672>*</span> pop, <span style=color:#66d9ef>void</span><span style=color:#f92672>*</span> ptr, <span style=color:#66d9ef>void</span><span style=color:#f92672>*</span> arg) {
   <span style=color:#66d9ef>struct</span> KeyVal<span style=color:#f92672>*</span> kv <span style=color:#f92672>=</span> static_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>struct</span> KeyVal<span style=color:#f92672>*&gt;</span>(ptr);
   kv<span style=color:#f92672>-&gt;</span>valid <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
   pmemobj_persist(pop, <span style=color:#f92672>&amp;</span>kv<span style=color:#f92672>-&gt;</span>valid, <span style=color:#66d9ef>sizeof</span>(kv<span style=color:#f92672>-&gt;</span>valid));
   <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
 }
-</code></pre></div><h2 id=cache-insertion>Cache Insertion</h2><p>At this point the memory has been allocated, the key and value data have been written, not persistently however, prior to insertion. Persisting the structure and its data is delayed until this point because until the entry is inserted into the cache it is not valid. The largest size to persist is the data itself so persisting the whole structure at one time as opposed to smaller parts does not result in performance degradation.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>Cache<span style=color:#f92672>::</span>Handle<span style=color:#f92672>*</span> NvmLRUCache<span style=color:#f92672>::</span>Insert(LRUHandle<span style=color:#f92672>*</span> e, Cache<span style=color:#f92672>::</span>EvictionCallback<span style=color:#f92672>*</span> eviction_callback) {
+</code></pre></div><h2 id=cache-insertion>Cache Insertion</h2>
+<p>At this point the memory has been allocated, the key and value data have been written, not persistently however, prior to insertion. Persisting the structure and its data is delayed until this point because until the entry is inserted into the cache it is not valid. The largest size to persist is the data itself so persisting the whole structure at one time as opposed to smaller parts does not result in performance degradation.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>Cache<span style=color:#f92672>::</span>Handle<span style=color:#f92672>*</span> NvmLRUCache<span style=color:#f92672>::</span>Insert(LRUHandle<span style=color:#f92672>*</span> e, Cache<span style=color:#f92672>::</span>EvictionCallback<span style=color:#f92672>*</span> eviction_callback) {
 <p><span style=color:#66d9ef>if</span> (IsPersistentMode() <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>e<span style=color:#f92672>-&gt;</span>repopulated) {
 <span style=color:#75715e>// At the time of insertion we know we have succeeded in allocating
 </span><span style=color:#75715e></span>    <span style=color:#75715e>// the pmem space we need. So, there will be an persistent object
@@ -165,30 +548,37 @@ kv<span style=color:#f92672>-&gt;</span>key_len <span style=color:#f92672>=</spa
 kv<span style=color:#f92672>-&gt;</span>value_len <span style=color:#f92672>=</span> e<span style=color:#f92672>-&gt;</span>val_length;
 kv<span style=color:#f92672>-&gt;</span>valid <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;</p>
 <pre><code>  &lt;span style=&quot;color:#75715e&quot;&gt;// At this point we have a fully populated struct KeyVal but none of it has been
-</code></pre><p></span><span style=color:#75715e></span><span style=color:#75715e>// persisted, except the initial kv->valid bit set to 0 in the constructor.
-</span><span style=color:#75715e></span><span style=color:#75715e>// We persist the structure + key and value data here once prior to setting
-</span><span style=color:#75715e></span><span style=color:#75715e>// the valid bit. At any point in time prior to this we can fail and the
-</span><span style=color:#75715e></span><span style=color:#75715e>// valid bit will be set to 0 indicating that the structure is not usable.
-</span><span style=color:#75715e></span>pmemobj_persist(pop_, kv, <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> KeyVal) <span style=color:#f92672>+</span> e<span style=color:#f92672>-></span>key_length <span style=color:#f92672>+</span> e<span style=color:#f92672>-></span>val_length);
+</code></pre>
+<p></span><span style=color:#75715e></span> <span style=color:#75715e>// persisted, except the initial kv->valid bit set to 0 in the constructor.
+</span><span style=color:#75715e></span> <span style=color:#75715e>// We persist the structure + key and value data here once prior to setting
+</span><span style=color:#75715e></span> <span style=color:#75715e>// the valid bit. At any point in time prior to this we can fail and the
+</span><span style=color:#75715e></span> <span style=color:#75715e>// valid bit will be set to 0 indicating that the structure is not usable.
+</span><span style=color:#75715e></span> pmemobj_persist(pop_, kv, <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> KeyVal) <span style=color:#f92672>+</span> e<span style=color:#f92672>-></span>key_length <span style=color:#f92672>+</span> e<span style=color:#f92672>-></span>val_length);
 }
 }
 <span style=color:#75715e>// Populate the cache handle.
-</span><span style=color:#75715e></span>PopulateCacheHandle(e, eviction_callback);
+</span><span style=color:#75715e></span> PopulateCacheHandle(e, eviction_callback);
 <span style=color:#66d9ef>return</span> reinterpret_cast<span style=color:#f92672>&lt;</span>Cache<span style=color:#f92672>::</span>Handle<span style=color:#f92672>*></span>(e);
-}</code></pre></div><p>Failures can occur at any point in time during the operation of the application. At all time prior to setting kv->valid = 1 and calling pmemobj_persist() the entry is not considered valid and upon restart will be discarded.</p></p><h2 id=restart-of-tablet-server-and-repopulating-the-cache>Restart of Tablet Server and Repopulating the Cache</h2><p>Lastly I want to discuss how the cache is repopulated in the event of a shutdown and restart of the tablet server. At cache startup the cache creation code looks for any existing entries and iterates over them to repopulate the volatile data structures associated with the valid persistent cache entry.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>if</span> (IsPersistentMode()) {
+}
+</code></pre></div><p>Failures can occur at any point in time during the operation of the application. At all time prior to setting kv->valid = 1 and calling pmemobj_persist() the entry is not considered valid and upon restart will be discarded.</p></p>
+<h2 id=restart-of-tablet-server-and-repopulating-the-cache>Restart of Tablet Server and Repopulating the Cache</h2>
+<p>Lastly I want to discuss how the cache is repopulated in the event of a shutdown and restart of the tablet server. At cache startup the cache creation code looks for any existing entries and iterates over them to repopulate the volatile data structures associated with the valid persistent cache entry.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>if</span> (IsPersistentMode()) {
       TOID(<span style=color:#66d9ef>struct</span> KeyVal) kv;
 <pre><code>  &lt;span style=&quot;color:#75715e&quot;&gt;// Populate a shard with existing entries(if any). A nullptr value breaks
-</code></pre><p></span><span style=color:#75715e></span><span style=color:#75715e>// us out of the loop, and means that there are no entries.
-</span><span style=color:#75715e></span><span style=color:#75715e>// Since there are multiple object types in the pool we use the FOREACH_TYPE
-</span><span style=color:#75715e></span><span style=color:#75715e>// and filter only on the TOID(struct KeyVal).
-</span><span style=color:#75715e></span>POBJ_FOREACH_TYPE(pop_, kv) {
+</code></pre>
+<p></span><span style=color:#75715e></span> <span style=color:#75715e>// us out of the loop, and means that there are no entries.
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>// Since there are multiple object types in the pool we use the FOREACH_TYPE
+</span><span style=color:#75715e></span> <span style=color:#75715e>// and filter only on the TOID(struct KeyVal).
+</span><span style=color:#75715e></span> POBJ_FOREACH_TYPE(pop_, kv) {
 <span style=color:#66d9ef>if</span> (D_RO(kv) <span style=color:#f92672>==</span> nullptr) {
 <span style=color:#75715e>// This will only happen if there are no entries in the pool.
-</span><span style=color:#75715e></span><span style=color:#66d9ef>break</span>;
+</span><span style=color:#75715e></span> <span style=color:#66d9ef>break</span>;
 }
 <span style=color:#66d9ef>if</span> (D_RO(kv)<span style=color:#f92672>-></span>valid <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>) {
-LRUHandle<span style=color:#f92672>*</span> e <span style=color:#f92672>=</span> new LRUHandle;
-e<span style=color:#f92672>-></span>kv_data <span style=color:#f92672>=</span> const_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>uint8_t</span><span style=color:#f92672>*></span>(D_RO(kv)<span style=color:#f92672>-></span>kv_data);
+LRUHandle<span style=color:#f92672><em></span> e <span style=color:#f92672>=</span> new LRUHandle;
+e<span style=color:#f92672>-></span>kv_data <span style=color:#f92672>=</span> const_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>uint8_t</span><span style=color:#f92672></em>></span>(D_RO(kv)<span style=color:#f92672>-></span>kv_data);
 e<span style=color:#f92672>-></span>key_length <span style=color:#f92672>=</span> D_RO(kv)<span style=color:#f92672>-></span>key_len;
 e<span style=color:#f92672>-></span>val_length <span style=color:#f92672>=</span> D_RO(kv)<span style=color:#f92672>-></span>value_len;
 e<span style=color:#f92672>-></span>hash <span style=color:#f92672>=</span> HashSlice(e<span style=color:#f92672>-></span>key());
@@ -200,18 +590,84 @@ POBJ_FREE(<span style=color:#f92672>&</span>kv);
 }
 }
 }
-}</code></pre></div><p>This code is fairly straightforward to read. I simply iterate over the object type I am interested in, which is a ‘struct KeyVal’, and look for entries that are marked valid. Any entry found that is not marked valid is discarded.</p></p><p>There were three high level goals stated at the beginning of this blog post, <a href=#goals>High Level Goals</a>. The next post will provide details on the performance and DRAM reduction using the PMDK libraries to enable persistent memory support in the Kudu block cache.</p><h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712nvml-is-now-pmdk>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/NVML-is-now-PMDK>NVML to PMDK</a>.]</h6><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Apache Kudu Persistent Memory Enabled Block Cache&url=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2017/07/progress-report-q2-2017/?ref=footer">&lArr; Progress Report Q2 2017</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2017/03/progress-report-q1-2017/?ref=footer">Progress Report Q1 2017 &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+}
+</code></pre></div><p>This code is fairly straightforward to read. I simply iterate over the object type I am interested in, which is a ‘struct KeyVal’, and look for entries that are marked valid. Any entry found that is not marked valid is discarded.</p></p>
+<p>There were three high level goals stated at the beginning of this blog post, <a href=#goals>High Level Goals</a>. The next post will provide details on the performance and DRAM reduction using the PMDK libraries to enable persistent memory support in the Kudu block cache.</p>
+<h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712nvml-is-now-pmdk>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/NVML-is-now-PMDK>NVML to PMDK</a>.]</h6>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Apache Kudu Persistent Memory Enabled Block Cache&url=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2017/04/apache-kudu-persistent-memory-enabled-block-cache/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2017/07/progress-report-q2-2017/?ref=footer">&lArr; Progress Report Q2 2017</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2017/03/progress-report-q1-2017/?ref=footer">Progress Report Q1 2017 &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -219,4 +675,23 @@ POBJ_FREE(<span style=color:#f92672>&</span>kv);
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

@@ -1,11 +1,341 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Using Persistent Memory Devices with the Linux Device Mapper</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Using Persistent Memory Devices with the Linux Device Mapper</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 15 May, 2018</li><li><i class=icon-user></i> Sscargal</li><li><i class=icon-folder-open></i>
-Linux</li></ul></div><div class="entry-content mt-0"><br>#### Introduction<p>X86/X64 systems do not typically interleave Persistent Memory Devices (also referred to as &lsquo;modules&rsquo; or &lsquo;DIMMs&rsquo;) across sockets, so a two-socket system will have two separate interleave sets.  To use these interleave sets as a single device requires using a software device mapper or volume manager.</p><p>This article focuses on using the &lsquo;striped&rsquo; (<strong>dm-stripe</strong>) and &lsquo;linear&rsquo; (<strong>dm-linear</strong>) target drivers with persistent memory devices to create virtual devices on which direct access (DAX) enabled filesystems can be created. Both XFS and EXT4 have native DAX support.</p><p>The Linux device mapper is a framework provided by the kernel for mapping physical block devices onto higher-level virtual block devices. The device mapper works by passing data from a virtual block device, which is provided by the device mapper itself, to another block device. Several mapping targets exist - cache, crypt, delay, era, error, flakey, linear, mirror, multipath, raid, snapshot, striped, thin, and zero.</p><p>Support for persistent memory devices and emulation of devices is present in Kernel v4.0 or later.  Kernel v4.2 or newer has the feature is enabled by default. Kernel v4.15 or newer is recommended for production as it has performance improvements.</p><p>DAX support is a feature of the individual device-mapper target driver. Not all target drivers have or require DAX support. Both the &lsquo;linear&rsquo; and &lsquo;stripe&rsquo; target drivers have the DAX feature. The downside of these configurations is when a single device fails, access to the data also fails. Applications will need to be designed to handle all failure conditions. On the plus side, creating virtual devices allows for more flexible configuration options. DAX has not been added to the &lsquo;raid&rsquo; module due to metadata overhead, IO to page alignment requirements, and performance reasons. Data can be protected and replicated using &lsquo;replication pool sets&rsquo; which you can read more about in &lsquo;<a href=https://pmem.io/blog/2015/11/an-introduction-to-replication/>An Introduction to Replication</a>&rsquo;.</p><p>The <code>dmsetup</code> utility is a low-level tool used to create and manage devices. Linux Volume Manager (LVM) commands also allow the creation of logical volumes using all DAX capable devices, such as pmem. The logical volume inherits DAX features if created using DAX devices. Once a logical volume is set to DAX capable, the volume may not be extended with non-DAX capable devices.</p><p>The rest of this article assumes either physical or emulated persistent memory devices exist and are accessible via /dev/pmem{N}. Refer to <a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory>How To Emulate Persistent Memory</a> for instructions.</p><br>#### IO Alignment Considerations<p>Traditional storage devices such as Hard Disk Drives, SSD&rsquo;s, NVMe, and SAN LUNs present storage as blocks. A block is an addressable unit of storage measured in bytes. The traditional block size used by hard disks is 512 bytes. Newer devices commonly use 4KiB or 8KiB physical block sizes, but may also choose to present logical/emulated 512 bytes blocks.</p><p>Persistent Memory devices are accessible via the Virtual Memory System. Therefore, IO should be aligned using the systems Page Size(s). The Memory Management Unit (MMU) located on the CPU determines what page sizes are possible.</p><p>Linux supports two page sizes:</p><ul><li>Default Page Size; is commonly 4KiB by default on all architectures. Linux often refers to these as a Page Table Entry (PTE).</li><li><a href=https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt>Huge Pages</a>; requires Kernel support having configured <code>CONFIG_HUBETLB_PAGE</code> and <code>CONFIG_HUGETLBFS</code>. Often referred to as the &lsquo;Page Middle Directory (PMD)&rsquo;, huge pages are commonly 2MiB in size.</li></ul><p>More information can be found in &ldquo;<a href=https://www.kernel.org/doc/gorman/html/understand/understand006.html>Chapter 3 Page Table Management</a>&rdquo; of Mel Gorman&rsquo;s book &ldquo;<a href=https://www.kernel.org/doc/gorman/html/understand/>Understanding the Linux Virtual Memory Manager</a>&rdquo;.</p><p>The page size is a compromise between memory usage and speed.</p><ul><li>A larger page size means more waste when a page is partially used.</li><li>A smaller page size with a large memory capacity means more kernel memory for the page tables since there&rsquo;s a large number of page table entries.</li><li>A smaller page size could require more time spent in page table traversal, particularly if there&rsquo;s a high Translation Lookaside Buffer (TLB) miss count.</li></ul><p>The capacity difference between DDR and Persistent Memory Modules is considerable. Using smaller pages on a system with terabytes of memory could negatively impact performance for the reasons described above.</p><p>The systems default page size can be found by querying its configuration using the <code>getconf</code>command:</p><pre><code>$ getconf PAGE_SIZE
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Using Persistent Memory Devices with the Linux Device Mapper</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Using Persistent Memory Devices with the Linux Device Mapper</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 15 May, 2018</li>
+<li><i class=icon-user></i> Sscargal</li>
+<li>
+<i class=icon-folder-open></i>
+Linux
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<br>
+#### Introduction
+<p>X86/X64 systems do not typically interleave Persistent Memory Devices (also referred to as &lsquo;modules&rsquo; or &lsquo;DIMMs&rsquo;) across sockets, so a two-socket system will have two separate interleave sets.  To use these interleave sets as a single device requires using a software device mapper or volume manager.</p>
+<p>This article focuses on using the &lsquo;striped&rsquo; (<strong>dm-stripe</strong>) and &lsquo;linear&rsquo; (<strong>dm-linear</strong>) target drivers with persistent memory devices to create virtual devices on which direct access (DAX) enabled filesystems can be created. Both XFS and EXT4 have native DAX support.</p>
+<p>The Linux device mapper is a framework provided by the kernel for mapping physical block devices onto higher-level virtual block devices. The device mapper works by passing data from a virtual block device, which is provided by the device mapper itself, to another block device. Several mapping targets exist - cache, crypt, delay, era, error, flakey, linear, mirror, multipath, raid, snapshot, striped, thin, and zero.</p>
+<p>Support for persistent memory devices and emulation of devices is present in Kernel v4.0 or later.  Kernel v4.2 or newer has the feature is enabled by default. Kernel v4.15 or newer is recommended for production as it has performance improvements.</p>
+<p>DAX support is a feature of the individual device-mapper target driver. Not all target drivers have or require DAX support. Both the &lsquo;linear&rsquo; and &lsquo;stripe&rsquo; target drivers have the DAX feature. The downside of these configurations is when a single device fails, access to the data also fails. Applications will need to be designed to handle all failure conditions. On the plus side, creating virtual devices allows for more flexible configuration options. DAX has not been added to the &lsquo;raid&rsquo; module due to metadata overhead, IO to page alignment requirements, and performance reasons. Data can be protected and replicated using &lsquo;replication pool sets&rsquo; which you can read more about in &lsquo;<a href=https://pmem.io/blog/2015/11/an-introduction-to-replication/>An Introduction to Replication</a>&rsquo;.</p>
+<p>The <code>dmsetup</code> utility is a low-level tool used to create and manage devices. Linux Volume Manager (LVM) commands also allow the creation of logical volumes using all DAX capable devices, such as pmem. The logical volume inherits DAX features if created using DAX devices. Once a logical volume is set to DAX capable, the volume may not be extended with non-DAX capable devices.</p>
+<p>The rest of this article assumes either physical or emulated persistent memory devices exist and are accessible via /dev/pmem{N}. Refer to <a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory>How To Emulate Persistent Memory</a> for instructions.</p>
+<br>
+#### IO Alignment Considerations
+<p>Traditional storage devices such as Hard Disk Drives, SSD&rsquo;s, NVMe, and SAN LUNs present storage as blocks. A block is an addressable unit of storage measured in bytes. The traditional block size used by hard disks is 512 bytes. Newer devices commonly use 4KiB or 8KiB physical block sizes, but may also choose to present logical/emulated 512 bytes blocks.</p>
+<p>Persistent Memory devices are accessible via the Virtual Memory System. Therefore, IO should be aligned using the systems Page Size(s). The Memory Management Unit (MMU) located on the CPU determines what page sizes are possible.</p>
+<p>Linux supports two page sizes:</p>
+<ul>
+<li>Default Page Size; is commonly 4KiB by default on all architectures. Linux often refers to these as a Page Table Entry (PTE).</li>
+<li><a href=https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt>Huge Pages</a>; requires Kernel support having configured <code>CONFIG_HUBETLB_PAGE</code> and <code>CONFIG_HUGETLBFS</code>. Often referred to as the &lsquo;Page Middle Directory (PMD)&rsquo;, huge pages are commonly 2MiB in size.</li>
+</ul>
+<p>More information can be found in &ldquo;<a href=https://www.kernel.org/doc/gorman/html/understand/understand006.html>Chapter 3 Page Table Management</a>&rdquo; of Mel Gorman&rsquo;s book &ldquo;<a href=https://www.kernel.org/doc/gorman/html/understand/>Understanding the Linux Virtual Memory Manager</a>&rdquo;.</p>
+<p>The page size is a compromise between memory usage and speed.</p>
+<ul>
+<li>A larger page size means more waste when a page is partially used.</li>
+<li>A smaller page size with a large memory capacity means more kernel memory for the page tables since there&rsquo;s a large number of page table entries.</li>
+<li>A smaller page size could require more time spent in page table traversal, particularly if there&rsquo;s a high Translation Lookaside Buffer (TLB) miss count.</li>
+</ul>
+<p>The capacity difference between DDR and Persistent Memory Modules is considerable. Using smaller pages on a system with terabytes of memory could negatively impact performance for the reasons described above.</p>
+<p>The systems default page size can be found by querying its configuration using the <code>getconf</code>command:</p>
+<pre tabindex=0><code>$ getconf PAGE_SIZE
 4096
-</code></pre><p>or</p><pre><code>$ getconf PAGESIZE
+</code></pre><p>or</p>
+<pre tabindex=0><code>$ getconf PAGESIZE
 4096
-</code></pre><p><strong>NOTE:</strong> The above units are bytes. 4096 bytes == 4 Kilobytes (4 KiB)</p><p>To verify the system currently has HugePage support, <code>cat /proc/meminfo|grep -i hugepage</code> will return information similar to the following:</p><pre><code>.....
+</code></pre><p><strong>NOTE:</strong> The above units are bytes. 4096 bytes == 4 Kilobytes (4 KiB)</p>
+<p>To verify the system currently has HugePage support, <code>cat /proc/meminfo|grep -i hugepage</code> will return information similar to the following:</p>
+<pre tabindex=0><code>.....
 HugePages_Total: uuu
 HugePages_Free:  vvv
 HugePages_Rsvd:  www
@@ -13,11 +343,27 @@ HugePages_Surp:  xxx
 Hugepagesize:    yyy kB
 Hugetlb:         zzz kB
 .....
-</code></pre><p>Depending on the processor, there are at least two different huge page sizes on the x86_64 architecture: 2MiB and 1GiB. If the CPU supports 2MiB pages, it has the <code>PSE</code> cpuinfo flag, for 1GiB it has the <code>PDPE1GB</code> flag. <code>/proc/cpuinfo</code> shows whether the two flags are set.</p><p>If this commands returns a non-empty string, 2MiB pages are supported.</p><pre><code>$ grep pse /proc/cpuinfo | uniq
+</code></pre><p>Depending on the processor, there are at least two different huge page sizes on the x86_64 architecture: 2MiB and 1GiB. If the CPU supports 2MiB pages, it has the <code>PSE</code> cpuinfo flag, for 1GiB it has the <code>PDPE1GB</code> flag. <code>/proc/cpuinfo</code> shows whether the two flags are set.</p>
+<p>If this commands returns a non-empty string, 2MiB pages are supported.</p>
+<pre tabindex=0><code>$ grep pse /proc/cpuinfo | uniq
 flags           : [...] pse [...]
-</code></pre><p>If this commands returns a non-empty string, 1GiB pages are supported.</p><pre><code>$ grep pdpe1gb /proc/cpuinfo | uniq
+</code></pre><p>If this commands returns a non-empty string, 1GiB pages are supported.</p>
+<pre tabindex=0><code>$ grep pdpe1gb /proc/cpuinfo | uniq
 flags           : [...] pdpe1gb [...]
-</code></pre><br>#### Verifying IO Alignment<p>For a DAX filesystem to be able to use 2 MiB hugepages several things have to happen:</p><ul><li>The mmap() mapping has to be at least 2 MiB in size.</li><li>The filesystem block allocation has to be at least 2 MiB in size.</li><li>The filesystem block allocation has to have the same alignment as our mmap().</li></ul><p>The first requirement is trivial to control since the size of the mapping relates to the size of the persistent memory pool file(s). Both EXT4 and XFS each have support for requesting specific filesystem block allocation alignment and size. This feature was introduced in support of RAID, but can be used equally well for DAX filesystems. Finally, controlling the starting alignment is achieved by ensuring the start of the filesystem is 2MB aligned.</p><p>The procedure to ensure DAX filesystems use PMDs is shown below as an example. It needs to be executed once the dm-linear or dm-stripe has been configured.</p><ol><li>Verify the namespace is in &lsquo;fsdax&rsquo; mode.</li></ol><pre><code>$ ndctl list -u
+</code></pre><br>
+#### Verifying IO Alignment
+<p>For a DAX filesystem to be able to use 2 MiB hugepages several things have to happen:</p>
+<ul>
+<li>The mmap() mapping has to be at least 2 MiB in size.</li>
+<li>The filesystem block allocation has to be at least 2 MiB in size.</li>
+<li>The filesystem block allocation has to have the same alignment as our mmap().</li>
+</ul>
+<p>The first requirement is trivial to control since the size of the mapping relates to the size of the persistent memory pool file(s). Both EXT4 and XFS each have support for requesting specific filesystem block allocation alignment and size. This feature was introduced in support of RAID, but can be used equally well for DAX filesystems. Finally, controlling the starting alignment is achieved by ensuring the start of the filesystem is 2MB aligned.</p>
+<p>The procedure to ensure DAX filesystems use PMDs is shown below as an example. It needs to be executed once the dm-linear or dm-stripe has been configured.</p>
+<ol>
+<li>Verify the namespace is in &lsquo;fsdax&rsquo; mode.</li>
+</ol>
+<pre tabindex=0><code>$ ndctl list -u
 [
   {
     &quot;dev&quot;:&quot;namespace1.0&quot;,
@@ -40,15 +386,24 @@ flags           : [...] pdpe1gb [...]
     &quot;numa_node&quot;:0
   }
 ]
-</code></pre><p>If the namespace is not in &lsquo;fsdax&rsquo; mode, use the following to switch modes.</p><pre><code>$ sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+</code></pre><p>If the namespace is not in &lsquo;fsdax&rsquo; mode, use the following to switch modes.</p>
+<pre tabindex=0><code>$ sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
 $ sudo ndctl create-namespace -f -e namespace1.0 --mode=fsdax
-</code></pre><p><strong>Note</strong>: This will destroy all data within the namespace so backup any existing data before switching modes.</p><ol start=2><li>Verify the persistent memory block device starts at a 2 MiB aligned physical address.</li></ol><p>This is important because when we ask the filesystem for 2 MiB aligned and sized block allocations it will provide those block allocations relative to the beginning of its block device. If the filesystem is built on top of a namespace whose data starts at a 1 MiB aligned offset, for example, a block allocation that is 2 MiB aligned from the point of view of the filesystem will still be only 1 MiB aligned from DAX&rsquo;s point of view. This will cause DAX to fall back to 4 KiB page faults.</p><p>Use <code>/proc/iomem</code> to verify the starting address of the namespace, eg:</p><pre><code>$ cat /proc/iomem
+</code></pre><p><strong>Note</strong>: This will destroy all data within the namespace so backup any existing data before switching modes.</p>
+<ol start=2>
+<li>Verify the persistent memory block device starts at a 2 MiB aligned physical address.</li>
+</ol>
+<p>This is important because when we ask the filesystem for 2 MiB aligned and sized block allocations it will provide those block allocations relative to the beginning of its block device. If the filesystem is built on top of a namespace whose data starts at a 1 MiB aligned offset, for example, a block allocation that is 2 MiB aligned from the point of view of the filesystem will still be only 1 MiB aligned from DAX&rsquo;s point of view. This will cause DAX to fall back to 4 KiB page faults.</p>
+<p>Use <code>/proc/iomem</code> to verify the starting address of the namespace, eg:</p>
+<pre tabindex=0><code>$ cat /proc/iomem
 ...
 140000000-23fdfffff : Persistent Memory
   140000000-23fdfffff : namespace0.0
 23fe00000-33fbfffff : Persistent Memory
   23fe00000-33fbfffff : namespace1.0
-</code></pre><p>Both namespaces are 2MiB (0x200000) aligned since namespace0.0 starts at 0x140000000 (5GiB) and namespace1.0 starts at 0x23fe00000 (~9GiB)</p><p>When creating filesystems using the namespaces, it&rsquo;s important to maintain the 2MiB alignment (4096 sectors). Depending upon the VTOC type, fdisk creates 1MiB alignment (2048 sectors). For a non-device mapped /dev/pmem0 a partition aligned at the 2MiB boundary can be created using the following:</p><pre><code>$ fdisk /dev/pmem0
+</code></pre><p>Both namespaces are 2MiB (0x200000) aligned since namespace0.0 starts at 0x140000000 (5GiB) and namespace1.0 starts at 0x23fe00000 (~9GiB)</p>
+<p>When creating filesystems using the namespaces, it&rsquo;s important to maintain the 2MiB alignment (4096 sectors). Depending upon the VTOC type, fdisk creates 1MiB alignment (2048 sectors). For a non-device mapped /dev/pmem0 a partition aligned at the 2MiB boundary can be created using the following:</p>
+<pre tabindex=0><code>$ fdisk /dev/pmem0
 <p>Welcome to fdisk (util-linux 2.32).
 Changes will remain in memory only, until you decide to write them.
 Be careful before using the write command.</p>
@@ -73,26 +428,49 @@ Disklabel type: gpt
 Disk identifier: 10B97DA8-F537-6748-9E6F-ED66BBF7A047</p>
 <p>Device       Start     End Sectors Size Type
 /dev/pmem0p1  4096 8249310 8245215   4G Linux filesystem
-</code></pre><ol start=3></p><li>Create an XFS or EXT4 filesystem. The commands below show how this can be achieved. See the <code>mkfs.xfs</code> and <code>mkfs.ext4</code> man pages for more information.</li></ol><p>EXT4:</p><pre><code>$ mkfs.ext4 -b 4096 -E stride=512 -F /dev/pmem0
+</code></pre><ol start=3></p>
+<li>Create an XFS or EXT4 filesystem. The commands below show how this can be achieved. See the <code>mkfs.xfs</code> and <code>mkfs.ext4</code> man pages for more information.</li>
+</ol>
+<p>EXT4:</p>
+<pre tabindex=0><code>$ mkfs.ext4 -b 4096 -E stride=512 -F /dev/pmem0
 $ mount /dev/pmem0 /mnt/dax
-</code></pre><p>XFS:</p><pre><code>$ mkfs.xfs -f -d su=2m,sw=1 /dev/pmem0
+</code></pre><p>XFS:</p>
+<pre tabindex=0><code>$ mkfs.xfs -f -d su=2m,sw=1 /dev/pmem0
 $ mount /dev/pmem0 /mnt/dax
 $ xfs_io -c &quot;extsize 2m&quot; /mnt/dax
-</code></pre><ol start=4><li>[Optional] Watch IO allocations. Without enabling filesystem debug options, it is possible to confirm the filesystem is allocating in 2MiB blocks using FTrace:</li></ol><pre><code>$ cd /sys/kernel/debug/tracing
+</code></pre><ol start=4>
+<li>[Optional] Watch IO allocations. Without enabling filesystem debug options, it is possible to confirm the filesystem is allocating in 2MiB blocks using FTrace:</li>
+</ol>
+<pre tabindex=0><code>$ cd /sys/kernel/debug/tracing
 $ echo 1 &gt; events/fs_dax/dax_pmd_fault_done/enable
-</code></pre><p>Run test which faults in filesystem DAX mappings, eg:</p><pre><code>$ fallocate --length 1G /mnt/dax/data
-</code></pre><p>Look for <strong>dax_pmd_fault_done</strong> events in <code>/sys/kernel/debug/tracing/trace</code> to see if the allocations were successful. An event that successfully faulted in a filesystem DAX PMD looks like this:</p><pre><code>big-1434  [008] ....  1502.341229: dax_pmd_fault_done: dev 259:0 ino 0xc shared
+</code></pre><p>Run test which faults in filesystem DAX mappings, eg:</p>
+<pre tabindex=0><code>$ fallocate --length 1G /mnt/dax/data
+</code></pre><p>Look for <strong>dax_pmd_fault_done</strong> events in <code>/sys/kernel/debug/tracing/trace</code> to see if the allocations were successful. An event that successfully faulted in a filesystem DAX PMD looks like this:</p>
+<pre tabindex=0><code>big-1434  [008] ....  1502.341229: dax_pmd_fault_done: dev 259:0 ino 0xc shared
 WRITE|ALLOW_RETRY|KILLABLE|USER address 0x10505000 vm_start 0x10200000 vm_end
 0x10600000 pgoff 0x305 max_pgoff 0x1400 NOPAGE
-</code></pre><p>If the entry ends in <strong>NOPAGE</strong>, this means the fault succeeded and didn&rsquo;t return a page cache page, which is expected for DAX. A 2 MiB fault that failed and fell back to 4 KiB DAX faults will instead look like this:</p><pre><code>small-1431  [008] ....  1499.402672: dax_pmd_fault_done: dev 259:0 ino 0xc shared
+</code></pre><p>If the entry ends in <strong>NOPAGE</strong>, this means the fault succeeded and didn&rsquo;t return a page cache page, which is expected for DAX. A 2 MiB fault that failed and fell back to 4 KiB DAX faults will instead look like this:</p>
+<pre tabindex=0><code>small-1431  [008] ....  1499.402672: dax_pmd_fault_done: dev 259:0 ino 0xc shared
 WRITE|ALLOW_RETRY|KILLABLE|USER address 0x10420000 vm_start 0x10200000 vm_end
 0x10500000 pgoff 0x220 max_pgoff 0x3ffff FALLBACK
-</code></pre><p>You can see that this fault resulted in a fallback to 4 KiB faults via the <strong>FALLBACK</strong> return code at the end of the line. The rest of the data in this line can help you determine why the fallback happened. In this example an intentional mmap() smaller than 2 MiB was created. vm_end (0x10500000) - vm_start (0x10420000) == 0xE0000 (896 KiB).</p><p>To disable tracing run <code>echo 0 > events/fs_dax/dax_pmd_fault_done/enable </code>.</p><br>#### Creating dm-linear Devices<p>See <a href=https://www.kernel.org/doc/Documentation/device-mapper/linear.txt>Documentation/device-mapper/linear.txt</a> for parameters and usage.</p><p>Device-Mapper&rsquo;s &ldquo;linear&rdquo; target maps a linear range of the Device-Mapper device onto a linear range of another device. For example, if two 512GiB devices are linearly mapped, the resulting virtual virtual device is 1TiB.</p><p><strong>Note:</strong> If the physical devices have already been configured within interleaved sets, dm-stripe devices could potentially stripe across Non-Uniform Memory Architecture Nodes (NUMA Nodes).</p><p>For this example, two <code>pmem</code> devices will be used to create a larger mapped device</p><p><img src=/images/posts/device-mapper_fig1.png alt="Figure 1"></p><p>Identify the /dev/pmem* devices to use</p><pre><code>$ lsblk /dev/pmem*
+</code></pre><p>You can see that this fault resulted in a fallback to 4 KiB faults via the <strong>FALLBACK</strong> return code at the end of the line. The rest of the data in this line can help you determine why the fallback happened. In this example an intentional mmap() smaller than 2 MiB was created. vm_end (0x10500000) - vm_start (0x10420000) == 0xE0000 (896 KiB).</p>
+<p>To disable tracing run <code>echo 0 > events/fs_dax/dax_pmd_fault_done/enable </code>.</p>
+<br>
+#### Creating dm-linear Devices
+<p>See <a href=https://www.kernel.org/doc/Documentation/device-mapper/linear.txt>Documentation/device-mapper/linear.txt</a> for parameters and usage.</p>
+<p>Device-Mapper&rsquo;s &ldquo;linear&rdquo; target maps a linear range of the Device-Mapper device onto a linear range of another device. For example, if two 512GiB devices are linearly mapped, the resulting virtual virtual device is 1TiB.</p>
+<p><strong>Note:</strong> If the physical devices have already been configured within interleaved sets, dm-stripe devices could potentially stripe across Non-Uniform Memory Architecture Nodes (NUMA Nodes).</p>
+<p>For this example, two <code>pmem</code> devices will be used to create a larger mapped device</p>
+<p><img src=/images/posts/device-mapper_fig1.png alt="Figure 1"></p>
+<p>Identify the /dev/pmem* devices to use</p>
+<pre tabindex=0><code>$ lsblk /dev/pmem*
 NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 pmem0 259:0    0   4G  0 disk
 pmem1 259:1    0   4G  0 disk
-</code></pre><p>The following creates <code>'linear-pmem</code> devices by concatenating <code>/dev/pmem0</code> and <code>/dev/pmem1</code></p><pre><code>$ echo -e &quot;0 `blockdev --getsz /dev/pmem0` linear /dev/pmem0 0 &quot;\\n&quot;`blockdev --getsz /dev/pmem0` `blockdev --getsz /dev/pmem1` linear /dev/pmem1 0&quot; | sudo dmsetup create linear-pmem
-</code></pre><p>This results in the following</p><pre><code>$ dmsetup ls --tree
+</code></pre><p>The following creates <code>'linear-pmem</code> devices by concatenating <code>/dev/pmem0</code> and <code>/dev/pmem1</code></p>
+<pre tabindex=0><code>$ echo -e &quot;0 `blockdev --getsz /dev/pmem0` linear /dev/pmem0 0 &quot;\\n&quot;`blockdev --getsz /dev/pmem0` `blockdev --getsz /dev/pmem1` linear /dev/pmem1 0&quot; | sudo dmsetup create linear-pmem
+</code></pre><p>This results in the following</p>
+<pre tabindex=0><code>$ dmsetup ls --tree
 linear-pmem (253:2)
  ├─ (259:1)
  └─ (259:0)
@@ -105,7 +483,8 @@ pmem1         259:1    0   4G  0 disk
 <p>$ lsblk /dev/mapper/linear-pmem
 NAME        MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 linear-pmem 253:2    0   8G  0 dm
-</code></pre><p>Create a partition aligned with a 2MiB boundary, if 2MiB alignment is required.</p></p><pre><code>$ fdisk /dev/mapper/linear-pmem
+</code></pre><p>Create a partition aligned with a 2MiB boundary, if 2MiB alignment is required.</p></p>
+<pre tabindex=0><code>$ fdisk /dev/mapper/linear-pmem
 
 Welcome to fdisk (util-linux 2.32).
 Changes will remain in memory only, until you decide to write them.
@@ -126,17 +505,30 @@ Command (m for help): w
 The partition table has been altered.
 Syncing disks.
 
-</code></pre><p>A DAX filesystem can now be created using the <code>/dev/mapper/linear-pmem</code> device</p><p><code>$ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/linear-pmem</code></p><p>Mount the filesystem using the <code>-o dax</code> flag</p><pre><code>$ sudo mkdir /pmem
+</code></pre><p>A DAX filesystem can now be created using the <code>/dev/mapper/linear-pmem</code> device</p>
+<p><code> $ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/linear-pmem</code></p>
+<p>Mount the filesystem using the <code>-o dax</code> flag</p>
+<pre tabindex=0><code>$ sudo mkdir /pmem
 $ mount -o dax /dev/mapper/linear-pmem /pmem
 $ df -h /pmem
 Filesystem               Size  Used Avail Use% Mounted on
 /dev/mapper/linear-pmem  7.7G   36M  7.3G   1% /pmem
-</code></pre><br>#### Creating dm-striped Devices<p>See <a href=https://www.kernel.org/doc/Documentation/device-mapper/striped.txt>Documentation/device-mapper/striped.txt</a> for parameters and usage.</p><p>Device-Mapper&rsquo;s &ldquo;striped&rdquo; target is used to create a striped (i.e. RAID-0) device across one or more underlying devices. Data is written in &ldquo;chunks&rdquo;, with consecutive chunks rotating among the underlying devices. The &ldquo;chunk&rdquo; size should match the page size discussed in the &ldquo;<a href=#io-alignment-considerations>IO Alignment Considerations</a>&rdquo; section above. This can potentially provide improved I/O throughput by utilizing several physical devices in parallel.</p><p><strong>Note:</strong> If the physical devices have already been configured within interleaved sets, dm-stripe devices could potentially stripe across Non-Uniform Memory Architecture Nodes (NUMA Nodes).</p><p>If the HugePage size (2 MiB) is used as the &lsquo;chunk size&rsquo;, it&rsquo;ll end up using PMDs for optimal efficiency and performance. Unlike dm-raid*, dm-striped doesn&rsquo;t have an option for a separate metadata device, so the alignment will always work out.</p><p><img src=/images/posts/device-mapper_fig1.png alt="Figure 2"></p><p>Identify the /dev/pmem* devices to use</p><pre><code>$ lsblk /dev/pmem*
+</code></pre><br>
+#### Creating dm-striped Devices
+<p>See <a href=https://www.kernel.org/doc/Documentation/device-mapper/striped.txt>Documentation/device-mapper/striped.txt</a> for parameters and usage.</p>
+<p>Device-Mapper&rsquo;s &ldquo;striped&rdquo; target is used to create a striped (i.e. RAID-0) device across one or more underlying devices. Data is written in &ldquo;chunks&rdquo;, with consecutive chunks rotating among the underlying devices. The &ldquo;chunk&rdquo; size should match the page size discussed in the &ldquo;<a href=#io-alignment-considerations>IO Alignment Considerations</a>&rdquo; section above. This can potentially provide improved I/O throughput by utilizing several physical devices in parallel.</p>
+<p><strong>Note:</strong> If the physical devices have already been configured within interleaved sets, dm-stripe devices could potentially stripe across Non-Uniform Memory Architecture Nodes (NUMA Nodes).</p>
+<p>If the HugePage size (2 MiB) is used as the &lsquo;chunk size&rsquo;, it&rsquo;ll end up using PMDs for optimal efficiency and performance. Unlike dm-raid*, dm-striped doesn&rsquo;t have an option for a separate metadata device, so the alignment will always work out.</p>
+<p><img src=/images/posts/device-mapper_fig1.png alt="Figure 2"></p>
+<p>Identify the /dev/pmem* devices to use</p>
+<pre tabindex=0><code>$ lsblk /dev/pmem*
 NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 pmem0 259:0    0   4G  0 disk
 pmem1 259:1    0   4G  0 disk
-</code></pre><p>The following creates <code>'striped-pmem</code> devices by striping <code>/dev/pmem0</code> and <code>/dev/pmem1</code> using a 2MiB chunk size, specified as multiples of 512b blocks (4096 x 512 byte == 2MiB).</p><pre><code>$ echo -e &quot;0 $(( `blockdev --getsz /dev/pmem0` + `blockdev --getsz /dev/pmem0` )) striped 2 4096 /dev/pmem0 0 /dev/pmem1 0&quot; | sudo dmsetup create striped-pmem
-</code></pre><p>This results in the following</p><pre><code>$ dmsetup ls --tree
+</code></pre><p>The following creates <code>'striped-pmem</code> devices by striping <code>/dev/pmem0</code> and <code>/dev/pmem1</code> using a 2MiB chunk size, specified as multiples of 512b blocks (4096 x 512 byte == 2MiB).</p>
+<pre tabindex=0><code>$ echo -e &quot;0 $(( `blockdev --getsz /dev/pmem0` + `blockdev --getsz /dev/pmem0` )) striped 2 4096 /dev/pmem0 0 /dev/pmem1 0&quot; | sudo dmsetup create striped-pmem
+</code></pre><p>This results in the following</p>
+<pre tabindex=0><code>$ dmsetup ls --tree
 striped-pmem (253:2)
  ├─ (259:1)
  └─ (259:0)
@@ -149,7 +541,8 @@ pmem1          259:1    0   4G  0 disk
 <p>$ lsblk /dev/mapper/striped-pmem
 NAME         MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 striped-pmem 253:2    0   8G  0 dm
-</code></pre><p>Create a partition aligned with a 2MiB boundary, if 2MiB alignment is required.</p></p><pre><code>$ fdisk /dev/mapper/striped-pmem
+</code></pre><p>Create a partition aligned with a 2MiB boundary, if 2MiB alignment is required.</p></p>
+<pre tabindex=0><code>$ fdisk /dev/mapper/striped-pmem
 
 Welcome to fdisk (util-linux 2.32).
 Changes will remain in memory only, until you decide to write them.
@@ -176,21 +569,36 @@ Failed to add partition 1 to system: Invalid argument
 The kernel still uses the old partitions. The new table will be used at the next reboot.
 Syncing disks.
 
-</code></pre><p>A DAX filesystem can now be created using the <code>/dev/mapper/striped-pmem</code> device</p><p><code>$ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/striped-pmem</code></p><p>Mount the filesystem using the <code>-o dax</code> flag</p><pre><code>$ sudo mkdir /pmem
+</code></pre><p>A DAX filesystem can now be created using the <code>/dev/mapper/striped-pmem</code> device</p>
+<p><code> $ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/striped-pmem</code></p>
+<p>Mount the filesystem using the <code>-o dax</code> flag</p>
+<pre tabindex=0><code>$ sudo mkdir /pmem
 $ mount -o dax /dev/mapper/striped-pmem /pmem
 $ # df -h /pmem
 Filesystem                Size  Used Avail Use% Mounted on
 /dev/mapper/striped-pmem  7.9G   36M  7.4G   1% /pmem
-</code></pre><br>#### Using Other dm-* Devices<p>In the introduction, we stated the &lsquo;raid&rsquo; and other modules does not implement DAX. <code>dmsetup</code> does not validate or prevent creating RAID device mappings using persistent memory devices. However when attempting to mount the resulting virtual device using the <code>-o dax</code> option, a warning is recorded to dmesg and the DAX feature is disabled. Therefore it it not recommended to use the &lsquo;raid&rsquo; device-mapper module with persistent memory devices if the applications need DAX support.</p><p>The following example shows the expected warning if a non-DAX enabled device mapper module is used to mount a filesystem with the <code>-o dax</code> flag:</p><p>Create a raid mapping</p><pre><code>$ dmsetup ...
-</code></pre><p>Mount the new device using the &lsquo;-o dax&rsquo; flag:</p><pre><code>$ mount -o dax /dev/mapper/raid-pmem /pmem
-</code></pre><p>A filesystem with DAX disabled will not have the <code>dax</code> flag listed using <code>mount -v</code>, eg:</p><pre><code>$ mount -v | grep /pmem
+</code></pre><br>
+#### Using Other dm-* Devices
+<p>In the introduction, we stated the &lsquo;raid&rsquo; and other modules does not implement DAX. <code>dmsetup</code> does not validate or prevent creating RAID device mappings using persistent memory devices. However when attempting to mount the resulting virtual device using the <code>-o dax</code> option, a warning is recorded to dmesg and the DAX feature is disabled. Therefore it it not recommended to use the &lsquo;raid&rsquo; device-mapper module with persistent memory devices if the applications need DAX support.</p>
+<p>The following example shows the expected warning if a non-DAX enabled device mapper module is used to mount a filesystem with the <code>-o dax</code> flag:</p>
+<p>Create a raid mapping</p>
+<pre tabindex=0><code>$ dmsetup ...
+</code></pre><p>Mount the new device using the &lsquo;-o dax&rsquo; flag:</p>
+<pre tabindex=0><code>$ mount -o dax /dev/mapper/raid-pmem /pmem
+</code></pre><p>A filesystem with DAX disabled will not have the <code>dax</code> flag listed using <code>mount -v</code>, eg:</p>
+<pre tabindex=0><code>$ mount -v | grep /pmem
 /dev/pmem0 on /pmem type ext4 (rw,relatime,seclabel)
-</code></pre><p>Additionally, dmesg may also report a &ldquo;DAX unsupported by block device. Turning off DAX&rdquo; warning, eg:</p><pre><code>$ tail -f /var/log/mesages | grep EXT4-fs
+</code></pre><p>Additionally, dmesg may also report a &ldquo;DAX unsupported by block device. Turning off DAX&rdquo; warning, eg:</p>
+<pre tabindex=0><code>$ tail -f /var/log/mesages | grep EXT4-fs
 EXT4-fs (raid-pmem): mounted filesystem with ordered data mode. Opts: (null)
 EXT4-fs (raid-pmem): DAX enabled. Warning: EXPERIMENTAL, use at your own risk
 EXT4-fs (raid-pmem): DAX unsupported by block device. Turning off DAX.
 EXT4-fs (raid-pmem): mounted filesystem with ordered data mode. Opts: dax
-</code></pre><br>#### Persistent Configuration Across System Reboots<p>In both the dm-linear and dm-stripe examples above, the configuration will not persist across system reboots because neither solution has any metadata to save. A script executed at boot time is required to reinstate the configuration each time. The UUID of the persistent memory namespaces will not change, but the <code>/dev/pmem{N}</code> could. The <code>create-pmem-dev-links-by-uuid</code> script provided below uses the <code>ndctl</code> utility to gather the uuid for each pmem device and creates symbolic links from /dev/disk/by-uuid to the appropriate <code>/dev/pmem{N}</code>. The <code>dmsetup</code> command uses the <code>/dev/disk/by-uuid/{uuid}</code> convention rather than <code>/dev/pmem{N}</code>. Using UUIDs guarantees the correct device(s) are used in the correct order to avoid data corruption.</p><p>The <code>create-pmem-dev-links-by-uuid</code> service maintains the device links and the <code>pmem-dev-mapper</code> service creates the devices and mounts the filesystem.</p><pre><code>--- create-pmem-dev-links-by-uuid ---
+</code></pre><br>
+#### Persistent Configuration Across System Reboots
+<p>In both the dm-linear and dm-stripe examples above, the configuration will not persist across system reboots because neither solution has any metadata to save. A script executed at boot time is required to reinstate the configuration each time. The UUID of the persistent memory namespaces will not change, but the <code>/dev/pmem{N}</code> could. The <code>create-pmem-dev-links-by-uuid</code> script provided below uses the <code>ndctl</code> utility to gather the uuid for each pmem device and creates symbolic links from /dev/disk/by-uuid to the appropriate <code>/dev/pmem{N}</code>. The <code>dmsetup</code> command uses the <code>/dev/disk/by-uuid/{uuid}</code> convention rather than <code>/dev/pmem{N}</code>. Using UUIDs guarantees the correct device(s) are used in the correct order to avoid data corruption.</p>
+<p>The <code>create-pmem-dev-links-by-uuid</code> service maintains the device links and the <code>pmem-dev-mapper</code> service creates the devices and mounts the filesystem.</p>
+<pre tabindex=0><code>--- create-pmem-dev-links-by-uuid ---
 #!/bin/bash
 <h1 id=usage>Usage:</h1>
 <h1 id=create-pmem-dev-links-by-uuid>./create-pmem-dev-links-by-uuid</h1>
@@ -218,22 +626,36 @@ or download it from <a href=https://github.com/pmem/ndctl>https://github.com/pme
 
     If the utility is installed, it cannot be found in $PATH.
     Please update your PATH environment.
-</code></pre><p>EOF
+</code></pre>
+<p>EOF
 exit 1
-fi</p><h1 id=try-to-locate-the-jq1-utility-within-the-users-path>Try to locate the jq(1) utility within the users $PATH</h1><p>if [ ! -x "$(command -v ${JQCMD})" ]; then
+fi</p>
+<h1 id=try-to-locate-the-jq1-utility-within-the-users-path>Try to locate the jq(1) utility within the users $PATH</h1>
+<p>if [ ! -x "$(command -v ${JQCMD})" ]; then
 cat &lt;&lt; EOF
 Error: jq is not installed.
-Please install jq from your Operating Systems repository.</p><pre><code>    $ sudo dnf install jq
+Please install jq from your Operating Systems repository.</p>
+<pre><code>    $ sudo dnf install jq
 
     If the utility is installed, it cannot be found in $PATH.
     Please update your PATH environment.
-</code></pre><p>EOF
+</code></pre>
+<p>EOF
 exit 1
-fi</p><p>####################</p><h1 id=create-sym-links>Create Sym Links</h1><p>####################</p><h1 id=process-the-output-from-ndctl-list--n-using-jq-to-extract-the-quotuuidquot>Process the output from &lsquo;ndctl list -N&rsquo; using jq to extract the "uuid"</h1><h1 id=and-quotblockdevquot-elements-quotuuidquot-is-used-as-the-key-and-quotblockdevquot>and "blockdev" elements. "uuid" is used as the key and "blockdev"</h1><h1 id=is-the-value>is the value</h1><p>declare -A uuid_dev_lst=()
+fi</p>
+<p>####################</p>
+<h1 id=create-sym-links>Create Sym Links</h1>
+<p>####################</p>
+<h1 id=process-the-output-from-ndctl-list--n-using-jq-to-extract-the-quotuuidquot>Process the output from &lsquo;ndctl list -N&rsquo; using jq to extract the "uuid"</h1>
+<h1 id=and-quotblockdevquot-elements-quotuuidquot-is-used-as-the-key-and-quotblockdevquot>and "blockdev" elements. "uuid" is used as the key and "blockdev"</h1>
+<h1 id=is-the-value>is the value</h1>
+<p>declare -A uuid_dev_lst=()
 while read -r uuid dev
 do
 uuid_dev_lst["$uuid"]="$dev"
-done &lt; &lt;(${NDCTLCMD} list -N | ${JQCMD} -r &lsquo;.[] | "(.uuid) (.blockdev)"')</p><h1 id=walk-the-list-remove-any-old-sym-links-then-create-new-sym-links>Walk the list, remove any old sym links, then create new sym links</h1><p>if [ ${#array[@]} -ge 0 ]
+done &lt; &lt;(${NDCTLCMD} list -N | ${JQCMD} -r &lsquo;.[] | "(.uuid) (.blockdev)"')</p>
+<h1 id=walk-the-list-remove-any-old-sym-links-then-create-new-sym-links>Walk the list, remove any old sym links, then create new sym links</h1>
+<p>if [ ${#array[@]} -ge 0 ]
 then
 for uuid in "${!uuid_dev_lst[@]}"
 do
@@ -243,7 +665,9 @@ done
 else
 echo "No valid fsdax namespaces found!"
 fi
-&mdash; end &mdash;</code></pre><br></p><pre><code>--- pmem-dev-mapper ---
+&mdash; end &mdash;
+</code></pre><br></p>
+<pre tabindex=0><code>--- pmem-dev-mapper ---
 #!/bin/bash
 &lt;h1 id=&quot;usage&quot;&gt;Usage:&lt;/h1&gt;
 &lt;h1 id=&quot;pmem-dev-mapper&quot;&gt;./pmem-dev-mapper&lt;/h1&gt;
@@ -264,7 +688,7 @@ fi
 &lt;h1 id=&quot;the-following-mounts-the-striped-pmem-device-to-pmem&quot;&gt;The following mounts the &amp;lsquo;striped-pmem&amp;rsquo; device to /pmem&lt;/h1&gt;
 &lt;p&gt;mount -o dax /dev/mapper/striped-pmem /pmem
 &amp;mdash; end &amp;mdash;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 **Note:** The above has been tested on Fedora 27 and Fedora 28.
 
 &amp;lt;br/&amp;gt;
@@ -276,15 +700,15 @@ Use the following procedure to create a custom systemd services to execute the `
 1. Create an `/opt/pmem` directory, then save the `create-pmem-dev-links-by-uuid` and `pmem-dev-mapper` scripts to `/opt/pmem/`.
 
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;mkdir--p-optpmem&quot;&gt;mkdir -p /opt/pmem&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 2. Make the scripts executable
 
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;chmod-x-optpmem&quot;&gt;chmod +x /opt/pmem/*&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 3. Create and edit the new `pmem-uuid-dev-links.service` systemd service configuration file:
 
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;vi-etcsystemdsystempmem-uuid-dev-linksservice&quot;&gt;vi /etc/systemd/system/pmem-uuid-dev-links.service&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 4. Insert the following:
 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[Unit]
@@ -294,11 +718,11 @@ Type=simple
 ExecStart=/opt/pmem/create-pmem-dev-links-by-uuid&lt;/p&gt;
 &lt;p&gt;[Install]
 WantedBy=multi-user.target&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 5. Create and edit the new `pmem-dev-mapper` systemd service configuration file:
 
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;vi-etcsystemdsystempmem-dev-mapperservice&quot;&gt;vi /etc/systemd/system/pmem-dev-mapper.service&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 6. Insert the following:
 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[Unit]
@@ -309,17 +733,17 @@ Type=simple
 ExecStart=/opt/pmem/pmem-dev-mapper&lt;/p&gt;
 &lt;p&gt;[Install]
 WantedBy=multi-user.target&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 7. Add execute permissions to the service files
 
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;chmod-x-etcsystemdsystempmem-uuid-dev-linksservice-&quot;&gt;chmod +x /etc/systemd/system/pmem-uuid-dev-links.service \&lt;/h1&gt;
 &lt;p&gt;/etc/systemd/system/pmem-dev-mapper.service&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 8. Start and Enable the services
 
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;systemctl-start-pmem-dev-mapper&quot;&gt;systemctl start pmem-dev-mapper&lt;/h1&gt;
 &lt;h1 id=&quot;systemctl-enable-pmem-uuid-dev-links-pmem-dev-mapper&quot;&gt;systemctl enable pmem-uuid-dev-links pmem-dev-mapper&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 9. Check the status of the service to ensure the service is running:
 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;$ systemctl status pmem-uuid-dev-links pmem-dev-mapper
@@ -331,7 +755,7 @@ Loaded: loaded (/etc/systemd/system/pmem-dev-mapper.service; enabled; vendor pre
 Active: inactive (dead) since Tue 2018-06-05 17:07:43 MDT; 4s ago
 Process: 6294 ExecStart=/opt/pmem/pmem-dev-mapper (code=exited, status=0/SUCCESS)
 Main PID: 6294 (code=exited, status=0/SUCCESS)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
+&lt;pre tabindex=&quot;0&quot;&gt;&lt;code&gt;
 
 
 &amp;lt;br/&amp;gt;
@@ -340,18 +764,81 @@ Main PID: 6294 (code=exited, status=0/SUCCESS)&lt;/p&gt;
 
 This article has shown how to use the Linux Device Mapper with Persistent Memory Devices (Modules) to create more complex configurations suitable for application requirements.  It describes and demonstrates how to use 2MiB HugePages to improve IO performance with large amounts of persistent memory.
 
-&lt;/code&gt;&lt;/pre&gt;</code></pre><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Using Persistent Memory Devices with the Linux Device Mapper&url=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2018/06/running-fio-with-pmem-engines/?ref=footer">&lArr; Running FIO with pmem engines</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2017/12/benchmarking-with-different-storage-engines-using-pmemkv/?ref=footer">Benchmarking with different... &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+&lt;/code&gt;&lt;/pre&gt;</code></pre>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Using Persistent Memory Devices with the Linux Device Mapper&url=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2018/05/using-persistent-memory-devices-with-the-linux-device-mapper/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2018/06/running-fio-with-pmem-engines/?ref=footer">&lArr; Running FIO with pmem engines</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2017/12/benchmarking-with-different-storage-engines-using-pmemkv/?ref=footer">Benchmarking with different... &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -359,4 +846,23 @@ This article has shown how to use the Linux Device Mapper with Persistent Memory
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

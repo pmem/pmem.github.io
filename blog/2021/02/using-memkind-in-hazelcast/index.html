@@ -1,35 +1,344 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Using Memkind in Hazelcast</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Using Memkind in Hazelcast</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 11 Feb, 2021</li><li><i class=icon-user></i> Michalbiesek</li><li><i class=icon-folder-open></i>
-Memkind</li></ul></div><div class="entry-content mt-0"><p>This blog post is published on the Hazelcast <a href=https://hazelcast.com/blog/using-memkind-in-hazelcast/>blog</a> as well.
-If interested in Hazelcast, check the other posts there too.</p><h2 id=introduction>Introduction</h2><p>The mission of the PMDK team has always been and will always be to make programming persistent memory
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Using Memkind in Hazelcast</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Using Memkind in Hazelcast</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 11 Feb, 2021</li>
+<li><i class=icon-user></i> Michalbiesek</li>
+<li>
+<i class=icon-folder-open></i>
+Memkind
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<p>This blog post is published on the Hazelcast <a href=https://hazelcast.com/blog/using-memkind-in-hazelcast/>blog</a> as well.
+If interested in Hazelcast, check the other posts there too.</p>
+<h2 id=introduction>Introduction</h2>
+<p>The mission of the PMDK team has always been and will always be to make programming persistent memory
 easier for the community of software developers. One of our goals is to help simplify the integration
 of persistent memory into software solutions by making it transparent as possible.
 Adopting ground-breaking and disruptive technology creates a chasm, which is
 challenging to cross at first. To help with that, PMDK offers a multi-layered stack of solutions
-so that developers can choose a library that is the best fit for their desired level of abstraction and purpose.</p><p>Intel Optane persistent memory (PMem) can be configured in two modes: Memory Mode or App Direct Mode.
+so that developers can choose a library that is the best fit for their desired level of abstraction and purpose.</p>
+<p>Intel Optane persistent memory (PMem) can be configured in two modes: Memory Mode or App Direct Mode.
 In Memory Mode, the system’s DRAM behaves as a cache while PMem provides large memory capacity.
 When configured for Memory Mode, applications and the operating system perceive a pool of volatile memory
 no different than on DRAM-only systems. Use of PMem in Memory Mode is transparent to applications and
 the operating system, so no specific persistent memory programming is needed. When configured in App Direct Mode,
 however, the applications and operating system are explicitly aware that there are two types of memory on
 the platform, and can direct which type of data read or write is suitable for DRAM or PMem.
-PMDK is a suite of software libraries designed to take advantage of persistent memory when using App Direct Mode.</p><p>In this post, we will present how the cooperation between <a href=https://hazelcast.com>Hazelcast</a> and the PMDK team
+PMDK is a suite of software libraries designed to take advantage of persistent memory when using App Direct Mode.</p>
+<p>In this post, we will present how the cooperation between <a href=https://hazelcast.com>Hazelcast</a> and the PMDK team
 improved Hazelcast’s overall performance with PMem. We will also showcase how to mitigate one
 of the most common problems with Java applications and garbage collection limitations.
 This post also demonstrates how an efficient use of hardware enables solutions to
-scale better while retaining low tail latency.</p><p>In this article, we will focus on using Persistent Memory directly, through App Direct Mode.
+scale better while retaining low tail latency.</p>
+<p>In this article, we will focus on using Persistent Memory directly, through App Direct Mode.
 One of the easiest ways to adopt PMem is to use it as a volatile extension of the existing memory
 where applications use PMem as regular memory without any intention of retaining data
 across power or restart cycles. The adoption barrier of integrating PMem this way
 is relatively minimal, but there are some important technical considerations we discuss
-in this post.</p><h2 id=about-hazelcast>About Hazelcast</h2><p>Hazelcast IMDG (In-Memory Data Grid) is a leading open source in-memory solution written in Java,
+in this post.</p>
+<h2 id=about-hazelcast>About Hazelcast</h2>
+<p>Hazelcast IMDG (In-Memory Data Grid) is a leading open source in-memory solution written in Java,
 capable of storing a large amount of data in an elastic distributed cluster with a rich set
 of functionality for operating on the stored data such as querying with SQL,
 performing distributed computations and many more. Operating entirely in the memory is
 the central concept of Hazelcast to guarantee that these operations are done with a low
 and predictable latency and with a stable throughput. Hazelcast is widely used as a caching layer,
-for storing web sessions, for efficient fraud detection and for many other use cases.</p><h2 id=working-with-big-data-in-the-java-virtual-machine>Working with Big Data in the Java Virtual Machine</h2><p>Given that Hazelcast is written in Java, it is inherently sensitive to the unpredictability
+for storing web sessions, for efficient fraud detection and for many other use cases.</p>
+<h2 id=working-with-big-data-in-the-java-virtual-machine>Working with Big Data in the Java Virtual Machine</h2>
+<p>Given that Hazelcast is written in Java, it is inherently sensitive to the unpredictability
 of the garbage collection (GC) algorithm used by the Java Virtual Machine.
 The traditional GC algorithms are famously known to put a practical limit on the usable heap size.
 This practical limit can manifest itself in the so-called stop-the-world GC pauses,
@@ -47,13 +356,19 @@ memory is done while the application threads are running - therefore, the applic
 concurrently - it is possible that even these clever GC algorithms are unable to keep up with the pace
 of the allocations and need to employ their so-called failure modes, which is a well-controlled form
 of impacting the application to get the control back over the allocation/reclamation dynamics.
-As the worst case option, these algorithms may need to suspend application threads as well.</p><p>To overcome the above limitations with the GC, and to guarantee the low and predictable response times,
+As the worst case option, these algorithms may need to suspend application threads as well.</p>
+<p>To overcome the above limitations with the GC, and to guarantee the low and predictable response times,
 Hazelcast improved its enterprise offering years ago by implementing an in-memory
 storage that stores the data outside of the Java heap. This feature is named
 High-Density Memory Storage (HDMS or just HD), also known as native or off-heap storage.
 While there is still GC involved, the data Hazelcast stores in its HD storage is not subject to the GC,
 therefore, that data can be very big in size without running into the problems of the GC mentioned above.
-For more details on HD, refer to the <a href=https://hazelcast.org/blog/introduction-hazelcast-hd-memory/>blog post introducing HD</a>.</p><figure class=image><img src=/images/posts/hazelcast_1.png alt="Segmentation of memory"><figcaption>Figure 1. Segmentation of the memory with HD.</figcaption></figure><p>First launched in 2019, Intel Optane persistent Memory offers DIMM-compatible non-volatile memory-modules.
+For more details on HD, refer to the <a href=https://hazelcast.org/blog/introduction-hazelcast-hd-memory/>blog post introducing HD</a>.</p>
+<figure class=image>
+<img src=/images/posts/hazelcast_1.png alt="Segmentation of memory">
+<figcaption>Figure 1. Segmentation of the memory with HD.</figcaption>
+</figure>
+<p>First launched in 2019, Intel Optane persistent Memory offers DIMM-compatible non-volatile memory-modules.
 While the biggest breakthrough of these modules is their persistent capability, using them in
 a volatile App Direct Mode is also attractive in some use cases. These modules are available with
 greater capacities than that of DRAM DIMMs. Therefore, the total achievable capacity is bigger than
@@ -63,18 +378,23 @@ Hazelcast 4.0 added support for these persistent memory modules - in addition to
 The initial implementation in 4.0 used <a href=https://pmem.io/pmdk/libvmem/>libvmem</a> for using Intel Optane persistent
 memory modules in volatile App Direct Mode. Since then, Memkind became the go-to library
 for using the PMem in volatile mode, therefore, Hazelcast dropped libvmem
-and replaced it with Memkind in its 4.1 version.</p><h2 id=integration-with-memkind>Integration with Memkind</h2><p>Memkind is a library for managing multiple types of memory (e.g., DRAM, MCDRAM, PMem),
+and replaced it with Memkind in its 4.1 version.</p>
+<h2 id=integration-with-memkind>Integration with Memkind</h2>
+<p>Memkind is a library for managing multiple types of memory (e.g., DRAM, MCDRAM, PMem),
 with different performance characteristics. This solution enables applications
 to use persistent memory as the capacity tier for memory resident data.
 In heterogeneous memory systems, where two or more memory types are present,
 memkind is a solution that helps applications to overcome the challenge of managing
-complex memory architectures.</p><p>In memkind, memory is managed as independent heaps, called <em>memory kinds</em>.</p><p>Hazelcast takes advantage of both solutions libmemkind provides for using PMem.
+complex memory architectures.</p>
+<p>In memkind, memory is managed as independent heaps, called <em>memory kinds</em>.</p>
+<p>Hazelcast takes advantage of both solutions libmemkind provides for using PMem.
 The PMEM kind let’s the user application allocate from the PMem medium if it is
 mounted with a DAX-aware file system. The <a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM-DAX</a> mode
 combines the advantages of the Linux kernel’s KMEM feature and the direct access (DAX)
 capabilities of PMem by transparently allocating PMem memory from the system memory
 consisted of DRAM and PMem backed regions after preliminary configuration of PMem.
-The two modes will be discussed in detail later.</p><p>To leverage the advanced heap management offered by Memkind, Hazelcast needed to
+The two modes will be discussed in detail later.</p>
+<p>To leverage the advanced heap management offered by Memkind, Hazelcast needed to
 build a Java Native Interface (JNI) bridge. Integrating Memkind was a straightforward task
 since Hazelcast’s HD memory manager interacts with the memory allocators through a malloc-like
 internal abstraction with an API that is similar to standard memory allocation API&rsquo;s.
@@ -82,7 +402,8 @@ The notable difference with Memkind is that the caller should define a kind for 
 and also may define the kind when freeing or reallocating a memory block. If the kind is not defined,
 Memkind detects which kind should be used. This kind detection feature turned out to be a very
 useful feature for Hazelcast, even though at the time of writing this post Hazelcast exclusively
-use the <code>PMEM</code> or the <code>MEMKIND_DAX_KMEM_ALL</code> kinds.</p><p>Looking forward, this could help Hazelcast build a tiered HD storage feature,
+use the <code>PMEM</code> or the <code>MEMKIND_DAX_KMEM_ALL</code> kinds.</p>
+<p>Looking forward, this could help Hazelcast build a tiered HD storage feature,
 for example with DRAM and PMem tiers, to take advantage of the heterogeneous platform architectures.
 Implementing such a tiered storage is inherently difficult with heterogeneous memory allocators,
 since allocating, freeing and reallocating a memory block has to use the same allocator.
@@ -92,7 +413,8 @@ of this approach is a significant increase of the fragmentation. Since memkind i
 tracks the dedicated memory kind of a given object from the allocation metadata, it can detect the kind
 for every object allocated with the library. This is a great help for the applications dealing with
 heterogeneous memory resources as memkind eliminates the aforementioned problem entirely.
-To learn more on kind detection, please see this <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind>post</a>.</p><p>The collaboration between the PMDK team and Hazelcast helped streamline PMem integration into the
+To learn more on kind detection, please see this <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind>post</a>.</p>
+<p>The collaboration between the PMDK team and Hazelcast helped streamline PMem integration into the
 <a href=https://hazelcast.com/product-features/high-density-memory-store/>High-Density Memory Store</a>. The Hazelcast team uses the memkind library
 to explicitly allocate PMem space. When using the FS-DAX base memory kind, the Hazelcast team analyzed
 memkind performance in the context of shutdown times and found the bottleneck in the form
@@ -104,22 +426,33 @@ reducing the amount of memory returned to the system, and instead allows the all
 reuse the already allocated memory pages. With this change the punch-hole operation was not called during
 the free operation. Subsequently, we discovered that the punch hole operation was no longer required
 when destroying a PMEM memory kind, which allowed us to <a href=https://github.com/memkind/memkind/pull/365/commits/143b4627d3c96fc08390cc985aa41d60b2fa427>eliminate this operation</a>
-for even greater performance gains, resulting in further reduction of the shutdown times experienced by Hazelcast.</p><p>As another result of the teams collaboration the next release of libmemkind will
+for even greater performance gains, resulting in further reduction of the shutdown times experienced by Hazelcast.</p>
+<p>As another result of the teams collaboration the next release of libmemkind will
 be improved by providing a method to verify if the path used to create a PMem memory kind point
 on the DAX-aware filesystem, which previously was possible only by using additional dependency
-like <a href=https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>libpmem</a>. With this change the memkind library will become an even more standalone library.</p><h2 id=unified-pmem-heap>Unified PMEM heap</h2><p>As mentioned before, Hazelcast uses the <code>PMEM</code> and the <code>MEMKIND_DAX_KMEM_ALL</code> kinds.
+like <a href=https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>libpmem</a>. With this change the memkind library will become an even more standalone library.</p>
+<h2 id=unified-pmem-heap>Unified PMEM heap</h2>
+<p>As mentioned before, Hazelcast uses the <code>PMEM</code> and the <code>MEMKIND_DAX_KMEM_ALL</code> kinds.
 The latter is straightforward to use as the kind defines a single heap even on multi-socket machines.
-On the other hand, the file-system DAX mode that the PMEM kind is built on is a bit different.</p><h3 id=unified-heap-in-the-fs-dax-mode>Unified heap in the FS-DAX mode</h3><p>On multi-socket systems there could be many persistent memory devices even if the modules are interleaved,
+On the other hand, the file-system DAX mode that the PMEM kind is built on is a bit different.</p>
+<h3 id=unified-heap-in-the-fs-dax-mode>Unified heap in the FS-DAX mode</h3>
+<p>On multi-socket systems there could be many persistent memory devices even if the modules are interleaved,
 one device for every socket. Figure 2 presents this filesystem-based solution which memkind uses to support
 the PMem devices. Each PMem device is visible to the Operating System as a block device based on
 the DAX-aware filesystem. The block device can be mounted in various possible locations; therefore,
 the user must create a PMEM memory kind for a defined path. In this mode, to utilize all PMem memory
 available in the system, the application must make separated heaps for each socket (for each PMem device).
-Besides managing the heaps separately, the application is also responsible for making the allocations NUMA-aware.</p><figure class=image><img src=/images/posts/hazelcast_2.png alt="PMEM FS-DAX"><figcaption>Figure 2. PMEM support as file-system DAX mode.</figcaption></figure><p>Applications that don’t want to deal with managing separate heaps can use software
+Besides managing the heaps separately, the application is also responsible for making the allocations NUMA-aware.</p>
+<figure class=image>
+<img src=/images/posts/hazelcast_2.png alt="PMEM FS-DAX">
+<figcaption>Figure 2. PMEM support as file-system DAX mode.</figcaption>
+</figure>
+<p>Applications that don’t want to deal with managing separate heaps can use software
 RAID(see <a href=https://stevescargall.com/2019/05/21/using-linux-volume-manager-lvm-with-persistent-memory/>LVM with persistent memory</a> and <a href=https://software.intel.com/content/www/us/en/develop/articles/storage-redundancy-with-intel-optane-persistent-memory-modules.html>Storage Redundancy with Intel Optane</a>)
 to create a single mount point and one PMEM kind for the multiple devices.
 With this option the unification is done at the OS level. This has the consequence
-that the application can’t control whether it accesses local or remote persistent memory.</p><p>This realization inspired Hazelcast to implement its own heap unification with round-robin
+that the application can’t control whether it accesses local or remote persistent memory.</p>
+<p>This realization inspired Hazelcast to implement its own heap unification with round-robin
 and NUMA-aware allocation strategies. The round-robin strategy ensures every allocation
 is done from a different PMEM kind than the last one and is a best-effort approach for achieving
 a similar ratio of local persistent memory accesses on every thread. Assuming fix-sized allocations,
@@ -134,13 +467,16 @@ This strategy pins every Hazelcast operation thread to a single NUMA node and ma
 every allocation - thus access - done in a PMEM kind that is local to the allocator thread.
 In the mentioned cases this helps in improving the response times by lowering the latency of the LLC misses.
 To learn how to set the allocation strategy, please refer to
-the <a href=https://docs.hazelcast.org/docs/latest/manual/html-single/#using-persistent-memory>Hazelcast reference manual</a>.</p><p>These strategies focus on the performance of the persistent memory access,
+the <a href=https://docs.hazelcast.org/docs/latest/manual/html-single/#using-persistent-memory>Hazelcast reference manual</a>.</p>
+<p>These strategies focus on the performance of the persistent memory access,
 but being able to utilize the whole available capacity is just as important.
 The above allocation strategies implement “allocation overflowing”. If the PMEM kind
 chosen by the used allocation strategy can’t satisfy the allocation request, an attempt
 is made to allocate from the rest of the PMEM kinds before reporting out of memory to the allocator.
 This ensures that the available PMem capacity can be utilized even in the undesired case when
-accesses of the PMEM kinds are out of balance.</p><h3 id=unified-heap-in-the-kmem-dax-mode>Unified heap in the KMEM-DAX mode</h3><p>Besides using software RAID, applications running on Linux kernel 5.1 or higher have a
+accesses of the PMEM kinds are out of balance.</p>
+<h3 id=unified-heap-in-the-kmem-dax-mode>Unified heap in the KMEM-DAX mode</h3>
+<p>Besides using software RAID, applications running on Linux kernel 5.1 or higher have a
 second option for solving heap unification at the operating system level. With this option,
 the PMem devices are exposed to the Operating Systems layer as separate memory-only NUMA Nodes,
 as presented in Figure 3. Handling this mode in memkind is simplified – there is no need to
@@ -150,22 +486,31 @@ from both NUMA Nodes using one heap. The static memory kind is also NUMA aware.
 The PMem memory will come first from the NUMA node with the smallest distance from the CPU
 of the calling thread, and if the memory from the local PMem NUMA Node doesn’t have memory to
 fulfill the request, it will switch to the remote PMem NUMA Node.
-This heap unification is a convenient mechanism to limit necessary changes to include PMem.</p><figure class=image><img src=/images/posts/hazelcast_3.png alt="PMEM KMEM-DAX"><figcaption>Figure 3. PMEM support as KMEM-DAX mode.</figcaption></figure><h2 id=thoughts-on-the-performance-of-intel-optane-persistent-memory>Thoughts on the performance of Intel Optane persistent memory</h2><p>In the above sections we described the modes offered by memkind for allocating volatile memory
+This heap unification is a convenient mechanism to limit necessary changes to include PMem.</p>
+<figure class=image>
+<img src=/images/posts/hazelcast_3.png alt="PMEM KMEM-DAX">
+<figcaption>Figure 3. PMEM support as KMEM-DAX mode.</figcaption>
+</figure>
+<h2 id=thoughts-on-the-performance-of-intel-optane-persistent-memory>Thoughts on the performance of Intel Optane persistent memory</h2>
+<p>In the above sections we described the modes offered by memkind for allocating volatile memory
 backed by PMem and how Hazelcast builds on these modes. In the following we share some thoughts
 on the performance of PMem in general and some of the key findings of the Hazelcast team from
-benchmarking Intel Optane persistent memory in a distributed environment.</p><p>As discussed in <a href=https://pmem.io/blog/2019/12/300-nanoseconds-1-of-2>one</a> of the previous posts on the PMDK blog,
+benchmarking Intel Optane persistent memory in a distributed environment.</p>
+<p>As discussed in <a href=https://pmem.io/blog/2019/12/300-nanoseconds-1-of-2>one</a> of the previous posts on the PMDK blog,
 PMem is a new tier between Memory and storage. Apart from the data persistence and previously
 mentioned big capacity, the CPU can access the data directly. Access to information in
 the physical medium is provided with cache-line granularity. Besides memory capacity, PMem
 fulfills the gap between DRAM and storage in terms of latency. It provides an asymmetric
 performance (see <a href=https://software.intel.com/content/dam/develop/public/us/en/documents/64-ia-32-architectures-optimization-manual.pdf>section 12.2</a> and <a href=https://arxiv.org/pdf/1903.05714.pdf>Basic Performance Measurements</a>)
-depending on the type of access operation reading/write and characteristics of access sequentially/random.</p><p>Performance impact for remote NUMA access for Intel Optane persistent memory is much larger
+depending on the type of access operation reading/write and characteristics of access sequentially/random.</p>
+<p>Performance impact for remote NUMA access for Intel Optane persistent memory is much larger
 compared to DRAM (see <a href=https://www.usenix.org/system/files/fast20-yang.pdf>section 5.4</a>). To achieve the best performance, we need to limit
 the remote connection between sockets and focus on local memory access in the context
 of Non-Uniform Memory Access (NUMA). The previously mentioned API provided by memkind
 is NUMA-aware. It means that in the case of allocation to PMem using <code>MEMKIND_DAX_KMEM</code>,
 memory kind results in allocating memory from closest PMem to CPU, which requests an allocation,
-solving this performance problem transparently to the application.</p><p>The performance of these PMem modules is in between the performance of DRAM modules
+solving this performance problem transparently to the application.</p>
+<p>The performance of these PMem modules is in between the performance of DRAM modules
 and storage devices. The bandwidth of Intel Optane persistent memory is lower than the bandwidth
 of the DRAM modules, while their access time is greater. This would make some think that PMem compared to DRAM
 is a poor choice when it comes to performance. Based on Hazelcast’s tests, this is not necessarily the case.
@@ -187,12 +532,24 @@ NUMA-local Intel Optane Persistent Memory accesses in FS-DAX mode. The chart com
 single Hazelcast member with the same caching workload, but with different settings. The benchmark used for
 producing the chart executed two operations: get and put operations in Hazelcast IMap (Hazelcast’s key-value data structure),
 both with 50% probability to read and update the values.
-The legend encodes these settings as described below:</p><ul><li><strong>AFFUNSET/AFFNUMA</strong>: It tells if thread affinity was set or not set for Hazelcast’s worker threads.
+The legend encodes these settings as described below:</p>
+<ul>
+<li><strong>AFFUNSET/AFFNUMA</strong>: It tells if thread affinity was set or not set for Hazelcast’s worker threads.
 AFFUNSET means the scheduler was free to run the worker threads on any CPU it wanted,
 while AFFNUMA means all worker threads were bound to a single NUMA node’s CPUs,
-balanced evenly between the two NUMA nodes of the dual-socket test machine.</li><li><strong>DRAM/OPTANE/OPTANE-NUMA</strong>: Whether the data stored by Hazelcast is on DRAM or on Optane.
+balanced evenly between the two NUMA nodes of the dual-socket test machine.</li>
+<li><strong>DRAM/OPTANE/OPTANE-NUMA</strong>: Whether the data stored by Hazelcast is on DRAM or on Optane.
 OPTANE stands for the previously described round-robin allocation strategy,
-while OPTANE-NUMA means that the NUMA-aware allocation strategy.</li><li><strong>10K</strong>: The size of the entries used in the test.</li><li><strong>100G</strong>: The total data size the Hazelcast member operates with.</li><li><strong>1</strong>: The iteration number of the test with the given setup. Always one in this case.</li></ul><figure class=image><img src=/images/posts/hazelcast_4.png alt="Hazelcast throughput"><figcaption>Figure 4. The throughput of a single Hazelcast instance with different settings.</figcaption></figure><p>The chart shows the drastic change in Hazelcast’s throughput just by changing the NUMA-local
+while OPTANE-NUMA means that the NUMA-aware allocation strategy.</li>
+<li><strong>10K</strong>: The size of the entries used in the test.</li>
+<li><strong>100G</strong>: The total data size the Hazelcast member operates with.</li>
+<li><strong>1</strong>: The iteration number of the test with the given setup. Always one in this case.</li>
+</ul>
+<figure class=image>
+<img src=/images/posts/hazelcast_4.png alt="Hazelcast throughput">
+<figcaption>Figure 4. The throughput of a single Hazelcast instance with different settings.</figcaption>
+</figure>
+<p>The chart shows the drastic change in Hazelcast’s throughput just by changing the NUMA-local
 Intel Optane persistent memory accesses from 50% (blue line) to 100% (green line). It also shows
 that there is no such big difference in the case of DRAM (pink and red lines). Besides the less
 sensitivity to the NUMA-locality of DRAM, the other reason is that the operating system
@@ -201,24 +558,90 @@ This is a nice attribute of the KMEM-DAX mode too, the pages backed by PMem used
 KMEM-DAX mode are subject to the regular memory placement policies of the Linux kernel.
 This is not the case if the FS-DAX mode is used, because in that mode the application’s
 PMem access pattern is totally opaque to the operating system as managing the heap backed
-by PMem is entirely done in the user space.</p><h2 id=summary>Summary</h2><p>To conclude, in this blog post, we presented a story of leveraging the capacity
+by PMem is entirely done in the user space.</p>
+<h2 id=summary>Summary</h2>
+<p>To conclude, in this blog post, we presented a story of leveraging the capacity
 aspect of Intel Optane persistent memory in an existing software product from Hazelcast.
 We brought this solution into fruition with the aid of one of the PMDK libraries - memkind.
 By extending Hazelcast’s existing solution for a garbage collector’s problem, we’ve enabled
 the software to leverage heterogeneous memory platforms.
 In the end, we’ve crafted a solution that offers predictable latency and larger
-capacities of memory than possible before, all with a lower cost for the end user.</p><p>Article written together by Zoltán Baranyi and Michal Biesek.</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Using Memkind in Hazelcast&url=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/?ref=footer">&lArr; Memkind support for...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2020/10/api-overview-of-pmemkv-java-binding/?ref=footer">API overview of pmemkv-java... &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+capacities of memory than possible before, all with a lower cost for the end user.</p>
+<p>Article written together by Zoltán Baranyi and Michal Biesek.</p>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Using Memkind in Hazelcast&url=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/?ref=footer">&lArr; Memkind support for...</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2020/10/api-overview-of-pmemkv-java-binding/?ref=footer">API overview of pmemkv-java... &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -226,4 +649,23 @@ capacities of memory than possible before, all with a lower cost for the end use
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

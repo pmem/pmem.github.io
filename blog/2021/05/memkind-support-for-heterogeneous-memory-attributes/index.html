@@ -1,69 +1,581 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Memkind support for heterogeneous memory attributes</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Memkind support for heterogeneous memory attributes</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 12 May, 2021</li><li><i class=icon-user></i> Michalbiesek</li><li><i class=icon-folder-open></i>
-Memkind</li></ul></div><div class="entry-content mt-0"><h3 id=introduction>Introduction</h3><p>Memkind is a library mostly associated with enabling <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind>Persistent Memory</a>.
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Memkind support for heterogeneous memory attributes</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Memkind support for heterogeneous memory attributes</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 12 May, 2021</li>
+<li><i class=icon-user></i> Michalbiesek</li>
+<li>
+<i class=icon-folder-open></i>
+Memkind
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<h3 id=introduction>Introduction</h3>
+<p>Memkind is a library mostly associated with enabling <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind>Persistent Memory</a>.
 However, it is not the only type of memory that memkind supports.
-The library is a general solution designed for platforms with heterogeneous memory.</p><p>But before we delve into heterogenous memory itself, let&rsquo;s start with a short recap about <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html>NUMA</a>.
+The library is a general solution designed for platforms with heterogeneous memory.</p>
+<p>But before we delve into heterogenous memory itself, let&rsquo;s start with a short recap about <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html>NUMA</a>.
 The NUMA concept solved the problem of a dynamic extension of the CPU count per socket and system memory.
 Before NUMA, Uniform Memory Access (UMA) was a common model, in which all processors shared physical memory uniformly.
 With the UMA approach and a rapid growth of a number of processors and memory in multi-socket machines, platforms faced scalability problems.
 A single shared bus connecting all CPU(s) and DRAM memory became a bottleneck, as each CPU decreased the available bandwidth.
-To handle each new device, the length of the bus had to be extended, which in turn negatively impacted the latency.</p><p>A new strategy was introduced: Non Uniform Memory Access(NUMA) as a solution to the challenges mentioned above.
+To handle each new device, the length of the bus had to be extended, which in turn negatively impacted the latency.</p>
+<p>A new strategy was introduced: Non Uniform Memory Access(NUMA) as a solution to the challenges mentioned above.
 Instead of providing a single shared bus, the concept proposed a solution to divide the hardware resources into <code>NUMA Nodes</code> abstraction.
 Depending on the exact implementation on multi-socket platforms, NUMA Node could be exposed as CPU(s) and memory placed inside the same socket.
 Accessing memory placed on the same socket as the CPU on which process runs (<code>local memory access</code>) was faster since it avoided
-additional overhead from the interconnect, as in memory access between two sockets (<code>remote memory access</code>).</p><figure class=image><img src=/images/posts/numa_overview.png alt="NUMA overview"><figcaption>Figure 1. NUMA overview.</figcaption></figure><p>The Linux systems make a memory allocation decision, among other factors, based on <code>NUMA distance</code>. The distance represents
+additional overhead from the interconnect, as in memory access between two sockets (<code>remote memory access</code>).</p>
+<figure class=image>
+<img src=/images/posts/numa_overview.png alt="NUMA overview">
+<figcaption>Figure 1. NUMA overview.</figcaption>
+</figure>
+<p>The Linux systems make a memory allocation decision, among other factors, based on <code>NUMA distance</code>. The distance represents
 relative memory latency between NUMA nodes, and is based on hardware configuration - System Locality Information Table (SLIT) and
 System Resource Affinity Table (SRAT) present in <a href=https://uefi.org/sites/default/files/resources/ACPI_6_2.pdf>ACPI</a>.
 NUMA-aware Operating System can still consume all available memory, but the OS will optimize it for local memory access.
 In practice, this means that memory allocation will come from the NUMA Node with the smallest distance from the CPU core
-of the calling thread.</p><p>NUMA can be classified as a system with <strong>heterogeneous memory access</strong>.</p><p>However, today&rsquo;s NUMA Node concept is vaguely comparable to the original one. With the popularization of various
+of the calling thread.</p>
+<p>NUMA can be classified as a system with <strong>heterogeneous memory access</strong>.</p>
+<p>However, today&rsquo;s NUMA Node concept is vaguely comparable to the original one. With the popularization of various
 types of <a href="https://youtu.be/9y3xpi-yPyA?t=95">XPUs</a> (such as CPU, GPU, FPGA, and other accelerators), <strong>heterogeneous computing</strong> is becoming increasingly relevant.
 Memory is following suit in this regard and is becoming more and more diverse. The NUMA Node itself, presently,
 doesn&rsquo;t have to contain both memory (typically DRAM) and a processing unit (typically a CPU).
-For example, we can have a memory-only NUMA Node (hot-plugged memory device), which cannot generate memory requests and contains only memory.</p><p>Today&rsquo;s hardware used in platforms is constantly evolving with a broad spectrum of device changes on each level: previously mentioned
+For example, we can have a memory-only NUMA Node (hot-plugged memory device), which cannot generate memory requests and contains only memory.</p>
+<p>Today&rsquo;s hardware used in platforms is constantly evolving with a broad spectrum of device changes on each level: previously mentioned
 <code>processing units</code>, come in the form of, e.g., CPU, GPU, or FPGA. The <code>storage class devices</code> in the form of, e.g., HDD or <a href=https://www.intel.com/content/www/us/en/products/memory-storage/solid-state-drives/data-center-ssds/optane-dc-ssd-series.html>SSD</a>.
-Finally, the <code>memory class devices</code> are provided by physical mediums like DRAM, PMEM, or <a href=https://software.intel.com/content/www/us/en/develop/blogs/an-intro-to-mcdram-high-bandwidth-memory-on-knights-landing.html>MCDRAM</a>.</p><p>This post focuses on the last aspect of mentioned varieties - on <strong>heterogeneous memory</strong>.</p><figure class=image><img src=/images/posts/heterogeneous_architecture.png alt="PMEM KMEM-DAX"><figcaption>Figure 2. Heterogeneous architecture overview.</figcaption></figure><h3 id=memory-technology-vs-memory-property>Memory technology vs memory property</h3><p>Various physical media offer diverse memory performance characteristics such as latency, bandwidth, or capacity depending on their type and memory bus.
-However, most applications prefer to leverage memory characteristics rather than specific hardware type to make data placement decisions.</p><p>Depending on the currently used memory topology, expected memory behavior could be satisfied by various physical media.
+Finally, the <code>memory class devices</code> are provided by physical mediums like DRAM, PMEM, or <a href=https://software.intel.com/content/www/us/en/develop/blogs/an-intro-to-mcdram-high-bandwidth-memory-on-knights-landing.html>MCDRAM</a>.</p>
+<p>This post focuses on the last aspect of mentioned varieties - on <strong>heterogeneous memory</strong>.</p>
+<figure class=image>
+<img src=/images/posts/heterogeneous_architecture.png alt="PMEM KMEM-DAX">
+<figcaption>Figure 2. Heterogeneous architecture overview.</figcaption>
+</figure>
+<h3 id=memory-technology-vs-memory-property>Memory technology vs memory property</h3>
+<p>Various physical media offer diverse memory performance characteristics such as latency, bandwidth, or capacity depending on their type and memory bus.
+However, most applications prefer to leverage memory characteristics rather than specific hardware type to make data placement decisions.</p>
+<p>Depending on the currently used memory topology, expected memory behavior could be satisfied by various physical media.
 This approach allows us to change the point of view from hardware-type-centric into memory-property-centric.
-With different abstraction types described further in this post, the memkind library will have a hardware-agnostic interfaces.</p><p>To overcome memory bounds, we use memory-aware programming, which is an approach already present in <a href=https://www.openmp.org/spec-html/5.1/openmpsu60.html#x87-970002.13.1>OpenMP memory spaces</a>.
-The following table contains a comparison between hardware, expected memory property associated with it and OpenMP memory spaces:</p><table><thead><tr><th>Physical medium</th><th>Memory property</th><th>OpenMP memory spaces</th></tr></thead><tbody><tr><td>DRAM</td><td>Latency</td><td>omp_low_lat_mem_space</td></tr><tr><td>MCDRAM</td><td>Bandwidth</td><td>omp_high_bw_mem_space</td></tr><tr><td>PMem</td><td>Capacity</td><td>omp_large_cap_mem_space</td></tr></tbody></table><figure class=image><img src=/images/posts/hazelcast_3.png alt="PMEM KMEM-DAX"><figcaption>Figure 3. Memory architecture overview based on physical medium.</figcaption></figure><p>And presented the same view in different form:</p><figure class=image><img src=/images/posts/memkind_memory_view.png alt="CAPACITY LATENCY VIEW"><figcaption>Figure 4. Memory architecture overview based on memory property.</figcaption></figure><p>To follow the approach presented in Figure 4, we extend memkind library with additional semantics.</p><h3 id=prerequisites>Prerequisites</h3><p><a href=https://uefi.org/sites/default/files/resources/ACPI_6_2.pdf>ACPI-6.2</a> extends the ACPI standard with Heterogeneous Memory Attribute Table (HMAT).
+With different abstraction types described further in this post, the memkind library will have a hardware-agnostic interfaces.</p>
+<p>To overcome memory bounds, we use memory-aware programming, which is an approach already present in <a href=https://www.openmp.org/spec-html/5.1/openmpsu60.html#x87-970002.13.1>OpenMP memory spaces</a>.
+The following table contains a comparison between hardware, expected memory property associated with it and OpenMP memory spaces:</p>
+<table>
+<thead>
+<tr>
+<th>Physical medium</th>
+<th>Memory property</th>
+<th>OpenMP memory spaces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRAM</td>
+<td>Latency</td>
+<td>omp_low_lat_mem_space</td>
+</tr>
+<tr>
+<td>MCDRAM</td>
+<td>Bandwidth</td>
+<td>omp_high_bw_mem_space</td>
+</tr>
+<tr>
+<td>PMem</td>
+<td>Capacity</td>
+<td>omp_large_cap_mem_space</td>
+</tr>
+</tbody>
+</table>
+<figure class=image>
+<img src=/images/posts/hazelcast_3.png alt="PMEM KMEM-DAX">
+<figcaption>Figure 3. Memory architecture overview based on physical medium.</figcaption>
+</figure>
+<p>And presented the same view in different form:</p>
+<figure class=image>
+<img src=/images/posts/memkind_memory_view.png alt="CAPACITY LATENCY VIEW">
+<figcaption>Figure 4. Memory architecture overview based on memory property.</figcaption>
+</figure>
+<p>To follow the approach presented in Figure 4, we extend memkind library with additional semantics.</p>
+<h3 id=prerequisites>Prerequisites</h3>
+<p><a href=https://uefi.org/sites/default/files/resources/ACPI_6_2.pdf>ACPI-6.2</a> extends the ACPI standard with Heterogeneous Memory Attribute Table (HMAT).
 HMAT provides a way for the firmware to propagate memory characteristics to the Operating System - more specifically,
 it describes bandwidth and latency from the <strong>initiator of memory requests</strong> (a processor or an accelerator)
-to any <strong>memory target</strong>.</p><p>HMAT support is required both in hardware and the OS*:</p><pre><code class=language-console data-lang=console>$ make nconfig
+to any <strong>memory target</strong>.</p>
+<p>HMAT support is required both in hardware and the OS*:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ make nconfig
 Power management and ACPI options ---&gt;
 [*] ACPI (Advanced Configuration and Power Interface) Support ---&gt; -_- NUMA support
-[_] ACPI Heterogeneous Memory Attribute Table Support</code></pre><p>*Option <strong>CONFIG_ACPI_HMAT</strong> is available since Linux Kernel version 5.5</p><p>To utilize information provided by the OS, memkind uses <a href=https://www.open-mpi.org/software/hwloc/v2.3/>hwloc library</a>.
-It is additional mandatory dependency if you want to use new features offered by memkind.</p><h3 id=memory-kind-summary>Memory kind summary</h3><p>With <a href=https://github.com/memkind/memkind/releases/tag/v1.11.0>memkind 1.11.0 release</a> comes support for previously mentioned memory property semantics using the following APIs:</p><table><thead><tr><th>New API</th><th>Associated Memory property</th></tr></thead><tbody><tr><td>MEMKIND_HIGHEST_CAPACITY</td><td>Capacity</td></tr><tr><td>MEMKIND_HIGHEST_CAPACITY_PREFERRED</td><td>Capacity</td></tr><tr><td>MEMKIND_HIGHEST_CAPACITY_LOCAL</td><td>Capacity</td></tr><tr><td>MEMKIND_HIGHEST_CAPACITY_LOCAL_PREFERRED</td><td>Capacity</td></tr><tr><td>MEMKIND_LOWEST_LATENCY_LOCAL</td><td>Latency</td></tr><tr><td>MEMKIND_LOWEST_LATENCY_LOCAL_PREFERRED</td><td>Latency</td></tr><tr><td>MEMKIND_HIGHEST_BANDWIDTH_LOCAL</td><td>Bandwidth</td></tr><tr><td>MEMKIND_HIGHEST_BANDWIDTH_LOCAL_PREFERRED</td><td>Bandwidth</td></tr></tbody></table><p>The new semantics choose the best specific memory property presented on different NUMA nodes available on the platform.</p><h3 id=whats-new>What&rsquo;s new</h3><p><strong>Locality</strong></p><p>So far in memkind library, the existing memory kinds determine the locality as the nearest NUMA based on the shortest NUMA
+[_] ACPI Heterogeneous Memory Attribute Table Support
+</code></pre></div>
+<p>*Option <strong>CONFIG_ACPI_HMAT</strong> is available since Linux Kernel version 5.5</p>
+<p>To utilize information provided by the OS, memkind uses <a href=https://www.open-mpi.org/software/hwloc/v2.3/>hwloc library</a>.
+It is additional mandatory dependency if you want to use new features offered by memkind.</p>
+<h3 id=memory-kind-summary>Memory kind summary</h3>
+<p>With <a href=https://github.com/memkind/memkind/releases/tag/v1.11.0>memkind 1.11.0 release</a> comes support for previously mentioned memory property semantics using the following APIs:</p>
+<table>
+<thead>
+<tr>
+<th>New API</th>
+<th>Associated Memory property</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MEMKIND_HIGHEST_CAPACITY</td>
+<td>Capacity</td>
+</tr>
+<tr>
+<td>MEMKIND_HIGHEST_CAPACITY_PREFERRED</td>
+<td>Capacity</td>
+</tr>
+<tr>
+<td>MEMKIND_HIGHEST_CAPACITY_LOCAL</td>
+<td>Capacity</td>
+</tr>
+<tr>
+<td>MEMKIND_HIGHEST_CAPACITY_LOCAL_PREFERRED</td>
+<td>Capacity</td>
+</tr>
+<tr>
+<td>MEMKIND_LOWEST_LATENCY_LOCAL</td>
+<td>Latency</td>
+</tr>
+<tr>
+<td>MEMKIND_LOWEST_LATENCY_LOCAL_PREFERRED</td>
+<td>Latency</td>
+</tr>
+<tr>
+<td>MEMKIND_HIGHEST_BANDWIDTH_LOCAL</td>
+<td>Bandwidth</td>
+</tr>
+<tr>
+<td>MEMKIND_HIGHEST_BANDWIDTH_LOCAL_PREFERRED</td>
+<td>Bandwidth</td>
+</tr>
+</tbody>
+</table>
+<p>The new semantics choose the best specific memory property presented on different NUMA nodes available on the platform.</p>
+<h3 id=whats-new>What&rsquo;s new</h3>
+<p><strong>Locality</strong></p>
+<p>So far in memkind library, the existing memory kinds determine the locality as the nearest NUMA based on the shortest NUMA
 distance metrics.
 In this strategy, we miss information about Socket and NUMA Node relation. In the case of non-symmetrical memory topology,
 where, for example, PMEM is placed only on one socket, and we would like to avoid remote memory access - we can use
-one of the memory kinds from the new API to allocate from memory in local NUMA domain.</p><figure class=image><img src=/images/posts/memkind_single_pmem_medium_view.png alt=non-symetric-medium-view><figcaption>Figure 5. Memory architecture overview based on physical medium.</figcaption></figure><p>Using <code>MEMKIND_HIGHEST_CAPACITY_LOCAL</code> memkind will allocate to highest capacity Node inside a socket:</p><figure class=image><img src=/images/posts/memkind_single_pmem_property_view_alloc.png alt=non-symetric-property-view><figcaption>Figure 6. Memory architecture overview based on memory property.</figcaption></figure><p><strong>New API</strong></p><p>Memory property like bandwidth and latency depends on the specific initiator of the memory request. This results in
+one of the memory kinds from the new API to allocate from memory in local NUMA domain.</p>
+<figure class=image>
+<img src=/images/posts/memkind_single_pmem_medium_view.png alt=non-symetric-medium-view>
+<figcaption>Figure 5. Memory architecture overview based on physical medium.</figcaption>
+</figure>
+<p>Using <code>MEMKIND_HIGHEST_CAPACITY_LOCAL</code> memkind will allocate to highest capacity Node inside a socket:</p>
+<figure class=image>
+<img src=/images/posts/memkind_single_pmem_property_view_alloc.png alt=non-symetric-property-view>
+<figcaption>Figure 6. Memory architecture overview based on memory property.</figcaption>
+</figure>
+<p><strong>New API</strong></p>
+<p>Memory property like bandwidth and latency depends on the specific initiator of the memory request. This results in
 multidimensional analysis based on the different NUMA Node relationships and <a href=https://www.kernel.org/doc/html/latest/admin-guide/mm/numaperf.html>performance characteristics</a>.
-Based on this fact, with the new API, memkind addresses different scenarios of potential usage in more complicated memory topologies.</p><p><strong>High Bandwidth</strong></p><p>To help using legacy API, for <code>MEMKIND_HBW*</code> kinds, we introduced <code>MEMKIND_HBW_THRESHOLD</code> environment variable.
+Based on this fact, with the new API, memkind addresses different scenarios of potential usage in more complicated memory topologies.</p>
+<p><strong>High Bandwidth</strong></p>
+<p>To help using legacy API, for <code>MEMKIND_HBW*</code> kinds, we introduced <code>MEMKIND_HBW_THRESHOLD</code> environment variable.
 Platforms may have multiple different types of memory, and each offering various bandwidth characteristics to the
 initiator of the memory request.
 Any NUMA Node with <code>read bandwidth</code> memory property (reported by node’s performance characteristics) above the <strong>specific</strong> threshold
 is considered as high bandwidth. Memkind identify these NUMA Node(s) as a <code>High Bandwidth</code> Memory NUMA Node(s).
-<code>MEMKIND_HBW_THRESHOLD</code> provides a mechanism to define the specific value of this threshold.</p><h3 id=whats-coming-next>What’s Coming Next</h3><p>The idea of NUMA nodes has evolved, and it&rsquo;s much different now compared to the past version. It no longer focuses on
+<code>MEMKIND_HBW_THRESHOLD</code> provides a mechanism to define the specific value of this threshold.</p>
+<h3 id=whats-coming-next>What’s Coming Next</h3>
+<p>The idea of NUMA nodes has evolved, and it&rsquo;s much different now compared to the past version. It no longer focuses on
 local and remote access. The modern approach is based on a concept with the initiator of a memory request and
 target of a memory request. Both initiator and target are characterized by different performance properties.
 CPU is no longer the only entity which can make a memory access. And the same follows for memory – if something performed a memory access,
-it doesn&rsquo;t have to come from DRAM.</p><p>We believe that more complex memory architectures will become increasingly popular in the future.</p><p>With this perspective, a one-dimensional approach based on NUMA distance metrics needs to be revised.
+it doesn&rsquo;t have to come from DRAM.</p>
+<p>We believe that more complex memory architectures will become increasingly popular in the future.</p>
+<p>With this perspective, a one-dimensional approach based on NUMA distance metrics needs to be revised.
 At the time of writing this article, Hardware/Firmware architects already defined solutions with HMAT, which
 means that HMAT-aware platforms are expected to appear in the future.
-The support for them is available in the Linux Kernel 5.5.</p><p>On the application layer, libmemkind tries to meet these challenges with new features presented in this post.</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Memkind support for heterogeneous memory attributes&url=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2021/09/concurrency-considerations-in-libpmemobj-cpp/?ref=footer">&lArr; Concurrency considerations in...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/?ref=footer">Using Memkind in Hazelcast &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/ data-lightbox=image><img src=/images/pmem_logo.png alt="Using Memkind in Hazelcast"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/>Using Memkind in Hazelcast</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Michalbiesek</li><li><i class=icon-calendar3></i> 11 Feb, 2021</li></ul></div></div></div></div></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+The support for them is available in the Linux Kernel 5.5.</p>
+<p>On the application layer, libmemkind tries to meet these challenges with new features presented in this post.</p>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Memkind support for heterogeneous memory attributes&url=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2021/09/concurrency-considerations-in-libpmemobj-cpp/?ref=footer">&lArr; Concurrency considerations in...</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/?ref=footer">Using Memkind in Hazelcast &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/ data-lightbox=image><img src=/images/pmem_logo.png alt="Using Memkind in Hazelcast"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2021/02/using-memkind-in-hazelcast/>Using Memkind in Hazelcast</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Michalbiesek</li>
+<li><i class=icon-calendar3></i> 11 Feb, 2021</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -71,4 +583,23 @@ The support for them is available in the Linux Kernel 5.5.</p><p>On the applicat
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

@@ -1,32 +1,379 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Using Standard Library Containers with Persistent Memory</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Using Standard Library Containers with Persistent Memory</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 10 Jul, 2017</li><li><i class=icon-user></i> Tomaszkapela</li><li><i class=icon-folder-open></i>
-Containers</li></ul></div><div class="entry-content mt-0"><h3 id=introduction>Introduction</h3><p>Somewhere along the road, when we were doing the C++ bindings for libpmemobj, we found the need for some kind of containers. We were faced with two viable solutions: write everything from scratch or adapt an existing implementation. The obvious choice was NOT to implement from scratch. We would have to implement at least the basic containers from the C++ standard: vector, list, set, map and their multi- companions. That would be a lot of work, not to mention the testing and maintenance effort. I&rsquo;d say it would be the last resort, should all of our other options fail.</p><p>Ideally, if there we a set of containers, which were standard compliant, maintained by the community and enabled the user to substitute the allocation scheme and pointer type, that would be ideal. As it turns out, there is more than one. The C++ standard has long ago defined something called the&mldr;</p><h3 id=allocator>Allocator</h3><p>There have been a lot of bad things said about the std::allocator and it&rsquo;s usability. Despite all of the bad press the allocator has, it was exactly the thing we needed. We have our own, persistent memory friendly allocator written in C and we have our custom pointer type - the persistent_ptr. All of the containers defined in the C++ standard use the std::allocator for the memory management of both own and user&rsquo;s data. Since this is defined in the standard, all we needed to do was implement the interface described by the standard, bind it together with the persistent_ptr and hope for the best. As it turned out, it wasn&rsquo;t that easy, but we&rsquo;ll get to that in a moment.</p><p>The <code>pmem::obj::allocator</code> is actually pretty straightforward. It is able to allocate sufficient storage and construct the specific object in the specified place. It can as well destroy the object and return the memory afterwards. The design is modular, so the user can override the construction/destruction of a specific object type as well as the allocation and deallocation. The latter two are however discouraged, unless you know what you&rsquo;re doing. The default rules implemented in the allocator work <em>as expected</em>, so in the 99% case, you don&rsquo;t really have to bother with the details. One of the most important parts of the allocator are the public typedefs, and in our case that would be the <code>pointer_type</code>, which is set to the <code>persistent_ptr</code>.</p><p>Now that we have a standard compliant, persistent memory specific implementation of the allocator, we have to check if it actually works with any of the containers from a popular standard library implementations.</p><p><em>NOTE</em>
-The allocator uses the transactional C API, so all operations using it must be enclosed in a transaction.</p><h3 id=libc-or-libstdc>libc++ or libstdc++?</h3><p>The two rather obvious choices are GCC&rsquo;s libstdc++ and clang&rsquo;s libc++. We needed an open source implementation, so that if the need arose, we could freely modify the source code. And as it turned out, we needed to. As far as I remember, out of the box, only the <code>std::vector</code> worked flawlessly for both implementations. The <code>std::list</code> in libc++ also worked without any modifications, while the libstdc++ version didn&rsquo;t compile. At this point, it was quite obvious we would choose to go with libc++ for the initial version.</p><h2 id=stdvector>std::vector</h2><p>The vector implementation is basically identical in both libc++ and libstdc++. It&rsquo;s just three pointers, <em>begin, end, current</em>. This is because the vector is a really simple and at the same time really powerful container. This is taken from libc++<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Using Standard Library Containers with Persistent Memory</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Using Standard Library Containers with Persistent Memory</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 10 Jul, 2017</li>
+<li><i class=icon-user></i> Tomaszkapela</li>
+<li>
+<i class=icon-folder-open></i>
+Containers
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<h3 id=introduction>Introduction</h3>
+<p>Somewhere along the road, when we were doing the C++ bindings for libpmemobj, we found the need for some kind of containers. We were faced with two viable solutions: write everything from scratch or adapt an existing implementation. The obvious choice was NOT to implement from scratch. We would have to implement at least the basic containers from the C++ standard: vector, list, set, map and their multi- companions. That would be a lot of work, not to mention the testing and maintenance effort. I&rsquo;d say it would be the last resort, should all of our other options fail.</p>
+<p>Ideally, if there we a set of containers, which were standard compliant, maintained by the community and enabled the user to substitute the allocation scheme and pointer type, that would be ideal. As it turns out, there is more than one. The C++ standard has long ago defined something called the&mldr;</p>
+<h3 id=allocator>Allocator</h3>
+<p>There have been a lot of bad things said about the std::allocator and it&rsquo;s usability. Despite all of the bad press the allocator has, it was exactly the thing we needed. We have our own, persistent memory friendly allocator written in C and we have our custom pointer type - the persistent_ptr. All of the containers defined in the C++ standard use the std::allocator for the memory management of both own and user&rsquo;s data. Since this is defined in the standard, all we needed to do was implement the interface described by the standard, bind it together with the persistent_ptr and hope for the best. As it turned out, it wasn&rsquo;t that easy, but we&rsquo;ll get to that in a moment.</p>
+<p>The <code>pmem::obj::allocator</code> is actually pretty straightforward. It is able to allocate sufficient storage and construct the specific object in the specified place. It can as well destroy the object and return the memory afterwards. The design is modular, so the user can override the construction/destruction of a specific object type as well as the allocation and deallocation. The latter two are however discouraged, unless you know what you&rsquo;re doing. The default rules implemented in the allocator work <em>as expected</em>, so in the 99% case, you don&rsquo;t really have to bother with the details. One of the most important parts of the allocator are the public typedefs, and in our case that would be the <code>pointer_type</code>, which is set to the <code>persistent_ptr</code>.</p>
+<p>Now that we have a standard compliant, persistent memory specific implementation of the allocator, we have to check if it actually works with any of the containers from a popular standard library implementations.</p>
+<p><em>NOTE</em>
+The allocator uses the transactional C API, so all operations using it must be enclosed in a transaction.</p>
+<h3 id=libc-or-libstdc>libc++ or libstdc++?</h3>
+<p>The two rather obvious choices are GCC&rsquo;s libstdc++ and clang&rsquo;s libc++. We needed an open source implementation, so that if the need arose, we could freely modify the source code. And as it turned out, we needed to. As far as I remember, out of the box, only the <code>std::vector</code> worked flawlessly for both implementations. The <code>std::list</code> in libc++ also worked without any modifications, while the libstdc++ version didn&rsquo;t compile. At this point, it was quite obvious we would choose to go with libc++ for the initial version.</p>
+<h2 id=stdvector>std::vector</h2>
+<p>The vector implementation is basically identical in both libc++ and libstdc++. It&rsquo;s just three pointers, <em>begin, end, current</em>. This is because the vector is a really simple and at the same time really powerful container. This is taken from libc++
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>pointer <span style=color:#f92672>**</span>begin<span style=color:#960050;background-color:#1e0010>\</span>_;
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>pointer <span style=color:#f92672>**</span>begin<span style=color:#960050;background-color:#1e0010>\</span>_;
 pointer <span style=color:#f92672>**</span>end<span style=color:#f92672>*</span>;
-<span style=color:#f92672>**</span>compressed_pair<span style=color:#f92672>&lt;</span>pointer, allocator_type<span style=color:#f92672>&gt;</span> <span style=color:#f92672>**</span>end_cap<span style=color:#f92672>*</span>;</code></pre></td></tr></table></div></div></p><p><code>__compressed_pair</code> is a fancy way of saving space. You can think of it as a std::pair on a radical diet. These are the only data members. This works, because the pointer type is taken from:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<span style=color:#f92672>**</span>compressed_pair<span style=color:#f92672>&lt;</span>pointer, allocator_type<span style=color:#f92672>&gt;</span> <span style=color:#f92672>**</span>end_cap<span style=color:#f92672>*</span>;</code></pre></td></tr></table>
+</div>
+</div></p>
+<p><code>__compressed_pair</code> is a fancy way of saving space. You can think of it as a std::pair on a radical diet. These are the only data members. This works, because the pointer type is taken from:
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>typedef</span> <span style=color:#960050;background-color:#1e0010>\</span>_Allocator allocator_type;
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>typedef</span> <span style=color:#960050;background-color:#1e0010>\</span>_Allocator allocator_type;
 <span style=color:#66d9ef>typedef</span> allocator_traits<span style=color:#f92672>&lt;</span>allocator_type<span style=color:#f92672>&gt;</span> <span style=color:#f92672>**</span>alloc_traits;
-<span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>typename</span> <span style=color:#f92672>**</span>alloc_traits<span style=color:#f92672>::</span>pointer pointer;</code></pre></td></tr></table></div></div>And in turn the allocator defines something like this:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>typename</span> <span style=color:#f92672>**</span>alloc_traits<span style=color:#f92672>::</span>pointer pointer;</code></pre></td></tr></table>
+</div>
+</div>
+And in turn the allocator defines something like this:
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>using</span> value_type <span style=color:#f92672>=</span> T;
-<span style=color:#66d9ef>using</span> pointer <span style=color:#f92672>=</span> persistent_ptr<span style=color:#f92672>&lt;</span>value_type<span style=color:#f92672>&gt;</span>;</code></pre></td></tr></table></div></div></p><p>This is a common pattern for all standard library containers. And finally how to use it:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>using</span> value_type <span style=color:#f92672>=</span> T;
+<span style=color:#66d9ef>using</span> pointer <span style=color:#f92672>=</span> persistent_ptr<span style=color:#f92672>&lt;</span>value_type<span style=color:#f92672>&gt;</span>;</code></pre></td></tr></table>
+</div>
+</div></p>
+<p>This is a common pattern for all standard library containers. And finally how to use it:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>using</span> foovec <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span>foo, pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>allocator<span style=color:#f92672>&lt;</span>foo<span style=color:#f92672>&gt;&gt;</span>;
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>using</span> foovec <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span>foo, pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>allocator<span style=color:#f92672>&lt;</span>foo<span style=color:#f92672>&gt;&gt;</span>;
 pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>exec_tx(pop, [] {
 <span style=color:#66d9ef>auto</span> pvec <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>foovec<span style=color:#f92672>&gt;</span>();
 pvec<span style=color:#f92672>-&gt;</span>push_back(foo());
 pvec<span style=color:#f92672>-&gt;</span>emplace_back(Last_val);
-});</code></pre></td></tr></table></div></div><h2 id=stdmap>std::map</h2><p>The <code>std::map</code> implementation is different and at the same time similar. The typedefs are there, albeit slightly changed:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+});</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id=stdmap>std::map</h2>
+<p>The <code>std::map</code> implementation is different and at the same time similar. The typedefs are there, albeit slightly changed:
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -49,7 +396,9 @@ pvec<span style=color:#f92672>-&gt;</span>emplace_back(Last_val);
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#a6e22e>_Key</span>, <span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#a6e22e>_Tp</span><span style=color:#f92672>&gt;</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#a6e22e>_Key</span>, <span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#a6e22e>_Tp</span><span style=color:#f92672>&gt;</span>
 <span style=color:#66d9ef>struct</span> <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#a6e22e>_</span><span style=color:#960050;background-color:#1e0010>\</span>_value_type
 {
 <span style=color:#66d9ef>typedef</span> <span style=color:#960050;background-color:#1e0010>\</span>_Key key_type;
@@ -69,7 +418,13 @@ pvec<span style=color:#f92672>-&gt;</span>emplace_back(Last_val);
 {
 &hellip;
 <span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>typename</span> <span style=color:#f92672></strong></span>rebind_alloc_helper<span style=color:#f92672>&lt;<strong></span>alloc_traits, <span style=color:#f92672></strong></span>node<span style=color:#f92672>&gt;::</span>type <span style=color:#f92672><strong></span>node_allocator;
-<span style=color:#66d9ef>typedef</span> allocator_traits<span style=color:#f92672>&lt;</strong></span>node_allocator<span style=color:#f92672>&gt;</span> <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;</em><span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_node_traits;</code></pre></td></tr></table></p></div></div></p><p>This might be intimidating at first, but bear with me for a moment. What this says is really simple. The <code>std::map</code> implementation is in fact a <code>__tree</code>, which holds <code>std::pair&lt;const key_type, value_type></code>. However, the last two lines mean, that the tree will be allocating it&rsquo;s nodes using the allocator we specified in <code>std::map</code>. So let&rsquo;s see what the nodes look like.<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+<span style=color:#66d9ef>typedef</span> allocator_traits<span style=color:#f92672>&lt;</strong></span>node_allocator<span style=color:#f92672>&gt;</span> <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;</em><span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_node_traits;</code></pre></td></tr></table></p>
+</div>
+</div></p>
+<p>This might be intimidating at first, but bear with me for a moment. What this says is really simple. The <code>std::map</code> implementation is in fact a <code>__tree</code>, which holds <code>std::pair&lt;const key_type, value_type></code>. However, the last two lines mean, that the tree will be allocating it&rsquo;s nodes using the allocator we specified in <code>std::map</code>. So let&rsquo;s see what the nodes look like.
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
@@ -77,24 +432,43 @@ pvec<span style=color:#f92672>-&gt;</span>emplace_back(Last_val);
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>_VoidPtr</span><span style=color:#f92672>&gt;</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>_VoidPtr</span><span style=color:#f92672>&gt;</span>
 <span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>**</span><span style=color:#a6e22e>tree_node_base</span>
 {
 ...
 pointer <span style=color:#f92672>**</span>right<span style=color:#f92672>*</span>;
 <span style=color:#f92672>**</span>parent_pointer <span style=color:#f92672>**</span>parent<span style=color:#f92672>*</span>;
 <span style=color:#66d9ef>bool</span> <span style=color:#960050;background-color:#1e0010>\</span>__is_black_;
-}</code></pre></td></tr></table></div></div></p><h3 id=lets-tell-the-containers-theyre-persistent>Let&rsquo;s tell the containers they&rsquo;re persistent!</h3><p>The vector was just a couple of pointers, but here we can see that nodes have state, and rightfully so, it&rsquo;s a red-black tree. The <code>__is_black</code> flag will change during the lifetime of the container. This means, it needs to be tracked by libpmemobj inside transactions, in case we need to roll back the state of the container. If you recall, it&rsquo;s the <code>pmem::obj::p</code> that wraps basic types for transactional modifications. So we somehow have to tell <code>__tree_node_base</code> that there&rsquo;s this thing called <code>p</code> that it has to use for it&rsquo;s own data. Up to this point, we used the allocator as the entry point for all typedefs and it would be the ideal to place this new typedef as well. However, as you can see in the class definition, the <code>__tree_node_base</code> has absolutely no notion of an allocator. Therefore no way to fetch <code>p</code> from it.</p><h2 id=stdpointer_traitspersistency_type>std::pointer_traits::persistency_type?</h2><p>But we can leverage the fact that it does have a <code>pointer</code> typedef. So if we place the newly devised <code>persistency_type</code> in the <code>std::pointer_traits</code> of the <code>persistent_ptr</code>, the <code>__tree</code> implementation behind <code>std::map</code> will have all the necessary information to properly function in a persistent memory context. So how is it done, exactly? Within <code>persistent_ptr</code> you can find:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+}</code></pre></td></tr></table>
+</div>
+</div></p>
+<h3 id=lets-tell-the-containers-theyre-persistent>Let&rsquo;s tell the containers they&rsquo;re persistent!</h3>
+<p>The vector was just a couple of pointers, but here we can see that nodes have state, and rightfully so, it&rsquo;s a red-black tree. The <code>__is_black</code> flag will change during the lifetime of the container. This means, it needs to be tracked by libpmemobj inside transactions, in case we need to roll back the state of the container. If you recall, it&rsquo;s the <code>pmem::obj::p</code> that wraps basic types for transactional modifications. So we somehow have to tell <code>__tree_node_base</code> that there&rsquo;s this thing called <code>p</code> that it has to use for it&rsquo;s own data. Up to this point, we used the allocator as the entry point for all typedefs and it would be the ideal to place this new typedef as well. However, as you can see in the class definition, the <code>__tree_node_base</code> has absolutely no notion of an allocator. Therefore no way to fetch <code>p</code> from it.</p>
+<h2 id=stdpointer_traitspersistency_type>std::pointer_traits::persistency_type?</h2>
+<p>But we can leverage the fact that it does have a <code>pointer</code> typedef. So if we place the newly devised <code>persistency_type</code> in the <code>std::pointer_traits</code> of the <code>persistent_ptr</code>, the <code>__tree</code> implementation behind <code>std::map</code> will have all the necessary information to properly function in a persistent memory context. So how is it done, exactly? Within <code>persistent_ptr</code> you can find:
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#f92672>/</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#f92672>/</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>
 <p><span style=color:#f92672>-</span> The persistency type to be used with <span style=color:#66d9ef>this</span> pointer.
 <span style=color:#960050;background-color:#1e0010>*/</span>
 <span style=color:#66d9ef>using</span> persistency_type <span style=color:#f92672>=</span> p<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span>;</p>
-<p></code></pre></td></tr></table></p></div></div></p><p>And this is all we could do within PMDK to help support more complex containers. The rest of the work has to be done within the standard library. The <code>pointer_traits</code> implementation is placed in the <em>memory</em> header file. The <code>persistency_type</code> has to be optional and have a default value, not to break existing code. There is a trick for that:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+<p></code></pre></td></tr></table></p>
+</div>
+</div></p>
+<p>And this is all we could do within PMDK to help support more complex containers. The rest of the work has to be done within the standard library. The <code>pointer_traits</code> implementation is placed in the <em>memory</em> header file. The <code>persistency_type</code> has to be optional and have a default value, not to break existing code. There is a trick for that:
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -116,7 +490,9 @@ pointer <span style=color:#f92672>**</span>right<span style=color:#f92672>*</spa
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>_Ptr</span><span style=color:#f92672>&gt;</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>_Ptr</span><span style=color:#f92672>&gt;</span>
 <span style=color:#66d9ef>struct</span> <span style=color:#960050;background-color:#1e0010>**</span><span style=color:#a6e22e>has_persistency_type</span>
 {
 <span style=color:#66d9ef>private</span><span style=color:#f92672>:</span>
@@ -135,26 +511,103 @@ pointer <span style=color:#f92672>**</span>right<span style=color:#f92672>*</spa
 <span style=color:#66d9ef>struct</span> <span style=color:#960050;background-color:#1e0010>**</span><span style=color:#a6e22e>pointer_traits_persistency_type</span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_Tp, <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_Ptr, true<span style=color:#f92672>&gt;</span>
 {
 <span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>typename</span> <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_Ptr<span style=color:#f92672>::</span>persistency_type type;
-};</code></pre></td></tr></table></p></div></div>This piece of code, that might look like gibberish at first, but actually it is a nifty trick. If <code>_Ptr</code> defines a <code>persistency_type</code> type, the <code>**test&lt;\_Ptr>(0)</code>will first resolve to the function returning<code>char</code>, therefore the <code>sizeof</code>call will return one, setting the<code>bool value</code>to true. Thanks to this<code>**pointer_traits_persistency_type::type</code>will resolve to the<code>\_Ptr::persistency_type</code>only when it is available. Otherwise it will not alter the type. As I said, a nifty trick. Now that we have this, let&rsquo;s use it in the<code>**tree</code>.<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+};</code></pre></td></tr></table></p>
+</div>
+</div>
+This piece of code, that might look like gibberish at first, but actually it is a nifty trick. If <code>_Ptr</code> defines a <code>persistency_type</code> type, the <code>**test&lt;\_Ptr>(0)</code>will first resolve to the function returning<code>char</code>, therefore the <code>sizeof</code>call will return one, setting the<code>bool value</code>to true. Thanks to this<code>**pointer_traits_persistency_type::type</code>will resolve to the<code>\_Ptr::persistency_type</code>only when it is available. Otherwise it will not alter the type. As I said, a nifty trick. Now that we have this, let&rsquo;s use it in the<code>**tree</code>.
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>typename</span> <span style=color:#960050;background-color:#1e0010>\</span>_<span style=color:#960050;background-color:#1e0010>\</span>_rebind_persistency_type<span style=color:#f92672>&lt;</span>pointer, <span style=color:#66d9ef>bool</span><span style=color:#f92672>&gt;::</span>type bool_type;
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>typename</span> <span style=color:#960050;background-color:#1e0010>\</span>_<span style=color:#960050;background-color:#1e0010>\</span>_rebind_persistency_type<span style=color:#f92672>&lt;</span>pointer, <span style=color:#66d9ef>bool</span><span style=color:#f92672>&gt;::</span>type bool_type;
 <p>pointer <span style=color:#f92672><strong></span>right<span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_;
 <span style=color:#f92672></strong></span>parent<span style=color:#f92672><em></span>pointer <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_<span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_parent<span style=color:#f92672></em></span>;
-<span style=color:#66d9ef>bool</span><span style=color:#f92672><em></span>type <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_<span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_is_black<span style=color:#f92672></em></span>;</code></pre></td></tr></table></p></div></div>The <code>__rebind_persistency_type</code> is a helper for simple type change. Here this means that for <code>pointer</code> being <code>pmem::obj::persistent_ptr</code>, <code>bool_type</code> is in fact <code>std::pointer_traits&lt;pointer>::persistency_type&lt;bool>::type</code> so in fact <code>pmem::obj::p&lt;bool></code>. All in one clean line. This, in a big shortcut is how we adapted the containers from libc++.</p><h3 id=conclusion>Conclusion</h3><p>It is always better to reuse well written and tested code, than to write everything from scratch. At least as a first attempt. The upside to the approach we have taken is that all standard library containers could be adapted with little effort and it doesn&rsquo;t brake legacy code. The downside is that this is a non-standard approach that will not hit upstream in the nearest future. You can see the changes made to libc++ in our <a href=https://github.com/pmem/libcxx title="Pmem libc++">repo</a> under pmem. Please note that this is an experimental implementation and should <em>NOT</em> be used in a production environment.</p><h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712nvml-is-now-pmdk>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/NVML-is-now-PMDK>NVML to PMDK</a>.]</h6><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Using Standard Library Containers with Persistent Memory&url=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2017/10/progress-report-q3-2017/?ref=footer">&lArr; Progress Report Q3 2017</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2017/07/progress-report-q2-2017/?ref=footer">Progress Report Q2 2017 &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+<span style=color:#66d9ef>bool</span><span style=color:#f92672><em></span>type <span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_<span style=color:#960050;background-color:#1e0010>&lt;/span&gt;_is_black<span style=color:#f92672></em></span>;</code></pre></td></tr></table></p>
+</div>
+</div>
+The <code>__rebind_persistency_type</code> is a helper for simple type change. Here this means that for <code>pointer</code> being <code>pmem::obj::persistent_ptr</code>, <code>bool_type</code> is in fact <code>std::pointer_traits&lt;pointer>::persistency_type&lt;bool>::type</code> so in fact <code>pmem::obj::p&lt;bool></code>. All in one clean line. This, in a big shortcut is how we adapted the containers from libc++.</p>
+<h3 id=conclusion>Conclusion</h3>
+<p>It is always better to reuse well written and tested code, than to write everything from scratch. At least as a first attempt. The upside to the approach we have taken is that all standard library containers could be adapted with little effort and it doesn&rsquo;t brake legacy code. The downside is that this is a non-standard approach that will not hit upstream in the nearest future. You can see the changes made to libc++ in our <a href=https://github.com/pmem/libcxx title="Pmem libc++">repo</a> under pmem. Please note that this is an experimental implementation and should <em>NOT</em> be used in a production environment.</p>
+<h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712nvml-is-now-pmdk>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/NVML-is-now-PMDK>NVML to PMDK</a>.]</h6>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Using Standard Library Containers with Persistent Memory&url=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2017/07/using-standard-library-containers-with-persistent-memory/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2017/10/progress-report-q3-2017/?ref=footer">&lArr; Progress Report Q3 2017</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2017/07/progress-report-q2-2017/?ref=footer">Progress Report Q2 2017 &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -162,4 +615,23 @@ pointer <span style=color:#f92672>**</span>right<span style=color:#f92672>*</spa
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

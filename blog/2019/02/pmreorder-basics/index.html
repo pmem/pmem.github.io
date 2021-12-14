@@ -1,23 +1,333 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Pmreorder basics</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Pmreorder basics</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 04 Feb, 2019</li><li><i class=icon-user></i> Wlemkows</li><li><i class=icon-folder-open></i>
-Pmreorder</li></ul></div><div class="entry-content mt-0"><h2 id=introduction>Introduction</h2><p>It&rsquo;s good practice to run persistent memory application under pmemcheck -
-a tool which is described <a href=https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-1-basics>here</a> and <a href=https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-2-transactions>here</a>.</p><p>In this post, we are going to learn about another tool for persistence
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Pmreorder basics</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Pmreorder basics</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 04 Feb, 2019</li>
+<li><i class=icon-user></i> Wlemkows</li>
+<li>
+<i class=icon-folder-open></i>
+Pmreorder
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<h2 id=introduction>Introduction</h2>
+<p>It&rsquo;s good practice to run persistent memory application under pmemcheck -
+a tool which is described <a href=https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-1-basics>here</a> and <a href=https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-2-transactions>here</a>.</p>
+<p>In this post, we are going to learn about another tool for persistence
 correctness checking. As you might already know if you&rsquo;ve read posts linked
 above, pmemcheck verifies if all stores are made persistent in a proper manner.
 Our new tool, pmreorder, extends this functionality. It traverses the
 sequences of stores between flush-fence barriers made by the application,
 and then replays these memory operations many times in different combinations,
 to simulate the various possible ways the stores to the NVDIMM could be ordered
-by the system.</p><p>Each possible combination of stores is verified by the user-defined consistency
+by the system.</p>
+<p>Each possible combination of stores is verified by the user-defined consistency
 checker and any errors are logged. Given an exhaustive consistency
 checking function, this process will uncover potential application bugs
-that otherwise could have been encountered only under specific system failures.</p><h2 id=example>Example</h2><p>Let&rsquo;s start with an example of a simple persistent linked list
-implemented using libpmem and an atomic algorithm.</p><p>You can find a full implementation and description
-of this example in <a href=https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder>pmdk repository</a>.</p><p>All nodes are allocated statically from a list_node array
+that otherwise could have been encountered only under specific system failures.</p>
+<h2 id=example>Example</h2>
+<p>Let&rsquo;s start with an example of a simple persistent linked list
+implemented using libpmem and an atomic algorithm.</p>
+<p>You can find a full implementation and description
+of this example in <a href=https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder>pmdk repository</a>.</p>
+<p>All nodes are allocated statically from a list_node array
 which is located in a list_root structure. The same structure
 contains head field - id of the root node.
-The list insert function of this example looks like this:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+The list insert function of this example looks like this:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -32,7 +342,9 @@ The list insert function of this example looks like this:</p><div class=highligh
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
 <span style=color:#a6e22e>list_insert</span>(<span style=color:#66d9ef>struct</span> list_root <span style=color:#f92672>*</span>root, node_id node, <span style=color:#66d9ef>int</span> value)
 {
 <span style=color:#66d9ef>struct</span> list_node <span style=color:#f92672>*</span>new <span style=color:#f92672>=</span> NODE_PTR(root, node);
@@ -44,24 +356,48 @@ pmem_persist(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;r
 
 new&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;value &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; value;
 pmem_persist(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;new&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;value, &lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt;(value));
-</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>First, the next value in the node is set and persisted.
+</code></pre>
+<p>}</code></pre></td></tr></table></p>
+</div>
+</div>
+<p>First, the next value in the node is set and persisted.
 Then, the node is linked to the beginning of the list,
-its value is set and both are persisted separately.</p><p>When you run this code under pmemcheck you will get the following result:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> Number of stores not made persistent: 0
-<span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors</code></pre></div><p>It means that all stores are persisted properly, as we expected.</p><p>Now it is time to check the list under pmreorder tool.
+its value is set and both are persisted separately.</p>
+<p>When you run this code under pmemcheck you will get the following result:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> Number of stores not made persistent: 0
+<span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors</code></pre></div>
+<p>It means that all stores are persisted properly, as we expected.</p>
+<p>Now it is time to check the list under pmreorder tool.
 To do that you need to consider when your list is consistent
-and on that basis write consistency checker function.</p><h2 id=checker>Checker</h2><p>Consistency checker is just a binary or a function that defines
+and on that basis write consistency checker function.</p>
+<h2 id=checker>Checker</h2>
+<p>Consistency checker is just a binary or a function that defines
 conditions necessary to fulfill your consistency assumptions.
-It should return 0 if the state is consistent and 1 if it isn&rsquo;t.</p><p>In case of our list with three elements:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+It should return 0 if the state is consistent and 1 if it isn&rsquo;t.</p>
+<p>In case of our list with three elements:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>// params: root, node_id, value
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>// params: root, node_id, value
 </span><span style=color:#75715e></span>list_insert(r, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>55</span>);
 list_insert(r, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>33</span>);
-list_insert(r, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>66</span>);</code></pre></td></tr></table></div></div><p>We would like to be sure that if nodes (5, 3, 6) are present
-in the list, then their values (55, 33, 66) are set properly.</p><p>If the node is present in the list, but its value field isn&rsquo;t
+list_insert(r, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>66</span>);</code></pre></td></tr></table>
+</div>
+</div>
+<p>We would like to be sure that if nodes (5, 3, 6) are present
+in the list, then their values (55, 33, 66) are set properly.</p>
+<p>If the node is present in the list, but its value field isn&rsquo;t
 properly assigned, then the scenario should be recognized as
-inconsistent and function should return 1.</p><p>For example:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+inconsistent and function should return 1.</p>
+<p>For example:
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -82,29 +418,43 @@ inconsistent and function should return 1.</p><p>For example:<div class=highligh
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span>
 <span style=color:#a6e22e>check_consistency</span>(<span style=color:#66d9ef>struct</span> list_root <span style=color:#f92672>*</span>root)
 {
 <span style=color:#66d9ef>struct</span> list_node <span style=color:#f92672>*</span>node <span style=color:#f92672>=</span> NODE_PTR(root, root<span style=color:#f92672>-&gt;</span>head);
 <pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;/*
-</code></pre><p></span><span style=color:#75715e>* If node is linked to the list then its
-</span><span style=color:#75715e>* value should be set properly.
-</span><span style=color:#75715e>*/</span>
+</code></pre>
+<p></span><span style=color:#75715e> * If node is linked to the list then its
+</span><span style=color:#75715e> * value should be set properly.
+</span><span style=color:#75715e> */</span>
 <span style=color:#66d9ef>if</span> (node <span style=color:#f92672>==</span> NULL)
-<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;</p><pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;do&lt;/span&gt; {
+<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;</p>
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;do&lt;/span&gt; {
 	&lt;span style=&quot;color:#66d9ef&quot;&gt;if&lt;/span&gt; (node&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;value &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;)
-        &lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;1&lt;/span&gt;;
+		&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;1&lt;/span&gt;;
 	node &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; NODE_PTR(root, node&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;next);
 } &lt;span style=&quot;color:#66d9ef&quot;&gt;while&lt;/span&gt; (node &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
 
 &lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
-</code></pre><p>}</code></pre></td></tr></table></p></div></div></p><p>That&rsquo;s it. List and consistency checker are ready.
+</code></pre>
+<p>}</code></pre></td></tr></table></p>
+</div>
+</div></p>
+<p>That&rsquo;s it. List and consistency checker are ready.
 The next step is to generate a log of memory operations
-made by the application. We call that a store log.</p><h2 id=store-log>Store log</h2><p>To get the list of all memory operations we are going to use pmemcheck
-logging functionality. To turn on logging use <code>log-stores</code> parameter:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ valgrind --tool<span style=color:#f92672>=</span>pmemcheck -q --log-stores<span style=color:#f92672>=</span>yes --print-summary<span style=color:#f92672>=</span>yes --log-file<span style=color:#f92672>=</span>store_log.log pmreorder_list</code></pre></div><p>The above command outputs a text file with a list of stores, flushes,
+made by the application. We call that a store log.</p>
+<h2 id=store-log>Store log</h2>
+<p>To get the list of all memory operations we are going to use pmemcheck
+logging functionality. To turn on logging use <code>log-stores</code> parameter:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ valgrind --tool<span style=color:#f92672>=</span>pmemcheck -q --log-stores<span style=color:#f92672>=</span>yes --print-summary<span style=color:#f92672>=</span>yes --log-file<span style=color:#f92672>=</span>store_log.log pmreorder_list</code></pre></div>
+<p>The above command outputs a text file with a list of stores, flushes,
 fences, user-defined markers and possibly some other data that can be
-consumed by pmreorder tool.</p><p>Let&rsquo;s look at an excerpt from our example&rsquo;s store log.
-Make sure to read the embedded comments.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>STORE;0x5600060;0x0;0x8| <span style=color:#75715e># set new-&gt;next for node_id 5</span>
+consumed by pmreorder tool.</p>
+<p>Let&rsquo;s look at an excerpt from our example&rsquo;s store log.
+Make sure to read the embedded comments.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>STORE;0x5600060;0x0;0x8| <span style=color:#75715e># set new-&gt;next for node_id 5</span>
 FLUSH;0x5600040;0x40| <span style=color:#75715e># persist next for node_id 5</span>
 FENCE|
 STORE;0x5600000;0x5;0x8| <span style=color:#75715e># set root-&gt;head for node_id 5</span>
@@ -133,57 +483,81 @@ FLUSH;0x5600040;0x40| <span style=color:#75715e># persist value for node_id 6</s
 FENCE|
 STOP
 <span style=color:#f92672>==</span>32611<span style=color:#f92672>==</span> Number of stores not made persistent: 0
-<span style=color:#f92672>==</span>32611<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors</code></pre></div><p>It often happens that store log contains multiple stores and operations
+<span style=color:#f92672>==</span>32611<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors</code></pre></div>
+<p>It often happens that store log contains multiple stores and operations
 made on the pool that are irrelevant for your tests.
 There is a mechanism called markers that enables ignoring selected set of stores
 during consistency check. For more information about this and other features
-take a look at the <a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p><p>Notice that stores made by consistency checker are not saved anywhere,
+take a look at the <a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p>
+<p>Notice that stores made by consistency checker are not saved anywhere,
 so it can cause an issue if you try to recover pmemobj pool
 or modify data during the check. To resolve this issue we are going to
 provide COW (copy on write) mechanism accessible by CTL.
-It will be available starting from libpmemobj 1.6 release.</p><p>As you probably guessed by now, store log generation was the last step before
-pmreorder execution, so let&rsquo;s move on.</p><h2 id=pmreorder>Pmreorder</h2><p>Let&rsquo;s start with a brief description of how the pmreorder works.</p><p>Pmreorder parses the store log provided by the user and generates sequences
+It will be available starting from libpmemobj 1.6 release.</p>
+<p>As you probably guessed by now, store log generation was the last step before
+pmreorder execution, so let&rsquo;s move on.</p>
+<h2 id=pmreorder>Pmreorder</h2>
+<p>Let&rsquo;s start with a brief description of how the pmreorder works.</p>
+<p>Pmreorder parses the store log provided by the user and generates sequences
 of stores between barriers. These sequences are written to a pool file.
 For each generated sequence, the tool runs the consistency checker function
-and reports scenarios for which the function returned 1.</p><p>This procedure is repeated multiple times with different
+and reports scenarios for which the function returned 1.</p>
+<p>This procedure is repeated multiple times with different
 order of stores. After each check pmreorder reverts already
-tested sequence and takes the next combination to check.</p><h3 id=how-many-combinations-are-tested>How many combinations are tested?</h3><p>It depends on the engine used. There are a few available engine types.
+tested sequence and takes the next combination to check.</p>
+<h3 id=how-many-combinations-are-tested>How many combinations are tested?</h3>
+<p>It depends on the engine used. There are a few available engine types.
 For example, full reorder engine generates all possible combinations
 without repetition, a random engine generates a specified number of randomly
 generated combinations and no reorder engine passes-through the stores without
-reordering.</p><p>In this example, I am going to use the reverse accumulative engine which
-checks correctness on a reversed growing subset of the original sequence.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>Example:
+reordering.</p>
+<p>In this example, I am going to use the reverse accumulative engine which
+checks correctness on a reversed growing subset of the original sequence.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>Example:
 input: <span style=color:#f92672>(</span>a, b, c<span style=color:#f92672>)</span>
 output:
 <span style=color:#f92672>()</span>
 <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span>
 <span style=color:#f92672>(</span>c, b<span style=color:#f92672>)</span>
-<span style=color:#f92672>(</span>c, b, a<span style=color:#f92672>)</span></code></pre></div><p>For more examples and information about engines look at the <a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p><p>Note that pmreorder requires python3 to be present in the system.</p><p>Using that information we can run pmreorder with the following command:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>{{</span>&lt;  highlight sh &gt;<span style=color:#f92672>}}</span>
+<span style=color:#f92672>(</span>c, b, a<span style=color:#f92672>)</span></code></pre></div>
+<p>For more examples and information about engines look at the <a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p>
+<p>Note that pmreorder requires python3 to be present in the system.</p>
+<p>Using that information we can run pmreorder with the following command:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>{{</span>&lt;  highlight sh &gt;<span style=color:#f92672>}}</span>
 $ python3 pmreorder.py
 -l store_log.log <span style=color:#75715e># file generated by pmemcheck</span>
 <pre><code>-o output_file.log			&lt;span style=&quot;color:#75715e&quot;&gt;# output from pmreorder&lt;/span&gt;
 
 -x pmem_memset_persist&lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt;NoReorderNoCheck	&lt;span style=&quot;color:#75715e&quot;&gt;# do not check stores from pmem_memset_persist&lt;/span&gt;
-                    &lt;span style=&quot;color:#75715e&quot;&gt;# available only if PMREORDER_EMIT_LOG=1&lt;/span&gt;
-                    &lt;span style=&quot;color:#75715e&quot;&gt;# environment variable is set&lt;/span&gt;
+					&lt;span style=&quot;color:#75715e&quot;&gt;# available only if PMREORDER_EMIT_LOG=1&lt;/span&gt;
+					&lt;span style=&quot;color:#75715e&quot;&gt;# environment variable is set&lt;/span&gt;
 
 -r ReorderReverseAccumulative		&lt;span style=&quot;color:#75715e&quot;&gt;# default engine&lt;/span&gt;
 
 -p &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;pmreorder_list c&amp;#34;&lt;/span&gt;			&lt;span style=&quot;color:#75715e&quot;&gt;# checker binary with parameters&lt;/span&gt;
-                    &lt;span style=&quot;color:#75715e&quot;&gt;# (c - checker mode)&lt;/span&gt;
-</code></pre><p><span style=color:#f92672>{{</span>&lt; / highlight ><span style=color:#f92672>}}</span></code></pre></div></p><p>Take a look at the result of this command:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ cat output_file.log
+					&lt;span style=&quot;color:#75715e&quot;&gt;# (c - checker mode)&lt;/span&gt;
+</code></pre>
+<p><span style=color:#f92672>{{</span>&lt; / highlight ><span style=color:#f92672>}}</span></code></pre></div></p>
+<p>Take a look at the result of this command:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ cat output_file.log
 <p>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
 WARNING:pmreorder:Call trace:
 Store <span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>:
 by No trace available</p>
 <p>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
 WARNING:pmreorder:Call trace:</p>
-<p><span style=color:#f92672>[</span>&hellip;<span style=color:#f92672>]</span></code></pre></div></p><p>In this case, output_file.log is not empty,
-which means that some issues were detected.</p><p>We can see a few scenarios that cause inconsistency,
-but there is no trace available.</p><p>To get more information about the issue we should
+<p><span style=color:#f92672>[</span>&hellip;<span style=color:#f92672>]</span></code></pre></div></p>
+<p>In this case, output_file.log is not empty,
+which means that some issues were detected.</p>
+<p>We can see a few scenarios that cause inconsistency,
+but there is no trace available.</p>
+<p>To get more information about the issue we should
 add additional flags to pmemcheck during store log
-generation:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>--log-stores-stacktraces<span style=color:#f92672>=</span>yes
---log-stores-stacktraces-depth<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span></code></pre></div><p>Afterwards, output log is more comprehensive:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
+generation:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>--log-stores-stacktraces<span style=color:#f92672>=</span>yes
+--log-stores-stacktraces-depth<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span></code></pre></div>
+<p>Afterwards, output log is more comprehensive:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
 WARNING:pmreorder:Call trace:
 Store <span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>:
 by 0x400CDB: list_insert_inconsistent <span style=color:#f92672>(</span>pmreorder_list.c:144<span style=color:#f92672>)</span>
@@ -203,16 +577,23 @@ Store <span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>:
 by 0x400CDB: list_insert_inconsistent <span style=color:#f92672>(</span>pmreorder_list.c:144<span style=color:#f92672>)</span>
 by 0x400EB0: main <span style=color:#f92672>(</span>pmreorder_list.c:187<span style=color:#f92672>)</span></p>
 <p>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
-WARNING:pmreorder:Call trace:</code></pre></div></p><p>Now we are able to check specific line in the code where inconsistency occurred.
+WARNING:pmreorder:Call trace:</code></pre></div></p>
+<p>Now we are able to check specific line in the code where inconsistency occurred.
 Empty call trace means that even if crash occurs before any of these stores,
-state will be also inconsistent.</p><p>Where we made a mistake and how to fix it?
-Look once again at list insert and checker code.</p><p>If the node is linked to the list, then we are checking if the value
+state will be also inconsistent.</p>
+<p>Where we made a mistake and how to fix it?
+Look once again at list insert and checker code.</p>
+<p>If the node is linked to the list, then we are checking if the value
 of the node is set. But in our case, persist of the list&rsquo;s head is located
 before node&rsquo;s value persist. So it can happen that the node is in the list
 but its value is not set yet, which means that an issue occurs because of
-the order of operations.</p><p>To fix the problem, we have to change their order.
+the order of operations.</p>
+<p>To fix the problem, we have to change their order.
 Also worth noting that we do not need to persist the value
-and next field separately. It can be done by one pmem_persist:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+and next field separately. It can be done by one pmem_persist:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -225,7 +606,9 @@ and next field separately. It can be done by one pmem_persist:</p><div class=hig
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
 <span style=color:#a6e22e>list_insert_consistent</span>(<span style=color:#66d9ef>struct</span> list_root <span style=color:#f92672>*</span>root, node_id node, <span style=color:#66d9ef>int</span> value)
 {
 <span style=color:#66d9ef>struct</span> list_node <span style=color:#f92672>*</span>new <span style=color:#f92672>=</span> NODE_PTR(root, node);
@@ -235,20 +618,88 @@ pmem_persist(new, &lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt
 
 root&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;head &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; node;
 pmem_persist(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;root&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;head, &lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt;(root&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;head)); &lt;span style=&quot;color:#75715e&quot;&gt;/* add to the list */&lt;/span&gt;
-</code></pre><p>}</code></pre></td></tr></table></p></div></div><p>This insert is constructed properly and consistency check passes.</p><p>I hope that now you have enough knowledge to check your program
+</code></pre>
+<p>}</code></pre></td></tr></table></p>
+</div>
+</div>
+<p>This insert is constructed properly and consistency check passes.</p>
+<p>I hope that now you have enough knowledge to check your program
 with the use of pmreorder tool.
-Good luck!</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2019/02/pmreorder-basics/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Pmreorder basics&url=https://pmem.io/blog/2019/02/pmreorder-basics/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2019/02/pmreorder-basics/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2019/02/pmreorder-basics/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2019/02/c-persistent-containers-vector/?ref=footer">&lArr; C++ persistent containers -...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2019/02/pool-conversion-tool/?ref=footer">Pool conversion tool &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+Good luck!</p>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2019/02/pmreorder-basics/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Pmreorder basics&url=https://pmem.io/blog/2019/02/pmreorder-basics/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2019/02/pmreorder-basics/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2019/02/pmreorder-basics/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2019/02/c-persistent-containers-vector/?ref=footer">&lArr; C++ persistent containers -...</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2019/02/pool-conversion-tool/?ref=footer">Pool conversion tool &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -256,4 +707,23 @@ Good luck!</p><div class=clear></div><div class="si-share border-0 d-flex justif
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

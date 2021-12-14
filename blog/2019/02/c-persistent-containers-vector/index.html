@@ -1,44 +1,373 @@
-<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>C++ persistent containers - vector</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://memkeydb.io><p>MemKeyDB <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>MemKind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://kb.pmem.io/><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>C++ persistent containers - vector</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 20 Feb, 2019</li><li><i class=icon-user></i> Szyrom</li><li><i class=icon-folder-open></i>
-Cpp</li></ul></div><div class="entry-content mt-0"><h6 id=note-pmemobjvectorltgtpmem_obj_vector-is-no-longer-experimental-the-rest-of-the-information-in-this-blog-post-is-still-accurate>[Note: <a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj::vector>pmem::obj::vector&lt;></a> is no longer experimental. The rest of the information in this blog post is still accurate.]</h6><h3 id=introduction>Introduction</h3><p>The main idea behind pmem containers is to fully exploit persistent memory potential
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>C++ persistent containers - vector</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://kb.pmem.io/>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>C++ persistent containers - vector</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 20 Feb, 2019</li>
+<li><i class=icon-user></i> Szyrom</li>
+<li>
+<i class=icon-folder-open></i>
+Cpp
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<h6 id=note-pmemobjvectorltgtpmem_obj_vector-is-no-longer-experimental-the-rest-of-the-information-in-this-blog-post-is-still-accurate>[Note: <a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj::vector>pmem::obj::vector&lt;></a> is no longer experimental. The rest of the information in this blog post is still accurate.]</h6>
+<h3 id=introduction>Introduction</h3>
+<p>The main idea behind pmem containers is to fully exploit persistent memory potential
 by designing optimized on-media layouts and algorithms for persistent memory programming.
 On November, we published a <a href=https://pmem.io/blog/2018/11/c-persistent-containers/ title="blog post">blog post</a> about pmem containers.
-If you haven’t read it yet, I encourage you to do that now.</p><p>We have recently added <a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> container to
+If you haven’t read it yet, I encourage you to do that now.</p>
+<p>We have recently added <a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> container to
 libpmemobj-cpp library. This container is currently placed in <code>experimental</code> namespace
 and folder - this means that both API and layout may change. It provides API similar
 to <code>std::vector</code> from C++11 but guarantees full exception safety via commit or
-rollback semantics and allocates data in persistent memory.</p><h3 id=limitations>Limitations</h3><p><a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj::vector</a> allocates data in persistent memory libpmemobj pool.
+rollback semantics and allocates data in persistent memory.</p>
+<h3 id=limitations>Limitations</h3>
+<p><a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj::vector</a> allocates data in persistent memory libpmemobj pool.
 This limits maximum allocation size to value equal to <code>PMEMOBJ_MAX_ALLOC_SIZE</code> macro.
 Due to this limitation and due to the fact that <a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a>
 is dynamic contiguous array, maximum number of elements that can be stored in the
 pool is equal to <code>PMEMOBJ_MAX_ALLOC_SIZE / sizeof(element_type)</code> and this value can
-be returned by <code>max_size()</code> API function.</p><p>Since stored elements will reside in persistent memory, element&rsquo;s type <strong>should</strong> satisfy
-requirements of:</p><ul><li><code>StandardLayoutType</code> (because objects representation (layout) might differ between
-compilers/compiler flags/ABI)</li><li><code>TriviallyCopyable</code> (because we are not calling neither constructors nor destructors
-during snapshotting memory areas).</li></ul><p>As a consequence type of stored element:</p><ul><li>shouldn&rsquo;t be polymorphic,</li><li>shouldn&rsquo;t have non-static data members of reference type,</li><li>every copy constructor, move constructor, copy assignment operator, move assignment
-operator should be trivial (i.e. implicitly-defined or defaulted) or deleted,</li><li>at least one copy constructor, move constructor, copy assignment operator, or
-move assignment operator is non-deleted and should have trivial non-deleted destructor.</li></ul><p>However, it is important to realize that pointers are trivially copyable types too.
+be returned by <code>max_size()</code> API function.</p>
+<p>Since stored elements will reside in persistent memory, element&rsquo;s type <strong>should</strong> satisfy
+requirements of:</p>
+<ul>
+<li><code>StandardLayoutType</code> (because objects representation (layout) might differ between
+compilers/compiler flags/ABI)</li>
+<li><code>TriviallyCopyable</code> (because we are not calling neither constructors nor destructors
+during snapshotting memory areas).</li>
+</ul>
+<p>As a consequence type of stored element:</p>
+<ul>
+<li>shouldn&rsquo;t be polymorphic,</li>
+<li>shouldn&rsquo;t have non-static data members of reference type,</li>
+<li>every copy constructor, move constructor, copy assignment operator, move assignment
+operator should be trivial (i.e. implicitly-defined or defaulted) or deleted,</li>
+<li>at least one copy constructor, move constructor, copy assignment operator, or
+move assignment operator is non-deleted and should have trivial non-deleted destructor.</li>
+</ul>
+<p>However, it is important to realize that pointers are trivially copyable types too.
 Whenever there are pointer inside the data structure that will be snapshotted
 (memcopyed) you have to make sure that copying them around is proper. The same
 rule applies for persistent_ptr type, even if it doesn&rsquo;t satisfy <code>TriviallyCopyable</code>
-name requirements (because of explicitly-defined constructors).</p><p><a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> user and every persistent memory programmer
+name requirements (because of explicitly-defined constructors).</p>
+<p><a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> user and every persistent memory programmer
 should always check whether persistent_ptr could be copied in that specific case
 and if that wouldn&rsquo;t cause errors and (persistent) memory leaks. One should realize
 that <code>std::is_trivially_copyable</code> is the syntax check only and it doesn&rsquo;t tests semantics.
 Technically speaking, using persistent_ptr in this context leads to undefined behavior.
 There is no golden mean and since C++ standard does not fully support persistent
 memory programming, we should make sure that copying persistent_ptr is safe to use
-in our case.</p><p>It is very important to mention here that storing volatile memory pointers in persistent
+in our case.</p>
+<p>It is very important to mention here that storing volatile memory pointers in persistent
 memory is almost always a design error (after application crash, pointer to virtual
 memory is no longer valid). Using persistent_ptr is safe and it provides only way
-to access specific memory area after application crash.</p><h3 id=api-extensions>API extensions</h3><p>API for <code>pmem::obj:experimental:vector</code> and <code>std::vector</code> is the same, except for the following:</p><ul><li><code>pmem::obj:experimental:vector</code> defines <code>range()</code> method (detailed description you can find in
-<code>pmem::obj:array</code> <a href=https://pmem.io/blog/2018/11/c-persistent-containers-array/ title=here>blog post</a>)</li><li><code>pmem::obj:experimental:vector</code> does not mark any non-const function as <code>noexcept</code> -
-elements must be added to a transaction which could throw an exception</li><li><code>pmem::obj:experimental:vector</code> overloads constructor, assign method and assign
-operator to work with <code>std::vector</code> objects</li><li><code>pmem::obj:experimental:vector</code> defines non-member compare functions between <code>pmem::obj:experimental:vector</code>
-and <code>std::vector</code></li><li><code>pmem::obj:experimental:vector</code> defines <code>free_data()</code> function that is recommended
+to access specific memory area after application crash.</p>
+<h3 id=api-extensions>API extensions</h3>
+<p>API for <code>pmem::obj:experimental:vector</code> and <code>std::vector</code> is the same, except for the following:</p>
+<ul>
+<li><code>pmem::obj:experimental:vector</code> defines <code>range()</code> method (detailed description you can find in
+<code>pmem::obj:array</code> <a href=https://pmem.io/blog/2018/11/c-persistent-containers-array/ title=here>blog post</a>)</li>
+<li><code>pmem::obj:experimental:vector</code> does not mark any non-const function as <code>noexcept</code> -
+elements must be added to a transaction which could throw an exception</li>
+<li><code>pmem::obj:experimental:vector</code> overloads constructor, assign method and assign
+operator to work with <code>std::vector</code> objects</li>
+<li><code>pmem::obj:experimental:vector</code> defines non-member compare functions between <code>pmem::obj:experimental:vector</code>
+and <code>std::vector</code></li>
+<li><code>pmem::obj:experimental:vector</code> defines <code>free_data()</code> function that is recommended
 to being called before <code>pmem::obj:experimental:vector</code> destructor (freeing
-allocated persistent memory in transaction may throw an exception)</li><li><code>pmem::obj:experimental:vector</code> defines <code>const_at()</code>, <code>cfront()</code>, <code>cback()</code> and <code>cdata()</code>
+allocated persistent memory in transaction may throw an exception)</li>
+<li><code>pmem::obj:experimental:vector</code> defines <code>const_at()</code>, <code>cfront()</code>, <code>cback()</code> and <code>cdata()</code>
 element access methods. We decided that using <code>at()</code>, <code>front()</code>, <code>back()</code>
 and <code>data()</code> overloads which return const_reference (or const_pointer)
 is not enough (overload deduction depends on the const-qualification of
@@ -46,12 +375,19 @@ the object it is called on and it is burdensome to cast <code>pmem::obj:experime
 into <code>const pmem::obj:experimental:vector</code>), especially in persistent memory programming,
 where accessing element&rsquo;s value for read-only purposes might be frequent
 operation and there is no need for doing it in transaction. Note that
-this is not possible to overcome this problem for <code>operator[]</code>.</li></ul><h3 id=usage>Usage</h3><p>One of our main goals while designing <code>pmem::obj:experimental:vector</code> was to create as much
+this is not possible to overcome this problem for <code>operator[]</code>.</li>
+</ul>
+<h3 id=usage>Usage</h3>
+<p>One of our main goals while designing <code>pmem::obj:experimental:vector</code> was to create as much
 similar API to <code>std::vector</code> as possible. The only usage difference in persistent
 memory version of vector is creation of an object.
 <code>pmem::obj:experimental:vector</code> resides on persistent memory so you need a way to access stored
 elements even after program crash, which can be done using pool&rsquo;s root object.
-The root object is the anchor to which all the memory structures should be attached.</p><p>Here is an example how to create <code>pmem::obj:experimental:vector</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+The root object is the anchor to which all the memory structures should be attached.</p>
+<p>Here is an example how to create <code>pmem::obj:experimental:vector</code>:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -74,7 +410,9 @@ The root object is the anchor to which all the memory structures should be attac
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/make_persistent.hpp&gt;</span><span style=color:#75715e>
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/make_persistent.hpp&gt;</span><span style=color:#75715e>
 </span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/transaction.hpp&gt;</span><span style=color:#75715e>
 </span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/persistent_ptr.hpp&gt;</span><span style=color:#75715e>
 </span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/pool.hpp&gt;</span><span style=color:#75715e>
@@ -88,17 +426,24 @@ pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>per
 <p>&hellip;</p>
 <p><span style=color:#f92672>/</span>_ creating pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>vector in transaction _<span style=color:#f92672>/</span>
 pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>] {
-root<span style=color:#f92672>-&gt;</span>vec<span style=color:#f92672>*</span>p <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span>(<span style=color:#75715e>/* optional constructor arguments _/);
+root<span style=color:#f92672>-&gt;</span>vec<span style=color:#f92672><em></span>p <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span>(<span style=color:#75715e>/</em> optional constructor arguments _/);
 </span><span style=color:#75715e>});
 </span><span style=color:#75715e>
 </span><span style=color:#75715e>vector_type &amp;pvector = *(root-&gt;vec_p);
 </span><span style=color:#75715e>
 </span><span style=color:#75715e>&hellip;
-</span></code></pre></td></tr></table></p></div></div><p>As you can see in above code snippet <code>pmem::obj:experimental:vector</code> must be created and
+</span></code></pre></td></tr></table></p>
+</div>
+</div>
+<p>As you can see in above code snippet <code>pmem::obj:experimental:vector</code> must be created and
 allocated in persistent memory using inside of transaction (an exception will be
 thrown otherwise). Vector&rsquo;s element type constructor may construct an object by
 internally opening another transaction. In this case inner transaction will be
-flattened to outer one.</p><p>From now on usage of <code>pmem::obj:experimental:vector</code> is similar to usage of <code>std::vector</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+flattened to outer one.</p>
+<p>From now on usage of <code>pmem::obj:experimental:vector</code> is similar to usage of <code>std::vector</code>:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -125,7 +470,9 @@ flattened to outer one.</p><p>From now on usage of <code>pmem::obj:experimental:
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>...
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>...
 <p>pvector.reserve(<span style=color:#ae81ff>10</span>);
 assert(pvector.size() <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>);
 assert(pvector.capacity() <span style=color:#f92672>==</span> <span style=color:#ae81ff>10</span>);</p>
@@ -144,18 +491,26 @@ assert(pvector.size() <span style=color:#f92672>==</span> <span style=color:#ae8
 assert(pvector.const_at(<span style=color:#ae81ff>0</span>) <span style=color:#f92672>==</span> <span style=color:#ae81ff>5</span>);
 <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;</span> pvector.size(); <span style=color:#f92672>++</span>i)
 assert(pvector.const_at(i) <span style=color:#f92672>==</span> static_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>));</p>
-<p>&hellip;</code></pre></td></tr></table></p></div></div><p>Note that every single modifier method opens transaction internally and guarantees
+<p>&hellip;</code></pre></td></tr></table></p>
+</div>
+</div>
+<p>Note that every single modifier method opens transaction internally and guarantees
 full exception safety (modifications will be either committed or rolled-back if
 an exception was thrown, or crash happened). There is no need for using transaction
-when calling modifier methods whatsoever.</p><p>As you can see, we are checking <code>i &lt; pvector.size()</code> on every loop iteration.
+when calling modifier methods whatsoever.</p>
+<p>As you can see, we are checking <code>i &lt; pvector.size()</code> on every loop iteration.
 Since <code>pvector</code> is a reference to dereferenced persistent pointer, this check is
 fast and can be optimized by compiler. But if you will use <code>root->vec_p->size()</code>
 from the other hand, you will notice performance overhead. The reason behind
 that is dereferencing of persistent_ptr in current implementation cannot be
 optimized and cached by compilers. We are working on workaround for this issue,
-but it is recommended to avoid unnecessary persistent_ptr dereferencing operations.</p><p>Iterating over <code>pmem::obj:experimental:vector</code> works just like for an ordinary <code>std::vector</code>:
+but it is recommended to avoid unnecessary persistent_ptr dereferencing operations.</p>
+<p>Iterating over <code>pmem::obj:experimental:vector</code> works just like for an ordinary <code>std::vector</code>:
 you can use indexing operator, range-based for loops or iterators. <code>pmem::obj:experimental:vector</code>
-can also be processed using <code>std::algorithms</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+can also be processed using <code>std::algorithms</code>:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -194,7 +549,9 @@ can also be processed using <code>std::algorithms</code>:</p><div class=highligh
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>...
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>...
 <p>std<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> stdvector <span style=color:#f92672>=</span> {<span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>1</span>};
 pvector <span style=color:#f92672>=</span> stdvector;</p>
 <p>try {
@@ -203,11 +560,11 @@ pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>tra
 e<span style=color:#f92672>++</span>;
 <span style=color:#f92672>/</span>_ <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>2</span> _<span style=color:#f92672>/</span></p>
 <pre><code>        &lt;span style=&quot;color:#66d9ef&quot;&gt;for&lt;/span&gt; (&lt;span style=&quot;color:#66d9ef&quot;&gt;auto&lt;/span&gt; it &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pvector.begin(); it &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; pvector.end(); it&lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;)
-            &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;it &lt;span style=&quot;color:#f92672&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;2&lt;/span&gt;;
+	        &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;it &lt;span style=&quot;color:#f92672&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;2&lt;/span&gt;;
             &lt;span style=&quot;color:#75715e&quot;&gt;/* 8, 7, 6, 5, 4 */&lt;/span&gt;
 
         &lt;span style=&quot;color:#66d9ef&quot;&gt;for&lt;/span&gt; (&lt;span style=&quot;color:#66d9ef&quot;&gt;unsigned&lt;/span&gt; i &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;; i &lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt; pvector.size(); i&lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;)
-            pvector[i]&lt;span style=&quot;color:#f92672&quot;&gt;--&lt;/span&gt;;
+        	pvector[i]&lt;span style=&quot;color:#f92672&quot;&gt;--&lt;/span&gt;;
             &lt;span style=&quot;color:#75715e&quot;&gt;/* 7, 6, 5, 4, 3 */&lt;/span&gt;
 
             std&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;sort(pvector.begin(), pvector.end());
@@ -216,17 +573,24 @@ e<span style=color:#f92672>++</span>;
 
             pmem&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;obj&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;transaction&lt;span style=&quot;color:#f92672&quot;&gt;::&lt;/span&gt;abort(&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
     });
-</code></pre><p>} catch (pmem<span style=color:#f92672>::</span>manual<span style=color:#f92672><em></span>tx_abort <span style=color:#f92672>&</span>) {
+</code></pre>
+<p>} catch (pmem<span style=color:#f92672>::</span>manual<span style=color:#f92672><em></span>tx_abort <span style=color:#f92672>&</span>) {
 <span style=color:#75715e>/</em> expected transaction abort _/
 </span><span style=color:#75715e>} catch (std::exception &e) {
 </span><span style=color:#75715e>std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
 </span><span style=color:#75715e>}
-</span><span style=color:#75715e></span><span style=color:#75715e>assert(pvector == stdvector); /_ pvector element's value was rolled back _/
-</span><span style=color:#75715e></span><span style=color:#75715e>try {
+</span><span style=color:#75715e>
+</span><span style=color:#75715e>assert(pvector == stdvector); /_ pvector element's value was rolled back _/
+</span><span style=color:#75715e>
+</span><span style=color:#75715e>try {
 </span><span style=color:#75715e>pmem::obj::delete_persistent&lt;vector_type>(&pvector);
 </span><span style=color:#75715e>} catch (std::exception &e) {
 </span><span style=color:#75715e>std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-</span><span style=color:#75715e>}</span></code></pre></td></tr></table></p></div></div><p>If there is an active transaction elements (accessed using any of the presented
+</span><span style=color:#75715e>}
+</span></code></pre></td></tr></table></p>
+</div>
+</div>
+<p>If there is an active transaction elements (accessed using any of the presented
 above methods) are snapshotted. In case of iterators returned by begin() and end()
 snapshotting happens during iterator dereferencing. Of course, snapshotting is
 done only for mutable elements. In case of <code>const</code> iterators or <code>const</code> versions
@@ -235,27 +599,96 @@ important to use const qualified function overloads (cbegin(), cend(), etc.) whe
 (if an object was snapshotted in current transaction, second snapshot of
 the same memory address won&rsquo;t be performed and thus won&rsquo;t have performance overhead).
 This will reduce number of snapshots and can significantly reduce the performance
-impact of transactions.</p><p>Note also that <code>pmem::obj:experimental:vector</code> does define convenient constructors and compare
-operators which take <code>std::vector</code> as an argument.</p><h3 id=pmemobjslice>pmem::obj::slice</h3><p>In cases where loop is known to modify several consecutive elements in the vector,
+impact of transactions.</p>
+<p>Note also that <code>pmem::obj:experimental:vector</code> does define convenient constructors and compare
+operators which take <code>std::vector</code> as an argument.</p>
+<h3 id=pmemobjslice>pmem::obj::slice</h3>
+<p>In cases where loop is known to modify several consecutive elements in the vector,
 a bulk-snapshot optimization can be performed using a special <code>range()</code> function.
 The usage of <code>range()</code> and <code>pmem::obj::slice</code> was described in blog post about
 <code>pmem::obj:array</code> <a href=https://pmem.io/blog/2018/11/c-persistent-containers-array/ title=here>here</a>. It works for <code>pmem::obj:experimental:vector</code> in
-the same way.</p><h3 id=summary>Summary</h3><p>To summarize if you need persistent scratch pad, extension for in-memory database
+the same way.</p>
+<h3 id=summary>Summary</h3>
+<p>To summarize if you need persistent scratch pad, extension for in-memory database
 or fast and flexible data storage with attributes of sequence container representing
-arrays that can change in size, you should use <code>pmem::obj:experimental:vector</code>.</p><p>libpmemobj-cpp library provides two persistent containers now: <code>pmem::obj:array</code>
+arrays that can change in size, you should use <code>pmem::obj:experimental:vector</code>.</p>
+<p>libpmemobj-cpp library provides two persistent containers now: <code>pmem::obj:array</code>
 and <code>pmem::obj:experimental:vector</code>. We are currently working on <code>pmem::obj::string</code> implementation,
-stay tuned!</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2019/02/c-persistent-containers-vector/')"><i class=icon-facebook></i>
-<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=C\u002b\u002b persistent containers - vector&url=https://pmem.io/blog/2019/02/c-persistent-containers-vector/')"><i class=icon-twitter></i>
-<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2019/02/c-persistent-containers-vector/&title=&summary=&source=')"><i class=icon-linkedin></i>
-<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')"><i class=icon-pinterest></i>
-<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2019/02/c-persistent-containers-vector/')"><i class=icon-email3></i>
-<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2019/05/libvmemcache-buffer-based-lru-cache/?ref=footer">&lArr; libvmemcache - buffer-based...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2019/02/pmreorder-basics/?ref=footer">Pmreorder basics &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/blogs class=block role=button>blogs</a>
+stay tuned!</p>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2019/02/c-persistent-containers-vector/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=C\u002b\u002b persistent containers - vector&url=https://pmem.io/blog/2019/02/c-persistent-containers-vector/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2019/02/c-persistent-containers-vector/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2019/02/c-persistent-containers-vector/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2019/05/libvmemcache-buffer-based-lru-cache/?ref=footer">&lArr; libvmemcache - buffer-based...</a>
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2019/02/pmreorder-basics/?ref=footer">Pmreorder basics &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
 <a href=/tags/kafka class=block role=button>kafka</a>
 <a href=/tags/oracle class=block role=button>oracle</a>
-<a href=/tags/sql class=block role=button>sql</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=/tags/sql class=block role=button>sql</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -263,4 +696,23 @@ stay tuned!</p><div class=clear></div><div class="si-share border-0 d-flex justi
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2021 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script><script src=/js/plugins.min.js></script><script src=/js/custom.js></script><script src=/js/darkmode.js></script><script src=/js/functions.js></script><script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>
