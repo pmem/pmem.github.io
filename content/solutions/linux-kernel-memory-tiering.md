@@ -21,7 +21,7 @@ solution_url: "https://www.kernel.org/doc/html/latest/admin-guide/abi-testing.ht
 image: "https://www.kernel.org/theme/images/logos/tux.png"
 
 # Brief description
-description: "iPage migration during reclaim is intended for systems with tiered memory configurations. These systems have multiple types of memory with varied performance characteristics instead of plain NUMA systems where the same kind of memory is found at varied distances."
+description: "Page migration during reclaim is intended for systems with tiered memory configurations. These systems have multiple types of memory with varied performance characteristics instead of plain NUMA systems where the same kind of memory is found at varied distances."
 
 # Taxonomy
 # Solutions examples: Databases, Healthcare, Security, Financial Services, Cloud Service Provider, Developer Libraries, Developer Tools, Operating Systems, etc...
