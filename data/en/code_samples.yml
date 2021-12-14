@@ -11,7 +11,7 @@ libraries_section:
   libraries:
     library_item1:
       title: 'PMDK'
-      content: '<p>The base directory for the code examples for <strong>PMDK</strong> can be found at  <a href="https://github.com/pmem/pmdk/tree/master/src/examples">https://github.com/pmem/pmdk/tree/master/src/examples</a>. Each directory contains code samples for each library:</p>'
+      content: '<p>The base directory for the code examples for <strong>PMDK</strong> can be found at <a href="https://github.com/pmem/pmdk/tree/master/src/examples">https://github.com/pmem/pmdk/tree/master/src/examples</a>. Each directory contains code samples for each library:</p>'
       libraries_list: '
         <li> Libpmem - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmem">https://github.com/pmem/pmdk/tree/master/src/examples/libpmem</a> </li>
         <li> Libpmem2 - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmem2">https://github.com/pmem/pmdk/tree/master/src/examples/libpmem2</a> </li>
@@ -21,7 +21,7 @@ libraries_section:
         <li> Libpmemobj - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj">https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj</a> </li>
         <li> Libpmempool - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/libpmempool">https://github.com/pmem/pmdk/tree/master/src/examples/libpmempool</a> </li>
         <li> Librpmem - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/librpmem">https://github.com/pmem/pmdk/tree/master/src/examples/librpmem</a> </li>
-        <li> Pmemreorder - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder">https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder</a> </li>
+        <li> Pmreorder - <a href="https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder">https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder</a> </li>
         '
     library_item2:
       title: 'PMemKV'
