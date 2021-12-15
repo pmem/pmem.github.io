@@ -9,9 +9,9 @@ assignees: ''
 
 Thank you for taking the time to help grow the community by telling us about your solution. Please complete all fields in the template below to requst a new solution be added to the repository on [https://pmem.io/solutions](https://pmem.io/solutions/). Your request will be reviewed prior to being accepted to ensure it meets the [requirements](#requirements). Please monitor your request as any feedback will be provided through Github only.
 
-If you do not have a GitHub account, or are not comfortable using GitHub, you are welcome to start a new thread on the [PMem Forum](https://groups.google.com/g/pmem?pli=1) or join the [#pmem Slack channel](https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email).  Please copy the template below to tell us about your solution when using the Forum or Slack. 
+If you do not have a GitHub account, or are not comfortable using GitHub, you are welcome to start a new thread on the PMem Forum or Slack channel.  Please copy the template below to tell us about your solution when using the Forum or Slack. 
 
-If you have feedback for how we can make the solution repository better, please file a new GitHub issue or start a new thread on the [PMem Forum](https://groups.google.com/g/pmem?pli=1) or [Slack channel](https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email).
+If you have feedback for how we can make the solution repository better, please file a new GitHub issue or use one of the contact methods listed on the [Community page](https://pmem.io/community).
 
 # New Solution Template
 *All fields are required
@@ -23,9 +23,8 @@ If you have feedback for how we can make the solution repository better, please 
 **Logo URL:** [A HTTPS URL for a logo or image]
 **Description:** [80 characters or less to avoid truncation]
 **Category:** [Which category do you want your solution to be added within the repository? Select one. e.g.: Databases, Healthcare, Security, Financial Services, Cloud Service Provider, Developer Libraries (APIs), Developer Tools, Operating Systems, etc.]
-**Tags:** [Optional - Add additional tags that can assist in seach results, limit 5. e.g.: SQL, NoSQL, In-Memory Database/IMDB, Kubernetes, OpenStack, OpenShift, etc.]
+**Tags:** [Optional - Add additional tags that can assist in search results, limit 5. e.g.: SQL, NoSQL, In-Memory Database/IMDB, Kubernetes, OpenStack, OpenShift, etc.]
 **Price:** [e.g: Free Trial, Free, Open-Source, Paid, BYOL (Bring Your Own License), etc.]
-Use comma separated values where multiple answers are needed, e.g: 
 
 **As the submittor, are you legally allowed to represent the owner of the solution? (Yes|No)**: 
 
