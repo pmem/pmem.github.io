@@ -1,3 +1,9 @@
+### General ignores ###
+.*
+!.gitignore
+!.gitattributes
+!.github/
+
 ### Hugo ###
 # Generated files by hugo
 /public/
