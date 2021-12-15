@@ -9,7 +9,7 @@ slider:
     link: '/learn/'
   community_btn:
     label: 'Join the community'
-    link: '/community'
+    link: '/community/'
 
 ################################# Banner #####################################
 banner:
@@ -48,7 +48,7 @@ get_book:
   image: '/images/programming_pmem_book_420x350px.png'
   download_btn:
     label: 'Get your FREE eBook'
-    link: 'https://pmem.io/book/'
+    link: '/books/'
 
 ################################# Join community #####################################
 join_community:
@@ -58,7 +58,7 @@ join_community:
   content: 'Join the PMem Community and collaborate with peers and product experts to learn, contribute, and solve your toughest business challenges.'
   join_btn:
     label: 'Join Now'
-    link: 'https://github.community/'
+    link: '/community/'
 
 ################################# News #####################################
 news:

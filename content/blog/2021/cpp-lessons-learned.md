@@ -164,10 +164,10 @@ videos for more info about our projects. And don't forget we're open source. Do 
 ideas to improve our algorithms, extend this library, or just want to make a suggestion?
 Please share - file an issue or simply open a pull request with your tweaks.
 
-[cpp_tutorial_blog]: https://pmem.io/2016/01/12/cpp-01.html
-[concurrency_blog]: https://pmem.io/2021/09/17/concurrency.html
-[ptls_docs]: https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html
+[cpp_tutorial_blog]: /2016/01/12/cpp-01.html
+[concurrency_blog]: /2021/09/17/concurrency.html
+[ptls_docs]: /libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html
 [rehashing_pdf]: https://arxiv.org/ftp/arxiv/papers/1509/1509.02235.pdf
-[pmdk_convert_blog]: https://pmem.io/2019/02/01/pool-conversion-tool.html
+[pmdk_convert_blog]: /2019/02/01/pool-conversion-tool.html
 [container_contrib]: https://github.com/pmem/libpmemobj-cpp/blob/master/CONTRIBUTING.md#implementing-persistent-containers
-[summit_state_pmemkv]: https://pmem.io/pmdksummit2021/
+[summit_state_pmemkv]: /pmdksummit2021/

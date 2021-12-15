@@ -42,7 +42,7 @@ Transactions are managed by the usage of `pmemobj_tx_*` family of functions. A s
 
 ![lifecycle](/images/posts/lifecycle.png)
 
-You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](https://pmem.io/pmdk/manpages/linux/master/libpmemobj/libpmemobj.7.html). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
+You can see here how to use each of the stage-managing functions. The `pmemobj_tx_process` function can be used **instead** of others to move the transaction forward - you can call it if you don't know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the [manpage](/pmdk/manpages/linux/master/libpmemobj/libpmemobj.7.html). To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:
 
 {{< highlight C "linenos=table" >}}
@@ -112,7 +112,7 @@ execution of longjmp if their value have changed after setjmp. So in the case
 of libpmemobj transaction blocks every local variable modified in TX_STAGE_WORK and used in
 TX_STAGE_ONABORT/TX_STAGE_FINALLY needs to be volatile-qualified - otherwise you might
 encounter undefined behavior. Please see the CAVEATS section in libpmemobj
-[manpage](https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_tx_begin.3#caveats) for more information.
+[manpage](/pmdk/manpages/linux/master/libpmemobj/pmemobj_tx_begin.3#caveats) for more information.
 
 ### Transactional operations
 

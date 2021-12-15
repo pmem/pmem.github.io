@@ -237,9 +237,9 @@ With `libmemkind`, it is possible to distinguish the physical placement of an al
 
 [kernel-patch]: https://patchwork.kernel.org/cover/10829019/
 [ndctl-release]: https://github.com/pmem/ndctl/releases
-[daxctl-migrate-device-model]: https://pmem.io/ndctl/daxctl-migrate-device-model.html
-[daxctl-list]: https://pmem.io/ndctl/daxctl-list.html
-[daxctl-reconfigure-device]: https://pmem.io/ndctl/daxctl-reconfigure-device.html
-[ndctl-create-namespace]: https://pmem.io/ndctl/ndctl-create-namespace.html
+[daxctl-migrate-device-model]: /ndctl/daxctl-migrate-device-model.html
+[daxctl-list]: /ndctl/daxctl-list.html
+[daxctl-reconfigure-device]: /ndctl/daxctl-reconfigure-device.html
+[ndctl-create-namespace]: /ndctl/ndctl-create-namespace.html
 [memkind-release]: https://github.com/memkind/memkind/releases/tag/v1.10.0
-[memkind-basic-usage-post]: https://pmem.io/blog/2020/01/introduction-to-libmemkind
+[memkind-basic-usage-post]: /blog/2020/01/introduction-to-libmemkind

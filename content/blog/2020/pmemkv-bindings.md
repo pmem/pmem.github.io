@@ -180,15 +180,15 @@ to let us know. We are always eager to help our community grow.
 
 ###### [This entry was edited on 2020-07-29 to reflect pmemkv-java recent release.]
 
-[pmemkv_pmem_io]: https://pmem.io/pmemkv/
+[pmemkv_pmem_io]: /pmemkv/
 [pmemkv_bindings_readme]: https://github.com/pmem/pmemkv/#language-bindings
 [nodejs_gh]: https://github.com/pmem/pmemkv-nodejs
-[nodejs_pmem_io]: https://pmem.io/pmemkv-nodejs
+[nodejs_pmem_io]: /pmemkv-nodejs
 [py_gh]: https://github.com/pmem/pmemkv-python
-[py_pmem_io]: https://pmem.io/pmemkv-python
+[py_pmem_io]: /pmemkv-python
 [java_gh]: https://github.com/pmem/pmemkv-java
-[java_pmem_io]: https://pmem.io/pmemkv-java
-[llpl_blog]: https://pmem.io/blog/2020/05/introduction-to-llpl
+[java_pmem_io]: /pmemkv-java
+[llpl_blog]: /blog/2020/05/introduction-to-llpl
 [pcj_gh]: https://github.com/pmem/pcj
 [ruby_gh]: https://github.com/pmem/pmemkv-ruby
 [rust_binding_iss]: https://github.com/pmem/pmemkv/issues/192

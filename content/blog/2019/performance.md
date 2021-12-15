@@ -248,4 +248,4 @@ about persistent memory.
 
 I wish you wonderful holidays and a happy New Year.
 
-[Link to part 2.](https://pmem.io/blog/2020/03/300-nanoseconds-2-of-2/)
+[Link to part 2.](/blog/2020/03/300-nanoseconds-2-of-2/)

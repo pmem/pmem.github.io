@@ -103,7 +103,7 @@ list the most important ideas:
   as a design error.
 
 You can read more about template parameter type restrictions for
-`pmem::obj::persistent_ptr<T>` class in PMDK C++ bindings [doxygen documentation](https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1persistent__ptr.html).
+`pmem::obj::persistent_ptr<T>` class in PMDK C++ bindings [doxygen documentation](/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1persistent__ptr.html).
 
 ### Data structures
 

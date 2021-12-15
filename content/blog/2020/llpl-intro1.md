@@ -35,7 +35,7 @@ type: 'post'
 ---
 
 There are several ways to program with persistent memory from Java. A
-[recent pmem.io blog article](https://pmem.io/blog/2020/03/language-bindings-for-pmemkv)
+[recent pmem.io blog article](/blog/2020/03/language-bindings-for-pmemkv)
 described the pmemkv library, a persistent key-value store, which can be used
 from multiple languages. For Java, pmemkv supports three ubiquitous
 Java types: String, byte[], and ByteBuffer.

@@ -132,7 +132,7 @@ dev_tools:
         - 'Admin'
     daxio:
       label: 'daxio'
-      link: 'https://pmem.io/pmdk/daxio/'
+      link: '/pmdk/daxio/'
       description: 'daxio is a standalone utility that can transfer data to or from DAX devices, or erase data from a device.'
       categories:
         - 'Admin'
@@ -154,20 +154,20 @@ dev_tools:
   tools_secondary:
     pmreorder:
       label: 'pmreorder'
-      link: 'https://pmem.io/pmdk/pmreorder/'
+      link: '/pmdk/pmreorder/'
       description: 'The pmreorder is a utility that performs a consistency check of a persistent program.'
       categories:
         - 'Admin'
         - 'Debug'
     pmempool:
       label: 'pmempool'
-      link: 'https://pmem.io/pmdk/pmempool/'
+      link: '/pmdk/pmempool/'
       description: 'Manage, analyze, troubleshoot, and debug persistent memory pools with this utility.'
       categories:
         - 'Admin'
     pmdk_convert:
       label: 'pmdk-convert'
-      link: 'https://pmem.io/pmdk-convert/manpages/master/pmdk-convert.1.html'
+      link: '/pmdk-convert/manpages/master/pmdk-convert.1.html'
       description: 'The pmdk-convert tool converts the specified memory pool from an old layout version to the newest one supported by this tool.'
       categories:
         - 'Admin'

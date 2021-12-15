@@ -278,12 +278,12 @@ This concludes the pmemcheck's built-in transaction support. If you want to know
 
 [a7a3d90c]: https://valgrind.org/info/tools.html#drd 'DRD'
 [717a4630]: https://valgrind.org/info/tools.html#helgrind 'Helgrind'
-[806fc533]: https://pmem.io/pmdk/ 'Persistent Memory Development Kit'
-[40b153e7]: https://pmem.io/pmdk/libpmemobj/ 'pmemobj'
-[57acd504]: https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-2-transactions/ 'pmemobj transactions'
-[c749cb90]: https://pmem.io/blog/ 'Blog posts'
+[806fc533]: /pmdk/ 'Persistent Memory Development Kit'
+[40b153e7]: /pmdk/libpmemobj/ 'pmemobj'
+[57acd504]: /blog/2015/06/an-introduction-to-pmemobj-part-2-transactions/ 'pmemobj transactions'
+[c749cb90]: /blog/ 'Blog posts'
 [d324cfe0]: https://github.com/pmem/valgrind/blob/pmem-3.15/pmemcheck/docs/pmc-manual.xml 'Pmemcheck documentation'
-[aa87ca41]: https://pmem.io/blog/2015/09/challenges-of-multi-threaded-transactions/ 'Challenges of multi-threaded transactions'
+[aa87ca41]: /blog/2015/09/challenges-of-multi-threaded-transactions/ 'Challenges of multi-threaded transactions'
 [051ba546]: https://github.com/pmem/valgrind/blob/pmem/pmemcheck/tests/trans_mt_cross.c 'Pmemcheck test'
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
