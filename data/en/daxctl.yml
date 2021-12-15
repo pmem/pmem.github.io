@@ -12,31 +12,31 @@ feature:
   daxctl_pages:
     daxctl:
       label: 'daxctl'
-      link: 'https://pmem.io/ndctl/daxctl.html'
+      link: '/ndctl/daxctl.html'
     daxctl-create-device:
       label: 'daxctl-create-device'
-      link: 'https://pmem.io/ndctl/daxctl-create-device.html'
+      link: '/ndctl/daxctl-create-device.html'
     daxctl-destroy-device:
       label: 'daxctl-destroy-device'
-      link: 'https://pmem.io/ndctl/daxctl-destroy-device.html'
+      link: '/ndctl/daxctl-destroy-device.html'
     daxctl-disable-device:
       label: 'daxctl-disable-device'
-      link: 'https://pmem.io/ndctl/daxctl-disable-device.html'
+      link: '/ndctl/daxctl-disable-device.html'
     daxctl-enable-device:
       label: 'daxctl-enable-device'
-      link: 'https://pmem.io/ndctl/daxctl-enable-device.html'
+      link: '/ndctl/daxctl-enable-device.html'
     daxctl-list:
       label: 'daxctl-list'
-      link: 'https://pmem.io/ndctl/daxctl-list.html'
+      link: '/ndctl/daxctl-list.html'
     daxctl-migrate-device-model:
       label: 'daxctl-migrate-device-model'
-      link: 'https://pmem.io/ndctl/daxctl-migrate-device-model.html'
+      link: '/ndctl/daxctl-migrate-device-model.html'
     daxctl-offline-memory:
       label: 'daxctl-offline-memory'
-      link: 'https://pmem.io/ndctl/daxctl-offline-memory.html'
+      link: '/ndctl/daxctl-offline-memory.html'
     daxctl-online-memory:
       label: 'daxctl-online-memory'
-      link: 'https://pmem.io/ndctl/daxctl-online-memory.html'
+      link: '/ndctl/daxctl-online-memory.html'
     daxctl-reconfigure-device:
       label: 'daxctl-reconfigure-device'
-      link: 'https://pmem.io/ndctl/daxctl-reconfigure-device.html'
+      link: '/ndctl/daxctl-reconfigure-device.html'

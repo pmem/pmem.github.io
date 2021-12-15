@@ -150,9 +150,9 @@ Currently pmemkv-java 1.0 API is compatibile with pmemkv 1.0 API. In upcoming re
 going to implement features available in new pmemkv versions.
 
 
-[pmemkv-bindings]: https://pmem.io/blog/2020/03/language-bindings-for-pmemkv/
+[pmemkv-bindings]: /blog/2020/03/language-bindings-for-pmemkv/
 [pmemkv-bindings-readme]: https://github.com/pmem/pmemkv/#language-bindings
 [examples]: https://github.com/pmem/pmemkv-java/tree/master/examples
 [ByteBufferExample]: https://github.com/pmem/pmemkv-java/blob/master/examples/ByteBufferExample.java
 [PicturesExample]: https://github.com/pmem/pmemkv-java/blob/master/examples/PicturesExample.java
-[pmempool]: https://pmem.io/pmdk/pmempool/
+[pmempool]: /pmdk/pmempool/

@@ -35,8 +35,8 @@ type: 'post'
 ---
 
 We've blogged before about
-[building](https://pmem.io/blog/2015/07/transactional-key-value-store-using-libpmemobj-diy) and
-[optimizing](https://pmem.io/blog/2015/09/kv-store-improved-measured)
+[building](/blog/2015/07/transactional-key-value-store-using-libpmemobj-diy) and
+[optimizing](/blog/2015/09/kv-store-improved-measured)
 key-value stores for persistent memory, and we're excited to
 put these ideas to the test in a more formal way.
 

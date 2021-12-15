@@ -208,7 +208,7 @@ The support for them is available in the Linux Kernel 5.5.
 
 On the application layer, libmemkind tries to meet these challenges with new features presented in this post.
 
-[memkind-initial-post]: https://pmem.io/blog/2020/01/introduction-to-libmemkind
+[memkind-initial-post]: /blog/2020/01/introduction-to-libmemkind
 [numa-intel]: https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html
 [acpi-doc]: https://uefi.org/sites/default/files/resources/ACPI_6_2.pdf
 [xpu-vid]: https://youtu.be/9y3xpi-yPyA?t=95

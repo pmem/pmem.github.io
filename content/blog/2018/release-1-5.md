@@ -118,7 +118,7 @@ described here are opt-in. This will be changed to opt-out once these access
 restrictions are relaxed in the future kernel versions.
 
 To enable or disable RAS features, we've developed a new pmempool command,
-pmempool feature. You can find more information about on its [man page](https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html).
+pmempool feature. You can find more information about on its [man page](/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html).
 
 ## pmreorder
 
@@ -134,7 +134,7 @@ that it's time to revisit the topic and cleanup the old codebase so that it can
 be released alongside pmemcheck.
 
 Stay tuned for a blog post about pmreorder. In the meantime, see its
-[man page](https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html).
+[man page](/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html).
 
 ## Parameterized persistence primitives
 
@@ -149,7 +149,7 @@ flags which control how the functions behave.
 We found this so useful that we also exposed this functionality in libpmemobj
 variants of persistence primitives.
 
-For more information, see _pmemobj_memcpy_persist_ [man page](https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_memcpy_persist.3).
+For more information, see _pmemobj_memcpy_persist_ [man page](/pmdk/manpages/linux/master/libpmemobj/pmemobj_memcpy_persist.3).
 
 ## Removal of libpmemcto
 
@@ -177,7 +177,7 @@ custom synchronization primitives or even implement entirely custom algorithms
 that require volatile variables on persistent memory.
 
 This a fairly small API addition which has a large number of potential use cases.
-See its [man page](https://pmem.io/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3) for more details.
+See its [man page](/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3) for more details.
 
 ### Custom allocation class improvements
 
@@ -196,7 +196,7 @@ Additionally, the API didn't allow for alignment of allocated objects to be
 specified. This has been addressed, and allocations can now be aligned to any
 power-of-two value.
 
-See appropriate CTL namespace [entry point](https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3) for
+See appropriate CTL namespace [entry point](/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3) for
 more information.
 
 ### Rewrite of redo and undo log for transaction support
@@ -224,7 +224,7 @@ unrecovered operations in the log, are not going to be compatible with the new
 algorithms.
 
 To provide users with an upgrade path, we've implemented a brand new
-[pmdk-convert](https://pmem.io/pmdk-convert/pmdk-convert.1.html) tool which will
+[pmdk-convert](/pmdk-convert/pmdk-convert.1.html) tool which will
 automatically process the logs using the correct recovery
 mechanism, and then will bump the major layout version to indicate that the pool
 can be now opened using the new library version.
@@ -246,7 +246,7 @@ anticipating that it's soon going to become a much larger project.
 
 We started the containers work easy, with `pmem::obj::array` that provides some
 convenience features for use with transactions. See our
-[doxygen](https://pmem.io/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html) documentation for more info.
+[doxygen](/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html) documentation for more info.
 
 We've also renamed some function names that, in retrospect, were chosen
 poorly. Functions with old names are still there, but are deprecated.

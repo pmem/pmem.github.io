@@ -209,6 +209,6 @@ This concludes the introduction to basic and advanced features of pmemcheck. In 
 [e0997ea1]: https://giphy.com/gifs/rainbow-unicorn-highway-G0nTMRctvIp4Q 'Magic'
 [8f99b01c]: https://www.valgrind.org/docs/pubs.html 'Valgrind Research Papers'
 [5428585d]: https://www.valgrind.org/docs/manual/manual-core-adv.html#manual-core-adv.clientreq 'Client Request Mechanism'
-[c5f40b9e]: https://pmem.io/pmdk/ 'Persistent Memory Development Kit'
+[c5f40b9e]: /pmdk/ 'Persistent Memory Development Kit'
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]

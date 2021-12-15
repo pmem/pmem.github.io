@@ -200,4 +200,4 @@ The complete example code can be found in the
 ### Documentation
 
 The complete libvmemcache manual can be found at
-[pmem.io](https://pmem.io/vmemcache/manpages/master/vmemcache.3.html).
+[pmem.io](/vmemcache/manpages/master/vmemcache.3.html).

@@ -84,7 +84,7 @@ Our optimization story begins with
 [pmemkv](https://github.com/pmem/pmemkv)
 using persistent leaves (`KVLeaf`) composed of separate arrays for
 hashes, keys, and values. Keys and values are modeled using a basic
-[persistent string class](https://pmem.io/blog/2017/01/modeling-strings-with-libpmemobj-c-bindings)
+[persistent string class](/blog/2017/01/modeling-strings-with-libpmemobj-c-bindings)
 (`KVString`) that allows getting/setting the contents as a
 C-style string.
 
@@ -245,7 +245,7 @@ strategy with `KVString` against the zero-copy strategy with `KVSlot`.
 (The naive copy strategy is too slow to consider)
 
 For sequential insertion of 20-byte keys with 800-byte values, using
-[emulated persistent memory](https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory),
+[emulated persistent memory](/blog/2016/02/how-to-emulate-persistent-memory),
 total workload time improved by 37% when switching from
 `KVString` to `KVSlot` in my testing.
 

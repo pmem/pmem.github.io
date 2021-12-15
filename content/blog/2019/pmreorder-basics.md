@@ -375,7 +375,7 @@ I hope that now you have enough knowledge to check your program
 with the use of pmreorder tool.
 Good luck!
 
-[pmemcheck1link]: https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-1-basics
-[pmemcheck2link]: https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-2-transactions
+[pmemcheck1link]: /blog/2015/07/an-introduction-to-pmemcheck-part-1-basics
+[pmemcheck2link]: /blog/2015/07/an-introduction-to-pmemcheck-part-2-transactions
 [pmreorderexamplelink]: https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder
-[pmreordermanlink]: https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html
+[pmreordermanlink]: /pmdk/manpages/linux/master/pmreorder/pmreorder.1.html

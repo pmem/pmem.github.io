@@ -37,7 +37,7 @@ type: 'post'
 ### Introduction
 
 **vmemcache** which we have
-[recently described](https://pmem.io/blog/2019/05/libvmemcache-buffer-based-lru-cache)
+[recently described](/blog/2019/05/libvmemcache-buffer-based-lru-cache)
 performs close to optimum when either all keys are approximately equally
 likely to be queried, or when all key:value pairs fit completely into the
 fastest form of memory you are willing to use. But, in many workloads, some
