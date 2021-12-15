@@ -23,7 +23,7 @@ image: ''
 author: 'igchor'
 
 # Categories to which this blog post belongs
-blogs: ['Linux']
+blogs: ['Libpmemobj-cpp']
 
 tags: []
 

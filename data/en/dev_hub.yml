@@ -149,14 +149,16 @@ dev_tools:
       description: 'Perform a dynamic runtime analysis with an enhanced version of Valgrind.'
       categories:
         - 'Admin'
+        - 'Debug'
 
   tools_secondary:
-    pmemreorder:
-      label: 'pmemreorder'
+    pmreorder:
+      label: 'pmreorder'
       link: 'https://pmem.io/pmdk/pmreorder/'
       description: 'The pmreorder is a utility that performs a consistency check of a persistent program.'
       categories:
         - 'Admin'
+        - 'Debug'
     pmempool:
       label: 'pmempool'
       link: 'https://pmem.io/pmdk/pmempool/'
@@ -171,8 +173,14 @@ dev_tools:
         - 'Admin'
     pmembench:
       label: 'pmembench'
-      link: ''
-      description: 'Run benchmarks using libraries from the Persistent Memory Development Kit'
+      link: 'https://github.com/pmem/pmdk/tree/master/src/benchmarks'
+      description: 'Run benchmarks using libraries from the Persistent Memory Development Kit.'
+      categories:
+        - 'Benchmark'
+    pmemkv_bench:
+      label: 'pmemkv-bench'
+      link: 'https://github.com/pmem/pmemkv-bench'
+      description: "Benchmark for pmemkv and its underlying libraries, based on LevelDB's db_bench."
       categories:
         - 'Benchmark'
     valgrind:

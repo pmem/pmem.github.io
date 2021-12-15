@@ -23,7 +23,7 @@ image: ''
 author: 'igchor'
 
 # Categories to which this blog post belongs
-blogs: ['libpmemobj']
+blogs: ['Libpmemobj-cpp']
 tags: []
 
 # Redirects from old URL

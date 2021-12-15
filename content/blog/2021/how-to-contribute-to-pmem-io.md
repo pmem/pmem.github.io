@@ -33,14 +33,12 @@ type: "post"
 
 # Contributing to this repository 
 
-## Getting started 
+## Getting started
 
 Before you begin:
 - The [pmem.io](https://pmem.io) website is powered by the [Hugo](https://gohugo.io/) static site generator and hosted on [GitHub Pages](https://pages.github.com/).
 - Have you read the [code of conduct](CODE_OF_CONDUCT.md)?
-- Review the [existing issues](https://github.com/pmem/pmem.github.io/issues) and see if we [accept contributions](#types-of-contributions-memo) for your type of issue.
-
-
+- Review the [existing issues](https://github.com/pmem/pmem.github.io/issues) and see if we [accept contributions](#types-of-contributions) for your type of issue.
 
 ## Types of contributions
 You can contribute to the pmem.io content and website in several ways. This GitHub repository is a place to discuss and collaborate on pmem.io! A small, but mighty team is maintaining this repo. To preserve our bandwidth, off topic conversations will be closed.
@@ -51,7 +49,7 @@ Discussions are where we have conversations. If you have a great new idea or sug
 ### Issues
 [Issues](https://github.com/pmem/pmem.github.io/issues) are used to track tasks that contributors can help with. Search the open issues to see if there's something you want to help with. 
 
-If you've found an issue in the content or the website functionality that should be updated or fixed, search open issues to see if someone else has reported the same thing. If it's something new, [open a new issue](https://github.com/pmem/pmem.github.io/issues). We'll use the issue to have a conversation about the problem you want to fix. We highly recomment using the following title format:
+If you've found an issue in the content or the website functionality that should be updated or fixed, search open issues to see if someone else has reported the same thing. If it's something new, [open a new issue](https://github.com/pmem/pmem.github.io/issues). We'll use the issue to have a conversation about the problem you want to fix. We highly recommend using the following title format:
 
 `[Page|Section] <Object> and <Defect>`
 
@@ -65,7 +63,6 @@ A bad title is:
 
 `I don't like the spacing between the Dev Hub tools`
 
-
 ### Pull requests
 A [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) is a way to suggest changes in our repository.
 
@@ -75,7 +72,6 @@ When we merge those changes, they should be deployed to the live site within 24 
 We are a small team working hard to keep up with the demands of an active community. Unfortunately, we just can't help with support questions in this repository. If you are experiencing a problem with persistent memory, please [reach out to the Community](https://pmem.io/community). Any issues, discussions, or pull requests opened here requesting support will be reviewed and addressed.
 
 ### Translations
-
 The source content in this repository is written in English. We are working hard to internationalize the site to make it available in multiple languages. We are currently not accepting translation contributions, but may do so in the future. 
 
 
@@ -110,7 +106,7 @@ Fork with [GitHub Codespaces](https://github.com/features/codespaces):
 
 Before making any changes, [create a local branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/managing-branches).
 
-### Make your update:
+### Make your update
 
 Make your changes to the file(s) you'd like to update. Please review [using this codebase](#working-in-the-githubdocs-repository) to learn the structure of this repository and what file(s) should be modified and where to create new content.
 
@@ -118,7 +114,7 @@ Make your changes to the file(s) you'd like to update. Please review [using this
 
 Hugo uses the [Goldmark](https://github.com/yuin/goldmark/) Markdown processor which is fully [CommonMark](https://commonmark.org/)-compliant.
 
-If you are creating new content, you should use the `hugo new` command to generate the markdown filei from the base directory. For example, to create a new Blog article with the title "My Amazing Blog Article", run:
+If you are creating new content, you should use the `hugo new` command to generate the markdown file from the base directory. For example, to create a new Blog article with the title "My Amazing Blog Article", run:
 
 `$ hugo new blog/2021/my-amazing-blog-article.md`
 
@@ -140,7 +136,7 @@ $ hugo new videos/video-title.md
 
 Note: If you forget the `.md` file extension, Hugo will give you a generic front matter, which isn't what you want. 
 
-You can now edit the newly created file. Update the front matter, then add your contenti where applicable. Some content types, such as videos and solutions, require you to update the front matter only with no content. Blog and News articles require both front matter and content.
+You can now edit the newly created file. Update the front matter, then add your content where applicable. Some content types, such as videos and solutions, require you to update the front matter only with no content. Blog and News articles require both front matter and content.
 
 ##### Image Resources
 
@@ -157,7 +153,6 @@ Many content types require images - blogs, news, solutions, etc. You should use 
 - [StockSnap](https://stocksnap.io/)
 - [Burst](https://burst.shopify.com/)
 - [FreeImages](https://www.freeimages.com/)
-- 
 
 **Illustrations & Vector**
 
@@ -227,11 +222,9 @@ For content changes, make sure that you:
 - [ ] Pull request template
 
 
-
 When you open a pull request, you must fill out the "Ready for review" template before we can review your PR. This template helps reviewers understand your changes and the purpose of your pull request.
 
 ### Suggested changes
 We may ask for changes to be made before a PR can be merged, either using [suggested changes](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/incorporating-feedback-in-your-pull-request) or pull request comments. You can apply suggested changes directly through the UI. You can make any other changes in your fork, then commit them to your branch.
 
 As you update your PR and apply changes, mark each conversation as [resolved](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request#resolving-conversations).
-

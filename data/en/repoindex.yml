@@ -29,7 +29,7 @@ card_groups:
                   <br>
                   <ul class=\"repoindex-list\">
                     <li>libpmem</li>
-                    <li>libpmem2</li
+                    <li>libpmem2</li>
                     <li>libpmemobj</li>
                     <li>libpmemblk</li>
                     <li>libpmemlog</li>
@@ -61,63 +61,75 @@ card_groups:
             row5:
               cells:
                 cell1:
+                  content: "<a href=\"https://github.com/pmem/miniasync\">miniasync</a>"
+                cell2:
+                  content: "C low-level concurrency library for asynchronous functions"
+            row6:
+              cells:
+                cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv\">pmemkv</a>"
                 cell2:
                   content: "Transactional Key-Value Store: Top-Level C & C++ API"
-            row6:
+            row7:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-bench\">pmemkv-bench</a>"
                 cell2:
                   content: "Benchmarks for pmemkv"
-            row7:
+            row8:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-python\">pmemkv-python</a>"
                 cell2:
                   content: "Python bindings for pmemkv"
-            row8:
+            row9:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
                 cell2:
                   content: "NodeJS bindings for pmemkv"
-            row9:
+            rowA1:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
                 cell2:
                   content: "Ruby bindings for pmemkv"
-            rowA1:
+            rowA2:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-java\">pmemkv-java</a>"
                 cell2:
                   content: "Java bindings for pmemkv"
-            rowA2:
+            rowA3:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemstream\">pmemstream</a>"
+                cell2:
+                  content: "Logging data structure"
+            rowA4:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmdk-convert\">pmdk-convert</a>"
                 cell2:
                   content: "Conversion tool for PMDK pools"
-            rowA3:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/valgrind\">valgrind</a>"
-                cell2:
-                  content: "Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin"
-            rowA4:
+            rowA5:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmdk-tests\">pmdk-tests</a>"
                 cell2:
                   content: "Extended PMDK tests"
-            rowA5:
+            rowA6:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/rpma\">rpma</a>"
                 cell2:
                   content: "C library to simplify accessing persistent memory (PMem) on remote hosts over Remote Direct Memory Access (RDMA)"
+            rowA7:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/valgrind\">valgrind</a>"
+                cell2:
+                  content: "Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin"
         table2:
             title: "Components Focused on Volatile Usages of pmem:"
             headers:

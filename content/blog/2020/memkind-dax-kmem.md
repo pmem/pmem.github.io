@@ -23,7 +23,7 @@ image: ''
 author: 'michalbiesek'
 
 # Categories to which this blog post belongs
-blogs: ['memkind']
+blogs: ['Memkind']
 
 tags: []
 

@@ -23,7 +23,7 @@ image: ''
 author: 'andyrudoff'
 
 # Categories to which this blog post belongs
-blogs: ['nvm']
+blogs: ['pmdk']
 tags: []
 
 # Redirects from old URL

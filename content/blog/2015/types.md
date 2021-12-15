@@ -23,7 +23,7 @@ image: ''
 author: 'pbalcer'
 
 # Categories to which this blog post belongs
-blogs: ['pmemobj']
+blogs: ['libpmemobj']
 
 tags: []
 

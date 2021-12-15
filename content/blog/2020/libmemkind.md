@@ -23,7 +23,7 @@ image: ''
 author: 'jschmieg'
 
 # Categories to which this blog post belongs
-blogs: ['libmemkind']
+blogs: ['Memkind']
 
 tags: []
 

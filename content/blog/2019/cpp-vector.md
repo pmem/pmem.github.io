@@ -23,7 +23,7 @@ image: ''
 author: 'szyrom'
 
 # Categories to which this blog post belongs
-blogs: ['cpp']
+blogs: ['Libpmemobj-cpp']
 
 tags: []
 
