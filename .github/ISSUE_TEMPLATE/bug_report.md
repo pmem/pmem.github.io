@@ -9,7 +9,7 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**How often is the bug experiences?**
+**How often is the bug experienced?**
 Once, Frequently, Always.
 
 **Bug Severity**
