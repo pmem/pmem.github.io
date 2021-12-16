@@ -1,6 +1,7 @@
 ---
 title: "Persistent Memory Development Kit (PMDK)"
 draft: false
+url: "pmdk"
 # Page title background image
 bg_image: ""
 # Description

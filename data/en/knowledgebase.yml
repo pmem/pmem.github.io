@@ -1,0 +1,165 @@
+################################# Topics #################################
+topics:
+  enable: true
+  title: "Browse Topics"
+  content: "Choose an option that you need help with"
+  topics:
+    topic1:
+      icon: "bi-question-circle"
+      title: "How To"
+      content: "Look here for help performing tasks including setup & configuration."
+      link: "./howto"
+    topic2:
+      icon: "bi-lightning-charge"
+      title: "Problem Resolution"
+      content: "Have a problem or error?  Look here for answers."
+      link: "./problem"
+    topic3:
+      icon: "icon-line-paper"
+      title: "Documentation"
+      content: "Learn how to install, configure, and use persistent memory utilities and tools"
+      link: "https://docs.pmem.io"
+    topic4:
+      icon: "icon-line-code"
+      title: "Development"
+      content: "Looking for API information or code tutorials and examples?"
+      link: "./development"
+    topic5:
+      icon: "icon-comment2"
+      title: "FAQ"
+      content: "Look here for frequently answered questions."
+      link: "./faq"
+    topic6:
+      icon: "icon-screen"
+      title: "Applications"
+      content: "Information and resources for applications that have persistent memory features"
+      link: "./apps"
+
+################################# FAQ #################################
+faq:
+  enable: true
+  title: "Frequently asked questions"
+  content: "Find quick answers to frequently asked questions"
+  questions:
+    question1:
+      id: "question1"
+      question: "Can I install persistent memory and a GPU in my system?"
+      answer: | 
+              ### Applies To
+              * Intel® Optane™ Persistent Memory
+              * NVDIMM-N
+              * GPU
+
+              ### Answer
+              It is recommended to seek advice from the server OEM/ODM directly. While it is possible to support GPUs and persistent memory in the same system, several factors need to be considered which include, but are not limited to the following:
+              * Server size (1U, 2U, 4U, etc)
+              * Power Supplies
+              * Internal and external cooling functions - Air cooled, liquid cooled, or hybrid
+              * The type and quantity of persistent memory modules or devices within the system with their power & thermal requirements
+              * The make and model of the GPU with its power and cooling requirements
+    question2:
+      id: "question2"
+      question: "Can I install persistent memory and an FPGA in my system?"
+      answer: |
+              ### Applies To
+              * Can I install persistent memory and an FPGA in my system?
+              * NVDIMM-N
+              * FPGA
+
+              ### Answer
+              It is recommended to seek advice from the server OEM/ODM directly. While it is possible to support FPGAs and persistent memory in the same system, several factors need to be considered which include, but are not limited to the following:
+              * Server size (1U, 2U, 4U, etc)
+              * Power Supplies
+              * Internal and external cooling functions - Air cooled, liquid cooled, or hybrid
+              * The type and quantity of persistent memory modules or devices within the system with their power & thermal requirements
+              * The make, model, and quantity of the FPGAs with its power and cooling requirements
+    question3: 
+      id: "question3"
+      question: "Intel Optane Persistent Memory Operating System Support Matrix"
+      answer: |
+              ### Applies To
+              * Intel® Optane™ Persistent Memory
+              * Linux
+              * Microsoft Windows
+              * VMWare
+
+              ### Compatible Operating Systems for Intel® Optane™ Persistent Memory
+              Intel® Optane™ persistent memory operating system (OS) mode support information.
+              * The operating systems listed below have been verified by Intel and do not reflect the OS vendor support.
+              * Please contact the respective OS vendor(s) for the exact release version providing the proper support.
+              * For OS that are not listed, use open source code to generate necessary files.
+
+              ### Operating System Support
+              | OS Version                                           	| Memory Mode 	| App Direct Mode 	| Dual Mode 	|
+              |------------------------------------------------------	|-------------	|-----------------	|-----------	|
+              | RHEL* 7.5                                            	| Yes         	|                 	|           	|
+              | Ubuntu* 16.04 LTS                                    	| Yes         	|                 	|           	|
+              | Windows* Server 2016                                 	| Yes         	|                 	|           	|
+              | Oracle* Linux* 7.6 with UEK R5 Update 2              	| Yes         	| Yes             	|           	|
+              | VMware* vSphere 6.7 EP10                             	| Yes         	| Yes             	|           	|
+              | CentOS* 7.6 or later                                 	| Yes         	| Yes             	| Yes       	|
+              | RHEL 7.6 or later                                    	| Yes         	| Yes             	| Yes       	|
+              | SLES* 12 SP4 or later                                	| Yes         	| Yes             	| Yes       	|
+              | SLES 15 or later                                     	| Yes         	| Yes             	| Yes       	|
+              | Ubuntu 18.04 LTS                                     	| Yes         	| Yes             	| Yes       	|
+              | Ubuntu 18.10 or later                                	| Yes         	| Yes             	| Yes       	|
+              | VMWare* ESXi 6.7 U1 or later                         	| Yes         	| Yes             	| Yes       	|
+              | Windows 10 Pro for Workstation Version 1809 or later 	| Yes         	| Yes             	| Yes       	|
+              | Windows Server 2019 or later                         	| Yes         	| Yes             	| Yes       	|
+
+              Reference: https://www.intel.com/content/www/us/en/support/articles/000032860/memory-and-storage/data-center-persistent-memory.html?productId=190349&localeCode=us_en
+    question4:
+      id: "question4"
+      question: "What is the SNIA NVM Programming Model?"
+      answer: |
+              ### Answer
+              This [Storage Networking Industry Association (SNIA) Non-Volatile Memory (NVM) Programming model](https://www.snia.org/tech_activities/standards/curr_standards/npm) was jointly developed between ~50 industry leading companies to address the ongoing proliferation of new non-volatile memory (otherwise known as persistent memory) functionality and new NVM technologies. An extensible NVM Programming Model is necessary to enable an industry wide community of NVM producers and consumers to move forward together through a number of significant storage and memory system architecture changes.
+
+              This specification defines recommended behavior between various user space and operating system (OS) kernel components supporting NVM. This specification does not describe a specific API. Instead, the intent is to enable common NVM behavior to be exposed by multiple operating system specific interfaces.
+
+              After establishing context, the specification describes several operational modes of NVM access. Each mode is described in terms of use cases, actions and attributes that inform user and kernel space components of functionality that is provided by a given compliant implementation.
+
+              The current version of the specification can be found on the SNIA website - [SNIA NVM Programming Model](https://www.snia.org/tech_activities/standards/curr_standards/npm).
+    question5:
+      id: "question5"
+      question: "What is Direct-Access (DAX)?"
+      answer: |
+              ### Applies To
+              * Microsoft Windows
+              * Linux
+              
+              ### Answer
+              Direct Access (DAX) enables direct access to files stored in persistent memory or on a block device. Without DAX support in a file system, the page cache is generally used to buffer reads and writes to files, and requires an extra copy operation.
+
+              DAX removes the extra copy operation by performing reads and writes directly to the storage device. It is also used to provide the pages that are mapped into a user space by a call to mmap. For more information, refer to [Direct Access for Files](https://www.kernel.org/doc/Documentation/filesystems/dax.txt).
+    question6:
+      id: "question6"
+      question: "What is PMDK (Persistent Memory Development Kit)?"
+      answer: |
+              ### Answer
+              The [Persistent Memory Development Kit (PMDK)](/pmdk), formerly known as the Non-Volatile Memory Library (NVML), is a collection of libraries and tools designed to support development of persistent-memory-aware applications. The open source PMDK project currently supports ten libraries, which are targeted at various use cases for persistent memory with language support for C, C++, Java, `and Python`. The PMDK also includes tools like the pmemcheck plug-in for the open source toolset, valgrind, and an increasing body of documentation, code examples, tutorials, and blog entries. The libraries are tuned and validated to production quality and are issued with a license that allows their use in both open and closed source products. The project continues to expand as new use cases are identified.
+    question7:
+      id: "question7"
+      question: "Why use PMDK (Persistent Memory Development Kit)?"
+      answer: |
+              ### Answer
+              The [Persistent Memory Development Kit (PMDK)](/pmdk) is designed to solve persistent memory challenges and facilitate the adoption of persistent memory programming. It offers developers well-tested, production-ready libraries and tools in a comprehensive implementation of the [Storage Networking Industry Association Non-Volatile Memory (SNIA NVM) programming model](https://www.snia.org/tech_activities/standards/curr_standards/npm).
+    question8:
+      id: "question8"
+      question: "What programming languages does PMDK (Persistent Memory Development Kit) support?"
+      answer: |
+              The [Persistent Memory Development Kit (PMDK)](/pmdk) core libraries provide C APIs. Libraries such as [libpmemobj](/pmdk/libpmemobj/) provide C++ APIs. Higher level libraries such as [libpmemkv](https://github.com/pmem/pmemkv), a key-value store for persistent memory, support C, C++, Javascript, Java, Ruby, and Python.          
+
+################################# Ask The Community #################################
+askcommunity: 
+  enable: true
+  title: "Didn't find an answer?"
+  content: "The persistent memory community is here to help"
+  buttontext: "Ask the Community"
+  buttonlink: "https://groups.google.com/forum/#!forum/pmem"
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: |
+           Copyright© kb.pmem.io 2020. All rights reserved.

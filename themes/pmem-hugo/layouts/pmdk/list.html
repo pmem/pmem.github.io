@@ -21,7 +21,7 @@
       <div class="row justify-content-between">
         <div class="col mt-0">
           <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
-            <h3 class="nott ls0">{{ .title | markdownify }}</h3>
+            <h3 id="{{ .title }}"class="nott ls0">{{ .title | markdownify }}</h3>
           </div>
           <p>{{ .content | safeHTML }}</p>
         </div>

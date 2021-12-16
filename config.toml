@@ -185,7 +185,7 @@ weight = 2
     [[Languages.en.menu.main]]
     parent = "learn-column2"
     name = "Knowledge base"
-    url = "https://kb.pmem.io/"
+    url = "/knowledgebase"
 
     [[Languages.en.menu.main]]
     parent = "learn-column2"

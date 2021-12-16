@@ -62,16 +62,22 @@ language_bindings:
       content: "<p>Up-to-date overview information about language bindings for pmemkv can be found in <a href=\"https://github.com/pmem/pmemkv#language-bindings\">pmemkv’s README on GitHub</a>.</p><p>Each of bindings has its own detailed API documentation on pmem.io:</p>"  
       list_items:
         list_item1:
-          content: "<strong>pmemkv-java</strong> <a href=\"https://pmem.io/pmemkv-java\">docs</a>"
+          content: "<strong>pmemkv-java</strong> <a href=\"/pmemkv-java\">docs</a>"
         list_item2:
-          content: "<strong>pmemkv-nodejs</strong> <a href=\"https://pmem.io/pmemkv-nodejs\">docs</a>"
+          content: "<strong>pmemkv-nodejs</strong> <a href=\"/pmemkv-nodejs\">docs</a>"
         list_item3:
-          content: "<strong>pmemkv-python</strong> <a href=\"https://pmem.io/pmemkv-python\">docs</a>"
+          content: "<strong>pmemkv-python</strong> <a href=\"/pmemkv-python\">docs</a>"
     link_list2:
       content: "or just a readme (on GitHub’s repository page):"
       list_items:
         list_item1:
           content: "<strong>pmemkv-ruby</strong> <a href=\"https://github.com/pmem/pmemkv-ruby\">readme</a>"
+
+#################################  Performance reports ################################# 
+performance_reports:
+  enable: true
+  title: "Performance Reports"
+  content: "Available performance measurements can be found in <a href=\"/pmemkv/reports\">'reports' sub-section</a>."
 
 ################################# Blog Entries #################################
 blog_entries:
@@ -81,15 +87,15 @@ blog_entries:
   blog_list:
     list_items:
       list_item1:
-        content: "<a href=\"https://pmem.io/2017/02/21/pmemkv-intro.html\">Introduction</a>"
+        content: "<a href=\"/2017/02/21/pmemkv-intro.html\">Introduction</a>"
       list_item2:
-        content: "<a href=\"https://pmem.io/2017/03/09/pmemkv-zero-copy-leaf-splits.html\">Zero-copy leaf splits in pmemkv</a>"
+        content: "<a href=\"/2017/03/09/pmemkv-zero-copy-leaf-splits.html\">Zero-copy leaf splits in pmemkv</a>"
       list_item3:
-        content: "<a href=\"https://pmem.io/2017/12/27/pmemkv-benchmarking-engines.html\">Benchmarking with different storage engines using pmemkv</a>"
+        content: "<a href=\"/2017/12/27/pmemkv-benchmarking-engines.html\">Benchmarking with different storage engines using pmemkv</a>"
       list_item4:
-        content: "<a href=\"https://pmem.io/2020/03/04/pmemkv-bindings.html\">Language bindings for pmemkv</a>"
+        content: "<a href=\"/2020/03/04/pmemkv-bindings.html\">Language bindings for pmemkv</a>"
       list_item5:
-        content: "<a href=\"https://pmem.io/2020/10/30/pmemkv-java-binding.html\">API overview of pmemkv-java binding</a>"
+        content: "<a href=\"/2020/10/30/pmemkv-java-binding.html\">API overview of pmemkv-java binding</a>"
 
 ################################# Releases Support Status #################################
 releases_support_status:
