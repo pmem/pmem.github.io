@@ -159,7 +159,7 @@ The list is, naturally, not complete - we always look for something to improve.
 We hope it was helpful to read about all these challenges. You can learn from our mistakes,
 not repeat them, and, hopefully, make good software using persistent memory. If you'd like
 to learn more, we've shared some of these issues (and solutions) in the 2021 PMDK Summit
-in a presentation titled ["State of Pmemkv" ][summit_state_pmemkv]. Jump into that summit's
+in a presentation titled ["State of Pmemkv"][summit_state_pmemkv]. Jump into that summit's
 videos for more info about our projects. And don't forget we're open source. Do you have
 ideas to improve our algorithms, extend this library, or just want to make a suggestion?
 Please share - file an issue or simply open a pull request with your tweaks.
@@ -170,4 +170,4 @@ Please share - file an issue or simply open a pull request with your tweaks.
 [rehashing_pdf]: https://arxiv.org/ftp/arxiv/papers/1509/1509.02235.pdf
 [pmdk_convert_blog]: /2019/02/01/pool-conversion-tool.html
 [container_contrib]: https://github.com/pmem/libpmemobj-cpp/blob/master/CONTRIBUTING.md#implementing-persistent-containers
-[summit_state_pmemkv]: /pmdksummit2021/
+[summit_state_pmemkv]: /events/2021-spdk-pmdk-intel-performance-analyzers-virtual-forum/
