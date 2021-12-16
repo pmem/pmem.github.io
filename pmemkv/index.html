@@ -1,5 +1,9 @@
 <!doctype html><html dir=ltr lang=en-us><head>
 <link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="PMemkv">
+<meta property="og:description" content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pmem.io/pmemkv/">
 <meta charset=utf-8>
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
@@ -171,7 +175,7 @@
 </a>
 </div>
 <div class="fbox-content h-bg-light">
-<a href=https://kb.pmem.io/>
+<a href=/knowledgebase>
 <p>Knowledge base <i class=icon-angle-right></i></p>
 </a>
 </div>
@@ -291,7 +295,7 @@
 <div class="section m-0 bg-transparent library-section border-top dark-mode">
 <div class=container>
 <div class="row justify-content-between">
-<div class="col mt-0">
+<div class="col mt-0 lib-content">
 <p><p>The <strong>C API</strong> of pmemkv is documented in the manuals and the <strong>C++ API</strong> is documented in the form of Doxygen documentation:</p> <p>for the current <strong>master:</strong></p></p>
 <ul class=pmemkv-list>
 <li>
@@ -334,17 +338,17 @@ C manpages:
 <p><p>Up-to-date overview information about language bindings for pmemkv can be found in <a href=https://github.com/pmem/pmemkv#language-bindings>pmemkv’s README on GitHub</a>.</p><p>Each of bindings has its own detailed API documentation on pmem.io:</p></p>
 <ul class=pmemkv-list>
 <li>
-<strong>pmemkv-java</strong> <a href=https://pmem.io/pmemkv-java>docs</a>
+<strong>pmemkv-java</strong> <a href=/pmemkv-java>docs</a>
 <ul class=pmemkv-list>
 </ul>
 </li>
 <li>
-<strong>pmemkv-nodejs</strong> <a href=https://pmem.io/pmemkv-nodejs>docs</a>
+<strong>pmemkv-nodejs</strong> <a href=/pmemkv-nodejs>docs</a>
 <ul class=pmemkv-list>
 </ul>
 </li>
 <li>
-<strong>pmemkv-python</strong> <a href=https://pmem.io/pmemkv-python>docs</a>
+<strong>pmemkv-python</strong> <a href=/pmemkv-python>docs</a>
 <ul class=pmemkv-list>
 </ul>
 </li>
@@ -357,23 +361,25 @@ C manpages:
 </ul>
 </li>
 </ul>
+<h3>Performance Reports</h3>
+<p>Available performance measurements can be found in <a href=/pmemkv/reports>'reports' sub-section</a>.</p>
 <h3>Blog Entries</h3>
 <p>The following blog articles relates to <strong>pmemkv:</strong></p>
 <ul class=pmemkv-list>
 <li>
-<a href=https://pmem.io/2017/02/21/pmemkv-intro.html>Introduction</a>
+<a href=/2017/02/21/pmemkv-intro.html>Introduction</a>
 </li>
 <li>
-<a href=https://pmem.io/2017/03/09/pmemkv-zero-copy-leaf-splits.html>Zero-copy leaf splits in pmemkv</a>
+<a href=/2017/03/09/pmemkv-zero-copy-leaf-splits.html>Zero-copy leaf splits in pmemkv</a>
 </li>
 <li>
-<a href=https://pmem.io/2017/12/27/pmemkv-benchmarking-engines.html>Benchmarking with different storage engines using pmemkv</a>
+<a href=/2017/12/27/pmemkv-benchmarking-engines.html>Benchmarking with different storage engines using pmemkv</a>
 </li>
 <li>
-<a href=https://pmem.io/2020/03/04/pmemkv-bindings.html>Language bindings for pmemkv</a>
+<a href=/2020/03/04/pmemkv-bindings.html>Language bindings for pmemkv</a>
 </li>
 <li>
-<a href=https://pmem.io/2020/10/30/pmemkv-java-binding.html>API overview of pmemkv-java binding</a>
+<a href=/2020/10/30/pmemkv-java-binding.html>API overview of pmemkv-java binding</a>
 </li>
 </ul>
 <h3>Releases' Support Status</h3>

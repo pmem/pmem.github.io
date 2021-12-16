@@ -5,6 +5,41 @@
 	Overwriting Default Theme Styles for Better Handling Updates
 -----------------------------------------------------------------*/
 
+.lib-content ol {
+  padding: revert;
+}
+
+.lib-content h3,
+.lib-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.lib-content h3:not(:first-child),
+.lib-content h4,
+.lib-content h2 {
+  margin-top: 30px;
+}
+
+.kb-content-container h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #333;
+  margin-top: 30px;
+}
+
+.lib-content h5 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #555;
+}
+
+.lib-content ol li ul {
+  margin-bottom: 10px;
+}
+
 .repoindex-card {
   margin-top: 48px !important;
 }
@@ -43,7 +78,11 @@
 }
 
 [data-theme='dark'] .dark-mode ul,
-[data-theme='dark'] .dark-mode ul li:hover {
+[data-theme='dark'] .dark-mode ul li:hover,
+[data-theme='dark'] .dark-mode .accordion-button,
+[data-theme='dark'] .dark-mode .accordion-body,
+[data-theme='dark'] .dark-mode .list-group-item,
+[data-theme='dark'] .dark-mode .page-item a {
   background-color: var(--dark-mode-dark) !important;
 }
 
@@ -52,7 +91,8 @@
 }
 
 [data-theme='dark'] .dark-mode .card,
-[data-theme='dark'] .dark-mode .card-header {
+[data-theme='dark'] .dark-mode .card-header,
+[data-theme='dark'] .dark-mode .list-group-item {
   border-color: var(--dark-mode-light) !important;
 }
 
@@ -72,8 +112,26 @@
 [data-theme='dark'] .dark-mode p,
 [data-theme='dark'] .dark-mode .entry .entry-title h3 a,
 [data-theme='dark'] .dark-mode .i-palin.social-font,
-[data-theme='dark'] .dark-mode .pagination .page-item a {
+[data-theme='dark'] .dark-mode .accordion-button,
+[data-theme='dark'] .dark-mode .table,
+[data-theme='dark'] .dark-mode .kb-faq table,
+[data-theme='dark'] .dark-mode .pagination .page-item a,
+[data-theme='dark'] .dark-mode .list-group-item {
   color: var(--dark-mode-light) !important;
+}
+
+[data-theme='dark'] .accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+[data-theme='dark'] .accordion-button {
+  box-shadow: none !important;
+}
+
+[data-theme='dark'] .dark-mode .accordion-item,
+[data-theme='dark'] .dark-mode th,
+[data-theme='dark'] .dark-mode .page-item a {
+  border-color: var(--dark-mode-light) !important;
 }
 
 [data-theme='dark'] .dark-mode .alert a {
@@ -194,6 +252,15 @@ div.grid-filter-wrap li {
   color: #fff !important;
 }
 
+.kb-icon {
+  margin-bottom: 30px !important;
+}
+
+.kb-card {
+  width: 100%;
+}
+
+.kb-bg,
 .community-videos-bg {
   background-color: #fcfeff;
 }
@@ -204,6 +271,10 @@ div.grid-filter-wrap li {
 
 .books-icon {
   border-color: #999 !important;
+}
+
+.kb-icon {
+ color: #189eba !important;
 }
 
 .books-icon > i {
@@ -283,11 +354,13 @@ div.grid-filter-wrap li {
 }
 
 .library-alert,
-.pmemkv-table {
+.pmemkv-table,
+.pmem-table {
   margin-bottom: 30px;
 }
 
-.pmemkv-table > thead {
+.pmemkv-table > thead,
+.pmem-table > thead {
   background-color: #373737;
   color: #fff;
 }
@@ -460,8 +533,77 @@ div.grid-filter-wrap li {
   overflow-wrap: break-word;
 }
 
+.accordion-button:not(.collapsed) {
+  color: #189eba !important;
+}
+
+/* Apply the same styling as the .table class since it can't be assigned in markdown */
+.kb-faq table {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: #212529;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: #212529;
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: #212529;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  vertical-align: top;
+  border-color: #dee2e6;
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.kb-faq table > :not(caption) > * > * {
+	padding: 0.5rem 0.5rem;
+	background-color: var(--bs-table-bg);
+	border-bottom-width: 1px;
+	box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.kb-faq table > :not(:last-child) > :last-child > * {
+	border-bottom-color: currentColor;
+}
+
+.kb-faq thead, tbody, tfoot, tr, td, th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
+.kb-faq h3 {
+  margin-top: 30px;
+  border-bottom: 1px solid #ddd;
+}
+
+.kb-doc-header {
+  border-bottom: 1px solid #ddd;
+}
+
+.kb-faq ul,
 .library-section .container ul {
   margin-left: 30px;
+}
+
+.library-section .doc-info {
+  margin-left: 0px !important;
+  margin-top: 30px;
+}
+
+.kb-btn {
+  margin-top: 30px;
+}
+
+.kb-link {
+  position: absolute;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
 }
 
 .repoindex-table tbody > tr > td > ul {
@@ -474,11 +616,13 @@ div.grid-filter-wrap li {
   color: #fff;
 }
 
-.repoindex-table thead > tr > th:first-child {
+.repoindex-table thead > tr > th:first-child,
+.repoindex-table thead > tr > th:last-child {
   text-align: center;
 }
 
-.repoindex-table tbody > tr > td:first-child {
+.repoindex-table tbody > tr > td:first-child,
+.repoindex-table tbody > tr > td:last-child {
   width: 15em;
   text-align: center;
 }
@@ -565,4 +709,13 @@ p {
 .highlight pre {
   margin-bottom: 10px;
   padding: 10px;
+}
+
+/* Code block number alignment */
+.lib-content code, pre {
+  unicode-bidi: revert !important;
+}
+
+.lib-content div.highlight {
+  margin-bottom:  10px;
 }

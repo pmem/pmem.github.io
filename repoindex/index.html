@@ -1,5 +1,9 @@
 <!doctype html><html dir=ltr lang=en-us><head>
 <link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="PMem Repositories">
+<meta property="og:description" content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pmem.io/repoindex/">
 <meta charset=utf-8>
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
@@ -171,7 +175,7 @@
 </a>
 </div>
 <div class="fbox-content h-bg-light">
-<a href=https://kb.pmem.io/>
+<a href=/knowledgebase>
 <p>Knowledge base <i class=icon-angle-right></i></p>
 </a>
 </div>
@@ -300,6 +304,7 @@
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -310,6 +315,9 @@
 <td>
 PMDK Core C libraries and tools: <br> <ul class=repoindex-list> <li>libpmem</li> <li>libpmem2</li> <li>libpmemobj</li> <li>libpmemblk</li> <li>libpmemlog</li> <li>librpmem</li> <li>libpmempool</li> <li>libpmemset (in development)</li> <li>pmempool utility</li> <li>Core PMDK C examples</li> <li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)</li> </ul>
 </td>
+<td>
+<a href=../pmdk>pmem.io/pmdk</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -318,6 +326,9 @@ PMDK Core C libraries and tools: <br> <ul class=repoindex-list> <li>libpmem</li>
 <td>
 C++ bindings & containers for libpmemobj
        </td>
+<td>
+<a href=../libpmemobj-cpp>pmem.io/libpmemobj-cpp</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -326,6 +337,9 @@ C++ bindings & containers for libpmemobj
 <td>
 Low-Level Persistence Library for Java
 </td>
+<td>
+<a href=../llpl>pmem.io/llpl</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -333,6 +347,9 @@ Low-Level Persistence Library for Java
 </td>
 <td>
 JavaScript bindings for libpmemobj
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -345,18 +362,13 @@ C low-level concurrency library for asynchronous functions
 </tr>
 <tr class=dark-mode>
 <td>
-<a href=https://github.com/pmem/pmemkv>pmemkv</a>
-</td>
-<td>
-Transactional Key-Value Store: Top-Level C & C++ API
-                         </td>
-</tr>
-<tr class=dark-mode>
-<td>
 <a href=https://github.com/pmem/pmemkv-bench>pmemkv-bench</a>
 </td>
 <td>
 Benchmarks for pmemkv
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -366,6 +378,9 @@ Benchmarks for pmemkv
 <td>
 Python bindings for pmemkv
 </td>
+<td>
+<a href=../pmemkv-python>pmem.io/pmemkv-python</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -373,6 +388,9 @@ Python bindings for pmemkv
 </td>
 <td>
 NodeJS bindings for pmemkv
+</td>
+<td>
+<a href=../pmemkv-nodejs>pmem.io/pmemkv-nodejs</a>
 </td>
 </tr>
 <tr class=dark-mode>
@@ -382,6 +400,9 @@ NodeJS bindings for pmemkv
 <td>
 Ruby bindings for pmemkv
 </td>
+<td>
+<a href=../pmemkv-ruby>pmem.io/pmemkv-ruby</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -390,13 +411,8 @@ Ruby bindings for pmemkv
 <td>
 Java bindings for pmemkv
 </td>
-</tr>
-<tr class=dark-mode>
 <td>
-<a href=https://github.com/pmem/pmemstream>pmemstream</a>
-</td>
-<td>
-Logging data structure
+<a href=../pmemkv-java>pmem.io/pmemkv-java</a>
 </td>
 </tr>
 <tr class=dark-mode>
@@ -406,6 +422,20 @@ Logging data structure
 <td>
 Conversion tool for PMDK pools
 </td>
+<td>
+<a href=../pmdk-convert>pmdk-convert</a>
+</td>
+</tr>
+<tr class=dark-mode>
+<td>
+<a href=https://github.com/pmem/valgrind>valgrind</a>
+</td>
+<td>
+Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin
+</td>
+<td>
+<a href=../valgrind>pmem.io/valgrind</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -413,6 +443,9 @@ Conversion tool for PMDK pools
 </td>
 <td>
 Extended PMDK tests
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -422,13 +455,8 @@ Extended PMDK tests
 <td>
 C library to simplify accessing persistent memory (PMem) on remote hosts over Remote Direct Memory Access (RDMA)
 </td>
-</tr>
-<tr class=dark-mode>
 <td>
-<a href=https://github.com/pmem/valgrind>valgrind</a>
-</td>
-<td>
-Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin
+<a href=../rpma>pmem.io/rpma</a>
 </td>
 </tr>
 </tbody>
@@ -439,6 +467,7 @@ Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -449,6 +478,9 @@ Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin
 <td>
 General-purpose malloc/free-style library<br>(Actually lives outside the pmem GitHub org since it has a life outside of pmem as well)
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -457,13 +489,19 @@ General-purpose malloc/free-style library<br>(Actually lives outside the pmem Gi
 <td>
 A buffer based LRU cache
 </td>
+<td>
+<a href=../vmemcache>pmem.io/vmemcache</a>
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
 <a href=https://github.com/pmem/vmem>vmem</a>
 </td>
 <td>
-ibvmem, the predecessor to <strong>libmemkind</strong>.<br>Maintenance-only -- use <strong>libmemkind</strong> for all new development.
+libvmem, the predecessor to <strong>libmemkind</strong>.<br>Maintenance-only -- use <strong>libmemkind</strong> for all new development.
+</td>
+<td>
+<a href=../vmem/libvmem>pmem.io/vmem/libvmem</a>
 </td>
 </tr>
 </tbody>
@@ -474,6 +512,7 @@ ibvmem, the predecessor to <strong>libmemkind</strong>.<br>Maintenance-only -- u
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -484,6 +523,9 @@ ibvmem, the predecessor to <strong>libmemkind</strong>.<br>Maintenance-only -- u
 <td>
 Persistent Collections for Java
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -491,6 +533,9 @@ Persistent Collections for Java
 </td>
 <td>
 Userspace implementation of file APIs using pmem
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -500,6 +545,9 @@ Userspace implementation of file APIs using pmem
 <td>
 Syscall intercepting library used by libpmemfile
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -508,6 +556,9 @@ Syscall intercepting library used by libpmemfile
 <td>
 Tool for tracing syscalls
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -515,6 +566,9 @@ Tool for tracing syscalls
 </td>
 <td>
 Experimental prototype Python bindings for libpmemobj
+</td>
+<td>
+-
 </td>
 </tr>
 </tbody>
@@ -525,6 +579,7 @@ Experimental prototype Python bindings for libpmemobj
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -535,6 +590,9 @@ Experimental prototype Python bindings for libpmemobj
 <td>
 Tools used for development of projects under pmem organization (WIP)
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -542,6 +600,9 @@ Tools used for development of projects under pmem organization (WIP)
 </td>
 <td>
 Basic data integrity test for platforms with flush-on-fail CPU caches
+</td>
+<td>
+-
 </td>
 </tr>
 </tbody>
@@ -557,6 +618,7 @@ Basic data integrity test for platforms with flush-on-fail CPU caches
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -566,6 +628,9 @@ Basic data integrity test for platforms with flush-on-fail CPU caches
 </td>
 <td>
 ndctl, daxctl, and related libraries
+</td>
+<td>
+<a href=../ndctl>pmem.io/ndctl</a>
 </td>
 </tr>
 </tbody>
@@ -581,6 +646,7 @@ ndctl, daxctl, and related libraries
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -591,6 +657,9 @@ ndctl, daxctl, and related libraries
 <td>
 Persistent Memory <a href=https://docs.pmem.io/>Docbook</a>
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -598,6 +667,9 @@ Persistent Memory <a href=https://docs.pmem.io/>Docbook</a>
 </td>
 <td>
 Repo containing the pmem.io website (including blogs)
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -607,6 +679,9 @@ Repo containing the pmem.io website (including blogs)
 <td>
 PMDK examples and tutorials
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -615,6 +690,9 @@ PMDK examples and tutorials
 <td>
 Examples used in the <a href=https://pmem.io/book/>pmem Programming Book</a>
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -622,6 +700,9 @@ Examples used in the <a href=https://pmem.io/book/>pmem Programming Book</a>
 </td>
 <td>
 Knowledge Base for pmem.io
+</td>
+<td>
+<a href=../knowledgebase>pmem.io/knowledgebase</a>
 </td>
 </tr>
 </tbody>
@@ -637,6 +718,7 @@ Knowledge Base for pmem.io
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -647,6 +729,9 @@ Knowledge Base for pmem.io
 <td>
 Working tree for development of pmem-related features for Twitter's Pelikan
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -654,6 +739,9 @@ Working tree for development of pmem-related features for Twitter's Pelikan
 </td>
 <td>
 RocksDB modified to use pmem
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -663,6 +751,9 @@ RocksDB modified to use pmem
 <td>
 Redis, enhanced to use pmem
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -671,6 +762,9 @@ Redis, enhanced to use pmem
 <td>
 MongoDB pmem Storage Engine Prototype
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -678,6 +772,9 @@ MongoDB pmem Storage Engine Prototype
 </td>
 <td>
 Reference code of key/value store design for pmem
+</td>
+<td>
+-
 </td>
 </tr>
 </tbody>
@@ -693,6 +790,7 @@ Reference code of key/value store design for pmem
 <tr>
 <th>Repo Name</th>
 <th>Description</th>
+<th>Microsite</th>
 </tr>
 </thead>
 <tbody>
@@ -703,6 +801,9 @@ Reference code of key/value store design for pmem
 <td>
 Original ideas
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -710,6 +811,9 @@ Original ideas
 </td>
 <td>
 Initial pmem enhancements to Redis
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -719,6 +823,9 @@ Initial pmem enhancements to Redis
 <td>
 Initial pmem enhancements to RocksDB
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -726,6 +833,9 @@ Initial pmem enhancements to RocksDB
 </td>
 <td>
 Experimental pmem-aware libcxx
+</td>
+<td>
+-
 </td>
 </tr>
 <tr class=dark-mode>
@@ -735,6 +845,9 @@ Experimental pmem-aware libcxx
 <td>
 MPI Extensions for pmem
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -743,6 +856,9 @@ MPI Extensions for pmem
 <td>
 Archive of some old issues. No longer in-use.
 </td>
+<td>
+-
+</td>
 </tr>
 <tr class=dark-mode>
 <td>
@@ -750,6 +866,9 @@ Archive of some old issues. No longer in-use.
 </td>
 <td>
 Java bindings via JNI for pmemkv
+</td>
+<td>
+-
 </td>
 </tr>
 </tbody>
