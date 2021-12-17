@@ -1,0 +1,632 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemobj | PMDK">
+<meta property="og:description" content="comment: <> (SPDX-License-Identifier: BSD-3-Clause comment: <> (Copyright 2017-2020, Intel Corporation)
+NAME
+SYNOPSIS
+DESCRIPTION
+CTL NAMESPACE
+CTL EXTERNAL CONFIGURATION
+SEE ALSO
+NAME pmemobj_ctl_getU()/pmemobj_ctl_getW(), pmemobj_ctl_setU()/pmemobj_ctl_setW(), pmemobj_ctl_execU()/pmemobj_ctl_execW()
+ Query and modify libpmemobj internal behavior (EXPERIMENTAL)  SYNOPSIS #include <libpmemobj.h> int pmemobj_ctl_getU(PMEMobjpool *pop, const char *name, void *arg); (EXPERIMENTAL) int pmemobj_ctl_getW(PMEMobjpool *pop, const wchar_t *name, void *arg); (EXPERIMENTAL) int pmemobj_ctl_setU(PMEMobjpool *pop, const char *name, void *arg); (EXPERIMENTAL) int pmemobj_ctl_setW(PMEMobjpool *pop, const wchar_t *name, void *arg); (EXPERIMENTAL) int pmemobj_ctl_execU(PMEMobjpool *pop, const char *name, void *arg); (EXPERIMENTAL) int pmemobj_ctl_execW(PMEMobjpool *pop, const wchar_t *name, void *arg); (EXPERIMENTAL)  NOTE: The PMDK API supports UNICODE.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/windows/v1.10/libpmemobj/pmemobj_ctl_get.3/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemobj | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>pmemobj API version 2.3</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href title="pmemobj_ctl_get.3 -- man page for libpmemobj CTL">comment</a>: &lt;> (SPDX-License-Identifier: BSD-3-Clause
+<a href title="pmemobj_ctl_get.3 -- man page for libpmemobj CTL">comment</a>: &lt;> (Copyright 2017-2020, Intel Corporation)</p>
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#ctl-namespace>CTL NAMESPACE</a><br>
+<a href=#ctl-external-configuration>CTL EXTERNAL CONFIGURATION</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemobj_ctl_getU</strong>()/<strong>pmemobj_ctl_getW</strong>(),
+<strong>pmemobj_ctl_setU</strong>()/<strong>pmemobj_ctl_setW</strong>(),
+<strong>pmemobj_ctl_execU</strong>()/<strong>pmemobj_ctl_execW</strong>()</p>
+<ul>
+<li>Query and modify libpmemobj internal behavior (EXPERIMENTAL)</li>
+</ul>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_ctl_getU</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>name, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_ctl_getW(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>const</span> wchar_t <span style=color:#f92672>*</span>name, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_ctl_setU(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>name, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_ctl_setW(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>const</span> wchar_t <span style=color:#f92672>*</span>name, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_ctl_execU(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>name, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_ctl_execW(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>const</span> wchar_t <span style=color:#f92672>*</span>name, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+</code></pre></div><blockquote>
+<p>NOTE: The PMDK API supports UNICODE. If the <strong>PMDK_UTF8_API</strong> macro is
+defined, basic API functions are expanded to the UTF-8 API with postfix <em>U</em>.
+Otherwise they are expanded to the UNICODE API with postfix <em>W</em>.</p>
+</blockquote>
+<h1 id=description>DESCRIPTION</h1>
+<p>The <strong>pmemobj_ctl_getU</strong>()/<strong>pmemobj_ctl_getW</strong>(), <strong>pmemobj_ctl_setU</strong>()/<strong>pmemobj_ctl_setW</strong>() and <strong>pmemobj_ctl_execU</strong>()/<strong>pmemobj_ctl_execW</strong>()
+functions provide a uniform interface for querying and modifying the internal
+behavior of <strong>libpmemobj</strong>(7) through the control (CTL) namespace.</p>
+<p>The <em>name</em> argument specifies an entry point as defined in the CTL namespace
+specification. The entry point description specifies whether the extra <em>arg</em> is
+required. Those two parameters together create a CTL query. The functions and
+the entry points are thread-safe unless
+indicated otherwise below. If there are special conditions for calling an entry
+point, they are explicitly stated in its description. The functions propagate
+the return value of the entry point. If either <em>name</em> or <em>arg</em> is invalid, -1
+is returned.</p>
+<p>If the provided ctl query is valid, the CTL functions will always return 0
+on success and -1 on failure, unless otherwise specified in the entry point
+description.</p>
+<p>See more in <strong>pmem_ctl</strong>(5) man page.</p>
+<h1 id=ctl-namespace>CTL NAMESPACE</h1>
+<p>prefault.at_create | rw | global | int | int | - | boolean</p>
+<p>If set, every page of the pool will be touched and written to when the pool
+is created, in order to trigger page allocation and minimize the performance
+impact of pagefaults. Affects only the <strong>pmemobj_createU</strong>()/<strong>pmemobj_createW</strong>() function.</p>
+<p>prefault.at_open | rw | global | int | int | - | boolean</p>
+<p>If set, every page of the pool will be touched and written to when the pool
+is opened, in order to trigger page allocation and minimize the performance
+impact of pagefaults. Affects only the <strong>pmemobj_openU</strong>()/<strong>pmemobj_openW</strong>() function.</p>
+<p>sds.at_create | rw | global | int | int | - | boolean</p>
+<p>If set, force-enables or force-disables SDS feature during pool creation.
+Affects only the <strong>pmemobj_createU</strong>()/<strong>pmemobj_createW</strong>() function. See <strong>pmempool_feature_query</strong>(3)
+for information about SDS (SHUTDOWN_STATE) feature.</p>
+<p>copy_on_write.at_open | rw | global | int | int | - | boolean</p>
+<p>If set, pool is mapped in such a way that modifications don&rsquo;t reach the
+underlying medium. From the user&rsquo;s perspective this means that when the pool
+is closed all changes are reverted. This feature is not supported for pools
+located on Device DAX.</p>
+<p>tx.debug.skip_expensive_checks | rw | - | int | int | - | boolean</p>
+<p>Turns off some expensive checks performed by the transaction module in &ldquo;debug&rdquo;
+builds. Ignored in &ldquo;release&rdquo; builds.</p>
+<p>tx.debug.verify_user_buffers | rw | - | int | int | - | boolean</p>
+<p>Enables verification of user buffers provided by
+<strong>pmemobj_tx_log_append_buffer</strong>(3) API. For now the only verified aspect
+is whether the same buffer is used simultaneously in 2 or more transactions
+or more than once in the same transaction. This value should not be modified
+at runtime if any transaction for the current pool is in progress.</p>
+<p>tx.cache.size | rw | - | long long | long long | - | integer</p>
+<p>Size in bytes of the transaction snapshot cache. In a larger cache the
+frequency of persistent allocations is lower, but with higher fixed cost.</p>
+<p>This should be set to roughly the sum of sizes of the snapshotted regions in
+an average transaction in the pool.</p>
+<p>This entry point is not thread safe and should not be modified if there are any
+transactions currently running.</p>
+<p>This value must be a in a range between 0 and <strong>PMEMOBJ_MAX_ALLOC_SIZE</strong>,
+otherwise this entry point will fail.</p>
+<p>tx.cache.threshold | rw | - | long long | long long | - | integer</p>
+<p>This entry point is deprecated.
+All snapshots, regardless of the size, use the transactional cache.</p>
+<p>tx.post_commit.queue_depth | rw | - | int | int | - | integer</p>
+<p>This entry point is deprecated.</p>
+<p>tx.post_commit.worker | r- | - | void * | - | - | -</p>
+<p>This entry point is deprecated.</p>
+<p>tx.post_commit.stop | r- | - | void * | - | - | -</p>
+<p>This entry point is deprecated.</p>
+<p>heap.narenas.automatic | r- | - | unsigned | - | - | -</p>
+<p>Reads the number of arenas used in automatic scheduling of memory operations
+for threads. By default, this value is equal to the number of available processors.
+An arena is a memory management structure which enables concurrency by taking
+exclusive ownership of parts of the heap and allowing associated threads to allocate
+without contention.</p>
+<p>heap.narenas.total | r- | - | unsigned | - | - | -</p>
+<p>Reads the number of all created arenas. It includes automatic arenas
+created by default and arenas created using heap.arena.create CTL.</p>
+<p>heap.narenas.max | rw- | - | unsigned | unsigned | - | -</p>
+<p>Reads or writes the maximum number of arenas that can be created.
+This entry point is not thread-safe with regards to heap
+operations (allocations, frees, reallocs).</p>
+<p>heap.arena.[arena_id].size | r- | - | uint64_t | - | - | -</p>
+<p>Reads the total amount of memory in bytes which is currently
+exclusively owned by the arena. Large differences in this value between
+arenas might indicate an uneven scheduling of memory resources.
+The arena id cannot be 0.</p>
+<p>heap.thread.arena_id | rw- | - | unsigned | unsigned | - | -</p>
+<p>Reads the index of the arena assigned to the current thread or
+assigns arena with specific id to the current thread.
+The arena id cannot be 0.</p>
+<p>heap.arena.create | &ndash;x | - | - | - | unsigned | -</p>
+<p>Creates and initializes one new arena in the heap.
+This entry point reads an id of the new created arena.</p>
+<p>Newly created arenas by this CTL are inactive, which means that
+the arena will not be used in the automatic scheduling of
+memory requests. To activate the new arena, use heap.arena.[arena_id].automatic CTL.</p>
+<p>Arena created using this CTL can be used for allocation by explicitly
+specifying the <em>arena_id</em> for <strong>POBJ_ARENA_ID(id)</strong> flag in
+<strong>pmemobj_tx_xalloc</strong>()/<strong>pmemobj_xalloc</strong>()/<strong>pmemobj_xreserve()</strong> functions.</p>
+<p>By default, the number of arenas is limited to 1024.</p>
+<p>heap.arena.[arena_id].automatic | rw- | - | boolean | boolean | - | -</p>
+<p>Reads or modifies the state of the arena.
+If set, the arena is used in automatic scheduling of memory operations for threads.
+This should be set to false if the application wants to manually manage allocator
+scalability through explicitly assigning arenas to threads by using heap.thread.arena_id.
+The arena id cannot be 0 and at least one automatic arena must exist.</p>
+<p>heap.alloc_class.[class_id].desc | rw | - | <code>struct pobj_alloc_class_desc</code> |
+<code>struct pobj_alloc_class_desc</code> | - | integer, integer, integer, string</p>
+<p>Describes an allocation class. Allows one to create or view the internal
+data structures of the allocator.</p>
+<p>Creating custom allocation classes can be beneficial for both raw allocation
+throughput, scalability and, most importantly, fragmentation. By carefully
+constructing allocation classes that match the application workload,
+one can entirely eliminate external and internal fragmentation. For example,
+it is possible to easily construct a slab-like allocation mechanism for any
+data structure.</p>
+<p>The <code>[class_id]</code> is an index field. Only values between 0-254 are valid.
+If setting an allocation class, but the <code>class_id</code> is already taken, the
+function will return -1.
+The values between 0-127 are reserved for the default allocation classes of the
+library and can be used only for reading.</p>
+<p>The recommended method for retrieving information about all allocation classes
+is to call this entry point for all class ids between 0 and 254 and discard
+those results for which the function returns an error.</p>
+<p>This entry point takes a complex argument.</p>
+<pre tabindex=0><code>struct pobj_alloc_class_desc {
+	size_t unit_size;
+	size_t alignment;
+	unsigned units_per_block;
+	enum pobj_header_type header_type;
+	unsigned class_id;
+};
+</code></pre><p>The first field, <code>unit_size</code>, is an 8-byte unsigned integer that defines the
+allocation class size. While theoretically limited only by
+<strong>PMEMOBJ_MAX_ALLOC_SIZE</strong>, for most workloads this value should be between
+8 bytes and 2 megabytes.</p>
+<p>The <code>alignment</code> field specifies the user data alignment of objects allocated
+using the class. If set, must be a power of two and an even divisor of unit
+size. Alignment is limited to maximum of 2 megabytes.
+All objects have default alignment of 64 bytes, but the user data alignment
+is affected by the size of the chosen header.</p>
+<p>The <code>units_per_block</code> field defines how many units a single block of memory
+contains. This value will be adjusted to match the internal size of the
+block (256 kilobytes or a multiple thereof). For example, given a class with
+a <code>unit_size</code> of 512 bytes and a <code>units_per_block</code> of 1000, a single block of
+memory for that class will have 512 kilobytes.
+This is relevant because the bigger the block size, the less frequently blocks
+need to be fetched, resulting in lower contention on global heap state.
+If the CTL call is being done at runtime, the <code>units_per_block</code> variable of the
+provided alloc class structure is modified to match the actual value.</p>
+<p>The <code>header_type</code> field defines the header of objects from the allocation class.
+There are three types:</p>
+<ul>
+<li><strong>POBJ_HEADER_LEGACY</strong>, string value: <code>legacy</code>. Used for allocation classes
+prior to version 1.3 of the library. Not recommended for use.
+Incurs a 64 byte metadata overhead for every object.
+Fully supports all features.</li>
+<li><strong>POBJ_HEADER_COMPACT</strong>, string value: <code>compact</code>. Used as default for all
+predefined allocation classes.
+Incurs a 16 byte metadata overhead for every object.
+Fully supports all features.</li>
+<li><strong>POBJ_HEADER_NONE</strong>, string value: <code>none</code>. Header type that
+incurs no metadata overhead beyond a single bitmap entry. Can be used
+for very small allocation classes or when objects must be adjacent to
+each other.
+This header type does not support type numbers (type number is always
+0) or allocations that span more than one unit.</li>
+</ul>
+<p>The <code>class_id</code> field is an optional, runtime-only variable that allows the
+user to retrieve the identifier of the class. This will be equivalent to the
+provided <code>[class_id]</code>. This field cannot be set from a config file.</p>
+<p>The allocation classes are a runtime state of the library and must be created
+after every open. It is highly recommended to use the configuration file to
+store the classes.</p>
+<p>This structure is declared in the <code>libpmemobj/ctl.h</code> header file. Please refer
+to this file for an in-depth explanation of the allocation classes and relevant
+algorithms.</p>
+<p>Allocation classes constructed in this way can be leveraged by explicitly
+specifying the class using <strong>POBJ_CLASS_ID(id)</strong> flag in <strong>pmemobj_tx_xalloc</strong>()/<strong>pmemobj_xalloc</strong>()
+functions.</p>
+<p>Example of a valid alloc class query string:</p>
+<pre tabindex=0><code>heap.alloc_class.128.desc=500,0,1000,compact
+</code></pre><p>This query, if executed, will create an allocation class with an id of 128 that
+has a unit size of 500 bytes, has at least 1000 units per block and uses
+a compact header.</p>
+<p>For reading, function returns 0 if successful, if the allocation class does
+not exist it sets the errno to <strong>ENOENT</strong> and returns -1;</p>
+<p>This entry point can fail if any of the parameters of the allocation class
+is invalid or if exactly the same class already exists.</p>
+<p>heap.alloc_class.new.desc | -w | - | - | <code>struct pobj_alloc_class_desc</code> | - | integer, integer, integer, string</p>
+<p>Same as <code>heap.alloc_class.[class_id].desc</code>, but instead of requiring the user
+to provide the class_id, it automatically creates the allocation class with the
+first available identifier.</p>
+<p>This should be used when it&rsquo;s impossible to guarantee unique allocation class
+naming in the application (e.g. when writing a library that uses libpmemobj).</p>
+<p>The required class identifier will be stored in the <code>class_id</code> field of the
+<code>struct pobj_alloc_class_desc</code>.</p>
+<p>stats.enabled | rw | - | enum pobj_stats_enabled | enum pobj_stats_enabled | - |
+string</p>
+<p>Enables or disables runtime collection of statistics. There are two types of
+statistics: persistent and transient ones. Persistent statistics survive pool
+restarts, whereas transient ones don&rsquo;t. Statistics are not recalculated after
+enabling; any operations that occur between disabling and re-enabling will not
+be reflected in subsequent values.</p>
+<p>Only transient statistics are enabled by default. Enabling persistent statistics
+may have non-trivial performance impact.</p>
+<p>stats.heap.curr_allocated | r- | - | uint64_t | - | - | -</p>
+<p>Reads the number of bytes currently allocated in the heap. If statistics were
+disabled at any time in the lifetime of the heap, this value may be
+inaccurate.</p>
+<p>This is a persistent statistic.</p>
+<p>stats.heap.run_allocated | r- | - | uint64_t | - | - | -</p>
+<p>Reads the number of bytes currently allocated using run-based allocation
+classes, i.e., huge allocations are not accounted for in this statistic.
+This is useful for comparison against stats.heap.run_active to estimate the
+ratio between active and allocated memory.</p>
+<p>This is a transient statistic and is rebuilt every time the pool is opened.</p>
+<p>stats.heap.run_active | r- | - | uint64_t | - | - | -</p>
+<p>Reads the number of bytes currently occupied by all run memory blocks, including
+both allocated and free space, i.e., this is all the all space that&rsquo;s not
+occupied by huge allocations.</p>
+<p>This value is a sum of all allocated and free run memory. In systems where
+memory is efficiently used, <code>run_active</code> should closely track
+<code>run_allocated</code>, and the amount of active, but free, memory should be minimal.</p>
+<p>A large relative difference between active memory and allocated memory is
+indicative of heap fragmentation. This information can be used to make
+a decision to call <strong>pmemobj_defrag()</strong>(3) if the fragmentation looks to be high.</p>
+<p>However, for small heaps <code>run_active</code> might be disproportionately higher than
+<code>run_allocated</code> because the allocator typically activates a significantly larger
+amount of memory than is required to satisfy a single request in the
+anticipation of future needs. For example, the first allocation of 100 bytes
+in a heap will trigger activation of 256 kilobytes of space.</p>
+<p>This is a transient statistic and is rebuilt lazily every time the pool
+is opened.</p>
+<p>heap.size.granularity | rw- | - | uint64_t | uint64_t | - | long long</p>
+<p>Reads or modifies the granularity with which the heap grows when OOM.
+Valid only if the poolset has been defined with directories.</p>
+<p>A granularity of 0 specifies that the pool will not grow automatically.</p>
+<p>This entry point can fail if the granularity value is non-zero and smaller
+than <em>PMEMOBJ_MIN_PART</em>.</p>
+<p>heap.size.extend | &ndash;x | - | - | - | uint64_t | -</p>
+<p>Extends the heap by the given size. Must be larger than <em>PMEMOBJ_MIN_PART</em>.</p>
+<p>This entry point can fail if the pool does not support extend functionality or
+if there&rsquo;s not enough space left on the device.</p>
+<p>debug.heap.alloc_pattern | rw | - | int | int | - | -</p>
+<p>Single byte pattern that is used to fill new uninitialized memory allocation.
+If the value is negative, no pattern is written. This is intended for
+debugging, and is disabled by default.</p>
+<h1 id=ctl-external-configuration>CTL EXTERNAL CONFIGURATION</h1>
+<p>In addition to direct function call, each write entry point can also be set
+using two alternative methods.</p>
+<p>The first method is to load a configuration directly from the <strong>PMEMOBJ_CONF</strong>
+environment variable.</p>
+<p>The second method of loading an external configuration is to set the
+<strong>PMEMOBJ_CONF_FILE</strong> environment variable to point to a file that contains
+a sequence of ctl queries.</p>
+<p>See more in <strong>pmem_ctl</strong>(5) man page.</p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>libpmemobj</strong>(7), <strong>pmem_ctl</strong>(5) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

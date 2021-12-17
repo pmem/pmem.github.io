@@ -1,0 +1,551 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemobj | PMDK">
+<meta property="og:description" content="comment: <> (SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT) comment: <> (LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,) comment: <> (DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY) comment: <> (THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT) comment: <> ((INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE) comment: <> (OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1.6/libpmemobj/pmemobj_alloc.3/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemobj | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>pmemobj API version 2.3</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href title="Copyright 2017-2018, Intel Corporation">comment</a>: &lt;> (SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT)
+<a href title="Copyright 2017-2018, Intel Corporation">comment</a>: &lt;> (LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,)
+<a href title="Copyright 2017-2018, Intel Corporation">comment</a>: &lt;> (DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY)
+<a href title="Copyright 2017-2018, Intel Corporation">comment</a>: &lt;> (THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT)
+<a href title="Copyright 2017-2018, Intel Corporation">comment</a>: &lt;> ((INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE)
+<a href title="Copyright 2017-2018, Intel Corporation">comment</a>: &lt;> (OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.)</p>
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#return-value>RETURN VALUE</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemobj_alloc</strong>(), <strong>pmemobj_xalloc</strong>(), <strong>pmemobj_zalloc</strong>(),
+<strong>pmemobj_realloc</strong>(), <strong>pmemobj_zrealloc</strong>(), <strong>pmemobj_strdup</strong>(),
+<strong>pmemobj_wcsdup</strong>(), <strong>pmemobj_alloc_usable_size</strong>(),
+<strong>POBJ_NEW</strong>(), <strong>POBJ_ALLOC</strong>(), <strong>POBJ_ZNEW</strong>(), <strong>POBJ_ZALLOC</strong>(),
+<strong>POBJ_REALLOC</strong>(), <strong>POBJ_ZREALLOC</strong>(), <strong>POBJ_FREE</strong>()</p>
+<ul>
+<li>non-transactional atomic allocations</li>
+</ul>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>typedef</span> <span style=color:#a6e22e>int</span> (<span style=color:#f92672>*</span>pmemobj_constr)(<span style=color:#f92672>**</span>PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>ptr, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_alloc</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, size_t size,
+	<span style=color:#66d9ef>uint64_t</span> type_num, pmemobj_constr constructor, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_xalloc</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, size_t size,
+	<span style=color:#66d9ef>uint64_t</span> type_num, <span style=color:#66d9ef>uint64_t</span> flags, pmemobj_constr constructor,
+	<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_zalloc(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, size_t size,
+	<span style=color:#66d9ef>uint64_t</span> type_num);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemobj_free</span>(PMEMoid <span style=color:#f92672>*</span>oidp);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_realloc</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, size_t size,
+	<span style=color:#66d9ef>uint64_t</span> type_num);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_zrealloc</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, size_t size,
+	<span style=color:#66d9ef>uint64_t</span> type_num);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_strdup</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>s,
+	<span style=color:#66d9ef>uint64_t</span> type_num);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemobj_wcsdup</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid <span style=color:#f92672>*</span>oidp, <span style=color:#66d9ef>const</span> wchar_t <span style=color:#f92672>*</span>s,
+	<span style=color:#66d9ef>uint64_t</span> type_num);
+size_t <span style=color:#a6e22e>pmemobj_alloc_usable_size</span>(PMEMoid oid);
+
+POBJ_NEW(PMEMobjpool <span style=color:#f92672>*</span>pop, TOID <span style=color:#f92672>*</span>oidp, TYPE, pmemobj_constr constructor,
+	<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
+POBJ_ALLOC(PMEMobjpool <span style=color:#f92672>*</span>pop, TOID <span style=color:#f92672>*</span>oidp, TYPE, size_t size,
+	pmemobj_constr constructor, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
+POBJ_ZNEW(PMEMobjpool <span style=color:#f92672>*</span>pop, TOID <span style=color:#f92672>*</span>oidp, TYPE)
+POBJ_ZALLOC(PMEMobjpool <span style=color:#f92672>*</span>pop, TOID <span style=color:#f92672>*</span>oidp, TYPE, size_t size)
+POBJ_REALLOC(PMEMobjpool <span style=color:#f92672>*</span>pop, TOID <span style=color:#f92672>*</span>oidp, TYPE, size_t size)
+POBJ_ZREALLOC(PMEMobjpool <span style=color:#f92672>*</span>pop, TOID <span style=color:#f92672>*</span>oidp, TYPE, size_t size)
+POBJ_FREE(TOID <span style=color:#f92672>*</span>oidp)
+</code></pre></div><h1 id=description>DESCRIPTION</h1>
+<p>Functions described in this document provide the mechanism to allocate,
+resize and free objects from the persistent memory pool in a thread-safe
+and fail-safe manner. All the routines are atomic with respect to other threads
+and any power-fail interruptions. If any of these operations is torn by program
+failure or system crash, on recovery they are guaranteed to be entirely completed
+or discarded, leaving the persistent memory heap and internal object containers
+in a consistent state.</p>
+<p>All these functions can be used outside transactions. Note that operations
+performed using the non-transactional API are considered durable after
+completion, even if executed within an open transaction. Such non-transactional
+changes will not be rolled back if the transaction is aborted or interrupted.</p>
+<p>The allocations are always aligned to a cache-line boundary.</p>
+<p>The <em>pmemobj_constr</em> type represents a constructor for atomic allocation
+from the persistent memory heap associated with memory pool <em>pop</em>. <em>ptr</em>
+is a pointer to the allocated memory area and <em>arg</em> is a user-defined
+argument passed to the constructor.</p>
+<p>The <strong>pmemobj_alloc</strong>() function allocates a new object from the persistent
+memory heap associated with memory pool <em>pop</em>. The <em>PMEMoid</em> of the allocated
+object is stored in <em>oidp</em>. If <em>oidp</em> is NULL, then the newly allocated object
+may be accessed only by iterating objects in the object container associated
+with the type number <em>type_num</em>, as described in <strong>POBJ_FOREACH</strong>(3). If <em>oidp</em>
+points to a memory location from the <strong>pmemobj</strong> heap, <em>oidp</em> is modified
+atomically. Before returning, <strong>pmemobj_alloc</strong>() calls the <em>constructor</em>
+function, passing the pool handle <em>pop</em>, the pointer to the newly allocated
+object in <em>ptr</em>, and the <em>arg</em> argument. It is guaranteed that the
+allocated object is either properly initialized, or if the allocation
+is interrupted before the constructor completes, the memory space reserved
+for the object is reclaimed. <em>size</em> can be any non-zero value; however,
+due to internal padding and object metadata, the actual size of the allocation
+will differ from the requested size by at least 64 bytes. For this reason,
+making allocations of a size less than 64 bytes is extremely inefficient
+and discouraged. The allocated object is added to the internal container
+associated with <em>type_num</em>.</p>
+<p><strong>pmemobj_xalloc</strong>() is equivalent to <strong>pmemobj_alloc</strong>(), but with an
+additional <em>flags</em> argument that is a bitmask of the following values:</p>
+<ul>
+<li>
+<p><strong>POBJ_XALLOC_ZERO</strong> - zero the allocated object (equivalent of <strong>pmemobj_zalloc</strong>())</p>
+</li>
+<li>
+<p><strong>POBJ_CLASS_ID(class_id)</strong> - allocate an object from the allocation class
+<em>class_id</em>. The class id cannot be 0.</p>
+</li>
+<li>
+<p><strong>POBJ_ARENA_ID(arena_id)</strong> - allocate an object from the arena specified by
+<em>arena_id</em>. The arena must exist, otherwise, the behavior is undefined.
+If <em>arena_id</em> is equal 0, then arena assigned to the current thread will be used.</p>
+</li>
+</ul>
+<p>The <strong>pmemobj_zalloc</strong>() function allocates a new zeroed object from
+the persistent memory heap associated with memory pool <em>pop</em>. The <em>PMEMoid</em>
+of the allocated object is stored in <em>oidp</em>. If <em>oidp</em> is NULL, then
+the newly allocated object may be accessed only by iterating objects in the
+object container associated with the type number <em>type_num</em>, as described in
+<strong>POBJ_FOREACH</strong>(3). If <em>oidp</em> points to a memory location from the <strong>pmemobj</strong>
+heap, <em>oidp</em> is modified atomically. <em>size</em> can be any non-zero value;
+however, due to internal padding and object metadata, the actual size
+of the allocation will differ from the requested one by at least 64 bytes.
+For this reason, making allocations of a size less than 64 bytes is extremely
+inefficient and discouraged. The allocated object is added to the internal
+container associated with <em>type_num</em>.</p>
+<p>The <strong>pmemobj_free</strong>() function frees the memory space represented by <em>oidp</em>,
+which must have been allocated by a previous call to <strong>pmemobj_alloc</strong>(),
+<strong>pmemobj_xalloc</strong>(), <strong>pmemobj_zalloc</strong>(), <strong>pmemobj_realloc</strong>(), or
+<strong>pmemobj_zrealloc</strong>(). <strong>pmemobj_free</strong>() provides the same semantics as
+<strong>free</strong>(3), but instead of operating on the process heap supplied by the
+system, it operates on the persistent memory heap. If <em>oidp</em> is <strong>OID_NULL</strong>,
+no operation is performed. If <em>oidp</em> is NULL or if it points to the root
+object&rsquo;s <em>OID</em>, the behavior of <strong>pmemobj_free</strong>() is undefined. <em>oidp</em> is
+set to <strong>OID_NULL</strong> after the memory is freed. If <em>oidp</em> points to a memory
+location from the <strong>pmemobj</strong> heap, <em>oidp</em> is modified atomically.</p>
+<p>The <strong>pmemobj_realloc</strong>() function changes the size of the object represented
+by <em>oidp</em> to <em>size</em> bytes. <strong>pmemobj_realloc</strong>() provides similar semantics to
+<strong>realloc</strong>(3), but operates on the persistent memory heap associated with
+memory pool <em>pop</em>. The resized object is also added or moved to the internal
+container associated with type number <em>type_num</em>. The contents will be
+unchanged in the range from the start of the region up to the minimum of the
+old and new sizes. If the new size is larger than the old size, the added
+memory will <em>not</em> be initialized. If <em>oidp</em> is <em>OID_NULL</em>, then the call is
+equivalent to <em>pmemobj_alloc(pop, size, type_num)</em>. If <em>size</em> is equal to zero,
+and <em>oidp</em> is not <strong>OID_NULL</strong>, then the call is equivalent to
+<em>pmemobj_free(oid)</em>. Unless <em>oidp</em> is <strong>OID_NULL</strong>, it must have been allocated
+by an earlier call to <strong>pmemobj_alloc</strong>(), <strong>pmemobj_xalloc</strong>(),
+<strong>pmemobj_zalloc</strong>(), <strong>pmemobj_realloc</strong>(), or <strong>pmemobj_zrealloc</strong>(). Note
+that the object handle value may change as a result of reallocation. If the
+object was moved, the memory space represented by <em>oid</em> is reclaimed. If
+<em>oidp</em> points to a memory location from the <strong>pmemobj</strong> heap, <em>oidp</em> is
+modified atomically. If <em>oidp</em> is NULL or if it points to the root
+object&rsquo;s <em>OID</em>, the behavior of <strong>pmemobj_realloc</strong>() is undefined.</p>
+<p><strong>pmemobj_zrealloc</strong>() is equivalent to <strong>pmemobj_realloc</strong>(), except that
+if the new size is larger than the old size, the added memory will be zeroed.</p>
+<p>The <strong>pmemobj_strdup</strong>() function stores a handle to a new object in <em>oidp</em>
+which is a duplicate of the string <em>s</em>. <strong>pmemobj_strdup</strong>() provides the
+same semantics as <strong>strdup</strong>(3), but operates on the persistent memory heap
+associated with memory pool <em>pop</em>. If <em>oidp</em> is NULL, then the newly allocated
+object may be accessed only by iterating objects in the object container
+associated with type number <em>type_num</em>, as described in <strong>POBJ_FOREACH</strong>(3).
+If <em>oidp</em> points to a memory location from the <strong>pmemobj</strong> heap, <em>oidp</em>
+is modified atomically. The allocated string object is also added to the
+internal container associated with type number <em>type_num</em>. Memory for the new
+string is obtained with <strong>pmemobj_alloc</strong>(), on the given memory pool, and can
+be freed with <strong>pmemobj_free</strong>() on the same memory pool.</p>
+<p><strong>pmemobj_wcsdup</strong>() is equivalent to <strong>pmemobj_strdup</strong>(), but operates on
+a wide character string (wchar_t) rather than a standard character string.</p>
+<p>The <strong>pmemobj_alloc_usable_size</strong>() function provides the same semantics as
+<strong>malloc_usable_size</strong>(3), but instead of the process heap supplied by the
+system, it operates on the persistent memory heap.</p>
+<p>The <strong>POBJ_NEW</strong>() macro is a wrapper around the <strong>pmemobj_alloc</strong>() function.
+Instead of taking a pointer to <em>PMEMoid</em>, it takes a pointer to the typed <em>OID</em>
+of type name <em>TYPE</em>, and passes the size and type number from the typed <em>OID</em>
+to <strong>pmemobj_alloc</strong>().</p>
+<p>The <strong>POBJ_ALLOC</strong>() macro is equivalent to <strong>POBJ_NEW</strong>, except that instead
+of using the size of the typed <em>OID</em>, passes <em>size</em> to <strong>pmemobj_alloc</strong>().</p>
+<p>The <strong>POBJ_ZNEW</strong>() macro is a wrapper around the <strong>pmemobj_zalloc</strong>()
+function. Instead of taking a pointer to <em>PMEMoid</em>, it takes a pointer to the
+typed <em>OID</em> of type name <em>TYPE</em>, and passes the size and type number from
+the typed <em>OID</em> to <strong>pmemobj_zalloc</strong>().</p>
+<p>The <strong>POBJ_ZALLOC</strong>() macro is equivalent to <strong>POBJ_ZNEW</strong>, except that instead
+of using the size of the typed <em>OID</em>, passes <em>size</em> to <strong>pmemobj_zalloc</strong>().</p>
+<p>The <strong>POBJ_REALLOC</strong>() macro is a wrapper around the <strong>pmemobj_realloc</strong>()
+function. Instead of taking a pointer to <em>PMEMoid</em>, it takes a pointer to the
+typed <em>OID</em> of type name <em>TYPE</em>, and passes the type number from the typed
+<em>OID</em> to <strong>pmemobj_realloc</strong>().</p>
+<p>The <strong>POBJ_ZREALLOC</strong>() macro is a wrapper around the <strong>pmemobj_zrealloc</strong>()
+function. Instead of taking a pointer to <em>PMEMoid</em>, it takes a pointer to the
+typed <em>OID</em> of type name <em>TYPE</em>, and passes the type number from the typed
+<em>OID</em> to <strong>pmemobj_zrealloc</strong>().</p>
+<p>The <strong>POBJ_FREE</strong>() macro is a wrapper around the <strong>pmemobj_free</strong>() function
+which takes a pointer to the typed <em>OID</em> instead of to <em>PMEMoid</em>.</p>
+<h1 id=return-value>RETURN VALUE</h1>
+<p>On success, <strong>pmemobj_alloc</strong>() and <strong>pmemobj_xalloc</strong> return 0. If <em>oidp</em>
+is not NULL, the <em>PMEMoid</em> of the newly allocated object is stored in <em>oidp</em>.
+If the allocation fails, -1 is returned and <em>errno</em> is set appropriately. If
+the constructor returns a non-zero value, the allocation is canceled, -1 is
+returned, and <em>errno</em> is set to <strong>ECANCELED</strong>. If <em>size</em> equals 0, or the
+<em>flags</em> for <strong>pmemobj_xalloc</strong> are invalid, -1 is returned, <em>errno</em> is set
+to <strong>EINVAL</strong>, and <em>oidp</em> is left untouched.</p>
+<p>On success, <strong>pmemobj_zalloc</strong>() returns 0. If <em>oidp</em> is not NULL, the
+<em>PMEMoid</em> of the newly allocated object is stored in <em>oidp</em>. If the allocation
+fails, it returns -1 and sets <em>errno</em> appropriately. If <em>size</em> equals 0, it
+returns -1, sets <em>errno</em> to <strong>EINVAL</strong>, and leaves <em>oidp</em> untouched.</p>
+<p>The <strong>pmemobj_free</strong>() function returns no value.</p>
+<p>On success, <strong>pmemobj_realloc</strong>() and <strong>pmemobj_zrealloc</strong>() return 0 and
+update <em>oidp</em> if necessary. On error, they return -1 and set <em>errno</em>
+appropriately.</p>
+<p>On success, <strong>pmemobj_strdup</strong>() and <strong>pmemobj_wcsdup</strong>() return 0. If
+<em>oidp</em> is not NULL, the <em>PMEMoid</em> of the duplicated string object is stored
+in <em>oidp</em>. If <em>s</em> is NULL, they return -1, set <em>errno</em> to <strong>EINVAL</strong>, and
+leave <em>oidp</em> untouched. On other errors, they return -1 and set <em>errno</em>
+appropriately.</p>
+<p>The <strong>pmemobj_alloc_usable_size</strong>() function returns the number of usable bytes
+in the object represented by <em>oid</em>. If <em>oid</em> is <strong>OID_NULL</strong>, it returns 0.</p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>free</strong>(3), <strong>POBJ_FOREACH</strong>(3), <strong>realloc</strong>(3),
+<strong>strdup</strong>(3), <strong>wcsdup</strong>(3), <strong>libpmemobj</strong>(7)
+and <strong><a href=http://pmem.io>http://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

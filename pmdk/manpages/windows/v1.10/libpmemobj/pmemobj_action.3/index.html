@@ -1,0 +1,500 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemobj | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+RETURN VALUE
+EXAMPLES
+SEE ALSO
+NAME pmemobj_reserve(), pmemobj_xreserve(), pmemobj_defer_free(), pmemobj_set_value(), pmemobj_publish(), pmemobj_tx_publish(), pmemobj_tx_xpublish(), pmemobj_cancel(), POBJ_RESERVE_NEW(), POBJ_RESERVE_ALLOC(), POBJ_XRESERVE_NEW(),POBJ_XRESERVE_ALLOC()
+ Delayed atomicity actions (EXPERIMENTAL)  SYNOPSIS #include <libpmemobj.h> PMEMoid pmemobj_reserve(PMEMobjpool *pop, struct pobj_action *act, size_t size, uint64_t type_num); (EXPERIMENTAL) PMEMoid pmemobj_xreserve(PMEMobjpool *pop, struct pobj_action *act, size_t size, uint64_t type_num, uint64_t flags); (EXPERIMENTAL) void pmemobj_defer_free(PMEMobjpool *pop, PMEMoid oid, struct pobj_action *act); void pmemobj_set_value(PMEMobjpool *pop, struct pobj_action *act, uint64_t *ptr, uint64_t value); (EXPERIMENTAL) int pmemobj_publish(PMEMobjpool *pop, struct pobj_action *actv, size_t actvcnt); (EXPERIMENTAL) int pmemobj_tx_publish(struct pobj_action *actv, size_t actvcnt); (EXPERIMENTAL) int pmemobj_tx_xpublish(struct pobj_action *actv, size_t actvcnt, uint64_t flags); (EXPERIMENTAL) void pmemobj_cancel(PMEMobjpool *pop, struct pobj_action *actv, size_t actvcnt); (EXPERIMENTAL) POBJ_RESERVE_NEW(pop, t, act) (EXPERIMENTAL) POBJ_RESERVE_ALLOC(pop, t, size, act) (EXPERIMENTAL) POBJ_XRESERVE_NEW(pop, t, act, flags) (EXPERIMENTAL) POBJ_XRESERVE_ALLOC(pop, t, size, act, flags) (EXPERIMENTAL) DESCRIPTION All of the functions described so far have an immediate effect on the persistent state of the pool, and as such, the cost of maintaining fail-safety is paid outright and, most importantly, in the calling thread.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/windows/v1.10/libpmemobj/pmemobj_action.3/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemobj | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://memkeydb.io>
+<p>MemKeyDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>MemKind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>pmemobj API version 2.3</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#return-value>RETURN VALUE</a><br>
+<a href=#examples>EXAMPLES</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemobj_reserve</strong>(), <strong>pmemobj_xreserve</strong>(), <strong>pmemobj_defer_free</strong>(),
+<strong>pmemobj_set_value</strong>(), <strong>pmemobj_publish</strong>(), <strong>pmemobj_tx_publish</strong>(),
+<strong>pmemobj_tx_xpublish</strong>(), <strong>pmemobj_cancel</strong>(), <strong>POBJ_RESERVE_NEW</strong>(),
+<strong>POBJ_RESERVE_ALLOC</strong>(), <strong>POBJ_XRESERVE_NEW</strong>(),<strong>POBJ_XRESERVE_ALLOC</strong>()</p>
+<ul>
+<li>Delayed atomicity actions (EXPERIMENTAL)</li>
+</ul>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+PMEMoid <span style=color:#a6e22e>pmemobj_reserve</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>act,
+	size_t size, <span style=color:#66d9ef>uint64_t</span> type_num); (EXPERIMENTAL)
+PMEMoid pmemobj_xreserve(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>act,
+	size_t size, <span style=color:#66d9ef>uint64_t</span> type_num, <span style=color:#66d9ef>uint64_t</span> flags); (EXPERIMENTAL)
+<span style=color:#66d9ef>void</span> pmemobj_defer_free(PMEMobjpool <span style=color:#f92672>*</span>pop, PMEMoid oid, <span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>act);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemobj_set_value</span>(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>act,
+	<span style=color:#66d9ef>uint64_t</span> <span style=color:#f92672>*</span>ptr, <span style=color:#66d9ef>uint64_t</span> value); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_publish(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>actv,
+	size_t actvcnt); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_tx_publish(<span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>actv, size_t actvcnt); (EXPERIMENTAL)
+<span style=color:#66d9ef>int</span> pmemobj_tx_xpublish(<span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>actv, size_t actvcnt, <span style=color:#66d9ef>uint64_t</span> flags); (EXPERIMENTAL)
+<span style=color:#66d9ef>void</span> pmemobj_cancel(PMEMobjpool <span style=color:#f92672>*</span>pop, <span style=color:#66d9ef>struct</span> pobj_action <span style=color:#f92672>*</span>actv,
+	size_t actvcnt); (EXPERIMENTAL)
+
+POBJ_RESERVE_NEW(pop, t, act) (EXPERIMENTAL)
+POBJ_RESERVE_ALLOC(pop, t, size, act) (EXPERIMENTAL)
+POBJ_XRESERVE_NEW(pop, t, act, flags) (EXPERIMENTAL)
+POBJ_XRESERVE_ALLOC(pop, t, size, act, flags) (EXPERIMENTAL)
+</code></pre></div><h1 id=description>DESCRIPTION</h1>
+<p>All of the functions described so far have an immediate effect on the persistent
+state of the pool, and as such, the cost of maintaining fail-safety is paid
+outright and, most importantly, in the calling thread. This behavior makes
+implementing algorithms involving relaxed consistency guarantees difficult, if
+not outright impossible.</p>
+<p>The following set of functions introduce a mechanism that allows one to delay
+the persistent publication of a set of prepared actions to an arbitrary moment
+in time of the execution of a program.</p>
+<p>The publication is fail-safe atomic in the scope of the entire collection of
+actions. If a program exits without publishing the actions, or the actions are
+canceled, any resources reserved by those actions are released and placed back in
+the pool.</p>
+<p>A single action is represented by a single <code>struct pobj_action</code>. Functions that
+create actions take that structure by pointer, whereas functions that publish
+actions take array of actions and the size of the array. The actions can be
+created, and published, from different threads.
+When creating actions, the <em>act</em> argument must be non-NULL and point to a
+<code>struct pobj_action</code>, the structure will be populated by the function and must
+not be modified or deallocated until after publishing.</p>
+<p>The <strong>pmemobj_reserve</strong>() functions performs a transient reservation of an object.
+Behaves similarly to <strong>pmemobj_alloc</strong>(3), but performs no modification to the
+persistent state.
+The object returned by this function can be freely modified without worrying
+about fail-safe atomicity until the object has been published. Any modifications
+of the object must be manually persisted, just like in the case of the atomic API.</p>
+<p><strong>pmemobj_xreserve</strong>() is equivalent to <strong>pmemobj_reserve</strong>(), but with an
+additional <em>flags</em> argument that is a bitmask of the following values:</p>
+<ul>
+<li>
+<p><strong>POBJ_XALLOC_ZERO</strong> - zero the allocated object (and persist it)</p>
+</li>
+<li>
+<p><strong>POBJ_CLASS_ID(class_id)</strong> - allocate an object from the allocation class
+<em>class_id</em>. The class id cannot be 0.</p>
+</li>
+<li>
+<p><strong>POBJ_ARENA_ID(arena_id)</strong> - allocate an object from the arena specified by
+<em>arena_id</em>. The arena must exist, otherwise, the behavior is undefined.
+If <em>arena_id</em> is equal 0, then arena assigned to the current thread will be used.</p>
+</li>
+</ul>
+<p><strong>pmemobj_defer_free</strong>() function creates a deferred free action, meaning that
+the provided object will be freed when the action is published. Calling this
+function with a NULL OID is invalid and causes undefined behavior.</p>
+<p>The <strong>pmemobj_set_value</strong> function prepares an action that, once published, will
+modify the memory location pointed to by <em>ptr</em> to <em>value</em>.</p>
+<p>The <strong>pmemobj_publish</strong> function publishes the provided set of actions. The
+publication is fail-safe atomic. Once done, the persistent state will reflect
+the changes contained in the actions.</p>
+<p>The <strong>pmemobj_tx_publish</strong> function moves the provided actions to the scope of
+the transaction in which it is called. Only object reservations are supported
+in transactional publish. Once done, the reserved objects will follow normal
+transactional semantics. Can only be called during <em>TX_STAGE_WORK</em>.</p>
+<p>The <strong>pmemobj_tx_xpublish</strong>() function behaves exactly the same as
+<strong>pmemobj_tx_publish</strong>() when <em>flags</em> equals zero. <em>flags</em> is a
+bitmask of the following values:</p>
+<ul>
+<li><strong>POBJ_XPUBLISH_NO_ABORT</strong> - if the function does not end successfully,
+do not abort the transaction.</li>
+</ul>
+<p>The <strong>pmemobj_cancel</strong> function releases any resources held by the provided
+set of actions and invalidates all actions.</p>
+<p>The <strong>POBJ_RESERVE_NEW</strong> macro is a typed variant of <strong>pmemobj_reserve</strong>.
+The size of the reservation is determined from the provided type <em>t</em>.</p>
+<p>The <strong>POBJ_RESERVE_ALLOC</strong> macro is a typed variant of <strong>pmemobj_reserve</strong>.
+The <em>size</em> of the reservation is user-provided.</p>
+<p>The <strong>POBJ_XRESERVE_NEW</strong> and the <strong>POBJ_XRESERVE_ALLOC</strong> macros are equivalent
+to <strong>POBJ_RESERVE_NEW</strong> and the <strong>POBJ_RESERVE_ALLOC</strong>, but with an additional
+<em>flags</em> argument defined for <strong>pmemobj_xreserve</strong>().</p>
+<h1 id=examples>EXAMPLES</h1>
+<p>The following code shows atomic append of two objects into a singly linked list.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>struct</span> list_node {
+	<span style=color:#66d9ef>int</span> value;
+	PMEMoid next;
+};
+<span style=color:#75715e>/* statically allocate the array of actions */</span>
+<span style=color:#66d9ef>struct</span> pobj_action actv[<span style=color:#ae81ff>4</span>];
+
+<span style=color:#75715e>/* reserve, populate and persist the first object */</span>
+PMEMoid tail <span style=color:#f92672>=</span> pmemobj_reserve(pop, <span style=color:#f92672>&amp;</span>actv[<span style=color:#ae81ff>0</span>], <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> list_node), <span style=color:#ae81ff>0</span>);
+<span style=color:#66d9ef>if</span> (TOID_IS_NULL(tail))
+	<span style=color:#66d9ef>return</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+D_RW(tail)<span style=color:#f92672>-&gt;</span>value <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+D_RW(tail)<span style=color:#f92672>-&gt;</span>next <span style=color:#f92672>=</span> OID_NULL;
+pmemobj_persist(pop, D_RW(tail), <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> list_node));
+
+<span style=color:#75715e>/* reserve, populate and persist the second object */</span>
+PMEMoid head <span style=color:#f92672>=</span> pmemobj_reserve(pop, <span style=color:#f92672>&amp;</span>actv[<span style=color:#ae81ff>1</span>], <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> list_node), <span style=color:#ae81ff>0</span>);
+<span style=color:#66d9ef>if</span> (TOID_IS_NULL(head))
+	<span style=color:#66d9ef>return</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+D_RW(head)<span style=color:#f92672>-&gt;</span>value <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;
+D_RW(head)<span style=color:#f92672>-&gt;</span>next <span style=color:#f92672>=</span> tail;
+pmemobj_persist(pop, D_RW(head), <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> list_node));
+
+<span style=color:#75715e>/* create actions to set the PMEMoid to the new values */</span>
+pmemobj_set_value(pop, <span style=color:#f92672>&amp;</span>actv[<span style=color:#ae81ff>2</span>], <span style=color:#f92672>&amp;</span>D_RO(root)<span style=color:#f92672>-&gt;</span>head.pool_uuid_lo, head.pool_uuid_lo);
+pmemobj_set_value(pop, <span style=color:#f92672>&amp;</span>actv[<span style=color:#ae81ff>3</span>], <span style=color:#f92672>&amp;</span>D_RO(root)<span style=color:#f92672>-&gt;</span>head.off, head.off);
+
+<span style=color:#75715e>/* atomically publish the above actions */</span>
+pmemobj_publish(pop, actv, <span style=color:#ae81ff>4</span>);
+</code></pre></div><h1 id=return-value>RETURN VALUE</h1>
+<p>On success, <strong>pmemobj_reserve</strong>() functions return a handle to the newly
+reserved object. Otherwise an <em>OID_NULL</em> is returned.</p>
+<p>On success, <strong>pmemobj_tx_publish</strong>() returns 0. Otherwise,
+the transaction is aborted, the stage is changed to <em>TX_STAGE_ONABORT</em>
+and <em>errno</em> is set appropriately.</p>
+<p>On success, <strong>pmemobj_tx_xpublish</strong>() returns 0. Otherwise, the error number
+is returned, <strong>errno</strong> is set and when flags do not contain <strong>POBJ_XPUBLISH_NO_ABORT</strong>,
+the transaction is aborted.</p>
+<p>On success, <strong>pmemobj_publish</strong>() returns 0. Otherwise, returns -1 and <em>errno</em>
+is set appropriately.</p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>pmemobj_alloc</strong>(3), <strong>pmemobj_tx_alloc</strong>(3), <strong>libpmemobj</strong>(7)
+and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2021 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>
