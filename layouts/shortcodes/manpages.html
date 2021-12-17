@@ -1,0 +1,15 @@
+{{ $relpath := .Get "relpath" }}
+{{ $.Scratch.Set "dir" "content/" }}
+{{ $.Scratch.Add "dir" $.Page.Dir }}
+{{ $dir := $.Scratch.Get "dir"}}
+{{ $files := readDir $dir }}
+
+{{ range $files }}
+  {{ $file := replace .Name ".md" ".html" }}
+  {{ $url := path.Join ".." $file }}
+  {{ $man := replace .Name ".md" "" }}
+  {{ if (findRE ".md$" .Name) }}
+    <a href="{{ $url }}">{{ $man }}</a>
+  {{ end }}
+{{ end }}
+</br></br>
