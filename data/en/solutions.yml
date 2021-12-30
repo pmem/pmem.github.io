@@ -13,4 +13,4 @@ show_work:
   content: 'Did you build something that uses persistent memory? Share your story and wisdom with the community.'
   join_btn:
     label: 'Share'
-    link: '/'
+    link: 'https://github.com/pmem/pmem.github.io/issues/new?labels=New-Solution&template=pmem-solution-request.md&title=%5BNew+Solution%5D'
