@@ -67,8 +67,8 @@ this feature, support for Copy-on-Write was transparent and the memory pages
 modified during the `fork()` were allocated from the same NUMA node to which the
 parent process was bound. Support for this mechanism has been added in our
 volatile memory allocator –
-[Memkind](https://pmem.io/blog/2020/01/introduction-to-libmemkind) as an additional [static
-kind](https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option). The disadvantage of
+[Memkind](/blog/2020/01/introduction-to-libmemkind) as an additional [static
+kind](/blog/2020/01/memkind-support-for-kmem-dax-option). The disadvantage of
 this approach is a possible decrease in performance due to copying entire
 pages from the PMem to the PMem while duplicating them if modified.
 

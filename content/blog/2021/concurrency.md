@@ -344,7 +344,7 @@ First, store a pointer to newly allocated memory to a private (possibly
 per-thread) persistent variable and only then make it visible for other
 threads.
 
-[eadr]: https://pmem.io/glossary/#eadr
-[cpp-02]: https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-1-pmem-resident-variables
+[eadr]: /glossary/#eadr
+[cpp-02]: /blog/2016/01/c-bindings-for-libpmemobj-part-1-pmem-resident-variables
 [ringbuf-example]: https://github.com/pmem/pmdk/blob/317a11cfc131681ace43e2865e1dd244a177ed00/src/examples/libpmem2/ringbuf/ringbuf.c#L212-L241
-[ptls-doc]: https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html
+[ptls-doc]: /libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html

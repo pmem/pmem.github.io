@@ -182,7 +182,7 @@ attributes as in "json" formatted output).
 
 [1fiolink]: https://github.com/axboe/fio
 [ndctllnk]: https://github.com/pmem/ndctl
-[13rde117]: https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory
+[13rde117]: /blog/2016/02/how-to-emulate-persistent-memory
 [191te3w1]: https://github.com/axboe/fio/blob/master/HOWTO
 [191te3w2]: https://github.com/axboe/fio/blob/master/HOWTO#L3292
 [44ku0112]: https://github.com/axboe/fio/tree/master/engines

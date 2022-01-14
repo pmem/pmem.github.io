@@ -169,7 +169,7 @@ variables available in our C++ bindings for libpmemobj. After that I would like
 to do a short story on how to convert existing code to understand persistent
 memory using C++.
 
-[b31a2ae5]: https://pmem.io//blog/2016/05/c-bindings-for-libpmemobj-part-5-make_persistent 'make_persistent'
+[b31a2ae5]: /blog/2016/05/c-bindings-for-libpmemobj-part-5-make_persistent 'make_persistent'
 [55cd0734]: http://www.gotw.ca/gotw/047.htm 'uncaught_exception'
 [b54915a7]: https://isocpp.org/files/papers/N4152.pdf 'uncaught_exceptions'
 

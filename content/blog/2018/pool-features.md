@@ -162,9 +162,9 @@ int sds_read_value = pmempool_feature_query(path, PMEMPOOL_FEAT_SHUTDOWN_STATE, 
 /* now sds_write_value == sds_read_value */
 ```
 
-[release-1.5]: https://pmem.io/blog/2018/10/new-release-of-pmdk
-[ras]: https://pmem.io/blog/2018/10/new-release-of-pmdk/#reliability-availability-and-serviceability-ras
-[pmempool-info.1]: https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-info.1.html
-[pmempool-feature.1]: https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html
-[pmempool-feature.3]: https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3
-[pmemobj_ctl_get.3]: https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3
+[release-1.5]: /blog/2018/10/new-release-of-pmdk
+[ras]: /blog/2018/10/new-release-of-pmdk/#reliability-availability-and-serviceability-ras
+[pmempool-info.1]: /pmdk/manpages/linux/master/pmempool/pmempool-info.1.html
+[pmempool-feature.1]: /pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html
+[pmempool-feature.3]: /pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3
+[pmemobj_ctl_get.3]: /pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3

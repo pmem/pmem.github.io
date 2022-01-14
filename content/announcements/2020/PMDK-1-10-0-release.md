@@ -35,7 +35,7 @@ As the name suggests, it's the next major version of the libpmem library. This l
 
 One of the key things that libpmem2 API has, and which was missing in libpmem, is comprehensive support for RAS (Reliability, availability and serviceability), which allow applications to easily handle bad blocks or unsafe shutdown count.
 
-Sounds interesting? See [https://pmem.io/pmdk/libpmem2/](https://pmem.io/pmdk/libpmem2/) for more information and examples.
+Sounds interesting? See [https://pmem.io/pmdk/libpmem2/](/pmdk/libpmem2/) for more information and examples.
 
 If you are actively using the current version of libpmem and are happy with the current API and its functionality, there's no need to rush an upgrade to libpmem2. We are committed to supporting both libraries.
 But if you are thinking about your first foray into low-level Persistent Memory programming or were missing some functionality in libpmem, I strongly encourage you to give libpmem2 a try.

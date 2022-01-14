@@ -342,7 +342,7 @@ algorithm was designed to implement the same semantics in software. The
 algorithm was standardized as part of [UEFI](https://uefi.org).
 
 For an introduction on how BTT works, shorter than reading the full
-specification, see [this blog](https://pmem.io/blog/2014/09/using-the-block-translation-table-for-sector-atomicity),
+specification, see [this blog](/blog/2014/09/using-the-block-translation-table-for-sector-atomicity),
 written by the Linux maintainer of its BTT implementation, Vishal Verma.
 
 ---
@@ -487,7 +487,7 @@ Linux also supports DAX without using a file system via a configuration
 known as **device DAX**. The Linux `ndctl` command uses the terms
 `fsdax` and `devdax` to choose between these two types of DAX, as
 described in the
-[ndctl-create-namespace](https://pmem.io/ndctl/ndctl-create-namespace.html)
+[ndctl-create-namespace](/ndctl/ndctl-create-namespace.html)
 man page.
 
 In most cases, the ability to manage PMem like files, including naming,
@@ -536,7 +536,7 @@ between fsdax and devdax on Linux:
   provided. This means applications can see old data left there from
   previous runs so the application designer must take this into account.
 
-PMDK provides a utility, [daxio](https://pmem.io/pmdk/manpages/linux/v1.10/daxio/daxio.1.html)
+PMDK provides a utility, [daxio](/pmdk/manpages/linux/v1.10/daxio/daxio.1.html)
 for saving/restoring/zeroing a devdax device.
 
 ---
@@ -604,7 +604,7 @@ and provide a uniform interface for the OS to call.
 The standard DSMs for NVDIMMs are
 described by the ACPI specification, available on the
 [UEFI web site](https://uefi.org/).
-In addition, Intel has published the [DSM Interface for Optane](https://pmem.io/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf) (pdf).
+In addition, Intel has published the [DSM Interface for Optane](/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf) (pdf).
 
 ---
 
@@ -719,11 +719,11 @@ the CXL specification.
 #### KMEM DAX
 
 **KMEM DAX** is a semi-transparent alternative to [Memory Mode](#memory-mode) for volatile use of PMem.
-[Device DAX](#device-dax) can be configured in [system-ram mode](https://pmem.io/ndctl/daxctl-reconfigure-device.html).
+[Device DAX](#device-dax) can be configured in [system-ram mode](/ndctl/daxctl-reconfigure-device.html).
 This mode exposes PMem as a hotplugged memory region. Configured this way,
 Persistent Memory takes the form of a separate memory-only NUMA Node(s). In contrast to **Memory Mode**,
 PMem is represented as an independent memory resources explicitly managed by the Operating System.
-For more information about KMEM DAX, see [KMEM DAX blog post](https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option).
+For more information about KMEM DAX, see [KMEM DAX blog post](/blog/2020/01/memkind-support-for-kmem-dax-option).
 
 ---
 
@@ -763,9 +763,9 @@ More information can be found on the [memkind web page](http://memkind.github.io
 The **libpmem** library provides low level persistent memory support.
 Higher level libraries like [libpmemobj](#libpmemobj) were implemented
 on top of **libpmem** until the newer [libpmem2](#libpmem2) came along.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+The [PMDK page](/pmdk/) contains documentation on all
 the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).
+[GitHub](/repoindex).
 
 ---
 
@@ -779,9 +779,9 @@ this library useful, but most developers will likely use
 [libpmemobj](#libpmemobj) which provides memory allocation and transaction
 support. Higher level libraries like [libpmemobj](#libpmemobj) are implemented
 on top of **libpmem2**.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+The [PMDK page](/pmdk/) contains documentation on all
 the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).
+[GitHub](/repoindex).
 
 ---
 
@@ -793,9 +793,9 @@ atomically updated. For example, a program keeping a cache of fixed-size
 objects in pmem might find this library useful.
 The algorithm used by **libpmemblk** is the same as the [BTT](#btt)
 algorithm standardized as part of the [UEFI specification](https://uefi.org).
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+The [PMDK page](/pmdk/) contains documentation on all
 the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).
+[GitHub](/repoindex).
 
 ---
 
@@ -806,9 +806,9 @@ a local/embedded key-value datastore optimized for persistent memory. Rather
 than being tied to a single language or backing implementation,
 **pmemkv** provides
 different options for language bindings and storage engines.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+The [PMDK page](/pmdk/) contains documentation on all
 the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).
+[GitHub](/repoindex).
 
 ---
 
@@ -817,9 +817,9 @@ the PMDK libraries, which are open source and available on
 The **libpmemlog** library
 provides a PMem-resident log file. This is useful for programs like databases
 that append frequently to a log file.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+The [PMDK page](/pmdk/) contains documentation on all
 the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).
+[GitHub](/repoindex).
 
 ---
 
@@ -830,9 +830,9 @@ the [PMDK](#pmdk) collection.
 It provides a transactional object store, providing memory allocation,
 transactions, and general facilities for persistent memory programming.
 Developers new to persistent memory probably want to start with this library.
-The [PMDK page](https://pmem.io/pmdk/) contains documentation on all
+The [PMDK page](/pmdk/) contains documentation on all
 the PMDK libraries, which are open source and available on
-[GitHub](https://pmem.io/repoindex).
+[GitHub](/repoindex).
 
 ---
 
@@ -842,7 +842,7 @@ The **librpma** provides an API for _remote persistent memory access_.
 This [PMDK](#pmdk) library is designed to help applications use
 RDMA to access remote PMem.
 
-See the [librpma man page](https://pmem.io/rpma/manpages/master/librpma.7.html)
+See the [librpma man page](/rpma/manpages/master/librpma.7.html)
 for details.
 
 ---
@@ -1040,7 +1040,7 @@ that contributes to a namespace. These labels are stored
 in a [label storage area](#label-storage-area) on each device.
 
 On Linux, the [ndctl](#ndctl) command provides a product-neutral way to
-manage namespaces. See the [create-namespace](https://pmem.io/ndctl/ndctl-create-namespace.html)
+manage namespaces. See the [create-namespace](/ndctl/ndctl-create-namespace.html)
 command for more details.
 
 ---
@@ -1055,7 +1055,7 @@ Some products may also have a vendor-specific command to perform
 additional management tasks. For example, Intel's [Optane PMem](#optane)
 is managed using the command `ipmctl`.
 
-See the [ndctl man pages](https://pmem.io/ndctl/) for details.
+See the [ndctl man pages](/ndctl/) for details.
 
 ---
 
@@ -1240,7 +1240,7 @@ persistent memory as memory-mapped files, as described in the
 [SNIA NVM Programming Model](#programming-model).
 
 The source for PMDK is spread across multiple
-[GitHub repositories](https://pmem.io/repoindex).
+[GitHub repositories](/repoindex).
 <img src="pmdk/pmdk.jpg" alt="PMDK" style="float: right" width="50%">
 The PMDK libraries fit into the PMem programming model
 as shown in the diagram, where applications pull in just
@@ -1272,7 +1272,7 @@ The most flexible and commonly-used library is [libpmemobj](#libpmemobj).
 The [pmemkv](#libpmemkv) libraries provide the highest-level, easiest
 to use interfaces in the form of a PMem-aware key-value store.
 
-The [PMDK web page](https://pmem.io/pmdk) contains detailed information
+The [PMDK web page](/pmdk) contains detailed information
 on the libraries and how to use them.
 
 ---
@@ -1347,7 +1347,7 @@ transparent (at least until a failure occurs and administrative
 actions are required).
 
 See the
-[poolset man page](https://pmem.io/pmdk/manpages/linux/v1.4/poolset/poolset.5)
+[poolset man page](/pmdk/manpages/linux/v1.4/poolset/poolset.5)
 for details.
 
 ---

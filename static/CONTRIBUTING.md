@@ -37,7 +37,7 @@ A [pull request](https://docs.github.com/en/github/collaborating-with-issues-and
 When we merge those changes, they should be deployed to the live site within 24 hours. To learn more about opening a pull request in this repo, see [Opening a pull request](#opening-a-pull-request) below. The site will automatically get rebuilt using GitHub Actions, but it can take time to update the cached versions across the globe.
 
 ### :question: Support
-We are a small team working hard to keep up with the demands of an active community. Unfortunately, we just can't help with support questions in this repository. If you are experiencing a problem with persistent memory, please [reach out to the Community](https://pmem.io/community). Any issues, discussions, or pull requests opened here requesting support will be reviewed and addressed.
+We are a small team working hard to keep up with the demands of an active community. Unfortunately, we just can't help with support questions in this repository. If you are experiencing a problem with persistent memory, please [reach out to the Community](/community). Any issues, discussions, or pull requests opened here requesting support will be reviewed and addressed.
 
 ### :earth_asia: Translations
 

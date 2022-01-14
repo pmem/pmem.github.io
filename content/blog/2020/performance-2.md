@@ -34,7 +34,7 @@ aliases: ['/2020/03/26/performance-2.html']
 type: 'post'
 ---
 
-At the end of the [first](https://pmem.io/blog/2019/12/300-nanoseconds-1-of-2) part of
+At the end of the [first](/blog/2019/12/300-nanoseconds-1-of-2) part of
 this blog series, I posed three fundamental questions regarding the design of
 _failure atomic data structures_ for persistent memory.
 

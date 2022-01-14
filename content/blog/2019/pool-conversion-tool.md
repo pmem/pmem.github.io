@@ -44,7 +44,7 @@ compatibility, mostly because we made changes whose benefit far outweighed
 the costs. For this reason, we created the `pmempool convert` command. This tool was used to convert
 pools which were created with old PMDK versions to the newer on-media layout.
 In 1.5 release this functionality was refactored and moved to a separate tool
-called [**pmdk-convert**](https://pmem.io/pmdk-convert/manpages/v1.5/pmdk-convert.1.html).
+called [**pmdk-convert**](/pmdk-convert/manpages/v1.5/pmdk-convert.1.html).
 
 ## Layout versions vs. PMDK releases
 
@@ -143,7 +143,7 @@ and then use pmdk-convert.
 pmdk-convert does not support conversion of pools with remote replicas.
 To convert such pools, the following workaround must be used.
 
-1. A remote replica needs to be removed by [pmempool transform command](https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html).
+1. A remote replica needs to be removed by [pmempool transform command](/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html).
    Before calling pmempool transform, you have to prepare a new poolset file
    without a remote replica.
 
@@ -183,4 +183,4 @@ $ pmempool transform poolset2 poolset
 In 1.5 release we introduced an extra features flags. After upgrading pmdk
 (and pool conversion for libpmemobj pools), they can be turned on for
 existing pools. Detailed information about feature flags can be found in
-the [pool features](https://pmem.io/blog/2018/12/pool-features/) blog post.
+the [pool features](/blog/2018/12/pool-features/) blog post.
