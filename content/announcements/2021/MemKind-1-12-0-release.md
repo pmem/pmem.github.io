@@ -1,6 +1,6 @@
 ---
 # News article title
-title: "MemKind 1.12.0 Release"
+title: "Memkind 1.12.0 Release"
 
 # Creation date
 date: 2021-09-02T20:11:31Z
@@ -18,7 +18,7 @@ description: ""
 image: "https://opengraph.githubassets.com/f8ccbea600be4efbbb4eb4be9dd21a316c1237aede16f1efd7558874b67eb1bc/memkind/memkind"
 
 # Announcement category
-announcements: ['MemKind']
+announcements: ['Memkind']
 
 # Post type
 type: "announcement"
