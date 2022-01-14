@@ -311,7 +311,7 @@ Libpmemobj
 <h3 id=the-lifecycle>The lifecycle</h3>
 <p>Transactions are managed by the usage of <code>pmemobj_tx_*</code> family of functions. A single transaction goes through a series of stages listed in <code>enum pobj_tx_stage</code> and illustrated by the following diagram:</p>
 <p><img src=/images/posts/lifecycle.png alt=lifecycle></p>
-<p>You can see here how to use each of the stage-managing functions. The <code>pmemobj_tx_process</code> function can be used <strong>instead</strong> of others to move the transaction forward - you can call it if you don&rsquo;t know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the <a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/libpmemobj.7.html>manpage</a>. To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
+<p>You can see here how to use each of the stage-managing functions. The <code>pmemobj_tx_process</code> function can be used <strong>instead</strong> of others to move the transaction forward - you can call it if you don&rsquo;t know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the <a href=/pmdk/manpages/linux/master/libpmemobj/libpmemobj.7.html>manpage</a>. To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:</p>
 <div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
@@ -424,7 +424,7 @@ execution of longjmp if their value have changed after setjmp. So in the case
 of libpmemobj transaction blocks every local variable modified in TX_STAGE_WORK and used in
 TX_STAGE_ONABORT/TX_STAGE_FINALLY needs to be volatile-qualified - otherwise you might
 encounter undefined behavior. Please see the CAVEATS section in libpmemobj
-<a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_tx_begin.3#caveats>manpage</a> for more information.</p>
+<a href=/pmdk/manpages/linux/master/libpmemobj/pmemobj_tx_begin.3#caveats>manpage</a> for more information.</p>
 <h3 id=transactional-operations>Transactional operations</h3>
 <p>Our library distinguishes 3 different transactional operations: allocation, free and set. Right now we will learn only about the last one, which - as the name suggests, is used to safely <em>set</em> a memory block to some value. This is realized by 2 API functions: <code>pmemobj_tx_add_range</code> and <code>pmemobj_tx_add_range_direct</code>. Quoting the documentation:</p>
 <blockquote>
@@ -761,7 +761,7 @@ memcpy(rootp<span style=color:#f92672>-&gt;</span>buf, buf, strlen(buf));
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

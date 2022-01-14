@@ -310,7 +310,7 @@ Pmemkv
 <div class="entry-content mt-0">
 <p>Pmemkv is a key-value data store written in C and C++, however, it also opens up
 a way to leverage persistent memory by developers who prefer high-level languages - such as Java.
-For more information about other bindings please read <a href=https://pmem.io/blog/2020/03/language-bindings-for-pmemkv/>Language bindings for pmemkv</a>
+For more information about other bindings please read <a href=/blog/2020/03/language-bindings-for-pmemkv/>Language bindings for pmemkv</a>
 article and <a href=https://github.com/pmem/pmemkv/#language-bindings>pmemkv README</a></p>
 <p>We built an API for pmemkv-java binding on top of libpmemkv 1.0 API, but java binding
 is also compatible with newer versions of libpmemkv. You don’t have to worry
@@ -362,7 +362,7 @@ and <code>setKeyConverter()</code> methods, and make sure their types correspond
 		<span style=color:#f92672>.</span><span style=color:#a6e22e>setForceCreate</span><span style=color:#f92672>(</span><span style=color:#66d9ef>true</span><span style=color:#f92672>)</span>
 		<span style=color:#f92672>.</span><span style=color:#a6e22e>build</span><span style=color:#f92672>();</span>
 </code></pre></div><h5 id=opening-already-existing-database>Opening already existing database</h5>
-<p>For persistent engines, database may be created by your application during a previous run or e.g. by <a href=https://pmem.io/pmdk/pmempool/>pmempool</a> tool.
+<p>For persistent engines, database may be created by your application during a previous run or e.g. by <a href=/pmdk/pmempool/>pmempool</a> tool.
 In such case, you have to specify only a path and converter objects.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>db <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Database<span style=color:#f92672>.</span><span style=color:#a6e22e>Builder</span><span style=color:#f92672>&lt;</span>String<span style=color:#f92672>,</span> BufferedImage<span style=color:#f92672>&gt;(</span>engine<span style=color:#f92672>)</span>
 		<span style=color:#f92672>.</span><span style=color:#a6e22e>setPath</span><span style=color:#f92672>(</span>Path<span style=color:#f92672>)</span>
@@ -581,7 +581,7 @@ going to implement features available in new pmemkv versions.</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

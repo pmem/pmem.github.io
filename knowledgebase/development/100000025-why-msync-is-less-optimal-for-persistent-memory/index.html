@@ -301,7 +301,7 @@ So why is msync() not primarily used to flush dirty pages to persistent memory?"
 <p>Small flushes get rounded up to large flushes. For example, imagine you are implementing a btree where you are updating pointers during inserts, rebalancing, etc. Each time you want to ensure an update has been made persistent, you flush some small ranges, like a few cache lines. Each of those flushes gets rounded up to a page since that&rsquo;s the smallest granularity msync can handle. The impact is not just the extra flushes, but also the side effect of those flushes which invalidates those extra cache lines, forcing cache misses when they are next accessed.</p>
 </li>
 <li>
-<p>There is no way to tell msync() that non-temporal stores were used for parts of the range. In the <a href=https://pmem.io/pmdk/>Persistent Memory Development Kit</a>, you&rsquo;ll see lots of places where it uses non-temporal (NT) stores for performance. A non-temporal store bypasses the CPU caches since the data is not expected to be accessed any time soon. For the kind of fine-grained changes described in point 1, PMDK knows that only normal stores need flushing, and any ranges where NT stores were used can be considered persistent. Note that even without PMDK in the picture, libc&rsquo;s memcpy() will sometimes use NT stores for large ranges. You have no visibility into that, so you must call msync() to make changes persistent, even when there&rsquo;s no flush required due to NT stores.</p>
+<p>There is no way to tell msync() that non-temporal stores were used for parts of the range. In the <a href=/pmdk/>Persistent Memory Development Kit</a>, you&rsquo;ll see lots of places where it uses non-temporal (NT) stores for performance. A non-temporal store bypasses the CPU caches since the data is not expected to be accessed any time soon. For the kind of fine-grained changes described in point 1, PMDK knows that only normal stores need flushing, and any ranges where NT stores were used can be considered persistent. Note that even without PMDK in the picture, libc&rsquo;s memcpy() will sometimes use NT stores for large ranges. You have no visibility into that, so you must call msync() to make changes persistent, even when there&rsquo;s no flush required due to NT stores.</p>
 </li>
 <li>
 <p>The overhead of kernel system calls. msync() can take locks, which can end up serializing highly multithreaded code. If you use libpmem, or a higher-level library that uses it, from the PMDK, the loop done by pmem_persist() within will be a shorter overall code path. This is even more true on future platforms where CPU caches can be considered persistent. PMDK applications will detect these platforms and skip the flushes, but msync() is still a trip through the kernel.</p>
@@ -358,7 +358,7 @@ Copyright© kb.pmem.io 2020. All rights reserved.
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

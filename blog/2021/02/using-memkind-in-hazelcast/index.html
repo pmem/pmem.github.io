@@ -382,7 +382,7 @@ greater capacities than that of DRAM DIMMs. Therefore, the total achievable capa
 with DRAM modules alone, while the modules operate with near-DRAM performance, at a lower cost per gigabyte.
 These advantages make the Intel Optane PMem modules a good fit for Hazelcast and after some research,
 Hazelcast 4.0 added support for these persistent memory modules - in addition to DRAM - as its HD backend.
-The initial implementation in 4.0 used <a href=https://pmem.io/pmdk/libvmem/>libvmem</a> for using Intel Optane persistent
+The initial implementation in 4.0 used <a href=/pmdk/libvmem/>libvmem</a> for using Intel Optane persistent
 memory modules in volatile App Direct Mode. Since then, Memkind became the go-to library
 for using the PMem in volatile mode, therefore, Hazelcast dropped libvmem
 and replaced it with Memkind in its 4.1 version.</p>
@@ -396,7 +396,7 @@ complex memory architectures.</p>
 <p>In memkind, memory is managed as independent heaps, called <em>memory kinds</em>.</p>
 <p>Hazelcast takes advantage of both solutions libmemkind provides for using PMem.
 The PMEM kind let’s the user application allocate from the PMem medium if it is
-mounted with a DAX-aware file system. The <a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM-DAX</a> mode
+mounted with a DAX-aware file system. The <a href=/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM-DAX</a> mode
 combines the advantages of the Linux kernel’s KMEM feature and the direct access (DAX)
 capabilities of PMem by transparently allocating PMem memory from the system memory
 consisted of DRAM and PMem backed regions after preliminary configuration of PMem.
@@ -420,7 +420,7 @@ of this approach is a significant increase of the fragmentation. Since memkind i
 tracks the dedicated memory kind of a given object from the allocation metadata, it can detect the kind
 for every object allocated with the library. This is a great help for the applications dealing with
 heterogeneous memory resources as memkind eliminates the aforementioned problem entirely.
-To learn more on kind detection, please see this <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind>post</a>.</p>
+To learn more on kind detection, please see this <a href=/blog/2020/01/introduction-to-libmemkind>post</a>.</p>
 <p>The collaboration between the PMDK team and Hazelcast helped streamline PMem integration into the
 <a href=https://hazelcast.com/product-features/high-density-memory-store/>High-Density Memory Store</a>. The Hazelcast team uses the memkind library
 to explicitly allocate PMem space. When using the FS-DAX base memory kind, the Hazelcast team analyzed
@@ -437,7 +437,7 @@ for even greater performance gains, resulting in further reduction of the shutdo
 <p>As another result of the teams collaboration the next release of libmemkind will
 be improved by providing a method to verify if the path used to create a PMem memory kind point
 on the DAX-aware filesystem, which previously was possible only by using additional dependency
-like <a href=https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>libpmem</a>. With this change the memkind library will become an even more standalone library.</p>
+like <a href=/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>libpmem</a>. With this change the memkind library will become an even more standalone library.</p>
 <h2 id=unified-pmem-heap>Unified PMEM heap</h2>
 <p>As mentioned before, Hazelcast uses the <code>PMEM</code> and the <code>MEMKIND_DAX_KMEM_ALL</code> kinds.
 The latter is straightforward to use as the kind defines a single heap even on multi-socket machines.
@@ -503,7 +503,7 @@ This heap unification is a convenient mechanism to limit necessary changes to in
 backed by PMem and how Hazelcast builds on these modes. In the following we share some thoughts
 on the performance of PMem in general and some of the key findings of the Hazelcast team from
 benchmarking Intel Optane persistent memory in a distributed environment.</p>
-<p>As discussed in <a href=https://pmem.io/blog/2019/12/300-nanoseconds-1-of-2>one</a> of the previous posts on the PMDK blog,
+<p>As discussed in <a href=/blog/2019/12/300-nanoseconds-1-of-2>one</a> of the previous posts on the PMDK blog,
 PMem is a new tier between Memory and storage. Apart from the data persistence and previously
 mentioned big capacity, the CPU can access the data directly. Access to information in
 the physical medium is provided with cache-line granularity. Besides memory capacity, PMem
@@ -618,26 +618,6 @@ capacities of memory than possible before, all with a lower cost for the end use
 <div class="grid-inner row align-items-center gutter-20">
 <div class=col-4>
 <div class=entry-image>
-<a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind/ data-lightbox=image><img src=/images/pmem_logo.png alt="Introduction to libmemkind"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind/>Introduction to libmemkind</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Jschmieg</li>
-<li><i class=icon-calendar3></i> 20 Jan, 2020</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
 <a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option/ data-lightbox=image><img src=/images/pmem_logo.png alt="Memkind support for KMEM DAX option"></a>
 </div>
 </div>
@@ -648,6 +628,26 @@ capacities of memory than possible before, all with a lower cost for the end use
 <div class=entry-meta>
 <ul>
 <li><i class=icon-user></i> Michalbiesek</li>
+<li><i class=icon-calendar3></i> 20 Jan, 2020</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind/ data-lightbox=image><img src=/images/pmem_logo.png alt="Introduction to libmemkind"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind/>Introduction to libmemkind</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Jschmieg</li>
 <li><i class=icon-calendar3></i> 20 Jan, 2020</li>
 </ul>
 </div>
@@ -723,7 +723,7 @@ capacities of memory than possible before, all with a lower cost for the end use
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

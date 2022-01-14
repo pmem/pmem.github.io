@@ -348,7 +348,7 @@ copy-or-swap, and zero-copy. (hint: the last one is best!)</p>
 <a href=https://github.com/pmem/pmemkv>pmemkv</a>
 using persistent leaves (<code>KVLeaf</code>) composed of separate arrays for
 hashes, keys, and values. Keys and values are modeled using a basic
-<a href=https://pmem.io/blog/2017/01/modeling-strings-with-libpmemobj-c-bindings>persistent string class</a>
+<a href=/blog/2017/01/modeling-strings-with-libpmemobj-c-bindings>persistent string class</a>
 (<code>KVString</code>) that allows getting/setting the contents as a
 C-style string.</p>
 <pre tabindex=0><code>class KVString {
@@ -473,7 +473,7 @@ persistent_ptr&lt;KVLeaf&gt; next;
 strategy with <code>KVString</code> against the zero-copy strategy with <code>KVSlot</code>.
 (The naive copy strategy is too slow to consider)</p>
 <p>For sequential insertion of 20-byte keys with 800-byte values, using
-<a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory>emulated persistent memory</a>,
+<a href=/blog/2016/02/how-to-emulate-persistent-memory>emulated persistent memory</a>,
 total workload time improved by 37% when switching from
 <code>KVString</code> to <code>KVSlot</code> in my testing.</p>
 <p>Storage efficiency for 20-byte keys with 800-byte values
@@ -629,7 +629,7 @@ datasets that we&rsquo;d like to enable with</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

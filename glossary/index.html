@@ -582,7 +582,7 @@ all. Since software may depend on this attribute of storage, the BTT
 algorithm was designed to implement the same semantics in software. The
 algorithm was standardized as part of <a href=https://uefi.org>UEFI</a>.</p>
 <p>For an introduction on how BTT works, shorter than reading the full
-specification, see <a href=https://pmem.io/blog/2014/09/using-the-block-translation-table-for-sector-atomicity>this blog</a>,
+specification, see <a href=/blog/2014/09/using-the-block-translation-table-for-sector-atomicity>this blog</a>,
 written by the Linux maintainer of its BTT implementation, Vishal Verma.</p>
 <hr>
 <h4 id=clflushopt>CLFLUSHOPT</h4>
@@ -689,7 +689,7 @@ Linux also supports DAX without using a file system via a configuration
 known as <strong>device DAX</strong>. The Linux <code>ndctl</code> command uses the terms
 <code>fsdax</code> and <code>devdax</code> to choose between these two types of DAX, as
 described in the
-<a href=https://pmem.io/ndctl/ndctl-create-namespace.html>ndctl-create-namespace</a>
+<a href=/ndctl/ndctl-create-namespace.html>ndctl-create-namespace</a>
 man page.</p>
 <p>In most cases, the ability to manage PMem like files, including naming,
 permissions, and POSIX file APIs, makes fsdax the preferred choice. devdax
@@ -746,7 +746,7 @@ provided. This means applications can see old data left there from
 previous runs so the application designer must take this into account.</p>
 </li>
 </ul>
-<p>PMDK provides a utility, <a href=https://pmem.io/pmdk/manpages/linux/v1.10/daxio/daxio.1.html>daxio</a>
+<p>PMDK provides a utility, <a href=/pmdk/manpages/linux/v1.10/daxio/daxio.1.html>daxio</a>
 for saving/restoring/zeroing a devdax device.</p>
 <hr>
 <h4 id=dirty-shutdown-count>Dirty Shutdown Count</h4>
@@ -797,7 +797,7 @@ and provide a uniform interface for the OS to call.
 The standard DSMs for NVDIMMs are
 described by the ACPI specification, available on the
 <a href=https://uefi.org/>UEFI web site</a>.
-In addition, Intel has published the <a href=https://pmem.io/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf>DSM Interface for Optane</a> (pdf).</p>
+In addition, Intel has published the <a href=/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf>DSM Interface for Optane</a> (pdf).</p>
 <hr>
 <h4 id=eadr>eADR</h4>
 <p>(Extended ADR)</p>
@@ -883,11 +883,11 @@ the CXL specification.</p>
 <hr>
 <h4 id=kmem-dax>KMEM DAX</h4>
 <p><strong>KMEM DAX</strong> is a semi-transparent alternative to <a href=#memory-mode>Memory Mode</a> for volatile use of PMem.
-<a href=#device-dax>Device DAX</a> can be configured in <a href=https://pmem.io/ndctl/daxctl-reconfigure-device.html>system-ram mode</a>.
+<a href=#device-dax>Device DAX</a> can be configured in <a href=/ndctl/daxctl-reconfigure-device.html>system-ram mode</a>.
 This mode exposes PMem as a hotplugged memory region. Configured this way,
 Persistent Memory takes the form of a separate memory-only NUMA Node(s). In contrast to <strong>Memory Mode</strong>,
 PMem is represented as an independent memory resources explicitly managed by the Operating System.
-For more information about KMEM DAX, see <a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM DAX blog post</a>.</p>
+For more information about KMEM DAX, see <a href=/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM DAX blog post</a>.</p>
 <hr>
 <h4 id=label-storage-area>Label Storage Area</h4>
 <p>(LSA)</p>
@@ -915,9 +915,9 @@ More information can be found on the <a href=http://memkind.github.io/memkind/>m
 <p>The <strong>libpmem</strong> library provides low level persistent memory support.
 Higher level libraries like <a href=#libpmemobj>libpmemobj</a> were implemented
 on top of <strong>libpmem</strong> until the newer <a href=#libpmem2>libpmem2</a> came along.
-The <a href=https://pmem.io/pmdk/>PMDK page</a> contains documentation on all
+The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=https://pmem.io/repoindex>GitHub</a>.</p>
+<a href=/repoindex>GitHub</a>.</p>
 <hr>
 <h4 id=libpmem2>libpmem2</h4>
 <p>The <strong>libpmem2</strong> library provides low level persistent memory support, and
@@ -928,9 +928,9 @@ this library useful, but most developers will likely use
 <a href=#libpmemobj>libpmemobj</a> which provides memory allocation and transaction
 support. Higher level libraries like <a href=#libpmemobj>libpmemobj</a> are implemented
 on top of <strong>libpmem2</strong>.
-The <a href=https://pmem.io/pmdk/>PMDK page</a> contains documentation on all
+The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=https://pmem.io/repoindex>GitHub</a>.</p>
+<a href=/repoindex>GitHub</a>.</p>
 <hr>
 <h4 id=libpmemblk>libpmemblk</h4>
 <p>The <strong>libpmemblk</strong> library
@@ -939,9 +939,9 @@ atomically updated. For example, a program keeping a cache of fixed-size
 objects in pmem might find this library useful.
 The algorithm used by <strong>libpmemblk</strong> is the same as the <a href=#btt>BTT</a>
 algorithm standardized as part of the <a href=https://uefi.org>UEFI specification</a>.
-The <a href=https://pmem.io/pmdk/>PMDK page</a> contains documentation on all
+The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=https://pmem.io/repoindex>GitHub</a>.</p>
+<a href=/repoindex>GitHub</a>.</p>
 <hr>
 <h4 id=libpmemkv>libpmemkv</h4>
 <p>The <strong>libpmemkv</strong> library provides
@@ -949,17 +949,17 @@ a local/embedded key-value datastore optimized for persistent memory. Rather
 than being tied to a single language or backing implementation,
 <strong>pmemkv</strong> provides
 different options for language bindings and storage engines.
-The <a href=https://pmem.io/pmdk/>PMDK page</a> contains documentation on all
+The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=https://pmem.io/repoindex>GitHub</a>.</p>
+<a href=/repoindex>GitHub</a>.</p>
 <hr>
 <h4 id=libpmemlog>libpmemlog</h4>
 <p>The <strong>libpmemlog</strong> library
 provides a PMem-resident log file. This is useful for programs like databases
 that append frequently to a log file.
-The <a href=https://pmem.io/pmdk/>PMDK page</a> contains documentation on all
+The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=https://pmem.io/repoindex>GitHub</a>.</p>
+<a href=/repoindex>GitHub</a>.</p>
 <hr>
 <h4 id=libpmemobj>libpmemobj</h4>
 <p>The <strong>libpmemobj</strong> library is the most popular and powerful library in
@@ -967,15 +967,15 @@ the <a href=#pmdk>PMDK</a> collection.
 It provides a transactional object store, providing memory allocation,
 transactions, and general facilities for persistent memory programming.
 Developers new to persistent memory probably want to start with this library.
-The <a href=https://pmem.io/pmdk/>PMDK page</a> contains documentation on all
+The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=https://pmem.io/repoindex>GitHub</a>.</p>
+<a href=/repoindex>GitHub</a>.</p>
 <hr>
 <h4 id=librpma>librpma</h4>
 <p>The <strong>librpma</strong> provides an API for <em>remote persistent memory access</em>.
 This <a href=#pmdk>PMDK</a> library is designed to help applications use
 RDMA to access remote PMem.</p>
-<p>See the <a href=https://pmem.io/rpma/manpages/master/librpma.7.html>librpma man page</a>
+<p>See the <a href=/rpma/manpages/master/librpma.7.html>librpma man page</a>
 for details.</p>
 <hr>
 <h4 id=llpl>LLPL</h4>
@@ -1122,7 +1122,7 @@ this, namespaces are defined by storing <em>namespace labels</em> on each device
 that contributes to a namespace. These labels are stored
 in a <a href=#label-storage-area>label storage area</a> on each device.</p>
 <p>On Linux, the <a href=#ndctl>ndctl</a> command provides a product-neutral way to
-manage namespaces. See the <a href=https://pmem.io/ndctl/ndctl-create-namespace.html>create-namespace</a>
+manage namespaces. See the <a href=/ndctl/ndctl-create-namespace.html>create-namespace</a>
 command for more details.</p>
 <hr>
 <h4 id=ndctl>ndctl</h4>
@@ -1132,7 +1132,7 @@ open standards like the NVDIMM details on the ACPI specification.</p>
 <p>Some products may also have a vendor-specific command to perform
 additional management tasks. For example, Intel&rsquo;s <a href=#optane>Optane PMem</a>
 is managed using the command <code>ipmctl</code>.</p>
-<p>See the <a href=https://pmem.io/ndctl/>ndctl man pages</a> for details.</p>
+<p>See the <a href=/ndctl/>ndctl man pages</a> for details.</p>
 <hr>
 <h4 id=nfit>NFIT</h4>
 <p>(NVDIMM Firmware Interface Table)</p>
@@ -1269,7 +1269,7 @@ systems (short for <em>Direct Access</em>) which allows applications to access
 persistent memory as memory-mapped files, as described in the
 <a href=#programming-model>SNIA NVM Programming Model</a>.</p>
 <p>The source for PMDK is spread across multiple
-<a href=https://pmem.io/repoindex>GitHub repositories</a>.
+<a href=/repoindex>GitHub repositories</a>.
 <img src=pmdk/pmdk.jpg alt=PMDK style=float:right width=50%>
 The PMDK libraries fit into the PMem programming model
 as shown in the diagram, where applications pull in just
@@ -1294,7 +1294,7 @@ are built on top of them.</p>
 <p>The most flexible and commonly-used library is <a href=#libpmemobj>libpmemobj</a>.</p>
 <p>The <a href=#libpmemkv>pmemkv</a> libraries provide the highest-level, easiest
 to use interfaces in the form of a PMem-aware key-value store.</p>
-<p>The <a href=https://pmem.io/pmdk>PMDK web page</a> contains detailed information
+<p>The <a href=/pmdk>PMDK web page</a> contains detailed information
 on the libraries and how to use them.</p>
 <hr>
 <h4 id=pmem-programming-model>PMem Programming Model</h4>
@@ -1347,7 +1347,7 @@ logical pool. Poolsets also support replication that is application
 transparent (at least until a failure occurs and administrative
 actions are required).</p>
 <p>See the
-<a href=https://pmem.io/pmdk/manpages/linux/v1.4/poolset/poolset.5>poolset man page</a>
+<a href=/pmdk/manpages/linux/v1.4/poolset/poolset.5>poolset man page</a>
 for details.</p>
 <hr>
 <h4 id=programming-model>Programming Model</h4>
@@ -1518,7 +1518,7 @@ contains more details on this topic.</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

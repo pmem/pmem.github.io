@@ -370,7 +370,7 @@ libpmemobj pool would have to happen under sudo. To avoid that, the RAS features
 described here are opt-in. This will be changed to opt-out once these access
 restrictions are relaxed in the future kernel versions.</p>
 <p>To enable or disable RAS features, we&rsquo;ve developed a new pmempool command,
-pmempool feature. You can find more information about on its <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html>man page</a>.</p>
+pmempool feature. You can find more information about on its <a href=/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html>man page</a>.</p>
 <h2 id=pmreorder>pmreorder</h2>
 <p>Almost since the beginning of this project, we planned on implementing a tool
 which could exhaustively check data consistency for all possible combination of
@@ -382,7 +382,7 @@ enough for generic use. And so, after almost two years, we have finally decided
 that it&rsquo;s time to revisit the topic and cleanup the old codebase so that it can
 be released alongside pmemcheck.</p>
 <p>Stay tuned for a blog post about pmreorder. In the meantime, see its
-<a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>man page</a>.</p>
+<a href=/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>man page</a>.</p>
 <h2 id=parameterized-persistence-primitives>Parameterized persistence primitives</h2>
 <p>Right from the start, libpmem shipped with custom-made memcpy/memset
 implementations that made use of non-temporal stores (stores that do not go
@@ -393,7 +393,7 @@ decided to add new variants of libpmem primitives (flush, memcpy, &mldr;) that t
 flags which control how the functions behave.</p>
 <p>We found this so useful that we also exposed this functionality in libpmemobj
 variants of persistence primitives.</p>
-<p>For more information, see <em>pmemobj_memcpy_persist</em> <a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_memcpy_persist.3>man page</a>.</p>
+<p>For more information, see <em>pmemobj_memcpy_persist</em> <a href=/pmdk/manpages/linux/master/libpmemobj/pmemobj_memcpy_persist.3>man page</a>.</p>
 <h2 id=removal-of-libpmemcto>Removal of libpmemcto</h2>
 <p>This version of PMDK won&rsquo;t include the previously experimental libpmemcto. Due
 to the complexity of that library, and the fact that it was based on a very
@@ -413,7 +413,7 @@ access to a variable. That mechanism could be useful for users wanting to employ
 custom synchronization primitives or even implement entirely custom algorithms
 that require volatile variables on persistent memory.</p>
 <p>This a fairly small API addition which has a large number of potential use cases.
-See its <a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3>man page</a> for more details.</p>
+See its <a href=/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3>man page</a> for more details.</p>
 <h3 id=custom-allocation-class-improvements>Custom allocation class improvements</h3>
 <p>In the previous release of libpmemobj, we&rsquo;ve included a feature to create custom
 allocation class at runtime which can be used to optimize fragmentation and
@@ -426,7 +426,7 @@ with smaller objects, which we observed during our Java and Python enabling effo
 <p>Additionally, the API didn&rsquo;t allow for alignment of allocated objects to be
 specified. This has been addressed, and allocations can now be aligned to any
 power-of-two value.</p>
-<p>See appropriate CTL namespace <a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3>entry point</a> for
+<p>See appropriate CTL namespace <a href=/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3>entry point</a> for
 more information.</p>
 <h3 id=rewrite-of-redo-and-undo-log-for-transaction-support>Rewrite of redo and undo log for transaction support</h3>
 <p>For the past couple of months, we&rsquo;ve been optimizing libpmemobj&rsquo;s transactions
@@ -447,7 +447,7 @@ pools that were created using any of the previous libpmemobj versions, and had
 unrecovered operations in the log, are not going to be compatible with the new
 algorithms.</p>
 <p>To provide users with an upgrade path, we&rsquo;ve implemented a brand new
-<a href=https://pmem.io/pmdk-convert/pmdk-convert.1.html>pmdk-convert</a> tool which will
+<a href=/pmdk-convert/pmdk-convert.1.html>pmdk-convert</a> tool which will
 automatically process the logs using the correct recovery
 mechanism, and then will bump the major layout version to indicate that the pool
 can be now opened using the new library version.</p>
@@ -464,7 +464,7 @@ libpmemobj-specific semantics.</p>
 anticipating that it&rsquo;s soon going to become a much larger project.</p>
 <p>We started the containers work easy, with <code>pmem::obj::array</code> that provides some
 convenience features for use with transactions. See our
-<a href=https://pmem.io/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html>doxygen</a> documentation for more info.</p>
+<a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html>doxygen</a> documentation for more info.</p>
 <p>We&rsquo;ve also renamed some function names that, in retrospect, were chosen
 poorly. Functions with old names are still there, but are deprecated.
 If you&rsquo;ve been using libpmemobj-cpp, you should start seeing compile-time
@@ -608,7 +608,7 @@ in-depth description of the algorithms that underpin PMDK.</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

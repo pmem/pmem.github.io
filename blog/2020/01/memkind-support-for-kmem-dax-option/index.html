@@ -331,7 +331,7 @@ Device Drivers ---&gt;
 <h3 id=system-configuration>System Configuration</h3>
 <p>Reconfiguration of Device-DAX depends on dax-bus device model.
 Kernel should support <code>/sys/bus/dax</code> model. To migrate it from
-<code>/sys/class/dax</code> to <code>/sys/bus/dax</code> model please use <a href=https://pmem.io/ndctl/daxctl-migrate-device-model.html>daxctl-migrate-device-mode</a>.</p>
+<code>/sys/class/dax</code> to <code>/sys/bus/dax</code> model please use <a href=/ndctl/daxctl-migrate-device-model.html>daxctl-migrate-device-mode</a>.</p>
 <h3 id=reconfigure-dax-devices>Reconfigure DAX devices</h3>
 <p>The list of available NUMA nodes on the system can be retrieved using <code>numactl</code>.
 An example of initial configuration is presented below:</p>
@@ -347,9 +347,9 @@ node distances:
 node <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span>
 0: <span style=color:#ae81ff>10</span> <span style=color:#ae81ff>21</span>
 1: <span style=color:#ae81ff>21</span> <span style=color:#ae81ff>10</span></code></pre></div></p>
-<p>To <a href=https://pmem.io/ndctl/ndctl-create-namespace.html>create a namespace</a> in Device-DAX mode as a standard memory from all the available capacity of NVDIMM:</p>
+<p>To <a href=/ndctl/ndctl-create-namespace.html>create a namespace</a> in Device-DAX mode as a standard memory from all the available capacity of NVDIMM:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ ndctl create-namespace --mode<span style=color:#f92672>=</span>devdax --map<span style=color:#f92672>=</span>mem</code></pre></div>
-<p>To <a href=https://pmem.io/ndctl/daxctl-list.html>list DAX devices</a>:</p>
+<p>To <a href=/ndctl/daxctl-list.html>list DAX devices</a>:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ daxctl list
 <p><span style=color:#f92672>[</span>
 <span style=color:#f92672>{</span>
@@ -359,7 +359,7 @@ node <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span>
 <span style=color:#e6db74>&quot;mode&quot;</span>:<span style=color:#e6db74>&quot;devdax&quot;</span>
 <span style=color:#f92672>}</span>
 <span style=color:#f92672>]</span></code></pre></div></p>
-<p>To <a href=https://pmem.io/ndctl/daxctl-reconfigure-device.html>reconfigure</a> DAX device from <code>devdax</code> mode to a <code>system-ram</code> mode:</p>
+<p>To <a href=/ndctl/daxctl-reconfigure-device.html>reconfigure</a> DAX device from <code>devdax</code> mode to a <code>system-ram</code> mode:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ daxctl reconfigure-device dax1.0 --mode<span style=color:#f92672>=</span>system-ram
 </code></pre></div>
 <p>After this operation, persistent memory is configured as a separate NUMA node and can be used as a volatile memory.
@@ -447,7 +447,7 @@ A check on that eligibility is performed upon starting the application.</p>
 are treated as persistent memory. This mechanism is dedicated to override the automatic
 mechanism for detecting the closest persistent memory NUMA nodes.</p>
 <h3 id=example-usage-with-memkind-library>Example usage with memkind library</h3>
-<p>Leveraging new kinds is similar to the usage presented in the previous <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind>post</a>
+<p>Leveraging new kinds is similar to the usage presented in the previous <a href=/blog/2020/01/introduction-to-libmemkind>post</a>
 with one exception that the kinds presented in this post do not need to be created first with <code>memkind_create_pmem()</code> method.</p>
 <p>With <code>libmemkind</code>, it is possible to distinguish the physical placement of an allocation:</p>
 <ul>
@@ -582,7 +582,7 @@ with one exception that the kinds presented in this post do not need to be creat
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

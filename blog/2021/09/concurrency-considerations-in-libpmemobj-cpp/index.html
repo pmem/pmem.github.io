@@ -314,7 +314,7 @@ complicated if data is modified concurrently. This blog post describes several
 challenges related to data visibility, using transactions in multi-threaded
 environments, and memory leaks.</p>
 <h3 id=lock-free-programming-on-pmem>Lock-free programming on pmem</h3>
-<p>A fundamental issue (if <a href=https://pmem.io/glossary/#eadr>eADR</a> is not used) is data visibility. When a
+<p>A fundamental issue (if <a href=/glossary/#eadr>eADR</a> is not used) is data visibility. When a
 thread issues a temporal (e.g., MOV) store instruction, the modification might
 be visible to other threads before it is persistent (data can still be in a CPU
 cache). Consider the following scenario with one thread writing to a variable
@@ -388,7 +388,7 @@ size<span style=color:#f92672>++</span>;
 });
 }
 };
-</code></pre></div><p>Just as a reminder (more details can be found <a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-1-pmem-resident-variables>here</a>)
+</code></pre></div><p>Just as a reminder (more details can be found <a href=/blog/2016/01/c-bindings-for-libpmemobj-part-1-pmem-resident-variables>here</a>)
 when a variable of type <code>pmem::obj::p</code> (or other persistent-aware structure
 like persistent_ptr or self_relative_ptr) is modified, its old value is saved
 in an undo log. In case the enclosing transaction aborts or there is a power
@@ -430,7 +430,7 @@ thread. Since it is per-thread, it can be safely modified in a transaction.
 On recovery, all <code>diff</code> variables can be summed-up to provide the actual size.
 Libpmemobj-cpp implements a helper data structure (which as of publish date
 of this blog post is not yet released as a public API) called
-<a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html>enumerable_thread_specific</a>. It provides API to request memory which
+<a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html>enumerable_thread_specific</a>. It provides API to request memory which
 will be private to a thread and iteration API. Enumerable thread-specific is
 used in concurrent_map and concurrent_hash_map to solve the shared state
 problem.</p>
@@ -728,7 +728,7 @@ threads.</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

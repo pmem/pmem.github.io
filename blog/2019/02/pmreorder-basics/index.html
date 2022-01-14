@@ -310,7 +310,7 @@ Pmreorder
 <div class="entry-content mt-0">
 <h2 id=introduction>Introduction</h2>
 <p>It&rsquo;s good practice to run persistent memory application under pmemcheck -
-a tool which is described <a href=https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-1-basics>here</a> and <a href=https://pmem.io/blog/2015/07/an-introduction-to-pmemcheck-part-2-transactions>here</a>.</p>
+a tool which is described <a href=/blog/2015/07/an-introduction-to-pmemcheck-part-1-basics>here</a> and <a href=/blog/2015/07/an-introduction-to-pmemcheck-part-2-transactions>here</a>.</p>
 <p>In this post, we are going to learn about another tool for persistence
 correctness checking. As you might already know if you&rsquo;ve read posts linked
 above, pmemcheck verifies if all stores are made persistent in a proper manner.
@@ -495,7 +495,7 @@ STOP
 made on the pool that are irrelevant for your tests.
 There is a mechanism called markers that enables ignoring selected set of stores
 during consistency check. For more information about this and other features
-take a look at the <a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p>
+take a look at the <a href=/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p>
 <p>Notice that stores made by consistency checker are not saved anywhere,
 so it can cause an issue if you try to recover pmemobj pool
 or modify data during the check. To resolve this issue we are going to
@@ -527,7 +527,7 @@ output:
 <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span>
 <span style=color:#f92672>(</span>c, b<span style=color:#f92672>)</span>
 <span style=color:#f92672>(</span>c, b, a<span style=color:#f92672>)</span></code></pre></div>
-<p>For more examples and information about engines look at the <a href=https://pmem.io/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p>
+<p>For more examples and information about engines look at the <a href=/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p>
 <p>Note that pmreorder requires python3 to be present in the system.</p>
 <p>Using that information we can run pmreorder with the following command:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>{{</span>&lt;  highlight sh &gt;<span style=color:#f92672>}}</span>
@@ -741,7 +741,7 @@ Good luck!</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

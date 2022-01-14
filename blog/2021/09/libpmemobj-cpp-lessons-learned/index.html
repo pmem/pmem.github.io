@@ -308,7 +308,7 @@ Libpmemobj-Cpp
 </div>
 <div class="entry-content mt-0">
 <h3 id=introduction>Introduction</h3>
-<p>We&rsquo;ve been working on C++ bindings for <em>libpmemobj</em> since around 2016 - see our <a href=https://pmem.io/2016/01/12/cpp-01.html>very first
+<p>We&rsquo;ve been working on C++ bindings for <em>libpmemobj</em> since around 2016 - see our <a href=/2016/01/12/cpp-01.html>very first
 tutorial for libpmemobj-cpp</a>. We&rsquo;ve come a long way since then. A lot has
 changed - we&rsquo;ve gained more experience and knowledge, added new features, fixed quite a few
 bugs, and created at least half a dozen new containers. It&rsquo;s fair to state this product is now
@@ -349,12 +349,12 @@ below, you can see that all the data is held together: metadata, key
 it comes to updating the string data, and the value is longer than the existing string
 allocation - <strong>the whole node</strong> has to be re-allocated.</p>
 <h4 id=using-per-thread-data>Using per-thread data</h4>
-<p>Very recently, we&rsquo;ve described (<a href=https://pmem.io/2021/09/17/concurrency.html>in the &ldquo;Concurrency considerations&rdquo; blog post</a>)
+<p>Very recently, we&rsquo;ve described (<a href=/2021/09/17/concurrency.html>in the &ldquo;Concurrency considerations&rdquo; blog post</a>)
 our approach to ensure data consistency. It&rsquo;s a very challenging task, especially if
 you consider concurrent modifications within a container full of records, with multiple
 threads accessing/modifying the same structure. Read the whole post for details,
 but long story short - per-thread data (implemented in libpmemobj-cpp as
-<a href=https://pmem.io/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html>enumerable_thread_specific</a>) can save you from data consistency issues.</p>
+<a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1detail_1_1enumerable__thread__specific.html>enumerable_thread_specific</a>) can save you from data consistency issues.</p>
 <h4 id=keeping-locks-on-pmem-is-not-a-good-idea>Keeping locks on pmem is not a good idea</h4>
 <p>Since we keep all data for our application on persistent memory, one might think we should
 do that as well with locks. That&rsquo;s the wrong way. Each lock and unlock operation might end up
@@ -397,7 +397,7 @@ linked article.</p>
 <p>By publishing a stable release of libpmemobj-cpp, we committed to a stable on-media layout.
 From that point, we try and still promise that. We had a small hiccup on the way (in PMDK)
 with pools compatibility, but we&rsquo;ve managed to fix that with the help of a tool now called
-<a href=https://pmem.io/2019/02/01/pool-conversion-tool.html>pmdk-convert</a>. Right now, we&rsquo;ve learned our lesson - we try to make the
+<a href=/2019/02/01/pool-conversion-tool.html>pmdk-convert</a>. Right now, we&rsquo;ve learned our lesson - we try to make the
 layout extensible, but we know that <em>we don&rsquo;t know everything</em>. That&rsquo;s why, keeping in mind
 future improvements, we save up some space for extensions in each structure. We&rsquo;ve also
 introduced a mechanism for checking the compatibility - a <code>feature_flags</code>. Each time a data
@@ -417,7 +417,7 @@ The list is, naturally, not complete - we always look for something to improve.<
 <p>We hope it was helpful to read about all these challenges. You can learn from our mistakes,
 not repeat them, and, hopefully, make good software using persistent memory. If you&rsquo;d like
 to learn more, we&rsquo;ve shared some of these issues (and solutions) in the 2021 PMDK Summit
-in a presentation titled <a href=https://pmem.io/pmdksummit2021/>&ldquo;State of Pmemkv&rdquo; </a>. Jump into that summit&rsquo;s
+in a presentation titled <a href=/events/2021-spdk-pmdk-intel-performance-analyzers-virtual-forum/>&ldquo;State of Pmemkv&rdquo;</a>. Jump into that summit&rsquo;s
 videos for more info about our projects. And don&rsquo;t forget we&rsquo;re open source. Do you have
 ideas to improve our algorithms, extend this library, or just want to make a suggestion?
 Please share - file an issue or simply open a pull request with your tweaks.</p>
@@ -609,7 +609,7 @@ Please share - file an issue or simply open a pull request with your tweaks.</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

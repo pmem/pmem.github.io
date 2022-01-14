@@ -316,7 +316,7 @@ compatibility, mostly because we made changes whose benefit far outweighed
 the costs. For this reason, we created the <code>pmempool convert</code> command. This tool was used to convert
 pools which were created with old PMDK versions to the newer on-media layout.
 In 1.5 release this functionality was refactored and moved to a separate tool
-called <a href=https://pmem.io/pmdk-convert/manpages/v1.5/pmdk-convert.1.html><strong>pmdk-convert</strong></a>.</p>
+called <a href=/pmdk-convert/manpages/v1.5/pmdk-convert.1.html><strong>pmdk-convert</strong></a>.</p>
 <h2 id=layout-versions-vs-pmdk-releases>Layout versions vs. PMDK releases</h2>
 <p>The on-media layout of libpmemobj pools has changed few times since the
 initial release. The mapping between the layout version and corresponding PMDK
@@ -410,7 +410,7 @@ and <span style=color:#66d9ef>then</span> use pmdk-convert.
 </code></pre></div><p>pmdk-convert does not support conversion of pools with remote replicas.
 To convert such pools, the following workaround must be used.</p>
 <ol>
-<li>A remote replica needs to be removed by <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html>pmempool transform command</a>.
+<li>A remote replica needs to be removed by <a href=/pmdk/manpages/linux/master/pmempool/pmempool-transform.1.html>pmempool transform command</a>.
 Before calling pmempool transform, you have to prepare a new poolset file
 without a remote replica.</li>
 </ol>
@@ -442,7 +442,7 @@ pmempool transform command:</li>
 <p>In 1.5 release we introduced an extra features flags. After upgrading pmdk
 (and pool conversion for libpmemobj pools), they can be turned on for
 existing pools. Detailed information about feature flags can be found in
-the <a href=https://pmem.io/blog/2018/12/pool-features/>pool features</a> blog post.</p>
+the <a href=/blog/2018/12/pool-features/>pool features</a> blog post.</p>
 <div class=clear></div>
 <div class="si-share border-0 d-flex justify-content-between align-items-center">
 <span>Share this Post:</span>
@@ -591,7 +591,7 @@ the <a href=https://pmem.io/blog/2018/12/pool-features/>pool features</a> blog p
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>

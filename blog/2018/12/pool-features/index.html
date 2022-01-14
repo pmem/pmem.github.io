@@ -312,14 +312,14 @@ Pool_features
 <h1 id=introduction>Introduction</h1>
 <p>Since the very first release, PMDK pools had internal feature flags. They were
 mostly a hidden implementation detail. The more observant users might have
-noticed pool features listing in <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-info.1.html>pmempool info</a> output,
+noticed pool features listing in <a href=/pmdk/manpages/linux/master/pmempool/pmempool-info.1.html>pmempool info</a> output,
 but that&rsquo;s about it.</p>
-<p><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk>Release 1.5</a> introduced a set of new feature flags.
+<p><a href=/blog/2018/10/new-release-of-pmdk>Release 1.5</a> introduced a set of new feature flags.
 And since it&rsquo;s imperative that system administrators have the ability to manage
 enabled features, we&rsquo;ve added functionality that helps with that:</p>
 <ul>
-<li><code>pmempool</code> tool <a href=https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html>commands for managing features</a></li>
-<li><em>libpmempool</em> <a href=https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>API for managing features</a></li>
+<li><code>pmempool</code> tool <a href=/pmdk/manpages/linux/master/pmempool/pmempool-feature.1.html>commands for managing features</a></li>
+<li><em>libpmempool</em> <a href=/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>API for managing features</a></li>
 <li>CTL namespace for
 <a href=#enabling-feature-at-creation-time>setting a <code>SHUTDOWN_STATE</code> initial value</a></li>
 </ul>
@@ -397,7 +397,7 @@ printf(<span style=color:#e6db74>&quot;pmempool_feature_query results is %s&quot
 </ul>
 <h2 id=enabling-feature-at-creation-time>Enabling feature at creation time</h2>
 <p>Some features might be disabled by default. To enable them at creation time,
-use appropriate query from the <a href=https://pmem.io/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3>CTL namespace</a>.
+use appropriate query from the <a href=/pmdk/manpages/linux/master/libpmemobj/pmemobj_ctl_get.3>CTL namespace</a>.
 An example using <strong>pmem_ctl</strong>(5) environment variable:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ PMEMOBJ_CONF<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sds.at_create=1&#34;</span> pmempool create obj /path/to/poolset.file
 $ pmempool feature --query SHUTDOWN_STATE /path/to/poolset.file
@@ -523,7 +523,7 @@ pmemobj_close(pop);</p>
 <a href=https://pmem.io/terms.html>Terms</a>
 </div>
 <div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2021 pmem.io</p>
+<p>Copyright &copy; 2022 pmem.io</p>
 </div>
 </div>
 </div>
