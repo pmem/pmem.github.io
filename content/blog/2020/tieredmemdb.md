@@ -1,6 +1,6 @@
 ---
 # Blog post title
-title: 'MemKeyDB - Redis with Persistent Memory'
+title: 'TieredMemDB - Redis with Persistent Memory'
 
 # Blog post creation date
 date: 2020-09-25T19:55:17-07:00
@@ -23,16 +23,17 @@ image: ''
 author: 'jschmieg'
 
 # Categories to which this blog post belongs
-blogs: ['memkeydb']
+blogs: ['tieredmemdb']
 
 tags: []
 
 # Redirects from old URL
-aliases: ['/2020/09/25/memkeydb.html']
+aliases: ['/2020/09/25/tieredmemdb.html', '/2020/09/25/memkeydb.html']
 
 # Blog post type
 type: 'post'
 ---
+###### [14-Jan-2022 Note: this blog post has been updated due to the renaming of our database from MemKeyDB to TieredMemDB]
 
 # Context
 
@@ -76,12 +77,12 @@ With the possibilities described above, we modified Redis by adding a new type
 of memory used in a volatile way, while retaining the native mechanisms of
 persistence: logging (AOF) and snapshoting (RDB). At the same time, we collected
 functional requirements from stakeholders and created a community around the
-project on github: [MemKeyDB](https://github.com/memKeyDB/memKeyDB).
+project on github: [TieredMemDB](https://github.com/TieredMemDB/TieredMemDB).
 
 # Technical description
 
 Antirez’ Redis uses jemalloc to allocate memory for the application. In
-MemKeyDB, it was replaced with Memkind allocator which is based on jemalloc. It
+TieredMemDB, it was replaced with Memkind allocator which is based on jemalloc. It
 manages allocations from DRAM and PMem by introducing memory kinds. Separate
 `malloc` calls are used to allocate on both mediums. To simplify code
 modification, it is very convenient to use another Memkind feature which is
@@ -125,7 +126,7 @@ DRAM. This is done with simple code modification for “client” structure and 
 lot of its side structures, e.g. buffers used for storing incoming data or used
 for creating a list of objects to be sent to the client.
 
-![Client optimization](/images/posts/memkeydb_client.png)
+![Client optimization](/images/posts/tieredmemdb_client.png)
 
 Other structures are metadata that describe user' data. They are usually very
 small compared to keys and values but may influence performance when stored on
@@ -159,4 +160,5 @@ also optimized by passing specific parameters during “configure” part:
 # Project location
 
 Project is available here:
-[https://github.com/memKeyDB/memKeyDB](https://github.com/memKeyDB/memKeyDB).
+[https://github.com/TieredMemDB/TieredMemDB](https://github.com/TieredMemDB/TieredMemDB).
+
