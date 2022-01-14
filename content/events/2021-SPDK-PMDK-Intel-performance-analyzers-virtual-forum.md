@@ -56,7 +56,7 @@ The videos are available in the [SPDK 2021 US Virtual Forum](https://www.youtube
 
 - [State of the Project](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_1_2021_PMDK_State_of_PMDK_Andy_Piotr.pdf)
 - [Adopting Redis to Persistent Memory](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_2_2021_PMDK_Adopting_Redis_to_Persistent_Memory_Jakub_Schmiegel.pdf)
-- [Hazelcast and MemKind](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_3_2021_PMDK_Hazelcast_Memkind_Zoltan_Michal.pdf)
+- [Hazelcast and Memkind](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_3_2021_PMDK_Hazelcast_Memkind_Zoltan_Michal.pdf)
 - [Remote Persistent Memory](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_4_2021_PMDK_Remote_PMEM_Tomasz_Gromadzki.pdf)
 - [State of Pmemkv](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_5_2021_PMDK_State_of_pmemkv_Pawel_Igor.pdf)
 - [Building Java Solutions with Persistent Memory](https://ci.spdk.io/download/2021-virtual-forum-us/Topic_6_2021_PMDK_Building_Java_Solutions_with_PMEM_Olasoji_Denloye.pdf)

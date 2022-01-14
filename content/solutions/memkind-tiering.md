@@ -9,7 +9,7 @@ date: 2021-09-15T23:27:50Z
 draft: false
 
 # ISV or Vendor name
-vendor_name: "MemKind"
+vendor_name: "Memkind"
 
 # Product Name
 product_name: "MemTier"
