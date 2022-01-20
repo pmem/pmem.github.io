@@ -1,15 +1,15 @@
 <!doctype html><html dir=ltr lang=en-us><head>
 <link rel=stylesheet type=text/css href=/css/style.css>
-<meta property="og:title" content="memkeydb">
+<meta property="og:title" content="tieredmemdb">
 <meta property="og:description" content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://pmem.io/blogs/memkeydb/">
+<meta property="og:url" content="https://pmem.io/blogs/tieredmemdb/">
 <meta charset=utf-8>
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
 <link rel=manifest href=/site.webmanifest>
-<title>memkeydb</title>
+<title>tieredmemdb</title>
 <meta name=author content="PMem.io">
 <meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
 <meta name=robots content="index, follow, archive">
@@ -287,7 +287,7 @@
 <section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url(/images/backgrounds/blog_banner.jpg);background-size:cover;padding:120px 0">
 <div class="container clearfix mt-4">
 <div class=slider-title>
-<h2 style=color:#fff>memkeydb</h2>
+<h2 style=color:#fff>tieredmemdb</h2>
 <p style=color:#fff></p>
 </div>
 </div>
@@ -302,12 +302,12 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
-<a href=https://pmem.io/blog/2020/09/memkeydb-redis-with-persistent-memory/ data-lightbox=image><img src=/images/pmem_logo.png alt="MemKeyDB - Redis with Persistent Memory"></a>
+<a href=https://pmem.io/blog/2020/09/tieredmemdb-redis-with-persistent-memory/ data-lightbox=image><img src=/images/pmem_logo.png alt="TieredMemDB - Redis with Persistent Memory"></a>
 </div>
 </div>
 <div class="col-md-8 ps-md-4">
 <div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2020/09/memkeydb-redis-with-persistent-memory/>MemKeyDB - Redis with Persistent Memory</a></h2>
+<h2><a href=https://pmem.io/blog/2020/09/tieredmemdb-redis-with-persistent-memory/>TieredMemDB - Redis with Persistent Memory</a></h2>
 </div>
 <div class=entry-meta>
 <ul>
@@ -315,14 +315,13 @@
 <li><i class=icon-user></i>Jschmieg</li>
 <li>
 <i class=icon-folder-open></i>
-Memkeydb
+Tieredmemdb
 </li>
 </ul>
 </div>
 <div class=entry-content>
-<p>Context Redis is an in-memory database that supports various data-structures and stores them in main memory. To support data durability, Redis relies on creating periodical snapshots of data or logging all commands that reach the server.
-When Persistent Memory was first introduced, we’ve …</p>
-<a href=https://pmem.io/blog/2020/09/memkeydb-redis-with-persistent-memory/ class=more-link>Read More</a>
+<p>[14-Jan-2022 Note: this blog post has been updated due to the renaming of our database from MemKeyDB to TieredMemDB] Context Redis is an in-memory database that supports various data-structures and stores them in main memory. To support data durability, Redis relies on creating periodical snapshots …</p>
+<a href=https://pmem.io/blog/2020/09/tieredmemdb-redis-with-persistent-memory/ class=more-link>Read More</a>
 </div>
 </div>
 </div>
@@ -355,7 +354,6 @@ When Persistent Memory was first introduced, we’ve …</p>
 <h4 class="fw-normal mt-2"><a href=/blogs/llpl/ class=text-capitalize>llpl (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/macros/ class=text-capitalize>macros (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/memcpy/ class=text-capitalize>memcpy (1)</a></h4>
-<h4 class="fw-normal mt-2"><a href=/blogs/memkeydb/ class=text-capitalize>memkeydb (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/memkind/ class=text-capitalize>memkind (4)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/model/ class=text-capitalize>model (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/multithreaded/ class=text-capitalize>multithreaded (1)</a></h4>
@@ -373,6 +371,7 @@ When Persistent Memory was first introduced, we’ve …</p>
 <h4 class="fw-normal mt-2"><a href=/blogs/pool_features/ class=text-capitalize>pool_features (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/replication/ class=text-capitalize>replication (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/report/ class=text-capitalize>report (4)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/tieredmemdb/ class=text-capitalize>tieredmemdb (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/translation/ class=text-capitalize>translation (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/vmem/ class=text-capitalize>vmem (1)</a></h4>
 </div>
