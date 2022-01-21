@@ -3,7 +3,7 @@
 title: "Disaggregated Memory - In pursuit of scale and efficiency"
 
 # Blog post creation date
-date: 2022-01-21T15:00:00+01:00
+date: 2022-01-21T10:00:00+01:00
 
 # Change to 'false' when publishing the blog post
 draft: false
