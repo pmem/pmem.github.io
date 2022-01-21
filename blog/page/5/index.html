@@ -302,6 +302,36 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2019/02/c-persistent-containers-vector/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ persistent containers - vector"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2019/02/c-persistent-containers-vector/>C++ persistent containers - vector</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> Feb 20, 2019</li>
+<li><i class=icon-user></i>Szyrom</li>
+<li>
+<i class=icon-folder-open></i>
+Libpmemobj-Cpp
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>[Note: pmem::obj::vector&lt;> is no longer experimental. The rest of the information in this blog post is still accurate.] Introduction The main idea behind pmem containers is to fully exploit persistent memory potential by designing optimized on-media layouts and algorithms for persistent memory …</p>
+<a href=https://pmem.io/blog/2019/02/c-persistent-containers-vector/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2019/02/pmreorder-basics/ data-lightbox=image><img src=/images/pmem_logo.png alt="Pmreorder basics"></a>
 </div>
 </div>
@@ -420,36 +450,6 @@ Release 1.5 introduced a set of new feature flags. …</p>
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2018/11/bad-blocks/ data-lightbox=image><img src=/images/pmem_logo.png alt="Bad blocks"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2018/11/bad-blocks/>Bad blocks</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Nov 26, 2018</li>
-<li><i class=icon-user></i>Ldorau</li>
-<li>
-<i class=icon-folder-open></i>
-Blocks
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>Introduction Over time, storage devices can acquire uncorrectable media errors often called “bad blocks”. A bad block is a part of a storage media that is either inaccessible or unwritable due to a permanent physical damage. In case of memory mapped I/O, if a process tries to access …</p>
-<a href=https://pmem.io/blog/2018/11/bad-blocks/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -477,7 +477,7 @@ Blocks
 <a href=/blog/page/6/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
 </li>
 <li class=page-item>
-<a href=/blog/page/16/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
+<a href=/blog/page/17/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
 </li>
 </ul></div>
 </div>
@@ -512,7 +512,7 @@ Blocks
 <h4 class="fw-normal mt-2"><a href=/blogs/mysql/ class=text-capitalize>mysql (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/perf300/ class=text-capitalize>perf300 (2)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/performance/ class=text-capitalize>performance (1)</a></h4>
-<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (7)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (8)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem/ class=text-capitalize>pmem (4)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem.io/ class=text-capitalize>pmem.io (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem_emulation/ class=text-capitalize>pmem_emulation (1)</a></h4>
@@ -539,10 +539,10 @@ Blocks
 <a href=/tags/pmem class=block role=button>pmem</a>
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
+<a href=/tags/pmdk class=block role=button>pmdk</a>
 <a href=/tags/configure class=block role=button>configure</a>
 <a href=/tags/dax class=block role=button>dax</a>
 <a href=/tags/install class=block role=button>install</a>
-<a href=/tags/pmdk class=block role=button>pmdk</a>
 <a href=/tags/setup class=block role=button>setup</a>
 <a href=/tags/faq class=block role=button>faq</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
@@ -553,6 +553,7 @@ Blocks
 <a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/crash class=block role=button>crash</a>
 <a href=/tags/create class=block role=button>create</a>
+<a href=/tags/cxl class=block role=button>cxl</a>
 <a href=/tags/database class=block role=button>database</a>
 <a href=/tags/destroy class=block role=button>destroy</a>
 <a href=/tags/developer class=block role=button>developer</a>
@@ -562,9 +563,8 @@ Blocks
 <a href=/tags/fsck class=block role=button>fsck</a>
 <a href=/tags/gpu class=block role=button>gpu</a>
 <a href=/tags/hang class=block role=button>hang</a>
+<a href=/tags/hmat class=block role=button>hmat</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
-<a href=/tags/howto class=block role=button>howto</a>
-<a href=/tags/in-memory-database class=block role=button>in-memory-database</a>
 </div>
 </div>
 </div>

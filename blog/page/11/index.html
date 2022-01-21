@@ -302,6 +302,36 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/ data-lightbox=image><img src=/images/pmem_logo.png alt="How to emulate Persistent Memory"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/>How to emulate Persistent Memory</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> Feb 22, 2016</li>
+<li><i class=icon-user></i>Maciej Maciejewski</li>
+<li>
+<i class=icon-folder-open></i>
+Pmem_emulation
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>Data allocated with PMDK is put to the virtual memory address space, and concrete ranges are relying on result of mmap(2) operation performed on the user defined files. Such files can exist on any storage media, however data consistency assurance embedded within PMDK requires frequent …</p>
+<a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-0/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 0)"></a>
 </div>
 </div>
@@ -419,36 +449,6 @@ Linked-list queue Queue is a …</p>
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2015/12/performance-improvements/ data-lightbox=image><img src=/images/pmem_logo.png alt="Performance improvements"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2015/12/performance-improvements/>Performance improvements</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Dec 15, 2015</li>
-<li><i class=icon-user></i>Tomaszkapela</li>
-<li>
-<i class=icon-folder-open></i>
-Performance
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>I would like to inform you about the performance improvements that have been going on in PMDK and libpmemobj in particular. We have not been standing still and we are trying out a couple of ideas on how to make our libraries even faster. Some of the improvements are smaller, some are larger. Some of …</p>
-<a href=https://pmem.io/blog/2015/12/performance-improvements/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -476,7 +476,7 @@ Performance
 <a href=/blog/page/12/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
 </li>
 <li class=page-item>
-<a href=/blog/page/16/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
+<a href=/blog/page/17/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
 </li>
 </ul></div>
 </div>
@@ -511,7 +511,7 @@ Performance
 <h4 class="fw-normal mt-2"><a href=/blogs/mysql/ class=text-capitalize>mysql (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/perf300/ class=text-capitalize>perf300 (2)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/performance/ class=text-capitalize>performance (1)</a></h4>
-<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (7)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (8)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem/ class=text-capitalize>pmem (4)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem.io/ class=text-capitalize>pmem.io (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem_emulation/ class=text-capitalize>pmem_emulation (1)</a></h4>
@@ -538,10 +538,10 @@ Performance
 <a href=/tags/pmem class=block role=button>pmem</a>
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
+<a href=/tags/pmdk class=block role=button>pmdk</a>
 <a href=/tags/configure class=block role=button>configure</a>
 <a href=/tags/dax class=block role=button>dax</a>
 <a href=/tags/install class=block role=button>install</a>
-<a href=/tags/pmdk class=block role=button>pmdk</a>
 <a href=/tags/setup class=block role=button>setup</a>
 <a href=/tags/faq class=block role=button>faq</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
@@ -552,6 +552,7 @@ Performance
 <a href=/tags/blogs class=block role=button>blogs</a>
 <a href=/tags/crash class=block role=button>crash</a>
 <a href=/tags/create class=block role=button>create</a>
+<a href=/tags/cxl class=block role=button>cxl</a>
 <a href=/tags/database class=block role=button>database</a>
 <a href=/tags/destroy class=block role=button>destroy</a>
 <a href=/tags/developer class=block role=button>developer</a>
@@ -561,9 +562,8 @@ Performance
 <a href=/tags/fsck class=block role=button>fsck</a>
 <a href=/tags/gpu class=block role=button>gpu</a>
 <a href=/tags/hang class=block role=button>hang</a>
+<a href=/tags/hmat class=block role=button>hmat</a>
 <a href=/tags/how-to class=block role=button>how-to</a>
-<a href=/tags/howto class=block role=button>howto</a>
-<a href=/tags/in-memory-database class=block role=button>in-memory-database</a>
 </div>
 </div>
 </div>
