@@ -18,9 +18,9 @@ The **Remote Persistent Memory Access (RPMA)** (librpma) is a C library to simpl
 
 The documentation is available for:
 
-* the current [master](https://github.com/pmem/rpma/tree/man-pages/manpages/master)
-* [v0.10.0](https://github.com/pmem/rpma/tree/man-pages/manpages/v0.10.0)
-* [v0.9.0](https://github.com/pmem/rpma/tree/man-pages/manpages/v0.9.0)
+* the current <a href="manpages/master/librpma.7.html">master</a>
+* <a href="manpages/v0.10.0/librpma.7.html">v0.10.0</a>
+* <a href="manpages/v0.9.0/librpma.7.html">v0.9.0</a>
 
 ### Recommended reading list
 
