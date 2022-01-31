@@ -23,15 +23,13 @@ contact_us:
   enable: true
   bg_image: ''
   title: 'Contacting Us'
-  content: 'The PMDK team at
-    [Intel Corporation](https://www.intel.com), started by
-    [Andy Rudoff](mailto:andy.rudoff@intel.com), created this project
-    on GitHub to encourage community development. To find the source
-    for a specific component of PMDK, see the [repo index page](/repoindex/).
+  content: 'This site and the Persistent Memory Development Kit project (PMDK)
+    are open source projects that welcome contributions from anyone interested
+    in persistent memory.  They are currently under the technical leadership
+    of [Piotr Balcer](mailto:piotr.balcer@intel.com) of
+    [Intel](https://www.intel.com).
 
-
-
-    Your participation, feedback, and questions are welcome!'
+    To find the source for a specific component of PMDK, see the [repo index page](/repoindex/).'
   list:
     item1: '[Join our Google Group](https://groups.google.com/group/pmem) to participate in discussions on persistent memory programming, including the design of the libraries and future directions.'
     item2: 'Join our **#pmem** Slack channel using this [invite link](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg).'
