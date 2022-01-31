@@ -3,16 +3,26 @@ pmem.github.io
 
 ### pmem.io web site
 
-This repo contains the jekyll-based web site for https://pmem.io.
+This repo contains the top-level content for the pmem.io website.
 
-The content specific to PMDK, accessed by the URL https://pmem.io/pmdk,
-lives in the gh-pages branch of the pmdk repo itself (GitHub pages magic
-causes the appropriate URLs to find the appropriate content).
+Files on the “main” branch of this repo contain the source which is run through
+Hugo automatically when changed via the GitHub Actions configuration in:
+```
+.github/workflows/gh-pages.yml
+```
 
-Similarly, the content specific to ndctl, accessed by the URL
-https://pmem.io/ndctl, lives in the gh-pages branch of the ndctl repo
-itself
+The result is deployed to the “gh-pages” branch (so you should not edit those files
+Directly or they will be overwritten by the next deployment).
+
+Most of the basic content is under data/en, for example, the content for the URL
+```
+https://pmem.io/about/
+```
+is in the file:
+```
+data/en/about.yml
+```
 
 The contents of this site are BSD-licensed open source.
 
-Send questions or comments to [andy.rudoff@intel.com](mailto:andy.rudoff@intel.com).
+Send questions or comments to [piotr.balcer@intel.com](mailto:piotr.balcer@intel.com).
