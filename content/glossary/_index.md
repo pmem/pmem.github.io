@@ -38,7 +38,7 @@ SNIA® is a trademark of the
 - [1LM](#1lm) (One-level Memory)
 - [2LM](#2lm) (Two-level Memory)
 - [3D XPoint](#3d-xpoint)
-- [ADR](#adr) (Asychronous DRAM Refresh)
+- [ADR](#adr) (Asynchronous DRAM Refresh)
 - [App Direct](#app-direct) (Application Direct)
 - [ARS](#ars) (Address Range Scrub)
 - [Bad Blocks](#bad-blocks)
@@ -149,7 +149,7 @@ for it.
 
 #### ADR
 
-(Asychronous DRAM Refresh)
+(Asynchronous DRAM Refresh)
 
 **ADR** is the hardware feature that flushes stores from the memory
 controller write pending queue (WPQ) to their destination on power loss.

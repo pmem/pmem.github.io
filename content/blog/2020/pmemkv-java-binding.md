@@ -146,7 +146,7 @@ public void paint(Graphics g) {
 
 ### What's next?
 
-Currently pmemkv-java 1.0 API is compatibile with pmemkv 1.0 API. In upcoming releases we are
+Currently pmemkv-java 1.0 API is compatible with pmemkv 1.0 API. In upcoming releases we are
 going to implement features available in new pmemkv versions.
 
 

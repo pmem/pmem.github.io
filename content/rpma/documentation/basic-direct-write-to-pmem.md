@@ -17,7 +17,7 @@ disclaimer: "The contents of this web site and the associated <a href=\"https://
 
 ### 2nd Generation Intel® Xeon® Scalable Processors
 
-For the 2nd Generation Intel® Xeon® Scalable Processors (**Cascade Lake**) the only configuration item one should take care of is Intel® Data Direct I/O Technology (**DDIO**). **DDIO** assumes the good enough place to effectively store data comming from the RDMA (and any other DMA traffic) is the CPU LLC from which CPU can access it more easily than when it would be stored in DRAM or on PMem <a href="https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html">[1]</a> This is beneficial for any other DMA traffic but prevents from achiving Direct Write to PMem.
+For the 2nd Generation Intel® Xeon® Scalable Processors (**Cascade Lake**) the only configuration item one should take care of is Intel® Data Direct I/O Technology (**DDIO**). **DDIO** assumes the good enough place to effectively store data coming from the RDMA (and any other DMA traffic) is the CPU LLC from which CPU can access it more easily than when it would be stored in DRAM or on PMem <a href="https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html">[1]</a> This is beneficial for any other DMA traffic but prevents from achieving Direct Write to PMem.
 
 For the **Cascade Lake** processor **DDIO** can be turned off (at the same time enabling Direct Write to PMem) at least at two possible levels:
 

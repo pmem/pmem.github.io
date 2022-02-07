@@ -31,7 +31,7 @@ The *Performance - Tuning* aims to collect all tested and proven procedures with
         * System Acoustic and Performance Configuration - Set Fan Profile - **Performance**
     <br /><br />
 * PMem-related
-    * Configure maximum available operating power for your PMem devices **[XXX source and details are missing]**. **Note:** Different sizes of PMem devices have different performance capabilites. If it is important for you, pick the right one for your application e.g.: <a href="https://www.intel.com/content/www/us/en/products/docs/memory-storage/optane-persistent-memory/optane-persistent-memory-200-series-brief.html">[1.3]</a>
+    * Configure maximum available operating power for your PMem devices **[XXX source and details are missing]**. **Note:** Different sizes of PMem devices have different performance capabilities. If it is important for you, pick the right one for your application e.g.: <a href="https://www.intel.com/content/www/us/en/products/docs/memory-storage/optane-persistent-memory/optane-persistent-memory-200-series-brief.html">[1.3]</a>
         * Memory Configuration - Average Power Budget - **18 mW**
         * Memory Configuration - NVM Performance Setting - **Latency Optimized**
 
