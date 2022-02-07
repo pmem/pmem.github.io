@@ -56,3 +56,10 @@ following exceptions:
   * 'content/pmemkv-java/*/html/stylesheet.css'
   are licensed under the Apache License, version 2.0
   (see: http://www.apache.org/licenses).
+
+* Files in these directories:
+  * 'content/pmemkv-python/*/html/static'
+  and these files:
+  * 'content/pmemkv-python/*/html/searchindex.js'
+  are licensed under the BSD 3-Clause
+  (see: https://github.com/sphinx-doc/sphinx/blob/3.x/LICENSE).

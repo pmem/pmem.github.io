@@ -23,4 +23,4 @@ Current code can be accessed on <a href="https://github.com/pmem/pmemkv-python">
 
 The API of pmemkv-python binding is documented in the following docs:
 
-* [master](https://pmem.io/pmemkv-python/master/html/index.html)
+* <a href="master/html/index.html">master</a>
