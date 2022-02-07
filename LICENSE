@@ -50,3 +50,9 @@ following exceptions:
   * 'content/pmemkv/*/doxygen/search/search.js'
   * 'content/pmemkv/*/doxygen/dynsections.js'
   are licensed under the GPL.
+
+* These files (delivered along with javadoc docs' generation):
+  * 'content/pmemkv-java/*/html/script.js'
+  * 'content/pmemkv-java/*/html/stylesheet.css'
+  are licensed under the Apache License, version 2.0
+  (see: http://www.apache.org/licenses).

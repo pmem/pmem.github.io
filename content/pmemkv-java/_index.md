@@ -21,10 +21,10 @@ Current code of pmemkv-java can be accessed on <a href="https://github.com/pmem/
 
 The API of pmemkv-java binding is documented in the following docs:
 
-* [master](https://pmem.io/pmemkv-java/master/html/index.html) - it implements additional API of libpmemkv (and requires min. version of 1.4)
-* [v1.2](https://pmem.io/pmemkv-java/v1.2/html/index.html) - it implements additional API of libpmemkv (and requires min. version of 1.4)
-* [v1.1](https://pmem.io/pmemkv-java/v1.1/html/index.html) - it is functionally equivalent to libpmemkv 1.0
-* [v1.0](https://pmem.io/pmemkv-java/v1.0/html/index.html) - it is functionally equivalent to libpmemkv 1.0
+* [master](master/html/index.html) - it implements additional API of libpmemkv (and requires min. version of 1.4)
+* [v1.2](v1.2/html/index.html) - it implements additional API of libpmemkv (and requires min. version of 1.4)
+* [v1.1](v1.1/html/index.html) - it is functionally equivalent to libpmemkv 1.0
+* [v1.0](v1.0/html/index.html) - it is functionally equivalent to libpmemkv 1.0
 
 ### Releases’ support status
 
@@ -55,5 +55,5 @@ Possible statuses:
 
 The following blog articles relates to pmemkv-java:
 
-* [API overview of pmemkv-java binding](https://pmem.io/2020/10/30/pmemkv-java-binding.html) - based on v1.0.0 implementation
+* [API overview of pmemkv-java binding](/2020/10/30/pmemkv-java-binding.html) - based on v1.0.0 implementation
 
