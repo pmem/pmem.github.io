@@ -59,7 +59,7 @@ From the `ndctl-create-namespace` man page, 'raw' mode does not support DAX (Dir
 
 ```
        -m, --mode=
-           -   "raw": expose the namespace capacity directly with limitations. Neither a raw pmem namepace nor raw blk
+           -   "raw": expose the namespace capacity directly with limitations. Neither a raw pmem namespace nor raw blk
            namespace support sector atomicity by default (see "sector" mode below). A raw pmem namespace may have limited
            to no dax support depending the kernel. In other words operations like direct-I/O targeting a dax buffer may
            fail for a pmem namespace in raw mode or indirect through a page-cache buffer. See "fsdax" and "devdax" mode

@@ -40,7 +40,7 @@ Memkind is a library mostly associated with enabling [Persistent Memory][memkind
 However, it is not the only type of memory that memkind supports.
 The library is a general solution designed for platforms with heterogeneous memory.
 
-But before we delve into heterogenous memory itself, let's start with a short recap about [NUMA][numa-intel].
+But before we delve into heterogeneous memory itself, let's start with a short recap about [NUMA][numa-intel].
 The NUMA concept solved the problem of a dynamic extension of the CPU count per socket and system memory.
 Before NUMA, Uniform Memory Access (UMA) was a common model, in which all processors shared physical memory uniformly.
 With the UMA approach and a rapid growth of a number of processors and memory in multi-socket machines, platforms faced scalability problems.
