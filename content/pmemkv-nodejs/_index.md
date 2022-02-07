@@ -19,4 +19,4 @@ Current code, tests, examples and installation guide can be accessed on <a href=
 
 The API of pmemkv-nodejs binding is documented in the following docs:
 
-* [master](https://pmem.io/pmemkv-nodejs/master/jsdoc/index.html)
+* <a href="master/jsdoc/index.html">master</a>
