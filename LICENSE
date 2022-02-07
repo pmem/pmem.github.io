@@ -34,15 +34,19 @@ following exceptions:
 
 * These files:
   * 'content/libpmemobj-cpp/*/doxygen/jquery.js'
+  * 'content/pmemkv/*/doxygen/jquery.js'
   are dual licensed under the MIT or GPL Version 2 license
   (see: https://jquery.org/license).
 
 * These files:
   * 'sizzle.js' (included in 'content/libpmemobj-cpp/*/doxygen/jquery.js')
+  * 'sizzle.js' (included in 'content/pmemkv/*/doxygen/jquery.js')
   are released under the MIT, BSD and GPL licenses
   (see: https://github.com/jquery/sizzle/blob/master/LICENSE.txt).
 
 * These files:
   * 'content/libpmemobj-cpp/*/doxygen/search/search.js'
   * 'content/libpmemobj-cpp/*/doxygen/dynsections.js'
+  * 'content/pmemkv/*/doxygen/search/search.js'
+  * 'content/pmemkv/*/doxygen/dynsections.js'
   are licensed under the GPL.
