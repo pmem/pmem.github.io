@@ -13,15 +13,14 @@ disclaimer: "The contents of this web site and the associated <a href=\"https://
 ---
 ### The C++ bindings to libpmemobj
 
-**libpmemobj-cpp** provides a less error prone version of
-[libpmemobj](/pmdk/libpmemobj/)
+**libpmemobj-cpp** provides a less error prone version of [libpmemobj](/pmdk/libpmemobj/)
 through the implementation of a pmem-resident property, persistent pointers,
 scoped and closure transactions, locking primitives and many others.
 
 Doxygen documentation is available:
 
-* for the current [**master**](./master/doxygen/index.html)
-* for the latest stable branch: [**v1.13**](./v1.13/doxygen/index.html)
+* for the current [**master**](master/doxygen/index.html)
+* for the latest stable branch: [**v1.13**](v1.13/doxygen/index.html)
 
 For older documentation [see below](#older-documentation).
 
@@ -47,6 +46,9 @@ There are also another blog posts regarding **C++ bindings**:
 * [C++ persistent containers](/2018/11/20/cpp-persistent-containers.html)
 * [C++ persistent containers - vector](/2019/02/20/cpp-vector.html)
 * [C++ standard limitations and Persistent Memory](/2019/10/04/cpp-limitations.html)
+* [Concurrency considerations in libpmemobj-cpp](/2021/09/17/concurrency.html)
+* [Libpmemobj-cpp - lessons learned](/2021/09/30/cpp-lessons-learned.html)
+
 
 ### Releases' support status
 
@@ -83,14 +85,14 @@ Possible statuses:
 ### Older documentation
 
 Older branches docs:
-* for [stable-1.12](../v1.12/doxygen/index.html)
-* for [stable-1.11](../v1.11/doxygen/index.html)
-* for [stable-1.10](../v1.10/doxygen/index.html)
-* for [stable-1.9](../v1.9/doxygen/index.html)
-* for [stable-1.8](../v1.8/doxygen/index.html)
-* for [stable-1.7](../v1.7/doxygen/index.html)
+* for [stable-1.12](v1.12/doxygen/index.html)
+* for [stable-1.11](v1.11/doxygen/index.html)
+* for [stable-1.10](v1.10/doxygen/index.html)
+* for [stable-1.9](v1.9/doxygen/index.html)
+* for [stable-1.8](v1.8/doxygen/index.html)
+* for [stable-1.7](v1.7/doxygen/index.html)
 
 ### Archived documentation
 
-* for version [1.6.1](../v1.6/doxygen/index.html)
-* for version [1.5.2](../v1.5/doxygen/index.html)
+* for version [1.6.1](v1.6/doxygen/index.html)
+* for version [1.5.2](v1.5/doxygen/index.html)
