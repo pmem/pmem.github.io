@@ -67,11 +67,8 @@ language_bindings:
           content: "<strong>pmemkv-nodejs</strong> <a href=\"/pmemkv-nodejs\">docs</a>"
         list_item3:
           content: "<strong>pmemkv-python</strong> <a href=\"/pmemkv-python\">docs</a>"
-    link_list2:
-      content: "or just a readme (on GitHub’s repository page):"
-      list_items:
-        list_item1:
-          content: "<strong>pmemkv-ruby</strong> <a href=\"https://github.com/pmem/pmemkv-ruby\">readme</a>"
+        list_item4:
+          content: "<strong>pmemkv-ruby</strong> <a href=\"/pmemkv-ruby\">readme</a>"
 
 #################################  Performance reports ################################# 
 performance_reports:
@@ -250,7 +247,7 @@ older_documentation:
               content: "<a href=\"./v1.3/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_4:
               content: "<a href=\"./v1.3/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
-      
+
 ################################# Archived Documentation #################################
 archived_documentation:
   enable: true
