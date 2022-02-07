@@ -63,3 +63,10 @@ following exceptions:
   * 'content/pmemkv-python/*/html/searchindex.js'
   are licensed under the BSD 3-Clause
   (see: https://github.com/sphinx-doc/sphinx/blob/3.x/LICENSE).
+
+* Files in these directories:
+  * 'content/pmemkv-nodejs/*/jsdoc/fonts'
+  * 'content/pmemkv-nodejs/*/jsdoc/scripts'
+  * 'content/pmemkv-nodejs/*/jsdoc/styles'
+  are licensed under the Apache License 2.0
+  (see: https://github.com/jsdoc/jsdoc/blob/master/LICENSE).
