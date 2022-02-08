@@ -1,0 +1,594 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemkv | PMDK">
+<meta property="og:description" content="NAME
+DESCRIPTION
+ENGINES
+BINDINGS
+SEE ALSO
+NAME pmemkv - Key/Value Datastore for Persistent Memory
+DESCRIPTION pmemkv is a key-value datastore framework optimized for persistent memory. It provides native C API and C++ headers. Support for other languages is described in the BINDINGS section below.
+It has multiple storage engines, each optimized for a different use case. They differ in implementation and capabilities:
+  persistence - this is a trade-off between data preservation and performance; persistent engines retain their content and are power fail/crash safe, but are slower; volatile engines are faster, but keep their content only until the database is closed (or application crashes; power fail occurs)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmemkv/v1.5/manpages/libpmemkv.7/"><meta property="article:section" content="pmemkv">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemkv | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff></h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#engines>ENGINES</a><br>
+<a href=#bindings>BINDINGS</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemkv</strong> - Key/Value Datastore for Persistent Memory</p>
+<h1 id=description>DESCRIPTION</h1>
+<p><strong>pmemkv</strong> is a key-value datastore framework optimized for persistent memory. It provides native C API and C++ headers. Support for other languages is described in the <strong>BINDINGS</strong> section below.</p>
+<p>It has multiple storage engines, each optimized for a different use case. They differ in implementation and capabilities:</p>
+<ul>
+<li>
+<p>persistence - this is a trade-off between data preservation and performance; persistent engines retain their content and are power fail/crash safe, but are slower; volatile engines are faster, but keep their content only until the database is closed (or application crashes; power fail occurs)</p>
+</li>
+<li>
+<p>concurrency - engines provide a varying degree of write scalability in multi-threaded workloads. Concurrent engines support non-blocking retrievals and, on average, highly scalable updates. For details see the description of individual engines.</p>
+</li>
+<li>
+<p>keys' ordering - &ldquo;sorted&rdquo; engines support querying above/below the given key. Most sorted engines also support passing a custom comparator object (see <strong>libpmemkv_config</strong>(3)). By default, pmemkv stores elements in binary order (comparison is done using a function equivalent to std::string::compare).</p>
+</li>
+</ul>
+<p>Persistent engines usually use libpmemobj++ and PMDK to access NVDIMMs. They can work with files on DAX filesystem (fsdax) or DAX device.</p>
+<h1 id=engines>ENGINES</h1>
+<table class="table table-bordered pmem-table dark-mode">
+<thead>
+<tr>
+<th>Engine Name</th>
+<th>Description</th>
+<th style=text-align:center>Persistent</th>
+<th style=text-align:center>Concurrent</th>
+<th style=text-align:center>Sorted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>cmap</strong></td>
+<td><strong>Concurrent hash map</strong></td>
+<td style=text-align:center><strong>Yes</strong></td>
+<td style=text-align:center><strong>Yes</strong></td>
+<td style=text-align:center><strong>No</strong></td>
+</tr>
+<tr>
+<td>vcmap</td>
+<td>Volatile concurrent hash map</td>
+<td style=text-align:center>No</td>
+<td style=text-align:center>Yes</td>
+<td style=text-align:center>No</td>
+</tr>
+<tr>
+<td>vsmap</td>
+<td>Volatile sorted hash map</td>
+<td style=text-align:center>No</td>
+<td style=text-align:center>No</td>
+<td style=text-align:center>Yes</td>
+</tr>
+<tr>
+<td>blackhole</td>
+<td>Accepts everything, returns nothing</td>
+<td style=text-align:center>No</td>
+<td style=text-align:center>Yes</td>
+<td style=text-align:center>No</td>
+</tr>
+</tbody>
+</table>
+<p>The most mature and recommended engine to use for persistent use-cases is <strong>cmap</strong>. It provides good performance results and stability.</p>
+<p>Each engine can be manually turned on and off at build time, using CMake options. All engines listed here are enabled and ready to use.</p>
+<p>To configure an engine, pmemkv_config is used (<strong>libpmemkv_config</strong>(3)). Below is a list of engines along with config parameters they expect. Each parameter has corresponding function (pmemkv_config_put_path, pmemkv_config_put_comparator, etc.), which guarantees type safety. For example to insert <code>path</code> parameter to the config, user should call pmemkv_config_put_path().
+For some use cases, like creating config from parsed input, it may be more convenient to insert parameters by their type instead of name. Each parameter has a certain type and may be inserted to a config using appropriate function (pmemkv_config_put_string, pmemkv_config_put_int64, etc.). For example, to insert a parameter of type <code>string</code>, <code>pmemkv_config_put_string</code> function may be used.
+Those two ways of inserting parameters into config may be used interchangeably.</p>
+<p>For description of pmemkv core API see <strong>libpmemkv</strong>(3).</p>
+<h2 id=cmap>cmap</h2>
+<p>A persistent concurrent engine, backed by a hashmap that allows calling get, put, and remove concurrently from multiple threads and ensures good scalability. Rest of the methods (e.g. range query methods) are not thread-safe and should not be called from more than one thread.
+Data stored using this engine is persistent and guaranteed to be consistent in case of any kind of interruption (crash / power loss / etc).</p>
+<p>Internally this engine uses persistent concurrent hashmap and persistent string from libpmemobj-cpp library (for details see <a href=https://github.com/pmem/libpmemobj-cpp>https://github.com/pmem/libpmemobj-cpp</a>). Persistent string is used as a type of a key and a value. Engine&rsquo;s functions should not be called within libpmemobj transactions (improper call by user will result thrown exception).</p>
+<p>This engine requires the following config parameters (see <strong>libpmemkv_config</strong>(3) for details how to set them):</p>
+<ul>
+<li><strong>path</strong> &ndash; Path to a database file or to a poolset file (see <strong>poolset</strong>(5) for details). Note that when using poolset file, size should be 0. It&rsquo;s used to open or create pool (layout &ldquo;pmemkv&rdquo;).
+<ul>
+<li>type: string</li>
+</ul>
+</li>
+<li><strong>create_if_missing</strong> &ndash; If 1, pmemkv tries to open the pool and if that doesn&rsquo;t succeed, it creates it.
+If 0, pmemkv will rely on <strong>create_or_error_if_exists</strong> flag setting.
+If both <strong>create_*</strong> flags will be false - pmemkv will open the pool (unless the path does not exist - then it&rsquo;ll fail).
+<ul>
+<li>type: uint64_t</li>
+<li>default value: 0</li>
+</ul>
+</li>
+<li><strong>create_or_error_if_exists</strong> &ndash; If 1, pmemkv creates the file (but it will fail if path exists).
+If 0, pmemkv will rely on <strong>create_if_missing</strong> flag setting.
+If both <strong>create_*</strong> flags will be false - pmemkv will open the pool (unless the path does not exist - then it&rsquo;ll fail).
+<ul>
+<li>type: uint64_t</li>
+<li>default value: 0</li>
+</ul>
+</li>
+<li><strong>size</strong> &ndash; Only needed if any of the above flags is 1. It specifies size of the database [in bytes] to create.
+<ul>
+<li>type: uint64_t</li>
+<li>min value: 8388608 (8MB)</li>
+</ul>
+</li>
+<li><strong>oid</strong> &ndash; Pointer to oid (for details see <strong>libpmemobj</strong>(7)) which points to engine data. If oid is null, engine will allocate new data, otherwise it will use existing one.
+<ul>
+<li>type: object</li>
+</ul>
+</li>
+</ul>
+<p>The following table shows four possible combinations of parameters (where &lsquo;-&rsquo; means &lsquo;cannot be set&rsquo;):</p>
+<table class="table table-bordered pmem-table dark-mode">
+<thead>
+<tr>
+<th><strong>#</strong></th>
+<th style=text-align:center><strong>path</strong></th>
+<th style=text-align:center><strong>create_if_missing</strong></th>
+<th style=text-align:center><strong>create_or_error_if_exists</strong></th>
+<th style=text-align:center><strong>size</strong></th>
+<th style=text-align:center><strong>oid</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td style=text-align:center>set</td>
+<td style=text-align:center>0</td>
+<td style=text-align:center>0</td>
+<td style=text-align:center>N/A</td>
+<td style=text-align:center>-</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td style=text-align:center>set</td>
+<td style=text-align:center>1</td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>set</td>
+<td style=text-align:center>-</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td style=text-align:center>set</td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>1</td>
+<td style=text-align:center>set</td>
+<td style=text-align:center>-</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>N/A</td>
+<td style=text-align:center>N/A</td>
+<td style=text-align:center>N/A</td>
+<td style=text-align:center>set</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>ad 1</em>: If none of the flags are set (default flags' value is false), pmemkv will only try to open the file
+and it fails if the path does not exist. Size is ignored.</p>
+</blockquote>
+<blockquote>
+<p><em>ad 2</em>: If <strong>create_if_missing</strong> flag is set, pmemkv will try to open the file (based on path)
+and if it doesn&rsquo;t succeed, pmemkv tries to create the file.
+Flag <strong>create_or_error_if_exists</strong> can&rsquo;t be set (or it should be set to 0).</p>
+</blockquote>
+<blockquote>
+<p><em>ad 3</em>: If <strong>create_or_error_if_exists</strong> flag is set, pmemkv will try to create the file (and fails if it exists).
+Flag <strong>create_if_missing</strong> can&rsquo;t be set (or it should be set to 0).</p>
+</blockquote>
+<blockquote>
+<p><em>ad 4</em>: If <strong>oid</strong> is set, path should not be set. Both flags and size are ignored.</p>
+</blockquote>
+<p>A database file or a poolset file can also be created using <strong>pmempool</strong> utility (see <strong>pmempool-create</strong>(1)).
+When using <strong>pmempool create</strong>, &ldquo;pmemkv&rdquo; should be passed as layout for cmap engine and &ldquo;pmemkv_&lt;engine-name>&rdquo; for other engines (e.g. &ldquo;pmemkv_stree&rdquo; for stree engine). Only PMEMOBJ pools are supported.</p>
+<h2 id=vcmap>vcmap</h2>
+<p>A volatile concurrent engine, backed by memkind. Data written using this engine is lost after database is closed.</p>
+<p>This engine is built on top of tbb::concurrent_hash_map data structure and uses PMEM C++ allocator to allocate memory. std::basic_string is used as a type of a key and a value.
+Memkind and TBB packages are required.</p>
+<p>This engine requires the following config parameters (see <strong>libpmemkv_config</strong>(3) for details how to set them):</p>
+<ul>
+<li><strong>path</strong> &ndash; Path to an existing directory
+<ul>
+<li>type: string</li>
+</ul>
+</li>
+<li><strong>size</strong> &ndash; Specifies size of the database [in bytes]
+<ul>
+<li>type: uint64_t</li>
+<li>min value: 16777216 (16MB) (value MEMKIND_PMEM_MIN_SIZE is specified in memkind.h)</li>
+</ul>
+</li>
+</ul>
+<h2 id=vsmap>vsmap</h2>
+<p>A volatile single-threaded sorted engine, backed by memkind. Data written using this engine is lost after database is closed.</p>
+<p>This engine is built on top of std::map and uses PMEM C++ allocator to allocate memory. std::basic_string is used as a type of a key and a value.
+Memkind package is required.</p>
+<p>This engine requires the following config parameters (see <strong>libpmemkv_config</strong>(3) for details how to set them):</p>
+<ul>
+<li><strong>path</strong> &ndash; Path to an existing directory
+<ul>
+<li>type: string</li>
+</ul>
+</li>
+<li><strong>size</strong> &ndash; Specifies size of the database [in bytes]
+<ul>
+<li>type: uint64_t</li>
+<li>min value: 16777216 (16MB) (value MEMKIND_PMEM_MIN_SIZE is specified in memkind.h)</li>
+</ul>
+</li>
+<li><strong>comparator</strong> &ndash; (optional) Specified comparator used by the engine
+<ul>
+<li>type: object</li>
+</ul>
+</li>
+</ul>
+<h2 id=blackhole>blackhole</h2>
+<p>A volatile engine that accepts an unlimited amount of data, but never returns anything.
+Internally, <code>blackhole</code> does not use a persistent pool or any durable structure. The intended use of this engine is to profile and tune high-level bindings, and similar cases when persistence
+should be intentionally skipped.
+No additional packages are required.
+No supported configuration parameters.</p>
+<h3 id=experimental-engines>Experimental engines</h3>
+<p>There are also more engines in various states of development, for details see <a href=https://github.com/pmem/pmemkv/blob/master/doc/ENGINES-experimental.md>https://github.com/pmem/pmemkv/blob/master/doc/ENGINES-experimental.md</a>.
+Some of them (radix, tree3, stree and csmap) requires the config parameters like cmap and similarly to cmap should not be used within libpmemobj transaction(s).</p>
+<h1 id=bindings>BINDINGS</h1>
+<p>Bindings for other languages are available on GitHub. Currently they support only subset of native API.</p>
+<p>Existing bindings:</p>
+<ul>
+<li>
+<p>Java - for details see <a href=https://github.com/pmem/pmemkv-java>https://github.com/pmem/pmemkv-java</a></p>
+</li>
+<li>
+<p>Node.js - for details see <a href=https://github.com/pmem/pmemkv-nodejs>https://github.com/pmem/pmemkv-nodejs</a></p>
+</li>
+<li>
+<p>Python - for details see <a href=https://github.com/pmem/pmemkv-python>https://github.com/pmem/pmemkv-python</a></p>
+</li>
+<li>
+<p>Ruby - for details see <a href=https://github.com/pmem/pmemkv-ruby>https://github.com/pmem/pmemkv-ruby</a></p>
+</li>
+</ul>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>libpmemkv</strong>(3), <strong>libpmemkv_config(3)</strong>, <strong>libpmemkv_iterator</strong>(3), <strong>pmempool</strong>(1), <strong>libpmemobj</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

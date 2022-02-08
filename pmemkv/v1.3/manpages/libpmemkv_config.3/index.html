@@ -1,0 +1,702 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemkv | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+EXAMPLE
+ERRORS
+SEE ALSO
+NAME pmemkv_config - Configuration API for libpmemkv
+SYNOPSIS #include <libpmemkv.h> pmemkv_config *pmemkv_config_new(void); void pmemkv_config_delete(pmemkv_config *config); int pmemkv_config_put_size(pmemkv_config *config, uint64_t value); int pmemkv_config_put_path(pmemkv_config *config, const char *value); int pmemkv_config_put_force_create(pmemkv_config *config, bool value); int pmemkv_config_put_comparator(pmemkv_config *config, pmemkv_comparator *comparator); int pmemkv_config_put_oid(pmemkv_config *config, PMEMoid *oid); int pmemkv_config_put_data(pmemkv_config *config, const char *key, const void *value, size_t value_size); int pmemkv_config_put_object(pmemkv_config *config, const char *key, void *value, void (*deleter)(void *)); int pmemkv_config_put_object_cb(pmemkv_config *config, const char *key, void *value, void *(*getter)(void *), void (*deleter)(void *)); int pmemkv_config_put_uint64(pmemkv_config *config, const char *key, uint64_t value); int pmemkv_config_put_int64(pmemkv_config *config, const char *key, int64_t value); int pmemkv_config_put_string(pmemkv_config *config, const char *key, const char *value); int pmemkv_config_get_data(pmemkv_config *config, const char *key, const void **value, size_t *value_size); int pmemkv_config_get_object(pmemkv_config *config, const char *key, void **value); int pmemkv_config_get_uint64(pmemkv_config *config, const char *key, uint64_t *value); int pmemkv_config_get_int64(pmemkv_config *config, const char *key, int64_t *value); int pmemkv_config_get_string(pmemkv_config *config, const char *key, const char **value); pmemkv_comparator *pmemkv_comparator_new(pmemkv_compare_function *fn, const char *name, void *arg); void pmemkv_comparator_delete(pmemkv_comparator *comparator); For general description of pmemkv and available engines see libpmemkv(7).">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmemkv/v1.3/manpages/libpmemkv_config.3/"><meta property="article:section" content="pmemkv">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemkv | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff></h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#errors>ERRORS</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemkv_config</strong> - Configuration API for libpmemkv</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+pmemkv_config <span style=color:#f92672>*</span><span style=color:#a6e22e>pmemkv_config_new</span>(<span style=color:#66d9ef>void</span>);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_config_delete</span>(pmemkv_config <span style=color:#f92672>*</span>config);
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_size</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>uint64_t</span> value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_path</span>(pmemkv_config <span style=color:#f92672></em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_force_create</span>(pmemkv_config <span style=color:#f92672></em></span>config, <span style=color:#66d9ef>bool</span> value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_comparator</span>(pmemkv_config <span style=color:#f92672><em></span>config, pmemkv_comparator <span style=color:#f92672></em></span>comparator);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_oid</span>(pmemkv_config <span style=color:#f92672><em></span>config, PMEMoid <span style=color:#f92672></em></span>oid);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_data</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>void</span> <span style=color:#f92672><em></span>value,
+size_t value_size);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_object</span>(pmemkv_config <span style=color:#f92672></em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>key, <span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>value,
+<span style=color:#66d9ef>void</span> (<span style=color:#f92672><em></span>deleter)(<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>));
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_object_cb</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>void</span> <span style=color:#f92672><em></span>value,
+<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>(<span style=color:#f92672><em></span>getter)(<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>), <span style=color:#66d9ef>void</span> (<span style=color:#f92672><em></span>deleter)(<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>));
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_uint64</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>uint64_t</span> value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_int64</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>int64_t</span> value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_put_string</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>value);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_get_data</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>void</span> <span style=color:#f92672><strong></span>value,
+size_t <span style=color:#f92672><em></span>value_size);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_get_object</span>(pmemkv_config <span style=color:#f92672></em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>key, <span style=color:#66d9ef>void</span> <span style=color:#f92672></strong></span>value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_get_uint64</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>uint64_t</span> <span style=color:#f92672><em></span>value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_get_int64</span>(pmemkv_config <span style=color:#f92672></em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>key, <span style=color:#66d9ef>int64_t</span> <span style=color:#f92672></em></span>value);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_config_get_string</span>(pmemkv_config <span style=color:#f92672><em></span>config, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>**</span>value);</p>
+<p>pmemkv_comparator <span style=color:#f92672><em></span><span style=color:#a6e22e>pmemkv_comparator_new</span>(pmemkv_compare_function <span style=color:#f92672></em></span>fn, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>name,
+<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>arg);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_comparator_delete</span>(pmemkv_comparator <span style=color:#f92672>*</span>comparator);
+</code></pre></div><p>For general description of pmemkv and available engines see <strong>libpmemkv</strong>(7).
+For description of pmemkv core API see <strong>libpmemkv</strong>(3).</p></p>
+<h1 id=description>DESCRIPTION</h1>
+<p>pmemkv database is configured using pmemkv_config structure. It stores mappings
+of keys (null-terminated strings) to values. A value can be:</p>
+<ul>
+<li><strong>uint64_t</strong></li>
+<li><strong>int64_t</strong></li>
+<li><strong>c-style string</strong></li>
+<li><strong>binary data</strong></li>
+<li><strong>pointer to an object</strong> (with accompanying deleter function)</li>
+</ul>
+<p>It also delivers methods to store and read configuration items provided by
+a user. Once the configuration object is set (with all required parameters),
+it can be passed to <em>pmemkv_open()</em> method.</p>
+<p>List of options which are required by pmemkv database is specific to an engine.
+Every engine has documented all supported config parameters (please see <strong>libpmemkv</strong>(7) for details).</p>
+<dl>
+<dt><code>pmemkv_config *pmemkv_config_new(void);</code></dt>
+<dd>Creates an instance of configuration for pmemkv database.
+<p>On failure, NULL is returned.</p>
+</dd>
+<dt><code>void pmemkv_config_delete(pmemkv_config *config);</code></dt>
+<dd>Deletes pmemkv_config. Should be called ONLY for configs which were not
+passed to pmemkv_open (as this function moves ownership of the config to
+the database).</dd>
+<dt><code>int pmemkv_config_put_size(pmemkv_config *config, uint64_t value);</code></dt>
+<dd>
+<p>Puts <code>value</code> to a config at key <code>size</code>. This function provides type
+safety for <strong>size</strong> parameter.</p>
+</dd>
+<dt><code>int pmemkv_config_put_path(pmemkv_config *config, const char *value);</code></dt>
+<dd>
+<p>Puts <code>value</code> to a config at key <strong>path</strong>. This function provides type
+safety for <code>path</code> parameter.</p>
+</dd>
+<dt><code>int pmemkv_config_put_force_create(pmemkv_config Wconfig, bool value);</code></dt>
+<dd>
+<p>Puts force_create parameter to a config. In engines which supports this parameter, if false,
+pmemkv opens the file specified by &lsquo;path&rsquo;, otherwise it creates it. False by default.</p>
+</dd>
+<dt><code>int pmemkv_config_put_comparator(pmemkv_config *config, pmemkv_comparator *comparator);</code></dt>
+<dd>
+<p>Puts comparator object to a config. To create an instance of pmemkv_comparator object,
+<code>pmemkv_comparator_new()</code> function shoud be used.</p>
+</dd>
+<dt><code>int pmemkv_config_put_oid(pmemkv_config *config, PMEMoid *oid);</code></dt>
+<dd>
+<p>Puts PMEMoid object to a config (for details see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_config_put_uint64(pmemkv_config *config, const char *key, uint64_t value);</code></dt>
+<dd>
+<p>Puts uint64_t value <code>value</code> to pmemkv_config at key <code>key</code>.</p>
+</dd>
+<dt><code>int pmemkv_config_put_int64(pmemkv_config *config, const char *key, int64_t value);</code></dt>
+<dd>
+<p>Puts int64_t value <code>value</code> to pmemkv_config at key <code>key</code>.</p>
+</dd>
+<dt><code>int pmemkv_config_put_string(pmemkv_config *config, const char *key, const char *value);</code></dt>
+<dd>
+<p>Puts null-terminated string to pmemkv_config. The string is copied to the config.</p>
+</dd>
+<dt><code>int pmemkv_config_put_data(pmemkv_config *config, const char *key, const void *value, size_t value_size);</code></dt>
+<dd>
+<p>Puts copy of binary data pointed by <code>value</code> to pmemkv_config. <code>value_size</code>
+specifies size of the data.</p>
+</dd>
+<dt><code>int pmemkv_config_put_object(pmemkv_config *config, const char *key, void *value, void (*deleter)(void *));</code></dt>
+<dd>
+<p>Puts <code>value</code> to pmemkv_config. <code>value</code> can point to arbitrary object.
+<code>deleter</code> parameter specifies function which will be called for <code>value</code>
+when the config is destroyed (using pmemkv_config_delete).</p>
+</dd>
+<dt><code>int pmemkv_config_put_object_cb(pmemkv_config *config, const char *key, void *value, void *(*getter)(void *), void (*deleter)(void *));</code></dt>
+<dd>
+<p>Extended version of pmemkv_config_put_object. It accepts one additional argument -
+a <code>getter</code> callback. This callback interprets the custom object (<code>value</code>) and returns
+a pointer which is expected by pmemkv.</p>
+<p>Calling pmemkv_config_put_object_cb with <code>getter</code> implemented as:</p>
+<pre tabindex=0><code>void *getter(void *arg) { return arg; }
+</code></pre><p>is equivalent to calling pmemkv_config_put_object.</p>
+</dd>
+<dt><code>int pmemkv_config_get_uint64(pmemkv_config *config, const char *key, uint64_t *value);</code></dt>
+<dd>
+<p>Gets value of a config item with key <code>key</code>. Value is copied to variable pointed by
+<code>value</code>.</p>
+</dd>
+<dt><code>int pmemkv_config_get_int64(pmemkv_config *config, const char *key, int64_t *value);</code></dt>
+<dd>
+<p>Gets value of a config item with key <code>key</code>. Value is copied to variable pointed by
+<code>value</code>.</p>
+</dd>
+<dt><code>int pmemkv_config_get_string(pmemkv_config *config, const char *key, const char **value);</code></dt>
+<dd>
+<p>Gets pointer to a null-terminated string. The string is not copied. After successful call
+<code>value</code> points to string stored in pmemkv_config.</p>
+</dd>
+<dt><code>int pmemkv_config_get_data(pmemkv_config *config, const char *key, const void **value, size_t *value_size);</code></dt>
+<dd>
+<p>Gets pointer to binary data. Data is not copied. After successful call
+<code>*value</code> points to data stored in pmemkv_config and <code>value_size</code> holds size of the data.</p>
+</dd>
+<dt><code>int pmemkv_config_get_object(pmemkv_config *config, const char *key, const void **value);</code></dt>
+<dd>
+<p>Gets pointer to an object. After successful call, <code>*value</code> points to the object.</p>
+</dd>
+</dl>
+<p>Config items stored in pmemkv_config, which were put using a specific function can be obtained
+only using corresponding pmemkv_config_get_ function (for example, config items put using pmemkv_config_put_object
+can only be obtained using pmemkv_config_get_object). Exception from this rule
+are functions for uint64 and int64. If value put by pmemkv_config_put_int64 is in uint64_t range
+it can be obtained using pmemkv_config_get_uint64 and vice versa.</p>
+<dl>
+<dt><code>pmemkv_comparator *pmemkv_comparator_new(pmemkv_compare_function *fn, const char *name, void *arg);</code></dt>
+<dd>
+<p>Creates instance of a comparator object. Accepts comparison function <code>fn</code>,
+<code>name</code> and <code>arg. In case of persistent engines, </code>name<code>is stored within the engine. Attempt to open a database which was createad with different comparator of different name will fail with PMEMKV_STATUS_COMPARATOR_MISMATCH.</code>arg` is saved in the comparator and passed to a
+comparison function on each invocation.</p>
+<p>Neither <code>fn</code> nor <code>name</code> can be NULL.</p>
+<p><code>fn</code> should perform a three-way comparison. Return values:</p>
+<ul>
+<li>negative value if the first key is less than the second one</li>
+<li>zero if both keys are the same</li>
+<li>positive value if the first key is greater than the second one</li>
+</ul>
+<p>The comparison function should be thread safe - it can be called from multiple threads.</p>
+<p>On failure, NULL is returned.</p>
+</dd>
+<dt><code>void pmemkv_comparator_delete(pmemkv_comparator *comparator);</code></dt>
+<dd>
+<p>Removes the comparator object. Should be called ONLY for comparators which were not
+put to config (as config takes ownership of the comparator).</p>
+</dd>
+</dl>
+<p>To set a comparator for the database use <code>pmemkv_config_put_object</code>:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>pmemkv_comparator <span style=color:#f92672>*</span>cmp <span style=color:#f92672>=</span> pmemkv_comparator_new(<span style=color:#f92672>&amp;</span>compare_fn, <span style=color:#e6db74>&#34;my_comparator&#34;</span>, NULL);
+<p>pmemkv_config_put_object(cfg, <span style=color:#e6db74>&quot;comparator&quot;</span>, cmp, (<span style=color:#66d9ef>void</span> (<span style=color:#f92672><em></span>)(<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>)) <span style=color:#f92672>&amp;</span> pmemkv_comparator_delete);
+</code></pre></div><h2 id=errors>ERRORS</h2></p>
+<p>Each function, except for <em>pmemkv_config_new()</em> and <em>pmemkv_config_delete()</em>, returns status.
+Possible return values are:</p>
+<ul>
+<li><strong>PMEMKV_STATUS_OK</strong> &ndash; no error</li>
+<li><strong>PMEMKV_STATUS_UNKNOWN_ERROR</strong> &ndash; unknown error</li>
+<li><strong>PMEMKV_STATUS_NOT_FOUND</strong> &ndash; record (or config item) not found</li>
+<li><strong>PMEMKV_STATUS_CONFIG_PARSING_ERROR</strong> &ndash; parsing data to config failed</li>
+<li><strong>PMEMKV_STATUS_CONFIG_TYPE_ERROR</strong> &ndash; config item has different type than expected</li>
+</ul>
+<h1 id=example>EXAMPLE</h1>
+<p>The following examples are taken from <code>examples/pmemkv_config_c</code> directory.</p>
+<h2 id=basic-example>BASIC EXAMPLE</h2>
+<p>Usage of basic config functions to set parameters based on their functionality and get based on their data type, e.g. &lsquo;pmemkv_config_put_path()&rsquo; or &lsquo;pmemkv_config_put_size()&rsquo;.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;assert.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj/pool_base.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdlib.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define ASSERT(expr)                                                                     \
+</span><span style=color:#75715e>	do {                                                                             \
+</span><span style=color:#75715e>		if (!(expr))                                                             \
+</span><span style=color:#75715e>			puts(pmemkv_errormsg());                                         \
+</span><span style=color:#75715e>		assert(expr);                                                            \
+</span><span style=color:#75715e>	} while (0)
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>uint64_t</span> SIZE <span style=color:#f92672>=</span> <span style=color:#ae81ff>1024UL</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024UL</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024UL</span>;
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>key_length_compare</span>(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>key1, size_t keybytes1, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>key2,
+size_t keybytes2, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
+{
+<span style=color:#66d9ef>if</span> (keybytes2 <span style=color:#f92672>&lt;</span> keybytes1)
+<span style=color:#66d9ef>return</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (keybytes2 <span style=color:#f92672>&gt;</span> keybytes1)
+<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>;
+<span style=color:#66d9ef>else</span>
+<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+}</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>int</span> argc, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>argv[])
+{
+<span style=color:#66d9ef>if</span> (argc <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>2</span>) {
+fprintf(stderr, <span style=color:#e6db74>&quot;Usage: %s file</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&quot;</span>, argv[<span style=color:#ae81ff>0</span>]);
+exit(<span style=color:#ae81ff>1</span>);
+}</p>
+<pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;/* Create config */&lt;/span&gt;
+pmemkv_config &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;config &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_new();
+ASSERT(config &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Add path parameter to config. Meaning of this is dependent on chosen engine.
+</code></pre>
+<p></span><span style=color:#75715e> * E.g. if config is used with cmap engine,
+</span><span style=color:#75715e> * it is a path to a database file or to a poolset file. However for
+</span><span style=color:#75715e> * vcmap it is a path to an existing directory */</span>
+<span style=color:#66d9ef>int</span> status <span style=color:#f92672>=</span> pmemkv_config_put_path(config, argv[<span style=color:#ae81ff>1</span>]);
+ASSERT(status <span style=color:#f92672>==</span> PMEMKV_STATUS_OK);</p>
+<pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;/* Specifies size of the database */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_size(config, SIZE);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Specifies value of force create flag */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_force_create(config, true);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Specifies comparator used by the engine */&lt;/span&gt;
+pmemkv_comparator &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;cmp &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt;
+	pmemkv_comparator_new(&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;key_length_compare, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;key_length_compare&amp;#34;&lt;/span&gt;, NULL);
+ASSERT(cmp &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_comparator(config, cmp);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Adds pointer to oid (for details see libpmemkv(7)) to the config */&lt;/span&gt;
+PMEMoid oid;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_oid(config, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;oid);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+pmemkv_config_delete(config);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+</code></pre>
+<p>}</p>
+<p></code></pre></div><h2 id=type-based-configuration-example>TYPE BASED CONFIGURATION EXAMPLE</h2></p>
+<p>Usage of config functions to set and get data based on their data type, e.g. &lsquo;pmemkv_config_put_int64()&rsquo; or &lsquo;pmemkv_config_put_object()&rsquo;.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;assert.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv_json_config.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdlib.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define ASSERT(expr)                                                                     \
+</span><span style=color:#75715e>	do {                                                                             \
+</span><span style=color:#75715e>		if (!(expr))                                                             \
+</span><span style=color:#75715e>			puts(pmemkv_errormsg());                                         \
+</span><span style=color:#75715e>		assert(expr);                                                            \
+</span><span style=color:#75715e>	} while (0)
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>/* deleter for int pointer */</span>
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>free_int_ptr</span>(<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>ptr)
+{
+	free(ptr);
+}
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>()
+{
+pmemkv_config <span style=color:#f92672>*</span>config <span style=color:#f92672>=</span> pmemkv_config_new();
+ASSERT(config <span style=color:#f92672>!=</span> NULL);</p>
+<pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;/* Put int64_t value */&lt;/span&gt;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;int&lt;/span&gt; status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_int64(config, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;size&amp;#34;&lt;/span&gt;, &lt;span style=&quot;color:#ae81ff&quot;&gt;1073741824&lt;/span&gt;);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; buffer[] &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;ABC&amp;#34;&lt;/span&gt;;
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Put binary data stored in buffer */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_data(config, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;binary&amp;#34;&lt;/span&gt;, buffer, &lt;span style=&quot;color:#ae81ff&quot;&gt;3&lt;/span&gt;);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;data;
+size_t data_size;
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Get pointer to binary data stored in config */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_get_data(config, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;binary&amp;#34;&lt;/span&gt;, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;data, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;data_size);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(data_size &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;3&lt;/span&gt;);
+ASSERT(((&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;)data)[&lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;] &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#39;A&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;int_ptr &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; malloc(&lt;span style=&quot;color:#66d9ef&quot;&gt;sizeof&lt;/span&gt;(&lt;span style=&quot;color:#66d9ef&quot;&gt;int&lt;/span&gt;));
+ASSERT(int_ptr &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+&lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;int_ptr &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;10&lt;/span&gt;;
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Put pointer to dynamically allocated object, free_int_ptr is called on
+</code></pre>
+<p></span><span style=color:#75715e> * pmemkv_config_delete */</span>
+status <span style=color:#f92672>=</span> pmemkv_config_put_object(config, <span style=color:#e6db74>"int_ptr"</span>, int_ptr, <span style=color:#f92672>&</span>free_int_ptr);
+ASSERT(status <span style=color:#f92672>==</span> PMEMKV_STATUS_OK);</p>
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;get_int_ptr;
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Get pointer to object stored in config */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_get_object(config, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;int_ptr&amp;#34;&lt;/span&gt;, (&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;**&lt;/span&gt;)&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;get_int_ptr);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(&lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;get_int_ptr &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;10&lt;/span&gt;);
+
+pmemkv_config_delete(config);
+
+pmemkv_config &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;config_from_json &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_new();
+ASSERT(config_from_json &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Parse JSON and put all items found into config_from_json */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_from_json(config_from_json, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;{&lt;/span&gt;&lt;span style=&quot;color:#ae81ff&quot;&gt;\&amp;#34;&lt;/span&gt;&lt;span style=&quot;color:#e6db74&quot;&gt;path&lt;/span&gt;&lt;span style=&quot;color:#ae81ff&quot;&gt;\&amp;#34;&lt;/span&gt;&lt;span style=&quot;color:#e6db74&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color:#ae81ff&quot;&gt;\&amp;#34;&lt;/span&gt;&lt;span style=&quot;color:#e6db74&quot;&gt;/dev/shm&lt;/span&gt;&lt;span style=&quot;color:#ae81ff&quot;&gt;\&amp;#34;&lt;/span&gt;&lt;span style=&quot;color:#e6db74&quot;&gt;,\
+</code></pre>
+<p></span><span style=color:#e6db74> </span><span style=color:#ae81ff>&amp;#34;</span><span style=color:#e6db74>size</span><span style=color:#ae81ff>&amp;#34;</span><span style=color:#e6db74>:1073741824,<br>
+</span><span style=color:#e6db74> </span><span style=color:#ae81ff>&amp;#34;</span><span style=color:#e6db74>subconfig</span><span style=color:#ae81ff>&amp;#34;</span><span style=color:#e6db74>:{<br>
+</span><span style=color:#e6db74> </span><span style=color:#ae81ff>&amp;#34;</span><span style=color:#e6db74>size</span><span style=color:#ae81ff>&amp;#34;</span><span style=color:#e6db74>:1073741824<br>
+</span><span style=color:#e6db74> }<br>
+</span><span style=color:#e6db74> }"</span>);
+ASSERT(status <span style=color:#f92672>==</span> PMEMKV_STATUS_OK);</p>
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;path;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_get_string(config_from_json, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;path&amp;#34;&lt;/span&gt;, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;path);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(strcmp(path, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;/dev/shm&amp;#34;&lt;/span&gt;) &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+
+pmemkv_config &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;subconfig;
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Get pointer to nested configuration &amp;#34;subconfig&amp;#34; */&lt;/span&gt;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_get_object(config_from_json, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;subconfig&amp;#34;&lt;/span&gt;,
+				  (&lt;span style=&quot;color:#66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;**&lt;/span&gt;)&lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;subconfig);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+size_t sub_size;
+status &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_get_uint64(subconfig, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;size&amp;#34;&lt;/span&gt;, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;sub_size);
+ASSERT(status &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(sub_size &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;1073741824&lt;/span&gt;);
+
+pmemkv_config_delete(config_from_json);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+</code></pre>
+<p>}</p>
+<p></code></pre></div><h1 id=see-also>SEE ALSO</h1></p>
+<p><strong>libpmemkv</strong>(7), <strong>libpmemkv</strong>(3) , <strong>libpmemkv_json_config</strong>(3) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

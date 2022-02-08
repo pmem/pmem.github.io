@@ -1,1 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>pmdk-convert on PMem.io</title><link>https://pmem.io/pmdk-convert/</link><description>Recent content in pmdk-convert on PMem.io</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://pmem.io/pmdk-convert/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>pmdk-convert on PMem.io</title><link>https://pmem.io/pmdk-convert/</link><description>Recent content in pmdk-convert on PMem.io</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://pmem.io/pmdk-convert/index.xml" rel="self" type="application/rss+xml"/><item><title>pmempool convert | PMDK</title><link>https://pmem.io/pmdk-convert/manpages/master/pmdk-convert.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk-convert/manpages/master/pmdk-convert.1/</guid><description>pmdk-convert.1 NAME
+SYNOPSIS
+DESCRIPTION
+EXAMPLE
+SEE ALSO
+NAME pmdk-convert - upgrade pool files layout version
+SYNOPSIS $ pmdk-convert &amp;lt;file&amp;gt; DESCRIPTION The pmdk-convert performs a conversion of the specified pool to the newest layout supported by this tool. Currently only libpmemobj(7) pools are supported.
+The conversion process is not fail-safe - power interruption may damage the pool. It is advised to have a backup of the pool before conversion.</description></item></channel></rss>

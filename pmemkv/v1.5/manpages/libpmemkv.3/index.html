@@ -1,0 +1,649 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemkv | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+ERRORS
+EXAMPLE
+SEE ALSO
+NAME pmemkv - Key/Value Datastore for Persistent Memory
+SYNOPSIS #include <libpmemkv.h> typedef int pmemkv_get_kv_callback(const char *key, size_t keybytes, const char *value, size_t valuebytes, void *arg); typedef void pmemkv_get_v_callback(const char *value, size_t valuebytes, void *arg); int pmemkv_open(const char *engine, pmemkv_config *config, pmemkv_db **db); void pmemkv_close(pmemkv_db *kv); int pmemkv_count_all(pmemkv_db *db, size_t *cnt); int pmemkv_count_above(pmemkv_db *db, const char *k, size_t kb, size_t *cnt); int pmemkv_count_below(pmemkv_db *db, const char *k, size_t kb, size_t *cnt); int pmemkv_count_between(pmemkv_db *db, const char *k1, size_t kb1, const char *k2, size_t kb2, size_t *cnt); int pmemkv_get_all(pmemkv_db *db, pmemkv_get_kv_callback *c, void *arg); int pmemkv_get_above(pmemkv_db *db, const char *k, size_t kb, pmemkv_get_kv_callback *c, void *arg); int pmemkv_get_below(pmemkv_db *db, const char *k, size_t kb, pmemkv_get_kv_callback *c, void *arg); int pmemkv_get_between(pmemkv_db *db, const char *k1, size_t kb1, const char *k2, size_t kb2, pmemkv_get_kv_callback *c, void *arg); int pmemkv_exists(pmemkv_db *db, const char *k, size_t kb); int pmemkv_get(pmemkv_db *db, const char *k, size_t kb, pmemkv_get_v_callback *c, void *arg); int pmemkv_get_copy(pmemkv_db *db, const char *k, size_t kb, char *buffer, size_t buffer_size, size_t *value_size); int pmemkv_put(pmemkv_db *db, const char *k, size_t kb, const char *v, size_t vb); int pmemkv_remove(pmemkv_db *db, const char *k, size_t kb); int pmemkv_defrag(pmemkv_db *db, double start_percent, double amount_percent); const char *pmemkv_errormsg(void); For pmemkv configuration API description see libpmemkv_config(3).">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmemkv/v1.5/manpages/libpmemkv.3/"><meta property="article:section" content="pmemkv">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemkv | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff></h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#errors>ERRORS</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemkv</strong> - Key/Value Datastore for Persistent Memory</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get_kv_callback</span>(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>key, size_t keybytes, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>value,
+			size_t valuebytes, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg);
+<span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_get_v_callback</span>(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>value, size_t valuebytes, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg);
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_open</span>(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>engine, pmemkv_config <span style=color:#f92672></em></span>config, pmemkv_db <span style=color:#f92672>**</span>db);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_close</span>(pmemkv_db <span style=color:#f92672>*</span>kv);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_count_all</span>(pmemkv_db <span style=color:#f92672><em></span>db, size_t <span style=color:#f92672></em></span>cnt);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_count_above</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb, size_t <span style=color:#f92672><em></span>cnt);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_count_below</span>(pmemkv_db <span style=color:#f92672></em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>k, size_t kb, size_t <span style=color:#f92672></em></span>cnt);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_count_between</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k1, size_t kb1, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>k2,
+size_t kb2, size_t <span style=color:#f92672></em></span>cnt);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get_all</span>(pmemkv_db <span style=color:#f92672><em></span>db, pmemkv_get_kv_callback <span style=color:#f92672></em></span>c, <span style=color:#66d9ef>void</span> <span style=color:#f92672><em></span>arg);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get_above</span>(pmemkv_db <span style=color:#f92672></em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>k, size_t kb, pmemkv_get_kv_callback <span style=color:#f92672></em></span>c,
+<span style=color:#66d9ef>void</span> <span style=color:#f92672><em></span>arg);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get_below</span>(pmemkv_db <span style=color:#f92672></em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>k, size_t kb, pmemkv_get_kv_callback <span style=color:#f92672></em></span>c,
+<span style=color:#66d9ef>void</span> <span style=color:#f92672><em></span>arg);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get_between</span>(pmemkv_db <span style=color:#f92672></em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>k1, size_t kb1, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k2,
+size_t kb2, pmemkv_get_kv_callback <span style=color:#f92672><em></span>c, <span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>arg);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_exists</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb, pmemkv_get_v_callback <span style=color:#f92672><em></span>c,
+<span style=color:#66d9ef>void</span> <span style=color:#f92672></em></span>arg);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_get_copy</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb, <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>buffer,
+size_t buffer_size, size_t <span style=color:#f92672></em></span>value_size);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_put</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>v, size_t vb);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_remove</span>(pmemkv_db <span style=color:#f92672><em></span>db, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_defrag</span>(pmemkv_db <span style=color:#f92672>*</span>db, <span style=color:#66d9ef>double</span> start_percent, <span style=color:#66d9ef>double</span> amount_percent);</p>
+<p><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pmemkv_errormsg</span>(<span style=color:#66d9ef>void</span>);
+</code></pre></div><p>For pmemkv configuration API description see <strong>libpmemkv_config</strong>(3).
+For pmemkv iterator API description see <strong>libpmemkv_iterator</strong>(3).
+For general pmemkv information, engine descriptions and bindings details see <strong>libpmemkv</strong>(7).</p></p>
+<h1 id=description>DESCRIPTION</h1>
+<p>Keys and values stored in a pmemkv database can be arbitrary binary data and can contain multiple null characters.
+Every function which accepts key expects <code>const char *k</code> pointer to data and its size as <code>size_t</code>.</p>
+<p>Some of the functions (mainly range-query API) are not guaranteed to be implemented by all engines.
+If an engine does not support a certain function, it will return PMEMKV_STATUS_NOT_SUPPORTED.</p>
+<p>Note: There are no explicit upper_bound/lower_bound functions. If you want to obtain an element(s)
+above or below the selected key, you can use pmemkv_get_above() or pmemkv_get_below().
+See descriptions of these functions for details.</p>
+<dl>
+<dt><code>int pmemkv_open(const char *engine, pmemkv_config *config, pmemkv_db **db);</code></dt>
+<dd>
+<p>Opens the pmemkv database and stores a pointer to a <em>pmemkv_db</em> instance in <code>*db</code>.
+The <code>engine</code> parameter specifies the engine name (see <strong>libpmemkv</strong>(7) for the list of available engines).
+The <code>config</code> parameter specifies configuration (see <strong>libpmemkv_config</strong>(3) for details). Pmemkv takes
+ownership of the config parameter - this means that pmemkv_config_delete() must NOT be called
+after open (successful or failed).</p>
+</dd>
+<dt><code>void pmemkv_close(pmemkv_db *kv);</code></dt>
+<dd>
+<p>Closes pmemkv database.</p>
+</dd>
+<dt><code>int pmemkv_count_all(pmemkv_db *db, size_t *cnt);</code></dt>
+<dd>
+<p>Stores in <code>*cnt</code> the number of records in <code>db</code>.</p>
+</dd>
+<dt><code>int pmemkv_count_above(pmemkv_db *db, const char *k, size_t kb, size_t *cnt);</code></dt>
+<dd>
+<p>Stores in <code>*cnt</code> the number of records in <code>db</code> whose keys are greater than
+the key <code>k</code> of length <code>kb</code>. Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_count_below(pmemkv_db *db, const char *k, size_t kb, size_t *cnt);</code></dt>
+<dd>
+<p>Stores in <code>*cnt</code> the number of records in <code>db</code> whose keys are less than
+the key <code>k</code> of length <code>kb</code>. Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_count_between(pmemkv_db *db, const char *k1, size_t kb1, const char *k2, size_t kb2, size_t *cnt);</code></dt>
+<dd>
+<p>Stores in <code>*cnt</code> the number of records in <code>db</code> whose keys are greater than key <code>k1</code> (of length <code>kb1</code>)
+and less than key <code>k2</code> (of length <code>kb2</code>). Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_get_all(pmemkv_db *db, pmemkv_get_kv_callback *c, void *arg);</code></dt>
+<dd>
+<p>Executes function <code>c</code> for every record stored in <code>db</code>. Arguments
+passed to the function are: pointer to a key, size of the key, pointer to a value, size of
+the value and <code>arg</code> specified by the user.
+Function <code>c</code> can stop iteration by returning non-zero value. In that case <em>pmemkv_get_all()</em> returns
+PMEMKV_STATUS_STOPPED_BY_CB. Returning 0 continues iteration.
+Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_get_above(pmemkv_db *db, const char *k, size_t kb, pmemkv_get_kv_callback *c, void *arg);</code></dt>
+<dd>
+<p>Executes function <code>c</code> for every record stored in <code>db</code> whose keys are greater than
+key <code>k</code> (of length <code>kb</code>). Arguments passed to <code>c</code> are: pointer to a key, size of the key, pointer to a value, size of
+the value and <code>arg</code> specified by the user.
+Function <code>c</code> can stop iteration by returning non-zero value. In that case <em>pmemkv_get_above()</em> returns
+PMEMKV_STATUS_STOPPED_BY_CB. Returning 0 continues iteration.
+Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_get_below(pmemkv_db *db, const char *k, size_t kb, pmemkv_get_kv_callback *c, void *arg);</code></dt>
+<dd>
+<p>Executes function <code>c</code> for every record stored in <code>db</code> whose keys are less than
+key <code>k</code> (of length <code>kb</code>). Arguments passed to <code>c</code> are: pointer to a key, size of the key, pointer to a value, size of
+the value and <code>arg</code> specified by the user.
+Function <code>c</code> can stop iteration by returning non-zero value. In that case <em>pmemkv_get_below()</em> returns
+PMEMKV_STATUS_STOPPED_BY_CB. Returning 0 continues iteration.
+Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_get_between(pmemkv_db *db, const char *k1, size_t kb1, const char *k2, size_t kb2, pmemkv_get_kv_callback *c, void *arg);</code></dt>
+<dd>
+<p>Executes function <code>c</code> for every record stored in <code>db</code> whose keys are greater than
+key <code>k1</code> (of length <code>kb1</code>) and less than key <code>k2</code> (of length <code>kb2</code>).
+Arguments passed to <code>c</code> are: pointer to a key, size of the key, pointer to a value, size of
+the value and <code>arg</code> specified by the user.
+Function <code>c</code> can stop iteration by returning non-zero value. In that case <em>pmemkv_get_between()</em> returns
+PMEMKV_STATUS_STOPPED_BY_CB. Returning 0 continues iteration.
+Order of the elements is specified by a comparator (see <strong>libpmemkv</strong>(7)).</p>
+</dd>
+<dt><code>int pmemkv_exists(pmemkv_db *db, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Checks existence of record with key <code>k</code> of length <code>kb</code>.
+If record is present PMEMKV_STATUS_OK is returned, otherwise PMEMKV_STATUS_NOT_FOUND is returned.
+Other possible return values are described in the <em>ERRORS</em> section.</p>
+</dd>
+<dt><code>int pmemkv_get(pmemkv_db *db, const char *k, size_t kb, pmemkv_get_v_callback *c, void *arg);</code></dt>
+<dd>
+<p>Executes function <code>c</code> on record with key <code>k</code> (of length <code>kb</code>).
+If record is present and no error occurred the function returns PMEMKV_STATUS_OK.
+If record does not exist PMEMKV_STATUS_NOT_FOUND is returned.
+Other possible return values are described in the <em>ERRORS</em> section.
+Function <code>c</code> is called with the following parameters: pointer to a value, size of the value and <code>arg</code> specified by the user.
+<code>Value</code> points to the location where data is actually stored (no copy occurs).
+This function is guaranteed to be implemented by all engines.</p>
+</dd>
+<dt><code>int pmemkv_get_copy(pmemkv_db *db, const char *k, size_t kb, char *buffer, size_t buffer_size, size_t *value_size);</code></dt>
+<dd>
+<p>Copies value of record with key <code>k</code> of length <code>kb</code> to user provided buffer.
+<code>buffer</code> points to the value buffer, <code>buffer_size</code> specifies its size and <code>*value_size</code>
+is filled in by this function. If the value doesn&rsquo;t fit in the provided buffer
+then this function returns PMEMKV_STATUS_UNKNOWN_ERROR.
+Otherwise, in absence of any errors, PMEMKV_STATUS_OK is returned.
+Other possible return values are described in the <em>ERRORS</em> section.
+This function is guaranteed to be implemented by all engines.</p>
+</dd>
+<dt><code>int pmemkv_put(pmemkv_db *db, const char *k, size_t kb, const char *v, size_t vb);</code></dt>
+<dd>
+<p>Inserts a key-value pair into pmemkv database. <code>kb</code> is the length of key <code>k</code> and <code>vb</code> is the length of value <code>v</code>.
+When this function returns, caller is free to reuse both buffers.
+This function is guaranteed to be implemented by all engines.</p>
+</dd>
+<dt><code>int pmemkv_remove(pmemkv_db *db, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Removes record with key <code>k</code> of length <code>kb</code>.
+This function is guaranteed to be implemented by all engines.</p>
+</dd>
+<dt><code>int pmemkv_defrag(pmemkv_db *db, double start_percent, double amount_percent);</code></dt>
+<dd>
+<p>Defragments approximately &lsquo;amount_percent&rsquo; percent of elements in the database
+starting from &lsquo;start_percent&rsquo; percent of elements.</p>
+</dd>
+<dt><code>const char *pmemkv_errormsg(void);</code></dt>
+<dd>
+<p>Returns a human readable string describing the last error.</p>
+</dd>
+</dl>
+<h2 id=errors>ERRORS</h2>
+<p>Each function, except for <em>pmemkv_close()</em> and <em>pmemkv_errormsg()</em>, returns one of the following status codes:</p>
+<ul>
+<li><strong>PMEMKV_STATUS_OK</strong> &ndash; no error</li>
+<li><strong>PMEMKV_STATUS_UNKNOWN_ERROR</strong> &ndash; unknown error</li>
+<li><strong>PMEMKV_STATUS_NOT_FOUND</strong> &ndash; record not found</li>
+<li><strong>PMEMKV_STATUS_NOT_SUPPORTED</strong> &ndash; function is not implemented by current engine</li>
+<li><strong>PMEMKV_STATUS_INVALID_ARGUMENT</strong> &ndash; argument to function has wrong value</li>
+<li><strong>PMEMKV_STATUS_CONFIG_PARSING_ERROR</strong> &ndash; parsing data to config failed</li>
+<li><strong>PMEMKV_STATUS_CONFIG_TYPE_ERROR</strong> &ndash; config item has different type than expected</li>
+<li><strong>PMEMKV_STATUS_STOPPED_BY_CB</strong> &ndash; iteration was stopped by user&rsquo;s callback</li>
+<li><strong>PMEMKV_STATUS_OUT_OF_MEMORY</strong> &ndash; operation failed because there is not enough memory (or space on the device)</li>
+<li><strong>PMEMKV_STATUS_WRONG_ENGINE_NAME</strong> &ndash; engine name does not match any available engine</li>
+<li><strong>PMEMKV_STATUS_TRANSACTION_SCOPE_ERROR</strong> &ndash; an error with the scope of the libpmemobj transaction</li>
+<li><strong>PMEMKV_STATUS_DEFRAG_ERROR</strong> &ndash; the defragmentation process failed (possibly in the middle of a run)</li>
+</ul>
+<p>Status returned from a function can change in a future version of a library to a more specific one.
+For example, if a function returns PMEMKV_STATUS_UNKNOWN_ERROR, it is possible that in future
+versions it will return PMEMKV_STATUS_INVALID_ARGUMENT. Recommended way to check for an error
+is to compare status with PMEMKV_STATUS_OK.</p>
+<h1 id=example>EXAMPLE</h1>
+<p>The following example is taken from <code>examples/pmemkv_basic_c</code> directory.</p>
+<p>Basic pmemkv usage in C:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;assert.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdlib.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define ASSERT(expr)                                                                     \
+</span><span style=color:#75715e>	do {                                                                             \
+</span><span style=color:#75715e>		if (!(expr))                                                             \
+</span><span style=color:#75715e>			puts(pmemkv_errormsg());                                         \
+</span><span style=color:#75715e>		assert(expr);                                                            \
+</span><span style=color:#75715e>	} while (0)
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define LOG(msg) puts(msg)
+</span><span style=color:#75715e>#define MAX_VAL_LEN 64
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>uint64_t</span> SIZE <span style=color:#f92672>=</span> <span style=color:#ae81ff>1024UL</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024UL</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024UL</span>;
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>get_kv_callback</span>(<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672><em></span>k, size_t kb, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>value, size_t value_bytes,
+<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
+{
+printf(<span style=color:#e6db74>&quot;   visited: %s</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&quot;</span>, k);</p>
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+</code></pre>
+<p>}</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>int</span> argc, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>argv[])
+{
+<span style=color:#66d9ef>if</span> (argc <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>2</span>) {
+fprintf(stderr, <span style=color:#e6db74>"Usage: %s file</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>"</span>, argv[<span style=color:#ae81ff>0</span>]);
+exit(<span style=color:#ae81ff>1</span>);
+}</p>
+<pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;/* See libpmemkv_config(3) for more detailed example of config creation */&lt;/span&gt;
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Creating config&amp;#34;&lt;/span&gt;);
+pmemkv_config &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;cfg &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_new();
+ASSERT(cfg &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;int&lt;/span&gt; s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_path(cfg, argv[&lt;span style=&quot;color:#ae81ff&quot;&gt;1&lt;/span&gt;]);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_size(cfg, SIZE);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_create_if_missing(cfg, true);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* Alternatively create_or_error_if_exists flag can be set, to fail if file exists
+</code></pre>
+<p></span><span style=color:#75715e> * For differences between the two flags, see manpage libpmemkv(7). <em>/</span>
+<span style=color:#75715e>/</em> s = pmemkv_config_put_create_or_error_if_exists(cfg, true); */</span></p>
+<pre><code>LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Opening pmemkv database with &amp;#39;cmap&amp;#39; engine&amp;#34;&lt;/span&gt;);
+pmemkv_db &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;db &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; NULL;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_open(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;cmap&amp;#34;&lt;/span&gt;, cfg, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;db);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(db &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Putting new key&amp;#34;&lt;/span&gt;);
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;key1 &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;key1&amp;#34;&lt;/span&gt;;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;value1 &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;value1&amp;#34;&lt;/span&gt;;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_put(db, key1, strlen(key1), value1, strlen(value1));
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+size_t cnt;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_count_all(db, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;cnt);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(cnt &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;1&lt;/span&gt;);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Reading key back&amp;#34;&lt;/span&gt;);
+&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; val[MAX_VAL_LEN];
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_get_copy(db, key1, strlen(key1), val, MAX_VAL_LEN, NULL);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(&lt;span style=&quot;color:#f92672&quot;&gt;!&lt;/span&gt;strcmp(val, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;value1&amp;#34;&lt;/span&gt;));
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Iterating existing keys&amp;#34;&lt;/span&gt;);
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;key2 &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;key2&amp;#34;&lt;/span&gt;;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;value2 &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;value2&amp;#34;&lt;/span&gt;;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;key3 &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;key3&amp;#34;&lt;/span&gt;;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;value3 &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;value3&amp;#34;&lt;/span&gt;;
+pmemkv_put(db, key2, strlen(key2), value2, strlen(value2));
+pmemkv_put(db, key3, strlen(key3), value3, strlen(value3));
+pmemkv_get_all(db, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;get_kv_callback, NULL);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Removing existing key&amp;#34;&lt;/span&gt;);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_remove(db, key1, strlen(key1));
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(pmemkv_exists(db, key1, strlen(key1)) &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_NOT_FOUND);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Defragmenting the database&amp;#34;&lt;/span&gt;);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_defrag(db, &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;, &lt;span style=&quot;color:#ae81ff&quot;&gt;100&lt;/span&gt;);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Closing database&amp;#34;&lt;/span&gt;);
+pmemkv_close(db);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+</code></pre>
+<p>}</p>
+<p></code></pre></div><h2 id=common-usage-mistake>Common usage mistake</h2></p>
+<p>Common mistake in pmemkv API usage (especially when using C++ API) is to dereference
+pointer to the data stored in pmemkv outside of a callback function scope.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>std<span style=color:#f92672>::</span>string value;
+<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span><span style=color:#f92672>*</span> ptr;
+size_t sz;
+kv<span style=color:#f92672>-&gt;</span>get(<span style=color:#e6db74>&#34;key1&#34;</span>, [<span style=color:#f92672>&amp;</span>](string_view v) {
+	<span style=color:#75715e>/* Save pointer to the data to use it later outside of a callback scope */</span>
+	ptr <span style=color:#f92672>=</span> v.data();
+	sz <span style=color:#f92672>=</span> v.size();
+});
+kv<span style=color:#f92672>-&gt;</span>remove(<span style=color:#e6db74>&#34;key&#34;</span>);
+<span style=color:#75715e>/* ERROR!
+</span><span style=color:#75715e> * Using this pointer outside of a callback function may cause access to some random data
+</span><span style=color:#75715e> * or a segmentation fault. At that point, ptr should be considered as invalid.
+</span><span style=color:#75715e> */</span>
+value.append(ptr, sz);
+</code></pre></div><h1 id=see-also>SEE ALSO</h1>
+<p><strong>libpmemkv</strong>(7), <strong>libpmemkv_config</strong>(3), <strong>libpmemkv_iterator</strong>(3) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

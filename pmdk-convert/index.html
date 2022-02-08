@@ -299,7 +299,7 @@
 <p>The <strong>pmdk-convert</strong> performs a conversion of the specified pool to the newest layout supported by this tool. Currently only <strong>libpmemobj</strong>(7) pools are supported.</p>
 <p>The conversion process is not fail-safe - power interruption may damage the pool. It is advised to have a backup of the pool before conversion.</p>
 <p>This tool doesn’t support remote replicas. Before a conversion all remote replicas have to be removed from the pool by <strong>pmempool transform</strong> command.</p>
-<p>See the <a href=./manpages/master/pmdk-convert.1.html>pmdk-convert man page</a> for current master documentation and examples</p>
+<p>See the <a href=manpages/master/pmdk-convert.1.html>pmdk-convert man page</a> for current master documentation and examples.</p>
 <h3 id=building-the-source>Building The Source</h3>
 <p>Requirements:</p>
 <ul>
@@ -325,10 +325,10 @@ $ sudo dpkg -i pmdk-convert*.deb
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ cmake .. -DCMAKE_INSTALL_PREFIX<span style=color:#f92672>=</span>/home/user/pmdk-convert-bin
 $ make
 $ make install
-</code></pre></div><p>On Windows</p>
+</code></pre></div><h4 id=on-windows>On Windows</h4>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; cmake .. -G <span style=color:#e6db74>&#34;Visual Studio 14 2015 Win64&#34;</span>
 PS&gt; msbuild build/ALL_BUILD.vcxproj
-</code></pre></div><p>To build pmdk-convert on Windows 8 you have to specify your SDK version in the cmake command i.e.</p>
+</code></pre></div><p>To build pmdk-convert on Windows 8 you have to specify your SDK version in the cmake command, e.g.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; cmake .. -G <span style=color:#e6db74>&#34;Visual Studio 14 2015 Win64&#34;</span> -DCMAKE_SYSTEM_VERSION=<span style=color:#e6db74>&#34;10.0.26624&#34;</span>
 </code></pre></div>
 </div>

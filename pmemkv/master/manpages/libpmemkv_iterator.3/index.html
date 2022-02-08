@@ -1,0 +1,648 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmemkv | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+ERRORS
+EXAMPLE
+SEE ALSO
+NAME pmemkv_iterator - Iterator API for libpmemkv
+This API is EXPERIMENTAL and might change.
+SYNOPSIS #include <libpmemkv.h> int pmemkv_iterator_new(pmemkv_db *db, pmemkv_iterator **it); int pmemkv_write_iterator_new(pmemkv_db *db, pmemkv_write_iterator **it); void pmemkv_iterator_delete(pmemkv_iterator *it); void pmemkv_write_iterator_delete(pmemkv_write_iterator *it); int pmemkv_iterator_seek(pmemkv_iterator *it, const char *k, size_t kb); int pmemkv_iterator_seek_lower(pmemkv_iterator *it, const char *k, size_t kb); int pmemkv_iterator_seek_lower_eq(pmemkv_iterator *it, const char *k, size_t kb); int pmemkv_iterator_seek_higher(pmemkv_iterator *it, const char *k, size_t kb); int pmemkv_iterator_seek_higher_eq(pmemkv_iterator *it, const char *k, size_t kb); int pmemkv_iterator_seek_to_first(pmemkv_iterator *it); int pmemkv_iterator_seek_to_last(pmemkv_iterator *it); int pmemkv_iterator_is_next(pmemkv_iterator *it); int pmemkv_iterator_next(pmemkv_iterator *it); int pmemkv_iterator_prev(pmemkv_iterator *it); int pmemkv_iterator_key(pmemkv_iterator *it, const char **k, size_t *kb); int pmemkv_iterator_read_range(pmemkv_iterator *it, size_t pos, size_t n, const char **data, size_t *rb); int pmemkv_write_iterator_write_range(pmemkv_write_iterator *it, size_t pos, size_t n, char **data, size_t *wb); int pmemkv_write_iterator_commit(pmemkv_write_iterator *it); void pmemkv_write_iterator_abort(pmemkv_write_iterator *it); For general description of pmemkv and available engines see libpmemkv(7).">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmemkv/master/manpages/libpmemkv_iterator.3/"><meta property="article:section" content="pmemkv">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmemkv | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff></h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#errors>ERRORS</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmemkv_iterator</strong> - Iterator API for libpmemkv</p>
+<p>This API is <strong>EXPERIMENTAL</strong> and might change.</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemkv.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_new</span>(pmemkv_db <span style=color:#f92672>*</span>db, pmemkv_iterator <span style=color:#f92672>**</span>it);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_write_iterator_new</span>(pmemkv_db <span style=color:#f92672>*</span>db, pmemkv_write_iterator <span style=color:#f92672>**</span>it);
+<p><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_iterator_delete</span>(pmemkv_iterator <span style=color:#f92672><em></span>it);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_write_iterator_delete</span>(pmemkv_write_iterator <span style=color:#f92672></em></span>it);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek_lower</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek_lower_eq</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek_higher</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek_higher_eq</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672></em></span>k, size_t kb);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek_to_first</span>(pmemkv_iterator <span style=color:#f92672><em></span>it);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_seek_to_last</span>(pmemkv_iterator <span style=color:#f92672></em></span>it);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_is_next</span>(pmemkv_iterator <span style=color:#f92672><em></span>it);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_next</span>(pmemkv_iterator <span style=color:#f92672></em></span>it);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_prev</span>(pmemkv_iterator <span style=color:#f92672>*</span>it);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_key</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>**</span>k, size_t <span style=color:#f92672></em></span>kb);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_iterator_read_range</span>(pmemkv_iterator <span style=color:#f92672><em></span>it, size_t pos, size_t n,
+<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>**</span>data, size_t <span style=color:#f92672></em></span>rb);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_write_iterator_write_range</span>(pmemkv_write_iterator <span style=color:#f92672><em></span>it, size_t pos, size_t n,
+<span style=color:#66d9ef>char</span> <span style=color:#f92672>**</span>data, size_t <span style=color:#f92672></em></span>wb);</p>
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemkv_write_iterator_commit</span>(pmemkv_write_iterator <span style=color:#f92672><em></span>it);
+<span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pmemkv_write_iterator_abort</span>(pmemkv_write_iterator <span style=color:#f92672></em></span>it);
+</code></pre></div><p>For general description of pmemkv and available engines see <strong>libpmemkv</strong>(7).
+For description of pmemkv core API see <strong>libpmemkv</strong>(3).</p></p>
+<h1 id=description>DESCRIPTION</h1>
+<p>Iterators provide methods to iterate over records in db.</p>
+<p>Both iterator types (pmemkv_iterator (read) and pmemkv_write_iterator) allow reading record&rsquo;s
+key and value. To use pmemkv_write_iterator as a pmemkv_iterator you need to get its member &ldquo;iter&rdquo; (write_it->iter).</p>
+<p>Example of calling pmemkv_iterator_seek_to_first() with both iterator types.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>/* read_it is already created, by pmemkv_iterator */</span>
+<span style=color:#66d9ef>int</span> status <span style=color:#f92672>=</span> pmemkv_iterator_seek_to_first(read_it);
+<p><span style=color:#75715e>/* write_it is already created, by pmemkv_write_iterator */</span>
+<span style=color:#66d9ef>int</span> status <span style=color:#f92672>=</span> pmemkv_iterator_seek_to_first(write_it<span style=color:#f92672>-&gt;</span>iter);
+</code></pre></div><p>A pmemkv_write_iterator additionally can modify record’s value transactionally.</p></p>
+<p>Some of the functions are not guaranteed to be implemented by all engines.
+If an engine does not support a certain function, it will return PMEMKV_STATUS_NOT_SUPPORTED.</p>
+<p>Holding simultaneously in the same thread more than one iterator is undefined behavior.</p>
+<dl>
+<dt><code>int pmemkv_iterator_new(pmemkv_db *db, pmemkv_iterator **it);</code></dt>
+<dd>
+<p>Creates a new pmemkv_iterator instance and stores a pointer to it in <code>*it</code>.</p>
+</dd>
+<dt><code>int pmemkv_write_iterator_new(pmemkv_db *db, pmemkv_write_iterator **it);</code></dt>
+<dd>
+<p>Creates a new pmemkv_write_iterator instance and stores a pointer to it in <code>*it</code>.</p>
+</dd>
+<dt><code>void pmemkv_iterator_delete(pmemkv_iterator *it);</code></dt>
+<dd>
+<p>Deletes pmemkv_iterator.</p>
+</dd>
+<dt><code>void pmemkv_write_iterator_delete(pmemkv_write_iterator *it);</code></dt>
+<dd>
+<p>Deletes pmemkv_write_iterator</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek(pmemkv_iterator *it, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Changes iterator position to the record with given key <code>k</code> of length <code>kb</code>.
+If the record is present and no errors occurred, returns PMEMKV_STATUS_OK.
+If the record does not exist, PMEMKV_STATUS_NOT_FOUND is returned and the iterator
+position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek_lower(pmemkv_iterator *it, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Changes iterator position to the record with key lower than given key <code>k</code> of length <code>kb</code>.
+If the record is present and no errors occurred, returns PMEMKV_STATUS_OK.
+If the record does not exist, PMEMKV_STATUS_NOT_FOUND is returned and the iterator
+position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek_lower_eq(pmemkv_iterator *it, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Changes iterator position to the record with key equal or lower than given key <code>k</code> of length <code>kb</code>.
+If the record is present and no errors occurred, returns PMEMKV_STATUS_OK.
+If the record does not exist, PMEMKV_STATUS_NOT_FOUND is returned and the iterator
+position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek_higher(pmemkv_iterator *it, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Changes iterator position to the record with key higher than given key <code>k</code> of length <code>kb</code>.
+If the record is present and no errors occurred, returns PMEMKV_STATUS_OK.
+If the record does not exist, PMEMKV_STATUS_NOT_FOUND is returned and the iterator
+position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek_higher_eq(pmemkv_iterator *it, const char *k, size_t kb);</code></dt>
+<dd>
+<p>Changes iterator position to the record with key equal or higher than given key <code>k</code> of length <code>kb</code>.
+If the record is present and no errors occurred, returns PMEMKV_STATUS_OK.
+If the record does not exist, PMEMKV_STATUS_NOT_FOUND is returned and the iterator
+position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek_to_first(pmemkv_iterator *it);</code></dt>
+<dd>
+<p>Changes iterator position to the first record. If db isn&rsquo;t empty, and no errors occurred, returns
+PMEMKV_STATUS_OK. If db is empty, PMEMKV_STATUS_NOT_FOUND is returned and the iterator position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_seek_to_last(pmemkv_iterator *it);</code></dt>
+<dd>
+<p>Changes iterator position to the last record. If db isn&rsquo;t empty, and no errors occurred, returns
+PMEMKV_STATUS_OK. If db is empty, PMEMKV_STATUS_NOT_FOUND is returned and the iterator position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_is_next(pmemkv_iterator *it);</code></dt>
+<dd>
+<p>Checks if there is a next record available. If true is returned, it is guaranteed that
+pmemkv_iterator_next(it) will return PMEMKV_STATUS_OK, otherwise iterator is already on the last
+element and pmemkv_iterator_next(it) will return PMEMKV_STATUS_NOT_FOUND.</p>
+</dd>
+<dt><code>int pmemkv_iterator_next(pmemkv_iterator *it);</code></dt>
+<dd>
+<p>Changes iterator position to the next record.
+If the next record exists, returns PMEMKV_STATUS_OK, otherwise
+PMEMKV_STATUS_NOT_FOUND is returned and the iterator position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_prev(pmemkv_iterator *it);</code></dt>
+<dd>
+<p>Changes iterator position to the previous record.
+If the previous record exists, returns PMEMKV_STATUS_OK, otherwise
+PMEMKV_STATUS_NOT_FOUND is returned and the iterator position is undefined.
+It internally aborts all changes made to an element previously pointed by the iterator.</p>
+</dd>
+<dt><code>int pmemkv_iterator_key(pmemkv_iterator *it, const char **k, size_t *kb);</code></dt>
+<dd>
+<p>Assigns record&rsquo;s key&rsquo;s address to <code>k</code> and key&rsquo;s length to <code>kb</code>. If the iterator is on an undefined position,
+calling this method is undefined behaviour.</p>
+</dd>
+<dt><code>int pmemkv_iterator_read_range(pmemkv_iterator *it, size_t pos, size_t n, const char **data, size_t *rb);</code></dt>
+<dd>
+<p>Allows getting record&rsquo;s value&rsquo;s range which can be only read.
+You can request for either full value or only value&rsquo;s subrange (<code>n</code> elements starting from <code>pos</code>).
+Assigns pointer to the beginning of the requested range to <code>data</code>, and number of elements in range to <code>rb</code>.
+If <code>n</code> is bigger than length of a value it&rsquo;s automatically shrunk.
+If the iterator is on an undefined position, calling this method is undefined behaviour.</p>
+</dd>
+<dt><code>int pmemkv_write_iterator_write_range(pmemkv_write_iterator *it, size_t pos, size_t n, char **data, size_t *wb);</code></dt>
+<dd>
+<p>Allows getting record&rsquo;s value&rsquo;s range which can be modified.
+You can request for either full value or only value&rsquo;s subrange (<code>n</code> elements starting from <code>pos</code>).
+Assigns pointer to the beginning of the requested range to <code>data</code>, and number of elements in range to <code>wb</code>.
+If <code>n</code> is bigger than length of a value it&rsquo;s automatically shrunk.
+Changes made on a requested range are not persistent until <em>pmemkv_write_iterator_commit()</em> is called.
+If the iterator is on an undefined position, calling this method is undefined behaviour.</p>
+</dd>
+<dt><code>int pmemkv_write_iterator_commit(pmemkv_write_iterator *it);</code></dt>
+<dd>
+<p>Commits modifications made on the current record.
+Calling this method is the only way to save modifications made by the iterator on the current
+record. You need to call this method before changing the iterator position, otherwise
+modifications will be automatically aborted.</p>
+</dd>
+<dt><code>void pmemkv_write_iterator_abort(pmemkv_write_iterator *it);</code></dt>
+<dd>
+<p>Aborts uncommitted modifications made on the current record.</p>
+</dd>
+</dl>
+<h2 id=errors>ERRORS</h2>
+<p>Each function, except for <em>pmemkv_iterator_delete()</em>, <em>pmemkv_write_iterator_delete()</em> and <em>pmemkv_write_iterator_abort()</em>,
+returns one of the pmemkv status codes. To check possible options see <strong>libpmemkv</strong>(3).</p>
+<h1 id=example>EXAMPLE</h1>
+<p>The following example is taken from <code>examples/pmemkv_iterator_c</code> directory.</p>
+<p>Usage of basic iterator functions to iterate over all records and modify one of them.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&#34;libpmemkv.h&#34;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;assert.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdlib.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define ASSERT(expr)                                                                     \
+</span><span style=color:#75715e>	do {                                                                             \
+</span><span style=color:#75715e>		if (!(expr))                                                             \
+</span><span style=color:#75715e>			puts(pmemkv_errormsg());                                         \
+</span><span style=color:#75715e>		assert(expr);                                                            \
+</span><span style=color:#75715e>	} while (0)
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define LOG(msg) puts(msg)
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>const</span> <span style=color:#66d9ef>uint64_t</span> SIZE <span style=color:#f92672>=</span> <span style=color:#ae81ff>1024UL</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024UL</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024UL</span>;
+<p><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>int</span> argc, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>argv[])
+{
+<span style=color:#66d9ef>if</span> (argc <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>2</span>) {
+fprintf(stderr, <span style=color:#e6db74>&quot;Usage: %s file</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&quot;</span>, argv[<span style=color:#ae81ff>0</span>]);
+exit(<span style=color:#ae81ff>1</span>);
+}</p>
+<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; size_t n_elements &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;10&lt;/span&gt;;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; buffer[&lt;span style=&quot;color:#ae81ff&quot;&gt;64&lt;/span&gt;];
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* See libpmemkv_config(3) for more detailed example of config creation */&lt;/span&gt;
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Creating config&amp;#34;&lt;/span&gt;);
+pmemkv_config &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;cfg &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_new();
+ASSERT(cfg &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;int&lt;/span&gt; s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_path(cfg, argv[&lt;span style=&quot;color:#ae81ff&quot;&gt;1&lt;/span&gt;]);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_size(cfg, SIZE);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_config_put_create_if_missing(cfg, true);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Opening pmemkv database with &amp;#39;radix&amp;#39; engine&amp;#34;&lt;/span&gt;);
+pmemkv_db &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;db &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; NULL;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_open(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;radix&amp;#34;&lt;/span&gt;, cfg, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;db);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+ASSERT(db &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; NULL);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Putting new keys&amp;#34;&lt;/span&gt;);
+&lt;span style=&quot;color:#66d9ef&quot;&gt;for&lt;/span&gt; (size_t i &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;; i &lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt; n_elements; &lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;i) {
+	&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; key[&lt;span style=&quot;color:#ae81ff&quot;&gt;10&lt;/span&gt;];
+	&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;value &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;;
+	sprintf(key, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;key%zu&amp;#34;&lt;/span&gt;, i);
+	s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_put(db, key, strlen(key), value, strlen(value));
+	ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+}
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* get a new read iterator */&lt;/span&gt;
+pmemkv_iterator &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;it;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_iterator_new(db, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;it);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Iterate from first to last element&amp;#34;&lt;/span&gt;);
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_iterator_seek_to_first(it);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+size_t element_number &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;do&lt;/span&gt; {
+	&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;str;
+	size_t cnt;
+	&lt;span style=&quot;color:#75715e&quot;&gt;/* read a key */&lt;/span&gt;
+	s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_iterator_key(it, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;str, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;cnt);
+	ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+	sprintf(buffer, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Key %zu = %s&amp;#34;&lt;/span&gt;, element_number&lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;, str);
+	LOG(buffer);
+} &lt;span style=&quot;color:#66d9ef&quot;&gt;while&lt;/span&gt; (pmemkv_iterator_next(it) &lt;span style=&quot;color:#f92672&quot;&gt;!=&lt;/span&gt; PMEMKV_STATUS_NOT_FOUND);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* iterator must be deleted manually */&lt;/span&gt;
+pmemkv_iterator_delete(it);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* get a new write_iterator */&lt;/span&gt;
+pmemkv_write_iterator &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;w_it;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_write_iterator_new(db, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;w_it);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* if you want to get a pmemkv_iterator (read iterator) from a
+</code></pre>
+<p></span><span style=color:#75715e> * pmemkv_write_iterator, you should do: write_it->iter */</span>
+s <span style=color:#f92672>=</span> pmemkv_iterator_seek_to_last(w_it<span style=color:#f92672>-></span>iter);
+ASSERT(s <span style=color:#f92672>==</span> PMEMKV_STATUS_OK);</p>
+<pre><code>&lt;span style=&quot;color:#75715e&quot;&gt;/* get a write range, to modify last element&amp;#39;s value */&lt;/span&gt;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;data;
+size_t cnt;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_write_iterator_write_range(w_it, &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;, &lt;span style=&quot;color:#ae81ff&quot;&gt;5&lt;/span&gt;, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;data, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;cnt);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;for&lt;/span&gt; (size_t i &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;; i &lt;span style=&quot;color:#f92672&quot;&gt;&amp;lt;&lt;/span&gt; cnt; &lt;span style=&quot;color:#f92672&quot;&gt;++&lt;/span&gt;i)
+	data[i] &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;;
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* commit changes */&lt;/span&gt;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_write_iterator_commit(w_it);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* get a read range, to read modified value */&lt;/span&gt;
+&lt;span style=&quot;color:#66d9ef&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;char&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;*&lt;/span&gt;str;
+s &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; pmemkv_iterator_read_range(w_it&lt;span style=&quot;color:#f92672&quot;&gt;-&amp;gt;&lt;/span&gt;iter, &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;, &lt;span style=&quot;color:#ae81ff&quot;&gt;5&lt;/span&gt;, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;str, &lt;span style=&quot;color:#f92672&quot;&gt;&amp;amp;&lt;/span&gt;cnt);
+ASSERT(s &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; PMEMKV_STATUS_OK);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* verify a modified value */&lt;/span&gt;
+ASSERT(strcmp(str, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;xxxxx&amp;#34;&lt;/span&gt;) &lt;span style=&quot;color:#f92672&quot;&gt;==&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;);
+sprintf(buffer, &lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Modified value = %s&amp;#34;&lt;/span&gt;, str);
+LOG(buffer);
+
+&lt;span style=&quot;color:#75715e&quot;&gt;/* iterator must be deleted manually */&lt;/span&gt;
+pmemkv_write_iterator_delete(w_it);
+
+LOG(&lt;span style=&quot;color:#e6db74&quot;&gt;&amp;#34;Closing database&amp;#34;&lt;/span&gt;);
+pmemkv_close(db);
+
+&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#ae81ff&quot;&gt;0&lt;/span&gt;;
+</code></pre>
+<p>}</p>
+<p></code></pre></div><h1 id=see-also>SEE ALSO</h1></p>
+<p><strong>libpmemkv</strong>(7), <strong>libpmemkv</strong>(3) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>
