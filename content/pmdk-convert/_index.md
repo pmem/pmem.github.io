@@ -20,7 +20,7 @@ The conversion process is not fail-safe - power interruption may damage the pool
 
 This tool doesn’t support remote replicas. Before a conversion all remote replicas have to be removed from the pool by **pmempool transform** command.
 
-See the <a href="./manpages/master/pmdk-convert.1.html">pmdk-convert man page</a> for current master documentation and examples
+See the <a href="manpages/master/pmdk-convert.1.html">pmdk-convert man page</a> for current master documentation and examples.
 
 ### Building The Source
 
@@ -65,13 +65,13 @@ $ make
 $ make install
 ```
 
-On Windows
+#### On Windows
 ``` powershell
 PS> cmake .. -G "Visual Studio 14 2015 Win64"
 PS> msbuild build/ALL_BUILD.vcxproj
 ```
 
-To build pmdk-convert on Windows 8 you have to specify your SDK version in the cmake command i.e.
+To build pmdk-convert on Windows 8 you have to specify your SDK version in the cmake command, e.g.
 
 ``` powershell
 PS> cmake .. -G "Visual Studio 14 2015 Win64" -DCMAKE_SYSTEM_VERSION="10.0.26624"

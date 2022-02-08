@@ -37,7 +37,7 @@ events: ['PIRL']
 # Post type
 type: 'event'
 
-# Featured. Specifiy true or false to show on homepage
+# Featured. Specify true or false to show on homepage
 featured: 
 ---
 

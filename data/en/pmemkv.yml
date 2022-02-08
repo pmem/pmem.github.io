@@ -14,44 +14,44 @@ c_api:
                 <p>for the current <strong>master:</strong></p>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/master/doxygen/index.html\">C++ Doxygen doc</a>"
+          content: "<a href=\"./master/doxygen/index.html\">C++ Doxygen doc</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./master/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./master/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
+              content: "<a href=\"./master/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
+              content: "<a href=\"./master/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
             child_5:
-              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./master/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_6:
-              content: "<a href=\"https://pmem.io/pmemkv/master/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+              content: "<a href=\"./master/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
     branch_list2:
       content: "<p>for the latest stable branch (<strong>1.5</strong>):</p>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/v1.5/doxygen/index.html\">C++ Doxygen doc</a>"
+          content: "<a href=\"./v1.5/doxygen/index.html\">C++ Doxygen doc</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./v1.5/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./v1.5/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
+              content: "<a href=\"./v1.5/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
+              content: "<a href=\"./v1.5/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
             child_5:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./v1.5/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_6:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.5/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+              content: "<a href=\"./v1.5/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
 
 ################################# Language Bindings #################################
 language_bindings:
@@ -67,11 +67,8 @@ language_bindings:
           content: "<strong>pmemkv-nodejs</strong> <a href=\"/pmemkv-nodejs\">docs</a>"
         list_item3:
           content: "<strong>pmemkv-python</strong> <a href=\"/pmemkv-python\">docs</a>"
-    link_list2:
-      content: "or just a readme (on GitHub’s repository page):"
-      list_items:
-        list_item1:
-          content: "<strong>pmemkv-ruby</strong> <a href=\"https://github.com/pmem/pmemkv-ruby\">readme</a>"
+        list_item4:
+          content: "<strong>pmemkv-ruby</strong> <a href=\"/pmemkv-ruby\">readme</a>"
 
 #################################  Performance reports ################################# 
 performance_reports:
@@ -196,7 +193,7 @@ releases_support_status:
             child_2:
               content: "Patch versions will be released when needed (based on severity of found issues),"
             child_3:
-              content: "Branch will remain in “limited maintanance” status based on original release availability in popular distros,"
+              content: "Branch will remain in “limited maintenance” status based on original release availability in popular distros,"
         list_item3:
           content: "EOL:"
           children:
@@ -216,41 +213,41 @@ older_documentation:
       content: "For branch <strong>stable-1.4:</strong>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/v1.4/doxygen/index.html\">C++ Doxygen docs</a>"
+          content: "<a href=\"./v1.4/doxygen/index.html\">C++ Doxygen docs</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./v1.4/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./v1.4/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
+              content: "<a href=\"./v1.4/manpages/libpmemkv_tx.3.html\">libpmemkv_tx.3</a> (EXPERIMENTAL API)"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
+              content: "<a href=\"./v1.4/manpages/libpmemkv_iterator.3.html\">libpmemkv_iterator.3</a> (EXPERIMENTAL API)"
             child_5:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./v1.4/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_6:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.4/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+              content: "<a href=\"./v1.4/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
     documentation_list_2:
       content: "For branch <strong>stable-1.3:</strong>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/v1.3/doxygen/index.html\">C++ Doxygen docs</a>"
+          content: "<a href=\"./v1.3/doxygen/index.html\">C++ Doxygen docs</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./v1.3/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./v1.3/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./v1.3/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.3/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
-      
+              content: "<a href=\"./v1.3/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+
 ################################# Archived Documentation #################################
 archived_documentation:
   enable: true
@@ -260,53 +257,53 @@ archived_documentation:
       content: "For branch <strong>stable-1.2.1:</strong>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/v1.2/doxygen/index.html\">C++ Doxygen docs</a>"
+          content: "<a href=\"./v1.2/doxygen/index.html\">C++ Doxygen docs</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./v1.2/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./v1.2/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./v1.2/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.2/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+              content: "<a href=\"./v1.2/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
     documentation_list_2:
       content: "For branch <strong>stable-1.1.1:</strong>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/v1.1/doxygen/index.html\">C++ Doxygen docs</a>"
+          content: "<a href=\"./v1.1/doxygen/index.html\">C++ Doxygen docs</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./v1.1/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./v1.1/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./v1.1/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.1/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+              content: "<a href=\"./v1.1/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
     documentation_list_3:
       content: "For branch <strong>stable-1.0.3:</strong>"
       list_items:
         list_item1:
-          content: "<a href=\"https://pmem.io/pmemkv/v1.0/doxygen/index.html\">C++ Doxygen docs</a>"
+          content: "<a href=\"./v1.0/doxygen/index.html\">C++ Doxygen docs</a>"
           children:
         list_item2:
           content: "C manpages:"
           children:
             child_1:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
+              content: "<a href=\"./v1.0/manpages/libpmemkv.3.html\">libpmemkv.3</a>"
             child_2:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
+              content: "<a href=\"./v1.0/manpages/libpmemkv.7.html\">libpmemkv.7</a>"
             child_3:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
+              content: "<a href=\"./v1.0/manpages/libpmemkv_config.3.html\">libpmemkv_config.3</a>"
             child_4:
-              content: "<a href=\"https://pmem.io/pmemkv/v1.0/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
+              content: "<a href=\"./v1.0/manpages/libpmemkv_json_config.3.html\">libpmemkv_json_config.3</a>"
 
 
 ################################# Disclaimer #################################
