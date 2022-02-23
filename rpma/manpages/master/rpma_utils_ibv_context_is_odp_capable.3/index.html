@@ -372,7 +372,7 @@ supported</p>
 <pre><code>      #include &lt;librpma.h&gt;
 
       struct ibv_context;
-      int rpma_utils_ibv_context_is_odp_capable(struct ibv_context *dev,
+      int rpma_utils_ibv_context_is_odp_capable(struct ibv_context *ibv_ctx,
               int *is_odp_capable);
 </code></pre>
 <h1 id=description>DESCRIPTION</h1>
@@ -388,7 +388,7 @@ value on failure is undefined.</p>
 following errors:</p>
 <ul>
 <li>
-<p>RPMA_E_INVAL - dev or is_odp_capable is NULL</p>
+<p>RPMA_E_INVAL - ibv_ctx or is_odp_capable is NULL</p>
 </li>
 <li>
 <p>RPMA_E_PROVIDER - <strong>ibv_query_device_ex</strong>() failed, the exact

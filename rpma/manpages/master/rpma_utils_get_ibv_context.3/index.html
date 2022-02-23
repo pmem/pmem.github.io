@@ -379,7 +379,7 @@ address</p>
 
       int rpma_utils_get_ibv_context(const char *addr,
               enum rpma_util_ibv_context_type type,
-              struct ibv_context **dev_ptr);
+              struct ibv_context **ibv_ctx_ptr);
 </code></pre>
 <h1 id=description>DESCRIPTION</h1>
 <p><strong>rpma_utils_get_ibv_context</strong>() obtains an RDMA device context by
@@ -400,13 +400,13 @@ given remote address</p>
 <h1 id=return-value>RETURN VALUE</h1>
 <p>The <strong>rpma_utils_get_ibv_context</strong>() function returns 0 on success
 or a negative error code on failure.
-<strong>rpma_utils_get_ibv_context</strong>() does not set *dev_ptr value on
-failure.</p>
+<strong>rpma_utils_get_ibv_context</strong>() does not set *ibv_ctx_ptr value
+on failure.</p>
 <h1 id=errors>ERRORS</h1>
 <p><strong>rpma_utils_get_ibv_context</strong>() can fail with the following errors:</p>
 <ul>
 <li>
-<p>RPMA_E_INVAL - addr or dev_ptr is NULL or type is unknown</p>
+<p>RPMA_E_INVAL - addr or ibv_ctx_ptr is NULL or type is unknown</p>
 </li>
 <li>
 <p>RPMA_E_NOMEM - out of memory</p>
