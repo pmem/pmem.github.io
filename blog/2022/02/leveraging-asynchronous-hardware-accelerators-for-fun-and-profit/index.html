@@ -1,0 +1,785 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="Leveraging asynchronous hardware accelerators for fun and profit">
+<meta property="og:description" content="One of the greatest benefits of Persistent Memory is that it&rsquo;s directly accessible by the CPU. But that can also be one of its downsides for specific use cases. For example, if you want to use PMem as an ultra-fast storage device with low access latency.
+PMem as storage impedance mismatch The reason for that is simple - block storage I/O is typically asynchronous due to its relatively high latency and high queue depths required to reach optimal throughputs.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/"><meta property="article:section" content="blog">
+<meta property="article:published_time" content="2022-02-28T10:00:00+00:00">
+<meta property="article:modified_time" content="2022-02-28T10:00:00+00:00">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Leveraging asynchronous hardware accelerators for fun and profit</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Leveraging asynchronous hardware accelerators for fun and profit</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 28 Feb, 2022</li>
+<li><i class=icon-user></i> Piotr Balcer</li>
+<li>
+<i class=icon-folder-open></i>
+PMDK
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<p>One of the greatest benefits of Persistent Memory is that it&rsquo;s directly
+accessible by the CPU. But that can also be one of its downsides for
+specific use cases. For example, if you want to use PMem as an ultra-fast
+storage device with low access latency.</p>
+<h2 id=pmem-as-storage-impedance-mismatch>PMem as storage impedance mismatch</h2>
+<p>The reason for that is simple - block storage I/O is typically asynchronous due
+to its relatively high latency and high queue depths required to reach optimal
+throughputs. This led to developers optimizing software for concurrent access to
+the storage devices, either directly through asynchronous APIs like
+<a href=https://kernel.dk/io_uring.pdf><code>io_uring</code></a> or indirectly by relying on kernel&rsquo;s built-in mechanisms such as
+page caching or buffering. And now enter Persistent Memory, where the most
+natural way of accessing it is asynchronously with the CPU. This creates a mismatch
+in storage use cases between what the software expects, an offloaded
+background I/O operation, and what is actually happening, a synchronous memory copy.</p>
+<p><img src=/images/posts/async-dma-pmem.png alt="dma pmem"></p>
+<p>This mismatch manifests itself in the form of increased CPU usage when using PMem
+as a block device. So you might be getting higher throughput and lower latency
+in benchmarks but at the cost of increased CPU utilization.</p>
+<p>Now, you can certainly optimize software by changing it to use a more
+memory-centric approach to Persistent Memory. But that&rsquo;s a lot of work.
+And sometimes, an asynchronous approach to memory transfers simply makes more
+sense, like in the case of bulk data operations.</p>
+<p>Thankfully, starting in the next-generation Xeon (Sapphire Rapids), the
+platform will gain the ability to offload some of its memory operations through
+the use of a built-in DMA engine - <a href=https://01.org/blogs/2019/introducing-intel-data-streaming-accelerator>Intel® Data Streaming Accelerator (Intel DSA)</a>.</p>
+<h2 id=data-streaming-accelerator>Data Streaming Accelerator</h2>
+<p>DSA enables user-space software to quickly and efficiently perform a background
+memory operation. Among supported operations are memory move (aka <code>memcpy</code>),
+memory fill (aka <code>memset</code>) , cache flush, and memory compare (aka <code>memcpy</code>).
+The <a href=https://software.intel.com/en-us/download/intel-data-streaming-accelerator-preliminary-architecture-specification>DSA specification</a> contains the full list.
+This accelerator essentially makes it feasible for software to offload from the
+CPU even small memory operations.</p>
+<p>To use DSA, the system needs to configure groups composed of
+work queues and execution engines. Work queues can be shared between
+multiple users or dedicated to exclusive use by a single one. Once configured,
+applications can access each work queue by mapping a special character device
+exposed by the kernel. This map can then be used to directly submit work using
+specialized instructions, <code>MOVDIR64B</code> or <code>ENQCMD/S</code>. Work submission and handling
+can be done entirely from user-space.</p>
+<p><img src=/images/posts/async-dsa-arch.png alt="dsa block diagram"></p>
+<p>On completion of each work item, the hardware will store a completion record into
+a designated address. Software can also optionally request a completion interrupt,
+but user-space applications will need to carefully weigh the costs of using
+such an approach, especially in the case of small transfers.</p>
+<p>To optimize busy polling on completion records, new CPUs will provide <a href="https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=umwait">additional
+instructions</a> that will allow applications to implement
+low power waiting schemes, potentially
+<a href=https://lwn.net/Articles/790920/>improving overall performance</a> of the system.</p>
+<p>Ultimately, DSA bridges the gap between the capabilities of traditional storage
+devices and Persistent Memory (and memory in general) by enabling asynchronous
+data movement. But it also goes beyond existing use cases like block storage,
+potentially facilitating new approaches to memory-related algorithms in
+databases, garbage collection, and similar areas.</p>
+<h2 id=data-mover-library>Data Mover Library</h2>
+<p>Using DSA directly can be quite involved. But most developers won&rsquo;t need to
+program to raw device interfaces. Instead, they will be able to leverage libraries
+that provide convenient and easy-to-use APIs to asynchronous data movement. One
+such solution is <a href=https://github.com/intel/dml>Data Mover Library (DML)</a>.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>
+<span style=color:#a6e22e>do_async_memcpy</span>(<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>dst, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>src, size_t n, useful_work_fn useful_work)
+{
+    dml_status_t status;
+    <span style=color:#66d9ef>uint32_t</span> job_size;
+    <span style=color:#75715e>/* initialize the job structure */</span>
+    status <span style=color:#f92672>=</span> dml_get_job_size(path, <span style=color:#f92672>&amp;</span>job_size);
+    assert(status <span style=color:#f92672>==</span> DML_STATUS_OK); <span style=color:#75715e>/* error handling omitted for brevity */</span>
+    <span style=color:#75715e>/* jobs can be variably sized, so some form of dynamic allocation is required */</span>
+    dml_job_t <span style=color:#f92672>*</span>dml_job <span style=color:#f92672>=</span> (dml_job_t <span style=color:#f92672>*</span>)malloc(vdm_dml<span style=color:#f92672>-&gt;</span>membuf, job_size);
+    assert(dml_job <span style=color:#f92672>!=</span> NULL);
+    <span style=color:#75715e>/* there are two job execution paths: DSA hardware and software fallback */</span>
+    status <span style=color:#f92672>=</span> dml_init_job(DML_PATH_HW, dml_job);
+    assert(status <span style=color:#f92672>==</span> DML_STATUS_OK);
+    <span style=color:#75715e>/* setup all the required parameters */</span>
+    dml_job<span style=color:#f92672>-&gt;</span>operation <span style=color:#f92672>=</span> DML_OP_MEM_MOVE;
+    dml_job<span style=color:#f92672>-&gt;</span>source_first_ptr <span style=color:#f92672>=</span> (<span style=color:#66d9ef>uint8_t</span> <span style=color:#f92672>*</span>)src;
+    dml_job<span style=color:#f92672>-&gt;</span>destination_first_ptr <span style=color:#f92672>=</span> (<span style=color:#66d9ef>uint8_t</span> <span style=color:#f92672>*</span>)dest;
+    dml_job<span style=color:#f92672>-&gt;</span>source_length <span style=color:#f92672>=</span> n;
+    dml_job<span style=color:#f92672>-&gt;</span>destination_length <span style=color:#f92672>=</span> n;
+    dml_job<span style=color:#f92672>-&gt;</span>flags <span style=color:#f92672>=</span> DML_FLAG_COPY_ONLY;
+    <span style=color:#75715e>/* and then submit the job to the work queue */</span>
+    status <span style=color:#f92672>=</span> dml_submit_job(dml_job);
+    assert(status <span style=color:#f92672>==</span> DML_STATUS_OK);
+    <span style=color:#75715e>/* now we can either wait or do something else and check completion later */</span>
+    <span style=color:#66d9ef>if</span> (useful_work <span style=color:#f92672>!=</span> NULL) {
+        <span style=color:#66d9ef>do</span> {
+            <span style=color:#75715e>/* ...doing some useful work... */</span>
+            useful_work(...);
+        } (dml_check_job(dml_job) <span style=color:#f92672>!=</span> DML_STATUS_OK);
+    } <span style=color:#66d9ef>else</span> {
+        <span style=color:#75715e>/* if there&#39;s nothing else to do, let&#39;s wait */</span>
+        status <span style=color:#f92672>=</span> dml_wait_job(dml_job);
+        assert(status <span style=color:#f92672>==</span> DML_STATUS_OK);
+    }
+    <span style=color:#66d9ef>return</span> dst;
+}
+</code></pre></div><blockquote>
+<p>A C++ version is also available. See the <a href=https://github.com/intel/dml>DML github</a> page for details.</p>
+</blockquote>
+<p>The above code snippet sets up a job that will perform a memory move operation
+in the background, allowing the CPU to do something else while the copy is
+taking place. Admittedly, this is not as simple as just <code>memcpy</code>, but it does
+provide more powerful asynchronous semantics.</p>
+<h2 id=the-async-ecosystem>The async ecosystem</h2>
+<p>Programmers are used to dealing with asynchronous I/O devices. Be it
+block storage like described at the beginning of this article or
+network interfaces. APIs like <a href=https://man7.org/linux/man-pages/man7/epoll.7.html><code>epoll</code></a>, or lately <a href=https://kernel.dk/io_uring.pdf><code>io_uring</code></a>,
+have enabled developers to create highly efficient systems that minimize waiting
+time and allow many tasks to be performed concurrently by one or more threads.</p>
+<p><img src=/images/posts/async-sync-vs-async.png alt="sync vs async comparision"></p>
+<p>Programming languages are also increasingly capable of natively expressing
+asynchronous semantics. High-level languages started this trend, but lower-level
+ones such as <a href=https://en.cppreference.com/w/cpp/language/coroutines>C++, with coroutines</a>,
+and <a href=https://blog.rust-lang.org/2019/11/07/Async-await-stable.html>Rust, with <code>async/await</code></a>, are following suit.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C++ data-lang=C++>task
+<span style=color:#a6e22e>async_useful_work</span>(executor_type <span style=color:#f92672>&amp;</span>executor)
+{
+    <span style=color:#75715e>/* perform some useful compute work */</span>
+}
+task
+<span style=color:#a6e22e>async_memcpy</span>(executor_type <span style=color:#f92672>&amp;</span>executor, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>dst, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>src, size_t n)
+{
+    <span style=color:#75715e>/* perform an asynchronous memory copy using DSA */</span>
+}
+task
+<span style=color:#a6e22e>do_copy_and_useful_work</span>(executor_type <span style=color:#f92672>&amp;</span>executor, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>dst, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>src, size_t n)
+{
+    <span style=color:#75715e>/* and now we can easily compose those operations using C++20 coroutines */</span>
+    <span style=color:#66d9ef>auto</span> copy <span style=color:#f92672>=</span> async_memcpy(executor, dst, src, n);
+    <span style=color:#66d9ef>auto</span> work <span style=color:#f92672>=</span> async_useful_work(executor);
+    <span style=color:#66d9ef>co_await</span> when_all(copy, work); <span style=color:#75715e>/* wait for async work to finish */</span>
+    std<span style=color:#f92672>::</span>cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34;done&#34;</span> <span style=color:#f92672>&lt;&lt;</span> std<span style=color:#f92672>::</span>endl;
+}
+</code></pre></div><p>As you can see from the example above, the new asynchronous semantics in C++20
+provide a composable abstraction for concurrent work that is well suited for the
+new DSA hardware capabilities.</p>
+<p>These modern approaches enable programmers to create readable and efficient
+programs that take advantage of background processing. And they also allow
+library developers to expose complex asynchronous tasks that can be executed
+concurrently, without breaking up functions into multiple smaller ones or
+relying on callbacks.</p>
+<h2 id=but-what-about-c>But&mldr; what about C?</h2>
+<p>The C programming language doesn&rsquo;t have first-class support for asynchronous
+semantics, nor does it have a single widely used concurrency framework. Yes, there are
+frameworks such as <a href=https://www.argobots.org/>argobots</a> and popular libraries like <a href=https://libevent.org/>libevent</a>
+or <a href=https://libuv.org/>libuv</a>. Heck, there are even solutions that use the dark magics to provide
+<a href=https://en.wikipedia.org/wiki/Coroutine#C>coroutines in C</a>. But while excellent at what they do, they all have
+their idiosyncrasies that make them mostly incompatible with each other.</p>
+<p>Applications can directly use DML C APIs where appropriate, as I&rsquo;ve shown earlier.
+But libraries that want to expose asynchronous functions have it
+more difficult. It&rsquo;s hard to create higher-level functions that compose regular
+host CPU code and DSA operations.</p>
+<p><img src=/images/posts/async-function.png alt="async function example"></p>
+<p>And so when we first started thinking about introducing asynchronous
+operations in the various libraries in <a href=https://github.com/pmem/pmdk>Persistent Memory Development Kit (PMDK)</a>,
+beyond just an async memcpy implementation, we found ourselves in a precarious
+position. We didn&rsquo;t want for whatever we come up with to be tied to one particular
+framework, and we also wanted to avoid implementing our own highly-elaborate
+concurrency solution.</p>
+<p>What we ended up creating is somewhere in between - <a href=https://github.com/pmem/miniasync>libminiasync</a>.</p>
+<h2 id=libminiasync>libminiasync</h2>
+<p>Our goal was to provide an easy-to-use and flexible mechanism for applications
+and libraries to compose and run higher-level asynchronous tasks.
+We also needed to ensure that our solution was platform-agnostic and usable
+in software that already uses an existing concurrency framework. Interoperability
+with other languages was also an objective - the C++ example I&rsquo;ve included above
+was originally implemented using miniasync.</p>
+<p>And no relying on dark arts :)</p>
+<p><img src=/images/posts/async-miniasync.png alt="miniasync architecture"></p>
+<p>Our new library, libminiasync, accomplishes those goals by providing a minimal
+abstraction of a <code>future</code> that represents an asynchronous task. At its core,
+it&rsquo;s simply a function (polling method) with some associated state and
+the ability to chain the execution of those functions into larger futures. So it&rsquo;s nothing
+particularly inventive, but it&rsquo;s relatively straightforward and has almost no overhead.
+Futures that implement the miniasync&rsquo;s abstraction can also be used with almost
+any other concurrency framework.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>/* define a future with a chain of other futures */</span>
+<span style=color:#66d9ef>struct</span> memcpy_then_useful_work_data {
+    FUTURE_CHAIN_ENTRY(<span style=color:#66d9ef>struct</span> vdm_operation_fut, memcpy);
+    FUTURE_CHAIN_ENTRY(<span style=color:#66d9ef>struct</span> async_useful_work, work);
+};
+<span style=color:#66d9ef>struct</span> memcpy_then_useful_work_output {
+    ...
+};
+<span style=color:#75715e>/* a helper macros that creates all the relevant data structures for the future */</span>
+FUTURE(memcpy_then_useful_work_fut, <span style=color:#66d9ef>struct</span> memcpy_then_useful_work_data,
+    <span style=color:#66d9ef>struct</span> memcpy_and_useful_work_output);
+<span style=color:#75715e>/* the function that puts it all together to instantiate a future */</span>
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> memcpy_then_useful_work_fut
+<span style=color:#a6e22e>async_memcpy_then_useful_work</span>(<span style=color:#66d9ef>struct</span> vdm <span style=color:#f92672>*</span>vdm, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>dest, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>src, size_t n)
+{
+    <span style=color:#66d9ef>struct</span> memcpy_then_useful_work_fut chain <span style=color:#f92672>=</span> {<span style=color:#ae81ff>0</span>};
+    FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.memcpy,
+        vdm_memcpy(vdm, dest, src, n, <span style=color:#ae81ff>0</span>),
+        memcpy_to_work_map, NULL);
+    FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.work, async_work(), NULL, NULL);
+    FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
+    <span style=color:#66d9ef>return</span> chain;
+}
+...
+<span style=color:#75715e>/* the user is left with a fairly easy to use interface to concurrently run the futures */</span>
+<span style=color:#66d9ef>struct</span> async_memcpy_then_useful_work_fut task;
+task <span style=color:#f92672>=</span> async_memcpy_then_useful_work(dml_mover, buf_b, buf_a, testbuf_size);
+<span style=color:#75715e>/* manually drive the task to completion using its poll method */</span>
+<span style=color:#66d9ef>while</span> (future_poll(FUTURE_AS_RUNNABLE((_futurep)), NULL) <span style=color:#f92672>!=</span> FUTURE_STATE_COMPLETE) {
+    <span style=color:#75715e>/* pause... */</span>
+}
+</code></pre></div><blockquote>
+<p>Based on the <a href=https://github.com/pmem/miniasync/blob/master/examples/basic/basic.c>&lsquo;basic&rsquo;</a> miniasync example.</p>
+</blockquote>
+<p>Defining a future requires some boilerplate, but once that&rsquo;s done, its use is
+straightforward. Software can just instantiate the future and execute it. We
+feel that this is an acceptable tradeoff, given that the tricky bits will
+be left mostly for library developers to deal with.</p>
+<p>The miniasync library will also ship with two additional components. A rudimentary
+runtime that facilitates concurrent execution of futures and a virtual
+data mover that provides an abstraction for asynchronous memory operations.</p>
+<h2 id=async-runtime>Async runtime</h2>
+<p>The core miniasync abstraction is intentionally very barebones. This enables software
+to make its own decisions regarding the execution and scheduling of futures.
+Some applications might need complex job-stealing scheduling runtimes, whereas
+some will be satisfied with simpler single-threaded ones. Existing software
+might want to rely on an execution system that it already uses
+(e.g., <a href=https://spdk.io/doc/scheduler.html>an SPDK reactor</a>).
+Miniasync supports all these use cases. However, we didn&rsquo;t want to
+leave it at that and not provide any runtime whatsoever. That&rsquo;s why miniasync
+will initially ship with a simple single-threaded runtime that supports
+concurrent execution of futures.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>struct</span> async_memcpy_and_useful_work_fut tasks[<span style=color:#ae81ff>2</span>];
+tasks[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> async_memcpy_then_useful_work(dml_mover, buf_b, buf_a, testbuf_size);
+tasks[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> async_memcpy_then_useful_work(dml_mover, buf_b, buf_a, testbuf_size);
+<span style=color:#75715e>/* this drives both futures to completion using the runtime */</span>
+runtime_wait_all(runtime, (<span style=color:#66d9ef>struct</span> future <span style=color:#f92672>*</span>)tasks, <span style=color:#ae81ff>2</span>);
+</code></pre></div><p>We are also thinking about creating a multi-threaded runtime that would
+distribute the futures across multiple threads. Reach out if you&rsquo;d like to
+see that.</p>
+<h2 id=virtual-data-movers>Virtual Data Movers</h2>
+<p>The primary thing that we are enabling with all this effort is the
+use of DSA in the PMDK libraries. So as part of miniasync, we are also
+implementing a virtual data mover (vdm) abstraction.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#75715e>/* instantiate a new concrete data mover based on DML */</span>
+<span style=color:#66d9ef>struct</span> data_mover_dml <span style=color:#f92672>*</span>dmd <span style=color:#f92672>=</span> data_mover_dml_new();
+assert(dmd <span style=color:#f92672>!=</span> NULL);
+<span style=color:#66d9ef>struct</span> vdm <span style=color:#f92672>*</span>mover <span style=color:#f92672>=</span> data_mover_dml_get_vdm(dmd);
+<span style=color:#66d9ef>struct</span> vdm_operation_future a_to_b <span style=color:#f92672>=</span>
+    vdm_memcpy(mover, buf_b, buf_a, buf_size, <span style=color:#ae81ff>0</span>);
+<p>runtime_wait(r, FUTURE_AS_RUNNABLE(<span style=color:#f92672>&amp;</span>a_to_b));
+</code></pre></div><p>The purpose of the vdm is to provide a common interface for asynchronous memory
+operations. Software can then be written once using the vdm abstraction but,
+at runtime, choose between various implementations based on its needs and the
+platform’s capabilities. For example, an application that uses SPDK and runs
+on an Intel platform might want to use an <a href=https://spdk.io/doc/accel_fw.html>SPDK-based DSA</a>
+implementation, whereas a generic multi-platform application might want to dynamically
+choose between a software fallback or a platform-specific accelerator (e.g., DSA through DML).</p></p>
+<h2 id=more-to-come>More to come</h2>
+<p>The libminiasync software I&rsquo;ve described above is still a work in progress. If you
+are interested in learning more, please see miniasync&rsquo;s <a href=https://github.com/pmem/miniasync>github page</a>.
+We&rsquo;d also love to hear any feedback about our efforts, so don&rsquo;t hesitate to
+reach out.</p>
+<p>In the following article, coming soon, we will describe how miniasync integrates
+with libpmem2 and the plans for integration with the rest of PMDK. We will also
+circle back to the block storage on PMem problem that I started with by exploring
+an example implementation of asynchronous <a href=https://pmem.io/blog/2014/09/using-the-block-translation-table-for-sector-atomicity/>pmemblk</a> operations.</p>
+<div class="tagcloud clearfix bottommargin">
+<a href=https://pmem.io/tags/miniasync>miniasync</a>
+<a href=https://pmem.io/tags/pmem2>pmem2</a>
+<a href=https://pmem.io/tags/dml>DML</a>
+<a href=https://pmem.io/tags/dsa>DSA</a>
+<a href=https://pmem.io/tags/concurrency>concurrency</a>
+<a href=https://pmem.io/tags/async>async</a>
+<a href=https://pmem.io/tags/asynchronous>asynchronous</a>
+</div>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Leveraging asynchronous hardware accelerators for fun and profit&url=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2022/01/introduction-to-pmemstream/?ref=footer">Introduction to pmemstream &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/ data-lightbox=image><img src=/images/pmem_logo.png alt="Disaggregated Memory - In pursuit of scale and efficiency"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/>Disaggregated Memory - In pursuit of scale and efficiency</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Piotr Balcer</li>
+<li><i class=icon-calendar3></i> 21 Jan, 2022</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/>New release of PMDK</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Pbalcer</li>
+<li><i class=icon-calendar3></i> 11 Oct, 2019</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2018/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk/>New release of PMDK</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Pbalcer</li>
+<li><i class=icon-calendar3></i> 22 Oct, 2018</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2016/12/pmdk-for-windows/ data-lightbox=image><img src=/images/pmem_logo.png alt="PMDK for Windows"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2016/12/pmdk-for-windows/>PMDK for Windows</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Peluse</li>
+<li><i class=icon-calendar3></i> 21 Dec, 2016</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
+<a href=/tags/pmem class=block role=button>pmem</a>
+<a href=/tags/ndctl class=block role=button>ndctl</a>
+<a href=/tags/daxctl class=block role=button>daxctl</a>
+<a href=/tags/pmdk class=block role=button>pmdk</a>
+<a href=/tags/configure class=block role=button>configure</a>
+<a href=/tags/dax class=block role=button>dax</a>
+<a href=/tags/install class=block role=button>install</a>
+<a href=/tags/setup class=block role=button>setup</a>
+<a href=/tags/faq class=block role=button>faq</a>
+<a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/sanitize class=block role=button>sanitize</a>
+<a href=/tags/secure-erase class=block role=button>secure-erase</a>
+<a href=/tags/sql class=block role=button>sql</a>
+<a href=/tags/2019 class=block role=button>2019</a>
+<a href=/tags/async class=block role=button>async</a>
+<a href=/tags/asynchronous class=block role=button>asynchronous</a>
+<a href=/tags/blogs class=block role=button>blogs</a>
+<a href=/tags/concurrency class=block role=button>concurrency</a>
+<a href=/tags/crash class=block role=button>crash</a>
+<a href=/tags/create class=block role=button>create</a>
+<a href=/tags/cxl class=block role=button>cxl</a>
+<a href=/tags/database class=block role=button>database</a>
+<a href=/tags/destroy class=block role=button>destroy</a>
+<a href=/tags/developer class=block role=button>developer</a>
+<a href=/tags/direct-access class=block role=button>direct-access</a>
+<a href=/tags/dml class=block role=button>dml</a>
+<a href=/tags/dsa class=block role=button>dsa</a>
+<a href=/tags/emulate class=block role=button>emulate</a>
+<a href=/tags/fpga class=block role=button>fpga</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>
