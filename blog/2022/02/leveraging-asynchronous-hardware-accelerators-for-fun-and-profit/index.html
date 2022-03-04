@@ -319,7 +319,7 @@ throughputs. This led to developers optimizing software for concurrent access to
 the storage devices, either directly through asynchronous APIs like
 <a href=https://kernel.dk/io_uring.pdf><code>io_uring</code></a> or indirectly by relying on kernel&rsquo;s built-in mechanisms such as
 page caching or buffering. And now enter Persistent Memory, where the most
-natural way of accessing it is asynchronously with the CPU. This creates a mismatch
+natural way of accessing it is synchronously with the CPU. This creates a mismatch
 in storage use cases between what the software expects, an offloaded
 background I/O operation, and what is actually happening, a synchronous memory copy.</p>
 <p><img src=/images/posts/async-dma-pmem.png alt="dma pmem"></p>
@@ -328,7 +328,7 @@ as a block device. So you might be getting higher throughput and lower latency
 in benchmarks but at the cost of increased CPU utilization.</p>
 <p>Now, you can certainly optimize software by changing it to use a more
 memory-centric approach to Persistent Memory. But that&rsquo;s a lot of work.
-And sometimes, an asynchronous approach to memory transfers simply makes more
+And sometimes, asynchronous approach memory transfers simply make more
 sense, like in the case of bulk data operations.</p>
 <p>Thankfully, starting in the next-generation Xeon (Sapphire Rapids), the
 platform will gain the ability to offload some of its memory operations through
@@ -336,10 +336,10 @@ the use of a built-in DMA engine - <a href=https://01.org/blogs/2019/introducing
 <h2 id=data-streaming-accelerator>Data Streaming Accelerator</h2>
 <p>DSA enables user-space software to quickly and efficiently perform a background
 memory operation. Among supported operations are memory move (aka <code>memcpy</code>),
-memory fill (aka <code>memset</code>) , cache flush, and memory compare (aka <code>memcpy</code>).
+memory fill (aka <code>memset</code>) , cache flush, and memory compare (aka <code>memcmp</code>).
 The <a href=https://software.intel.com/en-us/download/intel-data-streaming-accelerator-preliminary-architecture-specification>DSA specification</a> contains the full list.
-This accelerator essentially makes it feasible for software to offload from the
-CPU even small memory operations.</p>
+This accelerator essentially makes it feasible for software to offload even
+small memory operations from the CPU.</p>
 <p>To use DSA, the system needs to configure groups composed of
 work queues and execution engines. Work queues can be shared between
 multiple users or dedicated to exclusive use by a single one. Once configured,
@@ -360,7 +360,7 @@ low power waiting schemes, potentially
 devices and Persistent Memory (and memory in general) by enabling asynchronous
 data movement. But it also goes beyond existing use cases like block storage,
 potentially facilitating new approaches to memory-related algorithms in
-databases, garbage collection, and similar areas.</p>
+databases, garbage collection, and other similar areas.</p>
 <h2 id=data-mover-library>Data Mover Library</h2>
 <p>Using DSA directly can be quite involved. But most developers won&rsquo;t need to
 program to raw device interfaces. Instead, they will be able to leverage libraries
@@ -511,7 +511,7 @@ FUTURE(memcpy_then_useful_work_fut, <span style=color:#66d9ef>struct</span> memc
 <span style=color:#66d9ef>struct</span> async_memcpy_then_useful_work_fut task;
 task <span style=color:#f92672>=</span> async_memcpy_then_useful_work(dml_mover, buf_b, buf_a, testbuf_size);
 <span style=color:#75715e>/* manually drive the task to completion using its poll method */</span>
-<span style=color:#66d9ef>while</span> (future_poll(FUTURE_AS_RUNNABLE((_futurep)), NULL) <span style=color:#f92672>!=</span> FUTURE_STATE_COMPLETE) {
+<span style=color:#66d9ef>while</span> (future_poll(FUTURE_AS_RUNNABLE(<span style=color:#f92672>&amp;</span>task), NULL) <span style=color:#f92672>!=</span> FUTURE_STATE_COMPLETE) {
     <span style=color:#75715e>/* pause... */</span>
 }
 </code></pre></div><blockquote>
@@ -557,10 +557,10 @@ assert(dmd <span style=color:#f92672>!=</span> NULL);
 </code></pre></div><p>The purpose of the vdm is to provide a common interface for asynchronous memory
 operations. Software can then be written once using the vdm abstraction but,
 at runtime, choose between various implementations based on its needs and the
-platform’s capabilities. For example, an application that uses SPDK and runs
+platform capabilities. For example, an application that uses SPDK and runs
 on an Intel platform might want to use an <a href=https://spdk.io/doc/accel_fw.html>SPDK-based DSA</a>
 implementation, whereas a generic multi-platform application might want to dynamically
-choose between a software fallback or a platform-specific accelerator (e.g., DSA through DML).</p></p>
+choose between a software fallback or a hardware-specific accelerator (e.g., DSA through DML).</p></p>
 <h2 id=more-to-come>More to come</h2>
 <p>The libminiasync software I&rsquo;ve described above is still a work in progress. If you
 are interested in learning more, please see miniasync&rsquo;s <a href=https://github.com/pmem/miniasync>github page</a>.
