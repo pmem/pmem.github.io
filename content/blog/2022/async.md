@@ -44,7 +44,7 @@ throughputs. This led to developers optimizing software for concurrent access to
 the storage devices, either directly through asynchronous APIs like
 [`io_uring`][io_uring] or indirectly by relying on kernel's built-in mechanisms such as
 page caching or buffering. And now enter Persistent Memory, where the most
-natural way of accessing it is asynchronously with the CPU. This creates a mismatch
+natural way of accessing it is synchronously with the CPU. This creates a mismatch
 in storage use cases between what the software expects, an offloaded
 background I/O operation, and what is actually happening, a synchronous memory copy.
 
@@ -56,7 +56,7 @@ in benchmarks but at the cost of increased CPU utilization.
 
 Now, you can certainly optimize software by changing it to use a more
 memory-centric approach to Persistent Memory. But that's a lot of work.
-And sometimes, an asynchronous approach to memory transfers simply makes more
+And sometimes, asynchronous approach memory transfers simply make more
 sense, like in the case of bulk data operations.
 
 Thankfully, starting in the next-generation Xeon (Sapphire Rapids), the
@@ -67,10 +67,10 @@ the use of a built-in DMA engine - [Intel® Data Streaming Accelerator (Intel DS
 
 DSA enables user-space software to quickly and efficiently perform a background
 memory operation. Among supported operations are memory move (aka `memcpy`),
-memory fill (aka `memset`) , cache flush, and memory compare (aka `memcpy`).
+memory fill (aka `memset`) , cache flush, and memory compare (aka `memcmp`).
 The [DSA specification][dsa-spec] contains the full list.
-This accelerator essentially makes it feasible for software to offload from the
-CPU even small memory operations.
+This accelerator essentially makes it feasible for software to offload even
+small memory operations from the CPU.
 
 To use DSA, the system needs to configure groups composed of
 work queues and execution engines. Work queues can be shared between
@@ -96,7 +96,7 @@ Ultimately, DSA bridges the gap between the capabilities of traditional storage
 devices and Persistent Memory (and memory in general) by enabling asynchronous
 data movement. But it also goes beyond existing use cases like block storage,
 potentially facilitating new approaches to memory-related algorithms in
-databases, garbage collection, and similar areas.
+databases, garbage collection, and other similar areas.
 
 ## Data Mover Library
 
@@ -274,7 +274,7 @@ async_memcpy_then_useful_work(struct vdm *vdm, void *dest, void *src, size_t n)
 struct async_memcpy_then_useful_work_fut task;
 task = async_memcpy_then_useful_work(dml_mover, buf_b, buf_a, testbuf_size);
 /* manually drive the task to completion using its poll method */
-while (future_poll(FUTURE_AS_RUNNABLE((_futurep)), NULL) != FUTURE_STATE_COMPLETE) {
+while (future_poll(FUTURE_AS_RUNNABLE(&task), NULL) != FUTURE_STATE_COMPLETE) {
     /* pause... */
 }
 ```
@@ -335,10 +335,10 @@ runtime_wait(r, FUTURE_AS_RUNNABLE(&a_to_b));
 The purpose of the vdm is to provide a common interface for asynchronous memory
 operations. Software can then be written once using the vdm abstraction but,
 at runtime, choose between various implementations based on its needs and the
-platform's capabilities. For example, an application that uses SPDK and runs
+platform capabilities. For example, an application that uses SPDK and runs
 on an Intel platform might want to use an [SPDK-based DSA][spdk-dsa]
 implementation, whereas a generic multi-platform application might want to dynamically
-choose between a software fallback or a platform-specific accelerator (e.g., DSA through DML).
+choose between a software fallback or a hardware-specific accelerator (e.g., DSA through DML).
 
 ## More to come
 
