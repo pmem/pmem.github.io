@@ -1,7 +1,7 @@
 <!doctype html><html dir=ltr lang=en-us><head>
 <link rel=stylesheet type=text/css href=/css/style.css>
 <meta property="og:title" content="librpma | PMDK">
-<meta property="og:description" content="librpma.7 rpma_conn_apply_remote_peer_cfg.3 rpma_conn_cfg_delete.3 rpma_conn_cfg_get_cq_size.3 rpma_conn_cfg_get_rcq_size.3 rpma_conn_cfg_get_rq_size.3 rpma_conn_cfg_get_sq_size.3 rpma_conn_cfg_get_timeout.3 rpma_conn_cfg_new.3 rpma_conn_cfg_set_cq_size.3 rpma_conn_cfg_set_rcq_size.3 rpma_conn_cfg_set_rq_size.3 rpma_conn_cfg_set_sq_size.3 rpma_conn_cfg_set_timeout.3 rpma_conn_delete.3 rpma_conn_disconnect.3 rpma_conn_get_cq.3 rpma_conn_get_event_fd.3 rpma_conn_get_private_data.3 rpma_conn_get_qp_num.3 rpma_conn_get_rcq.3 rpma_conn_next_event.3 rpma_conn_req_connect.3 rpma_conn_req_delete.3 rpma_conn_req_get_private_data.3 rpma_conn_req_new.3 rpma_conn_req_recv.3 rpma_cq_get_fd.3 rpma_cq_get_wc.3 rpma_cq_wait.3 rpma_ep_get_fd.3 rpma_ep_listen.3 rpma_ep_next_conn_req.3 rpma_ep_shutdown.3 rpma_err_2str.3 rpma_flush.3 rpma_log_get_threshold.3 rpma_log_set_function.3 rpma_log_set_threshold.3 rpma_mr_advise.3 rpma_mr_dereg.3 rpma_mr_get_descriptor.3 rpma_mr_get_descriptor_size.3 rpma_mr_get_ptr.3 rpma_mr_get_size.3 rpma_mr_reg.3 rpma_mr_remote_delete.3 rpma_mr_remote_from_descriptor.3 rpma_mr_remote_get_flush_type.3 rpma_mr_remote_get_size.3 rpma_peer_cfg_delete.3 rpma_peer_cfg_from_descriptor.3 rpma_peer_cfg_get_descriptor.3 rpma_peer_cfg_get_descriptor_size.3 rpma_peer_cfg_get_direct_write_to_pmem.3 rpma_peer_cfg_new.3 rpma_peer_cfg_set_direct_write_to_pmem.3 rpma_peer_delete.3 rpma_peer_new.3 rpma_read.3 rpma_recv.3 rpma_send.3 rpma_send_with_imm.3 rpma_utils_conn_event_2str.3 rpma_utils_get_ibv_context.3 rpma_utils_ibv_context_is_odp_capable.3 rpma_write.3 rpma_write_atomic.3 rpma_write_with_imm.3  NAME rpma_write_atomic - initiate the atomic write operation">
+<meta property="og:description" content="librpma.7 rpma_atomic_write.3 rpma_conn_apply_remote_peer_cfg.3 rpma_conn_cfg_delete.3 rpma_conn_cfg_get_cq_size.3 rpma_conn_cfg_get_rcq_size.3 rpma_conn_cfg_get_rq_size.3 rpma_conn_cfg_get_sq_size.3 rpma_conn_cfg_get_timeout.3 rpma_conn_cfg_new.3 rpma_conn_cfg_set_cq_size.3 rpma_conn_cfg_set_rcq_size.3 rpma_conn_cfg_set_rq_size.3 rpma_conn_cfg_set_sq_size.3 rpma_conn_cfg_set_timeout.3 rpma_conn_delete.3 rpma_conn_disconnect.3 rpma_conn_get_cq.3 rpma_conn_get_event_fd.3 rpma_conn_get_private_data.3 rpma_conn_get_qp_num.3 rpma_conn_get_rcq.3 rpma_conn_next_event.3 rpma_conn_req_connect.3 rpma_conn_req_delete.3 rpma_conn_req_get_private_data.3 rpma_conn_req_new.3 rpma_conn_req_recv.3 rpma_cq_get_fd.3 rpma_cq_get_wc.3 rpma_cq_wait.3 rpma_ep_get_fd.3 rpma_ep_listen.3 rpma_ep_next_conn_req.3 rpma_ep_shutdown.3 rpma_err_2str.3 rpma_flush.3 rpma_log_get_threshold.3 rpma_log_set_function.3 rpma_log_set_threshold.3 rpma_mr_advise.3 rpma_mr_dereg.3 rpma_mr_get_descriptor.3 rpma_mr_get_descriptor_size.3 rpma_mr_get_ptr.3 rpma_mr_get_size.3 rpma_mr_reg.3 rpma_mr_remote_delete.3 rpma_mr_remote_from_descriptor.3 rpma_mr_remote_get_flush_type.3 rpma_mr_remote_get_size.3 rpma_peer_cfg_delete.3 rpma_peer_cfg_from_descriptor.3 rpma_peer_cfg_get_descriptor.3 rpma_peer_cfg_get_descriptor_size.3 rpma_peer_cfg_get_direct_write_to_pmem.3 rpma_peer_cfg_new.3 rpma_peer_cfg_set_direct_write_to_pmem.3 rpma_peer_delete.3 rpma_peer_new.3 rpma_read.3 rpma_recv.3 rpma_send.3 rpma_send_with_imm.3 rpma_utils_conn_event_2str.3 rpma_utils_get_ibv_context.3 rpma_utils_ibv_context_is_odp_capable.3 rpma_write.3 rpma_write_atomic.3 rpma_write_with_imm.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/rpma/manpages/master/rpma_write_atomic.3/"><meta property="article:section" content="rpma">
 <meta charset=utf-8>
@@ -296,6 +296,7 @@
 <div class="row justify-content-between">
 <div class="col mt-0 lib-content">
 <a href=../librpma.7.html>librpma.7</a>
+<a href=../rpma_atomic_write.3.html>rpma_atomic_write.3</a>
 <a href=../rpma_conn_apply_remote_peer_cfg.3.html>rpma_conn_apply_remote_peer_cfg.3</a>
 <a href=../rpma_conn_cfg_delete.3.html>rpma_conn_cfg_delete.3</a>
 <a href=../rpma_conn_cfg_get_cq_size.3.html>rpma_conn_cfg_get_cq_size.3</a>
@@ -366,7 +367,8 @@
 <a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a>
 </br></br>
 <h1 id=name>NAME</h1>
-<p><strong>rpma_write_atomic</strong> - initiate the atomic write operation</p>
+<p><strong>rpma_write_atomic</strong> - initiate the atomic write operation
+(deprecated)</p>
 <h1 id=synopsis>SYNOPSIS</h1>
 <pre><code>      #include &lt;librpma.h&gt;
 
@@ -415,6 +417,27 @@ negative error code on failure.</p>
 <p>RPMA_E_PROVIDER - <strong>ibv_post_send</strong>(3) failed</p>
 </li>
 </ul>
+<h1 id=deprecated>DEPRECATED</h1>
+<p>This API call should be replaced with <strong>rpma_atomic_write</strong>(). This is
+an example snippet of code using the old API:</p>
+<pre><code>        struct rpma_conn *conn;
+        struct rpma_mr_remote *dst;
+        struct rpma_mr_local *src;
+
+        ret = rpma_write_atomic(conn, dst, dst_offset, src, src_offset,
+                RPMA_F_COMPLETION_ON_ERROR, NULL)
+        if (ret) { error_handling_code() }
+</code></pre>
+<p>The above snippet should be replaced with the following one using the
+new API:</p>
+<pre><code>        struct rpma_conn *conn;
+        struct rpma_mr_remote *dst;
+        char src[8];
+
+        ret = rpma_atomic_write(conn, dst, dst_offset, src,
+                RPMA_F_COMPLETION_ON_ERROR, NULL)
+        if (ret) { error_handling_code() }
+</code></pre>
 <h1 id=see-also>SEE ALSO</h1>
 <p><strong>rpma_conn_req_connect</strong>(3), <strong>rpma_mr_reg</strong>(3),
 <strong>rpma_mr_remote_from_descriptor</strong>(3), <strong>librpma</strong>(7) and
