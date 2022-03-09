@@ -1,6 +1,6 @@
 {{ $relpath := .Get "relpath" }}
 {{ $.Scratch.Set "dir" "content/" }}
-{{ $.Scratch.Add "dir" $.Page.Dir }}
+{{ $.Scratch.Add "dir" $.Page.File.Dir }}
 {{ $dir := $.Scratch.Get "dir"}}
 {{ $files := readDir $dir }}
 
