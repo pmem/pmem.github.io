@@ -16,7 +16,7 @@ disclaimer: "The contents of this web site and the associated <a href=\"https://
 
 The **Remote Persistent Memory Access (RPMA)** (librpma) is a C library to simplify accessing persistent memory on remote hosts over **Remote Direct Memory Access (RDMA)**.
 
-The source code of the library is available [here](https://github.com/pmem/rpma).
+The source code of the library is available at [https://github.com/pmem/rpma](https://github.com/pmem/rpma).
 
 The documentation is available for:
 
