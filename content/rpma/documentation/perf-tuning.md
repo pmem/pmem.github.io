@@ -21,6 +21,8 @@ The *Performance - Tuning* aims to collect all tested and proven procedures with
 
 ### BIOS settings
 
+### Cascade Lake
+
 * Platform and CPU related <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html">[1.1]</a>
     * Disable lower CPU power states: C-states<a href="https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html">[1.2]</a>, C1E, and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
         * Power and Performance - CPU C State Control - Package C-State - **C0/C1 state**
@@ -51,6 +53,31 @@ The *Performance - Tuning* aims to collect all tested and proven procedures with
     * Memory Configuration - Thermal Monitor - **Disabled**
     <br /><br />
 * Disable Hardware Power Management, introduced in the Intel® Xeon® processor E5-2600 v4 product family. It provides more control over power management, but it can cause jitter and so is not recommended for latency-sensitive applications.
+
+### Ice Lake
+
+* Platform and CPU related [[1.1]][opt-part-1]
+    * Disable lower CPU power states: C-states[[1.2]][power-states] and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
+        * Advanced Power Management Configuration - Package C State Control - Package C-State - **C0/C1 state**
+    <br /><br />
+    * Check for other settings that might influence performance. This varies greatly by OEM, but should include anything power related, such as fan speed settings (more is better) e.g.:
+        * System Acoustic and Performance Configuration - Set Fan Profile - **Performance**
+* PMem-related
+    * configure maximum available operating power for your PMem devices **[XXX source and details are missing]**. **Note**: Different sizes of PMem devices have different performance capabilites. If it is important for you, pick the right one for your application e.g.: [[1.3]][pmem-200-brief]
+        * Memory Configuration - PMem Configuration - 200 Series PMem Average Power Limit (in mW) - **15 mW**
+        * Memory Configuration - PMem Configuration - PMem Performance Setting - **BW Optimized**
+
+#### Not yet confirmed <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html">[1.1]</a>
+
+* Disable hyper-threading to reduce variations in latency (jitter).
+    * Processor Configuration - Intel(R) Hyper-Threading Tech - **Disabled**
+    <br /><br />
+* Disable any monitoring options.
+    * Advanced Power Management Configuration - CPU Thermal Managment - Thermal Monitor - **Disable**
+    <br /><br />
+* Disable Hardware Power Management, introduced in the Intel® Xeon® processor E5-2600 v4 product family. It provides more control over power management, but it can cause jitter and so is not recommended for latency-sensitive applications.
+    * Advanced Power Management Configuration - - CPU P State Control - Energy Efficient Turbo - **Disable**
+    * Advanced Power Management Configuration - - CPU P State Control - - Turbo Mode - **Disable**
 
 #### References
 
