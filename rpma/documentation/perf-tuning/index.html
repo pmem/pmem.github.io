@@ -294,10 +294,11 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <h3 id=general-notes>General notes</h3>
 <p>The <em>Performance - Tuning</em> aims to collect all tested and proven procedures with known beneficial effects on the performance of the workloads built on the librpma library. Nonetheless, each change of configuration should be set up and tested in a testing environment before being applied to a production system. Backing up all data and configuration settings prior to tuning is also recommended.</p>
 <h3 id=bios-settings>BIOS settings</h3>
+<h3 id=cascade-lake>Cascade Lake</h3>
 <ul>
 <li>Platform and CPU related <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a>
 <ul>
-<li>Disable lower CPU power states: C-states<a href=https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html>[1.2]</a>, C1E, and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
+<li>Disable lower CPU power states: C-states <a href=https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html>[1.2]</a>, C1E, and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
 <ul>
 <li>Power and Performance - CPU C State Control - Package C-State - <strong>C0/C1 state</strong></li>
 <li>Power and Performance - CPU C State Control - C1E - <strong>Disabled</strong>
@@ -324,9 +325,9 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 </ul>
 </li>
 </ul>
-<h4 id=not-yet-confirmed-a-hrefhttpssoftwareintelcomcontentwwwusendeveloparticlesoptimizing-computer-applications-for-latency-part-1-configuring-the-hardwarehtml11a>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
+<h4 id=not-yet-confirmed-11optimizing-computer>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
 <ul>
-<li>Ensure that Intel® Turbo Boost<a href=https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html>[1.4]</a> is on.
+<li>Ensure that Intel® Turbo Boost <a href=https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html>[1.4]</a> is on.
 <ul>
 <li>Power and Performance - CPU P State Control - Intel Turbo Boost Technology - <strong>Enabled</strong></li>
 <li>Power and Performance - CPU P State Control - Energy Efficient Turbo - <strong>Disabled</strong>
@@ -352,6 +353,55 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 </ul>
 </li>
 <li>Disable Hardware Power Management, introduced in the Intel® Xeon® processor E5-2600 v4 product family. It provides more control over power management, but it can cause jitter and so is not recommended for latency-sensitive applications.</li>
+</ul>
+<h3 id=ice-lake>Ice Lake</h3>
+<ul>
+<li>Platform and CPU related <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a>
+<ul>
+<li>Disable lower CPU power states: C-states <a href=https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html>[1.2]</a> and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
+<ul>
+<li>Advanced Power Management Configuration - Package C State Control - Package C-State - <strong>C0/C1 state</strong>
+<br><br></li>
+</ul>
+</li>
+<li>Check for other settings that might influence performance. This varies greatly by OEM, but should include anything power related, such as fan speed settings (more is better) e.g.:
+<ul>
+<li>System Acoustic and Performance Configuration - Set Fan Profile - <strong>Performance</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PMem-related
+<ul>
+<li>configure maximum available operating power for your PMem devices <strong>[XXX source and details are missing]</strong>. <strong>Note</strong>: Different sizes of PMem devices have different performance capabilites. If it is important for you, pick the right one for your application e.g.: <a href=https://www.intel.com/content/www/us/en/products/docs/memory-storage/optane-persistent-memory/optane-persistent-memory-200-series-brief.html>[1.3]</a>
+<ul>
+<li>Memory Configuration - PMem Configuration - 200 Series PMem Average Power Limit (in mW) - <strong>15 mW</strong></li>
+<li>Memory Configuration - PMem Configuration - PMem Performance Setting - <strong>BW Optimized</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id=not-yet-confirmed-11optimizing-computer-1>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
+<ul>
+<li>Disable hyper-threading to reduce variations in latency (jitter).
+<ul>
+<li>Processor Configuration - Intel(R) Hyper-Threading Tech - <strong>Disabled</strong>
+<br><br></li>
+</ul>
+</li>
+<li>Disable any monitoring options.
+<ul>
+<li>Advanced Power Management Configuration - CPU Thermal Managment - Thermal Monitor - <strong>Disable</strong>
+<br><br></li>
+</ul>
+</li>
+<li>Disable Hardware Power Management, introduced in the Intel® Xeon® processor E5-2600 v4 product family. It provides more control over power management, but it can cause jitter and so is not recommended for latency-sensitive applications.
+<ul>
+<li>Advanced Power Management Configuration - CPU P State Control - Energy Efficient Turbo - <strong>Disable</strong></li>
+<li>Advanced Power Management Configuration - CPU P State Control - Turbo Mode - <strong>Disable</strong></li>
+</ul>
+</li>
 </ul>
 <h4 id=references>References</h4>
 <ul>
