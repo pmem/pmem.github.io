@@ -3,7 +3,7 @@
 <meta property="og:title" content="Basic - HW & SW setup starting point | RPMA">
 <meta property="og:description" content="HW & SW setup starting point description In order to make the optimal use of your Remote Persistent Memory:
   Make sure you have all following required HW components [1] and check: how many and what kind of those items do you have? Which socket/slot/channel are they located in?:
- main system board supporting 2nd generation Intel® Xeon® Scalable processors, 2nd generation Intel® Xeon® Scalable CPUs, Intel® Optane™ persistent memory modules, DRAM DIMMs and RDMA-capable NICs    Verify that you have the required Linux kernel version: the Linux NVDIMM/PMem drivers are enabled by default, starting with Linux mainline kernel 4.">
+ main system board supporting 2nd generation Intel® Xeon® Scalable processors, 2nd generation Intel® Xeon® Scalable CPUs, Intel® Optane™ persistent memory modules, DRAM DIMMs and RDMA-capable NICs.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/rpma/documentation/basic-hw_sw_setup_starting_point/"><meta property="article:section" content="rpma">
 <meta charset=utf-8>
@@ -290,7 +290,7 @@
 <div class=container>
 <div class="row justify-content-between">
 <div class="col mt-0 lib-content">
-<h3 id=hw--sw-setup-starting-point-description>HW & SW setup starting point description</h3>
+<h1 id=hw--sw-setup-starting-point-description>HW & SW setup starting point description</h1>
 <p>In order to make the optimal use of your Remote Persistent Memory:</p>
 <ol>
 <li>
@@ -300,17 +300,17 @@
 <li>2nd generation Intel® Xeon® Scalable CPUs,</li>
 <li>Intel® Optane™ persistent memory modules,</li>
 <li>DRAM DIMMs and</li>
-<li>RDMA-capable NICs</li>
+<li>RDMA-capable NICs.</li>
 </ul>
 </li>
 <li>
-<p>Verify that you have the required Linux kernel version: the Linux NVDIMM/PMem drivers are enabled by default, starting with Linux mainline kernel 4.2. We recommend mainline kernel version 4.19 or later to deliver Reliability, Availability and Serviceability (RAS) features required by the Persistent Memory Development Kit (PMDK) <a href=https://software.intel.com/content/www/us/en/develop/articles/qsg-part2-linux-provisioning-with-optane-pmem.html>[2]</a></p>
+<p>Verify that you have the required Linux kernel version: the Linux NVDIMM/PMem drivers are enabled by default, starting with Linux mainline kernel 4.2. We recommend mainline kernel version 4.19 or later to deliver Reliability, Availability and Serviceability (RAS) features required by the Persistent Memory Development Kit (PMDK) <a href=https://software.intel.com/content/www/us/en/develop/articles/qsg-part2-linux-provisioning-with-optane-pmem.html>[2]</a>.</p>
 </li>
 <li>
 <p>Populate your DIMMs according to one of the recommended topologies as described in detail in the 1.2.4.1 chapter “Recommended Topologies” of “Intel® Optane™ DC Persistent Memory Quick Start Guide” <a href=https://www.intel.com/content/dam/support/us/en/documents/memory-and-storage/data-center-persistent-mem/Intel-Optane-DC-Persistent-Memory-Quick-Start-Guide.pdf>[3]</a>.</p>
 </li>
 <li>
-<p>Configure your memory modules according to “Provision Intel® Optane™ DC Persistent Memory in Linux” <a href=https://software.intel.com/content/www/us/en/develop/videos/provisioning-intel-optane-dc-persistent-memory-modules-in-linux.html>[4]</a> and “Optimizing Memory Performance” <a href=https://pmem.io/rpma/documentation/basic-reqs-optimizing-memory-performance.html>[5]</a> in order to configure your memory properly and optimize its performance.</p>
+<p>Configure your memory modules according to “Provision Intel® Optane™ DC Persistent Memory in Linux” <a href=https://software.intel.com/content/www/us/en/develop/videos/provisioning-intel-optane-dc-persistent-memory-modules-in-linux.html>[4]</a> in order to configure your memory properly and optimize its performance.</p>
 </li>
 </ol>
 <h3 id=references>References</h3>
@@ -319,9 +319,8 @@
 <li>[2] <a href=https://software.intel.com/content/www/us/en/develop/articles/qsg-part2-linux-provisioning-with-optane-pmem.html>Quick Start Guide Part 2: Linux Provisioning for Intel® Optane™ Persistent Memory</a></li>
 <li>[3] <a href=https://www.intel.com/content/dam/support/us/en/documents/memory-and-storage/data-center-persistent-mem/Intel-Optane-DC-Persistent-Memory-Quick-Start-Guide.pdf>Intel® Optane™ DC Persistent Memory Quick Start Guide</a></li>
 <li>[4] <a href=https://software.intel.com/content/www/us/en/develop/videos/provisioning-intel-optane-dc-persistent-memory-modules-in-linux.html>Provision Intel® Optane™ DC Persistent Memory in Linux</a></li>
-<li>[5] <a href=/rpma/documentation/basic-reqs-optimizing-memory-performance.html>Optimizing Memory Performance</a></li>
 </ul>
-<h3 id=disclaimer>Disclaimer</h3>
+<h2 id=disclaimer>Disclaimer</h2>
 <p>Performance varies by use, configuration and other factors.</p>
 <p>No product or component can be absolutely secure.</p>
 <p>Your costs and results may vary.</p>

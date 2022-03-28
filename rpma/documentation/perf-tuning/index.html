@@ -289,11 +289,11 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <div class=container>
 <div class="row justify-content-between">
 <div class="col mt-0 lib-content">
-<h3 id=performance---tuning>Performance - Tuning</h3>
+<h1 id=performance---tuning>Performance - Tuning</h1>
 <p>A collection of the best methods, practices, and configuration values known for delivering the best possible performance in a consistent and predictable way for the workloads built on the librpma library.</p>
-<h3 id=general-notes>General notes</h3>
+<h2 id=general-notes>General notes</h2>
 <p>The <em>Performance - Tuning</em> aims to collect all tested and proven procedures with known beneficial effects on the performance of the workloads built on the librpma library. Nonetheless, each change of configuration should be set up and tested in a testing environment before being applied to a production system. Backing up all data and configuration settings prior to tuning is also recommended.</p>
-<h3 id=bios-settings>BIOS settings</h3>
+<h2 id=bios-settings>BIOS settings</h2>
 <h3 id=cascade-lake>Cascade Lake</h3>
 <ul>
 <li>Platform and CPU related <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a>
@@ -325,7 +325,7 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 </ul>
 </li>
 </ul>
-<h4 id=not-yet-confirmed-11optimizing-computer>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
+<h4 id=not-yet-confirmed-11opt-part-1>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
 <ul>
 <li>Ensure that Intel® Turbo Boost <a href=https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html>[1.4]</a> is on.
 <ul>
@@ -382,7 +382,7 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 </ul>
 </li>
 </ul>
-<h4 id=not-yet-confirmed-11optimizing-computer-1>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
+<h4 id=not-yet-confirmed-11opt-part-1-1>Not yet confirmed <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a></h4>
 <ul>
 <li>Disable hyper-threading to reduce variations in latency (jitter).
 <ul>
@@ -410,9 +410,9 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <li>[1.3] <a href=https://www.intel.com/content/www/us/en/products/docs/memory-storage/optane-persistent-memory/optane-persistent-memory-200-series-brief.html>Intel® Optane™ Persistent Memory 200 Series Brief</a></li>
 <li>[1.4] <a href=https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html>Intel® Turbo Boost Technology 2.0 - Higher Performance When You Need It Most</a></li>
 </ul>
-<h3 id=cpu>CPU</h3>
+<h2 id=cpu>CPU</h2>
 <p>Disabling <code>intel_pstate</code> is recommended for latency sensitive workloads. <a href=https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf>[2.1]</a></p>
-<h4 id=cpu-driver>CPU driver</h4>
+<h3 id=cpu-driver>CPU driver</h3>
 <p>To disable <code>intel_pstate</code> CPU driver edit your <code>/etc/default/grub</code> and add the following to the kernel command line:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>GRUB_CMDLINE_LINUX_DEFAULT<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;intel_pstate=disable&#34;</span>
 </code></pre></div><p>Rebuild the grub.cfg file as follows (make sure you use the path adjusted to your OS):</p>
@@ -425,10 +425,10 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 </ul>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
 </code></pre></div><p>This change requires a reboot to take effect.</p>
-<h4 id=cpu-scaling-governor>CPU scaling governor</h4>
+<h3 id=cpu-scaling-governor>CPU scaling governor</h3>
 <p>Set the most performant scaling governor:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>sudo cpupower frequency-set --governor performance
-</code></pre></div><h4 id=cpu-frequency>CPU frequency</h4>
+</code></pre></div><h3 id=cpu-frequency>CPU frequency</h3>
 <p>List available frequencies and pick the biggest one.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>cpupower frequency-info | grep steps
   available frequency steps:  2.30 GHz, 2.30 GHz, 2.20 GHz, 2.10 GHz, 2.00 GHz, 1.90 GHz, 1.80 GHz, 1.70 GHz, 1.60 GHz, 1.50 GHz, 1.40 GHz, 1.30 GHz, 1.20 GHz, 1.10 GHz, <span style=color:#ae81ff>1000</span> MHz
@@ -436,12 +436,13 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>FREQ<span style=color:#f92672>=</span>2.3Ghz
 sudo cpupower frequency-set --min $FREQ
 sudo cpupower frequency-set --max $FREQ
-</code></pre></div><h4 id=references-1>References</h4>
+</code></pre></div><h3 id=references-1>References</h3>
 <ul>
-<li>[2.1] <a href=https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf>Low Latency Performance Tuning for Red Hat Enterprise Linux 7</a></li>
+<li>[2.1] <a href=https://access.redhat.com/sites/default/files/attachments/201501-perf-brief-low-latency-tuning-rhel7-v2.1.pdf>Low Latency Performance Tuning for
+Red Hat Enterprise Linux 7</a></li>
 </ul>
-<h3 id=rdma-capable-network-interface-rnic>RDMA-capable network interface (RNIC)</h3>
-<h4 id=pcie-attributes-a-hrefhttpscommunitymellanoxcomsarticleunderstanding-pcie-configuration-for-maximum-performance31a>PCIe attributes <a href=https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance>[3.1]</a></h4>
+<h2 id=rdma-capable-network-interface-rnic>RDMA-capable network interface (RNIC)</h2>
+<h3 id=pcie-attributes-31mlx-pcie>PCIe attributes <a href=https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance>[3.1]</a></h3>
 <ul>
 <li>Width - provide for the RNIC the maximum number of PCIe lanes it is capable of using</li>
 <li>Speed - attach the RNIC to PCIe interface of maximum supported speed</li>
@@ -449,7 +450,7 @@ sudo cpupower frequency-set --max $FREQ
 <li>Max Read Request - configure the maximum available read request value</li>
 </ul>
 <p>Knowing all of these attributes allows calculating the RNIC bandwidth limitation. For details please see “Understanding PCIe Configuration for Maximum Performance” Chapter <a href=https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance#Calculating-PCIe-Limitations>&ldquo;Calculating PCIe Limitations&rdquo;</a>.</p>
-<h4 id=link-mode-a-hrefhttpscommunitymellanoxcomsarticlehowto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x32a>Link mode <a href=https://community.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>[3.2]</a></h4>
+<h3 id=link-mode-32mlx-port-speed>Link mode <a href=https://community.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>[3.2]</a></h3>
 <p>List supported link modes:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ ethtool ens785f0
 Settings <span style=color:#66d9ef>for</span> ens785f0:
@@ -463,7 +464,7 @@ Settings <span style=color:#66d9ef>for</span> ens785f0:
 <span style=color:#75715e># ...</span>
 </code></pre></div><p>Set the maximum available value:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ sudo ethtool -s ens785f0 speed <span style=color:#ae81ff>100000</span> autoneg off
-</code></pre></div><h4 id=maximum-transmission-unit-mtu-a-hrefhttpscommunitymellanoxcomsarticlemtu-considerations-for-roce-based-applications33a>Maximum Transmission Unit (MTU) <a href=https://community.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>[3.3]</a></h4>
+</code></pre></div><h3 id=maximum-transmission-unit-mtu-33mlx-mtu>Maximum Transmission Unit (MTU) <a href=https://community.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>[3.3]</a></h3>
 <p>Set MTU to the maximum recommended value. In most cases, it is 4200.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ ifconfig ens785f0 mtu <span style=color:#ae81ff>4200</span>
 </code></pre></div><h4 id=references-2>References</h4>
@@ -472,9 +473,9 @@ Settings <span style=color:#66d9ef>for</span> ens785f0:
 <li>[3.2] <a href=https://community.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>Mellanox: HowTo Change the Ethernet Port Speed of Mellanox Adapters (Linux)</a></li>
 <li>[3.3] <a href=https://community.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>Mellanox: MTU Considerations for RoCE based Applications</a></li>
 </ul>
-<h3 id=running-workloads>Running workloads</h3>
-<p>In order to learn how to run the individual workloads, please visit: <a href=https://github.com/pmem/rpma/master/tools/perf/BENCHMARKING.md>https://github.com/pmem/rpma/master/tools/perf/BENCHMARKING.md</a></p>
-<h3 id=disclaimer>Disclaimer</h3>
+<h2 id=running-workloads>Running workloads</h2>
+<p>In order to learn how to run the individual workloads, please visit: <a href=https://github.com/pmem/rpma/blob/master/tools/perf/BENCHMARKING.md>https://github.com/pmem/rpma/master/tools/perf/BENCHMARKING.md</a></p>
+<h2 id=disclaimer>Disclaimer</h2>
 <p>Performance varies by use, configuration and other factors.</p>
 <p>No product or component can be absolutely secure.</p>
 <p>Your costs and results may vary.</p>
