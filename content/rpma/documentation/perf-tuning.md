@@ -63,7 +63,7 @@ The *Performance - Tuning* aims to collect all tested and proven procedures with
     * Check for other settings that might influence performance. This varies greatly by OEM, but should include anything power related, such as fan speed settings (more is better) e.g.:
         * System Acoustic and Performance Configuration - Set Fan Profile - **Performance**
 * PMem-related
-    * configure maximum available operating power for your PMem devices **[XXX source and details are missing]**. **Note**: Different sizes of PMem devices have different performance capabilites. If it is important for you, pick the right one for your application e.g.: [[1.3]][pmem-200-brief]
+    * configure maximum available operating power for your PMem devices **[XXX source and details are missing]**. **Note**: Different sizes of PMem devices have different performance capabilities. If it is important for you, pick the right one for your application e.g.: [[1.3]][pmem-200-brief]
         * Memory Configuration - PMem Configuration - 200 Series PMem Average Power Limit (in mW) - **15 mW**
         * Memory Configuration - PMem Configuration - PMem Performance Setting - **BW Optimized**
 
@@ -73,7 +73,7 @@ The *Performance - Tuning* aims to collect all tested and proven procedures with
     * Processor Configuration - Intel(R) Hyper-Threading Tech - **Disabled**
     <br /><br />
 * Disable any monitoring options.
-    * Advanced Power Management Configuration - CPU Thermal Managment - Thermal Monitor - **Disable**
+    * Advanced Power Management Configuration - CPU Thermal Management - Thermal Monitor - **Disable**
     <br /><br />
 * Disable Hardware Power Management, introduced in the Intel® Xeon® processor E5-2600 v4 product family. It provides more control over power management, but it can cause jitter and so is not recommended for latency-sensitive applications.
     * Advanced Power Management Configuration - CPU P State Control - Energy Efficient Turbo - **Disable**
