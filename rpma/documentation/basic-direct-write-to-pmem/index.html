@@ -2,7 +2,7 @@
 <link rel=stylesheet type=text/css href=/css/style.css>
 <meta property="og:title" content="Basic - Direct write to PMem | RPMA">
 <meta property="og:description" content="Direct Write to PMem Direct Write to PMem is a readiness of hardware and software configuration which allows effectively and persistently write data to PMem physically attached to one system from another system using RDMA-capable network. How to achieve Direct Write to PMem capability may differ from system to system because of variety of potential &lsquo;interruptions&rsquo; (e.g. caching) in data&rsquo;s way to be stored persistently on PMem.
-The ways to disable/enable Intel® Data Direct I/O Technology (DDIO) vary by processor generation.">
+For the 2nd and the 3rd Generation Intel® Xeon® Scalable Processors (Cascade Lake and Ice Lake) the only configuration item one should take care of is Intel® Data Direct I/O Technology (DDIO).">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/rpma/documentation/basic-direct-write-to-pmem/"><meta property="article:section" content="rpma">
 <meta charset=utf-8>
@@ -291,14 +291,13 @@ The ways to disable/enable Intel® Data Direct I/O Technology (DDIO) vary by pro
 <div class="col mt-0 lib-content">
 <h1 id=direct-write-to-pmem>Direct Write to PMem</h1>
 <p><em>Direct Write to PMem</em> is a readiness of hardware and software configuration which allows effectively and persistently write data to PMem physically attached to one system from another system using RDMA-capable network. How to achieve <em>Direct Write to PMem</em> capability may differ from system to system because of variety of potential &lsquo;interruptions&rsquo; (e.g. caching) in data&rsquo;s way to be stored persistently on PMem.</p>
+<p>For the 2nd and the 3rd Generation Intel® Xeon® Scalable Processors (<strong>Cascade Lake</strong> and <strong>Ice Lake</strong>) the only configuration item one should take care of is Intel® Data Direct I/O Technology (<strong>DDIO</strong>). <strong>DDIO</strong> assumes the good enough place to effectively store data coming from the RDMA (and any other DMA traffic) is the CPU LLC from which CPU can access it more easily than when it would be stored in DRAM or on PMem <a href=https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html>[1]</a>. This is beneficial for any other DMA traffic but prevents from achieving <em>Direct Write to PMem</em>.
+For more information on <strong>DDIO</strong> and its configuration please see the list of references <a href=https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html>[1]</a><a href=https://www.dpdk.org/wp-content/uploads/sites/35/2018/09/Roman-Sudarikov-DPDK_PRC_Summit_Sudarikov.pptx>[2]</a>.</p>
 <p>The ways to disable/enable Intel® Data Direct I/O Technology (<strong>DDIO</strong>) vary by processor generation.
 For details see sections below for the <a href=#3rd-generation-intelreg-xeonreg-scalable-processors-ice-lake>3rd (Ice Lake)</a> and the <a href=#2nd-generation-intelreg-xeonreg-scalable-processors-cascade-lake>2nd (Cascade Lake)</a> Processor Generations.</p>
 <h2 id=3rd-generation-intelreg-xeonreg-scalable-processors-ice-lake>3rd Generation Intel® Xeon® Scalable Processors (<strong>Ice Lake</strong>)</h2>
-<p>For the 3rd Generation Intel® Xeon® Scalable Processors (<strong>Ice Lake</strong>) the only configuration item one should take care of is Intel® Data Direct I/O Technology (<strong>DDIO</strong>). <strong>DDIO</strong> assumes the good enough place to effectively store data coming from the RDMA (and any other DMA traffic) is the CPU LLC from which CPU can access it more easily than when it would be stored in DRAM or on PMem <a href=https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html>[1]</a>. This is beneficial for any other DMA traffic but prevents from achieving <em>Direct Write to PMem</em>.</p>
-<p>For the <strong>Ice Lake</strong> processor <strong>DDIO</strong> should be turned off (enabling <em>Direct Write to PMem</em> at the same time) globally for all DMA traffic in the system, please contact your BIOS provider for details.</p>
-<p>For more information on <strong>DDIO</strong> and its configuration please see the list of references <a href=https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html>[1]</a><a href=https://www.dpdk.org/wp-content/uploads/sites/35/2018/09/Roman-Sudarikov-DPDK_PRC_Summit_Sudarikov.pptx>[2]</a>.</p>
+<p>For the <strong>Ice Lake</strong> processor <strong>DDIO</strong> can be turned off (enabling <em>Direct Write to PMem</em> at the same time) only globally for all DMA traffic in the system. Please contact your BIOS provider for details.</p>
 <h2 id=2nd-generation-intelreg-xeonreg-scalable-processors-cascade-lake>2nd Generation Intel® Xeon® Scalable Processors (<strong>Cascade Lake</strong>)</h2>
-<p>For the 2nd Generation Intel® Xeon® Scalable Processors (<strong>Cascade Lake</strong>) the only configuration item one should take care of is Intel® Data Direct I/O Technology (<strong>DDIO</strong>). <strong>DDIO</strong> assumes the good enough place to effectively store data coming from the RDMA (and any other DMA traffic) is the CPU LLC from which CPU can access it more easily than when it would be stored in DRAM or on PMem <a href=https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html>[1]</a>. This is beneficial for any other DMA traffic but prevents from achieving <em>Direct Write to PMem</em>.</p>
 <p>For the <strong>Cascade Lake</strong> processor <strong>DDIO</strong> can be turned off (at the same time enabling <em>Direct Write to PMem</em>) at least at two possible levels:</p>
 <ul>
 <li>
@@ -309,7 +308,6 @@ For details see sections below for the <a href=#3rd-generation-intelreg-xeonreg-
 </li>
 </ul>
 <p>Because having <strong>DDIO</strong> turned on is a desirable state for most of the workloads, turning it off globally is not considered here. Nonetheless, if one would like to do this please contact your BIOS provider for details.</p>
-<p>For more information on <strong>DDIO</strong> and its configuration please see the list of references <a href=https://www.intel.co.uk/content/www/uk/en/io/data-direct-i-o-technology.html>[1]</a><a href=https://www.dpdk.org/wp-content/uploads/sites/35/2018/09/Roman-Sudarikov-DPDK_PRC_Summit_Sudarikov.pptx>[2]</a>.</p>
 <h3 id=finding-the-right-pcie-root-port>Finding the right PCIe Root Port</h3>
 <p>You can finding the PCIe Root Port of the network interface knowing its producer and model in a single query:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ lspci -vt | grep Mellanox
