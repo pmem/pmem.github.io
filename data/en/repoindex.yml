@@ -7,7 +7,7 @@ heading:
 ################################# Cards #################################
 card_groups:
   enable: true
-  cards: 
+  cards:
     card1:
       title: "PMDK Repositories"
       description: "The <a href=\"https://pmem.io/pmdk/\">Persistent Memory Development Kit</a> is a collection of libraries and tools. The source is spread across many repositories. Components are separated like this to help with the logistics of parallel development and asynchronous delivery."
@@ -15,18 +15,18 @@ card_groups:
         table1:
           title: "Components Focused on Persistence:"
           headers:
-            header1: 
+            header1:
               content: "Repo Name"
-            header2: 
+            header2:
               content: "Description"
             header3:
               content: "Microsite"
-          rows: 
-            row1: 
+          rows:
+            row1:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmdk\">pmdk</a>"
-                cell2: 
+                cell2:
                   content: "PMDK Core C libraries and tools:
                   <br>
                   <ul class=\"repoindex-list\">
@@ -54,12 +54,12 @@ card_groups:
                   content: "<a href=\"../libpmemobj-cpp\">pmem.io/libpmemobj-cpp</a>"
             row3:
               cells:
-                cell1: 
+                cell1:
                   content: "<a href=\"https://github.com/pmem/llpl\">llpl</a>"
-                cell2: 
+                cell2:
                   content: "Low-Level Persistence Library for Java"
                 cell3:
-                  content: "<a href=\"../llpl\">pmem.io/llpl</a>"
+                  content: "<a href=\"../java/llpl\">pmem.io/java/llpl</a>"
             row4:
               cells:
                 cell1:
@@ -157,9 +157,9 @@ card_groups:
         table2:
             title: "Components Focused on Volatile Usages of pmem:"
             headers:
-              header1: 
+              header1:
                 content: "Repo Name"
-              header2: 
+              header2:
                 content: "Description"
               header3:
                 content: "Microsite"
@@ -171,7 +171,7 @@ card_groups:
                   cell2:
                     content: "General-purpose malloc/free-style library<br/>(Actually lives outside the pmem GitHub org since it has a life outside of pmem as well)"
                   cell3:
-                    content: "-" 
+                    content: "-"
               row2:
                 cells:
                   cell1:
@@ -179,7 +179,7 @@ card_groups:
                   cell2:
                     content: "A buffer based LRU cache"
                   cell3:
-                    content: "<a href=\"../vmemcache\">pmem.io/vmemcache</a>" 
+                    content: "<a href=\"../vmemcache\">pmem.io/vmemcache</a>"
               row3:
                 cells:
                   cell1:
@@ -187,7 +187,7 @@ card_groups:
                   cell2:
                     content: "libvmem, the predecessor to <strong>libmemkind</strong>.<br/>Maintenance-only -- use <strong>libmemkind</strong> for all new development."
                   cell3:
-                    content: "<a href=\"../vmem/libvmem\">pmem.io/vmem/libvmem</a>" 
+                    content: "<a href=\"../vmem/libvmem\">pmem.io/vmem/libvmem</a>"
         table3:
           title: "Experimental PMDK components (not yet ready for production use):"
           headers:
@@ -219,7 +219,7 @@ card_groups:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/syscall_intercept\">syscall_intercept</a>"
                 cell2:
-                  content: "Syscall intercepting library used by libpmemfile" 
+                  content: "Syscall intercepting library used by libpmemfile"
                 cell3:
                   content: "-"
             row4:
@@ -368,7 +368,7 @@ card_groups:
                 cell3:
                   content: "-"
             row3:
-              cells: 
+              cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmem-redis\">pmem-redis</a>"
                 cell2:
@@ -385,7 +385,7 @@ card_groups:
                   content: "-"
             row5:
               cells:
-                cell1: 
+                cell1:
                   content: "<a href=\"https://github.com/pmem/kvdk\">kvdk</a>"
                 cell2:
                   content: "Reference code of key/value store design for pmem"
@@ -397,7 +397,7 @@ card_groups:
       tables:
         table1:
           headers:
-            header1: 
+            header1:
               content: "Repo Name"
             header2:
               content: "Description"
@@ -442,7 +442,7 @@ card_groups:
                   content: "<a href=\"https://github.com/pmem/mpi-pmem-ext\">mpi-pmem-ext</a>"
                 cell2:
                   content: "MPI Extensions for pmem"
-                cell3: 
+                cell3:
                   content: "-"
             row6:
               cells:
@@ -464,4 +464,4 @@ card_groups:
 ################################# Disclaimer #################################
 disclaimer:
   enable: true
-  content: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."    
+  content: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
