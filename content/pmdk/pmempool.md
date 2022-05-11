@@ -29,8 +29,6 @@ for current master documentation and examples or see older versions:
 * [pmempool version 1.4](../manpages/linux/v1.4/pmempool/pmempool.1.html)
 * [pmempool version 1.3](../manpages/linux/v1.3/pmempool/pmempool.1.html)
 * [pmempool version 1.2](../manpages/linux/v1.2/pmempool/pmempool.1.html)
-* [pmempool version 1.1](../manpages/linux/v1.1/pmempool/pmempool.1.html)
-* [pmempool version 1.0](../manpages/linux/v1.0/pmempool/pmempool.1.html)
 
 ### create
 
@@ -52,8 +50,6 @@ for current documentation and examples or see older versions:
 * [pmempool-create version 1.4](../manpages/linux/v1.4/pmempool/pmempool-create.1.html)
 * [pmempool-create version 1.3](../manpages/linux/v1.3/pmempool/pmempool-create.1.html)
 * [pmempool-create version 1.2](../manpages/linux/v1.2/pmempool/pmempool-create.1.html)
-* [pmempool-create version 1.1](../manpages/linux/v1.1/pmempool/pmempool-create.1.html)
-* [pmempool-create version 1.0](../manpages/linux/v1.0/pmempool/pmempool-create.1.html)
 
 ### info
 
@@ -77,8 +73,6 @@ for current master documentation and examples or see older versions:
 * [pmempool-info version 1.4](../manpages/linux/v1.4/pmempool/pmempool-info.1.html)
 * [pmempool-info version 1.3](../manpages/linux/v1.3/pmempool/pmempool-info.1.html)
 * [pmempool-info version 1.2](../manpages/linux/v1.2/pmempool/pmempool-info.1.html)
-* [pmempool-info version 1.1](../manpages/linux/v1.1/pmempool/pmempool-info.1.html)
-* [pmempool-info version 1.0](../manpages/linux/v1.0/pmempool/pmempool-info.1.html)
 
 ### dump
 
@@ -100,8 +94,6 @@ for current master documentation and examples or see older versions:
 * [pmempool-dump version 1.4](../manpages/linux/v1.4/pmempool/pmempool-dump.1.html)
 * [pmempool-dump version 1.3](../manpages/linux/v1.3/pmempool/pmempool-dump.1.html)
 * [pmempool-dump version 1.2](../manpages/linux/v1.2/pmempool/pmempool-dump.1.html)
-* [pmempool-dump version 1.1](../manpages/linux/v1.1/pmempool/pmempool-dump.1.html)
-* [pmempool-dump version 1.0](../manpages/linux/v1.0/pmempool/pmempool-dump.1.html)
 
 ### check
 
@@ -124,8 +116,6 @@ for current master documentation and examples or see older version:
 * [pmempool-check version 1.4](../manpages/linux/v1.4/pmempool/pmempool-check.1.html)
 * [pmempool-check version 1.3](../manpages/linux/v1.3/pmempool/pmempool-check.1.html)
 * [pmempool-check version 1.2](../manpages/linux/v1.2/pmempool/pmempool-check.1.html)
-* [pmempool-check version 1.1](../manpages/linux/v1.1/pmempool/pmempool-check.1.html)
-* [pmempool-check version 1.0](../manpages/linux/v1.0/pmempool/pmempool-check.1.html)
 
 ### rm
 
@@ -148,8 +138,6 @@ for current master documentation and examples or see older version:
 * [pmempool-rm version 1.4](../manpages/linux/v1.4/pmempool/pmempool-rm.1.html)
 * [pmempool-rm version 1.3](../manpages/linux/v1.3/pmempool/pmempool-rm.1.html)
 * [pmempool-rm version 1.2](../manpages/linux/v1.2/pmempool/pmempool-rm.1.html)
-* [pmempool-rm version 1.1](../manpages/linux/v1.1/pmempool/pmempool-rm.1.html)
-* [pmempool-rm version 1.0](../manpages/linux/v1.0/pmempool/pmempool-rm.1.html)
 
 ### convert
 
@@ -177,7 +165,6 @@ For documentation of **pmempool convert** for older PMDK versions see:
 * [pmempool-convert version 1.4](../manpages/linux/v1.4/pmempool/pmempool-convert.1.html)
 * [pmempool-convert version 1.3](../manpages/linux/v1.3/pmempool/pmempool-convert.1.html)
 * [pmempool-convert version 1.2](../manpages/linux/v1.2/pmempool/pmempool-convert.1.html)
-* [pmempool-convert version 1.1](../manpages/linux/v1.1/pmempool/pmempool-convert.1.html)
 
 ### sync
 
@@ -187,7 +174,7 @@ are consistent, i.e. all parts are healthy, and if any of them is not,
 the corrupted or missing parts are recreated and filled with data from one of
 the healthy replicas.
 
-See the [pmempool sync man page](../manpages/linux/master/pmempool/pmempool-sync.1.htmll)
+See the [pmempool sync man page](../manpages/linux/master/pmempool/pmempool-sync.1.html)
 for current master documentation and examples or see older version:
 
 * [pmempool-sync version 1.11](../manpages/linux/v1.11/pmempool/pmempool-sync.1.html)
