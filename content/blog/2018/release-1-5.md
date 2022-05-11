@@ -224,7 +224,7 @@ unrecovered operations in the log, are not going to be compatible with the new
 algorithms.
 
 To provide users with an upgrade path, we've implemented a brand new
-[pmdk-convert](/pmdk-convert/pmdk-convert.1.html) tool which will
+[pmdk-convert](/pmdk-convert/manpages/master/pmdk-convert.1.html) tool which will
 automatically process the logs using the correct recovery
 mechanism, and then will bump the major layout version to indicate that the pool
 can be now opened using the new library version.
@@ -246,7 +246,7 @@ anticipating that it's soon going to become a much larger project.
 
 We started the containers work easy, with `pmem::obj::array` that provides some
 convenience features for use with transactions. See our
-[doxygen](/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html) documentation for more info.
+[doxygen](/libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html) documentation for more info.
 
 We've also renamed some function names that, in retrospect, were chosen
 poorly. Functions with old names are still there, but are deprecated.
