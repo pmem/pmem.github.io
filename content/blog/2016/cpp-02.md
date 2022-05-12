@@ -97,4 +97,4 @@ the vector structure is exactly the same as in the C version.
 This mechanism works overriding `operator=` and adding the memory to the undo log
 before modification. It's pretty straightforward.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

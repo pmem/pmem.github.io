@@ -247,4 +247,4 @@ And that's about it, looks simpler right? And more similar to how a volatile pro
 
 This can be further simplified by combining the two lines inside the transaction together - but that's the topic for our next post.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

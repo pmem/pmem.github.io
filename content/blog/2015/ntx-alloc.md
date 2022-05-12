@@ -100,4 +100,4 @@ This will iterate over the collection of `struct rectangle` objects, if you want
 
 A good example of non-transactional API usage can be found [here](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/pminvaders). Check out the way `POBJ_FOREACH_TYPE` macros are used in the application to access the objects.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

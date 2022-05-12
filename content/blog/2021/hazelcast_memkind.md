@@ -345,7 +345,7 @@ Article written together by Zoltán Baranyi and Michal Biesek.
 [hazelcast_blog]: https://hazelcast.com/blog/using-memkind-in-hazelcast/
 [hazelcast]: https://hazelcast.com
 [hazelcast_hd_post]: https://hazelcast.org/blog/introduction-hazelcast-hd-memory/
-[libvmem]: /pmdk/libvmem/
+[libvmem]: /vmem/libvmem/
 [memkind_kmem_dax_post]: /blog/2020/01/memkind-support-for-kmem-dax-option
 [memkind_intro_post]: /blog/2020/01/introduction-to-libmemkind
 [high_density_memory_store]: https://hazelcast.com/product-features/high-density-memory-store/

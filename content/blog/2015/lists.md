@@ -164,4 +164,4 @@ TOID(struct my_root) root = POBJ_ROOT(pop, struct root);
 
 This is something new, `POBJ_LIST_MOVE_ELEMENT` allows you to move an object from one list to another. A good use case example can be found in the [PI](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) code [here](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj). It's used there as a task queue and once worker thread completes a task is then moved from **todo** list to **done** list.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

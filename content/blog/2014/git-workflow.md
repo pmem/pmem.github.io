@@ -219,4 +219,4 @@ And finally, send the changes back to the original PMDK repository:
 
 ###### [This entry was edited on 2018-11-15 to reflect the changes in stable branch tracking.]
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK)..]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit)..]

@@ -211,4 +211,4 @@ This concludes the introduction to basic and advanced features of pmemcheck. In 
 [5428585d]: https://www.valgrind.org/docs/manual/manual-core-adv.html#manual-core-adv.clientreq 'Client Request Mechanism'
 [c5f40b9e]: /pmdk/ 'Persistent Memory Development Kit'
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

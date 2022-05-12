@@ -18,7 +18,7 @@ description: "This will be a great opportunity to meet with the SPDK, PMDK, and 
 # Event image
 # eg: image: 'images/events/3.jpg' // Use a local image
 # eg: image: 'https://myevent.com/heroimg.jpg' // Use an image from the event website
-image: "https://media-exp1.licdn.com/dms/image/C4E12AQH220dbN7vk2Q/article-cover_image-shrink_600_2000/0/1579821545231?e=1638403200&v=beta&t=HWkipqECZE0kIjcTPypwFVBFv9_T1yNAWqLQJGcV2ZQ"
+image:
 
 # Event location
 # eg; location: "Online" //An online or virtual conference
@@ -38,7 +38,7 @@ events: ['PMDK']
 type: 'event'
 
 # Featured. Specify true or false to show on homepage
-featured: 
+featured:
 ---
 
 Thank you all for attending the 2020 PRC SPDK, PMDK and Intel® VTune™ Profiler Virtual Forum. We had a very successful Virtual Forum this year with awesome content and presenters. You can download the presentations using the links below. Please note these are static PDFs, but many of the presentations made extensive use of animations, so something may be lost in translation.

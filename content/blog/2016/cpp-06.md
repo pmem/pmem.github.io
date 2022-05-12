@@ -195,4 +195,4 @@ bindings to libpmemobj - transactions.
 [f8602ec1]: https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj 'Libpmemobj examples'
 [8e3dfe2a]: https://github.com/pmem/pmdk/tree/master/src/test 'PMDK tests'
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

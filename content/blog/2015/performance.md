@@ -91,4 +91,4 @@ We are constantly looking for places where we could improve the performance of P
 [efed04e3]: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html '__builtin_expect'
 [a8ef08e9]: https://github.com/pmem/pmdk/commit/5606aa41461cc0e7278bb059f1adae88ff6fbf04 'fix merge'
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

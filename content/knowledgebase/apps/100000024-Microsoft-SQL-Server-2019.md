@@ -7,13 +7,13 @@ tags: [persistent memory, pmem, microsoft, sql, sql server, 2019, imdb, in-memor
 author: Steve Scargall
 docid: 100000024
 creation_date: 2020-03-24
-modified_date: 
+modified_date:
 ---
 
-This document provides links to information and resources for Microsoft SQL Server 2019 (15.x) or later for Windows and Linux. 
+This document provides links to information and resources for Microsoft SQL Server 2019 (15.x) or later for Windows and Linux.
 
 - Home: [https://www.microsoft.com/en-us/sql-server/sql-server-2019](https://www.microsoft.com/en-us/sql-server/sql-server-2019)
-- Download: [https://www.microsoft.com/en-us/sql-server/sql-server-downloads]([https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+- Download: [https://www.microsoft.com/en-us/sql-server/sql-server-downloads](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
 ## What's New
 

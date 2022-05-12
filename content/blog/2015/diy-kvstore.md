@@ -196,4 +196,4 @@ quite substantial reduction in allocations. And also, we need to optimize the
 `pmemobj_tx_add_range`. I plan on revisiting this topic once we finish
 optimizing the library functions, including the allocator.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

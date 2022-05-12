@@ -179,6 +179,6 @@ but your feedback is invaluable. [Thank you!][ecfe85f3]
 [c14a5bbd]: https://github.com/pmem/libpmemobj-cpp/blob/master/examples/map_cli 'ctree examples'
 [ecfe85f3]: https://giphy.com/gifs/end-looney-tunes-thats-all-folks-jYAGkoghdmD9S "That's all folks!"
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
 
 ###### [This entry was edited on 2018-07-06 to change links to examples]

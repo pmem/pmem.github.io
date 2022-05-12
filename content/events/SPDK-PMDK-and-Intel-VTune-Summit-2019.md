@@ -18,7 +18,7 @@ description: "A great opportunity to meet with the SPDK, PMDK and VTune™ Ampli
 # Event image
 # eg: image: 'images/events/3.jpg' // Use a local image
 # eg: image: 'https://myevent.com/heroimg.jpg' // Use an image from the event website
-image: "https://scontent-den4-1.xx.fbcdn.net/v/t1.6435-9/54522032_10156206192797338_4589397500393160704_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=9267fe&_nc_ohc=jBbVg6J3LFoAX8JG6QX&_nc_ht=scontent-den4-1.xx&oh=2ad0d80b2629c2acf711a40bc3dc3ced&oe=617DB96C"
+image:
 
 # Event location
 # eg; location: "Online" //An online or virtual conference
@@ -38,7 +38,7 @@ events: ['PMDK']
 type: 'event'
 
 # Featured. Specify true or false to show on homepage
-featured: 
+featured:
 ---
 
 Thank you all for attending the SPDK, PMDK and Intel® VTune™ Amplifier Summit. We had a very successful SPDK summit this year with awesome content and presenters. You can download the presentations using the links below. Please note these are static PDFs, but many of the presentations made extensive use of animations, so something may be lost in translation.

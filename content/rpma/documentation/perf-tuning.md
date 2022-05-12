@@ -87,7 +87,7 @@ The *Performance - Tuning* aims to collect all tested and proven procedures with
 * [1.4] [Intel® Turbo Boost Technology 2.0 - Higher Performance When You Need It Most][turbo]
 
 [opt-part-1]: https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html
-[power-states]: https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html
+[power-states]: https://www.intel.com/content/www/us/en/develop/documentation/vtune-help/top/reference/user-interface-reference/window-cpu-c-p-states-platform-power-analysis.html
 [pmem-200-brief]: https://www.intel.com/content/www/us/en/products/docs/memory-storage/optane-persistent-memory/optane-persistent-memory-200-series-brief.html
 [turbo]: https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html
 
@@ -199,10 +199,10 @@ $ ifconfig ens785f0 mtu 4200
 * [3.2] [Mellanox: HowTo Change the Ethernet Port Speed of Mellanox Adapters (Linux)][mlx-port-speed]
 * [3.3] [Mellanox: MTU Considerations for RoCE based Applications][mlx-mtu]
 
-[mlx-pcie]: https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance
-[mlx-pcie-limits]: https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance#Calculating-PCIe-Limitations
-[mlx-port-speed]: https://community.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x
-[mlx-mtu]: https://community.mellanox.com/s/article/mtu-considerations-for-roce-based-applications
+[mlx-pcie]: https://support.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance
+[mlx-pcie-limits]: https://support.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance#Calculating-PCIe-Limitations
+[mlx-port-speed]: https://support.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x
+[mlx-mtu]: https://support.mellanox.com/s/article/mtu-considerations-for-roce-based-applications
 
 ## Running workloads
 In order to learn how to run the individual workloads, please visit: [https://github.com/pmem/rpma/master/tools/perf/BENCHMARKING.md][perf-bench]

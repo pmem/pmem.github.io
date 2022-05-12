@@ -158,4 +158,4 @@ printf("%s\n", D_RO(root)->buf);
 
 As always, the example is available in the [repository](https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj).
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

@@ -213,7 +213,7 @@ On the application layer, libmemkind tries to meet these challenges with new fea
 [acpi-doc]: https://uefi.org/sites/default/files/resources/ACPI_6_2.pdf
 [xpu-vid]: https://youtu.be/9y3xpi-yPyA?t=95
 [intel-ssd]: https://www.intel.com/content/www/us/en/products/memory-storage/solid-state-drives/data-center-ssds/optane-dc-ssd-series.html
-[mcdram]: https://software.intel.com/content/www/us/en/develop/blogs/an-intro-to-mcdram-high-bandwidth-memory-on-knights-landing.html
+[mcdram]: https://www.intel.com/content/www/us/en/developer/articles/technical/multi-channel-dram-mcdram-and-high-bandwidth-memory-hbm.html
 [openmp]: https://www.openmp.org/spec-html/5.1/openmpsu60.html#x87-970002.13.1
 [hwloc]: https://www.open-mpi.org/software/hwloc/v2.3/
 [memkind-release]: https://github.com/memkind/memkind/releases/tag/v1.11.0

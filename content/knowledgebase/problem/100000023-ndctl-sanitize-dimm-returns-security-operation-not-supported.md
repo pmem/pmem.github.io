@@ -7,7 +7,7 @@ tags: [persistent memory, pmem, ndctl, sanitize, secure erase]
 author: Steve Scargall
 docid: 100000023
 creation_date: 2020-03-11
-modified_date: 
+modified_date:
 ---
 # Applies To
 
@@ -32,14 +32,14 @@ To use this feature, you need a Linux Kernel v5.0.0 and ndctl version 64 or late
 
 Details can be found here:
 
-- [https://docs.pmem.io/ndctl-user-guide/managing-nvdimm-security](https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fdocs.pmem.io%2Fndctl-user-guide%2Fmanaging-nvdimm-security)
-- [https://github.com/pmem/ndctl/releases/tag/v64](https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fgithub.com%2Fpmem%2Fndctl%2Freleases%2Ftag%2Fv64)
+- [https://docs.pmem.io/ndctl-user-guide/managing-nvdimm-security](https://docs.pmem.io/ndctl-user-guide/managing-nvdimm-security)
+- [https://github.com/pmem/ndctl/releases/tag/v64](https://github.com/pmem/ndctl/releases/tag/v64)
 
 # Solution
 
 The secure erase operation can be initiated using the following methods, subject to vendor implementation:
 
 - Certain server OEMs provide a secure erase option in the BIOS
-- The ipmctl.efi utility for the UEFI shell may be available from your server OEM. 
+- The ipmctl.efi utility for the UEFI shell may be available from your server OEM
 - Use 'ndctl sanitize' on Linux using Kernel 5.0.0 or later with ndctl v64 or later.
 

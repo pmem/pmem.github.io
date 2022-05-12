@@ -71,7 +71,6 @@ class ImageConverter implements Converter<BufferedImage> {
 		}
 		return ByteBuffer.wrap(out.toByteArray());
 	}
-
 	public BufferedImage fromByteBuffer(ByteBuffer entry) {
 		BufferedImage out = null;
 		try {
@@ -153,6 +152,6 @@ going to implement features available in new pmemkv versions.
 [pmemkv-bindings]: /blog/2020/03/language-bindings-for-pmemkv/
 [pmemkv-bindings-readme]: https://github.com/pmem/pmemkv/#language-bindings
 [examples]: https://github.com/pmem/pmemkv-java/tree/master/examples
-[ByteBufferExample]: https://github.com/pmem/pmemkv-java/blob/master/examples/ByteBufferExample.java
-[PicturesExample]: https://github.com/pmem/pmemkv-java/blob/master/examples/PicturesExample.java
+[ByteBufferExample]: https://github.com/pmem/pmemkv-java/blob/master/examples/ByteBufferExample/src/main/java/ByteBufferExample.java
+[PicturesExample]: https://github.com/pmem/pmemkv-java/blob/master/examples/PicturesExample/src/main/java/PicturesExample.java
 [pmempool]: /pmdk/pmempool/

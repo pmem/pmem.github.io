@@ -120,7 +120,7 @@ dev_tools:
         - 'Analysis'
     ndctl:
       label: 'ndctl'
-      link: '/developer-hub/ndctl'
+      link: '/ndctl'
       description: 'Manage and monitor non-volatile memory devices in Linux. Create and manage dimms, regions, and namespaces, update firmware, perform secure erase operations, and much more!'
       categories:
         - 'Admin'

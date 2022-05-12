@@ -54,4 +54,4 @@ To run applications based on libpmemobj you don't need real persistent memory in
 
 This will make the library think you are using persistent memory and not issue `msync`. Keep in mind that this breaks the persistence of your application and is only advisable for basic testing.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

@@ -398,4 +398,4 @@ This code is fairly straightforward to read. I simply iterate over the object ty
 
 There were three high level goals stated at the beginning of this blog post, [High Level Goals](#goals). The next post will provide details on the performance and DRAM reduction using the PMDK libraries to enable persistent memory support in the Kudu block cache.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
