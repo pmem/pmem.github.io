@@ -329,9 +329,9 @@ a <a href=https://github.com/pmem/pmdk/pull/1366>patch</a> that significantly si
 the free operation. Right now, in the happy case, a free is a flip of a few bits
 in a single 64 bit value. The performance gains are spectacular.</p>
 <p>Before:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/24601092/dfe86fba-1857-11e7-9189-36aebd5d20b9.png alt=before></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/24601092/dfe86fba-1857-11e7-9189-36aebd5d20b9.png alt=before></p>
 <p>After:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/24601094/e3abc606-1857-11e7-842f-cdc00835543c.png alt=after></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/24601094/e3abc606-1857-11e7-842f-cdc00835543c.png alt=after></p>
 <p>The only not so great side effect of this change is that the freed blocks are
 now lazily repopulated in the volatile state of the allocator. This means that
 in sequence of malloc, free, malloc; the second malloc won&rsquo;t return the same
@@ -365,7 +365,7 @@ ranges.</p>
 on a regular basis. One example of that type of workload is our persistent B-Tree.
 I&rsquo;ve taken the liberty to measure the performance of a simple benchmark that
 inserts 5mln elements into the tree, here are the results:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/24509180/01e75206-1566-11e7-8179-aa83601f63b2.png alt=results></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/24509180/01e75206-1566-11e7-8179-aa83601f63b2.png alt=results></p>
 <h3 id=asynchronous-post-commit>Asynchronous post-commit</h3>
 <p>I&rsquo;ve explained this one fairly well in my previous <a href=/blog/2017/01/whats-coming-in-libpmemobj/>post</a>,
 but here&rsquo;s the recap: The plan was to allow for worker threads (one or more)
@@ -373,7 +373,7 @@ that cleaned up the leftovers after a transaction successfully commits, allowing
 the main task to move forward.</p>
 <p>We&rsquo;ve implemented this <a href=https://github.com/pmem/pmdk/pull/1671>change</a> and the
 resulting performance benefits are nothing to sneeze at:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/24497173/daf67a76-153a-11e7-8e95-e185fdf0e118.png alt=results></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/24497173/daf67a76-153a-11e7-8e95-e185fdf0e118.png alt=results></p>
 <p>This is a result from a synthetic benchmark I&rsquo;ve devised. It preallocated
 certain number of objects, and then, in a transaction, called TX_FREE on those
 objects. For each run of the benchmark, the number of post-commit workers
@@ -393,8 +393,8 @@ use of space when allocating big blocks of memory that happened to be only
 slightly higher than the chunk (for example: 257 kilobytes).</p>
 <p>We are finally fixing that problem in this <a href=https://github.com/pmem/pmdk/pull/1629>patch</a></p>
 <p>Here are the before/after results:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/24499995/03403414-1544-11e7-9404-093c882ec2c3.png alt=before></p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/24500320/328bf392-1545-11e7-8ab3-c551c10c72b7.png alt=after></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/24499995/03403414-1544-11e7-9404-093c882ec2c3.png alt=before></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/24500320/328bf392-1545-11e7-8ab3-c551c10c72b7.png alt=after></p>
 <p>The charts show the percentage of internal fragmentation for sizes between
 100 bytes and 4 megabytes with the interval of 100 bytes.</p>
 <p>The first initial spike (80%) is due to granularity with which we can allocate
@@ -419,7 +419,7 @@ the persistent publication, is aggregated so that we can achieve maximal possibl
 throughput.</p>
 <p>We&rsquo;ve now implemented the described optimization in this <a href=https://github.com/pmem/pmdk/pull/1711>patch</a>,
 and here are the performance results:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/23549544/065fd7ae-000d-11e7-8eea-9906196d4f46.png alt=results></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/23549544/065fd7ae-000d-11e7-8eea-9906196d4f46.png alt=results></p>
 <p>Not bad ;) Even the workload in which only one object is allocated per
 transaction has improved, this is a result of slightly better allocation undo log
 handling that was enabled by the work done in this patch.</p>
@@ -442,10 +442,10 @@ the ability to parallelize related work in a single transaction. I’m currently
 working on an example that will demonstrate how one can achieve near-volatile
 performance from a persistent container using this API (and some threads :P).</p></p>
 <p>Here&rsquo;s a chart that shows the scaling of reserve API:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/23852782/c421f342-07e9-11e7-8b26-b6ae53bf4342.png alt=results></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/23852782/c421f342-07e9-11e7-8b26-b6ae53bf4342.png alt=results></p>
 <p>and here&rsquo;s a chart showing the performance different between reservation and
 full persistent allocation:</p>
-<p><img src=https://cloud.githubusercontent.com/images/posts/8775610/23792560/c06bfd7e-0587-11e7-900d-25023694bd28.png alt=results></p>
+<p><img src=https://cloud.githubusercontent.com/assets/8775610/23792560/c06bfd7e-0587-11e7-900d-25023694bd28.png alt=results></p>
 <h3 id=conclusion>Conclusion</h3>
 <p>For anyone wondering, all the benchmarks were performed on my development PC:
 Core i7-6700K, 32GB RAM, Ubuntu 16.04 LTS /w 4.4 kernel. The file system was
@@ -454,7 +454,7 @@ always tmpfs with PMEM_IS_PMEM_FORCE=1.</p>
 still in our heads waiting for their turn ;)</p>
 <p>As always, feel free to contribute your own ideas <a href="https://github.com/pmem/issues/issues?q=is%3Aopen+is%3Aissue+label%3A%22Type%3A+Feature%22">here</a>,
 we are always open to community suggestions.</p>
-<h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712nvml-is-now-pmdk>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/NVML-is-now-PMDK>NVML to PMDK</a>.]</h6>
+<h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712announcing-the-persistent-memory-development-kit>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/announcing-the-persistent-memory-development-kit>NVML to PMDK</a>.]</h6>
 <div class=clear></div>
 <div class="si-share border-0 d-flex justify-content-between align-items-center">
 <span>Share this Post:</span>

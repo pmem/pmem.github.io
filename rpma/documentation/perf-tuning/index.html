@@ -298,7 +298,7 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <ul>
 <li>Platform and CPU related <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a>
 <ul>
-<li>Disable lower CPU power states: C-states <a href=https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html>[1.2]</a>, C1E, and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
+<li>Disable lower CPU power states: C-states <a href=https://www.intel.com/content/www/us/en/develop/documentation/vtune-help/top/reference/user-interface-reference/window-cpu-c-p-states-platform-power-analysis.html>[1.2]</a>, C1E, and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
 <ul>
 <li>Power and Performance - CPU C State Control - Package C-State - <strong>C0/C1 state</strong></li>
 <li>Power and Performance - CPU C State Control - C1E - <strong>Disabled</strong>
@@ -358,7 +358,7 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <ul>
 <li>Platform and CPU related <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>[1.1]</a>
 <ul>
-<li>Disable lower CPU power states: C-states <a href=https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html>[1.2]</a> and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
+<li>Disable lower CPU power states: C-states <a href=https://www.intel.com/content/www/us/en/develop/documentation/vtune-help/top/reference/user-interface-reference/window-cpu-c-p-states-platform-power-analysis.html>[1.2]</a> and memory and PCI-e power saving states. Settings vary from vendor to vendor so some of them may not be available for you e.g.:
 <ul>
 <li>Advanced Power Management Configuration - Package C State Control - Package C-State - <strong>C0/C1 state</strong>
 <br><br></li>
@@ -406,7 +406,7 @@ General notes The Performance - Tuning aims to collect all tested and proven pro
 <h4 id=references>References</h4>
 <ul>
 <li>[1.1] <a href=https://software.intel.com/content/www/us/en/develop/articles/optimizing-computer-applications-for-latency-part-1-configuring-the-hardware.html>Optimizing Computer Applications for Latency: Part 1: Configuring the Hardware</a></li>
-<li>[1.2] <a href=https://software.intel.com/content/www/us/en/develop/articles/power-management-states-p-states-c-states-and-package-c-states.html>Intel: Power Management States: P-States, C-States, and Package C-States</a></li>
+<li>[1.2] <a href=https://www.intel.com/content/www/us/en/develop/documentation/vtune-help/top/reference/user-interface-reference/window-cpu-c-p-states-platform-power-analysis.html>Intel: Power Management States: P-States, C-States, and Package C-States</a></li>
 <li>[1.3] <a href=https://www.intel.com/content/www/us/en/products/docs/memory-storage/optane-persistent-memory/optane-persistent-memory-200-series-brief.html>Intel® Optane™ Persistent Memory 200 Series Brief</a></li>
 <li>[1.4] <a href=https://www.intel.com/content/www/us/en/architecture-and-technology/turbo-boost/turbo-boost-technology.html>Intel® Turbo Boost Technology 2.0 - Higher Performance When You Need It Most</a></li>
 </ul>
@@ -442,15 +442,15 @@ sudo cpupower frequency-set --max $FREQ
 Red Hat Enterprise Linux 7</a></li>
 </ul>
 <h2 id=rdma-capable-network-interface-rnic>RDMA-capable network interface (RNIC)</h2>
-<h3 id=pcie-attributes-31mlx-pcie>PCIe attributes <a href=https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance>[3.1]</a></h3>
+<h3 id=pcie-attributes-31mlx-pcie>PCIe attributes <a href=https://support.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance>[3.1]</a></h3>
 <ul>
 <li>Width - provide for the RNIC the maximum number of PCIe lanes it is capable of using</li>
 <li>Speed - attach the RNIC to PCIe interface of maximum supported speed</li>
 <li>Max Payload Size - learn what the Max Payload Size for your system is and adjust expectations accordingly</li>
 <li>Max Read Request - configure the maximum available read request value</li>
 </ul>
-<p>Knowing all of these attributes allows calculating the RNIC bandwidth limitation. For details please see “Understanding PCIe Configuration for Maximum Performance” Chapter <a href=https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance#Calculating-PCIe-Limitations>&ldquo;Calculating PCIe Limitations&rdquo;</a>.</p>
-<h3 id=link-mode-32mlx-port-speed>Link mode <a href=https://community.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>[3.2]</a></h3>
+<p>Knowing all of these attributes allows calculating the RNIC bandwidth limitation. For details please see “Understanding PCIe Configuration for Maximum Performance” Chapter <a href=https://support.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance#Calculating-PCIe-Limitations>&ldquo;Calculating PCIe Limitations&rdquo;</a>.</p>
+<h3 id=link-mode-32mlx-port-speed>Link mode <a href=https://support.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>[3.2]</a></h3>
 <p>List supported link modes:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ ethtool ens785f0
 Settings <span style=color:#66d9ef>for</span> ens785f0:
@@ -464,14 +464,14 @@ Settings <span style=color:#66d9ef>for</span> ens785f0:
 <span style=color:#75715e># ...</span>
 </code></pre></div><p>Set the maximum available value:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ sudo ethtool -s ens785f0 speed <span style=color:#ae81ff>100000</span> autoneg off
-</code></pre></div><h3 id=maximum-transmission-unit-mtu-33mlx-mtu>Maximum Transmission Unit (MTU) <a href=https://community.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>[3.3]</a></h3>
+</code></pre></div><h3 id=maximum-transmission-unit-mtu-33mlx-mtu>Maximum Transmission Unit (MTU) <a href=https://support.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>[3.3]</a></h3>
 <p>Set MTU to the maximum recommended value. In most cases, it is 4200.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ ifconfig ens785f0 mtu <span style=color:#ae81ff>4200</span>
 </code></pre></div><h4 id=references-2>References</h4>
 <ul>
-<li>[3.1] <a href=https://community.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance>Mellanox: Understanding PCIe Configuration for Maximum Performance</a></li>
-<li>[3.2] <a href=https://community.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>Mellanox: HowTo Change the Ethernet Port Speed of Mellanox Adapters (Linux)</a></li>
-<li>[3.3] <a href=https://community.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>Mellanox: MTU Considerations for RoCE based Applications</a></li>
+<li>[3.1] <a href=https://support.mellanox.com/s/article/understanding-pcie-configuration-for-maximum-performance>Mellanox: Understanding PCIe Configuration for Maximum Performance</a></li>
+<li>[3.2] <a href=https://support.mellanox.com/s/article/howto-change-the-ethernet-port-speed-of-mellanox-adapters--linux-x>Mellanox: HowTo Change the Ethernet Port Speed of Mellanox Adapters (Linux)</a></li>
+<li>[3.3] <a href=https://support.mellanox.com/s/article/mtu-considerations-for-roce-based-applications>Mellanox: MTU Considerations for RoCE based Applications</a></li>
 </ul>
 <h2 id=running-workloads>Running workloads</h2>
 <p>In order to learn how to run the individual workloads, please visit: <a href=https://github.com/pmem/rpma/blob/master/tools/perf/BENCHMARKING.md>https://github.com/pmem/rpma/master/tools/perf/BENCHMARKING.md</a></p>

@@ -632,7 +632,7 @@ memcpy(rootp<span style=color:#f92672>-&gt;</span>buf, buf, strlen(buf));
 </div>
 <p>And that&rsquo;s about it, looks simpler right? And more similar to how a volatile program might do this. The <code>reader.c</code> doesn&rsquo;t change much, just remove the <code>if</code> statement that checks the buffer length and you are good to go. If you are having trouble correctly modifying the code, you can find the complete example <a href=https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/>here</a>.</p>
 <p>This can be further simplified by combining the two lines inside the transaction together - but that&rsquo;s the topic for our next post.</p>
-<h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712nvml-is-now-pmdk>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/NVML-is-now-PMDK>NVML to PMDK</a>.]</h6>
+<h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712announcing-the-persistent-memory-development-kit>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/announcing-the-persistent-memory-development-kit>NVML to PMDK</a>.]</h6>
 <div class=clear></div>
 <div class="si-share border-0 d-flex justify-content-between align-items-center">
 <span>Share this Post:</span>

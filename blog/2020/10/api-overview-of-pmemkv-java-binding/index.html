@@ -317,8 +317,8 @@ is also compatible with newer versions of libpmemkv. You don’t have to worry
 about the dependencies, because packages from the OS vendor’s repositories suffice.</p>
 <h3 id=examples>Examples</h3>
 <p><a href=https://github.com/pmem/pmemkv-java/tree/master/examples>Examples directory</a> in pmemkv-java repository is a good resource, where you may learn how to
-create pmemkv database and use it with different types of data; starting from simple <a href=https://github.com/pmem/pmemkv-java/blob/master/examples/ByteBufferExample.java>ByteBuffer</a>,
-up to little bit more <a href=https://github.com/pmem/pmemkv-java/blob/master/examples/PicturesExample.java>real-life-application</a>, which shows you how to store and display pictures.</p>
+create pmemkv database and use it with different types of data; starting from simple <a href=https://github.com/pmem/pmemkv-java/blob/master/examples/ByteBufferExample/src/main/java/ByteBufferExample.java>ByteBuffer</a>,
+up to little bit more <a href=https://github.com/pmem/pmemkv-java/blob/master/examples/PicturesExample/src/main/java/PicturesExample.java>real-life-application</a>, which shows you how to store and display pictures.</p>
 <h4 id=implementing-converter-class>Implementing Converter class</h4>
 <p>Since pmemkv-java binding is the java wrapper for C++ library, it internally relies on java native interface,
 so it can only store ByteBuffer objects. Because it wouldn&rsquo;t be very convenient to operate on ByteBuffers inside
@@ -339,18 +339,17 @@ instance of any class in pmemkv, as long as an appropriate converter is availabl
 		<span style=color:#f92672>}</span>
 		<span style=color:#66d9ef>return</span> ByteBuffer<span style=color:#f92672>.</span><span style=color:#a6e22e>wrap</span><span style=color:#f92672>(</span>out<span style=color:#f92672>.</span><span style=color:#a6e22e>toByteArray</span><span style=color:#f92672>());</span>
 	<span style=color:#f92672>}</span>
-<pre><code>&lt;span style=&quot;color:#66d9ef&quot;&gt;public&lt;/span&gt; BufferedImage &lt;span style=&quot;color:#a6e22e&quot;&gt;fromByteBuffer&lt;/span&gt;&lt;span style=&quot;color:#f92672&quot;&gt;(&lt;/span&gt;ByteBuffer entry&lt;span style=&quot;color:#f92672&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;{&lt;/span&gt;
-	BufferedImage out &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;null&lt;/span&gt;&lt;span style=&quot;color:#f92672&quot;&gt;;&lt;/span&gt;
-	&lt;span style=&quot;color:#66d9ef&quot;&gt;try&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;{&lt;/span&gt;
-		out &lt;span style=&quot;color:#f92672&quot;&gt;=&lt;/span&gt; ImageIO&lt;span style=&quot;color:#f92672&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#a6e22e&quot;&gt;read&lt;/span&gt;&lt;span style=&quot;color:#f92672&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#66d9ef&quot;&gt;new&lt;/span&gt; ByteBufferBackedInputStream&lt;span style=&quot;color:#f92672&quot;&gt;(&lt;/span&gt;entry&lt;span style=&quot;color:#f92672&quot;&gt;));&lt;/span&gt;
-	&lt;span style=&quot;color:#f92672&quot;&gt;}&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;catch&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;(&lt;/span&gt;IOException e&lt;span style=&quot;color:#f92672&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color:#f92672&quot;&gt;{&lt;/span&gt;
-		&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#66d9ef&quot;&gt;null&lt;/span&gt;&lt;span style=&quot;color:#f92672&quot;&gt;;&lt;/span&gt;
-	&lt;span style=&quot;color:#f92672&quot;&gt;}&lt;/span&gt;
-	&lt;span style=&quot;color:#66d9ef&quot;&gt;return&lt;/span&gt; out&lt;span style=&quot;color:#f92672&quot;&gt;;&lt;/span&gt;
-&lt;span style=&quot;color:#f92672&quot;&gt;}&lt;/span&gt;
-</code></pre>
-<p><span style=color:#f92672>}</span>
-</code></pre></div><h4 id=database-creation-and-configuration>Database creation and configuration</h4></p>
+	<span style=color:#66d9ef>public</span> BufferedImage <span style=color:#a6e22e>fromByteBuffer</span><span style=color:#f92672>(</span>ByteBuffer entry<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+		BufferedImage out <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>;</span>
+		<span style=color:#66d9ef>try</span> <span style=color:#f92672>{</span>
+			out <span style=color:#f92672>=</span> ImageIO<span style=color:#f92672>.</span><span style=color:#a6e22e>read</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> ByteBufferBackedInputStream<span style=color:#f92672>(</span>entry<span style=color:#f92672>));</span>
+		<span style=color:#f92672>}</span> <span style=color:#66d9ef>catch</span> <span style=color:#f92672>(</span>IOException e<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+			<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>;</span>
+		<span style=color:#f92672>}</span>
+		<span style=color:#66d9ef>return</span> out<span style=color:#f92672>;</span>
+	<span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h4 id=database-creation-and-configuration>Database creation and configuration</h4>
 <p>Database is the generic class, which needs to be specialized by key and value types.
 If you want to create and configure your database, you have to call <code>setValueConverter()</code>
 and <code>setKeyConverter()</code> methods, and make sure their types correspond with Database key and value types.</p>

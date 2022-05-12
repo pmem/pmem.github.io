@@ -307,14 +307,14 @@
 <p>To use this feature, you need a Linux Kernel v5.0.0 and ndctl version 64 or later. The feature is not implemented in earlier releases which is why the &lsquo;security operation not supported&rsquo; is returned.</p>
 <p>Details can be found here:</p>
 <ul>
-<li><a href="https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fdocs.pmem.io%2Fndctl-user-guide%2Fmanaging-nvdimm-security">https://docs.pmem.io/ndctl-user-guide/managing-nvdimm-security</a></li>
-<li><a href="https://soco.intel.com/external-link.jspa?url=https%3A%2F%2Fgithub.com%2Fpmem%2Fndctl%2Freleases%2Ftag%2Fv64">https://github.com/pmem/ndctl/releases/tag/v64</a></li>
+<li><a href=https://docs.pmem.io/ndctl-user-guide/managing-nvdimm-security>https://docs.pmem.io/ndctl-user-guide/managing-nvdimm-security</a></li>
+<li><a href=https://github.com/pmem/ndctl/releases/tag/v64>https://github.com/pmem/ndctl/releases/tag/v64</a></li>
 </ul>
 <h1 id=solution>Solution</h1>
 <p>The secure erase operation can be initiated using the following methods, subject to vendor implementation:</p>
 <ul>
 <li>Certain server OEMs provide a secure erase option in the BIOS</li>
-<li>The ipmctl.efi utility for the UEFI shell may be available from your server OEM.</li>
+<li>The ipmctl.efi utility for the UEFI shell may be available from your server OEM</li>
 <li>Use &lsquo;ndctl sanitize&rsquo; on Linux using Kernel 5.0.0 or later with ndctl v64 or later.</li>
 </ul>
 </div>

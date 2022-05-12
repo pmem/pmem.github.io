@@ -314,15 +314,15 @@ Libpmemobj-Cpp
 by designing optimized on-media layouts and algorithms for persistent memory programming.
 On November, we published a <a href=/blog/2018/11/c-persistent-containers/ title="blog post">blog post</a> about pmem containers.
 If you haven’t read it yet, I encourage you to do that now.</p>
-<p>We have recently added <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> container to
+<p>We have recently added <a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> container to
 libpmemobj-cpp library. This container is currently placed in <code>experimental</code> namespace
 and folder - this means that both API and layout may change. It provides API similar
 to <code>std::vector</code> from C++11 but guarantees full exception safety via commit or
 rollback semantics and allocates data in persistent memory.</p>
 <h3 id=limitations>Limitations</h3>
-<p><a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj::vector</a> allocates data in persistent memory libpmemobj pool.
+<p><a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj::vector</a> allocates data in persistent memory libpmemobj pool.
 This limits maximum allocation size to value equal to <code>PMEMOBJ_MAX_ALLOC_SIZE</code> macro.
-Due to this limitation and due to the fact that <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a>
+Due to this limitation and due to the fact that <a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a>
 is dynamic contiguous array, maximum number of elements that can be stored in the
 pool is equal to <code>PMEMOBJ_MAX_ALLOC_SIZE / sizeof(element_type)</code> and this value can
 be returned by <code>max_size()</code> API function.</p>
@@ -348,7 +348,7 @@ Whenever there are pointer inside the data structure that will be snapshotted
 (memcopyed) you have to make sure that copying them around is proper. The same
 rule applies for persistent_ptr type, even if it doesn&rsquo;t satisfy <code>TriviallyCopyable</code>
 name requirements (because of explicitly-defined constructors).</p>
-<p><a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> user and every persistent memory programmer
+<p><a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> user and every persistent memory programmer
 should always check whether persistent_ptr could be copied in that specific case
 and if that wouldn&rsquo;t cause errors and (persistent) memory leaks. One should realize
 that <code>std::is_trivially_copyable</code> is the syntax check only and it doesn&rsquo;t tests semantics.

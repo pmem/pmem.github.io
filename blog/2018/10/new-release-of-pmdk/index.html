@@ -447,7 +447,7 @@ pools that were created using any of the previous libpmemobj versions, and had
 unrecovered operations in the log, are not going to be compatible with the new
 algorithms.</p>
 <p>To provide users with an upgrade path, we&rsquo;ve implemented a brand new
-<a href=/pmdk-convert/pmdk-convert.1.html>pmdk-convert</a> tool which will
+<a href=/pmdk-convert/manpages/master/pmdk-convert.1.html>pmdk-convert</a> tool which will
 automatically process the logs using the correct recovery
 mechanism, and then will bump the major layout version to indicate that the pool
 can be now opened using the new library version.</p>
@@ -464,7 +464,7 @@ libpmemobj-specific semantics.</p>
 anticipating that it&rsquo;s soon going to become a much larger project.</p>
 <p>We started the containers work easy, with <code>pmem::obj::array</code> that provides some
 convenience features for use with transactions. See our
-<a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html>doxygen</a> documentation for more info.</p>
+<a href=/libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html>doxygen</a> documentation for more info.</p>
 <p>We&rsquo;ve also renamed some function names that, in retrospect, were chosen
 poorly. Functions with old names are still there, but are deprecated.
 If you&rsquo;ve been using libpmemobj-cpp, you should start seeing compile-time

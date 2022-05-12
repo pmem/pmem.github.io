@@ -309,7 +309,7 @@ failed to create namespace: Resource temporarily unavailable
 <li>There&rsquo;s an issue with the labels for the NVDIMMs belonging to the region.</li>
 </ul>
 <h1 id=solution>Solution</h1>
-<p>Use the <code>-v</code> option to print more information to help identify the cause. A debug version of <code>ndctl</code> may be required to get useful information. See <a href=https://github.com/sscargal/pmem-docs-ndctl-user-guide/tree/bad2d0a9e4528c1cc9d2aa6271f8a427dad45420/getting-started-guide/installing-ndctl.md>Installing NDCTL</a> for instructions to build <code>ndctl</code> with debug options from source code.</p>
+<p>Use the <code>-v</code> option to print more information to help identify the cause. A debug version of <code>ndctl</code> may be required to get useful information. See <a href=https://github.com/sscargal/pmem-docs-ndctl-user-guide/blob/master/installing-ndctl.md>Installing NDCTL</a> for instructions to build <code>ndctl</code> with debug options from source code.</p>
 <p>For a scenario where there&rsquo;s no space left within the region, a message similar to the following will be shown:</p>
 <pre tabindex=0><code># ndctl create-namespace -r region0 -v
 ...

@@ -382,7 +382,7 @@ greater capacities than that of DRAM DIMMs. Therefore, the total achievable capa
 with DRAM modules alone, while the modules operate with near-DRAM performance, at a lower cost per gigabyte.
 These advantages make the Intel Optane PMem modules a good fit for Hazelcast and after some research,
 Hazelcast 4.0 added support for these persistent memory modules - in addition to DRAM - as its HD backend.
-The initial implementation in 4.0 used <a href=/pmdk/libvmem/>libvmem</a> for using Intel Optane persistent
+The initial implementation in 4.0 used <a href=/vmem/libvmem/>libvmem</a> for using Intel Optane persistent
 memory modules in volatile App Direct Mode. Since then, Memkind became the go-to library
 for using the PMem in volatile mode, therefore, Hazelcast dropped libvmem
 and replaced it with Memkind in its 4.1 version.</p>
@@ -618,26 +618,6 @@ capacities of memory than possible before, all with a lower cost for the end use
 <div class="grid-inner row align-items-center gutter-20">
 <div class=col-4>
 <div class=entry-image>
-<a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option/ data-lightbox=image><img src=/images/pmem_logo.png alt="Memkind support for KMEM DAX option"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option/>Memkind support for KMEM DAX option</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Michalbiesek</li>
-<li><i class=icon-calendar3></i> 20 Jan, 2020</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
 <a href=https://pmem.io/blog/2020/01/introduction-to-libmemkind/ data-lightbox=image><img src=/images/pmem_logo.png alt="Introduction to libmemkind"></a>
 </div>
 </div>
@@ -648,6 +628,26 @@ capacities of memory than possible before, all with a lower cost for the end use
 <div class=entry-meta>
 <ul>
 <li><i class=icon-user></i> Jschmieg</li>
+<li><i class=icon-calendar3></i> 20 Jan, 2020</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="entry col-12 col-md-6">
+<div class="grid-inner row align-items-center gutter-20">
+<div class=col-4>
+<div class=entry-image>
+<a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option/ data-lightbox=image><img src=/images/pmem_logo.png alt="Memkind support for KMEM DAX option"></a>
+</div>
+</div>
+<div class=col-8>
+<div class="entry-title title-xs">
+<h3><a href=https://pmem.io/blog/2020/01/memkind-support-for-kmem-dax-option/>Memkind support for KMEM DAX option</a></h3>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-user></i> Michalbiesek</li>
 <li><i class=icon-calendar3></i> 20 Jan, 2020</li>
 </ul>
 </div>
