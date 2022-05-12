@@ -102,6 +102,6 @@ We plan on supporting basic 1:1 remote replication using standard network transp
 [6534d9c4]: https://github.com/pmem/issues/issues 'pmem-issues'
 [b4af9cfb]: https://linux.die.net/man/2/mmap 'mmap'
 [6d977c8e]: /pmdk/pmempool/ 'pmempool'
-[1d90594e]: /pmdk/libpmemobj/libpmemobj.3.html 'pmemobj-manpages'
+[1d90594e]: /pmdk/manpages/linux/master/libpmemobj/libpmemobj.7.html 'pmemobj-manpages'
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
