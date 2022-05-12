@@ -61,11 +61,11 @@ in a single 64 bit value. The performance gains are spectacular.
 
 Before:
 
-![before](https://cloud.githubusercontent.com/images/posts/8775610/24601092/dfe86fba-1857-11e7-9189-36aebd5d20b9.png)
+![before](https://cloud.githubusercontent.com/assets/8775610/24601092/dfe86fba-1857-11e7-9189-36aebd5d20b9.png)
 
 After:
 
-![after](https://cloud.githubusercontent.com/images/posts/8775610/24601094/e3abc606-1857-11e7-842f-cdc00835543c.png)
+![after](https://cloud.githubusercontent.com/assets/8775610/24601094/e3abc606-1857-11e7-842f-cdc00835543c.png)
 
 The only not so great side effect of this change is that the freed blocks are
 now lazily repopulated in the volatile state of the allocator. This means that
@@ -106,7 +106,7 @@ on a regular basis. One example of that type of workload is our persistent B-Tre
 I've taken the liberty to measure the performance of a simple benchmark that
 inserts 5mln elements into the tree, here are the results:
 
-![results](https://cloud.githubusercontent.com/images/posts/8775610/24509180/01e75206-1566-11e7-8179-aa83601f63b2.png)
+![results](https://cloud.githubusercontent.com/assets/8775610/24509180/01e75206-1566-11e7-8179-aa83601f63b2.png)
 
 ### Asynchronous post-commit
 
@@ -118,7 +118,7 @@ the main task to move forward.
 We've implemented this [change](https://github.com/pmem/pmdk/pull/1671) and the
 resulting performance benefits are nothing to sneeze at:
 
-![results](https://cloud.githubusercontent.com/images/posts/8775610/24497173/daf67a76-153a-11e7-8e95-e185fdf0e118.png)
+![results](https://cloud.githubusercontent.com/assets/8775610/24497173/daf67a76-153a-11e7-8e95-e185fdf0e118.png)
 
 This is a result from a synthetic benchmark I've devised. It preallocated
 certain number of objects, and then, in a transaction, called TX_FREE on those
@@ -145,9 +145,9 @@ We are finally fixing that problem in this [patch](https://github.com/pmem/pmdk/
 
 Here are the before/after results:
 
-![before](https://cloud.githubusercontent.com/images/posts/8775610/24499995/03403414-1544-11e7-9404-093c882ec2c3.png)
+![before](https://cloud.githubusercontent.com/assets/8775610/24499995/03403414-1544-11e7-9404-093c882ec2c3.png)
 
-![after](https://cloud.githubusercontent.com/images/posts/8775610/24500320/328bf392-1545-11e7-8ab3-c551c10c72b7.png)
+![after](https://cloud.githubusercontent.com/assets/8775610/24500320/328bf392-1545-11e7-8ab3-c551c10c72b7.png)
 
 The charts show the percentage of internal fragmentation for sizes between
 100 bytes and 4 megabytes with the interval of 100 bytes.
@@ -181,7 +181,7 @@ throughput.
 We've now implemented the described optimization in this [patch](https://github.com/pmem/pmdk/pull/1711),
 and here are the performance results:
 
-![results](https://cloud.githubusercontent.com/images/posts/8775610/23549544/065fd7ae-000d-11e7-8eea-9906196d4f46.png)
+![results](https://cloud.githubusercontent.com/assets/8775610/23549544/065fd7ae-000d-11e7-8eea-9906196d4f46.png)
 
 Not bad ;) Even the workload in which only one object is allocated per
 transaction has improved, this is a result of slightly better allocation undo log
@@ -218,12 +218,12 @@ performance from a persistent container using this API (and some threads :P).
 
 Here's a chart that shows the scaling of reserve API:
 
-![results](https://cloud.githubusercontent.com/images/posts/8775610/23852782/c421f342-07e9-11e7-8b26-b6ae53bf4342.png)
+![results](https://cloud.githubusercontent.com/assets/8775610/23852782/c421f342-07e9-11e7-8b26-b6ae53bf4342.png)
 
 and here's a chart showing the performance different between reservation and
 full persistent allocation:
 
-![results](https://cloud.githubusercontent.com/images/posts/8775610/23792560/c06bfd7e-0587-11e7-900d-25023694bd28.png)
+![results](https://cloud.githubusercontent.com/assets/8775610/23792560/c06bfd7e-0587-11e7-900d-25023694bd28.png)
 
 ### Conclusion
 
