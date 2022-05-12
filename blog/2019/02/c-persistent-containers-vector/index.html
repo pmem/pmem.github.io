@@ -2,7 +2,7 @@
 <link rel=stylesheet type=text/css href=/css/style.css>
 <meta property="og:title" content="C++ persistent containers - vector">
 <meta property="og:description" content="[Note: pmem::obj::vector<> is no longer experimental. The rest of the information in this blog post is still accurate.] Introduction The main idea behind pmem containers is to fully exploit persistent memory potential by designing optimized on-media layouts and algorithms for persistent memory programming. On November, we published a blog post about pmem containers. If you haven’t read it yet, I encourage you to do that now.
-We have recently added pmem::obj:experimental:vector container to libpmemobj-cpp library.">
+We have recently added pmem::obj:vector container to libpmemobj-cpp library.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/blog/2019/02/c-persistent-containers-vector/"><meta property="article:section" content="blog">
 <meta property="article:published_time" content="2019-02-20T19:55:17-07:00">
@@ -308,21 +308,21 @@ Libpmemobj-Cpp
 </ul>
 </div>
 <div class="entry-content mt-0">
-<h6 id=note-pmemobjvectorltgtpmem_obj_vector-is-no-longer-experimental-the-rest-of-the-information-in-this-blog-post-is-still-accurate>[Note: <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj::vector>pmem::obj::vector&lt;></a> is no longer experimental. The rest of the information in this blog post is still accurate.]</h6>
+<h6 id=note-pmemobjvectorltgtcpp_vector-is-no-longer-experimental-the-rest-of-the-information-in-this-blog-post-is-still-accurate>[Note: <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj:vector>pmem::obj::vector&lt;></a> is no longer experimental. The rest of the information in this blog post is still accurate.]</h6>
 <h3 id=introduction>Introduction</h3>
 <p>The main idea behind pmem containers is to fully exploit persistent memory potential
 by designing optimized on-media layouts and algorithms for persistent memory programming.
 On November, we published a <a href=/blog/2018/11/c-persistent-containers/ title="blog post">blog post</a> about pmem containers.
 If you haven’t read it yet, I encourage you to do that now.</p>
-<p>We have recently added <a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> container to
+<p>We have recently added <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj:vector>pmem::obj:vector</a> container to
 libpmemobj-cpp library. This container is currently placed in <code>experimental</code> namespace
 and folder - this means that both API and layout may change. It provides API similar
 to <code>std::vector</code> from C++11 but guarantees full exception safety via commit or
 rollback semantics and allocates data in persistent memory.</p>
 <h3 id=limitations>Limitations</h3>
-<p><a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj::vector</a> allocates data in persistent memory libpmemobj pool.
+<p><a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj:vector>pmem::obj::vector</a> allocates data in persistent memory libpmemobj pool.
 This limits maximum allocation size to value equal to <code>PMEMOBJ_MAX_ALLOC_SIZE</code> macro.
-Due to this limitation and due to the fact that <a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a>
+Due to this limitation and due to the fact that <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj:vector>pmem::obj:vector</a>
 is dynamic contiguous array, maximum number of elements that can be stored in the
 pool is equal to <code>PMEMOBJ_MAX_ALLOC_SIZE / sizeof(element_type)</code> and this value can
 be returned by <code>max_size()</code> API function.</p>
@@ -348,7 +348,7 @@ Whenever there are pointer inside the data structure that will be snapshotted
 (memcopyed) you have to make sure that copying them around is proper. The same
 rule applies for persistent_ptr type, even if it doesn&rsquo;t satisfy <code>TriviallyCopyable</code>
 name requirements (because of explicitly-defined constructors).</p>
-<p><a href=/libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html title=pmem::obj:experimental:vector>pmem::obj:experimental:vector</a> user and every persistent memory programmer
+<p><a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html title=pmem::obj:vector>pmem::obj:vector</a> user and every persistent memory programmer
 should always check whether persistent_ptr could be copied in that specific case
 and if that wouldn&rsquo;t cause errors and (persistent) memory leaks. One should realize
 that <code>std::is_trivially_copyable</code> is the syntax check only and it doesn&rsquo;t tests semantics.
@@ -361,37 +361,37 @@ memory is almost always a design error (after application crash, pointer to virt
 memory is no longer valid). Using persistent_ptr is safe and it provides only way
 to access specific memory area after application crash.</p>
 <h3 id=api-extensions>API extensions</h3>
-<p>API for <code>pmem::obj:experimental:vector</code> and <code>std::vector</code> is the same, except for the following:</p>
+<p>API for <code>pmem::obj:vector</code> and <code>std::vector</code> is the same, except for the following:</p>
 <ul>
-<li><code>pmem::obj:experimental:vector</code> defines <code>range()</code> method (detailed description you can find in
+<li><code>pmem::obj:vector</code> defines <code>range()</code> method (detailed description you can find in
 <code>pmem::obj:array</code> <a href=/blog/2018/11/c-persistent-containers-array/ title=here>blog post</a>)</li>
-<li><code>pmem::obj:experimental:vector</code> does not mark any non-const function as <code>noexcept</code> -
+<li><code>pmem::obj:vector</code> does not mark any non-const function as <code>noexcept</code> -
 elements must be added to a transaction which could throw an exception</li>
-<li><code>pmem::obj:experimental:vector</code> overloads constructor, assign method and assign
+<li><code>pmem::obj:vector</code> overloads constructor, assign method and assign
 operator to work with <code>std::vector</code> objects</li>
-<li><code>pmem::obj:experimental:vector</code> defines non-member compare functions between <code>pmem::obj:experimental:vector</code>
+<li><code>pmem::obj:vector</code> defines non-member compare functions between <code>pmem::obj:vector</code>
 and <code>std::vector</code></li>
-<li><code>pmem::obj:experimental:vector</code> defines <code>free_data()</code> function that is recommended
-to being called before <code>pmem::obj:experimental:vector</code> destructor (freeing
+<li><code>pmem::obj:vector</code> defines <code>free_data()</code> function that is recommended
+to being called before <code>pmem::obj:vector</code> destructor (freeing
 allocated persistent memory in transaction may throw an exception)</li>
-<li><code>pmem::obj:experimental:vector</code> defines <code>const_at()</code>, <code>cfront()</code>, <code>cback()</code> and <code>cdata()</code>
+<li><code>pmem::obj:vector</code> defines <code>const_at()</code>, <code>cfront()</code>, <code>cback()</code> and <code>cdata()</code>
 element access methods. We decided that using <code>at()</code>, <code>front()</code>, <code>back()</code>
 and <code>data()</code> overloads which return const_reference (or const_pointer)
 is not enough (overload deduction depends on the const-qualification of
-the object it is called on and it is burdensome to cast <code>pmem::obj:experimental:vector</code>
-into <code>const pmem::obj:experimental:vector</code>), especially in persistent memory programming,
+the object it is called on and it is burdensome to cast <code>pmem::obj:vector</code>
+into <code>const pmem::obj:vector</code>), especially in persistent memory programming,
 where accessing element&rsquo;s value for read-only purposes might be frequent
 operation and there is no need for doing it in transaction. Note that
 this is not possible to overcome this problem for <code>operator[]</code>.</li>
 </ul>
 <h3 id=usage>Usage</h3>
-<p>One of our main goals while designing <code>pmem::obj:experimental:vector</code> was to create as much
+<p>One of our main goals while designing <code>pmem::obj:vector</code> was to create as much
 similar API to <code>std::vector</code> as possible. The only usage difference in persistent
 memory version of vector is creation of an object.
-<code>pmem::obj:experimental:vector</code> resides on persistent memory so you need a way to access stored
+<code>pmem::obj:vector</code> resides on persistent memory so you need a way to access stored
 elements even after program crash, which can be done using pool&rsquo;s root object.
 The root object is the anchor to which all the memory structures should be attached.</p>
-<p>Here is an example how to create <code>pmem::obj:experimental:vector</code>:</p>
+<p>Here is an example how to create <code>pmem::obj:vector</code>:</p>
 <div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
 <pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
@@ -442,12 +442,12 @@ root<span style=color:#f92672>-&gt;</span>vec<span style=color:#f92672><em></spa
 </span></code></pre></td></tr></table></p>
 </div>
 </div>
-<p>As you can see in above code snippet <code>pmem::obj:experimental:vector</code> must be created and
+<p>As you can see in above code snippet <code>pmem::obj:vector</code> must be created and
 allocated in persistent memory using inside of transaction (an exception will be
 thrown otherwise). Vector&rsquo;s element type constructor may construct an object by
 internally opening another transaction. In this case inner transaction will be
 flattened to outer one.</p>
-<p>From now on usage of <code>pmem::obj:experimental:vector</code> is similar to usage of <code>std::vector</code>:</p>
+<p>From now on usage of <code>pmem::obj:vector</code> is similar to usage of <code>std::vector</code>:</p>
 <div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
 <pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
@@ -512,8 +512,8 @@ from the other hand, you will notice performance overhead. The reason behind
 that is dereferencing of persistent_ptr in current implementation cannot be
 optimized and cached by compilers. We are working on workaround for this issue,
 but it is recommended to avoid unnecessary persistent_ptr dereferencing operations.</p>
-<p>Iterating over <code>pmem::obj:experimental:vector</code> works just like for an ordinary <code>std::vector</code>:
-you can use indexing operator, range-based for loops or iterators. <code>pmem::obj:experimental:vector</code>
+<p>Iterating over <code>pmem::obj:vector</code> works just like for an ordinary <code>std::vector</code>:
+you can use indexing operator, range-based for loops or iterators. <code>pmem::obj:vector</code>
 can also be processed using <code>std::algorithms</code>:</p>
 <div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
@@ -607,20 +607,20 @@ important to use const qualified function overloads (cbegin(), cend(), etc.) whe
 the same memory address won&rsquo;t be performed and thus won&rsquo;t have performance overhead).
 This will reduce number of snapshots and can significantly reduce the performance
 impact of transactions.</p>
-<p>Note also that <code>pmem::obj:experimental:vector</code> does define convenient constructors and compare
+<p>Note also that <code>pmem::obj:vector</code> does define convenient constructors and compare
 operators which take <code>std::vector</code> as an argument.</p>
 <h3 id=pmemobjslice>pmem::obj::slice</h3>
 <p>In cases where loop is known to modify several consecutive elements in the vector,
 a bulk-snapshot optimization can be performed using a special <code>range()</code> function.
 The usage of <code>range()</code> and <code>pmem::obj::slice</code> was described in blog post about
-<code>pmem::obj:array</code> <a href=/blog/2018/11/c-persistent-containers-array/ title=here>here</a>. It works for <code>pmem::obj:experimental:vector</code> in
+<code>pmem::obj:array</code> <a href=/blog/2018/11/c-persistent-containers-array/ title=here>here</a>. It works for <code>pmem::obj:vector</code> in
 the same way.</p>
 <h3 id=summary>Summary</h3>
 <p>To summarize if you need persistent scratch pad, extension for in-memory database
 or fast and flexible data storage with attributes of sequence container representing
-arrays that can change in size, you should use <code>pmem::obj:experimental:vector</code>.</p>
+arrays that can change in size, you should use <code>pmem::obj:vector</code>.</p>
 <p>libpmemobj-cpp library provides two persistent containers now: <code>pmem::obj:array</code>
-and <code>pmem::obj:experimental:vector</code>. We are currently working on <code>pmem::obj::string</code> implementation,
+and <code>pmem::obj:vector</code>. We are currently working on <code>pmem::obj::string</code> implementation,
 stay tuned!</p>
 <div class=clear></div>
 <div class="si-share border-0 d-flex justify-content-between align-items-center">

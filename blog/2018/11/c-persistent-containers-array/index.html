@@ -1,7 +1,7 @@
 <!doctype html><html dir=ltr lang=en-us><head>
 <link rel=stylesheet type=text/css href=/css/style.css>
 <meta property="og:title" content="C++ persistent containers - array">
-<meta property="og:description" content="Introduction Until now, our C++ bindings were missing one important component - persistent containers. In 1.5 release we have introduced the first one - pmem::obj::array. This container is currently placed in experimental namespace and folder (this means that both API and layout can change). It has almost the same functionality as std::array from C++11 but takes care of adding elements to a transaction. Once experimental status will be dropped, it will also guarantee a stable in-memory layout (it will be the same for all compilers).">
+<meta property="og:description" content="[Note: pmem::obj::array<> is no longer experimental. The rest of the information in this blog post is still accurate.] Introduction Until now, our C++ bindings were missing one important component - persistent containers. In 1.5 release we have introduced the first one - pmem::obj::array. This container is currently placed in experimental namespace and folder (this means that both API and layout can change). It has almost the same functionality as std::array from C++11 but takes care of adding elements to a transaction.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/blog/2018/11/c-persistent-containers-array/"><meta property="article:section" content="blog">
 <meta property="article:published_time" content="2018-11-02T19:55:17-07:00">
@@ -307,16 +307,17 @@ Libpmemobj-Cpp
 </ul>
 </div>
 <div class="entry-content mt-0">
+<h6 id=note-pmemobjarrayltgtcpp_array-is-no-longer-experimental-the-rest-of-the-information-in-this-blog-post-is-still-accurate>[Note: <a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1array.html title=pmem::obj::array>pmem::obj::array&lt;></a> is no longer experimental. The rest of the information in this blog post is still accurate.]</h6>
 <h3 id=introduction>Introduction</h3>
 <p>Until now, our C++ bindings were missing one important component - persistent
-containers. In 1.5 release we have introduced the first one - <a href=/libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html title=pmem::obj::array>pmem::obj::array</a>.
+containers. In 1.5 release we have introduced the first one - <a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1array.html title=pmem::obj::array>pmem::obj::array</a>.
 This container is currently placed in <code>experimental</code> namespace and folder (this means
 that both API and layout can change). It has almost the same functionality as <code>std::array</code>
 from C++11 but takes care of adding elements to a transaction. Once experimental status
 will be dropped, it will also guarantee a stable in-memory layout (it will be the same for all compilers).
 API for <code>pmem::obj::array</code> and <code>std::array</code> is the same, except for the following:</p>
 <ul>
-<li><code>pmem::obj::array</code> defines <a href=/libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html#a113016b4fb574f71dc12f72a90048471 title="range() method">range()</a> method (described below)</li>
+<li><code>pmem::obj::array</code> defines <a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1array.html#ab82172c2ff69aef8927b633af3e275f2 title="range() method">range()</a> method (described below)</li>
 <li><code>pmem::obj::array</code> does not mark any non-const function as <code>noexcept</code> -
 elements must be added to a transaction which could result in an exception</li>
 </ul>
@@ -401,8 +402,8 @@ whenever possible. It will reduce number of snapshots and can significantly
 reduce the performance impact of transactions.</p>
 <h3 id=pmemobjslice>pmem::obj::slice</h3>
 <p>In cases where loop is known to modify several consecutive elements in the array,
-a bulk-snapshot optimization can be performed using a special <a href=/libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html#a113016b4fb574f71dc12f72a90048471 title="range() method">range()</a>
-function which returns an instance of <a href=/libpmemobj-cpp/v1.5/doxygen/classpmem_1_1obj_1_1experimental_1_1slice.html title="slice struct">pmem::obj::slice</a> struct.
+a bulk-snapshot optimization can be performed using a special <a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1array.html#ab82172c2ff69aef8927b633af3e275f2 title="range() method">range()</a>
+function which returns an instance of <a href=/libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1slice.html title="slice struct">pmem::obj::slice</a> struct.
 This structure provides interface to access sequence of objects - it implements
 indexing operators as well as begin() and end() methods (plus const and reverse
 variants).</p>
@@ -452,7 +453,7 @@ added to a transaction (this is done in <code>range()</code> method), so that it
 have to be done in the first and the second iteration. In the third iteration,
 elements at indexes 2 and 3 will be snapshotted, and so on. Assuming size of
 array equal to 6, number of snapshots will be thus equal to 3. This mechanism is
-also described <a href=/libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1range__snapshotting__iterator.html title=range_snapshotting_iterator>here</a>.</p>
+also described <a href=/libpmemobj-cpp/master/doxygen/structpmem_1_1detail_1_1range__snapshotting__iterator.html title=range_snapshotting_iterator>here</a>.</p>
 <p>If all elements (or most of them) are expected to be modified, <code>range()</code> can be called like this:</p>
 <div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
 <table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
