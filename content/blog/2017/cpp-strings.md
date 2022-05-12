@@ -187,4 +187,4 @@ that concept someday.
 
 _Many thanks to @tomaszkapela and @pbalcer for contributing to this post!_
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

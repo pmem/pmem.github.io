@@ -532,4 +532,4 @@ file system test suites. If you have any questions or ideas for improvement
 of the **pmemobjfs** please feel free to join a discussion on our
 [Google Group](https://groups.google.com/group/pmem).
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

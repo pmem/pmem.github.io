@@ -276,6 +276,6 @@ storage efficiency for the specific case of very small strings. This
 seems like the right tradeoffs for the large and semi-structured
 datasets that we'd like to enable with
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
 
 [pmemkv](https://github.com/pmem/pmemkv).

@@ -154,4 +154,4 @@ Now files can be created on the freshly mounted partition, and given as an input
 
 It is additionally worth mentioning you can emulate persistent memory with ramdisk (i.e. `/dev/shm`), or force pmem-like behavior by setting environment variable `PMEM_IS_PMEM_FORCE=1`, that would eliminate performance hit caused by `msync(2)`.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

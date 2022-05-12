@@ -286,4 +286,4 @@ This concludes the pmemcheck's built-in transaction support. If you want to know
 [aa87ca41]: /blog/2015/09/challenges-of-multi-threaded-transactions/ 'Challenges of multi-threaded transactions'
 [051ba546]: https://github.com/pmem/valgrind/blob/pmem/pmemcheck/tests/trans_mt_cross.c 'Pmemcheck test'
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

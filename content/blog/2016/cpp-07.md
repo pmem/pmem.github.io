@@ -173,4 +173,4 @@ memory using C++.
 [55cd0734]: http://www.gotw.ca/gotw/047.htm 'uncaught_exception'
 [b54915a7]: https://isocpp.org/files/papers/N4152.pdf 'uncaught_exceptions'
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

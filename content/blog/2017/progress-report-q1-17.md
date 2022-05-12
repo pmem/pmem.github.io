@@ -237,4 +237,4 @@ still in our heads waiting for their turn ;)
 As always, feel free to contribute your own ideas [here](https://github.com/pmem/issues/issues?q=is%3Aopen+is%3Aissue+label%3A%22Type%3A+Feature%22),
 we are always open to community suggestions.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

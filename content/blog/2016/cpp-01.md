@@ -70,4 +70,4 @@ Older standard (minimum C++03) support is going to be added at a later date.
 - Polymorphic persistent classes are forbidden.
 - Be mindful about static member variables. Not using them is recommended.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

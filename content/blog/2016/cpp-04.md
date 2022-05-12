@@ -149,6 +149,6 @@ volatile implementation, but with a transaction block and
 Complete implementation is available
 [here](https://github.com/pmem/libpmemobj-cpp/blob/master/examples/queue/queue.cpp).
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
 
 ###### [This entry was edited on 2018-07-06 to change link to queue.cpp]

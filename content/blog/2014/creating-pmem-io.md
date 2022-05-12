@@ -105,4 +105,4 @@ templates or includes) can all be found in the
 at the [source for this web site](https://github.com/pmem/pmem.github.io/)
 for details.
 
-###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/NVML-is-now-PMDK).]
+###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
