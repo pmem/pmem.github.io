@@ -292,6 +292,6 @@ and `pmem::obj:experimental:vector`. We are currently working on `pmem::obj::str
 stay tuned!
 
 [cpp_containers]: /blog/2018/11/c-persistent-containers/ 'blog post'
-[cpp_vector]: /libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html 'pmem::obj:experimental:vector'
+[cpp_vector]: /libpmemobj-cpp/v1.6/doxygen/classpmem_1_1obj_1_1experimental_1_1vector.html 'pmem::obj:experimental:vector'
 [cpp_array_blogpost]: /blog/2018/11/c-persistent-containers-array/ 'here'
 [pmem_obj_vector]: /libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1vector.html 'pmem::obj::vector'
