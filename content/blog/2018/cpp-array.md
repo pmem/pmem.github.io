@@ -189,7 +189,7 @@ always use `pmem::obj::array`. This is currently the only persistent container
 in our library. However, we are working on `pmem::obj::vector` and `pmem::obj::string`,
 so you can expect our containers collection to grow in the near future.
 
-[cpp_array]: /libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html 'pmem::obj::array'
-[cpp_array_range]: /libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html#a113016b4fb574f71dc12f72a90048471 'range() method'
-[cpp_array_slice]: /libpmemobj-cpp/master/doxygen/classpmem_1_1obj_1_1experimental_1_1slice.html 'slice struct'
-[cpp_array_iterator]: /libpmemobj-cpp/master/doxygen/structpmem_1_1obj_1_1experimental_1_1range__snapshotting__iterator.html 'range_snapshotting_iterator'
+[cpp_array]: /libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html 'pmem::obj::array'
+[cpp_array_range]: /libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1array.html#a113016b4fb574f71dc12f72a90048471 'range() method'
+[cpp_array_slice]: /libpmemobj-cpp/v1.5/doxygen/classpmem_1_1obj_1_1experimental_1_1slice.html 'slice struct'
+[cpp_array_iterator]: /libpmemobj-cpp/v1.5/doxygen/structpmem_1_1obj_1_1experimental_1_1range__snapshotting__iterator.html 'range_snapshotting_iterator'
