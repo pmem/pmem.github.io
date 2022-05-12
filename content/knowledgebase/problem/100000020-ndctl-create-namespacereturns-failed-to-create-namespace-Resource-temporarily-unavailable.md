@@ -7,7 +7,7 @@ tags: [persistent memory, pmem, ndctl, create]
 author: Steve Scargall
 docid: 100000020
 creation_date: 2020-03-11
-modified_date: 
+modified_date:
 ---
 
 # Applies To
@@ -34,7 +34,7 @@ There are many potential causes including:
 
 # Solution
 
-Use the `-v` option to print more information to help identify the cause. A debug version of `ndctl` may be required to get useful information. See [Installing NDCTL](https://github.com/sscargal/pmem-docs-ndctl-user-guide/tree/bad2d0a9e4528c1cc9d2aa6271f8a427dad45420/getting-started-guide/installing-ndctl.md) for instructions to build `ndctl` with debug options from source code.
+Use the `-v` option to print more information to help identify the cause. A debug version of `ndctl` may be required to get useful information. See [Installing NDCTL](https://github.com/sscargal/pmem-docs-ndctl-user-guide/blob/master/installing-ndctl.md) for instructions to build `ndctl` with debug options from source code.
 
 For a scenario where there's no space left within the region, a message similar to the following will be shown:
 

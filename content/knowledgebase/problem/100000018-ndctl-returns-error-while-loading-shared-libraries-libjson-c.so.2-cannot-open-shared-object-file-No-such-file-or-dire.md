@@ -7,7 +7,7 @@ tags: [persistent memory, pmem, ndctl, library]
 author: Steve Scargall
 docid: 100000018
 creation_date: 2020-03-11
-modified_date: 
+modified_date:
 ---
 
 # Applies To
@@ -30,7 +30,7 @@ Executing the `ndctl` utility, with or without commands or options, returns the 
 The issue could be caused by one of the following issues:
 
 - The json-c package is not installed
-- A version mis-match between the `json-c` and `ndctl`.  More recent versions of json-c deliver `libjson-c.so.4` rather than `libjson-c.so.2`. 
+- A version mis-match between the `json-c` and `ndctl`.  More recent versions of json-c deliver `libjson-c.so.4` rather than `libjson-c.so.2`.
 - The json-c library is installed in a non-default location and the LD_LIBRARY_PATH environment variable needs to be updated.
 
 Verify which libraries are missing from `ndctl` using the `ldd` utility and identifying libraries that are 'not found':
@@ -114,6 +114,6 @@ If the `ndctl` utility was installed using the ndctl package from the operating 
 # sudo dnf update -y ndctl
 ```
 
-If the latest version within the package repository is old with no new versions available, download, compile, and install from source code. Detailed instructions can be found in the [Installing NDCTL](https://github.com/sscargal/pmem-docs-ndctl-user-guide/tree/bad2d0a9e4528c1cc9d2aa6271f8a427dad45420/getting-started-guide/installing-ndctl.md) chapter.
+If the latest version within the package repository is old with no new versions available, download, compile, and install from source code. Detailed instructions can be found in the [Installing NDCTL](https://github.com/sscargal/pmem-docs-ndctl-user-guide/blob/master/installing-ndctl.md) chapter.
 
-If the `ndctl` utility was previously compiled and installed using source code, download the latest version from the [ndctl GitHub repository](https://github.com/pmem/ndctl), compile, and install. Detailed instructions can be found in the [Installing NDCTL](https://github.com/sscargal/pmem-docs-ndctl-user-guide/tree/bad2d0a9e4528c1cc9d2aa6271f8a427dad45420/getting-started-guide/installing-ndctl.md) chapter.
+If the `ndctl` utility was previously compiled and installed using source code, download the latest version from the [ndctl GitHub repository](https://github.com/pmem/ndctl), compile, and install. Detailed instructions can be found in the [Installing NDCTL](https://github.com/sscargal/pmem-docs-ndctl-user-guide/blob/master/installing-ndctl.md) chapter.
