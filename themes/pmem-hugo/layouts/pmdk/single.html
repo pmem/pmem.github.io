@@ -11,6 +11,80 @@
 {{ end }}
 
 <div class="section m-0 bg-transparent library-section dark-mode">
+	<!-- manpage shortcuts -->
+	{{ $dc_title := strings.TrimSuffix " | pmdk" (.Params.title | lower) }}
+	{{ if or (in (slice "rpmemd" "daxio" "pmreorder" "pmempool") $dc_title) (in $dc_title "pmempool-") }}
+		{{ $.Scratch.Set "dc_title_ext" $dc_title }}
+		{{ $.Scratch.Add "dc_title_ext" ".1.html" }}
+		{{ $.Scratch.Set "dc_title_ext_old" $dc_title }}
+		{{ $.Scratch.Add "dc_title_ext_old" ".1.html" }}
+	{{ else }}
+		{{ $.Scratch.Set "dc_title_ext" $dc_title }}
+		{{ $.Scratch.Add "dc_title_ext" ".7.html" }}
+		{{ $.Scratch.Set "dc_title_ext_old" $dc_title }}
+		{{ $.Scratch.Add "dc_title_ext_old" ".3.html" }}
+	{{ end }}
+	{{ $dc_title_ext := $.Scratch.Get "dc_title_ext"}}
+	{{ $dc_title_ext_old := $.Scratch.Get "dc_title_ext_old"}}
+
+	{{ if in (slice "pmempool" "poolset" "rpmemd" "daxio" "pmreorder" "pmem_ctl") $dc_title }}
+		<!-- no libraries -->
+	{{ else }}
+	<div id="manpage_shortcut">
+		{{ $sys_array := (slice "linux" "windows") }}
+		{{ range $system := $sys_array }}
+			{{ $.Scratch.Set "release_file" "releases_" }}
+			{{ $.Scratch.Add "release_file" $system }}
+			{{ $release_file := $.Scratch.Get "release_file"}}
+			<ul>
+				<li class="sys_header">{{ $system | upper }}</li>
+				{{ range $release := (index $.Site.Data $release_file) }}
+					{{ if eq $release.tag "master" }}
+						{{ $.Scratch.Set "version_tag" $release.tag }}
+						{{ $.Scratch.Set "version_name" "" }}
+					{{ else }}
+						{{ $.Scratch.Set "version_tag" "v" }}
+						{{ $.Scratch.Add "version_tag" (string $release.tag) }}
+						{{ $.Scratch.Set "version_name" "version" }}
+					{{ end }}
+					{{ $version_tag := $.Scratch.Get "version_tag"}}
+					{{ $version_name := $.Scratch.Get "version_name"}}
+
+					<li class="release_tag"><input id="toggle_{{ $system }}_{{ $release.tag }}" type="checkbox"><label for="toggle_{{ $system }}_{{ $release.tag }}">{{ $dc_title }} {{ $version_name }} {{ $release.tag }}</label>
+						<ul>
+							{{ if eq $release.func "empty" }}
+								<li><a href="/pmdk/manpages/{{ $system }}/v{{ $release.tag }}/{{ $dc_title_ext_old }}">{{ $dc_title }}</a></li>
+							{{ else }}
+								{{ if in (slice "libpmemlog" "libpmemobj" "libpmemblk" "libpmempool") $dc_title }}
+									{{ if in $release.libs "poolset" }}
+										<li><a href="/pmdk/manpages/{{ $system }}/{{ $version_tag }}/poolset/poolset.5">poolset</a></li>
+									{{ end }}
+									{{ if in $release.libs "pmem_ctl" }}
+										<li><a href="/pmdk/manpages/{{ $system }}/{{ $version_tag }}/pmem_ctl/pmem_ctl.5">pmem_ctl</a></li>
+									{{ end }}
+								{{ end }}
+								{{ if eq $dc_title "libpmem2" }}
+									<li><a href="/pmdk/manpages/{{ $system }}/{{ $version_tag }}/{{ $dc_title }}/libpmem2_unsafe_shutdown.7">libpmem2_unsafe_shutdown</a></li>
+								{{ end }}
+								<li><a href="/pmdk/manpages/{{ $system }}/{{ $version_tag }}/{{ $dc_title }}/{{ $dc_title_ext }}">{{ $dc_title }}</a></li>
+								{{ range $rev_function := split (index $release.func $dc_title) " " }}
+									{{ $rev_function_no_ext := strings.TrimSuffix ".3" $rev_function }}
+									{{ $rev_function_no_ext := strings.TrimSuffix ".7" $rev_function_no_ext }}
+									{{ range $x := $.Site.Data.libs_map }}
+										{{ $value_to_rev_func := (index $x $rev_function_no_ext) }}
+										{{ if and (not (eq $value_to_rev_func "")) (not (eq $value_to_rev_func nil)) }}
+											<li><a href="/pmdk/manpages/{{ $system }}/{{ $version_tag }}/{{ $dc_title }}/{{ $value_to_rev_func }}">{{ $rev_function_no_ext }}</a></li>
+										{{ end }}
+									{{ end }}
+								{{ end }}
+							{{ end }}
+						</ul>
+					</li>
+				{{ end }}
+			</ul>
+		{{ end }}
+	</div>
+	{{ end }}
     <div class="container">
       <div class="row justify-content-between">
         <div class="col mt-0 lib-content">
