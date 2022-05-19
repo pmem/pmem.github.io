@@ -223,7 +223,7 @@ section ul {
 }
 
 /* Dev tools */
-div.grid-filter-wrap li { 
+div.grid-filter-wrap li {
   margin: 0;
 }
 
@@ -718,4 +718,53 @@ p {
 
 .lib-content div.highlight {
   margin-bottom:  10px;
+}
+
+/* Styles for manpage shortcuts stored in 'single.html' */
+#manpage_shortcut {
+	background-color: rgba(16, 13, 13, 0.142);
+	outline: 0.1em solid #333;
+	float: right;
+	margin-right: 8%;
+	position: relative;
+}
+
+#manpage_shortcut ul {
+	padding-bottom: 0.5em;
+	margin-bottom: 0;
+	margin-left: 0;
+}
+
+.sys_header {
+	text-align: center;
+	font-weight: bold;
+	list-style: none;
+	color: #fff;
+	background-color: #333;
+	margin-left: 0;
+}
+
+.release_tag {
+	display: block;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	border-bottom: 0.1em solid #333;
+}
+
+.release_tag ul {
+	display: none;
+}
+
+.release_tag li {
+	list-style: none;
+	margin-left: 0.5em;
+	display: block;
+}
+
+.release_tag input {
+	display: none;
+}
+
+.release_tag input:checked ~ ul {
+	display: block;
 }
