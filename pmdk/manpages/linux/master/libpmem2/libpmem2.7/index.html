@@ -1,8 +1,7 @@
 <!doctype html><html dir=ltr lang=en-us><head>
 <link rel=stylesheet type=text/css href=/css/style.css>
 <meta property="og:title" content="libpmem2 | PMDK">
-<meta property="og:description" content="comment: <> (SPDX-License-Identifier: BSD-3-Clause comment: <> (Copyright 2019-2021, Intel Corporation)
-libpmem2.7 libpmem2_unsafe_shutdown.7 pmem2_badblock_clear.3 pmem2_badblock_context_new.3 pmem2_badblock_next.3 pmem2_config_clear_address.3 pmem2_config_new.3 pmem2_config_set_address.3 pmem2_config_set_length.3 pmem2_config_set_offset.3 pmem2_config_set_protection.3 pmem2_config_set_required_store_granularity.3 pmem2_config_set_sharing.3 pmem2_config_set_vm_reservation.3 pmem2_deep_flush.3 pmem2_errormsg.3 pmem2_get_drain_fn.3 pmem2_get_flush_fn.3 pmem2_get_memmove_fn.3 pmem2_get_persist_fn.3 pmem2_map_delete.3 pmem2_map_from_existing.3 pmem2_map_get_address.3 pmem2_map_get_size.3 pmem2_map_get_store_granularity.3 pmem2_map_new.3 pmem2_perror.3 pmem2_source_alignment.3 pmem2_source_device_id.3 pmem2_source_device_usc.3 pmem2_source_from_anon.3 pmem2_source_from_fd.3 pmem2_source_get_fd.3 pmem2_source_get_handle.3 pmem2_source_numa_node.3 pmem2_source_size.3 pmem2_vm_reservation_extend.3 pmem2_vm_reservation_get_address.3 pmem2_vm_reservation_get_size.3 pmem2_vm_reservation_map_find.3 pmem2_vm_reservation_new.3  NAME
+<meta property="og:description" content="NAME
 SYNOPSIS
 DESCRIPTION
 GRANULARITY
@@ -12,7 +11,8 @@ DEBUGGING
 EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
-NAME libpmem2 - persistent memory support library">
+NAME libpmem2 - persistent memory support library
+SYNOPSIS #include <libpmem2.h>cc ... -lpmem2 DESCRIPTION libpmem2 provides low-level persistent memory (pmem) support for applications using direct access storage (DAX), which is storage that supports load/store access without paging blocks from a block storage device. Some types of non-volatile memory DIMMs (NVDIMMs) provide this type of byte addressable access to storage. A persistent memory aware file system is typically used to expose the direct access to applications.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2.7/"><meta property="article:section" content="pmdk">
 <meta charset=utf-8>
@@ -697,50 +697,6 @@ NAME libpmem2 - persistent memory support library">
 <div class=container>
 <div class="row justify-content-between">
 <div class="col mt-0 lib-content">
-<p><a href title="libpmem2.7 -- man page for libpmem2">comment</a>: &lt;> (SPDX-License-Identifier: BSD-3-Clause
-<a href title="libpmem2.7 -- man page for libpmem2">comment</a>: &lt;> (Copyright 2019-2021, Intel Corporation)</p>
-<a href=../libpmem2.7.html>libpmem2.7</a>
-<a href=../libpmem2_unsafe_shutdown.7.html>libpmem2_unsafe_shutdown.7</a>
-<a href=../pmem2_badblock_clear.3.html>pmem2_badblock_clear.3</a>
-<a href=../pmem2_badblock_context_new.3.html>pmem2_badblock_context_new.3</a>
-<a href=../pmem2_badblock_next.3.html>pmem2_badblock_next.3</a>
-<a href=../pmem2_config_clear_address.3.html>pmem2_config_clear_address.3</a>
-<a href=../pmem2_config_new.3.html>pmem2_config_new.3</a>
-<a href=../pmem2_config_set_address.3.html>pmem2_config_set_address.3</a>
-<a href=../pmem2_config_set_length.3.html>pmem2_config_set_length.3</a>
-<a href=../pmem2_config_set_offset.3.html>pmem2_config_set_offset.3</a>
-<a href=../pmem2_config_set_protection.3.html>pmem2_config_set_protection.3</a>
-<a href=../pmem2_config_set_required_store_granularity.3.html>pmem2_config_set_required_store_granularity.3</a>
-<a href=../pmem2_config_set_sharing.3.html>pmem2_config_set_sharing.3</a>
-<a href=../pmem2_config_set_vm_reservation.3.html>pmem2_config_set_vm_reservation.3</a>
-<a href=../pmem2_deep_flush.3.html>pmem2_deep_flush.3</a>
-<a href=../pmem2_errormsg.3.html>pmem2_errormsg.3</a>
-<a href=../pmem2_get_drain_fn.3.html>pmem2_get_drain_fn.3</a>
-<a href=../pmem2_get_flush_fn.3.html>pmem2_get_flush_fn.3</a>
-<a href=../pmem2_get_memmove_fn.3.html>pmem2_get_memmove_fn.3</a>
-<a href=../pmem2_get_persist_fn.3.html>pmem2_get_persist_fn.3</a>
-<a href=../pmem2_map_delete.3.html>pmem2_map_delete.3</a>
-<a href=../pmem2_map_from_existing.3.html>pmem2_map_from_existing.3</a>
-<a href=../pmem2_map_get_address.3.html>pmem2_map_get_address.3</a>
-<a href=../pmem2_map_get_size.3.html>pmem2_map_get_size.3</a>
-<a href=../pmem2_map_get_store_granularity.3.html>pmem2_map_get_store_granularity.3</a>
-<a href=../pmem2_map_new.3.html>pmem2_map_new.3</a>
-<a href=../pmem2_perror.3.html>pmem2_perror.3</a>
-<a href=../pmem2_source_alignment.3.html>pmem2_source_alignment.3</a>
-<a href=../pmem2_source_device_id.3.html>pmem2_source_device_id.3</a>
-<a href=../pmem2_source_device_usc.3.html>pmem2_source_device_usc.3</a>
-<a href=../pmem2_source_from_anon.3.html>pmem2_source_from_anon.3</a>
-<a href=../pmem2_source_from_fd.3.html>pmem2_source_from_fd.3</a>
-<a href=../pmem2_source_get_fd.3.html>pmem2_source_get_fd.3</a>
-<a href=../pmem2_source_get_handle.3.html>pmem2_source_get_handle.3</a>
-<a href=../pmem2_source_numa_node.3.html>pmem2_source_numa_node.3</a>
-<a href=../pmem2_source_size.3.html>pmem2_source_size.3</a>
-<a href=../pmem2_vm_reservation_extend.3.html>pmem2_vm_reservation_extend.3</a>
-<a href=../pmem2_vm_reservation_get_address.3.html>pmem2_vm_reservation_get_address.3</a>
-<a href=../pmem2_vm_reservation_get_size.3.html>pmem2_vm_reservation_get_size.3</a>
-<a href=../pmem2_vm_reservation_map_find.3.html>pmem2_vm_reservation_map_find.3</a>
-<a href=../pmem2_vm_reservation_new.3.html>pmem2_vm_reservation_new.3</a>
-</br></br>
 <p><a href=#name>NAME</a><br>
 <a href=#synopsis>SYNOPSIS</a><br>
 <a href=#description>DESCRIPTION</a><br>
