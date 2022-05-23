@@ -13,8 +13,6 @@ header: "pmemobj API version 2.3"
 
 [comment]: <> (libpmemobj.7 -- man page for libpmemobj)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />
