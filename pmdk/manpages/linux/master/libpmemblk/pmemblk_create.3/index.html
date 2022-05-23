@@ -298,6 +298,445 @@ NAME pmemblk_create(), pmemblk_open(), pmemblk_close(), pmemblk_check()
 </div>
 </section>
 <div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>libpmemblk master</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/master/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/master/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>libpmemblk version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.11/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>libpmemblk version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.10/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.9 type=checkbox><label for=toggle_linux_1.9>libpmemblk version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.9/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.8 type=checkbox><label for=toggle_linux_1.8>libpmemblk version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.8/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>libpmemblk version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.7/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>libpmemblk version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.6/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>libpmemblk version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.5/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>libpmemblk version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.4/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libpmemblk version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/libpmemblk.3.html>libpmemblk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libpmemblk version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/libpmemblk.3.html>libpmemblk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libpmemblk version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/libpmemblk.3.html>libpmemblk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>libpmemblk version 1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1/libpmemblk.3.html>libpmemblk</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+<li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>libpmemblk master</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/master/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/master/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>libpmemblk version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.11/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>libpmemblk version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.10/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>libpmemblk version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.9/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.8 type=checkbox><label for=toggle_windows_1.8>libpmemblk version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.8/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>libpmemblk version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.7/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>libpmemblk version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.6/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>libpmemblk version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.5/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_ctl_get.3>pmemblk_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>libpmemblk version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.4/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/libpmemblk.7.html>libpmemblk</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_bsize.3>pmemblk_bsize</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_create.3>pmemblk_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/libpmemblk.7>pmemblk_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_create.3>pmemblk_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_create.3>pmemblk_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/libpmemblk.7>pmemblk_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_bsize.3>pmemblk_nblock</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_create.3>pmemblk_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_read.3>pmemblk_read</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_set_zero.3>pmemblk_set_error</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/libpmemblk.7>pmemblk_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_set_zero.3>pmemblk_set_zero</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemblk/pmemblk_read.3>pmemblk_write</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>libpmemblk version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.3/libpmemblk.3.html>libpmemblk</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class=container>
 <div class="row justify-content-between">
 <div class="col mt-0 lib-content">

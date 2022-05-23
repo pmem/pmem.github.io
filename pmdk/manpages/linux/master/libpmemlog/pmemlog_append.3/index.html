@@ -299,6 +299,445 @@ SYNOPSIS #include <libpmemlog.h> int pmemlog_append(PMEMlogpool *plp, const void
 </div>
 </section>
 <div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>libpmemlog master</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/master/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/master/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>libpmemlog version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.11/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>libpmemlog version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.10/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.9 type=checkbox><label for=toggle_linux_1.9>libpmemlog version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.9/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.8 type=checkbox><label for=toggle_linux_1.8>libpmemlog version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.8/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>libpmemlog version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.7/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>libpmemlog version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.6/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>libpmemlog version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.5/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>libpmemlog version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.4/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libpmemlog version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/libpmemlog.3.html>libpmemlog</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libpmemlog version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/libpmemlog.3.html>libpmemlog</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libpmemlog version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/libpmemlog.3.html>libpmemlog</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>libpmemlog version 1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1/libpmemlog.3.html>libpmemlog</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+<li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>libpmemlog master</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/master/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/master/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>libpmemlog version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.11/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>libpmemlog version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.10/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>libpmemlog version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.9/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.8 type=checkbox><label for=toggle_windows_1.8>libpmemlog version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.8/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>libpmemlog version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.7/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>libpmemlog version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.6/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>libpmemlog version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.5/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_get</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_set</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_ctl_get.3>pmemlog_ctl_exec</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>libpmemlog version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.4/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/libpmemlog.7.html>libpmemlog</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_append.3>pmemlog_append</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_append.3>pmemlog_appendv</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_create.3>pmemlog_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/libpmemlog.7>pmemlog_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_create.3>pmemlog_close</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_create.3>pmemlog_create</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/libpmemlog.7>pmemlog_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_nbyte.3>pmemlog_nbyte</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_create.3>pmemlog_open</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_tell.3>pmemlog_rewind</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/libpmemlog.7>pmemlog_set_funcs</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_tell.3>pmemlog_tell</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmemlog/pmemlog_tell.3>pmemlog_walk</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>libpmemlog version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.3/libpmemlog.3.html>libpmemlog</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class=container>
 <div class="row justify-content-between">
 <div class="col mt-0 lib-content">
