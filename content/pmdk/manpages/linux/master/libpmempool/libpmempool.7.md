@@ -13,8 +13,6 @@ header: "pmempool API version 1.3"
 
 [comment]: <> (libpmempool.7 -- man page for libpmempool)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />

@@ -13,8 +13,6 @@ header: "pmemset API version 1.0"
 
 [comment]: <> (libpmemset.7 -- man page for libpmemset)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />

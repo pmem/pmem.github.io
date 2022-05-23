@@ -13,8 +13,6 @@ header: "rpmem API version 1.3"
 
 [comment]: <> (librpmem.7 -- man page for librpmem)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />
