@@ -13,8 +13,6 @@ header: "pmemblk API version 1.1"
 
 [comment]: <> (libpmemblk.7 -- man page for libpmemblk)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />

@@ -37,8 +37,6 @@ header: "vmem API version 1.1"
 
 [comment]: <> (libvmem.7 -- man page for libvmem)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />

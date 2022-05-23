@@ -13,8 +13,6 @@ header: "pmem API version 1.1"
 
 [comment]: <> (libpmem.7 -- man page for libpmem)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />

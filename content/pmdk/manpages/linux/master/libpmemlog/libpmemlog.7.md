@@ -13,8 +13,6 @@ header: "pmemlog API version 1.1"
 
 [comment]: <> (libpmemlog.7 -- man page for libpmemlog)
 
-{{< manpages >}}
-
 [NAME](#name)<br />
 [SYNOPSIS](#synopsis)<br />
 [DESCRIPTION](#description)<br />
