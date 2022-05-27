@@ -25,7 +25,7 @@ header: "rpmemd version 1.4"
 
 # NAME #
 
-**rpmemd** - librpmem target node process (EXPERIMENTAL)
+**rpmemd** - librpmem target node process (DEPRECATED)
 
 # SYNOPSIS #
 
@@ -199,6 +199,12 @@ If the pool set is NOT stored in the persistent momory it will use
 **pmem_msync**(3).
 
 See **pmem_persist**(3) and **pmem_msync**(3) for more details.
+
+# NOTE #
+
+The **librpmem**(7) library and **rpmemd** is deprecated since PMDK 1.12 release.
+If you are interested in a remote persistent
+memory support please look at new library **rpma** https://github.com/pmem/rpma.
 
 # SEE ALSO #
 

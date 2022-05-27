@@ -8,8 +8,6 @@ title: "pmempool | PMDK"
 header: "pmem Tools version 1.4"
 ---
 
-{{< manpages >}}
-
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
 [comment]: <> (Copyright 2016-2020, Intel Corporation)
 
