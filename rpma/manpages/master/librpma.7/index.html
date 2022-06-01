@@ -767,100 +767,10 @@ separately for each of the connections:</p>
 either <strong>rpma_conn_req_new</strong>() or <strong>rpma_ep_next_conn_req</strong>() for
 the settings to take effect.</p>
 <h1 id=thread-safety>THREAD SAFETY</h1>
-<p>Most of the core librpma API calls are thread-safe but there are also
-very important exceptions mainly related to connection's configuration,
-establishment and tear-down. Here you can find a complete list of NOT
-thread-safe API calls:</p>
-<ul>
-<li>
-<p><strong>rpma_conn_apply_remote_peer_cfg</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_get_compl_channel</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_get_cq_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_get_rq_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_get_sq_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_get_timeout</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_set_compl_channel</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_set_cq_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_set_rq_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_set_sq_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_cfg_set_timeout</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_delete</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_disconnect</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_get_private_data</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_next_event</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_req_connect</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_req_delete</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_req_get_private_data</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_conn_req_new</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_ep_listen</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_ep_next_conn_req</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_ep_shutdown</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_peer_cfg_get_descriptor</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_peer_cfg_get_descriptor_size</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_peer_cfg_get_direct_write_to_pmem</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>()</p>
-</li>
-<li>
-<p><strong>rpma_utils_get_ibv_context</strong>()</p>
-</li>
-</ul>
-<p>Other librpma API calls are thread-safe. However, creating RPMA library
-resources usually involves dynamic memory allocation and destroying
-resources usually involves a dynamic memory release. The same resource
-cannot be destroyed more than once, at any thread, and a resource cannot
-be used after it was destroyed. It is the user's responsibility to
-follow those rules and not doing so may result in a segmentation fault
-or undefined behaviour.</p>
+<p>The analysis of thread safety of the librpma library is described in
+details in the THREAD_SAFETY.md file:</p>
+<pre><code>        https://github.com/pmem/rpma/blob/master/THREAD_SAFETY.md
+</code></pre>
 <h1 id=on-demand-paging-support>ON-DEMAND PAGING SUPPORT</h1>
 <p>On-Demand-Paging (ODP) is a technique that simplifies the memory
 registration process (for example, applications no longer need to pin
