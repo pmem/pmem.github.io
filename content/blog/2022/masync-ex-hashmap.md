@@ -3,7 +3,7 @@
 title: "Basic asynchronous hashmap with Miniasync library"
 
 # Blog post creation date
-date: 2022-04-25T10:00:00+00:00
+date: 2022-06-03T10:00:00+00:00
 
 # Change to 'false' when publishing the blog post
 draft: false
