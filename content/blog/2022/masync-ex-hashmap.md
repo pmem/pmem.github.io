@@ -471,6 +471,6 @@ For more information about the Miniasync library, see its [GitHub repository][ma
 
 [masync]: https://github.com/pmem/miniasync
 [masync-examples]: https://github.com/pmem/miniasync/tree/master/examples
-[masync-hashmap]: https://github.com/kswiecicki/libuasync/blob/masync-example-hashmap/examples/hashmap/hashmap.c
+[masync-hashmap]: https://github.com/pmem/miniasync/blob/master/examples/hashmap/hashmap.c
 [masync-future-manpage]: https://github.com/pmem/miniasync/blob/master/doc/miniasync_future.7.md
 [murmurmash3-wiki]: https://en.wikipedia.org/wiki/MurmurHash
