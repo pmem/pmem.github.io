@@ -302,6 +302,36 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-0/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 0)"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-0/>C++ bindings for libpmemobj (part 0)</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> Jan 12, 2016</li>
+<li><i class=icon-user></i>Pbalcer</li>
+<li>
+<i class=icon-folder-open></i>
+Libpmemobj
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>Our goal for the C pmemobj library was to make a fully featured implementation of persistent memory programming model without modifying the compiler. It’s meant for authors of very low-level system software and language creators. It’s not particularly pretty nor easy to use. The amount …</p>
+<a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-0/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-1-pmem-resident-variables/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 1) - pmem resident variables"></a>
 </div>
 </div>
@@ -419,36 +449,6 @@ Performance
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2015/11/an-introduction-to-replication/ data-lightbox=image><img src=/images/pmem_logo.png alt="An introduction to replication"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2015/11/an-introduction-to-replication/>An introduction to replication</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Nov 23, 2015</li>
-<li><i class=icon-user></i>Tomaszkapela</li>
-<li>
-<i class=icon-folder-open></i>
-Replication
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>Replication is a means for raising the reliability of your pmemobj based applications. You can basically think of it as RAID 1 within PMDK. What happens is, when you write to your pool using the pmemobj_* (memcpy, persist, and so on) primitives, it gets copied to your replicas. Yes, you can have …</p>
-<a href=https://pmem.io/blog/2015/11/an-introduction-to-replication/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -511,7 +511,7 @@ Replication
 <h4 class="fw-normal mt-2"><a href=/blogs/mysql/ class=text-capitalize>mysql (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/perf300/ class=text-capitalize>perf300 (2)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/performance/ class=text-capitalize>performance (1)</a></h4>
-<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (10)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (11)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem/ class=text-capitalize>pmem (4)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem.io/ class=text-capitalize>pmem.io (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem_emulation/ class=text-capitalize>pmem_emulation (1)</a></h4>
@@ -540,18 +540,18 @@ Replication
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
 <a href=/tags/pmdk class=block role=button>pmdk</a>
-<a href=/tags/configure class=block role=button>configure</a>
-<a href=/tags/dax class=block role=button>dax</a>
-<a href=/tags/install class=block role=button>install</a>
-<a href=/tags/setup class=block role=button>setup</a>
 <a href=/tags/async class=block role=button>async</a>
 <a href=/tags/asynchronous class=block role=button>asynchronous</a>
 <a href=/tags/concurrency class=block role=button>concurrency</a>
+<a href=/tags/configure class=block role=button>configure</a>
+<a href=/tags/dax class=block role=button>dax</a>
+<a href=/tags/install class=block role=button>install</a>
+<a href=/tags/miniasync class=block role=button>miniasync</a>
+<a href=/tags/setup class=block role=button>setup</a>
 <a href=/tags/dml class=block role=button>dml</a>
 <a href=/tags/dsa class=block role=button>dsa</a>
 <a href=/tags/faq class=block role=button>faq</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
-<a href=/tags/miniasync class=block role=button>miniasync</a>
 <a href=/tags/pmem2 class=block role=button>pmem2</a>
 <a href=/tags/sanitize class=block role=button>sanitize</a>
 <a href=/tags/secure-erase class=block role=button>secure-erase</a>

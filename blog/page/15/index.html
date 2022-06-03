@@ -302,6 +302,36 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-6-threading/ data-lightbox=image><img src=/images/pmem_logo.png alt="An introduction to pmemobj (part 6) - threading"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-6-threading/>An introduction to pmemobj (part 6) - threading</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> Jun 18, 2015</li>
+<li><i class=icon-user></i>Pbalcer</li>
+<li>
+<i class=icon-folder-open></i>
+Libpmemobj
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>All of the pmemobj library functions are thread-safe, with following two exceptions: pool management functions (open, close and friends) and pmemobj_root when providing different sizes in different threads - so as long as you are using this function the way it’s meant to be used you …</p>
+<a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-6-threading/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-4-transactional-dynamic-memory-allocation/ data-lightbox=image><img src=/images/pmem_logo.png alt="An introduction to pmemobj (part 4) - transactional dynamic memory allocation"></a>
 </div>
 </div>
@@ -419,36 +449,6 @@ Memory pools If you’ve read the overview you know that persistent memory is ex
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-0-new-programming-model/ data-lightbox=image><img src=/images/pmem_logo.png alt="An introduction to pmemobj (part 0) - new programming model"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-0-new-programming-model/>An introduction to pmemobj (part 0) - new programming model</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Jun 12, 2015</li>
-<li><i class=icon-user></i>Pbalcer</li>
-<li>
-<i class=icon-folder-open></i>
-Model
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>The aim of this tutorial series is to introduce you to programming with persistent, byte-addressable memory using the pmemobj library. We will go over all the available features, implement an example application and learn something about the inner workings of libpmemobj. If you haven’t read …</p>
-<a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-0-new-programming-model/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -511,7 +511,7 @@ Model
 <h4 class="fw-normal mt-2"><a href=/blogs/mysql/ class=text-capitalize>mysql (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/perf300/ class=text-capitalize>perf300 (2)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/performance/ class=text-capitalize>performance (1)</a></h4>
-<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (10)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (11)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem/ class=text-capitalize>pmem (4)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem.io/ class=text-capitalize>pmem.io (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem_emulation/ class=text-capitalize>pmem_emulation (1)</a></h4>
@@ -540,18 +540,18 @@ Model
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
 <a href=/tags/pmdk class=block role=button>pmdk</a>
-<a href=/tags/configure class=block role=button>configure</a>
-<a href=/tags/dax class=block role=button>dax</a>
-<a href=/tags/install class=block role=button>install</a>
-<a href=/tags/setup class=block role=button>setup</a>
 <a href=/tags/async class=block role=button>async</a>
 <a href=/tags/asynchronous class=block role=button>asynchronous</a>
 <a href=/tags/concurrency class=block role=button>concurrency</a>
+<a href=/tags/configure class=block role=button>configure</a>
+<a href=/tags/dax class=block role=button>dax</a>
+<a href=/tags/install class=block role=button>install</a>
+<a href=/tags/miniasync class=block role=button>miniasync</a>
+<a href=/tags/setup class=block role=button>setup</a>
 <a href=/tags/dml class=block role=button>dml</a>
 <a href=/tags/dsa class=block role=button>dsa</a>
 <a href=/tags/faq class=block role=button>faq</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
-<a href=/tags/miniasync class=block role=button>miniasync</a>
 <a href=/tags/pmem2 class=block role=button>pmem2</a>
 <a href=/tags/sanitize class=block role=button>sanitize</a>
 <a href=/tags/secure-erase class=block role=button>secure-erase</a>
