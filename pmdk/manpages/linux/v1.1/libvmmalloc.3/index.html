@@ -1,0 +1,575 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libvmmalloc | PMDK">
+<meta property="og:description" content="NAME libvmmalloc - general purpose volatile memory allocation library
+SYNOPSIS $ LD_PRELOAD=libvmmalloc.so command [ args... ] or #include <stdlib.h> #include <malloc.h> #include <libvmmalloc.h> $ cc [ flag... ] file... -lvmmalloc [ library... ] void *malloc(size_t size); void free(void *ptr); void *calloc(size_t number, size_t size); void *realloc(void *ptr, size_t size); int posix_memalign(void **memptr, size_t alignment, size_t size); void *aligned_alloc(size_t alignment, size_t size); void *memalign(size_t alignment, size_t size); void *valloc(size_t size); void *pvalloc(size_t size); size_t malloc_usable_size(const void *ptr); void cfree(void *ptr);  DESCRIPTION libvmmalloc transparently converts all the dynamic memory allocations into Persistent Memory allocations.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1.1/libvmmalloc.3/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libvmmalloc | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>vmmalloc API</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libvmmalloc version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/libvmmalloc.3.html>libvmmalloc</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libvmmalloc version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/libvmmalloc.3.html>libvmmalloc</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libvmmalloc version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/libvmmalloc.3.html>libvmmalloc</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>libvmmalloc version 1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1/libvmmalloc.3.html>libvmmalloc</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+</ul>
+</div>
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<h1 id=name>NAME</h1>
+<p>libvmmalloc - general purpose volatile memory allocation library</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<pre><code>$ LD_PRELOAD=libvmmalloc.so command [ args... ]
+
+or
+
+#include &lt;stdlib.h&gt;
+#include &lt;malloc.h&gt;
+#include &lt;libvmmalloc.h&gt;
+
+$ cc [ flag... ] file... -lvmmalloc [ library... ]
+
+
+void *malloc(size_t size);
+void free(void *ptr);
+void *calloc(size_t number, size_t size);
+void *realloc(void *ptr, size_t size);
+
+int posix_memalign(void **memptr, size_t alignment, size_t size);
+void *aligned_alloc(size_t alignment, size_t size);
+void *memalign(size_t alignment, size_t size);
+void *valloc(size_t size);
+void *pvalloc(size_t size);
+
+size_t malloc_usable_size(const void *ptr);
+void cfree(void *ptr);
+</code></pre>
+<h1 id=description>DESCRIPTION</h1>
+<p><strong>libvmmalloc</strong> transparently converts all the dynamic memory
+allocations into Persistent Memory allocations.</p>
+<p>The typical usage of <strong>libvmmalloc</strong> does not require any modification
+of the target program. It is enough to load <strong>libvmmalloc</strong> before all
+other libraries by setting the environment variable <strong>LD_PRELOAD</strong>.
+When used in that way, <strong>libvmmalloc</strong> interposes the standard system
+memory allocation routines, as defined in <strong>malloc</strong>(3),
+<strong>posix_memalign</strong>(3) and <strong>malloc_usable_size</strong>(3), and provides
+that all dynamic memory allocations are made from a <em>memory pool</em> built
+on memory-mapped file, instead of a system heap. The memory managed by
+<strong>libvmmalloc</strong> may have different attributes, depending on the file
+system containing the memory-mapped file. In particular, <strong>libvmmalloc</strong>
+is part of the <em>Non-Volatile Memory Library</em> because it is sometimes
+useful to use non-volatile memory as a volatile memory pool, leveraging
+its capacity, cost, or performance characteristics.</p>
+<p><strong>libvmmalloc</strong> may be also linked to the program, by providing the
+<strong>-lvmmalloc</strong> argument to the linker. Then it becomes the default
+memory allocator for given program.</p>
+<p><strong>NOTE: Due to the fact the library operates on a memory-mapped file,</strong>
+<strong>it may not work properly with the programs that perform</strong> <strong>fork</strong>(3)
+<strong>not followed by</strong> <strong>exec</strong>(3).</p>
+<p><strong>There are two variants of experimental</strong> <strong>fork</strong>() <strong>support
+available in libvmmalloc. The desired library behavior</strong> <strong>may be
+selected by setting VMMALLOC_FORK environment variable.</strong> <strong>By default
+variant #1 is enabled.</strong> <strong>See ENVIRONMENT section for more details.</strong></p>
+<p><strong>libvmmalloc</strong> uses the <strong>mmap</strong>(2) system call to create a pool of
+volatile memory. The library is most useful when used with <em>Direct
+Access</em> storage (DAX), which is memory-addressable persistent storage
+that supports load/store access without being paged via the system page
+cache. A Persistent Memory-aware file system is typically used to
+provide this type of access. Memory-mapping a file from a Persistent
+Memory-aware file system provides the raw memory pools, and this library
+supplies the traditional <em>malloc</em> interfaces on top of those pools.</p>
+<p>The memory pool acting as a system heap replacement is created
+automatically at the library initialization time. User may control its
+location and size by setting the environment variables described in
+<strong>ENVIRONMENT</strong> section. The allocated file space is reclaimed when
+process terminates or in case of system crash.</p>
+<p>Under normal usage, <strong>libvmmalloc</strong> will never print messages or
+intentionally cause the process to exit. The library uses
+<strong>pthreads</strong>(7) to be fully MT-safe, but never creates or destroys
+threads itself. The library does not make use of any signals,
+networking, and never calls <strong>select</strong>() or <strong>poll</strong>().</p>
+<h1 id=environment>ENVIRONMENT</h1>
+<p>There are two configuration variables that <strong>must</strong> be set to make
+<strong>libvmmalloc</strong> work properly. If any of them is not specified, or if
+their values are not valid, the library prints the appropriate error
+message and terminates the process.</p>
+<dl>
+<dt><strong>VMMALLOC_POOL_DIR</strong></dt>
+<dd>
+<p>Specifies a path to directory where the memory pool file should be
+created. The directory must exist and be writable.</p>
+</dd>
+<dt><strong>VMMALLOC_POOL_SIZE</strong></dt>
+<dd>
+<p>Defines the desired size (in bytes) of the memory pool file. It must
+be not less than the minimum allowed size <strong>VMMALLOC_MIN_POOL</strong> as
+defined in <strong>&lt;libvmmalloc.h>.</strong> Note that due to the fact the
+library adds some metadata to the memory pool, the amount of actual
+usable space is typically less than the size of the memory pool
+file.</p>
+</dd>
+</dl>
+<p>Setting the <strong>VMMALLOC_FORK</strong> configuration variable is optional. It
+controls the behavior of <strong>libvmmalloc</strong> in case of <strong>fork</strong>(3), and can
+be set to the following values:</p>
+<ol start=0>
+<li>
+<p>Fork support is disabled. The behavior is undefined in such case,
+but most likely results in the memory pool corruption and the
+program crash due to segmentation fault.</p>
+</li>
+<li>
+<p>The memory pool file is remapped with MAP_PRIVATE flag before the
+fork completes. From this moment, any access to memory that modifies
+the heap pages, both in the parent and in the child process, will
+trigger creation of a copy of those pages in RAM (copy-on-write).
+The benefit of such approach is that it does not significantly
+increase the time of fork operation, and does not require additional
+space on the file system. However, all the subsequent memory
+allocations and modifications of the memory allocated before fork,
+will consume system memory resources instead of the memory pool.<br>
+This is the default setting.</p>
+</li>
+<li>
+<p>A copy of the entire memory pool file is created for the use of the
+child process. This requires additional space on the file system,
+but both the parent and the child process may still operate on their
+memory pools, not consuming the system memory resources. NOTE: In
+case of large memory pools, creating a copy of the pool file may
+stall the fork operation for a quite long time.</p>
+</li>
+<li>
+<p>The library first attempts to create a copy of the memory pool (as
+for option #2), but if it fails (i.e. because of insufficient
+amount of free space on the file system), it will fall back to
+option #1.</p>
+</li>
+</ol>
+<h1 id=debugging>DEBUGGING</h1>
+<p>Two versions of <strong>libvmmalloc</strong> are typically available on a development
+system. The normal version is optimized for performance. That version
+skips checks that impact performance and never logs any trace
+information or performs any run-time assertions. A second version,
+accessed when using the libraries under <strong>/usr/lib/nvml_debug</strong>,
+contains run-time assertions and trace points. The typical way to access
+the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/nvml_debug</strong> or
+<strong>/usr/lib64/nvml_debug</strong> depending on where the debug libraries are
+installed on the system. The trace points in the debug version of the
+library are enabled using the environment variable
+<strong>VMMALLOC_LOG_LEVEL</strong>, which can be set to the following values:</p>
+<ol start=0>
+<li>
+<p>Tracing is disabled. This is the default level when
+<strong>VMMALLOC_LOG_LEVEL</strong> is not set.</p>
+</li>
+<li>
+<p>Additional details on any errors detected are logged (in addition to
+returning the errno-based errors as usual).</p>
+</li>
+<li>
+<p>A trace of basic operations is logged.</p>
+</li>
+<li>
+<p>This level enables a very verbose amount of function call tracing in
+the library.</p>
+</li>
+<li>
+<p>This level enables voluminous tracing information about all the
+memory allocations and deallocations.</p>
+</li>
+</ol>
+<p>The environment variable <strong>VMMALLOC_LOG_FILE</strong> specifies a file name
+where all logging information should be written. If the last character
+in the name is "-", the PID of the current process will be appended to
+the file name when the log file is created. If <strong>VMMALLOC_LOG_FILE</strong>
+is not set, output goes to stderr.</p>
+<p>Setting the environment variable <strong>VMMALLOC_LOG_LEVEL</strong> has no effect
+on the non-debug version of <strong>libvmmalloc</strong>.</p>
+<p><strong>VMMALLOC_LOG_STATS=1</strong></p>
+<blockquote>
+<p>Setting this environment variable to 1 enables logging the
+human-readable summary statistics at the program termination.
+Statistics are written only for the debug version of <strong>libvmmalloc</strong>.</p>
+</blockquote>
+<h1 id=notes>NOTES</h1>
+<p>Unlike the normal <strong>malloc</strong>(), which asks the system for additional
+memory when it runs out, <strong>libvmmalloc</strong> allocates the size it is told
+to and never attempts to grow or shrink that memory pool.</p>
+<h1 id=bugs>BUGS</h1>
+<p><strong>libvmmalloc</strong> may not work properly with the programs that perform
+<strong>fork</strong>(3) and do not call <strong>exec</strong>(3) immediately afterwards. See
+<strong>ENVIRONMENT</strong> section for more details about the experimental
+<strong>fork</strong>() support.</p>
+<p>If the trace points in the debug version of the library are enabled and
+the process performs fork, there is no new log file created for the
+child process, even if the configured log file name is terminated with
+"-" character. All the logging information from the child process will
+be written to the log file owned by the parent process, which may lead
+to corruption or partial loss of the log data.</p>
+<p>Malloc hooks (see <strong>malloc_hook</strong>(3)), are not supported when using
+<strong>libvmmalloc</strong>.</p>
+<h1 id=acknowledgements>ACKNOWLEDGEMENTS</h1>
+<p><strong>libvmmalloc</strong> depends on jemalloc, written by Jason Evans, to do the
+heavy lifting of managing dynamic memory allocation. See:</p>
+<blockquote>
+<p><a href=http://www.canonware.com/jemalloc/>http://www.canonware.com/jemalloc/</a></p>
+</blockquote>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>ld.so</strong>(8), <strong>malloc</strong>(3), <strong>posix_memalign</strong>(3),
+<strong>malloc_usable_size</strong>(3), <strong>malloc_hook</strong>(3), <strong>jemalloc</strong>(3),
+<strong>libvmem</strong>(3), <strong>libpmem</strong>(3).</p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

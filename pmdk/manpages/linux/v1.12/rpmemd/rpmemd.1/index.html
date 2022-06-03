@@ -1,0 +1,512 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="rpmemd | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+OPTIONS
+CONFIGURATION FILES
+EXAMPLE
+DEFAULT CONFIGURATION
+PERSISTENCY METHODS
+SEE ALSO
+NAME rpmemd - librpmem target node process (DEPRECATED)
+SYNOPSIS $ rpmemd [--help] [--version] [<args>] DESCRIPTION The rpmemd process is executed on target node by librpmem(7) library over ssh(1) and facilitates access to persistent memory over RDMA. The rpmemd should not be run manually under normal conditions.
+OPTIONS Command line options overwrite the default rpmemd configuration, the global configuration file and the user configuration file.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1.12/rpmemd/rpmemd.1/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>rpmemd | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>rpmemd version 1.4</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#options>OPTIONS</a><br>
+<a href=#configuration-files>CONFIGURATION FILES</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#default-configuration>DEFAULT CONFIGURATION</a><br>
+<a href=#persistency-methods>PERSISTENCY METHODS</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>rpmemd</strong> - librpmem target node process (DEPRECATED)</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<pre tabindex=0><code>$ rpmemd [--help] [--version] [&lt;args&gt;]
+</code></pre><h1 id=description>DESCRIPTION</h1>
+<p>The <strong>rpmemd</strong> process is executed on target node by <strong>librpmem</strong>(7) library over
+<strong>ssh</strong>(1) and facilitates access to persistent memory over RDMA. The <strong>rpmemd</strong>
+should not be run manually under normal conditions.</p>
+<h1 id=options>OPTIONS</h1>
+<p>Command line options overwrite the default <strong>rpmemd</strong> configuration, the global
+configuration file and the user configuration file.</p>
+<p><code>-V, --version</code></p>
+<p>Displays <strong>rpmemd</strong> version and exits.</p>
+<p><code>-h, --help</code></p>
+<p>Prints synopsis and list of parameters and exits.</p>
+<p><code>-c, --config &lt;path></code></p>
+<p>Custom configuration file location. If the custom configuration file is
+provided others are omitted. See <strong>CONFIGURATION FILES</strong>
+section for details.</p>
+<p>All options described in <strong>CONFIGURATION FILES</strong> section are
+common for both the configuration file and the command line - the equivalent
+of the following line in the config file:</p>
+<p><code>option = value</code></p>
+<p>is</p>
+<p><code>--option value</code></p>
+<p>in the command line.</p>
+<p>The following command line options: <strong>&ndash;persist-apm</strong>, <strong>&ndash;persist-general</strong>
+and <strong>&ndash;use-syslog</strong> should not be followed by any value. Presence of each of them
+in the command line turns on an appropriate option.
+See <strong>CONFIGURATION FILES</strong> section for details.</p>
+<p><code>-r, --remove &lt;poolset></code></p>
+<p>Remove a pool described by given pool set file descriptor. It is interpreted
+as a path to the pool set file relative to the pool set directory.</p>
+<p><code>-f, --force</code></p>
+<p>Ignore errors when removing a pool file using <strong>&ndash;remove</strong> option.</p>
+<h1 id=configuration-files>CONFIGURATION FILES</h1>
+<p>The <strong>rpmemd</strong> searches for the configuration files with following priorities:</p>
+<ul>
+<li>The global configuration file located in <strong>/etc/rpmemd/rpmemd.conf</strong>.</li>
+<li>The user configuration file located in the user home directory
+(<strong>$HOME/.rpmemd.conf</strong>).</li>
+</ul>
+<p>The <strong>rpmemd</strong> can also read configuration from the custom configuration file
+provided using <strong>&ndash;config</strong> command line option. See <strong>OPTIONS</strong>
+section for details.</p>
+<p>The default configuration is described in the
+<strong>DEFAULT CONFIGURATION</strong> section.</p>
+<p>The configuration file is a plain text file. Each line of the configuration file
+can store only one configuration option defined as a <em>key=value</em> pair. Empty
+lines and lines starting with <em>#</em> are omitted.</p>
+<p>The allowed options are:</p>
+<ul>
+<li>
+<p><code>log-file = &lt;path></code> - log file location</p>
+</li>
+<li>
+<p><code>poolset-dir = &lt;path></code> - pool set files directory</p>
+</li>
+<li>
+<p><code>persist-apm = {yes|no}</code> - enable <strong>The Appliance Persistency Method</strong>. This
+option must be set only if the target platform has non-allocating writes IO
+enabled. See <strong>PERSISTENCY METHODS</strong> section for details.</p>
+</li>
+<li>
+<p><code>persist-general = {yes|no}</code> - enable <strong>The General Purpose Server Persistency
+Method</strong>. See <strong>PERSISTENCY METHODS</strong> section for details.</p>
+</li>
+<li>
+<p><code>use-syslog = {yes|no}</code> - use <strong>syslog</strong>(3) for logging messages instead of log
+file</p>
+</li>
+<li>
+<p><code>log-level = &lt;level></code> - set log level value. Accepted <em>&lt;level></em> values are:</p>
+<ul>
+<li><strong>err</strong> - error conditions</li>
+<li><strong>warn</strong> - warning conditions</li>
+<li><strong>notice</strong> - normal, but significant conditions</li>
+<li><strong>info</strong> - informational message</li>
+<li><strong>debug</strong> - debug-level message</li>
+</ul>
+</li>
+</ul>
+<p>The <strong>$HOME</strong> sub-string in the <em>poolset-dir</em> path is replaced with the current user
+home directory.</p>
+<h1 id=example>EXAMPLE</h1>
+<p>Example of the configuration file:</p>
+<pre tabindex=0><code># This is an example of configuration file
+log-file = $HOME/.logs/rpmemd.log
+poolset-dir = $HOME/poolsets/
+persist-apm = yes
+persist-general = no
+use-syslog = no # Use log file instead of syslog
+log-level = info
+</code></pre><h1 id=default-configuration>DEFAULT CONFIGURATION</h1>
+<p>The <strong>rpmemd</strong> default configuration is equivalent of the following
+configuration file:</p>
+<pre tabindex=0><code>log-file = /var/log/rpmemd.log
+poolset-dir = $HOME
+persist-apm = no
+persist-general = yes
+use-syslog = yes
+log-level = err
+</code></pre><h1 id=persistency-methods>PERSISTENCY METHODS</h1>
+<p>The <strong>librpmem</strong>(7) supports two methods for making data written to remote
+persistent memory durable. The difference between the use of the two mechanisms
+is based on whether <strong>librpmem</strong>(7) will make use of non-allocating writes on the
+remote node.</p>
+<ul>
+<li>
+<p><strong>The General Purpose Server Persistency Method</strong> does not have any
+requirements for the platform on which the target daemon runs and can be enabled
+by administrator using the <em>persist-general</em> option. This method utilize
+<strong>libpmem</strong>(7) persistency mechanisms on remote node and requires additional
+communication between initiator and remote node using the in-band connection.</p>
+</li>
+<li>
+<p><strong>The Appliance Persistency Method</strong> requires non-allocating writes enabled on
+the platform and can be enabled by administrator using <em>persist-apm</em> option.
+This method requires to issue an RDMA READ operation after the RDMA WRITE
+operations performed on requested chunk of memory.</p>
+</li>
+</ul>
+<p>&ldquo;Non-allocating write requests&rdquo; is the Intel Integrated IO Controller mode
+where all incoming PCIe writes will utilize non-allocating buffers for the write
+requests. Non-allocating writes are guaranteed to bypass all of the CPU caches
+and force the write requests to flow directly to the Integrated Memory
+Controller without delay.</p>
+<p>The <strong>rpmemd</strong> dynamically choose the appropriate persistency method and the
+flushing to persistence primitive for GPSPM for each opened pool set name
+depending on available persistency methods and whether all pool set parts are
+stored in the persistent memory.</p>
+<p>If the <strong>Appliance Persistency Method</strong> is enabled and the pool set is stored
+in the persistent memory <strong>rpmemd</strong> will use the <strong>Appliance Persistency
+Method</strong>. If the pool set is NOT stored in the persistent memory it will
+fallback to the <strong>General Puropose Server Persistency Method</strong> with
+<strong>pmem_msync</strong>(3).</p>
+<p>If the <strong>General Puropose Server Persistency Method</strong> is enabled and the pool
+set is stored in the persistent memory <strong>rpmemd</strong> will use <strong>pmem_persist</strong>(3).
+If the pool set is NOT stored in the persistent momory it will use
+<strong>pmem_msync</strong>(3).</p>
+<p>See <strong>pmem_persist</strong>(3) and <strong>pmem_msync</strong>(3) for more details.</p>
+<h1 id=note>NOTE</h1>
+<p>The <strong>librpmem</strong>(7) library and <strong>rpmemd</strong> is deprecated since PMDK 1.12 release.
+If you are interested in a remote persistent
+memory support please look at new library <strong>rpma</strong> <a href=https://github.com/pmem/rpma>https://github.com/pmem/rpma</a>.</p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>ssh</strong>(1), <strong>pmem_msync</strong>(3), <strong>pmem_persist</strong>(3),
+<strong>syslog</strong>(3), <strong>libpmem</strong>(7), <strong>libpmemobj</strong>(7),
+<strong>librpmem</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

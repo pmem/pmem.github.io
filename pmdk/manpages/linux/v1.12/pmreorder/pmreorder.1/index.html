@@ -1,0 +1,653 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="pmreorder | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+OPTIONS
+ENGINES
+INSTRUMENTATION
+PMEMCHECK STORE LOG
+ENVIRONMENT
+EXAMPLE
+SEE ALSO
+NAME pmreorder - performs a persistent consistency check using a store reordering mechanism
+SYNOPSIS $ python pmreorder <options> DESCRIPTION The pmreorder tool is a collection of python scripts designed to parse and replay operations logged by pmemcheck - a persistent memory checking tool.
+Pmreorder performs the store reordering between persistent memory barriers - a sequence of flush-fence operations.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1.12/pmreorder/pmreorder.1/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>pmreorder | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>pmreorder version 1.5</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#options>OPTIONS</a><br>
+<a href=#engines>ENGINES</a><br>
+<a href=#instrumentation>INSTRUMENTATION</a><br>
+<a href=#pmemcheck-store-log>PMEMCHECK STORE LOG</a><br>
+<a href=#environment>ENVIRONMENT</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>pmreorder</strong> - performs a persistent consistency check
+using a store reordering mechanism</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<pre tabindex=0><code>$ python pmreorder &lt;options&gt;
+</code></pre><h1 id=description>DESCRIPTION</h1>
+<p>The pmreorder tool is a collection of python scripts designed
+to parse and replay operations logged by pmemcheck -
+a persistent memory checking tool.</p>
+<p>Pmreorder performs the store reordering between persistent
+memory barriers - a sequence of flush-fence operations.
+It uses a consistency checking routine provided in the
+command line options to check whether files are in a
+consistent state.</p>
+<p>Considering that logging, replaying and reordering of operations
+are very time consuming, it is recommended to use as few stores as
+possible in test workloads.</p>
+<h1 id=options>OPTIONS</h1>
+<p><code>-h, --help</code></p>
+<p>Prints synopsis and list of options.</p>
+<p><code>-l, --logfile &lt;store_log></code></p>
+<p>The pmemcheck log file to process.</p>
+<p><code>-c, --checker &lt;prog|lib></code></p>
+<p>Consistency checker type.</p>
+<p><code>-p, --path &lt;path></code></p>
+<p>Path to the consistency checker.
+If the checker type is <code>prog</code> - given program <strong>has to take a file name as
+the last parameter</strong> and the program has to return 0 for consistent cases
+and 1 otherwise.
+If the checker type is <code>lib</code> - <code>--name</code> parameter is required.</p>
+<p><code>-n, --name &lt;name></code></p>
+<p>The symbol name of the consistency checking function in the library.
+The function <strong>has to take a file name as the only parameter</strong> and it
+has to return 0 for consistent cases and 1 otherwise.
+This parameter is required only if the checker type is <code>lib</code>.</p>
+<p><code>-o, --output &lt;pmreorder_output></code></p>
+<p>Set the logger output file.</p>
+<p><code>-e, --output-level &lt;debug|info|warning|error|critical></code></p>
+<p>Set the output log level.</p>
+<p><code>-r, --default-engine &lt;NoReorderNoCheck |</code>
+<code>NoReorderDoCheck |</code>
+<code>ReorderFull |</code>
+<code>ReorderPartial |</code>
+<code>ReorderAccumulative |</code>
+<code>ReorderReverseAccumulative></code></p>
+<p>Set the initial reorder engine. Default value is <code>NoReorderNoCheck</code>.</p>
+<p><code>-x, --extended-macros &lt;cli_macros|config_file></code></p>
+<p>Assign an engine types to the defined marker.</p>
+<p><code>-v, --version</code></p>
+<p>Prints current version of pmreorder.</p>
+<h1 id=engines>ENGINES</h1>
+<p>By default, the <strong>NoReorderNoCheck</strong> engine is used,
+which means that for each set of stores, the tool
+will pass-through all sequences of stores not reordered
+and will not run consistency checker on them.</p>
+<p>To enable different types of the reorder engine and
+begin proper reordering tests, a number of other
+engines exist:</p>
+<ul>
+<li><strong>NoReorderDoCheck</strong> - pass-through of unchanged operations.
+Checks correctness of the stores as they were logged.
+Useful for operations that do not require fail safety.</li>
+</ul>
+<pre tabindex=0><code>Example:
+        input: (a, b, c)
+        output: (a, b, c)
+</code></pre><ul>
+<li><strong>ReorderAccumulative</strong> - checks correctness on a growing
+subset of the original sequence.</li>
+</ul>
+<pre tabindex=0><code>Example:
+        input: (a, b, c)
+        output:
+               ()
+               (a)
+               (a, b)
+               (a, b, c)
+</code></pre><ul>
+<li><strong>ReorderReverseAccumulative</strong> - checks correctness on a reverted growing
+subset of the original sequence.</li>
+</ul>
+<pre tabindex=0><code>Example:
+        input: (a, b, c)
+        output:
+               ()
+               (c)
+               (c, b)
+               (c, b, a)
+</code></pre><ul>
+<li><strong>ReorderPartial</strong> - checks consistency on 3 randomly selected sequences
+from a set of 1000 combinations of the original log, without repetitions.</li>
+</ul>
+<pre tabindex=0><code> Example:
+         input: (a, b, c)
+         output:
+                (b, c)
+                (b)
+                (a, b, c)
+</code></pre><ul>
+<li><strong>ReorderFull</strong> - for each set of stores generates and checks consistency
+of all possible store permutations.
+This might prove to be very computationally expensive for most workloads.
+It can be useful for critical sections of code with limited number of stores.</li>
+</ul>
+<pre tabindex=0><code> Example:
+        input: (a, b, c)
+        output:
+               ()
+               (a)
+               (b)
+               (c)
+               (a, b)
+               (a, c)
+               (b, a)
+               (b, c)
+               (c, a)
+               (c, b)
+               (a, b, c)
+               (a, c, b)
+               (b, a, c)
+               (b, c, a)
+               (c, a, b)
+               (c, b, a)
+</code></pre><p>When the engine is passed with an <code>-r</code> option, it will be used
+for each logged set of stores.
+Additionally, the <code>-x</code> parameter can be used to switch engines
+separately for any marked code sections.
+For more details about <code>-x</code> extended macros functionality see section
+INSTRUMENTATION below.</p>
+<h1 id=instrumentation>INSTRUMENTATION</h1>
+<p>The core of <strong>pmreorder</strong> is based on user-provided named markers.
+Sections of code can be &lsquo;marked&rsquo; depending on their importance,
+and the degree of reordering can be customized by the use of various
+provided engines.</p>
+<p>For this purpose, Valgrind&rsquo;s pmemcheck tool exposes a
+generic marker macro:</p>
+<ul>
+<li><strong>VALGRIND_PMC_EMIT_LOG(value)</strong></li>
+</ul>
+<p>It emits log to <em>store_log</em> during pmemcheck processing.
+<em>value</em> is a user-defined marker name.
+For more details about pmemcheck execution see
+PMEMCHECK STORE LOG section below.</p>
+<p>Example:</p>
+<pre tabindex=0><code>main.c
+.
+.
+.
+VALGRIND_PMC_EMIT_LOG(&quot;PMREORDER_MEMSET_PERSIST.BEGIN&quot;);
+
+pmem_memset_persist(...);
+
+VALGRIND_PMC_EMIT_LOG(&quot;PMREORDER_MEMSET_PERSIST.END&quot;);
+.
+.
+.
+</code></pre><p>There are a few rules for macros creation:</p>
+<ul>
+<li>Valid macro can have any name,
+but begin and end section have to match -
+they are case sensitive.</li>
+<li>Macro must have <code>.BEGIN</code> or <code>.END</code> suffix.</li>
+<li>Macros can&rsquo;t be crossed.</li>
+</ul>
+<p>Defined markers can be assigned engines types and configured
+through the <strong>pmreorder</strong> tool using the <code>-x</code> parameter.</p>
+<p>There are two ways to set macro options:</p>
+<ul>
+<li>Using command line interface in format:</li>
+</ul>
+<pre tabindex=0><code>PMREORDER_MARKER_NAME1=Marker1,PMREORDER_MARKER_NAME2=Marker2
+</code></pre><ul>
+<li>Using configuration file in .json format:</li>
+</ul>
+<pre tabindex=0><code>{
+    &quot;PMREORDER_MARKER_NAME1&quot;:&quot;Marker1&quot;,
+    &quot;PMREORDER_MARKER_NAME2&quot;:&quot;Marker2&quot;
+}
+</code></pre><p>For more details about available
+engines types, see ENGINES section above.</p>
+<p><strong>libpmemobj</strong>(7), <strong>libpmem</strong>(7) and <strong>libpmem2</strong>(7) also provide set of macros
+that allow to change reordering engine on library or function level:</p>
+<p><code>&lt;library_name|api_function_name></code></p>
+<p>Example of configuration on function level:</p>
+<pre tabindex=0><code>{
+    &quot;pmemobj_open&quot;:&quot;NoReorderNoCheck&quot;,
+    &quot;pmemobj_memcpy_persist&quot;:&quot;ReorderPartial&quot;
+}
+</code></pre><p>Example of configuration on library level
+(affecting all library functions):</p>
+<pre tabindex=0><code>{
+    &quot;libpmemobj&quot;:&quot;NoReorderNoCheck&quot;
+}
+</code></pre><p>List of marked <strong>libpmemobj</strong>(7) API functions:</p>
+<pre tabindex=0><code>pmemobj_alloc
+pmemobj_cancel
+pmemobj_check
+pmemobj_close
+pmemobj_create
+pmemobj_ctl_exec
+pmemobj_ctl_set
+pmemobj_free
+pmemobj_list_insert
+pmemobj_list_insert_new
+pmemobj_list_move
+pmemobj_list_remove
+pmemobj_memcpy
+pmemobj_memmove
+pmemobj_memset
+pmemobj_memcpy_persist
+pmemobj_memset_persist
+pmemobj_open
+pmemobj_publish
+pmemobj_realloc
+pmemobj_reserve
+pmemobj_root
+pmemobj_root_construct
+pmemobj_strdup
+pmemobj_tx_abort
+pmemobj_tx_add_range
+pmemobj_tx_add_range_direct
+pmemobj_tx_alloc
+pmemobj_tx_commit
+pmemobj_tx_free
+pmemobj_tx_publish
+pmemobj_tx_realloc
+pmemobj_tx_strdup
+pmemobj_tx_wcsdup
+pmemobj_tx_xadd_range
+pmemobj_tx_xadd_range_direct
+pmemobj_tx_xalloc
+pmemobj_tx_zalloc
+pmemobj_tx_zrealloc
+pmemobj_wcsdup
+pmemobj_xalloc
+pmemobj_xreserve
+pmemobj_zalloc
+pmemobj_zrealloc
+</code></pre><p>List of marked <strong>libpmem</strong>(7) API functions:</p>
+<pre tabindex=0><code>pmem_memmove
+pmem_memcpy
+pmem_memset
+pmem_memmove_nodrain
+pmem_memcpy_nodrain
+pmem_memset_nodrain
+pmem_memmove_persist
+pmem_memcpy_persist
+pmem_memset_persist
+</code></pre><p>List of <strong>libpmem2</strong>(7) API functions, which return marked functions:</p>
+<pre tabindex=0><code>pmem2_get_memcpy_fn (marker for the returned function has &quot;pmem2_memmove&quot; name)
+pmem2_get_memmove_fn (marker for the returned function has &quot;pmem2_memmove&quot; name)
+pmem2_get_memset_fn (marker for the returned function has &quot;pmem2_memset&quot; name)
+
+</code></pre><h1 id=pmemcheck-store-log>PMEMCHECK STORE LOG</h1>
+<p>To generate <em>store_log</em> for <strong>pmreorder</strong> run pmemcheck
+with additional parameters:</p>
+<pre tabindex=0><code>valgrind \
+	--tool=pmemcheck \
+	-q \
+	--log-stores=yes \
+	--print-summary=no \
+	--log-file=store_log.log \
+	--log-stores-stacktraces=yes \
+	--log-stores-stacktraces-depth=2 \
+	--expect-fence-after-clflush=yes \
+	test_binary writer_parameter
+</code></pre><p>For further details of pmemcheck parameters see
+<a href=https://pmem.io/valgrind/generated/pmc-manual.html>pmemcheck documentation</a></p>
+<h1 id=environment>ENVIRONMENT</h1>
+<p>By default all logging from PMDK libraries is disabled.
+To enable API macros logging set environment variable:</p>
+<ul>
+<li><strong>PMREORDER_EMIT_LOG</strong>=1</li>
+</ul>
+<h1 id=example>EXAMPLE</h1>
+<pre tabindex=0><code>python pmreorder.py \
+		-l store_log.log \
+		-r NoReorderDoCheck \
+		-o pmreorder_out.log \
+		-c prog \
+		-x PMREORDER_MARKER_NAME=ReorderPartial \
+		-p checker_binary checker_parameter(s)
+</code></pre><p>Checker binary will be used to run consistency checks on
+&ldquo;store_log.log&rdquo;, output of pmemcheck tool. Any inconsistent
+stores found during <strong>pmreorder</strong> analysis will be logged
+to <code>pmreorder_out.log</code>.</p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

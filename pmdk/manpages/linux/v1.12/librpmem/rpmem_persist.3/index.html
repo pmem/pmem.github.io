@@ -1,0 +1,629 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="librpmem | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+RETURN VALUE
+CAVEATS
+SEE ALSO
+NAME rpmem_persist()(DEPRECATED), rpmem_deep_persist()(DEPRECATED), rpmem_flush()(DEPRECATED), rpmem_drain()(DEPRECATED), rpmem_read()(DEPRECATED) - functions to copy and read remote pools
+SYNOPSIS #include <librpmem.h> int rpmem_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_deep_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane); int rpmem_flush(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_drain(RPMEMpool *rpp, unsigned lane, unsigned flags); int rpmem_read(RPMEMpool *rpp, void *buff, size_t offset, size_t length, unsigned lane); DESCRIPTION The rpmem_persist() function copies data of given length at given offset from the associated local memory pool and makes sure the data is persistent on the remote node before the function returns.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>librpmem | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>rpmem API version 1.3</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>librpmem master</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/master/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.12 type=checkbox><label for=toggle_linux_1.12>librpmem version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>librpmem version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>librpmem version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.9 type=checkbox><label for=toggle_linux_1.9>librpmem version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.8 type=checkbox><label for=toggle_linux_1.8>librpmem version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>librpmem version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>librpmem version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>librpmem version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>librpmem version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>librpmem version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/librpmem.3.html>librpmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>librpmem version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/librpmem.3.html>librpmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>librpmem version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/librpmem.3.html>librpmem</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+</ul>
+</div>
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#return-value>RETURN VALUE</a><br>
+<a href=#caveats>CAVEATS</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>rpmem_persist</strong>()(DEPRECATED), <strong>rpmem_deep_persist</strong>()(DEPRECATED),
+<strong>rpmem_flush</strong>()(DEPRECATED), <strong>rpmem_drain</strong>()(DEPRECATED),
+<strong>rpmem_read</strong>()(DEPRECATED) - functions to copy and read remote pools</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;librpmem.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rpmem_persist</span>(RPMEMpool <span style=color:#f92672>*</span>rpp, size_t offset,
+	size_t length, <span style=color:#66d9ef>unsigned</span> lane, <span style=color:#66d9ef>unsigned</span> flags);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rpmem_deep_persist</span>(RPMEMpool <span style=color:#f92672>*</span>rpp, size_t offset,
+	size_t length, <span style=color:#66d9ef>unsigned</span> lane);
+
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rpmem_flush</span>(RPMEMpool <span style=color:#f92672>*</span>rpp, size_t offset,
+	size_t length, <span style=color:#66d9ef>unsigned</span> lane, <span style=color:#66d9ef>unsigned</span> flags);
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rpmem_drain</span>(RPMEMpool <span style=color:#f92672>*</span>rpp, <span style=color:#66d9ef>unsigned</span> lane, <span style=color:#66d9ef>unsigned</span> flags);
+
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>rpmem_read</span>(RPMEMpool <span style=color:#f92672>*</span>rpp, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>buff, size_t offset,
+	size_t length, <span style=color:#66d9ef>unsigned</span> lane);
+</code></pre></div><h1 id=description>DESCRIPTION</h1>
+<p>The <strong>rpmem_persist</strong>() function copies data of given <em>length</em> at given
+<em>offset</em> from the associated local memory pool and makes sure the data is
+persistent on the remote node before the function returns. The remote node
+is identified by the <em>rpp</em> handle which must be returned from either
+<strong>rpmem_open</strong>(3) or <strong>rpmem_create</strong>(3). The <em>offset</em> is relative
+to the <em>pool_addr</em> specified in the <strong>rpmem_open</strong>(3) or <strong>rpmem_create</strong>(3)
+call. If the remote pool was created using <strong>rpmem_create</strong>() with non-NULL
+<em>create_attr</em> argument, <em>offset</em> has to be greater or equal to 4096.
+In that case the first 4096 bytes of the pool is used for storing the pool
+metadata and cannot be overwritten.
+If the pool was created with NULL <em>create_attr</em> argument, the pool metadata
+is not stored with the pool and <em>offset</em> can be any nonnegative number.
+The <em>offset</em> and <em>length</em> combined must not exceed the
+<em>pool_size</em> passed to <strong>rpmem_open</strong>(3) or <strong>rpmem_create</strong>(3).
+The <strong>rpmem_persist</strong>() operation is performed using the given <em>lane</em> number.
+The lane must be less than the value returned by <strong>rpmem_open</strong>(3) or
+<strong>rpmem_create</strong>(3) through the <em>nlanes</em> argument (so it can take a value
+from 0 to <em>nlanes</em> - 1). The <em>flags</em> argument can be 0 or RPMEM_PERSIST_RELAXED
+which means the persist operation will be done without any guarantees regarding
+atomicity of memory transfer.</p>
+<p>The <strong>rpmem_deep_persist</strong>() function works in the same way as
+<strong>rpmem_persist</strong>(3) function, but additionally it flushes the data to the
+lowest possible persistency domain available from software.
+Please see <strong>pmem_deep_persist</strong>(3) for details.</p>
+<p>The <strong>rpmem_flush</strong>() and <strong>rpmem_drain</strong>() functions are two halves of the
+single <strong>rpmem_persist</strong>(). The <strong>rpmem_persist</strong>() copies data and makes it
+persistent in the one shot, where <strong>rpmem_flush</strong>() and <strong>rpmem_drain</strong>() split
+this operation into two stages. The <strong>rpmem_flush</strong>() copies data of given
+<em>length</em> at a given <em>offset</em> from the associated local memory pool to the
+remote node. The <strong>rpmem_drain</strong>() makes sure the data copied in all preceding
+<strong>rpmem_flush</strong>() calls is persistent on the remote node before the function
+returns. Data copied using <strong>rpmem_flush</strong>() can not be considered persistent
+on the remote node before return from following <strong>rpmem_drain</strong>().
+Single <strong>rpmem_drain</strong>() confirms persistence on the remote node of data copied
+by all <strong>rpmem_flush</strong>() functions called before it and using the same <em>lane</em>.
+The last <strong>rpmem_flush</strong>() + <strong>rpmem_drain</strong>() can be replaced with
+<strong>rpmem_persist</strong>() at no cost.</p>
+<p>The <em>flags</em> argument for <strong>rpmem_flush</strong>() can be 0 or RPMEM_FLUSH_RELAXED
+which means the flush operation will be done without any guarantees regarding
+atomicity of memory transfer. The <em>flags</em> argument for <strong>rpmem_drain</strong>() must be 0.</p>
+<p>The <strong>rpmem_flush</strong>() function performance is affected by <strong>RPMEM_WORK_QUEUE_SIZE</strong>
+environment variable (see <strong>librpmem</strong>(7) for more details).</p>
+<p>The <strong>rpmem_read</strong>() function reads <em>length</em> bytes of data from a remote pool
+at <em>offset</em> and copies it to the buffer <em>buff</em>. The operation is performed on
+the specified <em>lane</em>. The lane must be less than the value returned by
+<strong>rpmem_open</strong>(3) or <strong>rpmem_create</strong>(3) through the <em>nlanes</em> argument
+(so it can take a value from 0 to <em>nlanes</em> - 1). The <em>rpp</em> must point to a
+remote pool opened or created previously by <strong>rpmem_open</strong>(3) or
+<strong>rpmem_create</strong>(3).</p>
+<h1 id=return-value>RETURN VALUE</h1>
+<p>The <strong>rpmem_persist</strong>() function returns 0 if the entire memory area was
+made persistent on the remote node. Otherwise it returns a non-zero value
+and sets <em>errno</em> appropriately.</p>
+<p>The <strong>rpmem_flush</strong>() function returns 0 if duplication of the memory area to
+the remote node was initialized successfully. Otherwise, it returns a non-zero
+value and sets <em>errno</em> appropriately.</p>
+<p>The <strong>rpmem_drain</strong>() function returns 0 if the memory areas duplicated by all
+<strong>rpmem_flush</strong>() calls preceding the <strong>rpmem_drain</strong>() are made persistent
+on the remote node. Otherwise, it returns a non-zero value and sets <em>errno</em>
+appropriately.</p>
+<p>The <strong>rpmem_read</strong>() function returns 0 if the data was read entirely.
+Otherwise it returns a non-zero value and sets <em>errno</em> appropriately.</p>
+<h1 id=caveats>CAVEATS</h1>
+<p>Ordering of <strong>rpmem_flush</strong>() and <strong>rpmem_persist</strong>() operations which are using
+different <em>lane</em> values is not guaranteed.</p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>rpmem_create</strong>(3), <strong>rpmem_open</strong>(3), <strong>rpmem_persist</strong>(3),
+<strong>sysconf</strong>(3), <strong>limits.conf</strong>(5), <strong>libpmemobj</strong>(7)
+and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

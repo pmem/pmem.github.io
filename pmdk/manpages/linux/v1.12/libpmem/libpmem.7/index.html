@@ -1,0 +1,1266 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmem | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+CAVEATS
+LIBRARY API VERSIONING
+ENVIRONMENT
+DEBUGGING AND ERROR HANDLING
+EXAMPLE
+ACKNOWLEDGEMENTS
+SEE ALSO
+NAME libpmem - persistent memory support library
+SYNOPSIS #include <libpmem.h>cc ... -lpmem Library API versioning: const char *pmem_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmem_errormsg(void); Other library functions: A description of other libpmem functions can be found on the following manual pages:
+  most commonly used functions: pmem_is_pmem(3)
+  partial flushing operations: pmem_flush(3)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1.12/libpmem/libpmem.7/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmem | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>pmem API version 1.1</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>libpmem master</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/master/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.12 type=checkbox><label for=toggle_linux_1.12>libpmem version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>libpmem version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>libpmem version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.9 type=checkbox><label for=toggle_linux_1.9>libpmem version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.8 type=checkbox><label for=toggle_linux_1.8>libpmem version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>libpmem version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>libpmem version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>libpmem version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>libpmem version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libpmem version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/libpmem.3.html>libpmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libpmem version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/libpmem.3.html>libpmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libpmem version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/libpmem.3.html>libpmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>libpmem version 1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1/libpmem.3.html>libpmem</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+<li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>libpmem master</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/master/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.12 type=checkbox><label for=toggle_windows_1.12>libpmem version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>libpmem version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>libpmem version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>libpmem version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.8 type=checkbox><label for=toggle_windows_1.8>libpmem version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>libpmem version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>libpmem version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>libpmem version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmem/pmem_memmove_persist.3>pmem_memset</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>libpmem version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/libpmem.7.html>libpmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/libpmem.7>pmem_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_deep_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/libpmem.7>pmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_has_auto_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_has_hw_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_is_pmem.3>pmem_is_pmem</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_is_pmem.3>pmem_map_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_memmove_persist.3>pmem_memcpy_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_memmove_persist.3>pmem_memcpy_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_memmove_persist.3>pmem_memmove_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_memmove_persist.3>pmem_memmove_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_memmove_persist.3>pmem_memset_nodrain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_memmove_persist.3>pmem_memset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_msync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_flush.3>pmem_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmem/pmem_is_pmem.3>pmem_unmap</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>libpmem version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.3/libpmem.3.html>libpmem</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#caveats>CAVEATS</a><br>
+<a href=#library-api-versioning-1>LIBRARY API VERSIONING</a><br>
+<a href=#environment>ENVIRONMENT</a><br>
+<a href=#debugging-and-error-handling>DEBUGGING AND ERROR HANDLING</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#acknowledgements>ACKNOWLEDGEMENTS</a><br>
+<a href=#see-also>SEE ALSO</a></p>
+<h1 id=name>NAME</h1>
+<p><strong>libpmem</strong> - persistent memory support library</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmem.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>cc ... <span style=color:#f92672>-</span>lpmem
+</code></pre></div><h5 id=library-api-versioning>Library API versioning:</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pmem_check_version</span>(
+	<span style=color:#66d9ef>unsigned</span> major_required,
+	<span style=color:#66d9ef>unsigned</span> minor_required);
+</code></pre></div><h5 id=error-handling>Error handling:</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pmem_errormsg</span>(<span style=color:#66d9ef>void</span>);
+</code></pre></div><h5 id=other-library-functions>Other library functions:</h5>
+<p>A description of other <strong>libpmem</strong> functions can be found on the following
+manual pages:</p>
+<ul>
+<li>
+<p>most commonly used functions: <strong>pmem_is_pmem</strong>(3)</p>
+</li>
+<li>
+<p>partial flushing operations: <strong>pmem_flush</strong>(3)</p>
+</li>
+<li>
+<p>copying to persistent memory: <strong>pmem_memmove_persist</strong>(3)</p>
+</li>
+</ul>
+<h1 id=description>DESCRIPTION</h1>
+<p><strong>libpmem</strong> provides low-level <em>persistent memory</em> (pmem) support for
+applications using direct access storage (DAX), which is storage that
+supports load/store access without paging blocks from a block storage
+device. Some types of <em>non-volatile memory DIMMs</em> (NVDIMMs) provide this
+type of byte addressable access to storage. A <em>persistent memory aware
+file system</em> is typically used to expose the direct access to
+applications. Memory mapping a file from this type of file system
+results in the load/store, non-paged access to pmem.</p>
+<p>This library is for applications that use persistent memory directly,
+without the help of any library-supplied transactions or memory
+allocation. Higher-level libraries that build on <strong>libpmem</strong> are
+available and are recommended for most applications, see:</p>
+<ul>
+<li>
+<p><strong>libpmemobj</strong>(7), a general use persistent memory API, providing memory
+allocation and transactional operations on variable-sized objects.</p>
+</li>
+<li>
+<p><strong>libpmemblk</strong>(7), providing pmem-resident arrays of fixed-sized blocks
+with atomic updates.</p>
+</li>
+<li>
+<p><strong>libpmemlog</strong>(7), providing a pmem-resident log file.</p>
+</li>
+</ul>
+<p>Under normal usage, <strong>libpmem</strong> will never print messages or
+intentionally cause the process to exit.
+The only exception to this is the debugging information, when enabled,
+as described under <strong>DEBUGGING AND ERROR HANDLING</strong> below.</p>
+<h1 id=caveats>CAVEATS</h1>
+<p><strong>libpmem</strong> relies on the library destructor being called from the main thread.
+For this reason, all functions that might trigger destruction (e.g.
+<strong>dlclose</strong>(3)) should be called in the main thread. Otherwise some of the
+resources associated with that thread might not be cleaned up properly.</p>
+<h1 id=library-api-versioning-1>LIBRARY API VERSIONING</h1>
+<p>This section describes how the library API is versioned, allowing
+applications to work with an evolving API.</p>
+<p>The <strong>pmem_check_version</strong>() function is used to determine whether the installed
+<strong>libpmem</strong> supports the version of the library API required by an
+application. The easiest way to do this is for the application to supply
+the compile-time version information, supplied by defines in
+<strong>&lt;libpmem.h></strong>, like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>reason <span style=color:#f92672>=</span> pmem_check_version(PMEM_MAJOR_VERSION,
+                            PMEM_MINOR_VERSION);
+<span style=color:#66d9ef>if</span> (reason <span style=color:#f92672>!=</span> NULL) {
+	<span style=color:#75715e>/* version check failed, reason string tells you why */</span>
+}
+</code></pre></div><p>Any mismatch in the major version number is considered a failure, but a
+library with a newer minor version number will pass this check since
+increasing minor versions imply backwards compatibility.</p>
+<p>An application can also check specifically for the existence of an
+interface by checking for the version where that interface was
+introduced. These versions are documented in this man page as follows:
+unless otherwise specified, all interfaces described here are available
+in version 1.0 of the library. Interfaces added after version 1.0 will
+contain the text <em>introduced in version x.y</em> in the section of this
+manual describing the feature.</p>
+<p>When the version check performed by <strong>pmem_check_version</strong>() is
+successful, the return value is NULL. Otherwise the return value is a
+static string describing the reason for failing the version check. The
+string returned by <strong>pmem_check_version</strong>() must not be modified or
+freed.</p>
+<h1 id=environment>ENVIRONMENT</h1>
+<p><strong>libpmem</strong> can change its default behavior based on the following
+environment variables. These are largely intended for testing and are
+not normally required.</p>
+<ul>
+<li><strong>PMEM_IS_PMEM_FORCE</strong>=<em>val</em></li>
+</ul>
+<p>If <em>val</em> is 0 (zero), then <strong>pmem_is_pmem</strong>(3) will always return
+false. Setting <em>val</em> to 1 causes <strong>pmem_is_pmem</strong>(3) to always return
+true. This variable is mostly used for testing but can be used to force
+pmem behavior on a system where a range of pmem is not detectable as
+pmem for some reason.</p>
+<blockquote>
+<p>NOTE:
+Unlike the other variables, the value of
+<strong>PMEM_IS_PMEM_FORCE</strong> is not queried (and cached) at
+library initialization time, but on the first call to
+<strong>pmem_is_pmem</strong>(3). This means that in case of
+<strong>libpmemlog</strong>(7), <strong>libpmemblk</strong>(7), and <strong>libpmemobj</strong>(7),
+<strong>PMEM_IS_PMEM_FORCE</strong> may still be set or modified by the program
+until the first attempt to create or open the persistent
+memory pool.</p>
+</blockquote>
+<ul>
+<li><strong>PMEM_NO_CLWB</strong>=1</li>
+</ul>
+<p>Setting this environment variable to 1 forces <strong>libpmem</strong> to never issue
+the <strong>CLWB</strong> instruction on Intel hardware, falling back to other cache
+flush instructions instead (<strong>CLFLUSHOPT</strong> or <strong>CLFLUSH</strong> on Intel
+hardware). Without this environment variable, <strong>libpmem</strong> will always
+use the <strong>CLWB</strong> instruction for flushing processor caches on platforms
+that support the instruction. This variable is intended for use during
+library testing but may be required for some rare cases where using
+<strong>CLWB</strong> has a negative impact on performance.</p>
+<ul>
+<li><strong>PMEM_NO_CLFLUSHOPT</strong>=1</li>
+</ul>
+<p>Setting this environment variable to 1 forces <strong>libpmem</strong> to never issue
+the <strong>CLFLUSHOPT</strong> instruction on Intel hardware, falling back to the
+<strong>CLFLUSH</strong> instructions instead. Without this environment variable,
+<strong>libpmem</strong> will always use the <strong>CLFLUSHOPT</strong> instruction for flushing
+processor caches on platforms that support the instruction, but where
+<strong>CLWB</strong> is not available. This variable is intended for use during
+library testing.</p>
+<ul>
+<li><strong>PMEM_NO_FLUSH</strong>=1</li>
+</ul>
+<p>Setting this environment variable to 1 forces most <strong>libpmem</strong> functions
+to never issue any of <strong>CLFLUSH</strong>, <strong>CLFLUSHOPT</strong> or <strong>CLWB</strong> instructions
+on Intel hardware. The only exceptions are <strong>pmem_deep_flush</strong>(3) and
+<strong>pmem_deep_persist</strong>(3) functions.</p>
+<ul>
+<li><strong>PMEM_NO_FLUSH</strong>=0</li>
+</ul>
+<p>Setting this environment variable to 0 forces to always flush CPU caches
+using one of <strong>CLFLUSH</strong>, <strong>CLFLUSHOPT</strong> or <strong>CLWB</strong> instructions
+even if <strong>pmem_has_auto_flush</strong>(3) function returns true and the platform
+supports flushing the processor caches on power loss or system crash.</p>
+<ul>
+<li><strong>PMEM_NO_MOVNT</strong>=1</li>
+</ul>
+<p>Setting this environment variable to 1 forces <strong>libpmem</strong> to never use
+the <em>non-temporal</em> move instructions on Intel hardware. Without this
+environment variable, <strong>libpmem</strong> will use the non-temporal instructions
+for copying larger ranges to persistent memory on platforms that support
+the instructions. This variable is intended for use during library
+testing.</p>
+<ul>
+<li><strong>PMEM_MOVNT_THRESHOLD</strong>=<em>val</em></li>
+</ul>
+<p>This environment variable allows overriding the minimum length of
+the <strong>pmem_memmove_persist</strong>(3) operations, for which <strong>libpmem</strong> uses
+<em>non-temporal</em> move instructions. Setting this environment variable to 0
+forces <strong>libpmem</strong> to always use the <em>non-temporal</em> move instructions if
+available. It has no effect if <strong>PMEM_NO_MOVNT</strong> is set to 1.
+This variable is intended for use during library testing.</p>
+<ul>
+<li><strong>PMEM_MMAP_HINT</strong>=<em>val</em></li>
+</ul>
+<p>This environment variable allows overriding
+the hint address used by <strong>pmem_map_file</strong>(). If set, it also disables
+mapping address randomization. This variable is intended for use during
+library testing and debugging. Setting it to some fairly large value
+(i.e. 0x10000000000) will very likely result in mapping the file at the
+specified address (if not used) or at the first unused region above
+given address, without adding any random offset. When debugging, this
+makes it easier to calculate the actual address of the persistent memory
+block, based on its offset in the file. In case of <strong>libpmemobj</strong> it
+simplifies conversion of a persistent object identifier (OID) into a
+direct pointer to the object.</p>
+<blockquote>
+<p>NOTE:
+<strong>Setting this environment variable
+affects all the PMDK libraries,</strong> disabling mapping address randomization
+and causing the specified address to be used as a hint about where to
+place the mapping.</p>
+</blockquote>
+<h1 id=debugging-and-error-handling>DEBUGGING AND ERROR HANDLING</h1>
+<p>If an error is detected during the call to a <strong>libpmem</strong> function, the
+application may retrieve an error message describing the reason of the failure
+from <strong>pmem_errormsg</strong>(). This function returns a pointer to a static buffer
+containing the last error message logged for the current thread. If <em>errno</em>
+was set, the error message may include a description of the corresponding
+error code as returned by <strong>strerror</strong>(3). The error message buffer is
+thread-local; errors encountered in one thread do not affect its value in
+other threads. The buffer is never cleared by any library function; its
+content is significant only when the return value of the immediately preceding
+call to a <strong>libpmem</strong> function indicated an error.
+The application must not modify or free the error message string.
+Subsequent calls to other library functions may modify the previous message.</p>
+<p>Two versions of <strong>libpmem</strong> are typically available on a development
+system. The normal version, accessed when a program is linked using the
+<strong>-lpmem</strong> option, is optimized for performance. That version skips checks
+that impact performance and never logs any trace information or performs any
+run-time assertions.</p>
+<p>A second version of <strong>libpmem</strong>, accessed when a program uses the libraries
+under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points. The
+typical way to access the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>, as appropriate. Debugging output is
+controlled using the following environment variables. These variables have
+no effect on the non-debug version of the library.</p>
+<ul>
+<li><strong>PMEM_LOG_LEVEL</strong></li>
+</ul>
+<p>The value of <strong>PMEM_LOG_LEVEL</strong> enables trace points in the debug version
+of the library, as follows:</p>
+<ul>
+<li>
+<p><strong>0</strong> - This is the default level when <strong>PMEM_LOG_LEVEL</strong> is not set.
+No log messages are emitted at this level.</p>
+</li>
+<li>
+<p><strong>1</strong> - Additional details on any errors detected are logged, in addition
+to returning the <em>errno</em>-based errors as usual. The same information
+may be retrieved using <strong>pmem_errormsg</strong>().</p>
+</li>
+<li>
+<p><strong>2</strong> - A trace of basic operations is logged.</p>
+</li>
+<li>
+<p><strong>3</strong> - Enables a very verbose amount of function call tracing in the
+library.</p>
+</li>
+<li>
+<p><strong>4</strong> - Enables voluminous and fairly obscure tracing
+information that is likely only useful to the <strong>libpmem</strong> developers.</p>
+</li>
+</ul>
+<p>Unless <strong>PMEM_LOG_FILE</strong> is set, debugging output is written to <em>stderr</em>.</p>
+<ul>
+<li><strong>PMEM_LOG_FILE</strong></li>
+</ul>
+<p>Specifies the name of a file where
+all logging information should be written. If the last character in the name
+is &ldquo;-&rdquo;, the <em>PID</em> of the current process will be appended to the file name when
+the log file is created. If <strong>PMEM_LOG_FILE</strong> is not set, output is
+written to <em>stderr</em>.</p>
+<h1 id=example>EXAMPLE</h1>
+<p>The following example uses <strong>libpmem</strong> to flush changes made to raw,
+memory-mapped persistent memory.</p>
+<blockquote>
+<p>WARNING:
+There is nothing transactional about the <strong>pmem_persist</strong>(3) or
+<strong>pmem_msync</strong>(3) calls in this example. Interrupting the program may
+result in a partial write to pmem. Use a transactional library such as
+<strong>libpmemobj</strong>(7) to avoid torn updates.</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;sys/types.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;sys/stat.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;fcntl.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;errno.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdlib.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;unistd.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmem.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>/* using 4k of pmem for this example */</span>
+<span style=color:#75715e>#define PMEM_LEN 4096
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define PATH &#34;/pmem-fs/myfile&#34;
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>int</span>
+<span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>int</span> argc, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>argv[])
+{
+	<span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>pmemaddr;
+	size_t mapped_len;
+	<span style=color:#66d9ef>int</span> is_pmem;
+
+	<span style=color:#75715e>/* create a pmem file and memory map it */</span>
+
+	<span style=color:#66d9ef>if</span> ((pmemaddr <span style=color:#f92672>=</span> pmem_map_file(PATH, PMEM_LEN, PMEM_FILE_CREATE,
+			<span style=color:#ae81ff>0666</span>, <span style=color:#f92672>&amp;</span>mapped_len, <span style=color:#f92672>&amp;</span>is_pmem)) <span style=color:#f92672>==</span> NULL) {
+		perror(<span style=color:#e6db74>&#34;pmem_map_file&#34;</span>);
+		exit(<span style=color:#ae81ff>1</span>);
+	}
+
+	<span style=color:#75715e>/* store a string to the persistent memory */</span>
+	strcpy(pmemaddr, <span style=color:#e6db74>&#34;hello, persistent memory&#34;</span>);
+
+	<span style=color:#75715e>/* flush above strcpy to persistence */</span>
+	<span style=color:#66d9ef>if</span> (is_pmem)
+		pmem_persist(pmemaddr, mapped_len);
+	<span style=color:#66d9ef>else</span>
+		pmem_msync(pmemaddr, mapped_len);
+
+	<span style=color:#75715e>/*
+</span><span style=color:#75715e>	 * Delete the mappings. The region is also
+</span><span style=color:#75715e>	 * automatically unmapped when the process is
+</span><span style=color:#75715e>	 * terminated.
+</span><span style=color:#75715e>	 */</span>
+	pmem_unmap(pmemaddr, mapped_len);
+}
+</code></pre></div><p>See <a href=https://pmem.io/pmdk/libpmem>https://pmem.io/pmdk/libpmem</a>
+for more examples using the <strong>libpmem</strong> API.</p>
+<h1 id=acknowledgements>ACKNOWLEDGEMENTS</h1>
+<p><strong>libpmem</strong> builds on the persistent memory programming model
+recommended by the SNIA NVM Programming Technical Work Group:
+<a href=https://snia.org/nvmp>https://snia.org/nvmp</a></p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>dlclose</strong>(3),
+<strong>pmem_flush</strong>(3), <strong>pmem_is_pmem</strong>(3), <strong>pmem_memmove_persist</strong>(3),
+<strong>pmem_msync</strong>(3), <strong>pmem_persist</strong>(3), <strong>strerror</strong>(3),
+<strong>libpmemblk</strong>(7), <strong>libpmemlog</strong>(7), <strong>libpmemobj</strong>(7)
+and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

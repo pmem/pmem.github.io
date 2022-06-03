@@ -1,0 +1,899 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libvmem | PMDK">
+<meta property="og:description" content="NAME libvmem - volatile memory allocation library
+SYNOPSIS #include <libvmem.h> cc ... -lvmem Memory pool management: VMEM *vmem_create(const char *dir, size_t size); VMEM *vmem_create_in_region(void *addr, size_t size); void vmem_delete(VMEM *vmp); int vmem_check(VMEM *vmp); void vmem_stats_print(VMEM *vmp, const char *opts); Memory allocation related functions: void *vmem_malloc(VMEM *vmp, size_t size); void vmem_free(VMEM *vmp, void *ptr); void *vmem_calloc(VMEM *vmp, size_t nmemb, size_t size); void *vmem_realloc(VMEM *vmp, void *ptr, size_t size); void *vmem_aligned_alloc(VMEM *vmp, size_t alignment, size_t size); char *vmem_strdup(VMEM *vmp, const char *s); size_t vmem_malloc_usable_size(VMEM *vmp, void *ptr); Managing overall library behavior: const char *vmem_check_version( unsigned major_required, unsigned minor_required); void vmem_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s), void (*print_func)(const char *s)); Error handling: &#34;constchar*vmem_errormsg(void);  DESCRIPTION libvmem provides common malloc-like interfaces to memory pools built on memory-mapped files.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/v1/libvmem.3/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libvmem | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>vmem API</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>libvmem master</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/master/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.12 type=checkbox><label for=toggle_linux_1.12>libvmem version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.12/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>libvmem version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.11/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>libvmem version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.10/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>libvmem version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.7/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>libvmem version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.6/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>libvmem version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.5/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>libvmem version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.4/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libvmem version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/libvmem.3.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libvmem version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/libvmem.3.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libvmem version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/libvmem.3.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>libvmem version 1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1/libvmem.3.html>libvmem</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+<li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>libvmem master</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/master/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.12 type=checkbox><label for=toggle_windows_1.12>libvmem version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.12/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>libvmem version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.11/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>libvmem version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.10/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>libvmem version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.9/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>libvmem version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.7/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>libvmem version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.6/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>libvmem version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.5/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>libvmem version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.4/libvmem/libvmem.7.html>libvmem</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>libvmem version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.3/libvmem.3.html>libvmem</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<h1 id=name>NAME</h1>
+<p>libvmem - volatile memory allocation library</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<pre><code>#include &lt;libvmem.h&gt;
+
+cc ... -lvmem
+
+Memory pool management:
+
+VMEM *vmem_create(const char *dir, size_t size);
+VMEM *vmem_create_in_region(void *addr, size_t size);
+void vmem_delete(VMEM *vmp);
+int vmem_check(VMEM *vmp);
+void vmem_stats_print(VMEM *vmp, const char *opts);
+
+Memory allocation related functions:
+
+void *vmem_malloc(VMEM *vmp, size_t size);
+void vmem_free(VMEM *vmp, void *ptr);
+void *vmem_calloc(VMEM *vmp, size_t nmemb, size_t size);
+void *vmem_realloc(VMEM *vmp, void *ptr, size_t size);
+void *vmem_aligned_alloc(VMEM *vmp, size_t alignment, size_t size);
+char *vmem_strdup(VMEM *vmp, const char *s);
+size_t vmem_malloc_usable_size(VMEM *vmp, void *ptr);
+
+Managing overall library behavior:
+
+const char *vmem_check_version(
+ unsigned major_required,
+ unsigned minor_required);
+void vmem_set_funcs(
+ void *(*malloc_func)(size_t size),
+ void (*free_func)(void *ptr),
+ void *(*realloc_func)(void *ptr, size_t size),
+ char *(*strdup_func)(const char *s),
+ void (*print_func)(const char *s));
+
+Error handling:
+
+&quot;constchar*vmem_errormsg(void);
+</code></pre>
+<h1 id=description>DESCRIPTION</h1>
+<p><strong>libvmem</strong> provides common <em>malloc-like</em> interfaces to memory pools
+built on memory-mapped files. These interfaces are for traditional
+<strong>volatile</strong> memory allocation but, unlike the functions described in
+<strong>malloc</strong>(3), the memory managed by <strong>libvmem</strong> may have different
+attributes, depending on the file system containing the memory-mapped
+files. In particular, <strong>libvmem</strong> is part of the <em>Non-Volatile Memory
+Library</em> because it is sometimes useful to use non-volatile memory as a
+volatile memory pool, leveraging its capacity, cost, or performance
+characteristics.</p>
+<p><strong>libvmem</strong> uses the <strong>mmap</strong>(2) system call to create a pool of
+volatile memory. The library is most useful when used with <em>Direct
+Access</em> storage (DAX), which is memory-addressable persistent storage
+that supports load/store access without being paged via the system page
+cache. A Persistent Memory-aware file system is typically used to
+provide this type of access. Memory-mapping a file from a Persistent
+Memory-aware file system provides the raw memory pools, and this library
+supplies the more familiar <em>malloc-like</em> interfaces on top of those
+pools.</p>
+<p>Under normal usage, <strong>libvmem</strong> will never print messages or
+intentionally cause the process to exit. Exceptions to this are prints
+caused by calls to <strong>vmem_stats_print</strong>(), or by enabling debugging as
+described under <strong>DEBUGGING AND ERROR HANDLING</strong> below. The library uses
+<strong>pthreads</strong>(7) to be fully MT-safe, but never creates or destroys
+threads itself. The library does not make use of any signals,
+networking, and never calls <strong>select</strong>() or <strong>poll</strong>(). The system
+memory allocation routines like <strong>malloc</strong>() and <strong>free</strong>() are used by
+<strong>libvmem</strong> for managing a small amount of run-time state, but
+applications are allowed to override these calls if necessary (see the
+description of <strong>vmem_set_funcs</strong>() below).</p>
+<p><strong>libvmem</strong> interfaces are grouped into three categories: those that
+manage memory pools, those providing the basic memory allocation
+functions, and those interfaces less commonly used for managing the
+overall library behavior. These groups of interfaces are described in
+the following three sections.</p>
+<h1 id=managing-memory-pools>MANAGING MEMORY POOLS</h1>
+<p>To use <strong>libvmem</strong>, a <em>memory pool</em> is first created. This is most
+commonly done with the <strong>vmem_create</strong>() function described in this
+section. The other functions described in this section are for less
+common cases, where applications have special needs for creating pools
+or examining library state.</p>
+<p>Once created, a memory pool is represented by an opaque pool handle, of
+type <em>VMEM *</em>, which is passed to the functions for memory allocation
+described in the next section.</p>
+<p><strong>VMEM *vmem_create(const char *<em><strong>dir</strong></em>, size_t <em><strong>size</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_create</strong>() function creates a memory pool. The resulting
+pool is then used with functions like <strong>vmem_malloc</strong>() and
+<strong>vmem_free</strong>() to provide the familiar <em>malloc-like</em> programming
+model for the memory pool. <strong>vmem_create</strong>() creates the pool by
+allocating a temporary file in the given directory <em>dir</em>. The file is
+created in a fashion similar to <strong>tmpfile</strong>(3), so that the file name
+does not appear when the directory is listed and the space is
+automatically freed when the program terminates. <em>size</em> bytes are
+allocated and the resulting space is memory-mapped. The minimum <em>size</em>
+value allowed by the library is defined in <strong>&lt;libvmem.h></strong> as
+<strong>VMEM_MIN_POOL</strong>. Calling <strong>vmem_create</strong>() with a size smaller
+than that will return an error. The maximum allowed size is not
+limited by <strong>libvmem</strong>, but by the file system specified by the <em>dir</em>
+argument. The <em>size</em> passed in is the raw size of the memory pool and
+<strong>libvmem</strong> will use some of that space for its own metadata.
+<strong>vmem_create</strong>() returns an opaque memory pool handle or NULL if an
+error occurred (in which case <em>errno</em> is set appropriately). The
+opaque memory pool handle is then used with the other functions
+described in this man page that operate on a specific memory pool.</p>
+</blockquote>
+<p><strong>VMEM *vmem_create_in_region(void *<em><strong>addr</strong></em>, size_t
+<em><strong>size</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_create_in_region</strong>() is an alternate <strong>libvmem</strong> entry
+point for creating a memory pool. It is for the rare case where an
+application needs to create a memory pool from an already
+memory-mapped region. Instead of allocating space from a given file
+system, <strong>vmem_create_in_region</strong>() is given the memory region
+explicitly via the <em>addr</em> and <em>size</em> arguments. Any data in the region
+is lost by calling <strong>vmem_create_in_region</strong>(), which will
+immediately store its own data structures for managing the pool there.
+Like <strong>vmem_create</strong>() above, the minimum <em>size</em> allowed is defined
+as <strong>VMEM_MIN_POOL</strong>. The <em>addr</em> argument must be page aligned.
+<strong>vmem_create_in_region</strong>() returns an opaque memory pool handle or
+NULL if an error occurred (in which case <em>errno</em> is set
+appropriately). Undefined behavior occurs if <em>addr</em> does not point to
+the contiguous memory region in the virtual address space of the
+calling process, or if the <em>size</em> is larger than the actual size of
+the memory region pointed by <em>addr</em>.</p>
+</blockquote>
+<p><strong>void vmem_delete(VMEM *<em><strong>vmp</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_delete</strong>() function releases the memory pool <em>vmp</em>. If the
+memory pool was created using <strong>vmem_create_pool</strong>(), deleting it
+allows the space to be reclaimed.</p>
+</blockquote>
+<p><strong>int vmem_check(VMEM *<em><strong>vmp</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_check</strong>() function performs an extensive consistency check
+of all <strong>libvmem</strong> internal data structures in memory pool <em>vmp</em>. It
+returns 1 if the memory pool during the check is found to be
+consistent and 0 otherwise. Cases where the check couldn't be
+performed, are indicated by a return value of -1. Since an error
+return indicates memory pool corruption, applications should not
+continue to use a pool in this state. Additional details about errors
+found are logged when the log level is at least 1 (see <strong>DEBUGGING AND
+ERROR HANDLING</strong> below). During the consistency check performed by
+<strong>vmem_check</strong>(), other operations on the same memory pool are locked
+out. The checks are all read-only; <strong>vmem_check</strong>() never modifies
+the memory pool. This function is mostly useful for <strong>libvmem</strong>
+developers during testing/debugging.</p>
+</blockquote>
+<p><strong>void vmem_stats_print(VMEM *<em><strong>vmp</strong></em>, const char *<em><strong>opts</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_stats_print</strong>() function produces messages containing
+statistics about the given memory pool. The output is printed using
+<strong>libvmem</strong>'s internal <em>print_func</em> function (see
+<strong>vmem_set_funcs</strong>() below). That means the output typically appears
+on <strong>stderr</strong> unless the caller supplies a replacement <em>print_func</em>
+or sets the environment variable <strong>VMEM_LOG_FILE</strong> to direct output
+elsewhere. The <em>opts</em> string can either be NULL or it can contain a
+list of options that change the stats printed. General information
+that never changes during execution can be omitted by specifying "g"
+as a character within the opts string. The characters "m" and "a"
+can be specified to omit merged arena and per arena statistics,
+respectively; "b" and "l" can be specified to omit per size class
+statistics for bins and large objects, respectively. Unrecognized
+characters are silently ignored. Note that thread caching may prevent
+some statistics from being completely up to date. See <strong>jemalloc</strong>(3)
+for more detail (the description of the available <em>opts</em> above was
+taken from that man page).</p>
+</blockquote>
+<h1 id=memory-allocation>MEMORY ALLOCATION</h1>
+<p>This section describes the <em>malloc-like</em> API provided by <strong>libvmem</strong>.
+These functions provide the same semantics as their libc namesakes, but
+operate on the memory pools specified by their first arguments.</p>
+<p><strong>void *vmem_malloc(VMEM *<em><strong>vmp</strong></em>, size_t <em><strong>size</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_malloc</strong>() function provides the same semantics as
+<strong>malloc</strong>(3), but operates on the memory pool <em>vmp</em> instead of the
+process heap supplied by the system. It allocates <em>size</em> bytes and
+returns a pointer to the allocated memory. <em>The memory is not
+initialized</em>. If <em>size</em> is 0, then <strong>vmem_malloc</strong>() returns either
+NULL, or a unique pointer value that can later be successfully passed
+to <strong>vmem_free</strong>(). If <strong>vmem_malloc</strong>() is unable to satisfy the
+allocation request, a NULL pointer is returned and errno is set
+appropriately.</p>
+</blockquote>
+<p><strong>void vmem_free(VMEM *<em><strong>vmp</strong></em>, void *<em><strong>ptr</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_free</strong>() function provides the same semantics as
+<strong>free</strong>(3), but operates on the memory pool <em>vmp</em> instead of the
+process heap supplied by the system. It frees the memory space pointed
+to by <em>ptr</em>, which must have been returned by a previous call to
+<strong>vmem_malloc</strong>(), <strong>vmem_calloc</strong>() or <strong>vmem_realloc</strong>() for <em>the
+same pool of memory</em>. Undefined behavior occurs if frees do not
+correspond to allocated memory from the same memory pool. If <em>ptr</em> is
+NULL, no operation is performed.</p>
+</blockquote>
+<p><strong>void *vmem_calloc(VMEM *<em><strong>vmp</strong></em>, size_t <em><strong>nmemb</strong></em>, size_t
+<em><strong>size</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_calloc</strong>() function provides the same semantics as
+<strong>calloc</strong>(3), but operates on the memory pool <em>vmp</em> instead of the
+process heap supplied by the system. It allocates memory for an array
+of <em>nmemb</em> elements of <em>size</em> bytes each and returns a pointer to the
+allocated memory. The memory is set to zero. If <em>nmemb</em> or <em>size</em> is
+0, then <strong>vmem_calloc</strong>() returns either NULL, or a unique pointer
+value that can later be successfully passed to <strong>vmem_free</strong>(). If
+<strong>vmem_calloc</strong>() is unable to satisfy the allocation request, a NULL
+pointer is returned and errno is set appropriately.</p>
+</blockquote>
+<p><strong>void *vmem_realloc(VMEM *<em><strong>vmp</strong></em>, void *<em><strong>ptr</strong></em>, size_t
+<em><strong>size</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_realloc</strong>() function provides the same semantics as
+<strong>realloc</strong>(3), but operates on the memory pool <em>vmp</em> instead of the
+process heap supplied by the system. It changes the size of the memory
+block pointed to by <em>ptr</em> to <em>size</em> bytes. The contents will be
+unchanged in the range from the start of the region up to the minimum
+of the old and new sizes. If the new size is larger than the old size,
+the added memory will <em>not</em> be initialized. If <em>ptr</em> is NULL, then the
+call is equivalent to <em>vmem_malloc(vmp, size)</em>, for all values of
+<em>size</em>; if <em>size</em> is equal to zero, and <em>ptr</em> is not NULL, then the
+call is equivalent to <em>vmem_free(vmp, ptr)</em>. Unless <em>ptr</em> is NULL, it
+must have been returned by an earlier call to <strong>vmem_malloc</strong>(),
+<strong>vmem_calloc</strong>() or <strong>vmem_realloc</strong>(). If the area pointed to was
+moved, a <em>vmem_free(vmp, ptr)</em> is done. If <strong>vmem_realloc</strong>() is
+unable to satisfy the allocation request, a NULL pointer is returned
+and errno is set appropriately.</p>
+</blockquote>
+<p><strong>void *vmem_aligned_alloc(VMEM *<em><strong>vmp</strong></em>, size_t <em><strong>alignment</strong></em>,
+size_t <em><strong>size</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_aligned_alloc</strong>() function provides the same semantics as
+<strong>aligned_alloc</strong>(3), but operates on the memory pool <em>vmp</em> instead
+of the process heap supplied by the system. It allocates <em>size</em> bytes
+from the memory pool and returns a pointer to the allocated memory.
+The memory address will be a multiple of <em>alignment</em>, which must be a
+power of two. If <strong>vmem_aligned_alloc</strong>() is unable to satisfy the
+allocation request, a NULL pointer is returned and errno is set
+appropriately.</p>
+</blockquote>
+<p><strong>char *vmem_strdup(VMEM *<em><strong>vmp</strong></em>, const char *<em><strong>s</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_strdup</strong>() function provides the same semantics as
+<strong>strdup</strong>(3), but operates on the memory pool <em>vmp</em> instead of the
+process heap supplied by the system. It returns a pointer to a new
+string which is a duplicate of the string <em>s</em>. Memory for the new
+string is obtained with <strong>vmem_malloc</strong>(), on the given memory pool,
+and can be freed with <strong>vmem_free</strong>() on the same memory pool. If
+<strong>vmem_strdup</strong>() is unable to satisfy the allocation request, a NULL
+pointer is returned and errno is set appropriately.</p>
+</blockquote>
+<p><strong>size_t vmem_malloc_usable_size(VMEM *<em><strong>vmp</strong></em>, void
+*<em><strong>ptr</strong></em>);</strong></p>
+<blockquote>
+<p>The <strong>vmem_malloc_usable_size</strong>() function provides the same
+semantics as <strong>malloc_usable_size</strong>(3), but operates on the memory
+pool <em>vmp</em> instead of the process heap supplied by the system. It
+returns the number of usable bytes in the block of allocated memory
+pointed to by <em>ptr</em>, a pointer to a block of memory allocated by
+<strong>vmem_malloc</strong>() or a related function. If <em>ptr</em> is NULL, 0 is
+returned.</p>
+</blockquote>
+<h1 id=managing-library-behavior>MANAGING LIBRARY BEHAVIOR</h1>
+<p>The library entry points described in this section are less commonly
+used than the previous section. These entry points expose library
+information or alter the default library behavior.</p>
+<pre><code>const char *vmem_check_version(
+ unsigned major_required,
+ unsigned minor_required);
+</code></pre>
+<blockquote>
+<p>The <strong>vmem_check_version</strong>() function is used to see if the
+installed <strong>libvmem</strong> supports the version of the library API required
+by an application. The easiest way to do this is for the application
+to supply the compile-time version information, supplied by defines in
+<strong>&lt;libvmem.h></strong>, like this:</p>
+<pre><code>reason = vmem_check_version(VMEM_MAJOR_VERSION,
+                            VMEM_MINOR_VERSION);
+if (reason != NULL) {
+    /*  version check failed, reason string tells you why */
+}
+</code></pre>
+<p>Any mismatch in the major version number is considered a failure, but
+a library with a newer minor version number will pass this check since
+increasing minor versions imply backwards compatibility.</p>
+<p>An application can also check specifically for the existence of an
+interface by checking for the version where that interface was
+introduced. These versions are documented in this man page as follows:
+unless otherwise specified, all interfaces described here are
+available in version 1.0 of the library. Interfaces added after
+version 1.0 will contain the text <em>introduced in version x.y</em> in the
+section of this manual describing the feature.</p>
+<p>When the version check performed by <strong>vmem_check_version</strong>() is
+successful, the return value is NULL. Otherwise the return value is a
+static string describing the reason for failing the version check. The
+string returned by <strong>vmem_check_version</strong>() must not be modified or
+freed.</p>
+</blockquote>
+<pre><code>void vmem_set_funcs(
+ void *(*malloc_func)(size_t size),
+ void (*free_func)(void *ptr),
+ void *(*realloc_func)(void *ptr, size_t size),
+ char *(*strdup_func)(const char *s),
+ void (*print_func)(const char *s));
+</code></pre>
+<blockquote>
+<p>The <strong>vmem_set_funcs</strong>() function allows an application to override
+some interfaces used internally by <strong>libvmem</strong>. Passing in NULL for
+any of the handlers will cause the <strong>libvmem</strong> default function to be
+used. The library does not make heavy use of the system malloc
+functions, but it does allocate approximately 4-8 kilobytes for each
+memory pool in use. The only functions in the malloc family used by
+the library are represented by the first four arguments to
+<strong>vmem_set_funcs</strong>(). The <em>print_func</em> function is called by
+<strong>libvmem</strong> when the <strong>vmem_stats_print</strong>() entry point is used, or
+when additional tracing is enabled in the debug version of the library
+as described in the <strong>DEBUGGING AND ERROR HANDLING</strong> section below.
+The default <em>print_func</em> used by the library prints to the file
+specified by the <strong>VMEM_LOG_FILE</strong> environment variable, or to
+<strong>stderr</strong> if that variable is not set.</p>
+</blockquote>
+<h1 id=debugging-and-error-handling>DEBUGGING AND ERROR HANDLING</h1>
+<p>Two versions of <strong>libvmem</strong> are typically available on a development
+system. The normal version, accessed when a program is linked using the
+<strong>-lvmem</strong> option, is optimized for performance. That version skips
+checks that impact performance and never logs any trace information or
+performs any run-time assertions. If an error is detected during the
+call to <strong>libvmem</strong> function, an application may retrieve an error
+message describing the reason of failure using the following function:</p>
+<p><strong>"const</strong><em>char</em>***vmem_errormsg(void);**</p>
+<blockquote>
+<p>The <strong>vmem_errormsg</strong>() function returns a pointer to a static buffer
+containing the last error message logged for current thread. The error
+message may include description of the corresponding error code (if
+errno was set), as returned by <strong>strerror</strong>(3). The error message
+buffer is thread-local; errors encountered in one thread do not affect
+its value in other threads. The buffer is never cleared by any library
+function; its content is significant only when the return value of the
+immediately preceding call to <strong>libvmem</strong> function indicated an error,
+or if errno was set. The application must not modify or free the error
+message string, but it may be modified by subsequent calls to other
+library functions.</p>
+</blockquote>
+<p>A second version of <strong>libvmem</strong>, accessed when a program uses the
+libraries under <strong>/usr/lib/nvml_debug</strong>, contains run-time assertions
+and trace points. The typical way to access the debug version is to set
+the environment variable <strong>LD_LIBRARY_PATH</strong> to
+<strong>/usr/lib/nvml_debug</strong> or <strong>/usr/lib64/nvml_debug</strong> depending on
+where the debug libraries are installed on the system. The trace points
+in the debug version of the library are enabled using the environment
+variable <strong>VMEM_LOG_LEVEL</strong>, which can be set to the following values:</p>
+<ol start=0>
+<li>
+<p>This is the default level when <strong>VMEM_LOG_LEVEL</strong> is not set. Only
+statistics are logged, and then only in response to a call to
+<strong>vmem_stats_print</strong>().</p>
+</li>
+<li>
+<p>Additional details on any errors detected are logged (in addition to
+returning the errno-based errors as usual). The same information may
+be retrieved using <strong>vmem_errormsg</strong>().</p>
+</li>
+<li>
+<p>A trace of basic operations including allocations and deallocations
+is logged.</p>
+</li>
+<li>
+<p>This level enables a very verbose amount of function call tracing in
+the library.</p>
+</li>
+<li>
+<p>This level enables voluminous and fairly obscure tracing information
+that is likely only useful to the <strong>libvmem</strong> developers.</p>
+</li>
+</ol>
+<p>The environment variable <strong>VMEM_LOG_FILE</strong> specifies a file name where
+all logging information should be written. If the last character in the
+name is "-", the PID of the current process will be appended to the
+file name when the log file is created. If <strong>VMEM_LOG_FILE</strong> is not
+set, output goes to stderr. All prints are done using the <em>print_func</em>
+function in <strong>libvmem</strong> (see <strong>vmem_set_funcs</strong>() above for details on
+how to override that function).</p>
+<p>Setting the environment variable <strong>VMEM_LOG_LEVEL</strong> has no effect on
+the non-debug version of <strong>libvmem</strong>.</p>
+<h1 id=example>EXAMPLE</h1>
+<p>The following example creates a memory pool, allocates some memory to
+contain the string "hello, world", and then frees that memory.</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;libvmem.h&gt;
+
+main()
+{
+    VMEM *vmp;
+    char *ptr;
+
+    /* create minimum size pool of memory */
+    if ((vmp = vmem_create(&quot;/pmem-fs&quot;,
+                                VMEM_MIN_POOL)) == NULL) {
+        perror(&quot;vmem_create&quot;);
+        exit(1);
+    }
+
+    if ((ptr = vmem_malloc(vmp, 100)) == NULL) {
+        perror(&quot;vmem_malloc&quot;);
+        exit(1);
+    }
+
+    strcpy(ptr, &quot;hello, world&quot;);
+
+    /* give the memory back */
+    vmem_free(vmp, ptr);
+
+    /* ... */
+}
+</code></pre>
+<p>See <a href=http://pmem.io/nvml/libvmem>http://pmem.io/nvml/libvmem</a> for more examples using the <strong>libvmem</strong>
+API.</p>
+<h1 id=bugs>BUGS</h1>
+<p>Unlike the normal <strong>malloc</strong>(), which asks the system for additional
+memory when it runs out, <strong>libvmem</strong> allocates the size it is told to
+and never attempts to grow or shrink that memory pool.</p>
+<h1 id=acknowledgements>ACKNOWLEDGEMENTS</h1>
+<p><strong>libvmem</strong> depends on jemalloc, written by Jason Evans, to do the heavy
+lifting of managing dynamic memory allocation. See:</p>
+<blockquote>
+<p><a href=http://www.canonware.com/jemalloc/>http://www.canonware.com/jemalloc/</a></p>
+</blockquote>
+<p><strong>libvmem</strong> builds on the persistent memory programming model
+recommended by the SNIA NVM Programming Technical Work Group:</p>
+<blockquote>
+<p><a href=http://snia.org/nvmp>http://snia.org/nvmp</a></p>
+</blockquote>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>malloc</strong>(3), <strong>posix_memalign</strong>(3), <strong>strdup</strong>(3), <strong>mmap</strong>(2),
+<strong>strerror</strong>(3), <strong>jemalloc</strong>(3), <strong>libpmem</strong>(3).</p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

@@ -7,8 +7,8 @@ DESCRIPTION
 RETURN VALUE
 CAVEATS
 SEE ALSO
-NAME rpmem_persist(), rpmem_deep_persist(), rpmem_flush(), rpmem_drain(), rpmem_read()
- functions to copy and read remote pools  SYNOPSIS #include <librpmem.h> int rpmem_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_deep_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane); int rpmem_flush(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_drain(RPMEMpool *rpp, unsigned lane, unsigned flags); int rpmem_read(RPMEMpool *rpp, void *buff, size_t offset, size_t length, unsigned lane); DESCRIPTION The rpmem_persist() function copies data of given length at given offset from the associated local memory pool and makes sure the data is persistent on the remote node before the function returns.">
+NAME rpmem_persist()(DEPRECATED), rpmem_deep_persist()(DEPRECATED), rpmem_flush()(DEPRECATED), rpmem_drain()(DEPRECATED), rpmem_read()(DEPRECATED) - functions to copy and read remote pools
+SYNOPSIS #include <librpmem.h> int rpmem_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_deep_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane); int rpmem_flush(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_drain(RPMEMpool *rpp, unsigned lane, unsigned flags); int rpmem_read(RPMEMpool *rpp, void *buff, size_t offset, size_t length, unsigned lane); DESCRIPTION The rpmem_persist() function copies data of given length at given offset from the associated local memory pool and makes sure the data is persistent on the remote node before the function returns.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/pmdk/manpages/linux/master/librpmem/rpmem_persist.3/"><meta property="article:section" content="pmdk">
 <meta charset=utf-8>
@@ -319,6 +319,23 @@ NAME rpmem_persist(), rpmem_deep_persist(), rpmem_flush(), rpmem_drain(), rpmem_
 <li><a href=/pmdk/manpages/linux/master/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
 </ul>
 </li>
+<li class=release_tag><input id=toggle_linux_1.12 type=checkbox><label for=toggle_linux_1.12>librpmem version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/librpmem.7.html>librpmem</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/librpmem.7>rpmem_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_close</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_create</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_deep_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/librpmem.7>rpmem_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_open</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_persist.3>rpmem_read</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_open.3>rpmem_remove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/librpmem/rpmem_create.3>rpmem_set_attr</a></li>
+</ul>
+</li>
 <li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>librpmem version 1.11</label>
 <ul>
 <li><a href=/pmdk/manpages/linux/v1.11/librpmem/librpmem.7.html>librpmem</a></li>
@@ -462,64 +479,9 @@ NAME rpmem_persist(), rpmem_deep_persist(), rpmem_flush(), rpmem_drain(), rpmem_
 <li><a href=/pmdk/manpages/linux/v1.1/librpmem.3.html>librpmem</a></li>
 </ul>
 </li>
-<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>librpmem version 1</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1/librpmem.3.html>librpmem</a></li>
-</ul>
-</li>
 </ul>
 <ul>
 <li class=sys_header>WINDOWS</li>
-<li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>librpmem master</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/master/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>librpmem version 1.11</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.11/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>librpmem version 1.10</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.10/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>librpmem version 1.9</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.9/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.8 type=checkbox><label for=toggle_windows_1.8>librpmem version 1.8</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.8/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>librpmem version 1.7</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.7/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>librpmem version 1.6</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.6/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>librpmem version 1.5</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.5/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>librpmem version 1.4</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.4/librpmem/librpmem.7.html>librpmem</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>librpmem version 1.3</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.3/librpmem.3.html>librpmem</a></li>
-</ul>
-</li>
 </ul>
 </div>
 <div class=container>
@@ -532,11 +494,9 @@ NAME rpmem_persist(), rpmem_deep_persist(), rpmem_flush(), rpmem_drain(), rpmem_
 <a href=#caveats>CAVEATS</a><br>
 <a href=#see-also>SEE ALSO</a><br></p>
 <h1 id=name>NAME</h1>
-<p><strong>rpmem_persist</strong>(), <strong>rpmem_deep_persist</strong>(), <strong>rpmem_flush</strong>(),
-<strong>rpmem_drain</strong>(), <strong>rpmem_read</strong>()</p>
-<ul>
-<li>functions to copy and read remote pools</li>
-</ul>
+<p><strong>rpmem_persist</strong>()(DEPRECATED), <strong>rpmem_deep_persist</strong>()(DEPRECATED),
+<strong>rpmem_flush</strong>()(DEPRECATED), <strong>rpmem_drain</strong>()(DEPRECATED),
+<strong>rpmem_read</strong>()(DEPRECATED) - functions to copy and read remote pools</p>
 <h1 id=synopsis>SYNOPSIS</h1>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;librpmem.h&gt;</span><span style=color:#75715e>
 </span><span style=color:#75715e></span>

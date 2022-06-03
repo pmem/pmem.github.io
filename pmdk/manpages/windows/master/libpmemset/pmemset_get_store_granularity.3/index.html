@@ -9,7 +9,7 @@ ERRORS
 SEE ALSO
 NAME pmemset_get_store_granularity() - reads effective mappings granularity for pmemset
 SYNOPSIS #include <libpmemset.h> int pmemset_get_store_granularity(struct pmemset *set, enum pmem2_granularity *g); DESCRIPTION The pmemset_get_store_granularity() function reads effective granularity of the set object and puts it in the *g;
-The set object has to contain at least one mapped part using pmemset_part_map(3) function, otherwise reading granularity value is pointless and function pmemset_get_store_granularity(3) will fail.
+The set object has to contain at least one mapped part using pmemset_map(3) function, otherwise reading granularity value is pointless and function pmemset_get_store_granularity(3) will fail.
 Concept of the granularity is described in libpmem2(7).">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pmem.io/pmdk/manpages/windows/master/libpmemset/pmemset_get_store_granularity.3/"><meta property="article:section" content="pmdk">
@@ -307,121 +307,112 @@ Concept of the granularity is described in libpmem2(7).">
 <li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>libpmemset master</label>
 <ul>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/libpmemset.7.html>libpmemset</a></li>
-<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_config_new.3>pmemset_config_delete</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_config_new.3>pmemset_config_new</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_config_set_acceptable_states.3>pmemset_config_set_acceptable_states</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_config_set_event_callback.3>pmemset_config_set_event_callback</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_config_set_required_store_granularity.3>pmemset_config_set_required_store_granularity</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_config_set_reservation.3>pmemset_config_set_reservation</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_deep_flush.3>pmemset_deep_flush</a></li>
-<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_new.3>pmemset_delete</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_descriptor_part_map.3>pmemset_descriptor_part_map</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_drain.3>pmemset_drain</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_errormsg.3>pmemset_errormsg</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_first_part_map.3>pmemset_first_part_map</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_flush.3>pmemset_flush</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_get_store_granularity.3>pmemset_get_store_granularity</a></li>
-<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_memmove.3>pmemset_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_map.3>pmemset_map</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_map_config_new.3>pmemset_map_config_new</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_map_config_set_length.3>pmemset_map_config_set_length</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_map_config_set_offset.3>pmemset_map_config_set_offset</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_memmove.3>pmemset_memmove</a></li>
-<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_memmove.3>pmemset_memset</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_new.3>pmemset_new</a></li>
-<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_first_part_map.3>pmemset_next_part_map</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_part_map_by_address.3>pmemset_part_map_by_address</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_part_map_drop.3>pmemset_part_map_drop</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_perror.3>pmemset_perror</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_persist.3>pmemset_persist</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_remove_part_map.3>pmemset_remove_part_map</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_remove_range.3>pmemset_remove_range</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_set_contiguous_part_coalescing.3>pmemset_set_contiguous_part_coalescing</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_alignment.3>pmemset_source_alignment</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_delete.3>pmemset_source_delete</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_from_file.3>pmemset_source_from_file</a></li>
 <li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_from_pmem2.3>pmemset_source_from_pmem2</a></li>
-<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_from_file.3>pmemset_xsource_from_file</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_from_temporary.3>pmemset_source_from_temporary</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_pread_mcsafe.3>pmemset_source_pread_mcsafe</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmemset/pmemset_source_set_sds.3>pmemset_source_set_sds</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.12 type=checkbox><label for=toggle_linux_1.12>libpmemset version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/libpmemset.7.html>libpmemset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_config_new.3>pmemset_config_delete</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_config_new.3>pmemset_config_new</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_config_set_acceptable_states.3>pmemset_config_set_acceptable_states</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_config_set_event_callback.3>pmemset_config_set_event_callback</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_config_set_reservation.3>pmemset_config_set_reservation</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_config_set_required_store_granularity.3>pmemset_config_set_required_store_granularity</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_deep_flush.3>pmemset_deep_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_new.3>pmemset_delete</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_descriptor_part_map.3>pmemset_descriptor_part_map</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_drain.3>pmemset_drain</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_errormsg.3>pmemset_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_first_part_map.3>pmemset_first_part_map</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_flush.3>pmemset_flush</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_get_store_granularity.3>pmemset_get_store_granularity</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_map.3>pmemset_map</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_map_config_new.3>pmemset_map_config_delete</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_map_config_new.3>pmemset_map_config_new</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_map_config_set_length.3>pmemset_map_config_set_length</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_map_config_set_offset.3>pmemset_map_config_set_offset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_memmove.3>pmemset_memcpy</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_memmove.3>pmemset_memmove</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_memmove.3>pmemset_memset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_new.3>pmemset_new</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_first_part_map.3>pmemset_next_part_map</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_part_map_by_address.3>pmemset_part_map_by_address</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_part_map_drop.3>pmemset_part_map_drop</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_perror.3>pmemset_perror</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_persist.3>pmemset_persist</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_remove_part_map.3>pmemset_remove_part_map</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_remove_range.3>pmemset_remove_range</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_set_contiguous_part_coalescing.3>pmemset_set_contiguous_part_coalescing</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_alignment.3>pmemset_source_alignment</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_delete.3>pmemset_source_delete</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_from_file.3>pmemset_source_from_file</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_from_pmem2.3>pmemset_source_from_pmem2</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_from_temporary.3>pmemset_source_from_temporary</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_pread_mcsafe.3>pmemset_source_pread_mcsafe</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_pread_mcsafe.3>pmemset_source_pwrite_mcsafe</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_set_sds.3>pmemset_source_set_sds</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmemset/pmemset_source_from_file.3>pmemset_xsource_from_file</a></li>
 </ul>
 </li>
 <li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>libpmemset version 1.11</label>
 <ul>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/libpmemset.7.html>libpmemset</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_config_new.3>pmemset_config_delete</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_config_new.3>pmemset_config_new</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_config_set_event_callback.3>pmemset_config_set_event_callback</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_config_set_required_store_granularity.3>pmemset_config_set_required_store_granularity</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_config_set_reservation.3>pmemset_config_set_reservation</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_deep_flush.3>pmemset_deep_flush</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_new.3>pmemset_delete</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_descriptor_part_map.3>pmemset_descriptor_part_map</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_drain.3>pmemset_drain</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_errormsg.3>pmemset_errormsg</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_first_part_map.3>pmemset_first_part_map</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_flush.3>pmemset_flush</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_get_store_granularity.3>pmemset_get_store_granularity</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_memmove.3>pmemset_memcpy</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_memmove.3>pmemset_memmove</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_memmove.3>pmemset_memset</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_new.3>pmemset_new</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_first_part_map.3>pmemset_next_part_map</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_part_new.3>pmemset_part_delete</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_part_map.3>pmemset_part_map</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_part_map_by_address.3>pmemset_part_map_by_address</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_part_map_drop.3>pmemset_part_map_drop</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_part_new.3>pmemset_part_new</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_perror.3>pmemset_perror</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_persist.3>pmemset_persist</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_remove_part_map.3>pmemset_remove_part_map</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_remove_range.3>pmemset_remove_range</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_set_contiguous_part_coalescing.3>pmemset_set_contiguous_part_coalescing</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_source_delete.3>pmemset_source_delete</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_source_from_file.3>pmemset_source_from_file</a></li>
 <li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_source_from_pmem2.3>pmemset_source_from_pmem2</a></li>
-<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_source_from_file.3>pmemset_xsource_from_file</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>libpmemset version 1.10</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.10/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.9 type=checkbox><label for=toggle_linux_1.9>libpmemset version 1.9</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.9/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.8 type=checkbox><label for=toggle_linux_1.8>libpmemset version 1.8</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.8/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>libpmemset version 1.7</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.7/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>libpmemset version 1.6</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.6/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>libpmemset version 1.5</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.5/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>libpmemset version 1.4</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.4/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libpmemset version 1.3</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.3/libpmemset.3.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libpmemset version 1.2</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.2/libpmemset.3.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libpmemset version 1.1</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1.1/libpmemset.3.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_linux_1 type=checkbox><label for=toggle_linux_1>libpmemset version 1</label>
-<ul>
-<li><a href=/pmdk/manpages/linux/v1/libpmemset.3.html>libpmemset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmemset/pmemset_source_from_temporary.3>pmemset_source_from_temporary</a></li>
 </ul>
 </li>
 </ul>
@@ -430,98 +421,104 @@ Concept of the granularity is described in libpmem2(7).">
 <li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>libpmemset master</label>
 <ul>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/libpmemset.7.html>libpmemset</a></li>
-<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_config_new.3>pmemset_config_delete</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_config_new.3>pmemset_config_new</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_config_set_acceptable_states.3>pmemset_config_set_acceptable_states</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_config_set_event_callback.3>pmemset_config_set_event_callback</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_config_set_required_store_granularity.3>pmemset_config_set_required_store_granularity</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_config_set_reservation.3>pmemset_config_set_reservation</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_deep_flush.3>pmemset_deep_flush</a></li>
-<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_new.3>pmemset_delete</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_descriptor_part_map.3>pmemset_descriptor_part_map</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_drain.3>pmemset_drain</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_errormsg.3>pmemset_errormsg</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_first_part_map.3>pmemset_first_part_map</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_flush.3>pmemset_flush</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_get_store_granularity.3>pmemset_get_store_granularity</a></li>
-<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_memmove.3>pmemset_memcpy</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_map.3>pmemset_map</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_map_config_new.3>pmemset_map_config_new</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_map_config_set_length.3>pmemset_map_config_set_length</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_map_config_set_offset.3>pmemset_map_config_set_offset</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_memmove.3>pmemset_memmove</a></li>
-<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_memmove.3>pmemset_memset</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_new.3>pmemset_new</a></li>
-<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_first_part_map.3>pmemset_next_part_map</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_part_map_by_address.3>pmemset_part_map_by_address</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_part_map_drop.3>pmemset_part_map_drop</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_perror.3>pmemset_perror</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_persist.3>pmemset_persist</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_remove_part_map.3>pmemset_remove_part_map</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_remove_range.3>pmemset_remove_range</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_set_contiguous_part_coalescing.3>pmemset_set_contiguous_part_coalescing</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_alignment.3>pmemset_source_alignment</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_delete.3>pmemset_source_delete</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_from_file.3>pmemset_source_from_file</a></li>
 <li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_from_pmem2.3>pmemset_source_from_pmem2</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_from_temporary.3>pmemset_source_from_temporary</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_pread_mcsafe.3>pmemset_source_pread_mcsafe</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmemset/pmemset_source_set_sds.3>pmemset_source_set_sds</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.12 type=checkbox><label for=toggle_windows_1.12>libpmemset version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/libpmemset.7.html>libpmemset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_config_new.3>pmemset_config_new</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_config_set_acceptable_states.3>pmemset_config_set_acceptable_states</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_config_set_event_callback.3>pmemset_config_set_event_callback</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_config_set_required_store_granularity.3>pmemset_config_set_required_store_granularity</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_config_set_reservation.3>pmemset_config_set_reservation</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_deep_flush.3>pmemset_deep_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_descriptor_part_map.3>pmemset_descriptor_part_map</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_drain.3>pmemset_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_errormsg.3>pmemset_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_first_part_map.3>pmemset_first_part_map</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_flush.3>pmemset_flush</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_get_store_granularity.3>pmemset_get_store_granularity</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_map.3>pmemset_map</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_map_config_new.3>pmemset_map_config_new</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_map_config_set_length.3>pmemset_map_config_set_length</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_map_config_set_offset.3>pmemset_map_config_set_offset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_memmove.3>pmemset_memmove</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_new.3>pmemset_new</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_part_map_by_address.3>pmemset_part_map_by_address</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_part_map_drop.3>pmemset_part_map_drop</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_perror.3>pmemset_perror</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_persist.3>pmemset_persist</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_remove_part_map.3>pmemset_remove_part_map</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_remove_range.3>pmemset_remove_range</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_set_contiguous_part_coalescing.3>pmemset_set_contiguous_part_coalescing</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_alignment.3>pmemset_source_alignment</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_delete.3>pmemset_source_delete</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_from_file.3>pmemset_source_from_file</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_from_pmem2.3>pmemset_source_from_pmem2</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_from_temporary.3>pmemset_source_from_temporary</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_pread_mcsafe.3>pmemset_source_pread_mcsafe</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmemset/pmemset_source_set_sds.3>pmemset_source_set_sds</a></li>
 </ul>
 </li>
 <li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>libpmemset version 1.11</label>
 <ul>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/libpmemset.7.html>libpmemset</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_config_new.3>pmemset_config_delete</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_config_new.3>pmemset_config_new</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_config_set_event_callback.3>pmemset_config_set_event_callback</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_config_set_required_store_granularity.3>pmemset_config_set_required_store_granularity</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_config_set_reservation.3>pmemset_config_set_reservation</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_deep_flush.3>pmemset_deep_flush</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_new.3>pmemset_delete</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_descriptor_part_map.3>pmemset_descriptor_part_map</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_drain.3>pmemset_drain</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_errormsg.3>pmemset_errormsg</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_first_part_map.3>pmemset_first_part_map</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_flush.3>pmemset_flush</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_get_store_granularity.3>pmemset_get_store_granularity</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_memmove.3>pmemset_memcpy</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_memmove.3>pmemset_memmove</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_memmove.3>pmemset_memset</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_new.3>pmemset_new</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_first_part_map.3>pmemset_next_part_map</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_part_new.3>pmemset_part_delete</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_part_map.3>pmemset_part_map</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_part_map_by_address.3>pmemset_part_map_by_address</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_part_map_drop.3>pmemset_part_map_drop</a></li>
-<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_part_new.3>pmemset_part_new</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_perror.3>pmemset_perror</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_persist.3>pmemset_persist</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_remove_part_map.3>pmemset_remove_part_map</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_remove_range.3>pmemset_remove_range</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_set_contiguous_part_coalescing.3>pmemset_set_contiguous_part_coalescing</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_source_delete.3>pmemset_source_delete</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_source_from_file.3>pmemset_source_from_file</a></li>
 <li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_source_from_pmem2.3>pmemset_source_from_pmem2</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>libpmemset version 1.10</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.10/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>libpmemset version 1.9</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.9/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.8 type=checkbox><label for=toggle_windows_1.8>libpmemset version 1.8</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.8/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>libpmemset version 1.7</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.7/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>libpmemset version 1.6</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.6/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>libpmemset version 1.5</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.5/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>libpmemset version 1.4</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.4/libpmemset/libpmemset.7.html>libpmemset</a></li>
-</ul>
-</li>
-<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>libpmemset version 1.3</label>
-<ul>
-<li><a href=/pmdk/manpages/windows/v1.3/libpmemset.3.html>libpmemset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmemset/pmemset_source_from_temporary.3>pmemset_source_from_temporary</a></li>
 </ul>
 </li>
 </ul>
@@ -543,7 +540,7 @@ Concept of the granularity is described in libpmem2(7).">
 <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pmemset_get_store_granularity</span>(<span style=color:#66d9ef>struct</span> pmemset <span style=color:#f92672>*</span>set, <span style=color:#66d9ef>enum</span> pmem2_granularity <span style=color:#f92672>*</span>g);
 </code></pre></div><h1 id=description>DESCRIPTION</h1>
 <p>The <strong>pmemset_get_store_granularity</strong>() function reads effective granularity of the <em>set</em> object and puts it in the <em>*g</em>;</p>
-<p>The <em>set</em> object has to contain at least one mapped part using <strong>pmemset_part_map</strong>(3) function,
+<p>The <em>set</em> object has to contain at least one mapped part using <strong>pmemset_map</strong>(3) function,
 otherwise reading granularity value is pointless and function <strong>pmemset_get_store_granularity</strong>(3) will fail.</p>
 <p>Concept of the granularity is described in <strong>libpmem2</strong>(7).</p>
 <h1 id=return-value>RETURN VALUE</h1>
@@ -555,7 +552,7 @@ otherwise reading granularity value is pointless and function <strong>pmemset_ge
 </ul>
 <h1 id=see-also>SEE ALSO</h1>
 <p><strong>pmemset_config_set_required_store_graularity</strong>(3),
-<strong>pmemset_part_map(3)</strong>, libpmem2**(7), <strong>libpmemset</strong>(7) and <strong><a href=http://pmem.io>http://pmem.io</a></strong></p>
+<strong>pmemset_map(3)</strong>, libpmem2**(7), <strong>libpmemset</strong>(7) and <strong><a href=http://pmem.io>http://pmem.io</a></strong></p>
 </div>
 </div>
 <div class=divider></div>

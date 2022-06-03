@@ -1,0 +1,960 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="libpmempool | PMDK">
+<meta property="og:description" content="NAME
+SYNOPSIS
+DESCRIPTION
+LIBRARY API VERSIONING
+DEBUGGING AND ERROR HANDLING
+EXAMPLE
+ACKNOWLEDGEMENTS
+SEE ALSO
+NAME libpmempool - persistent memory pool management library
+SYNOPSIS #include <libpmempool.h>cc ... -lpmempool -lpmem  NOTE: The PMDK API supports UNICODE. If the PMDK_UTF8_API macro is defined, basic API functions are expanded to the UTF-8 API with postfix U. Otherwise they are expanded to the UNICODE API with postfix W.
+ Library API versioning: const char *pmempool_check_versionU( unsigned major_required, unsigned minor_required); const wchar_t *pmempool_check_versionW( unsigned major_required, unsigned minor_required); Error handling: const char *pmempool_errormsgU(void); const wchar_t *pmempool_errormsgW(void); Other library functions: A description of other libpmempool functions can be found on the following manual pages:">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/pmdk/manpages/windows/v1.12/libpmempool/libpmempool.7/"><meta property="article:section" content="pmdk">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>libpmempool | PMDK</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url('');background-size:cover;padding:120px 0;margin-top:-157.05px">
+<div class="container clearfix mt-4">
+<div class="slider-title text-light">
+<h2 style=color:#fff>pmempool API version 1.3</h2>
+</div>
+</div>
+</section>
+<div class="section m-0 bg-transparent library-section dark-mode">
+<div id=manpage_shortcut>
+<ul>
+<li class=sys_header>LINUX</li>
+<li class=release_tag><input id=toggle_linux_master type=checkbox><label for=toggle_linux_master>libpmempool master</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/master/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/master/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/master/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.12 type=checkbox><label for=toggle_linux_1.12>libpmempool version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.12/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.12/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.11 type=checkbox><label for=toggle_linux_1.11>libpmempool version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.11/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.11/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.10 type=checkbox><label for=toggle_linux_1.10>libpmempool version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.10/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.10/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.9 type=checkbox><label for=toggle_linux_1.9>libpmempool version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.9/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.9/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.8 type=checkbox><label for=toggle_linux_1.8>libpmempool version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.8/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.8/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.7 type=checkbox><label for=toggle_linux_1.7>libpmempool version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.7/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.7/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.6 type=checkbox><label for=toggle_linux_1.6>libpmempool version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.6/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.6/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.5 type=checkbox><label for=toggle_linux_1.5>libpmempool version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.5/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.5/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.4 type=checkbox><label for=toggle_linux_1.4>libpmempool version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.4/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/linux/v1.4/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.3 type=checkbox><label for=toggle_linux_1.3>libpmempool version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.3/libpmempool.3.html>libpmempool</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.2 type=checkbox><label for=toggle_linux_1.2>libpmempool version 1.2</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.2/libpmempool.3.html>libpmempool</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_linux_1.1 type=checkbox><label for=toggle_linux_1.1>libpmempool version 1.1</label>
+<ul>
+<li><a href=/pmdk/manpages/linux/v1.1/libpmempool.3.html>libpmempool</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class=sys_header>WINDOWS</li>
+<li class=release_tag><input id=toggle_windows_master type=checkbox><label for=toggle_windows_master>libpmempool master</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/master/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/master/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/master/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.12 type=checkbox><label for=toggle_windows_1.12>libpmempool version 1.12</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.12/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.12/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.11 type=checkbox><label for=toggle_windows_1.11>libpmempool version 1.11</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.11/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.11/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.10 type=checkbox><label for=toggle_windows_1.10>libpmempool version 1.10</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.10/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.10/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.9 type=checkbox><label for=toggle_windows_1.9>libpmempool version 1.9</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.9/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.9/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.8 type=checkbox><label for=toggle_windows_1.8>libpmempool version 1.8</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.8/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.8/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.7 type=checkbox><label for=toggle_windows_1.7>libpmempool version 1.7</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.7/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.7/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.6 type=checkbox><label for=toggle_windows_1.6>libpmempool version 1.6</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.6/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.6/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.5 type=checkbox><label for=toggle_windows_1.5>libpmempool version 1.5</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.5/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/pmem_ctl/pmem_ctl.5>pmem_ctl</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_feature_query.3>pmempool_feature_disable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_feature_query.3>pmempool_feature_enable</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_feature_query.3>pmempool_feature_query</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.5/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.4 type=checkbox><label for=toggle_windows_1.4>libpmempool version 1.4</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.4/poolset/poolset.5>poolset</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/libpmempool.7.html>libpmempool</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/pmempool_check_init.3>pmempool_check</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/pmempool_check_init.3>pmempool_check_end</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/pmempool_check_init.3>pmempool_check_init</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/libpmempool.7>pmempool_check_version</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/libpmempool.7>pmempool_errormsg</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/pmempool_rm.3>pmempool_rm</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/pmempool_sync.3>pmempool_sync</a></li>
+<li><a href=/pmdk/manpages/windows/v1.4/libpmempool/pmempool_sync.3>pmempool_transform</a></li>
+</ul>
+</li>
+<li class=release_tag><input id=toggle_windows_1.3 type=checkbox><label for=toggle_windows_1.3>libpmempool version 1.3</label>
+<ul>
+<li><a href=/pmdk/manpages/windows/v1.3/libpmempool.3.html>libpmempool</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class=container>
+<div class="row justify-content-between">
+<div class="col mt-0 lib-content">
+<p><a href=#name>NAME</a><br>
+<a href=#synopsis>SYNOPSIS</a><br>
+<a href=#description>DESCRIPTION</a><br>
+<a href=#library-api-versioning-1>LIBRARY API VERSIONING</a><br>
+<a href=#debugging-and-error-handling>DEBUGGING AND ERROR HANDLING</a><br>
+<a href=#example>EXAMPLE</a><br>
+<a href=#acknowledgements>ACKNOWLEDGEMENTS</a><br>
+<a href=#see-also>SEE ALSO</a><br></p>
+<h1 id=name>NAME</h1>
+<p><strong>libpmempool</strong> - persistent memory pool management library</p>
+<h1 id=synopsis>SYNOPSIS</h1>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmempool.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>cc  ... <span style=color:#f92672>-</span>lpmempool <span style=color:#f92672>-</span>lpmem
+</code></pre></div><blockquote>
+<p>NOTE: The PMDK API supports UNICODE. If the <strong>PMDK_UTF8_API</strong> macro is
+defined, basic API functions are expanded to the UTF-8 API with postfix <em>U</em>.
+Otherwise they are expanded to the UNICODE API with postfix <em>W</em>.</p>
+</blockquote>
+<h5 id=library-api-versioning>Library API versioning:</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pmempool_check_versionU</span>(
+	<span style=color:#66d9ef>unsigned</span> major_required,
+	<span style=color:#66d9ef>unsigned</span> minor_required);
+<span style=color:#66d9ef>const</span> wchar_t <span style=color:#f92672>*</span><span style=color:#a6e22e>pmempool_check_versionW</span>(
+	<span style=color:#66d9ef>unsigned</span> major_required,
+	<span style=color:#66d9ef>unsigned</span> minor_required);
+</code></pre></div><h5 id=error-handling>Error handling:</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>pmempool_errormsgU</span>(<span style=color:#66d9ef>void</span>);
+<span style=color:#66d9ef>const</span> wchar_t <span style=color:#f92672>*</span><span style=color:#a6e22e>pmempool_errormsgW</span>(<span style=color:#66d9ef>void</span>);
+</code></pre></div><h5 id=other-library-functions>Other library functions:</h5>
+<p>A description of other <strong>libpmempool</strong> functions can be found on the following
+manual pages:</p>
+<ul>
+<li>
+<p>health check functions: <strong>pmempool_check_init</strong>(3)</p>
+</li>
+<li>
+<p>pool set synchronization and transformation: <strong>pmempool_sync</strong>(3)</p>
+</li>
+<li>
+<p>pool set management functions: <strong>pmempool_rm</strong>(3)</p>
+</li>
+<li>
+<p>toggle or query pool set features: <strong>pmempool_feature_query</strong>(3)</p>
+</li>
+</ul>
+<h1 id=description>DESCRIPTION</h1>
+<p><strong>libpmempool</strong>
+provides a set of utilities for off-line analysis and
+manipulation of a <em>pool</em>. A <em>pool</em> in this
+manpage means a pmemobj pool, pmemblk pool, pmemlog pool or
+BTT layout, independent of the underlying storage. Some
+<strong>libpmempool</strong> functions are required to work without
+any impact on the <em>pool</em> but some may create a new or modify
+an existing <em>pool</em>.</p>
+<p><strong>libpmempool</strong>
+is for applications that need high reliability or built-in
+troubleshooting. It may be useful for testing and debugging
+purposes also.</p>
+<p><strong>libpmempool</strong> introduces functionality of pool set health check,
+synchronization, transformation and removal.</p>
+<h1 id=caveats>CAVEATS</h1>
+<p><strong>libpmempool</strong> relies on the library destructor being called from the main
+thread. For this reason, all functions that might trigger destruction (e.g.
+<strong>dlclose</strong>(3)) should be called in the main thread. Otherwise some of the
+resources associated with that thread might not be cleaned up properly.</p>
+<h1 id=library-api-versioning-1>LIBRARY API VERSIONING</h1>
+<p>This section describes how the library API is versioned,
+allowing applications to work with an evolving API.</p>
+<p>The <strong>pmempool_check_versionU</strong>()/<strong>pmempool_check_versionW</strong>() function is used to see if
+the installed <strong>libpmempool</strong> supports the version of the
+library API required by an application. The easiest way to
+do this for the application is to supply the compile-time
+version information, supplied by defines in <strong>&lt;libpmempool.h></strong>, like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>reason <span style=color:#f92672>=</span> pmempool_check_versionU(PMEMPOOL_MAJOR_VERSION,
+                                PMEMPOOL_MINOR_VERSION);
+<span style=color:#66d9ef>if</span> (reason <span style=color:#f92672>!=</span> NULL) {
+	<span style=color:#75715e>/* version check failed, reason string tells you why */</span>
+}
+</code></pre></div><p>Any mismatch in the major version number is considered a failure, but a
+library with a newer minor version number will pass this
+check since increasing minor versions imply backwards compatibility.</p>
+<p>An application can also check specifically for the existence of an
+interface by checking for the version where that interface
+was introduced. These versions are documented in this man
+page as follows: unless otherwise specified, all interfaces
+described here are available in version 1.0 of the library.
+Interfaces added after version 1.0 will contain the text
+<em>introduced in version x.y</em> in the section of this manual
+describing the feature.</p>
+<p>When the version check performed by <strong>pmempool_check_versionU</strong>()/<strong>pmempool_check_versionW</strong>()
+is successful, the return value is NULL. Otherwise the
+return value is a static string describing the reason for
+failing the version check. The string returned by
+<strong>pmempool_check_versionU</strong>()/<strong>pmempool_check_versionW</strong>() must not be modified or freed.</p>
+<h1 id=debugging-and-error-handling>DEBUGGING AND ERROR HANDLING</h1>
+<p>If an error is detected during the call to a <strong>libpmempool</strong> function, the
+application may retrieve an error message describing the reason for the failure
+from <strong>pmempool_errormsgU</strong>()/<strong>pmempool_errormsgW</strong>(). This function returns a pointer to a static buffer
+containing the last error message logged for the current thread. If <em>errno</em>
+was set, the error message may include a description of the corresponding
+error code as returned by <strong>strerror</strong>(3). The error message buffer is
+thread-local; errors encountered in one thread do not affect its value in
+other threads. The buffer is never cleared by any library function; its
+content is significant only when the return value of the immediately preceding
+call to a <strong>libpmempool</strong> function indicated an error, or if <em>errno</em> was set.
+The application must not modify or free the error message string, but it may
+be modified by subsequent calls to other library functions.</p>
+<p>Two versions of <strong>libpmempool</strong> are typically available on a development
+system. The normal version, accessed when a program is linked using the
+<strong>-lpmempool</strong> option, is optimized for performance. That version skips checks
+that impact performance and never logs any trace information or performs any
+run-time assertions.</p>
+<p>A second version of <strong>libpmempool</strong>, accessed when a program uses the libraries
+under <strong>/pmdk/src/x64/Debug</strong>, contains run-time assertions and trace points. The
+typical way to access the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/pmdk/src/x64/Debug</strong>. Debugging output is
+controlled using the following environment variables. These variables have
+no effect on the non-debug version of the library.</p>
+<ul>
+<li><strong>PMEMPOOL_LOG_LEVEL</strong></li>
+</ul>
+<p>The value of <strong>PMEMPOOL_LOG_LEVEL</strong> enables trace points in the debug version
+of the library, as follows:</p>
+<ul>
+<li>
+<p><strong>0</strong> - This is the default level when <strong>PMEMPOOL_LOG_LEVEL</strong> is not set.
+No log messages are emitted at this level.</p>
+</li>
+<li>
+<p><strong>1</strong> - Additional details on any errors detected are logged (in addition
+to returning the <em>errno</em>-based errors as usual). The same information
+may be retrieved using <strong>pmempool_errormsgU</strong>()/<strong>pmempool_errormsgW</strong>().</p>
+</li>
+<li>
+<p><strong>2</strong> - A trace of basic operations is logged.</p>
+</li>
+<li>
+<p><strong>3</strong> - Enables a very verbose amount of function call tracing in the library.</p>
+</li>
+<li>
+<p><strong>4</strong> - Enables voluminous and fairly obscure tracing
+information that is likely only useful to the <strong>libpmempool</strong> developers.</p>
+</li>
+</ul>
+<p>Unless <strong>PMEMPOOL_LOG_FILE</strong> is set, debugging output is written to <em>stderr</em>.</p>
+<ul>
+<li><strong>PMEMPOOL_LOG_FILE</strong></li>
+</ul>
+<p>Specifies the name of a file where
+all logging information should be written. If the last character in the name
+is &ldquo;-&rdquo;, the <em>PID</em> of the current process will be appended to the file name when
+the log file is created. If <strong>PMEMPOOL_LOG_FILE</strong> is not set, output is
+written to <em>stderr</em>.</p>
+<h1 id=example>EXAMPLE</h1>
+<p>The following example illustrates how the <strong>libpmempool</strong> API is used.
+The program detects the type and checks consistency of given pool.
+If there are any issues detected, the pool is automatically repaired.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stddef.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdlib.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmempool.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>#define PATH &#34;./pmem-fs/myfile&#34;
+</span><span style=color:#75715e>#define CHECK_FLAGS (PMEMPOOL_CHECK_FORMAT_STR|PMEMPOOL_CHECK_REPAIR|\
+</span><span style=color:#75715e>                     PMEMPOOL_CHECK_VERBOSE)
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>int</span>
+<span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>int</span> argc, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>argv[])
+{
+	PMEMpoolcheck <span style=color:#f92672>*</span>ppc;
+	<span style=color:#66d9ef>struct</span> pmempool_check_statusU <span style=color:#f92672>*</span>status;
+	<span style=color:#66d9ef>enum</span> pmempool_check_result ret;
+
+	<span style=color:#75715e>/* arguments for check */</span>
+	<span style=color:#66d9ef>struct</span> pmempool_check_argsU args <span style=color:#f92672>=</span> {
+		.path		<span style=color:#f92672>=</span> PATH,
+		.backup_path	<span style=color:#f92672>=</span> NULL,
+		.pool_type	<span style=color:#f92672>=</span> PMEMPOOL_POOL_TYPE_DETECT,
+		.flags		<span style=color:#f92672>=</span> CHECK_FLAGS
+	};
+
+	<span style=color:#75715e>/* initialize check context */</span>
+	<span style=color:#66d9ef>if</span> ((ppc <span style=color:#f92672>=</span> pmempool_check_initU(<span style=color:#f92672>&amp;</span>args, <span style=color:#66d9ef>sizeof</span>(args))) <span style=color:#f92672>==</span> NULL) {
+		perror(<span style=color:#e6db74>&#34;pmempool_check_initU&#34;</span>);
+		exit(EXIT_FAILURE);
+	}
+
+	<span style=color:#75715e>/* perform check and repair, answer &#39;yes&#39; for each question */</span>
+	<span style=color:#66d9ef>while</span> ((status <span style=color:#f92672>=</span> pmempool_checkU(ppc)) <span style=color:#f92672>!=</span> NULL) {
+		<span style=color:#66d9ef>switch</span> (status<span style=color:#f92672>-&gt;</span>type) {
+		<span style=color:#66d9ef>case</span> PMEMPOOL_CHECK_MSG_TYPE_ERROR:
+			printf(<span style=color:#e6db74>&#34;%s</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, status<span style=color:#f92672>-&gt;</span>str.msg);
+			<span style=color:#66d9ef>break</span>;
+		<span style=color:#66d9ef>case</span> PMEMPOOL_CHECK_MSG_TYPE_INFO:
+			printf(<span style=color:#e6db74>&#34;%s</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, status<span style=color:#f92672>-&gt;</span>str.msg);
+			<span style=color:#66d9ef>break</span>;
+		<span style=color:#66d9ef>case</span> PMEMPOOL_CHECK_MSG_TYPE_QUESTION:
+			printf(<span style=color:#e6db74>&#34;%s</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, status<span style=color:#f92672>-&gt;</span>str.msg);
+			status<span style=color:#f92672>-&gt;</span>str.answer <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;yes&#34;</span>;
+			<span style=color:#66d9ef>break</span>;
+		<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+			pmempool_check_end(ppc);
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	<span style=color:#75715e>/* finalize the check and get the result */</span>
+	ret <span style=color:#f92672>=</span> pmempool_check_end(ppc);
+	<span style=color:#66d9ef>switch</span> (ret) {
+		<span style=color:#66d9ef>case</span> PMEMPOOL_CHECK_RESULT_CONSISTENT:
+		<span style=color:#66d9ef>case</span> PMEMPOOL_CHECK_RESULT_REPAIRED:
+			<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+		<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+			<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>;
+	}
+}
+</code></pre></div><p>See <a href=https://pmem.io/pmdk/libpmempool>https://pmem.io/pmdk/libpmempool</a> for more examples using the
+<strong>libpmempool</strong> API.</p>
+<h1 id=acknowledgements>ACKNOWLEDGEMENTS</h1>
+<p><strong>libpmempool</strong> builds on the persistent memory programming model
+recommended by the SNIA NVM Programming Technical Work Group:
+<a href=https://snia.org/nvmp>https://snia.org/nvmp</a></p>
+<h1 id=see-also>SEE ALSO</h1>
+<p><strong>dlclose</strong>(3), <strong>pmempool_check_init</strong>(3), <strong>pmempool_feature_query</strong>(3),
+<strong>pmempool_rm</strong>(3), <strong>pmempool_sync</strong>(3), <strong>strerror</strong>(3), <strong>libpmem</strong>(7),
+<strong>libpmemblk</strong>(7), <strong>libpmemlog</strong>(7), <strong>libpmemobj</strong>(7)**
+and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p>
+</div>
+</div>
+<div class=divider></div>
+<p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p>
+</div>
+</div>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

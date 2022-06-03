@@ -10,7 +10,7 @@ EXAMPLE
 DEFAULT CONFIGURATION
 PERSISTENCY METHODS
 SEE ALSO
-NAME rpmemd - librpmem target node process (EXPERIMENTAL)
+NAME rpmemd - librpmem target node process (DEPRECATED)
 SYNOPSIS $ rpmemd [--help] [--version] [<args>] DESCRIPTION The rpmemd process is executed on target node by librpmem(7) library over ssh(1) and facilitates access to persistent memory over RDMA. The rpmemd should not be run manually under normal conditions.
 OPTIONS Command line options overwrite the default rpmemd configuration, the global configuration file and the user configuration file.">
 <meta property="og:type" content="article">
@@ -316,7 +316,7 @@ OPTIONS Command line options overwrite the default rpmemd configuration, the glo
 <a href=#persistency-methods>PERSISTENCY METHODS</a><br>
 <a href=#see-also>SEE ALSO</a><br></p>
 <h1 id=name>NAME</h1>
-<p><strong>rpmemd</strong> - librpmem target node process (EXPERIMENTAL)</p>
+<p><strong>rpmemd</strong> - librpmem target node process (DEPRECATED)</p>
 <h1 id=synopsis>SYNOPSIS</h1>
 <pre tabindex=0><code>$ rpmemd [--help] [--version] [&lt;args&gt;]
 </code></pre><h1 id=description>DESCRIPTION</h1>
@@ -456,6 +456,10 @@ set is stored in the persistent memory <strong>rpmemd</strong> will use <strong>
 If the pool set is NOT stored in the persistent momory it will use
 <strong>pmem_msync</strong>(3).</p>
 <p>See <strong>pmem_persist</strong>(3) and <strong>pmem_msync</strong>(3) for more details.</p>
+<h1 id=note>NOTE</h1>
+<p>The <strong>librpmem</strong>(7) library and <strong>rpmemd</strong> is deprecated since PMDK 1.12 release.
+If you are interested in a remote persistent
+memory support please look at new library <strong>rpma</strong> <a href=https://github.com/pmem/rpma>https://github.com/pmem/rpma</a>.</p>
 <h1 id=see-also>SEE ALSO</h1>
 <p><strong>ssh</strong>(1), <strong>pmem_msync</strong>(3), <strong>pmem_persist</strong>(3),
 <strong>syslog</strong>(3), <strong>libpmem</strong>(7), <strong>libpmemobj</strong>(7),

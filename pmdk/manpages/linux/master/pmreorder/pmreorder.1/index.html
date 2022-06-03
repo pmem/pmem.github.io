@@ -337,34 +337,33 @@ possible in test workloads.</p>
 <h1 id=options>OPTIONS</h1>
 <p><code>-h, --help</code></p>
 <p>Prints synopsis and list of options.</p>
-<p><code>-l &lt;store_log>, --logfile &lt;store_log></code></p>
+<p><code>-l, --logfile &lt;store_log></code></p>
 <p>The pmemcheck log file to process.</p>
-<p><code>-c &lt;prog|lib>, --checker &lt;prog|lib></code></p>
+<p><code>-c, --checker &lt;prog|lib></code></p>
 <p>Consistency checker type.</p>
-<p><code>-p &lt;path>, --path &lt;path></code></p>
-<p>Path to the consistency checker. Checker function has to return 0 for consistent cases and 1 otherwise.</p>
-<p><code>-n &lt;name>, --name &lt;name></code></p>
-<p>The symbol name of the consistency checking function
-in the library. Valid only if the checker type is <code>lib</code>.</p>
-<p><code>-o &lt;pmreorder_output>, --output &lt;pmreorder_output></code></p>
+<p><code>-p, --path &lt;path></code></p>
+<p>Path to the consistency checker.
+If the checker type is <code>prog</code> - given program <strong>has to take a file name as
+the last parameter</strong> and the program has to return 0 for consistent cases
+and 1 otherwise.
+If the checker type is <code>lib</code> - <code>--name</code> parameter is required.</p>
+<p><code>-n, --name &lt;name></code></p>
+<p>The symbol name of the consistency checking function in the library.
+The function <strong>has to take a file name as the only parameter</strong> and it
+has to return 0 for consistent cases and 1 otherwise.
+This parameter is required only if the checker type is <code>lib</code>.</p>
+<p><code>-o, --output &lt;pmreorder_output></code></p>
 <p>Set the logger output file.</p>
-<p><code>-e &lt;debug|info|warning|error|critical>,</code></p>
-<p><code> --output-level &lt;debug|info|warning|error|critical></code></p>
+<p><code>-e, --output-level &lt;debug|info|warning|error|critical></code></p>
 <p>Set the output log level.</p>
-<p><code>-r &lt;NoReorderNoCheck|</code></p>
-<p><code> NoReorderDoCheck|</code></p>
-<p><code> ReorderFull|</code></p>
-<p><code> ReorderPartial|</code></p>
-<p><code> ReorderAccumulative|</code></p>
-<p><code> ReorderReverseAccumulative>,</code></p>
-<p><code>--default-engine &lt;NoReorderNoCheck|</code></p>
-<p><code> NoReorderDoCheck|</code></p>
-<p><code> ReorderFull|</code></p>
-<p><code> ReorderPartial|</code></p>
-<p><code> ReorderAccumulative|</code></p>
-<p><code> ReorderReverseAccumulative></code></p>
+<p><code>-r, --default-engine &lt;NoReorderNoCheck |</code>
+<code>NoReorderDoCheck |</code>
+<code>ReorderFull |</code>
+<code>ReorderPartial |</code>
+<code>ReorderAccumulative |</code>
+<code>ReorderReverseAccumulative></code></p>
 <p>Set the initial reorder engine. Default value is <code>NoReorderNoCheck</code>.</p>
-<p><code>-x &lt;cli_macros|config_file>, --extended-macros &lt;cli_macros|config_file></code></p>
+<p><code>-x, --extended-macros &lt;cli_macros|config_file></code></p>
 <p>Assign an engine types to the defined marker.</p>
 <p><code>-v, --version</code></p>
 <p>Prints current version of pmreorder.</p>
@@ -599,7 +598,7 @@ To enable API macros logging set environment variable:</p>
 		-o pmreorder_out.log \
 		-c prog \
 		-x PMREORDER_MARKER_NAME=ReorderPartial \
-		-p checker_binary checker_parameter
+		-p checker_binary checker_parameter(s)
 </code></pre><p>Checker binary will be used to run consistency checks on
 &ldquo;store_log.log&rdquo;, output of pmemcheck tool. Any inconsistent
 stores found during <strong>pmreorder</strong> analysis will be logged
