@@ -8,8 +8,8 @@ title: "libpmem2 | PMDK"
 header: "pmem2 API version 1.0"
 ---
 
-[comment]: <> (SPDX-License-Identifier: BSD-3-Clause
-[comment]: <> (Copyright 2020, Intel Corporation)
+[comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
+[comment]: <> (Copyright 2020-2021, Intel Corporation)
 
 [comment]: <> (libpmem2_unsafe_shutdown.7 -- man page for libpmem2 unsafe shutdown)
 
@@ -25,8 +25,8 @@ header: "pmem2 API version 1.0"
 # DESCRIPTION #
 
 In systems with the persistent memory support, *a power-fail protected domain*
-covers a set of resources from which the platform will flush data to the
-*a persistent medium* in case of *a power-failure*. Data stored on
+covers a set of resources from which the platform will flush data to
+*the persistent medium* in case of *a power-failure*. Data stored on
 *the persistent medium* is preserved across power cycles.
 
 The hardware guarantees the feature to flush all data stored in
