@@ -302,6 +302,36 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-7-synchronization-primitives/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 7) - synchronization primitives"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-7-synchronization-primitives/>C++ bindings for libpmemobj (part 7) - synchronization primitives</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> May 31, 2016</li>
+<li><i class=icon-user></i>Tomaszkapela</li>
+<li>
+<i class=icon-folder-open></i>
+Libpmemobj
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>To finish off the C++ bindings to libpmemobj blog marathon, I will introduce to you the synchronization mechanisms we implemented. They are mostly C++11-like implementations of different kinds of mutexes and the condition variable. They satisfy their respective concepts (Mutex, SharedMutex and so …</p>
+<a href=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-7-synchronization-primitives/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-6-transactions/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 6) - transactions"></a>
 </div>
 </div>
@@ -417,36 +447,6 @@ Fragmentation
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/ data-lightbox=image><img src=/images/pmem_logo.png alt="How to emulate Persistent Memory"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/>How to emulate Persistent Memory</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Feb 22, 2016</li>
-<li><i class=icon-user></i>Maciej Maciejewski</li>
-<li>
-<i class=icon-folder-open></i>
-Pmem_emulation
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>Data allocated with PMDK is put to the virtual memory address space, and concrete ranges are relying on result of mmap(2) operation performed on the user defined files. Such files can exist on any storage media, however data consistency assurance embedded within PMDK requires frequent …</p>
-<a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -474,7 +474,7 @@ Pmem_emulation
 <a href=/blog/page/12/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
 </li>
 <li class=page-item>
-<a href=/blog/page/17/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
+<a href=/blog/page/18/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
 </li>
 </ul></div>
 </div>
@@ -521,6 +521,7 @@ Pmem_emulation
 <h4 class="fw-normal mt-2"><a href=/blogs/pool_features/ class=text-capitalize>pool_features (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/replication/ class=text-capitalize>replication (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/report/ class=text-capitalize>report (4)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/similaritysearch/ class=text-capitalize>similaritysearch (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/tieredmemdb/ class=text-capitalize>tieredmemdb (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/translation/ class=text-capitalize>translation (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/vmem/ class=text-capitalize>vmem (1)</a></h4>
@@ -533,8 +534,8 @@ Pmem_emulation
 <div class="widget clearfix">
 <h4>Tag Cloud</h4>
 <div class=tagcloud>
-<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
 <a href=/tags/pmem class=block role=button>pmem</a>
+<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
 <a href=/tags/pmdk class=block role=button>pmdk</a>

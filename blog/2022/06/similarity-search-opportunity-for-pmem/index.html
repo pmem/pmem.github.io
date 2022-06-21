@@ -1,0 +1,675 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="Similarity Search - opportunity for PMEM">
+<meta property="og:description" content="An overview of similarity search with focus on opportunities for PMEM">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/"><meta property="article:section" content="blog">
+<meta property="article:published_time" content="2022-06-21T00:00:00+02:00">
+<meta property="article:modified_time" content="2022-06-21T00:00:00+02:00">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Similarity Search - opportunity for PMEM</title>
+<meta name=author content="PMem.io">
+<meta name=description content="An overview of similarity search with focus on opportunities for PMEM">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Similarity Search - opportunity for PMEM</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 21 Jun, 2022</li>
+<li><i class=icon-user></i> Maciej Paczocha</li>
+<li>
+<i class=icon-folder-open></i>
+SimilaritySearch
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<p>At a high level, computing solves problems. These problems, even though
+different and individual, are sometimes somehow related. A new algorithmic
+challenge can usually be solved by bringing it down to a well-defined problem
+with an existing solution. Today, we will be talking about one of such
+universal solutions - similarity search, which has found its application
+in various areas of life, from search engines that tell us what we want
+to find, through recommendation engines that tell us what to watch, where
+to eat and what to buy, all the way to data science that provides valuable
+input to business decisions.</p>
+<h3 id=similarity-search---what-is-it>Similarity Search - what is it?</h3>
+<p>Vector similarity search is a class of problems in which, given a query vector,
+a set of vectors and a metric (instruction how to measure distance), we need
+to retrieve the most similar vector to the query vector from the set.
+By similar, I mean - the one that has the shortest distance to the query vector
+in the given metrics.</p>
+<h3 id=why-do-we-need-it>Why do we need it?</h3>
+<p>We&rsquo;ve already defined what the class of problems is and what the areas of
+application are, but how do they relate to each other? The answer is, we can
+use vectors to represent things. A vector can be used to represent someone&rsquo;s
+social network profile, a word, an item in an online shop, an online article,
+a photo or virtually anything else we can think of. Also, the distance between
+two vectors, in general case, is not constrained to some particular metrics,
+e.g. euclidean (the one we use to compute distance in the real world). If we
+come up with an idea on how to measure a distance between a donkey and
+the sound of scratching a blackboard, it&rsquo;s good enough for the algorithm.
+And what about finding similar things? We often look for similar items
+in online shops, similar movies to the ones we watched, search for similar
+food&mldr; Nonetheless, it would be a huge understatement to say that
+similarity search can only be applied to areas where we directly search
+for similar things; it constitutes a building block for many other mathematical
+problems, with many more real-life applications.</p>
+<p>I think it&rsquo;s clearly visible that this solution is important and has a vast
+array of different applications.</p>
+<h3 id=computational-complexity-at-scale>Computational complexity at scale</h3>
+<p>OK, so what&rsquo;s the big deal? Every computer science student knows how to code
+an efficient solution to this problem in a couple of minutes. We can just check
+all items in the given set and select the best fit, in linear time per query.
+The thing is, linear time is sometimes not enough. What if a single vector has
+a couple of kilobytes, the set of vectors takes up several terabytes and our
+system requires to query thousands of items per second? This is not as abstract
+as it may seem. Large e-commerce stores, search engines that look for similar
+images or large-scale recommendation systems might not be far away from these
+figures.</p>
+<h3 id=approximate-nearest-neighbor>Approximate Nearest Neighbor</h3>
+<p>It turns out that, if we sacrifice accuracy, we can get the complexity down
+to O(log(n)). Today, we will focus on one particular algorithm:
+<a href=https://arxiv.org/abs/1603.09320>Hierarchical Navigable Small World</a> (HNSW)
+and on how we can leverage PMEM to achieve better TCO (Total Cost of Ownership)
+of a server machine that runs this algorithm.</p>
+<h4 id=hierarchical-navigable-small-world---concept-behind-the-algorithm>Hierarchical Navigable Small World - concept behind the algorithm</h4>
+<p>Let&rsquo;s show the concept as an allegory to a database where, in order to quickly
+retrieve elements, data structures such as indexes are used. Imagine that we
+have an unsorted table of entries and we want to quickly retrieve some
+elements, in logarithmic time. We can do that by creating a (sorted by the
+column of interest, binary tree-based) set of pointers to rows; now, whenever
+we have a query to process, we can just retrieve the corresponding element(s)
+from the set, which should take O(log(N)) time (or O(log(N)+M) if we want to
+retrieve M consecutive elements). Can we implement such index in our case? The
+problem is, we can really only sort scalars this way - basically, a reduced 1D
+vector. We can, however, create a graph-based helper structure that can,
+depending on its size, retrieve the most similar vector with some
+precision-recall/latency trade-off.</p>
+<p>First of all, let&rsquo;s try to spatially imagine the data structure. We can
+describe the data structure as a multi-layered graph, where each layer
+lies on a plane. Each node on a plane is connected to N closest nodes and each
+node in a layer is also a node in a lower layer; every lower layer contains
+more elements than the layer above, preferably using some ratio (e.g. +50%).</p>
+<p><img src=/images/posts/hnsw_illustration.png alt="An illustration of two iterations on HNSW graph structure, an iteration for top layer n and for bottom layer n+1" title="HNSW - an iteration in top layer n and in bottom layer n+1"></p>
+<p>How do we traverse such a data structure? Given a query vector V, we:</p>
+<ol>
+<li>Start at a node in the top layer</li>
+<li>Find a local minimum in a greedy way within the current layer and select it</li>
+<li>Are we in the lowest layer? If not, descend one layer down and jump to point 2.</li>
+<li>Congratulations, we have retrieved the nearest neighbor of V! Or have we?</li>
+</ol>
+<p>For a short recap, how to find a local minimum on a single layer:</p>
+<ol>
+<li>Check distance to all directly connected nodes in the same layer</li>
+<li>Find the closest node</li>
+<li>Is this node closer to V than our current node? If yes, select that node
+and jump to point 2</li>
+<li>We have reached a local minimum, search on this layer is done</li>
+</ol>
+<p>As I&rsquo;ve already mentioned, this is an approximate solution - the node that we
+found using this greedy approach might not be the nearest neighbor but,
+oftentimes, this is not really that much of a problem.</p>
+<p>There are other questions that might appear - what about the graph structure?
+How many layers should it have? How many nodes should each layer contain? They
+are very important, as the exact values will impact the trade-off between
+performance and accuracy, but the topic of graph optimization lies outside of
+the scope of this article.</p>
+<h3 id=why-is-optane-a-great-fit>Why is Optane a great fit?</h3>
+<p>We now know how to retrieve the vectors of interest in logarithmic time, so
+wouldn&rsquo;t this algorithm work well, even without Optane? The answer is,
+it would. The original paper does not mention storage media other than &ldquo;RAM&rdquo;,
+but we can use Optane products to lower the cost.</p>
+<p>As we&rsquo;ve already mentioned, we have a layered graph that we have to traverse.
+We can make a few observations:</p>
+<ul>
+<li>each layer would have nodes with different access frequency,</li>
+<li>the access frequency in a layer should be uniform, given that we uniformly
+query all vectors,</li>
+<li>given two layers - top and bottom, the nodes in the top one would have higher
+access frequency than the ones below.</li>
+</ul>
+<p><img src=/images/posts/hnsw_dram_pmem.png alt="An illustration of sample HNSW layers and their split between DRAM-PMEM" title="Sample layers and their split between DRAM-PMEM"></p>
+<p>In short, all the nodes are already grouped by their access frequency. As you
+might have guessed, storing the not-so-frequently accessed nodes on a cheaper
+medium with higher latency would not hurt the performance that much, while
+allocating just a little bit of the most performant memory to the top layers
+can give us a significant performance boost. This is where the Optane
+technology comes in - a byte-addressable, sweet spot between destined for the
+top layers DRAM and slow SSD-based storage.</p>
+<p>Moreover, from the developer point of view, the accesses to nodes are virtually
+random; in such case, it&rsquo;s not just the higher bandwidth and lower latency that
+gives us an edge over SSDs, but also the byte-addressability and smaller
+overhead of fetching small chunks of memory.</p>
+<p>Another great advantage of this solution is the consistency of lookup time -
+each lookup needs to traverse through both DRAM and PMEM in rather consistent
+proportions, which is much better than having random buffered/unbuffered SSD
+accesses.</p>
+<p>Using Optane hardware is the approach taken by the University of California,
+Merced and Microsoft Research in
+<a href=https://proceedings.neurips.cc/paper/2020/file/788d986905533aba051261497ecffcbb-Paper.pdf>HM-ANN: Efficient Billion-Point Nearest Neighbor Search on Heterogeneous Memory</a>.
+In that particular case, only the elements stored entirely in the lowest layer
+were allocated to PMEM.</p>
+<p>What about other storage types, such as SSD and HDD? The common practice is to
+either perform all calculations in DRAM which, if possible, is costly or to use
+SSDs, which incurs some performance penalty. In short yes, SSDs can be used for
+scaling similarity search algorithms and
+<a href=https://proceedings.neurips.cc/paper/2021/file/299dc35e747eb77177d9cea10a802da2-Paper.pdf>some</a>
+of the solutions are among state-of-the-art. In fact, many algorithms destined
+for SSDs can be adapted for PMEM in order to take advantage of the lower
+latency. On the other hand, given that
+<a href=https://en.wikipedia.org/wiki/Hard_disk_drive_performance_characteristics#Seek_time>HDDs have to physically move a mechanical part for each random access</a>
+and the data access pattern - random reads of very small chunks of memory, HDDs
+perform especially poor.</p>
+<p>Nonetheless, a question arises - how many layers should be placed on DRAM, how
+many on PMEM? Again - this should be configured accordingly to the SLA that has
+to be met and can be considered a part of graph optimization, which is a topic
+for another article.</p>
+<h3 id=is-hnsw-the-state-of-the-art-solution>Is HNSW the state-of-the-art solution?</h3>
+<p>The algorithm was used to present a concept behind graph-based similarity
+search and the opportunities for Optane that come with it, so describing
+state-of-the-art solution was not the goal of this article. The research
+in this area is still in progress, especially given a variety of hardware
+that can be leveraged to increase throughput or lower TCO.</p>
+<p>Also, the topic of this article was not to present a particular PMEM-enabled
+implementation of HNSW or any other algorithm, but rather to show how the
+properties of PMEM can be leveraged. We will be happy to describe a particular
+implementation once we have an official, open-source library destined for PMEM
+in particular.</p>
+<p>What is noteworthy, HNSW is not the only algorithm adapted to work with
+heterogeneous memory. Other algorithms, such as
+<a href=https://proceedings.neurips.cc/paper/2019/file/09853c7fb1d3f8ee67a61b6bf4a7f8e6-Paper.pdf>DiskANN</a>
+or <a href=https://proceedings.neurips.cc/paper/2021/file/299dc35e747eb77177d9cea10a802da2-Paper.pdf>SPANN</a>,
+take slightly different approaches to the problem and leverage heterogeneity
+differently. The former compresses vectors and keeps them in DRAM, while the
+graph and full vectors are stored in a slow memory tier. The latter clusters
+vectors and holds centroids in DRAM and uses SSD storage to keep full posting
+lists. It shows that heterogeneous memory, in general, is the key to optimizing
+costs in similarity search.</p>
+<h3 id=billion-scale-approximate-nearest-neighbor-search-challenge>Billion-Scale Approximate Nearest Neighbor Search Challenge</h3>
+<p>As similarity search is a crucial area of research for numerous practical
+applications,
+<a href=https://big-ann-benchmarks.com/>Billion-Scale Approximate Nearest Neighbor Search Challenge</a>
+was organized as a part of
+<a href=https://neurips.cc/Conferences/2021/CompetitionTrack>NeurIPS 2021 Competition Track</a>.
+Intel, with its OptaNNE GraphANN solution, was announced as
+<a href=https://arxiv.org/pdf/2205.03763.pdf>a co-winner of the track 3</a> of the
+competition. The solution encompassed both, graph-based software and PMEM
+hardware. Intel&rsquo;s solution performed especially well in the TCO
+category - total cost to horizontally replicate a system to serve 100 000
+requests per second, with the cost being almost 20 times lower than that of
+the second-best solution, CUANNS IVFPQ, for the BIGANN and DEEP data sets
+(DEEP: 16.1 vs 303.9, BIGANN: 15.4 vs 304.2).</p>
+<style>table,th,td{border:1px solid;padding-right:10pt;padding-left:10pt}</style>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Algorithm</th>
+<th style=text-align:right>DEEP</th>
+<th style=text-align:right>BIGANN</th>
+<th style=text-align:right>MS Turing</th>
+<th style=text-align:right>MS SpaceV</th>
+<th style=text-align:right>Text-to-image</th>
+<th style=text-align:right>SSN++</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>baseline</td>
+<td style=text-align:right>545.6</td>
+<td style=text-align:right>737.9</td>
+<td style=text-align:right>853.9</td>
+<td style=text-align:right>735.9</td>
+<td style=text-align:right>1272.7</td>
+<td style=text-align:right>428.1</td>
+</tr>
+<tr>
+<td style=text-align:left>OptaNNE GraphANN</td>
+<td style=text-align:right>16.1</td>
+<td style=text-align:right>15.4</td>
+<td style=text-align:right>16.3</td>
+<td style=text-align:right>16.4</td>
+<td style=text-align:right>103.6</td>
+<td style=text-align:right>-</td>
+</tr>
+<tr>
+<td style=text-align:left>CUANNS IVFPQ</td>
+<td style=text-align:right>303.9</td>
+<td style=text-align:right>304.2</td>
+<td style=text-align:right>153.2</td>
+<td style=text-align:right>153.2</td>
+<td style=text-align:right>916.8</td>
+<td style=text-align:right>-</td>
+</tr>
+<tr>
+<td style=text-align:left>CUANNS MultiGPU</td>
+<td style=text-align:right>569.1</td>
+<td style=text-align:right>569.2</td>
+<td style=text-align:right>286.9</td>
+<td style=text-align:right>398.2</td>
+<td style=text-align:right>1213.8</td>
+<td style=text-align:right>629.4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>Total cost to horizontally replicate a system to serve 100 000 queries per second</em></p>
+</blockquote>
+<p>Please consult <a href=https://arxiv.org/pdf/2205.03763.pdf>the official results</a> for
+the exact figures for all categories and data sets, as only selected results
+that showed the benefits of PMEM were presented here.</p>
+<h4 id=is-the-optanne-graphann-library-open-source>Is the OptaNNE GraphANN library open-source?</h4>
+<p>As of June 13, 2022, it is not. We will keep you informed about any possible updates.</p>
+<div class="tagcloud clearfix bottommargin">
+<a href=https://pmem.io/tags/pmem>pmem</a>
+<a href=https://pmem.io/tags/similarity-search>similarity search</a>
+<a href=https://pmem.io/tags/research>research</a>
+<a href=https://pmem.io/tags/pmem-use-case>pmem use case</a>
+</div>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Similarity Search - opportunity for PMEM&url=https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/?ref=footer">Basic asynchronous hashmap... &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/pmem class=block role=button>pmem</a>
+<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
+<a href=/tags/ndctl class=block role=button>ndctl</a>
+<a href=/tags/daxctl class=block role=button>daxctl</a>
+<a href=/tags/pmdk class=block role=button>pmdk</a>
+<a href=/tags/async class=block role=button>async</a>
+<a href=/tags/asynchronous class=block role=button>asynchronous</a>
+<a href=/tags/concurrency class=block role=button>concurrency</a>
+<a href=/tags/configure class=block role=button>configure</a>
+<a href=/tags/dax class=block role=button>dax</a>
+<a href=/tags/install class=block role=button>install</a>
+<a href=/tags/miniasync class=block role=button>miniasync</a>
+<a href=/tags/setup class=block role=button>setup</a>
+<a href=/tags/dml class=block role=button>dml</a>
+<a href=/tags/dsa class=block role=button>dsa</a>
+<a href=/tags/faq class=block role=button>faq</a>
+<a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/pmem2 class=block role=button>pmem2</a>
+<a href=/tags/sanitize class=block role=button>sanitize</a>
+<a href=/tags/secure-erase class=block role=button>secure-erase</a>
+<a href=/tags/sql class=block role=button>sql</a>
+<a href=/tags/2019 class=block role=button>2019</a>
+<a href=/tags/blogs class=block role=button>blogs</a>
+<a href=/tags/crash class=block role=button>crash</a>
+<a href=/tags/create class=block role=button>create</a>
+<a href=/tags/cxl class=block role=button>cxl</a>
+<a href=/tags/database class=block role=button>database</a>
+<a href=/tags/destroy class=block role=button>destroy</a>
+<a href=/tags/developer class=block role=button>developer</a>
+<a href=/tags/direct-access class=block role=button>direct-access</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>

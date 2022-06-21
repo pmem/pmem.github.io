@@ -302,6 +302,37 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2015/09/kv-store-improved-measured/ data-lightbox=image><img src=/images/pmem_logo.png alt="KV-store improved & measured"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2015/09/kv-store-improved-measured/>KV-store improved & measured</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> Sep 10, 2015</li>
+<li><i class=icon-user></i>Pbalcer</li>
+<li>
+<i class=icon-folder-open></i>
+Kvstore
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>As promised in the previous post about the kv-store implementation I’m back with new results after implementing the optimizations I devised a month ago. As a bonus I implemented a red-black tree to have a fair comparison between two data structures that allocate similar number of nodes.
+tl;dr: …</p>
+<a href=https://pmem.io/blog/2015/09/kv-store-improved-measured/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2015/07/transactional-key-value-store-using-libpmemobj-diy/ data-lightbox=image><img src=/images/pmem_logo.png alt="Transactional key-value store using libpmemobj - DIY"></a>
 </div>
 </div>
@@ -417,36 +448,6 @@ Libpmemobj
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-5-atomic-dynamic-memory-allocation/ data-lightbox=image><img src=/images/pmem_logo.png alt="An introduction to pmemobj (part 5) - atomic dynamic memory allocation"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-5-atomic-dynamic-memory-allocation/>An introduction to pmemobj (part 5) - atomic dynamic memory allocation</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Jun 18, 2015</li>
-<li><i class=icon-user></i>Pbalcer</li>
-<li>
-<i class=icon-folder-open></i>
-Libpmemobj
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>In the previous post I talked about using transactions for allocating new objects, which is fine and is the most similar approach to the standard POSIX way. But it does add an overhead of maintaining an undo log of changes. A more optimal memory management can be achieved using the non-transactional …</p>
-<a href=https://pmem.io/blog/2015/06/an-introduction-to-pmemobj-part-5-atomic-dynamic-memory-allocation/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -474,7 +475,7 @@ Libpmemobj
 <a href=/blog/page/15/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
 </li>
 <li class=page-item>
-<a href=/blog/page/17/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
+<a href=/blog/page/18/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
 </li>
 </ul></div>
 </div>
@@ -521,6 +522,7 @@ Libpmemobj
 <h4 class="fw-normal mt-2"><a href=/blogs/pool_features/ class=text-capitalize>pool_features (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/replication/ class=text-capitalize>replication (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/report/ class=text-capitalize>report (4)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/similaritysearch/ class=text-capitalize>similaritysearch (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/tieredmemdb/ class=text-capitalize>tieredmemdb (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/translation/ class=text-capitalize>translation (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/vmem/ class=text-capitalize>vmem (1)</a></h4>
@@ -533,8 +535,8 @@ Libpmemobj
 <div class="widget clearfix">
 <h4>Tag Cloud</h4>
 <div class=tagcloud>
-<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
 <a href=/tags/pmem class=block role=button>pmem</a>
+<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
 <a href=/tags/pmdk class=block role=button>pmdk</a>
