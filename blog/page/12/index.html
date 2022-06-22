@@ -302,6 +302,36 @@
 <div class="grid-inner row g-0">
 <div class=col-md-4>
 <div class=entry-image>
+<a href=https://pmem.io/blog/2016/02/persistent-allocator-design-fragmentation/ data-lightbox=image><img src=/images/pmem_logo.png alt="Persistent allocator design - fragmentation"></a>
+</div>
+</div>
+<div class="col-md-8 ps-md-4">
+<div class="entry-title title-sm">
+<h2><a href=https://pmem.io/blog/2016/02/persistent-allocator-design-fragmentation/>Persistent allocator design - fragmentation</a></h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> Feb 25, 2016</li>
+<li><i class=icon-user></i>Pbalcer</li>
+<li>
+<i class=icon-folder-open></i>
+Fragmentation
+</li>
+</ul>
+</div>
+<div class=entry-content>
+<p>Implementing a memory allocator is a balance between numerous properties with the two most important being time and space constraints. Making the malloc/free routines reasonably fast is a must for the implementation to be considered usable at all. The algorithm also mustn’t waste excessive …</p>
+<a href=https://pmem.io/blog/2016/02/persistent-allocator-design-fragmentation/ class=more-link>Read More</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=posts class="row grid-container gutter-40">
+<div class="entry col-12">
+<div class="grid-inner row g-0">
+<div class=col-md-4>
+<div class=entry-image>
 <a href=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/ data-lightbox=image><img src=/images/pmem_logo.png alt="How to emulate Persistent Memory"></a>
 </div>
 </div>
@@ -418,37 +448,6 @@ pmem::obj::persistent_ptr Almost everyone who ever touched a C++ code knows the 
 </div>
 </div>
 </div>
-<div id=posts class="row grid-container gutter-40">
-<div class="entry col-12">
-<div class="grid-inner row g-0">
-<div class=col-md-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-3-persistent-queue-example/ data-lightbox=image><img src=/images/pmem_logo.png alt="C++ bindings for libpmemobj (part 3) - persistent queue example"></a>
-</div>
-</div>
-<div class="col-md-8 ps-md-4">
-<div class="entry-title title-sm">
-<h2><a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-3-persistent-queue-example/>C++ bindings for libpmemobj (part 3) - persistent queue example</a></h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> Jan 12, 2016</li>
-<li><i class=icon-user></i>Pbalcer</li>
-<li>
-<i class=icon-folder-open></i>
-Libpmemobj
-</li>
-</ul>
-</div>
-<div class=entry-content>
-<p>The best way to learn to code is usually by implementing an example. We are going to be creating a linked-list based queue data structure using the the pmem::obj::p and pmem::obj::persistent_ptr classes and libpmemobj C API. But first, a little bit of CS 101 :)
-Linked-list queue Queue is a …</p>
-<a href=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-3-persistent-queue-example/ class=more-link>Read More</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="col-12 mt-4">
 <ul class="pagination pagination-default">
 <li class=page-item>
@@ -511,7 +510,7 @@ Linked-list queue Queue is a …</p>
 <h4 class="fw-normal mt-2"><a href=/blogs/mysql/ class=text-capitalize>mysql (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/perf300/ class=text-capitalize>perf300 (2)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/performance/ class=text-capitalize>performance (1)</a></h4>
-<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (11)</a></h4>
+<h4 class="fw-normal mt-2"><a href=/blogs/pmdk/ class=text-capitalize>pmdk (12)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem/ class=text-capitalize>pmem (4)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem.io/ class=text-capitalize>pmem.io (1)</a></h4>
 <h4 class="fw-normal mt-2"><a href=/blogs/pmem_emulation/ class=text-capitalize>pmem_emulation (1)</a></h4>
@@ -553,6 +552,7 @@ Linked-list queue Queue is a …</p>
 <a href=/tags/dsa class=block role=button>dsa</a>
 <a href=/tags/faq class=block role=button>faq</a>
 <a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/memkind class=block role=button>memkind</a>
 <a href=/tags/pmem2 class=block role=button>pmem2</a>
 <a href=/tags/sanitize class=block role=button>sanitize</a>
 <a href=/tags/secure-erase class=block role=button>secure-erase</a>
@@ -565,7 +565,6 @@ Linked-list queue Queue is a …</p>
 <a href=/tags/database class=block role=button>database</a>
 <a href=/tags/destroy class=block role=button>destroy</a>
 <a href=/tags/developer class=block role=button>developer</a>
-<a href=/tags/direct-access class=block role=button>direct-access</a>
 </div>
 </div>
 </div>
