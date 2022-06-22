@@ -236,7 +236,10 @@ hardware. Intel's solution performed especially well in the TCO
 category - total cost to horizontally replicate a system to serve 100 000
 requests per second, with the cost being almost 20 times lower than that of
 the second-best solution, CUANNS IVFPQ, for the BIGANN and DEEP data sets
-(DEEP: 16.1 vs 303.9, BIGANN: 15.4 vs 304.2).
+(DEEP: 16.1 vs 303.9, BIGANN: 15.4 vs 304.2). GraphANN is an adaptation of
+DiskANN to PMEM. The competition and its results are described in more details
+on
+[the official Intel website](https://www.intel.com/content/www/us/en/developer/articles/technical/winning-neurips-billion-scale-ann-search-challenge.html#gs.490bkd).
 
 <style>
 table, th, td {
