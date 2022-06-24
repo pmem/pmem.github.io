@@ -98,7 +98,7 @@
 {{ end }} {{ end }}
 
 <!-- events -->
-{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.community_event.enable }} {{ with $data.community.community_event }}
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.community.event.enable }} {{ with $data.community.event }}
 <div class="section m-0 event-wrapper border-top dark-mode">
   <div class="container position-relative">
     <div class="heading-block border-bottom-0 center">
@@ -106,7 +106,7 @@
       <p>{{ .content | markdownify }}</p>
     </div>
 
-    <div id="portfolio" class="portfolio row grid-container gutter-20">{{ range first 3 (where site.RegularPages "Type" "community_event")}} {{ .Render "event" }} {{ end }}</div>
+    <div id="portfolio" class="portfolio row grid-container gutter-20">{{ range first 3 (where site.RegularPages "Type" "event")}} {{ .Render "event" }} {{ end }}</div>
     <a href="{{ .button.link | absLangURL }}" class="nott ls0 position-absolute end-0 pmem-color">{{ .button.label }} <i class="icon-angle-right"></i></a>
   </div>
 </div>
