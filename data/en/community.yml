@@ -49,7 +49,7 @@ connected_section_2:
   image: '/images/Community_forum.png'
 
 ################################# Events #####################################
-community_event:
+event:
   enable: true
   title: 'Events'
   content: "Events are a great way to meet with peers and experts across a variety of industry sectors. Find out what’s hot and share what you are doing. Join us in-person or virtually at our flagship Summit events, Developer Days, industry-led conferences, attend one of the virtual meetups, or join a workshop for some hands-on fun. If you know of a persistent memory event that isn't listed here, <a href='https://github.com/pmem/pmem.github.io/issues'>please let us know</a>."
