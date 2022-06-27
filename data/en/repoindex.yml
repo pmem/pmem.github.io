@@ -35,9 +35,9 @@ card_groups:
                     <li>libpmemobj</li>
                     <li>libpmemblk</li>
                     <li>libpmemlog</li>
-                    <li>librpmem</li>
                     <li>libpmempool</li>
                     <li>libpmemset (in development)</li>
+                    <li><s>librpmem</s></li>
                     <li>pmempool utility</li>
                     <li>Core PMDK C examples</li>
                     <li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)</li>
@@ -74,7 +74,17 @@ card_groups:
                   content: "<a href=\"https://github.com/pmem/miniasync\">miniasync</a>"
                 cell2:
                   content: "C low-level concurrency library for asynchronous functions"
+                cell3:
+                  content: "<a href=\"../miniasync\">pmem.io/miniasync</a>"
             row6:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemstream\">pmemstream</a>"
+                cell2:
+                  content: "Logging data structure (with stream-like access to data)"
+                cell3:
+                  content: "<a href=\"../pmemstream\">pmem.io/pmemstream</a>"
+            row7:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv\">pmemkv</a>"
@@ -82,7 +92,7 @@ card_groups:
                   content: "Transactional Key-Value Store: Top-Level C & C++ API"
                 cell3:
                   content: "<a href=\"../pmemkv\">pmem.io/pmemkv</a>"
-            row6:
+            row8:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-bench\">pmemkv-bench</a>"
@@ -90,7 +100,7 @@ card_groups:
                   content: "Benchmarks for pmemkv"
                 cell3:
                   content: "-"
-            row7:
+            row9:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-python\">pmemkv-python</a>"
@@ -98,23 +108,7 @@ card_groups:
                   content: "Python bindings for pmemkv"
                 cell3:
                   content: "<a href=\"../pmemkv-python\">pmem.io/pmemkv-python</a>"
-            row8:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
-                cell2:
-                  content: "NodeJS bindings for pmemkv"
-                cell3:
-                  content: "<a href=\"../pmemkv-nodejs\">pmem.io/pmemkv-nodejs</a>"
-            row9:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
-                cell2:
-                  content: "Ruby bindings for pmemkv"
-                cell3:
-                  content: "<a href=\"../pmemkv-ruby\">pmem.io/pmemkv-ruby</a>"
-            rowA1:
+            rowA:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmemkv-java\">pmemkv-java</a>"
@@ -122,7 +116,23 @@ card_groups:
                   content: "Java bindings for pmemkv"
                 cell3:
                   content: "<a href=\"../pmemkv-java\">pmem.io/pmemkv-java</a>"
+            rowA1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
+                cell2:
+                  content: "NodeJS bindings for pmemkv"
+                cell3:
+                  content: "<a href=\"../pmemkv-nodejs\">pmem.io/pmemkv-nodejs</a>"
             rowA2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
+                cell2:
+                  content: "Ruby bindings for pmemkv"
+                cell3:
+                  content: "<a href=\"../pmemkv-ruby\">pmem.io/pmemkv-ruby</a>"
+            rowA3:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/pmdk-convert\">pmdk-convert</a>"
@@ -130,7 +140,7 @@ card_groups:
                   content: "Conversion tool for PMDK pools"
                 cell3:
                   content: "<a href=\"../pmdk-convert\">pmdk-convert</a>"
-            rowA3:
+            rowA4:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/valgrind\">valgrind</a>"
@@ -138,14 +148,6 @@ card_groups:
                   content: "Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin"
                 cell3:
                   content: "<a href=\"../valgrind\">pmem.io/valgrind</a>"
-            rowA4:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmdk-tests\">pmdk-tests</a>"
-                cell2:
-                  content: "Extended PMDK tests"
-                cell3:
-                  content: "-"
             rowA5:
               cells:
                 cell1:
@@ -253,7 +255,7 @@ card_groups:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/dev-utils-kit\">dev-utils-kit</a>"
                 cell2:
-                  content: "Tools used for development of projects under pmem organization (WIP)"
+                  content: "Tools used for development of projects under pmem organization"
                 cell3:
                   content: "-"
             row2:
@@ -458,6 +460,14 @@ card_groups:
                   content: "<a href=\"https://github.com/pmem/pmemkv-jni\">pmemkv-jni</a>"
                 cell2:
                   content: "Java bindings via JNI for pmemkv"
+                cell3:
+                  content: "-"
+            row8:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmdk-tests\">pmdk-tests</a>"
+                cell2:
+                  content: "Extended PMDK tests"
                 cell3:
                   content: "-"
 
