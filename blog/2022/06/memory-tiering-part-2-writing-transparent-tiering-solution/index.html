@@ -1,0 +1,712 @@
+<!doctype html><html dir=ltr lang=en-us><head>
+<link rel=stylesheet type=text/css href=/css/style.css>
+<meta property="og:title" content="Memory Tiering (part 2): Writing Transparent Tiering Solution">
+<meta property="og:description" content="Writing custom transparent tiering solution - description of available options and trade-offs between them">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pmem.io/blog/2022/06/memory-tiering-part-2-writing-transparent-tiering-solution/"><meta property="article:section" content="blog">
+<meta property="article:published_time" content="2022-06-29T00:00:00+02:00">
+<meta property="article:modified_time" content="2022-06-29T00:00:00+02:00">
+<meta charset=utf-8>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<title>Memory Tiering (part 2): Writing Transparent Tiering Solution</title>
+<meta name=author content="PMem.io">
+<meta name=description content="Writing custom transparent tiering solution - description of available options and trade-offs between them">
+<meta name=robots content="index, follow, archive">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/bootstrap.css type=text/css>
+<link rel=stylesheet href=/css/style.css type=text/css>
+<link rel=stylesheet href=/css/dark.css type=text/css>
+<link rel=stylesheet href=/css/font-icons.css type=text/css>
+<link rel=stylesheet href=/css/animate.css type=text/css>
+<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
+<link rel=stylesheet href=/css/et-line.css type=text/css>
+<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
+<link rel=stylesheet href=/css/custom.css type=text/css>
+<meta name=viewport content="initial-scale=1,viewport-fit=cover">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
+<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
+<link rel=stylesheet href=/css/template/fonts.css type=text/css>
+<link rel=stylesheet href=/css/template/seo.css type=text/css>
+</head>
+<body class=stretched>
+<div id=wrapper class=clearfix>
+<header id=header class="transparent-header floating-header header-size-md sticky-header">
+<div id=header-wrap class=dark-mode>
+<div class="container dark-mode">
+<div class=header-row>
+<div id=logo class=logo_dark>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+</div>
+<div id=logo class=logo_light>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+</div>
+<div class=header-misc>
+<div id=top-search class=header-misc-icon>
+<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
+</div>
+<div class=top-links>
+<ul class=top-links-container>
+<li>
+<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
+<a href=#><i id=darkSwitchToggle></i></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
+</div>
+<nav class="primary-menu with-arrows">
+<ul class=menu-container>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/developer-hub>Developer Hub</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>For Developers</p>
+<p>Everything you need to know about Persistent Memory.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
+<p>Get started <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmdk>
+<p>PMDK <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/repoindex>
+<p>PMem Repositories <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/pmemkv>
+<p>PMemKV <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=http://memkind.github.io/memkind/>
+<p>Memkind <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://tieredmemdb.github.io/>
+<p>TieredMemDB <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/learn>Learn</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Access our Documentation</p>
+<p>Learn more about Persistent Memory features and capabilities.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/books>
+<p>Books <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/persistent-memory/>
+<p>Docs <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/glossary>
+<p>Glossary <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ipmctl-user-guide/>
+<p>ipmctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://docs.pmem.io/ndctl-user-guide/>
+<p>ndctl User Guide <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/faq>
+<p>FAQ <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/knowledgebase>
+<p>Knowledge base <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/tutorials>
+<p>Tutorials <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/videos>
+<p>Videos <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/webinars>
+<p>Webinars <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="menu-item mega-menu">
+<div class=menu-link>
+<div><a href=/community>Community</a></div>
+</div>
+<div class="mega-menu-content mega-menu-style-2 px-0">
+<div class="container dark-mode">
+<div class=row>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class=fbox-content>
+<p class=fw-bold>Get Connected</p>
+<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/events>
+<p>Events <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://groups.google.com/group/pmem>
+<p>Forum <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
+<p>Slack channel <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
+<div class=feature-box>
+<div class="fbox-content h-bg-light">
+<a href=/announcements>
+<p>Announcements <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
+<p>Contribute <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#newsletter>
+<p>Newsletter <i class=icon-angle-right></i></p>
+</a>
+</div>
+<div class="fbox-content h-bg-light">
+<a href=/community/#social-media>
+<p>Social Media <i class=icon-angle-right></i></p>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
+</li>
+<li class=menu-item>
+<a class=menu-link href=https://pmem.io/about><div>About</div></a>
+</li>
+</ul>
+</nav>
+<form class=top-search-form method=get>
+<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
+</form>
+</div>
+</div>
+</div>
+<div class="header-wrap-clone dark-mode"></div>
+</header>
+<div id=customSearch>
+<div id=bcs_js_snippet></div>
+</div>
+<section id=content>
+<div class="content-wrap dark-mode">
+<div class="container clearfix">
+<div class="row gutter-40 col-mb-80">
+<div class="postcontent col-lg-9 order-lg-last">
+<div class="single-post mb-0">
+<div class="entry clearfix">
+<div class=entry-title>
+<h2>Memory Tiering (part 2): Writing Transparent Tiering Solution</h2>
+</div>
+<div class=entry-meta>
+<ul>
+<li><i class=icon-calendar3></i> 29 Jun, 2022</li>
+<li><i class=icon-user></i> Maciej Paczocha</li>
+<li>
+<i class=icon-folder-open></i>
+Memory Tiering
+</li>
+</ul>
+</div>
+<div class="entry-content mt-0">
+<p>This is the second part of the series of articles about memory tiering. <a href=/blog/2022/06/memory-tiering-part-1/>The first one</a> explained what memory tiering is and why we need it, the second one will explain some mechanisms behind transparent tiering.</p>
+<p>This article is intended for those who would like to learn how tiering/numa
+balancing or memory profiling solutions work under the hood. We will focus
+on a high-level overview of how tiering/numa balancing could be designed,
+instead of dissecting any particular solution. This approach means that
+the readers can also learn some general knowledge on topics such as Linux
+API, hardware-accelerated performance monitoring or architecture of Linux apps.</p>
+<h3 id=key-components>Key components</h3>
+<p>Before we delve into details, we will shortly discuss key requirements and
+map them to components of the software we want to design. The basis of
+a tiering system consists either of making a decision about the target tier
+in allocation time or of monitoring which pages to move and moving them.</p>
+<p>A user might want to use features such as:</p>
+<ul>
+<li>per-application configuration,</li>
+<li>configuration of how aggressively balancing should be performed,</li>
+<li>auto-configuration, auto profiling and tuning of an application,</li>
+</ul>
+<p>It might be important for them:</p>
+<ul>
+<li>not to recompile kernel or introduce new kernel modules,</li>
+<li>to have a portable solution - not hardware or kernel-specific.</li>
+</ul>
+<p>In order to satisfy those requirements, the basic functionalities must
+be implemented:</p>
+<ul>
+<li>handling configuration,</li>
+<li>monitoring hotness or other metrics,</li>
+<li>decision-making,</li>
+<li>action: page movement or intelligent data placement.</li>
+</ul>
+<p>All of them can be implemented either in user space, using <a href=https://man7.org/linux/man-pages/man3/numa.3.html>libnuma</a>,
+or directly in kernel. We will explore some of the possible design decisions
+and how they affect the aforementioned functionalities.</p>
+<h3 id=options---user-space-vs-kernel-space>Options - user space vs kernel space</h3>
+<p>One of the first decisions to make is to choose whether the solution should
+be located in user space or in kernel space. Kernel space might seem to be the
+obvious answer, as there are multiple reasons to do this, among others:</p>
+<ul>
+<li>access to MMU and PAGE_FAULT handling:
+<ul>
+<li>this is how automatic NUMA balancing (kernel) checks accesses,</li>
+</ul>
+</li>
+<li>reduced context switch overhead:
+<ul>
+<li>certain operations can only be done from kernel space,</li>
+<li>calling syscalls in a loop is not that efficient,</li>
+</ul>
+</li>
+<li>better integration with default kernel balancing possible,</li>
+<li>availability of data structures from kernel, lower overhead:
+<ul>
+<li>no need to duplicate data between user space and kernel space in order to
+track the state of pages.</li>
+</ul>
+</li>
+</ul>
+<p>On the other hand, user space has the following strong points:</p>
+<ul>
+<li>safety: a bug in user space will not shut the whole machine down or destroy
+data of other processes,</li>
+<li>ease and speed of experimentation: no need to compile custom kernel or reboot
+the machine; a separate kernel module is not that easy to experiment
+with neither,</li>
+<li>portability: a user space solution should work with many different production
+systems, typically those that meet the minimum up-to-date criteria,</li>
+<li>access to allocations - lower granularity than OS, which can only move pages.</li>
+</ul>
+<p>The last point might need some clarification - individual allocations cannot
+be moved between tiers, only pages can; however, individual allocations
+are done in user space, with only occasional <code>mmap()</code> being handled
+by the OS when the user space library (i.e. glibc, jemalloc, tcmalloc, mimalloc
+or any other allocator) runs out of memory. It means that kernel only knows
+about mappings; in the user space, individual calls to <code>malloc()</code>
+and <code>free()</code> can be hijacked and used for data placement, tier prediction
+or grouping similar data on the same pages, so that it works better
+with transparent data movement.</p>
+<p>As the reader might see, the answer to where to implement the solution is not
+obvious. There are solutions available and already deployed on production
+systems that handle
+<a href=https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-tuning-numactl.html>balancing in kernel</a>, and in user space.</p>
+<p>There is also another question - can user and kernel space solutions work
+together? There are plenty of opportunities for that, e.g., objects of similar
+hotness might be placed on the same pages in user space, so that kernal can
+efficiently move data between different tiers. The placement can be done
+either at allocation time or at runtime, by merging partially-empty pages.
+There is always a question of cost and of possible performance gain -
+performing any logic in <code>malloc()</code> can impact performance a lot, but so
+can misallocating the data to unsuitable tier.</p>
+<h4 id=handling-configuration>Handling configuration</h4>
+<p>It might seem to be a trivial thing to do, but the mechanism of configuring
+the application also requires some thought. In user space, a text config file
+or arguments passed via command line might be enough. A kernel solution
+would require a more complicated config handling, either via additional system
+calls or by a special file, e.g., writing to which would trigger
+re-configuration of tiering.</p>
+<p>A user space solution (or a user space component that handles communication
+with kernel) might even contain a full-scale TCP or CLI client, with an
+easy-to-configure graphical user interface. In this case, only imagination
+is the limit. And time. And human resources.</p>
+<h4 id=tracking-hotness>Tracking hotness</h4>
+<p>There are multiple ways of tracking hotness of pages, but some of them are
+easier to deal with in kernel space. A good example is the hotness tracking
+mechanism
+<a href=https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-tuning-numactl.html>from the Linux kernel</a>,
+which works by periodically unmapping pages and handling hint page faults.
+Even though such handling might be
+<a href="https://lwn.net/Articles/550555/#:~:text=Page%20fault%20handling%20is%20normally,with%20data%20from%20secondary%20storage.">possible in user space</a>,
+it comes with a great deal of issues ranging from additional overhead and low
+performance to possible data races. It is noteworthy that this solution lets
+the developer check on which CPU the process was executed and migrate the data
+between CPU sockets instead of just between DRAM and PMEM or CXL - this is the
+basis of kernel numa balancing.</p>
+<p>Another way to monitor page accesses is via hardware mechanisms originally
+destined for profiling applications, such as
+<a href=https://easyperf.net/blog/2018/06/08/Advanced-profiling-topics-PEBS-and-LBR#last-branch-record-lbr>Intel PEBS</a>.
+It is worth noting that, in this case, the information about accesses comes
+with some delay - first, an access occurs, then it&rsquo;s stored in a buffer and,
+after some time, the event is processed by the user. PEBS also exposes info
+about the core the process was executed on. These features, however,
+are hardware specific and might not be available on all platforms or might
+not be supported by virtual machines.</p>
+<p>Linux kernel provides an API that can be used to track hotness as well. The
+files to check are <code>/sys/kernel/mm/page_idle/bitmap</code>
+and <code>/proc/kpageflags</code>. Both, the
+<a href=https://www.kernel.org/doc/Documentation/vm/idle_page_tracking.txt>former</a>
+and the
+<a href="https://www.kernel.org/doc/html/latest/admin-guide/mm/pagemap.html?highlight=kpageflags">latter</a>
+work by setting pages status to IDLE and checking when the status changes.
+The good thing about it is that it&rsquo;s hardware-agnostic, but might come with
+various performance. Also, not every kernel has support for this API enabled.</p>
+<p>Finally, kernel 5.15 added support for
+<a href="https://www.phoronix.com/scan.php?page=news_item&px=DAMON-For-Linux-5.15">DAMON</a>:
+Data Access MONitor that was created for the exact purpose of <em>BA DUM TSS</em>
+monitoring data access.</p>
+<h5 id=other-metrics>Other metrics</h5>
+<p>For some it may seem counterintuitive, but page access does not always cost us
+the same amount of time. Modern hardware can do wonders when it comes to IO
+optimization -
+<a href=https://en.wikipedia.org/wiki/Out-of-order_execution>out-of-order execution</a>
+can perform the required loads before the memory is actually needed, so that
+the CPU is not stalled. Modern CPUs take advantage not only of multiple cores,
+but also of
+<a href=https://en.wikipedia.org/wiki/Instruction-level_parallelism>instruction-level parallelism</a>.
+<a href=https://en.wikipedia.org/wiki/Branch_predictor>Branch prediction</a> and
+<a href=https://en.wikipedia.org/wiki/Instruction_pipelining>instruction pipelining</a>
+in general are other things that can sometimes affect performance of a system
+much more than memory bandwidth or latency.</p>
+<p>The great thing is that all these features are an integral part of modern CPUs
+and they all automagically work behind the scenes. Of course, a developer
+conscious of their existence can usually help the compiler optimize the code
+better and make better programs, as this is the case here.</p>
+<p>A sample statistic that we can use is
+<a href=https://www.kernel.org/doc/html/latest/accounting/psi.html>Pressure Stall Information</a>
+(PSI). The three special files located under <code>/proc/pressure</code>: <code>cpu</code>,
+<code>io</code> and <code>memory</code> show how long a given process was stalled due to
+each of the resources in a given time window. We can incorporate this statistic
+to give more lower latency memory to a process that really needs it - the one
+that is stalled due to IO, instead of the one that is bottlenecked on the CPU.
+This metric can be combined with the cgroups interface to monitor particular
+processes or groups of processes;
+<a href=https://engineering.fb.com/2022/06/20/data-infrastructure/transparent-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/>PSI has been successfully used for the purpose of memory offloading</a>.</p>
+<p>We can also monitor bandwidth usage of given tiers to keep some specified
+balance between them or use some other relevant
+<a href=https://en.wikipedia.org/wiki/Hardware_performance_counter>hardware performance counter</a>
+that no one else has ever imagined using for this purpose.</p>
+<p>Last but not least, the obvious one - memory usage. We can check how much
+memory is consumed by an application or a whole system and offload some of that
+capacity to lower tiers, e.g., by allocating new data directly in PMEM or by
+proactively demoting the data. We can also use that information to keep some
+particular ratio between tiers, as this is done in Memkind, via STATIC_RATIO
+and DYNAMIC_THRESHOLD policies.</p>
+<h4 id=decision-making>Decision-making</h4>
+<p>The most straight-forward way to decide which pages should be promoted or demoted
+would be to adapt some well-known caching algorithm, such as
+<a href=https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>LRU</a>.
+The algorithm can be adapted e.g., by keeping two LRU queues, one for active
+pages and the other one for inactive, and by swapping the most recently used
+page on PMEM with the least recently used on DRAM, when appropriate. This is
+the approach used by the Linux kernel.</p>
+<p>What is important is not really when the page was used for the last time, but
+when and how often it would be used in the future. The person who knows such
+things best is probably either the program developer, whom we cannot ask (per
+requirement - tiering was supposed to be transparent), or the end user. Even
+if we could convince the end user to give us some hint on when they will
+access their data, the server-side implementation of this feature in existing
+production systems would take a lot of time and resources. Let&rsquo;s just simplify
+this issue and assume that we do not know the next data access time.
+The only thing we can do is try to forecast the accesses. A measure of how often the data was accessed in the
+past is a good start. Maybe there was some pattern in the data usage?</p>
+<p>This part of the system is largely based on heuristics, so we will leave a
+more in-depth consideration to the user.</p>
+<h4 id=page-movement>Page movement</h4>
+<p>Moving pages is a way to improve memory access performance when the allocation
+decision heuristic fails, is absent, or access pattern changes over time.</p>
+<p><img src=/images/posts/allocator_mm.png alt="Memory management - illustration" title="Illustration of memory management - dependencies between user space, kernel space and hardware"></p>
+<p>Page movement itself might boil down to a single function call, e.g., from
+<a href=https://man7.org/linux/man-pages/man3/numa.3.html>libnuma</a>, but there is also a question of what we really want to do.
+Do we want to move the page, or assure it stays in the moved place forever? Or,
+maybe, we would like to specify which nodes are acceptable and which ones are
+not - this might be useful e.g., to pin page A to DRAM, page B to PMEM and
+page C to CXL, without specifying the particular nodes, and let the auto numa
+balance the data between nodes of the same memory type, but of different
+distance to the executing CPU.</p>
+<p><img src=/images/posts/tiering_movement.png alt="mbind vs move_pages" title="Illustration of memory management - move_pages vs VMA"></p>
+<p>Modifying VMA policy might sound great, but specifying a different policy for
+a chunk of memory adds additional
+<a href=https://www.oreilly.com/library/view/linux-device-drivers/9781785280009/4759692f-43fb-4066-86b2-76a90f0707a2.xhtml>VMA</a>.
+Let&rsquo;s imagine a contiguous address space of 10 pages, which are entirely
+located in DRAM and share the same policy. At some point in time, the page
+number 3 is moved to PMEM using <code>mbind()</code>. After the operation is executed,
+there would be 3 VMAs instead of one: the first one for pages 0-2, one
+for page 3 and the last one for pages 4-9. The number of VMAs can grow
+over time, which adds memory overhead. Another thing to bear in mind is that
+there is a per-process cap on the number of VMAs, accessible via
+<code>sysctl vm.max_map_count</code> - if this number is exceeded, a syscall that
+would create additional VMA, e.g., <code>mmap()</code> or <code>mbind()</code>, will fail.</p>
+<p>Just a short recap - the policy can be changed from user space with
+<code>mbind()</code>; pages can be moved in user space without changing the policy
+using <code>numa_move_pages()</code>. Both functions are a part of
+<a href=https://man7.org/linux/man-pages/man3/numa.3.html>libnuma</a>.</p>
+<h4 id=intelligent-data-placement>Intelligent data placement</h4>
+<p>The most efficient way to perform tiering is to place the data in the correct
+tier from the very beginning. Unfortunately, a transparent tiering solution
+cannot use the code author&rsquo;s knowledge, but there are still some things we can
+do. Memkind&rsquo;s policies, STATIC_RATIO and DYNAMIC_THRESHOLD do just that - they
+monitor macro-statistics, such as per-tier memory usage or the size of
+allocations, and place the data in the appropriate tier. The greatest
+advantage of this solution is that there is no additional overhead caused by
+data movement at runtime.</p>
+<p>As this is an article about writing your own solution, we can explore some
+other ideas: using allocation time, detecting some patterns
+in allocations or accesses&mldr; This is an open subject, but we have to remember
+about an important limitation - placement in allocation time is done in
+the program&rsquo;s critical path and complex algorithms may slow the whole program
+down.</p>
+<p>Moreover, intelligent placement requires overriding the default allocator,
+e.g. with LD_PRELOAD - more on that in the next section.</p>
+<h3 id=user-space-solution-daemon-or-ld_preload>User space solution: daemon or LD_PRELOAD</h3>
+<p>In the case of user space solution, another decision needs to be made. Will it
+be run in the same address space as the tiered application?</p>
+<p>Running tiering in the same address space can be achieved by using the
+LD_PRELOAD functionality and by overloading the default <code>malloc()</code>
+or <code>mmap()</code> to add tracking of used addresses. This comes with the
+additional profit of having fine-grained access to the data and enables
+treating different mallocs differently, e.g., by grouping allocations by size,
+time of allocation, place in code, etc. The developer still has to decide,
+what kind of function calls they want to hijack - do they want to provide
+memory allocation themselves by handling <code>malloc()</code> and <code>free()</code>,
+or is <code>mmap()</code> enough for their required functionalities?</p>
+<p><img src=/images/posts/tiering_ld_preload_vs_daemon.png alt="daemon vs ld_preload" title="Illustration of page movement - daemon vs LD_PRELOAD"></p>
+<p>Another solution would be to run a separate process with superuser privilege,
+which checks mapped regions of other programs. This comes with the perk
+of being able to tier the memory of multiple applications at the same time,
+while specifying exact policies for each one of them, or by creating a process
+hierarchy similar to <a href=https://en.wikipedia.org/wiki/Cgroups>cgroups</a>,
+not to mention the fact that the tiered applications could continue working
+even if the daemon crashes.</p>
+<p>In this case, the daemon has to query the OS to check the address space of each
+program that it wants to perform tiering on. The tiered process communicates
+with kernel the same way it would without any tiering; the tiering process only
+has access to the information that the OS exposes, e.g., via
+<code>/proc/&lt;pid>/maps</code>. As noted before, super user privilege is required
+to move pages of a different process.</p>
+<h2 id=summary>Summary</h2>
+<p>Creation of a memory tiering system requires making numerous design decisions
+and multiple trade-offs which were briefly outlined in this article.
+I hope that even the readers who are not interested in writing such a system
+themselves found it interesting to learn how these systems might work and that
+they have broadened their knowledge about Linux.</p>
+<div class="tagcloud clearfix bottommargin">
+<a href=https://pmem.io/tags/memory>Memory</a>
+<a href=https://pmem.io/tags/tiering>Tiering</a>
+<a href=https://pmem.io/tags/cxl>CXL</a>
+<a href=https://pmem.io/tags/pmem>PMEM</a>
+<a href=https://pmem.io/tags/numa-balancing>NUMA balancing</a>
+<a href=https://pmem.io/tags/memory-balancing>memory balancing</a>
+</div>
+<div class=clear></div>
+<div class="si-share border-0 d-flex justify-content-between align-items-center">
+<span>Share this Post:</span>
+<div id=share-buttons>
+<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/06/memory-tiering-part-2-writing-transparent-tiering-solution/')">
+<i class=icon-facebook></i>
+<i class=icon-facebook></i>
+</div>
+<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Memory Tiering (part 2): Writing Transparent Tiering Solution&url=https://pmem.io/blog/2022/06/memory-tiering-part-2-writing-transparent-tiering-solution/')">
+<i class=icon-twitter></i>
+<i class=icon-twitter></i>
+</div>
+<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/06/memory-tiering-part-2-writing-transparent-tiering-solution/&title=&summary=&source=')">
+<i class=icon-linkedin></i>
+<i class=icon-linkedin></i>
+</div>
+<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
+<i class=icon-pinterest></i>
+<i class=icon-pinterest></i>
+</div>
+<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2022/06/memory-tiering-part-2-writing-transparent-tiering-solution/')">
+<i class=icon-email3></i>
+<i class=icon-email3></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row justify-content-between col-mb-30 post-navigation">
+<div class="col-12 col-md-auto text-center">
+</div>
+<div class="col-12 col-md-auto text-center">
+<a href="https://pmem.io/blog/2022/06/memory-tiering-part-1/?ref=footer">Memory Tiering (part 1) &rArr;</a>
+</div>
+</div>
+<div class=line></div>
+<h4>Related Posts:</h4>
+<div class="related-posts row posts-md col-mb-30">
+</div>
+</div>
+</div>
+<div class="sidebar col-lg-3">
+<div class=sidebar-widgets-wrap>
+<div class="widget clearfix">
+<h4>Tag Cloud</h4>
+<div class=tagcloud>
+<a href=/tags/pmem class=block role=button>pmem</a>
+<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
+<a href=/tags/ndctl class=block role=button>ndctl</a>
+<a href=/tags/daxctl class=block role=button>daxctl</a>
+<a href=/tags/pmdk class=block role=button>pmdk</a>
+<a href=/tags/async class=block role=button>async</a>
+<a href=/tags/asynchronous class=block role=button>asynchronous</a>
+<a href=/tags/concurrency class=block role=button>concurrency</a>
+<a href=/tags/configure class=block role=button>configure</a>
+<a href=/tags/dax class=block role=button>dax</a>
+<a href=/tags/install class=block role=button>install</a>
+<a href=/tags/miniasync class=block role=button>miniasync</a>
+<a href=/tags/setup class=block role=button>setup</a>
+<a href=/tags/cxl class=block role=button>cxl</a>
+<a href=/tags/dml class=block role=button>dml</a>
+<a href=/tags/dsa class=block role=button>dsa</a>
+<a href=/tags/faq class=block role=button>faq</a>
+<a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/memkind class=block role=button>memkind</a>
+<a href=/tags/pmem2 class=block role=button>pmem2</a>
+<a href=/tags/sanitize class=block role=button>sanitize</a>
+<a href=/tags/secure-erase class=block role=button>secure-erase</a>
+<a href=/tags/sql class=block role=button>sql</a>
+<a href=/tags/tiering class=block role=button>tiering</a>
+<a href=/tags/2019 class=block role=button>2019</a>
+<a href=/tags/blogs class=block role=button>blogs</a>
+<a href=/tags/crash class=block role=button>crash</a>
+<a href=/tags/create class=block role=button>create</a>
+<a href=/tags/database class=block role=button>database</a>
+<a href=/tags/destroy class=block role=button>destroy</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer id=footer class="border-0 bg-white">
+<div id=copyrights>
+<div class="container clearfix">
+<div class="row justify-content-between col-mb-30">
+<div class="col-12 col-lg-auto text-center text-lg-start">
+<div id=logo>
+<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</div>
+</div>
+<div class="col-12 col-lg-auto text-center text-lg-end">
+<div class="copyrights-menu copyright-links clearfix text-uppercase">
+<a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a>
+</div>
+<div class="col-lg-auto text-center mt-0">
+<p>Copyright &copy; 2022 pmem.io</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div id=gotoTop class=icon-angle-up></div>
+<script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
+</body>
+</html>
