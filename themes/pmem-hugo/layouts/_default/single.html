@@ -38,7 +38,7 @@
               {{end}}
               <!-- Entry Content -->
               <div class="entry-content mt-0">
-                {{ .Content | markdownify}}
+                {{ .RawContent | markdownify }}
 
                 <!-- Tag Cloud -->
                 {{if .Params.tags}}
