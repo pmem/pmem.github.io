@@ -116,6 +116,11 @@ weight = 1
 
     [[Languages.en.menu.main]]
     parent = "dev-hub-column1"
+    name = "PMemStream"
+    url = "/pmemstream"
+
+    [[Languages.en.menu.main]]
+    parent = "dev-hub-column1"
     name = "PMem Repositories"
     url = "/repoindex"
 
