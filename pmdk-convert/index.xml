@@ -5,4 +5,5 @@ EXAMPLE
 SEE ALSO
 NAME pmdk-convert - upgrade pool files layout version
 SYNOPSIS $ pmdk-convert &amp;lt;file&amp;gt; DESCRIPTION The pmdk-convert performs a conversion of the specified pool to the newest layout supported by this tool. Currently only libpmemobj(7) pools are supported.
-The conversion process is not fail-safe - power interruption may damage the pool. It is advised to have a backup of the pool before conversion.</description></item></channel></rss>
+The conversion process is not fail-safe - power interruption may damage the pool. It is advised to have a backup of the pool before conversion.
+This tool doesn&amp;rsquo;t support remote replicas.</description></item></channel></rss>

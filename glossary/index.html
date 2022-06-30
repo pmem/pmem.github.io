@@ -1,435 +1,35 @@
-<!doctype html><html dir=ltr lang=en-us><head>
-<link rel=stylesheet type=text/css href=/css/style.css>
-<meta property="og:title" content="Glossary of Terms">
-<meta property="og:description" content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://pmem.io/glossary/">
-<meta charset=utf-8>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/site.webmanifest>
-<title>Glossary of Terms</title>
-<meta name=author content="PMem.io">
-<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
-<meta name=robots content="index, follow, archive">
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
-<link rel=stylesheet href=/css/bootstrap.css type=text/css>
-<link rel=stylesheet href=/css/style.css type=text/css>
-<link rel=stylesheet href=/css/dark.css type=text/css>
-<link rel=stylesheet href=/css/font-icons.css type=text/css>
-<link rel=stylesheet href=/css/animate.css type=text/css>
-<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
-<link rel=stylesheet href=/css/et-line.css type=text/css>
-<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
-<link rel=stylesheet href=/css/custom.css type=text/css>
-<meta name=viewport content="initial-scale=1,viewport-fit=cover">
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
-<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
-<link rel=stylesheet href=/css/template/fonts.css type=text/css>
-<link rel=stylesheet href=/css/template/seo.css type=text/css>
-</head>
-<body class=stretched>
-<div id=wrapper class=clearfix>
-<header id=header class="transparent-header floating-header header-size-md sticky-header">
-<div id=header-wrap class=dark-mode>
-<div class="container dark-mode">
-<div class=header-row>
-<div id=logo class=logo_dark>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-</div>
-<div id=logo class=logo_light>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-</div>
-<div class=header-misc>
-<div id=top-search class=header-misc-icon>
-<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
-</div>
-<div class=top-links>
-<ul class=top-links-container>
-<li>
-<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
-<a href=#><i id=darkSwitchToggle></i></a>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
-</div>
-<nav class="primary-menu with-arrows">
-<ul class=menu-container>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/developer-hub>Developer Hub</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>For Developers</p>
-<p>Everything you need to know about Persistent Memory.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
-<p>Get started <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/pmdk>
-<p>PMDK <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/repoindex>
-<p>PMem Repositories <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/pmemkv>
-<p>PMemKV <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=http://memkind.github.io/memkind/>
-<p>Memkind <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#newsletter>
-<p>Newsletter <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://tieredmemdb.github.io/>
-<p>TieredMemDB <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/learn>Learn</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>Access our Documentation</p>
-<p>Learn more about Persistent Memory features and capabilities.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/books>
-<p>Books <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/persistent-memory/>
-<p>Docs <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/glossary>
-<p>Glossary <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/ipmctl-user-guide/>
-<p>ipmctl User Guide <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/ndctl-user-guide/>
-<p>ndctl User Guide <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/faq>
-<p>FAQ <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/knowledgebase>
-<p>Knowledge base <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/tutorials>
-<p>Tutorials <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/videos>
-<p>Videos <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/webinars>
-<p>Webinars <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/community>Community</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>Get Connected</p>
-<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/events>
-<p>Events <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://groups.google.com/group/pmem>
-<p>Forum <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
-<p>Slack channel <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/announcements>
-<p>Announcements <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
-<p>Contribute <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#newsletter>
-<p>Newsletter <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#social-media>
-<p>Social Media <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/about><div>About</div></a>
-</li>
-</ul>
-</nav>
-<form class=top-search-form method=get>
-<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
-</form>
-</div>
-</div>
-</div>
-<div class="header-wrap-clone dark-mode"></div>
-</header>
-<div id=customSearch>
-<div id=bcs_js_snippet></div>
-</div>
-<section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url(/images/backgrounds/faq_header.jpg);background-size:cover;padding:120px 0;margin-top:-157.05px">
-<div class="container clearfix mt-4">
-<div class=slider-title>
-<h2 style=color:#fff>Glossary of Terms</h2>
-<p style=color:#fff></p>
-</div>
-</div>
-</section>
-<div class="section m-0 bg-transparent library-section glossary border-top dark-mode">
-<div class=container>
-<div class="row justify-content-between">
-<div class="col mt-0"><p>Here you&rsquo;ll find a list of terms related to
+<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta property="og:title" content="Glossary of Terms"><meta property="og:description" content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta property="og:type" content="website"><meta property="og:url" content="https://pmem.io/glossary/"><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Glossary of Terms</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>Memkind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://tieredmemdb.github.io/><p>TieredMemDB <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/knowledgebase><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=page-title class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image:url(/images/backgrounds/faq_header.jpg);background-size:cover;padding:120px 0;margin-top:-157.05px"><div class="container clearfix mt-4"><div class=slider-title><h2 style=color:#fff>Glossary of Terms</h2><p style=color:#fff></p></div></div></section><div class="section m-0 bg-transparent library-section glossary border-top dark-mode"><div class=container><div class="row justify-content-between"><div class="col mt-0"><p>Here you&rsquo;ll find a list of terms related to
 <a href=#persistent-memory>Persistent Memory</a> (PMem).
 Many of these terms have a broader meaning,
 but the definitions below focus specifically
-on their relationship to PMem.</p>
-<p>Click on the term to go to the definition in this page,
+on their relationship to PMem.</p><p>Click on the term to go to the definition in this page,
 or scroll down to read them all. Related terms are
-shown in parentheses.</p>
-<div style=opacity:.7>
-<table style="font-size:.95em;border:1px solid;padding:1em">
-<tr><td>
-Compute Express Link™ and CXL™ are trademarks of the
+shown in parentheses.</p><div style=opacity:.7><table style="font-size:.95em;border:1px solid;padding:1em"><tr><td>Compute Express Link™ and CXL™ are trademarks of the
 <a href=https://computeexpresslink.org>CXL Consortium</a>.
 Intel® and Intel® Optane™ are trademarks of
 <a href=https://intel.com>Intel Corporation</a>.
 JEDEC® is a trademark of the
 <a href=https://jedec.org>JEDEC Organization</a>.
 SNIA® is a trademark of the
-<a href=https://snia.org>Storage Networking Industry Association</a>.
-</td></tr></table>
-</div>
-<h5 id=contents>Contents</h5>
-<ul>
-<li><a href=#1lm>1LM</a> (One-level Memory)</li>
-<li><a href=#2lm>2LM</a> (Two-level Memory)</li>
-<li><a href=#3d-xpoint>3D XPoint</a></li>
-<li><a href=#adr>ADR</a> (Asynchronous DRAM Refresh)</li>
-<li><a href=#app-direct>App Direct</a> (Application Direct)</li>
-<li><a href=#ars>ARS</a> (Address Range Scrub)</li>
-<li><a href=#bad-blocks>Bad Blocks</a></li>
-<li><a href=#blast-radius>Blast Radius</a></li>
-<li><a href=#block-storage>Block Storage</a> (Storage, Disk)</li>
-<li><a href=#btt>BTT</a> (Block Translation Table)</li>
-<li><a href=#clflushopt>CLFLUSHOPT</a> (Instruction: Cache Line Flush, Optimized)</li>
-<li><a href=#clwb>CLWB</a> (Instruction: Cache Line Write Back)</li>
-<li><a href=#cxl>CXL</a> (Compute Express Link)</li>
-<li><a href=#dax>DAX</a> (Direct Access)</li>
-<li><a href=#ddr>DDR</a> (Double Data Rate)</li>
-<li><a href=#ddr-t>DDR-T</a></li>
-<li><a href=#device-dax>Device DAX</a> (devdax)</li>
-<li><a href=#dirty-shutdown-count>Dirty Shutdown Count</a> (DSC, Unsafe Shutdown Count)</li>
-<li><a href=#dram>DRAM</a> (Dynamic Random Access Memory)</li>
-<li><a href=#dsm>DSM</a> (Device Specific Method, _DSM)</li>
-<li><a href=#eadr>eADR</a> (Extended ADR)</li>
-<li><a href=#fence>Fence</a> (SFENCE)</li>
-<li><a href=#flushviewoffile>FlushViewOfFile</a> (Windows Flush System Call)</li>
-<li><a href=#interleave-set>Interleave Set</a></li>
-<li><a href=#kmem-dax>KMEM DAX</a></li>
-<li><a href=#label-storage-area>Label Storage Area</a> (LSA)</li>
-<li><a href=#libmemkind>libmemkind</a></li>
-<li><a href=#libpmem>libpmem</a></li>
-<li><a href=#libpmem2>libpmem2</a></li>
-<li><a href=#libpmemblk>libpmemblk</a></li>
-<li><a href=#libpmemkv>libpmemkv</a></li>
-<li><a href=#libpmemlog>libpmemlog</a></li>
-<li><a href=#libpmemobj>libpmemobj</a></li>
-<li><a href=#librpma>librpma</a></li>
-<li><a href=#llpl>LLPL</a> (Java Low Level Persistence Library)</li>
-<li><a href=#mapviewoffile>MapViewOfFile</a> (Windows Memory Map System Call)</li>
-<li><a href=#memory-mode>Memory Mode</a> (2LM)</li>
-<li><a href=#memory-pooling>Memory Pooling</a></li>
-<li><a href=#memory-tiering>Memory Tiering</a></li>
-<li><a href=#mmap>mmap</a> (POSIX Memory Map System Call)</li>
-<li><a href=#msync>msync</a> (POSIX Flush System Call)</li>
-<li><a href=#namespace>Namespace</a></li>
-<li><a href=#ndctl>ndctl</a></li>
-<li><a href=#nfit>NFIT</a> (NVDIMM Firmware Interface Table)</li>
-<li><a href=#nt-store>NT Store</a> (Non-Temporal Store)</li>
-<li><a href=#nvdimm>NVDIMM</a> (Non-Volatile Dual In-line Memory Module)</li>
-<li><a href=#nvm>NVM</a> (Non-Volatile Memory)</li>
-<li><a href=#optane>Optane</a> (DCPMM, DCPM)</li>
-<li><a href=#paging>Paging</a></li>
-<li><a href=#pcj>PCJ</a> (Persistent Collections for Java)</li>
-<li><a href=#persistence-domain>Persistence Domain</a> (Power Fail Safe Domain)</li>
-<li><a href=#persistent-memory>Persistent Memory</a> (PMem, pmem, PM)</li>
-<li><a href=#pmdk>PMDK</a> (Persistent Memory Development Kit)</li>
-<li><a href=#pmem-programming-model>PMem Programming Model</a></li>
-<li><a href=#pmemhackathon>pmemhackathon</a> (Persistent Memory Programming Workshop)</li>
-<li><a href=#pmof>PMoF</a> (Persistent Memory over Fabrics)</li>
-<li><a href=#poison>Poison</a></li>
-<li><a href=#pool>Pool</a></li>
-<li><a href=#poolset>Poolset</a></li>
-<li><a href=#programming-model>Programming Model</a></li>
-<li><a href=#region>Region</a></li>
-<li><a href=#rpmem>RPMEM</a> (Remote Persistent Memory)</li>
-<li><a href=#snia>SNIA</a> (Storage Networking Industry Association)</li>
-<li><a href=#storage-class-memory>Storage Class Memory</a> (SCM)</li>
-<li><a href=#transaction>Transaction</a></li>
-<li><a href=#uncorrectable-error>Uncorrectable Error</a></li>
-</ul>
-<br style=margin-top:5em>
-<h4 id=1lm>1LM</h4>
-<p>(One-level Memory)</p>
-<p>The term <strong>1LM</strong> refers to how memory is usually connected to
+<a href=https://snia.org>Storage Networking Industry Association</a>.</td></tr></table></div><h5 id=contents>Contents</h5><ul><li><a href=#1lm>1LM</a> (One-level Memory)</li><li><a href=#2lm>2LM</a> (Two-level Memory)</li><li><a href=#3d-xpoint>3D XPoint</a></li><li><a href=#adr>ADR</a> (Asynchronous DRAM Refresh)</li><li><a href=#app-direct>App Direct</a> (Application Direct)</li><li><a href=#ars>ARS</a> (Address Range Scrub)</li><li><a href=#bad-blocks>Bad Blocks</a></li><li><a href=#blast-radius>Blast Radius</a></li><li><a href=#block-storage>Block Storage</a> (Storage, Disk)</li><li><a href=#btt>BTT</a> (Block Translation Table)</li><li><a href=#clflushopt>CLFLUSHOPT</a> (Instruction: Cache Line Flush, Optimized)</li><li><a href=#clwb>CLWB</a> (Instruction: Cache Line Write Back)</li><li><a href=#cxl>CXL</a> (Compute Express Link)</li><li><a href=#dax>DAX</a> (Direct Access)</li><li><a href=#ddr>DDR</a> (Double Data Rate)</li><li><a href=#ddr-t>DDR-T</a></li><li><a href=#device-dax>Device DAX</a> (devdax)</li><li><a href=#dirty-shutdown-count>Dirty Shutdown Count</a> (DSC, Unsafe Shutdown Count)</li><li><a href=#dram>DRAM</a> (Dynamic Random Access Memory)</li><li><a href=#dsm>DSM</a> (Device Specific Method, _DSM)</li><li><a href=#eadr>eADR</a> (Extended ADR)</li><li><a href=#fence>Fence</a> (SFENCE)</li><li><a href=#flushviewoffile>FlushViewOfFile</a> (Windows Flush System Call)</li><li><a href=#interleave-set>Interleave Set</a></li><li><a href=#kmem-dax>KMEM DAX</a></li><li><a href=#label-storage-area>Label Storage Area</a> (LSA)</li><li><a href=#libmemkind>libmemkind</a></li><li><a href=#libpmem>libpmem</a></li><li><a href=#libpmem2>libpmem2</a></li><li><a href=#libpmemblk>libpmemblk</a></li><li><a href=#libpmemkv>libpmemkv</a></li><li><a href=#libpmemlog>libpmemlog</a></li><li><a href=#libpmemobj>libpmemobj</a></li><li><a href=#librpma>librpma</a></li><li><a href=#llpl>LLPL</a> (Java Low Level Persistence Library)</li><li><a href=#mapviewoffile>MapViewOfFile</a> (Windows Memory Map System Call)</li><li><a href=#memory-mode>Memory Mode</a> (2LM)</li><li><a href=#memory-pooling>Memory Pooling</a></li><li><a href=#memory-tiering>Memory Tiering</a></li><li><a href=#mmap>mmap</a> (POSIX Memory Map System Call)</li><li><a href=#msync>msync</a> (POSIX Flush System Call)</li><li><a href=#namespace>Namespace</a></li><li><a href=#ndctl>ndctl</a></li><li><a href=#nfit>NFIT</a> (NVDIMM Firmware Interface Table)</li><li><a href=#nt-store>NT Store</a> (Non-Temporal Store)</li><li><a href=#nvdimm>NVDIMM</a> (Non-Volatile Dual In-line Memory Module)</li><li><a href=#nvm>NVM</a> (Non-Volatile Memory)</li><li><a href=#optane>Optane</a> (DCPMM, DCPM)</li><li><a href=#paging>Paging</a></li><li><a href=#pcj>PCJ</a> (Persistent Collections for Java)</li><li><a href=#persistence-domain>Persistence Domain</a> (Power Fail Safe Domain)</li><li><a href=#persistent-memory>Persistent Memory</a> (PMem, pmem, PM)</li><li><a href=#pmdk>PMDK</a> (Persistent Memory Development Kit)</li><li><a href=#pmem-programming-model>PMem Programming Model</a></li><li><a href=#pmemhackathon>pmemhackathon</a> (Persistent Memory Programming Workshop)</li><li><a href=#pmof>PMoF</a> (Persistent Memory over Fabrics)</li><li><a href=#poison>Poison</a></li><li><a href=#pool>Pool</a></li><li><a href=#poolset>Poolset</a></li><li><a href=#programming-model>Programming Model</a></li><li><a href=#region>Region</a></li><li><a href=#rpmem>RPMEM</a> (Remote Persistent Memory)</li><li><a href=#snia>SNIA</a> (Storage Networking Industry Association)</li><li><a href=#storage-class-memory>Storage Class Memory</a> (SCM)</li><li><a href=#transaction>Transaction</a></li><li><a href=#uncorrectable-error>Uncorrectable Error</a></li></ul><br style=margin-top:5em><h4 id=1lm>1LM</h4><p>(One-level Memory)</p><p>The term <strong>1LM</strong> refers to how memory is usually connected to
 the system, without any memory-side cache. Normally, the
 terms <strong>DRAM</strong> or <strong>system main memory</strong> are used, but <strong>1LM</strong> is
 sometimes used to specifically state that the memory in question
-is not configured as <a href=#2lm>2LM</a>.</p>
-<hr>
-<h4 id=2lm>2LM</h4>
-<p>(Two-level Memory)</p>
-<p>Persistent memory is sometimes configured as <strong>2LM</strong> where hardware
+is not configured as <a href=#2lm>2LM</a>.</p><hr><h4 id=2lm>2LM</h4><p>(Two-level Memory)</p><p>Persistent memory is sometimes configured as <strong>2LM</strong> where hardware
 manages two levels (tiers) of memory. This is a feature of the
 <a href=#optane>Intel&rsquo;s Optane PMem</a>, which calls this configuration
-<a href=#memory-mode>Memory Mode</a> (more detail in that glossary entry).</p>
-<hr>
-<h4 id=3d-xpoint>3D XPoint</h4>
-<p>3D XPoint (pronounced <em>three dee cross point</em>) is the media used in
+<a href=#memory-mode>Memory Mode</a> (more detail in that glossary entry).</p><hr><h4 id=3d-xpoint>3D XPoint</h4><p>3D XPoint (pronounced <em>three dee cross point</em>) is the media used in
 <a href=#optane>Intel&rsquo;s Optane</a> product line, where the media is organized
 into Solid State Disk (SSD) products, and Persistent Memory (PMem)
 products. More details can be found on
 <a href=http://intel.com/optane>Intel&rsquo;s website</a>. There is also a fairly
 extensive <a href=https://en.wikipedia.org/wiki/3D_XPoint>Wikipedia</a> entry
-for it.</p>
-<table>
-<thead>
-<tr>
-<th style=text-align:center><img src=3d-xpoint/3dxpoint.jpg alt="3D XPoint"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center><em>3D XPoint</em></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h4 id=adr>ADR</h4>
-<p>(Asynchronous DRAM Refresh)</p>
-<p><strong>ADR</strong> is the hardware feature that flushes stores from the memory
+for it.</p><table><thead><tr><th style=text-align:center><img src=3d-xpoint/3dxpoint.jpg alt="3D XPoint"></th></tr></thead><tbody><tr><td style=text-align:center><em>3D XPoint</em></td></tr></tbody></table><hr><h4 id=adr>ADR</h4><p>(Asynchronous DRAM Refresh)</p><p><strong>ADR</strong> is the hardware feature that flushes stores from the memory
 controller write pending queue (WPQ) to their destination on power loss.
 ADR can optionally flush
-pending DMA stores from the I/O controller as well.</p>
-<p><img src=adr/hw.jpg alt="Hardware Store Path"></p>
-<p>As shown in the above diagram, there are multiple places a store could
+pending DMA stores from the I/O controller as well.</p><p><img src=adr/hw.jpg alt="Hardware Store Path"></p><p>As shown in the above diagram, there are multiple places a store could
 reside on its way to a persistent memory DIMM. The lower dashed red box
 shows the ADR domain &ndash; stores that reach that domain are protected against
 power failure by ADR, which flushes the queues in the memory controller, shown
@@ -437,46 +37,29 @@ as the trapezoid in the diagram. All Intel systems supporting persistent
 memory require ADR, which means the feature must be supported at the platform
 level (including CPU, motherboard, power supply, DIMM, and BIOS). All
 <a href=#nvdimm>NVDIMM-N</a> products, as well as Intel&rsquo;s <a href=#optane>Optane</a> PMem,
-require systems that support ADR.</p>
-<p>ADR uses stored energy to perform the flushes after power loss. The stored
+require systems that support ADR.</p><p>ADR uses stored energy to perform the flushes after power loss. The stored
 energy typically comes from capacitors in the power supply, but could be
-implemented other ways such as a battery or UPS.</p>
-<p>The larger red dashed box in the diagram illustrates an optional feature,
-<a href=#eadr>eADR</a>, where the CPU caches are also flushed on power loss.</p>
-<hr>
-<h4 id=app-direct>App Direct</h4>
-<p>(Application Direct)</p>
-<p><a href=#optane>Intel&rsquo;s Optane PMem</a> product can be provisioned into
+implemented other ways such as a battery or UPS.</p><p>The larger red dashed box in the diagram illustrates an optional feature,
+<a href=#eadr>eADR</a>, where the CPU caches are also flushed on power loss.</p><hr><h4 id=app-direct>App Direct</h4><p>(Application Direct)</p><p><a href=#optane>Intel&rsquo;s Optane PMem</a> product can be provisioned into
 two modes: <strong>App Direct</strong> and <a href=#memory-mode>Memory Mode</a>. See
 <a href=http://intel.com/optane>Intel&rsquo;s website</a> for product details.
 The App Direct mode provides the
-<a href=#programming-model>persistent memory programming model</a>.</p>
-<p><img src=app-direct/app_direct.jpg alt="App Direct"></p>
-<p>When configured this way, the OS can provide direct access or <a href=#dax>DAX</a>
+<a href=#programming-model>persistent memory programming model</a>.</p><p><img src=app-direct/app_direct.jpg alt="App Direct"></p><p>When configured this way, the OS can provide direct access or <a href=#dax>DAX</a>
 to persistent memory aware applications. This allows applications to
-access the persistence just like memory, with loads and stores.</p>
-<hr>
-<h4 id=ars>ARS</h4>
-<p>(Address Range Scrub)</p>
-<p><a href=#nvdimm>NVDIMM</a> products may provide an interface that allows the
+access the persistence just like memory, with loads and stores.</p><hr><h4 id=ars>ARS</h4><p>(Address Range Scrub)</p><p><a href=#nvdimm>NVDIMM</a> products may provide an interface that allows the
 operating system
 to discover the known poison locations on the device.
 Knowing about these <a href=#bad-blocks>bad blocks</a>
 ahead of time allows applications
 to avoid consuming poison, thereby avoiding the associated exception
-that typically kills the application.</p>
-<p>The ARS interface is exposed as a <a href=#dsm>DSM</a>.
+that typically kills the application.</p><p>The ARS interface is exposed as a <a href=#dsm>DSM</a>.
 The DSM for Address Range Scrub is
 described by the ACPI specification, available on the
-<a href=https://uefi.org/>UEFI web site</a>.</p>
-<hr>
-<h4 id=bad-blocks>Bad Blocks</h4>
-<p>The OS may track a list of known <strong>bad blocks</strong> on a persistent
+<a href=https://uefi.org/>UEFI web site</a>.</p><hr><h4 id=bad-blocks>Bad Blocks</h4><p>The OS may track a list of known <strong>bad blocks</strong> on a persistent
 memory device. These blocks may be discovered using the Address
 Range Scan (<a href=#ars>ARS</a>) operation supported by some NVDIMMs,
 or they may be discovered on the fly when software tries to use
-a location and is returned poison instead.</p>
-<p>For normal volatile memory (i.e. DRAM) on a server class machine,
+a location and is returned poison instead.</p><p>For normal volatile memory (i.e. DRAM) on a server class machine,
 an uncorrectable error will result in a <em>poison</em> value returned
 to the application that consumes it.
 On Intel platforms,
@@ -485,41 +68,30 @@ the kernel to send an exception to the process consuming the poison.
 On Linux, the exception takes the form of a SIGBUS signal, and most
 applications will die as a result. On restart, the problem is gone
 since the application starts allocating volatile memory from scratch
-and the OS will have sequestered the page containing the poison.</p>
-<p>Persistent memory adds complexity to this case. Poison consumption
+and the OS will have sequestered the page containing the poison.</p><p>Persistent memory adds complexity to this case. Poison consumption
 results in the same SIGBUS in the Linux example above, but if the application
 dies and restarts it is likely to return to reading the same location
 since there&rsquo;s an expectation of persistence &ndash; the OS can&rsquo;t just replace
 the old page with a new one like it can for volatile memory since it
-needs the poison to remain there to indicate the loss of data.</p>
-<p>ECC information, which is used to detect uncorrectable errors,
+needs the poison to remain there to indicate the loss of data.</p><p>ECC information, which is used to detect uncorrectable errors,
 is typically maintained for each cache line, which
 on an Intel system is 64-bytes. But that small range can be rounded
-up to a larger range due to the <a href=#blast-radius>blast radius</a> effect.</p>
-<p>To prevent the ugly behavior where a PMem-aware application repeatedly
+up to a larger range due to the <a href=#blast-radius>blast radius</a> effect.</p><p>To prevent the ugly behavior where a PMem-aware application repeatedly
 starts up, consumes poison, and dies, the OS provides a way for the
 application to access the list of known bad blocks. On Linux, the
-<strong>ndctl</strong> command can be used to view this information as well:</p>
-<p><code># ndctl list --media-errors</code></p>
-<p>An API provided by <strong>libndctl</strong> allows applications to access this
+<strong>ndctl</strong> command can be used to view this information as well:</p><p><code># ndctl list --media-errors</code></p><p>An API provided by <strong>libndctl</strong> allows applications to access this
 information directly, and the PMDK libraries use that API to prevent
 opening a PMem pool when it contains known bad blocks. The common
 action taken by an application in this case is to refuse to continue,
 forcing the system administrator to restore the pool data from a
 backup or redundant copy. Of course it is possible for the application
 to attempt to repair the pool directly, but that leads to much more
-complex application logic.</p>
-<p><a href=https://software.intel.com/content/www/us/en/develop/articles/pmem-RAS.html>Intel&rsquo;s PMem RAS page</a>
-contains more information on this topic, focused on the Optane PMem product.</p>
-<hr>
-<h4 id=blast-radius>Blast Radius</h4>
-<p>When a location of <a href=#persistent-memory>persistent memory</a> experiences
+complex application logic.</p><p><a href=https://software.intel.com/content/www/us/en/develop/articles/pmem-RAS.html>Intel&rsquo;s PMem RAS page</a>
+contains more information on this topic, focused on the Optane PMem product.</p><hr><h4 id=blast-radius>Blast Radius</h4><p>When a location of <a href=#persistent-memory>persistent memory</a> experiences
 an uncorrectable error, that data is lost. Memory on Intel platforms
 is accessed as 64-byte cache lines, but there are cases where losing a
 single location can cause an application to lose a larger block of data.
-This is known as the <strong>blast radius</strong> effect.</p>
-<p><img src=bad-blocks/blast_radius.jpg alt="Blast Radius"></p>
-<p>As shown in the above diagram, a 64-byte location containing poison
+This is known as the <strong>blast radius</strong> effect.</p><p><img src=bad-blocks/blast_radius.jpg alt="Blast Radius"></p><p>As shown in the above diagram, a 64-byte location containing poison
 (due to an uncorrectable error, for example), may get its size rounded
 up by the device to whatever that device uses as its <em>ECC block size</em>.
 The Linux operating system can learn about these bad locations via
@@ -528,51 +100,25 @@ using a <a href=#bad-blocks>bad block</a> tracking data structure in the kernel
 that tracks 512-byte blocks, so the size will be rounded up to 512-bytes
 by that. If the application memory maps the file, the OS will map
 an invalid page at that location, again rounding the size up to the
-larger value of 4096-byte (the page size on Intel systems).</p>
-<hr>
-<h4 id=block-storage>Block Storage</h4>
-<p>(Storage, Disk)</p>
-<p>When comparing traditional storage to persistent memory, these are the primary
-differences:</p>
-<ul>
-<li>
-<p>The interface to block storage is block-based. Software can only read a
+larger value of 4096-byte (the page size on Intel systems).</p><hr><h4 id=block-storage>Block Storage</h4><p>(Storage, Disk)</p><p>When comparing traditional storage to persistent memory, these are the primary
+differences:</p><ul><li><p>The interface to block storage is block-based. Software can only read a
 block or write a block. File systems are typically used to abstract away
-this detail by <a href=#paging>paging</a> blocks to/from storage as required.</p>
-</li>
-<li>
-<p>The interface to PMem is byte-addressable. Software can read or write
+this detail by <a href=#paging>paging</a> blocks to/from storage as required.</p></li><li><p>The interface to PMem is byte-addressable. Software can read or write
 any data size without the need for paging. Persistent data are accessed
-in-place, reducing the need for DRAM to hold buffered data.</p>
-</li>
-<li>
-<p>When a use case does want to move a block, such as 4k of data, block
+in-place, reducing the need for DRAM to hold buffered data.</p></li><li><p>When a use case does want to move a block, such as 4k of data, block
 storage devices like NVMe SSDs initiate DMA to memory. This allows the
-CPU to perform other work while waiting for the data transfer.</p>
-</li>
-<li>
-<p>PMem is typically implemented as an <a href=#nvdimm>NVDIMM</a>,
+CPU to perform other work while waiting for the data transfer.</p></li><li><p>PMem is typically implemented as an <a href=#nvdimm>NVDIMM</a>,
 connected to the memory bus,
 which cannot initiate DMA. To move 4k of data, the CPU usually moves
 the data, which is lower latency than a storage device but results in
 higher CPU utilization. One potential solution to this is to use a
-DMA engine if the platform provides one.</p>
-</li>
-<li>
-<p>PMem can emulate a block storage device and in fact, that is part of the
+DMA engine if the platform provides one.</p></li><li><p>PMem can emulate a block storage device and in fact, that is part of the
 <a href=#programming-model>PMem programming model</a>. Block storage cannot emulate
 PMem since it is fundamentally not byte-addressable. Paging can get close
 to emulating PMem, especially for fast SSDs, but flushing changes to
 persistence will still require executing kernel code with block storage,
 where PMem can flush to persistence directly from user space (see <a href=#adr>ADR</a>
-and <a href=#eadr>eADR</a> for details).</p>
-</li>
-</ul>
-<p>Also see <a href=#btt>BTT</a> for details on how PMem emulates block storage.</p>
-<hr>
-<h4 id=btt>BTT</h4>
-<p>(Block Translation Table)</p>
-<p>The <strong>BTT</strong> algorithm provides single block powerfail write atomicity
+and <a href=#eadr>eADR</a> for details).</p></li></ul><p>Also see <a href=#btt>BTT</a> for details on how PMem emulates block storage.</p><hr><h4 id=btt>BTT</h4><p>(Block Translation Table)</p><p>The <strong>BTT</strong> algorithm provides single block powerfail write atomicity
 on top of persistent memory. This allows PMem to emulate storage and
 provide similar semantics to NVMe.
 NVMe storage requires at least
@@ -580,14 +126,9 @@ one block powerfail write atomicity, meaning a block being written
 during a power failure will either be fully written or not written at
 all. Since software may depend on this attribute of storage, the BTT
 algorithm was designed to implement the same semantics in software. The
-algorithm was standardized as part of <a href=https://uefi.org>UEFI</a>.</p>
-<p>For an introduction on how BTT works, shorter than reading the full
+algorithm was standardized as part of <a href=https://uefi.org>UEFI</a>.</p><p>For an introduction on how BTT works, shorter than reading the full
 specification, see <a href=/blog/2014/09/using-the-block-translation-table-for-sector-atomicity>this blog</a>,
-written by the Linux maintainer of its BTT implementation, Vishal Verma.</p>
-<hr>
-<h4 id=clflushopt>CLFLUSHOPT</h4>
-<p>(Instruction: Cache Line Flush, Optimized)</p>
-<p>The Intel instruction set has long contained a cache flush
+written by the Linux maintainer of its BTT implementation, Vishal Verma.</p><hr><h4 id=clflushopt>CLFLUSHOPT</h4><p>(Instruction: Cache Line Flush, Optimized)</p><p>The Intel instruction set has long contained a cache flush
 instruction, CLFLUSH, which will evict a specific cache line
 from the CPU caches. The definition of CLFLUSH, which pre-dates
 <a href=#persistent-memory>persistent memory</a>, includes a <a href=#fence>fence</a>
@@ -602,15 +143,10 @@ the embedded fence operation. As a result, a loop of CLFLUSHOPT
 instructions will launch the flushes, allowing for some parallelism
 of the flushes. Such a loop should be terminated with a final
 <a href=#fence>fence</a> to ensure completion before software continues under
-the assumption that the stores in that range are persistent.</p>
-<p>The CLFLUSHOPT instruction always evicts the cache line, meaning
+the assumption that the stores in that range are persistent.</p><p>The CLFLUSHOPT instruction always evicts the cache line, meaning
 the next access to that address will be a CPU cache miss, even if it
 happens very soon after the flush. Compare this with the <a href=#clwb>CLWB</a>
-instruction, which allows the line to remain valid.</p>
-<hr>
-<h4 id=clwb>CLWB</h4>
-<p>(Instruction: Cache Line Write Back)</p>
-<p>The <strong>CLWB</strong> instruction is the preferred way to flush
+instruction, which allows the line to remain valid.</p><hr><h4 id=clwb>CLWB</h4><p>(Instruction: Cache Line Write Back)</p><p>The <strong>CLWB</strong> instruction is the preferred way to flush
 PMem stores to persistence, when required by the platform.
 This is the case for platforms that only support <a href=#adr>ADR</a>.
 Platforms that support <a href=#eadr>eADR</a> allow software to skip
@@ -620,138 +156,77 @@ Unlike the CLFLUSH and <a href=#clflushopt>CLFLUSHOPT</a> instructions,
 CLWB tells the CPU it is desirable to leave the cache line
 valid in the CPU cache after writing our any dirty data. This
 provides better performance for the cases where the application
-accesses the line again, soon after flushing.</p>
-<p>Like <a href=#clflushopt>CLFLUSHOPT</a>, the CLWB instruction does not
+accesses the line again, soon after flushing.</p><p>Like <a href=#clflushopt>CLFLUSHOPT</a>, the CLWB instruction does not
 contain an implied <a href=#fence>fence</a>, so after flushing a range
-using this instruction, it is typical to issue an SFENCE instruction.</p>
-<hr>
-<h4 id=cxl>CXL</h4>
-<p>(Compute Express Link)</p>
-<p>Quoting from the <a href=https://www.computeexpresslink.org/>CXL web site</a>,
+using this instruction, it is typical to issue an SFENCE instruction.</p><hr><h4 id=cxl>CXL</h4><p>(Compute Express Link)</p><p>Quoting from the <a href=https://www.computeexpresslink.org/>CXL web site</a>,
 Compute Express Link™ (CXL™) is an industry-supported
-Cache-Coherent Interconnect for Processors, Memory Expansion and Accelerators.</p>
-<p>For <a href=#persistent-memory>persistent memory</a>, CXL offers a new attach point.
+Cache-Coherent Interconnect for Processors, Memory Expansion and Accelerators.</p><p>For <a href=#persistent-memory>persistent memory</a>, CXL offers a new attach point.
 The CXL 2.0 specification, published in November 2020, includes the necessary
 support for PMem, including changes for management, configuration,
 namespace and regions labels, and a flush-on-fail mechanism similar to
-<a href=#eadr>eADR</a> (called GPF for Global Persistent Flush in CXL terminology).</p>
-<p>For PMem-aware application programmers, the most important aspect of CXL is
+<a href=#eadr>eADR</a> (called GPF for Global Persistent Flush in CXL terminology).</p><p>For PMem-aware application programmers, the most important aspect of CXL is
 that the <a href=#programming-model>PMem programming model</a> remains unchanged.
 A program written for an NVDIMM-based PMem product will work without
-modification on a CXL-based PMem product.</p>
-<p>The <em>2021 PM+CS Summit</em> (April 22, 2021) contained this talk which
-provides a brief overview of the changes made to CXL in support of PMem.</p>
-<p><a href="https://www.youtube.com/watch?v=x-OSKow9NM8"><img src=https://img.youtube.com/vi/x-OSKow9NM8/0.jpg alt="PMem on CXL Video"></a></p>
-<hr>
-<h4 id=dax>DAX</h4>
-<p>(Direct Access)</p>
-<p>The <a href=#programming-model>PMem programming model</a> states that applications
+modification on a CXL-based PMem product.</p><p>The <em>2021 PM+CS Summit</em> (April 22, 2021) contained this talk which
+provides a brief overview of the changes made to CXL in support of PMem.</p><p><a href="https://www.youtube.com/watch?v=x-OSKow9NM8"><img src=https://img.youtube.com/vi/x-OSKow9NM8/0.jpg alt="PMem on CXL Video"></a></p><hr><h4 id=dax>DAX</h4><p>(Direct Access)</p><p>The <a href=#programming-model>PMem programming model</a> states that applications
 can directly map persistent memory using the standard memory mapped files API
 provided by the OS. This feature, where system calls like
 <a href=#mmap>mmap</a> and <a href=#mapviewoffile>MapViewOfFile</a> bypass the page cache,
 has been named <strong>DAX</strong> in both Linux and Windows. DAX is short for
 <em>direct access</em> and is a key feature added to the operating systems
-in support of persistent memory.</p>
-<p><img src=dax/dax.jpg alt=DAX></p>
-<p>As shown in the above diagram, an application uses standard APIs to
+in support of persistent memory.</p><p><img src=dax/dax.jpg alt=DAX></p><p>As shown in the above diagram, an application uses standard APIs to
 open a file and then memory map it. The job of the PMem-aware file system
 is to provide the DAX mapping, so that no <a href=#paging>paging</a> occurs
-as the application accesses the memory range.</p>
-<p>In order to make stores to PMem persistent, the standard API for flushing
+as the application accesses the memory range.</p><p>In order to make stores to PMem persistent, the standard API for flushing
 may be used: (<a href=#msync>msync</a> on Linux, or <a href=#flushviewoffile>FlushViewOfFile</a>
 on Windows). The programming model also allows for user space flushing
 to persistence directly using instructions like <a href=#clwb>CLWB</a>, but this is
 only allowed on Linux if <code>mmap</code> is successfully called with the <code>MAP_SYNC</code>
-flag. On Windows, all DAX mappings allow flushing from user space.</p>
-<p>The <a href=https://www.kernel.org/doc/Documentation/filesystems/dax.txt>Linux doc on DAX</a>
-contains additional information about DAX on Linux.</p>
-<hr>
-<h4 id=ddr>DDR</h4>
-<p>(Double Data Rate)</p>
-<p>The term <strong>DDR</strong> is a generalization of the various versions of
+flag. On Windows, all DAX mappings allow flushing from user space.</p><p>The <a href=https://www.kernel.org/doc/Documentation/filesystems/dax.txt>Linux doc on DAX</a>
+contains additional information about DAX on Linux.</p><hr><h4 id=ddr>DDR</h4><p>(Double Data Rate)</p><p>The term <strong>DDR</strong> is a generalization of the various versions of
 the DDR protocol. For example, DDR4 is explained
-<a href=https://en.wikipedia.org/wiki/DDR4_SDRAM>here on Wikipedia</a>.</p>
-<p>When talking about persistent memory, this term is used to talk about
+<a href=https://en.wikipedia.org/wiki/DDR4_SDRAM>here on Wikipedia</a>.</p><p>When talking about persistent memory, this term is used to talk about
 what types of memory are plugged into what types of sockets. For example,
 NVDIMM-N products typically plug into DDR sockets, like normal DRAM.
 Intel&rsquo;s Optane PMem plugs into DDR sockets but runs the <a href=#ddrt>DDR-T</a>
-protocol over the DDR electricals.</p>
-<hr>
-<h4 id=ddr-t>DDR-T</h4>
-<p><strong>DDR-T</strong> is the protocol used on Intel platforms with their
-<a href=#optane>Optane</a> PMem products, which plug into the system&rsquo;s <a href=#ddr>DDR</a> slots.</p>
-<hr>
-<h4 id=device-dax>Device DAX</h4>
-<p>(devdax)</p>
-<p>Linux supports <a href=#dax>DAX</a>, which allows a PMem-aware file system to
+protocol over the DDR electricals.</p><hr><h4 id=ddr-t>DDR-T</h4><p><strong>DDR-T</strong> is the protocol used on Intel platforms with their
+<a href=#optane>Optane</a> PMem products, which plug into the system&rsquo;s <a href=#ddr>DDR</a> slots.</p><hr><h4 id=device-dax>Device DAX</h4><p>(devdax)</p><p>Linux supports <a href=#dax>DAX</a>, which allows a PMem-aware file system to
 give applications <em>direct access</em> to PMem when they memory map a file.
 Linux also supports DAX without using a file system via a configuration
 known as <strong>device DAX</strong>. The Linux <code>ndctl</code> command uses the terms
 <code>fsdax</code> and <code>devdax</code> to choose between these two types of DAX, as
 described in the
 <a href=/ndctl/ndctl-create-namespace.html>ndctl-create-namespace</a>
-man page.</p>
-<p>In most cases, the ability to manage PMem like files, including naming,
+man page.</p><p>In most cases, the ability to manage PMem like files, including naming,
 permissions, and POSIX file APIs, makes fsdax the preferred choice. devdax
 does not follow the <a href=#programming-model>PMem programming model</a> since
 the normal file APIs do not work with it. Here are the main differences
-between fsdax and devdax on Linux:</p>
-<ul>
-<li>
-<p>In both cases, fsdax and devdax, the normal I/O path is load
+between fsdax and devdax on Linux:</p><ul><li><p>In both cases, fsdax and devdax, the normal I/O path is load
 and store instructions which allow access directly from user space, with no
-kernel code in the data path.</p>
-</li>
-<li>
-<p>devdax exposes the entire namespace as a single device, since there&rsquo;s
-no file system to divide the space into named files.</p>
-</li>
-<li>
-<p>The lack of file system also means the lack of file permissions, so devdax
+kernel code in the data path.</p></li><li><p>devdax exposes the entire namespace as a single device, since there&rsquo;s
+no file system to divide the space into named files.</p></li><li><p>The lack of file system also means the lack of file permissions, so devdax
 requires either running the application as root, or changing permissions
-on the device itself.</p>
-</li>
-<li>
-<p>devdax provides more raw access to the PMem, so it is easier for an
+on the device itself.</p></li><li><p>devdax provides more raw access to the PMem, so it is easier for an
 application to guarantee alignment for large pages. This is the most common
 reason for an application to use devdax, as described by RedHat
-in <a href=https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/configuring-persistent-memory-for-use-in-device-dax-mode>this page</a>.</p>
-</li>
-<li>
-<p>When the system knows about <a href=#bad-blocks>bad blocks</a> in PMem, fsdax will
+in <a href=https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/configuring-persistent-memory-for-use-in-device-dax-mode>this page</a>.</p></li><li><p>When the system knows about <a href=#bad-blocks>bad blocks</a> in PMem, fsdax will
 map invalid pages in those areas to prevent applications from consuming
 poison. Consuming poison on Intel servers causes <em>machine checks</em> which
 can be difficult to deal with. devdax access is more raw, allowing pages
 containing poison to be mapped so applications will experience machine checks
-when they touch those areas, even if the poison is already known to the system.</p>
-</li>
-<li>
-<p>devdax allows long-lived RDMA memory registrations, like those required
+when they touch those areas, even if the poison is already known to the system.</p></li><li><p>devdax allows long-lived RDMA memory registrations, like those required
 by some RDMA-based libraries. This is the next most common reason for an
 application to use device DAX. With fsdax, long-lived memory
 registrations are disallowed, and only RDMA cards that support <em>On-Demand Paging</em>
-(ODP) will work.</p>
-</li>
-<li>
-<p>devdax does not implement all of POSIX. For example, <a href=#msync>msync</a>
+(ODP) will work.</p></li><li><p>devdax does not implement all of POSIX. For example, <a href=#msync>msync</a>
 does not work and user space flushing with instructions like <a href=#clwb>CLWB</a>
 must be used instead. Finding the size of the PMem is more complex than
 just calling <code>stat(2)</code>, but the <a href=#pmdk>PMDK</a> libraries abstract away these
-differences and work with devdax as expected.</p>
-</li>
-<li>
-<p>Since devdax does not include a file system, the usual security
+differences and work with devdax as expected.</p></li><li><p>Since devdax does not include a file system, the usual security
 provided by a file system, where allocated blocks are zeroed, is not
 provided. This means applications can see old data left there from
-previous runs so the application designer must take this into account.</p>
-</li>
-</ul>
-<p>PMDK provides a utility, <a href=/pmdk/manpages/linux/v1.10/daxio/daxio.1.html>daxio</a>
-for saving/restoring/zeroing a devdax device.</p>
-<hr>
-<h4 id=dirty-shutdown-count>Dirty Shutdown Count</h4>
-<p>(DSC, Unsafe Shutdown Count)</p>
-<p>Flush-on-fail mechanisms like <a href=#adr>ADR</a> and <a href=#adr>eADR</a> provide
+previous runs so the application designer must take this into account.</p></li></ul><p>PMDK provides a utility, <a href=/pmdk/manpages/linux/v1.10/daxio/daxio.1.html>daxio</a>
+for saving/restoring/zeroing a devdax device.</p><hr><h4 id=dirty-shutdown-count>Dirty Shutdown Count</h4><p>(DSC, Unsafe Shutdown Count)</p><p>Flush-on-fail mechanisms like <a href=#adr>ADR</a> and <a href=#adr>eADR</a> provide
 a <a href=#programming-model>programming model</a> for PMem by transparently
 ensuring stores reach persistence even in the face of sudden power loss.
 When the flush-on-fail mechanism itself fails, the promise made to
@@ -759,53 +234,34 @@ software no longer holds true and some unflushed stores may have been
 lost. This is a rare occurrence, typically the result of a hardware
 fault, but obviously it must be reported to software to avoid silent
 data corruption. The <strong>dirty shutdown count</strong> is the way this failure
-is reported to software.</p>
-<p>When a PMem-aware application starts using a PMem file, it looks up
+is reported to software.</p><p>When a PMem-aware application starts using a PMem file, it looks up
 the current dirty shutdown count and stores it in the header information
 for that file. Each time the file is opened, the current count is checked
 against the stored count to see if a dirty shutdown has happened. If one
 has happened, the application should consider the file in an unknown state.
 Applications may attempt to repair the file, but the most common action is
 to consider the file lost and to restore it from a redundant source such as
-a back up copy.</p>
-<p>The <a href=#pmdk>PMDK</a> libraries store and check the dirty shutdown count as
-described above and will refuse to open any pools that fail the check.</p>
-<hr>
-<h4 id=dram>DRAM</h4>
-<p>(Dynamic Random Access Memory)</p>
-<p><strong>DRAM</strong> is the traditional main memory connected to virtually all
-computers today.</p>
-<p><a href=#persistent-memory>Persistent memory</a> can be
+a back up copy.</p><p>The <a href=#pmdk>PMDK</a> libraries store and check the dirty shutdown count as
+described above and will refuse to open any pools that fail the check.</p><hr><h4 id=dram>DRAM</h4><p>(Dynamic Random Access Memory)</p><p><strong>DRAM</strong> is the traditional main memory connected to virtually all
+computers today.</p><p><a href=#persistent-memory>Persistent memory</a> can be
 made out of DRAM, which is exactly what the NVDIMM-N products
 on the market do. With NVDIMM-N, the PMem runs at DRAM speeds
 because it is actually DRAM, and when power is lost, the NVDIMM-N
-saves the data persistently on a NAND flash chip.</p>
-<p><a href=#persistent-memory>Persistent memory</a> can be
+saves the data persistently on a NAND flash chip.</p><p><a href=#persistent-memory>Persistent memory</a> can be
 made out of other media types which are not DRAM. Intel&rsquo;s
 <a href=#optane>Optane</a> PMem uses <a href=#3d-xpoint>3D XPoint</a> as its
-media, for example.</p>
-<p>The comparison between NVDIMM-N and Intel&rsquo;s Optane points out
+media, for example.</p><p>The comparison between NVDIMM-N and Intel&rsquo;s Optane points out
 that whether or not a product is considered PMem is more
 about the <a href=#programming-model>programming model</a> it provides,
-rather than which media type it uses to implement that model.</p>
-<hr>
-<h4 id=dsm>DSM</h4>
-<p>(Device Specific Method, _DSM)</p>
-<p>ACPI defines the notion of a Device Specific Method, often written as <strong>_DSM</strong>,
+rather than which media type it uses to implement that model.</p><hr><h4 id=dsm>DSM</h4><p>(Device Specific Method, _DSM)</p><p>ACPI defines the notion of a Device Specific Method, often written as <strong>_DSM</strong>,
 which allows the pre-boot environment to abstract away some hardware details
 and provide a uniform interface for the OS to call.
 The standard DSMs for NVDIMMs are
 described by the ACPI specification, available on the
 <a href=https://uefi.org/>UEFI web site</a>.
-In addition, Intel has published the <a href=/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf>DSM Interface for Optane</a> (pdf).</p>
-<hr>
-<h4 id=eadr>eADR</h4>
-<p>(Extended ADR)</p>
-<p><strong>eADR</strong> is the hardware feature that flushes stores from the
+In addition, Intel has published the <a href=/documents/IntelOptanePMem_DSM_Interface-V2.0.pdf>DSM Interface for Optane</a> (pdf).</p><hr><h4 id=eadr>eADR</h4><p>(Extended ADR)</p><p><strong>eADR</strong> is the hardware feature that flushes stores from the
 CPU caches and memory
-controller write pending queues (WPQ) to their destination on power loss.</p>
-<p><img src=adr/hw.jpg alt="Hardware Store Path"></p>
-<p>As shown in the above diagram, there are multiple places a store could
+controller write pending queues (WPQ) to their destination on power loss.</p><p><img src=adr/hw.jpg alt="Hardware Store Path"></p><p>As shown in the above diagram, there are multiple places a store could
 reside on its way to a persistent memory DIMM. The lower dashed red box
 shows the ADR domain &ndash; stores that reach that domain are protected against
 power failure by <a href=#adr>ADR</a>,
@@ -813,114 +269,72 @@ which flushes the queues in the memory controller, shown
 as the trapezoid in the diagram. All Intel systems supporting persistent
 memory require ADR. The larger red dashed box in the diagram illustrates
 an optional platform feature, <strong>eADR</strong>,
-where the CPU caches are also flushed.</p>
-<p>eADR uses stored energy to perform the flushes after power loss.</p>
-<p>The BIOS notifies the OS that CPU caches are considered persistent using
+where the CPU caches are also flushed.</p><p>eADR uses stored energy to perform the flushes after power loss.</p><p>The BIOS notifies the OS that CPU caches are considered persistent using
 a field in the <a href=#nfit>NFIT</a> table. In turn, the OS typically provides
 an interface for applications to discover whether they need to use
 cache flush instructions like <a href=#clwb>CLWB</a> or whether they can depend
 on the automatic flush on power failure provided by eADR. Using
 <a href=#pmdk>PMDK</a> will allow an application to check for eADR automatically
-and skip cache flush instructions as appropriate.</p>
-<hr>
-<h4 id=fence>Fence</h4>
-<p>(SFENCE)</p>
-<p>The term <strong>fence</strong> refers to ordering instructions that programmers typically
+and skip cache flush instructions as appropriate.</p><hr><h4 id=fence>Fence</h4><p>(SFENCE)</p><p>The term <strong>fence</strong> refers to ordering instructions that programmers typically
 use to order operations to memory. For the Intel architecture, the intricate
 details of the fence instructions are described in the
 <a href=http://intel.com/sdm>Software Development Manuals</a> (SDM).
 For <a href=#persistent-memory>persistent memory</a> programming, the <em>SFENCE</em>
 instruction is particularly interesting. The ordering properties of
-SFENCE are described by Intel&rsquo;s SDM as follows:</p>
-<blockquote>
-<p>The processor ensures that every store prior to SFENCE is globally visible before any store after SFENCE becomes globally visible.</p>
-</blockquote>
-<p>For systems with <a href=#eadr>eADR</a>, where global visibility means persistence,
+SFENCE are described by Intel&rsquo;s SDM as follows:</p><blockquote><p>The processor ensures that every store prior to SFENCE is globally visible before any store after SFENCE becomes globally visible.</p></blockquote><p>For systems with <a href=#eadr>eADR</a>, where global visibility means persistence,
 the SFENCE instruction takes on a double meaning of making the stores both
-visible to other threads and persistent.</p>
-<p>For <a href=#adr>ADR</a> systems, where cache flushing is required to make stores
+visible to other threads and persistent.</p><p>For <a href=#adr>ADR</a> systems, where cache flushing is required to make stores
 persistent, it is necessary to ensure that flushed stores have been accepted
 by the memory subsystem, so that they may be considered persistent. Cache
 flush instructions like <a href=#clwb>CLWB</a> are <em>launched</em> and run asynchronously.
 Before software can continue under the assumption that the flushed range
-is persistent, it must issue an SFENCE instruction.</p>
-<p>Libraries like <a href=#pmdk>PMDK</a> are designed to abstract away the details of
+is persistent, it must issue an SFENCE instruction.</p><p>Libraries like <a href=#pmdk>PMDK</a> are designed to abstract away the details of
 complex instructions like SFENCE, in order to make PMem programming easier
-for application developers.</p>
-<hr>
-<h4 id=flushviewoffile>FlushViewOfFile</h4>
-<p>(Windows Flush System Call)</p>
-<p>One principle of the <a href=#programming-model>PMem programming model</a>
+for application developers.</p><hr><h4 id=flushviewoffile>FlushViewOfFile</h4><p>(Windows Flush System Call)</p><p>One principle of the <a href=#programming-model>PMem programming model</a>
 is that standard file APIs work as expected on PMem files. For
 Windows, the standard API for memory mapping a file is
 <a href=#mapviewoffile>MapViewOfFile</a> and the standard way to flush
-any stores to that range to make them persistent is <strong>FlushViewOfFile</strong>.</p>
-<p>On Windows, when a PMem file is <a href=#dax>DAX</a> mapped, it is also
+any stores to that range to make them persistent is <strong>FlushViewOfFile</strong>.</p><p>On Windows, when a PMem file is <a href=#dax>DAX</a> mapped, it is also
 possible to flush stores directly from user space using flush
 instructions like <a href=#clwb>CLWB</a>. This is typically much faster
-than using the system calls for flushing, but both will work.</p>
-<p>It is important to note that, according to <a href=https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-flushviewoffile>Microsoft&rsquo;s documentation</a>,
+than using the system calls for flushing, but both will work.</p><p>It is important to note that, according to <a href=https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-flushviewoffile>Microsoft&rsquo;s documentation</a>,
 FlushViewOfFile may return before the flushing is complete, so
-it is common to call <em>FlushFileBuffers</em> after using FlushViewOfFile.</p>
-<p>FlushViewOfFile on Windows is roughly equivalent to <a href=#msync>msync</a> on POSIX
-systems.</p>
-<hr>
-<h4 id=interleave-set>Interleave Set</h4>
-<p>The <a href=https://en.wikipedia.org/wiki/Interleaved_memory>Interleaved Memory</a> entry
+it is common to call <em>FlushFileBuffers</em> after using FlushViewOfFile.</p><p>FlushViewOfFile on Windows is roughly equivalent to <a href=#msync>msync</a> on POSIX
+systems.</p><hr><h4 id=interleave-set>Interleave Set</h4><p>The <a href=https://en.wikipedia.org/wiki/Interleaved_memory>Interleaved Memory</a> entry
 on Wikipedia describes how interleaving is used for performance, similar to
 striping across disks in a storage array. For <a href=#persistent-memory>persistent memory</a>,
 there&rsquo;s another consideration. Since PMem is persistent, the interleave set must
 be constructed the same way each time the PMem is configured by the system, or
-else the persistent data will appear garbled to software.</p>
-<p>Exactly how PMem interleave sets are created the same way each time is a
+else the persistent data will appear garbled to software.</p><p>Exactly how PMem interleave sets are created the same way each time is a
 product specific detail for <a href=#nvdimm>NVDIMMs</a>. For persistent memory on
 <a href=#cxl>CXL</a>, a standard mechanism for this has been defined: <em>region labels</em>.
 These labels are stored persistently in a
 <a href=#label-storage-area>label storage area</a>,
-also defined by the CXL specification.</p>
-<p>An interleave set is also called a <a href=#region>region</a> by Linux, as well as by
-the CXL specification.</p>
-<hr>
-<h4 id=kmem-dax>KMEM DAX</h4>
-<p><strong>KMEM DAX</strong> is a semi-transparent alternative to <a href=#memory-mode>Memory Mode</a> for volatile use of PMem.
+also defined by the CXL specification.</p><p>An interleave set is also called a <a href=#region>region</a> by Linux, as well as by
+the CXL specification.</p><hr><h4 id=kmem-dax>KMEM DAX</h4><p><strong>KMEM DAX</strong> is a semi-transparent alternative to <a href=#memory-mode>Memory Mode</a> for volatile use of PMem.
 <a href=#device-dax>Device DAX</a> can be configured in <a href=/ndctl/daxctl-reconfigure-device.html>system-ram mode</a>.
 This mode exposes PMem as a hotplugged memory region. Configured this way,
 Persistent Memory takes the form of a separate memory-only NUMA Node(s). In contrast to <strong>Memory Mode</strong>,
 PMem is represented as an independent memory resources explicitly managed by the Operating System.
-For more information about KMEM DAX, see <a href=/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM DAX blog post</a>.</p>
-<hr>
-<h4 id=label-storage-area>Label Storage Area</h4>
-<p>(LSA)</p>
-<p>Persistent memory devices, such as <a href=#nvdimm>NVDIMMs</a>, can be carved into
+For more information about KMEM DAX, see <a href=/blog/2020/01/memkind-support-for-kmem-dax-option>KMEM DAX blog post</a>.</p><hr><h4 id=label-storage-area>Label Storage Area</h4><p>(LSA)</p><p>Persistent memory devices, such as <a href=#nvdimm>NVDIMMs</a>, can be carved into
 logical partitions known as <a href=#namespace>namespaces</a>. The
 <a href=https://uefi.org>ACPI specification</a> describes a standard way to
 manage namespaces by creating <em>namespace labels</em> and storing them in
-a <strong>label storage area</strong> (LSA).</p>
-<p>The <a href=#cxl>CXL specification</a> extends the LSA idea to store both
-namespace labels and <a href=#region>region</a> labels.</p>
-<p>Typically the LSA is a fairly small, reserved area, in the tens of kilobytes
+a <strong>label storage area</strong> (LSA).</p><p>The <a href=#cxl>CXL specification</a> extends the LSA idea to store both
+namespace labels and <a href=#region>region</a> labels.</p><p>Typically the LSA is a fairly small, reserved area, in the tens of kilobytes
 in size. It is persistent and the rules for reading and writing it are
 specified in a way that helps detect errors, such as a missing device
-in an interleave set.</p>
-<hr>
-<h4 id=libmemkind>libmemkind</h4>
-<p>The <strong>memkind</strong> library is focused on the volatile use of PMem, where
+in an interleave set.</p><hr><h4 id=libmemkind>libmemkind</h4><p>The <strong>memkind</strong> library is focused on the volatile use of PMem, where
 software ignores the persistence aspect of the PMem and uses it for
 its capacity and price point. <strong>memkind</strong> uses the popular <strong>jemalloc</strong>
 library internally to offer a flexible allocator for multiple,
 independent heaps.
-More information can be found on the <a href=http://memkind.github.io/memkind/>memkind web page</a>.</p>
-<hr>
-<h4 id=libpmem>libpmem</h4>
-<p>The <strong>libpmem</strong> library provides low level persistent memory support.
+More information can be found on the <a href=http://memkind.github.io/memkind/>memkind web page</a>.</p><hr><h4 id=libpmem>libpmem</h4><p>The <strong>libpmem</strong> library provides low level persistent memory support.
 Higher level libraries like <a href=#libpmemobj>libpmemobj</a> were implemented
 on top of <strong>libpmem</strong> until the newer <a href=#libpmem2>libpmem2</a> came along.
 The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=/repoindex>GitHub</a>.</p>
-<hr>
-<h4 id=libpmem2>libpmem2</h4>
-<p>The <strong>libpmem2</strong> library provides low level persistent memory support, and
+<a href=/repoindex>GitHub</a>.</p><hr><h4 id=libpmem2>libpmem2</h4><p>The <strong>libpmem2</strong> library provides low level persistent memory support, and
 is a replacement for the original <a href=#libpmem>libpmem</a> library.
 <strong>libpmem2</strong> provides a more universal and platform-agnostic interface.
 Developers wishing to roll their own persistent memory algorithms will find
@@ -930,10 +344,7 @@ support. Higher level libraries like <a href=#libpmemobj>libpmemobj</a> are impl
 on top of <strong>libpmem2</strong>.
 The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=/repoindex>GitHub</a>.</p>
-<hr>
-<h4 id=libpmemblk>libpmemblk</h4>
-<p>The <strong>libpmemblk</strong> library
+<a href=/repoindex>GitHub</a>.</p><hr><h4 id=libpmemblk>libpmemblk</h4><p>The <strong>libpmemblk</strong> library
 supports arrays of pmem-resident blocks, all the same size, that are
 atomically updated. For example, a program keeping a cache of fixed-size
 objects in pmem might find this library useful.
@@ -941,90 +352,54 @@ The algorithm used by <strong>libpmemblk</strong> is the same as the <a href=#bt
 algorithm standardized as part of the <a href=https://uefi.org>UEFI specification</a>.
 The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=/repoindex>GitHub</a>.</p>
-<hr>
-<h4 id=libpmemkv>libpmemkv</h4>
-<p>The <strong>libpmemkv</strong> library provides
+<a href=/repoindex>GitHub</a>.</p><hr><h4 id=libpmemkv>libpmemkv</h4><p>The <strong>libpmemkv</strong> library provides
 a local/embedded key-value datastore optimized for persistent memory. Rather
 than being tied to a single language or backing implementation,
 <strong>pmemkv</strong> provides
 different options for language bindings and storage engines.
 The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=/repoindex>GitHub</a>.</p>
-<hr>
-<h4 id=libpmemlog>libpmemlog</h4>
-<p>The <strong>libpmemlog</strong> library
+<a href=/repoindex>GitHub</a>.</p><hr><h4 id=libpmemlog>libpmemlog</h4><p>The <strong>libpmemlog</strong> library
 provides a PMem-resident log file. This is useful for programs like databases
 that append frequently to a log file.
 The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=/repoindex>GitHub</a>.</p>
-<hr>
-<h4 id=libpmemobj>libpmemobj</h4>
-<p>The <strong>libpmemobj</strong> library is the most popular and powerful library in
+<a href=/repoindex>GitHub</a>.</p><hr><h4 id=libpmemobj>libpmemobj</h4><p>The <strong>libpmemobj</strong> library is the most popular and powerful library in
 the <a href=#pmdk>PMDK</a> collection.
 It provides a transactional object store, providing memory allocation,
 transactions, and general facilities for persistent memory programming.
 Developers new to persistent memory probably want to start with this library.
 The <a href=/pmdk/>PMDK page</a> contains documentation on all
 the PMDK libraries, which are open source and available on
-<a href=/repoindex>GitHub</a>.</p>
-<hr>
-<h4 id=librpma>librpma</h4>
-<p>The <strong>librpma</strong> provides an API for <em>remote persistent memory access</em>.
+<a href=/repoindex>GitHub</a>.</p><hr><h4 id=librpma>librpma</h4><p>The <strong>librpma</strong> provides an API for <em>remote persistent memory access</em>.
 This <a href=#pmdk>PMDK</a> library is designed to help applications use
-RDMA to access remote PMem.</p>
-<p>See the <a href=/rpma/manpages/master/librpma.7.html>librpma man page</a>
-for details.</p>
-<hr>
-<h4 id=llpl>LLPL</h4>
-<p>(Java Low Level Persistence Library)</p>
-<p><strong>LLPL</strong> is the Java Low Level Persistence Library offering
+RDMA to access remote PMem.</p><p>See the <a href=/rpma/manpages/master/librpma.7.html>librpma man page</a>
+for details.</p><hr><h4 id=llpl>LLPL</h4><p>(Java Low Level Persistence Library)</p><p><strong>LLPL</strong> is the Java Low Level Persistence Library offering
 access to blocks of persistent memory allocated on a persistent heap.
-More information can be found on the <a href=https://github.com/pmem/llpl>LLPL GitHub Page</a>.</p>
-<hr>
-<h4 id=mapviewoffile>MapViewOfFile</h4>
-<p>(Windows Memory Map System Call)</p>
-<p>The Windows file API includes the ability to memory map
-a file using the system call <strong>MapViewOfFile</strong>.</p>
-<p>A memory mapped file appears as a range of virtual memory
+More information can be found on the <a href=https://github.com/pmem/llpl>LLPL GitHub Page</a>.</p><hr><h4 id=mapviewoffile>MapViewOfFile</h4><p>(Windows Memory Map System Call)</p><p>The Windows file API includes the ability to memory map
+a file using the system call <strong>MapViewOfFile</strong>.</p><p>A memory mapped file appears as a range of virtual memory
 in the application&rsquo;s address space, allowing the application
 to access it like memory with loads and stores. For files on
 storage, this works because the OS uses <a href=#paging>paging</a> to
 bring the contents of a page into <a href=#dram>DRAM</a> when the application
 accesses that page. For <a href=#persistent-memory>persistent memory</a>,
 a PMem-aware file system allows a memory mapped file to access
-the PMem directly, a feature known as <a href=#dax>DAX</a>.</p>
-<p>The <a href=https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile>Windows documentation</a> contains the details on how to use this system call.</p>
-<p>The equivalent system call on POSIX based systems (like Linux)
-is <a href=#mmap>mmap</a>.</p>
-<hr>
-<h4 id=memory-mode>Memory Mode</h4>
-<p>(2LM)</p>
-<p><a href=#optane>Intel&rsquo;s Optane PMem</a> product can be provisioned into
+the PMem directly, a feature known as <a href=#dax>DAX</a>.</p><p>The <a href=https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile>Windows documentation</a> contains the details on how to use this system call.</p><p>The equivalent system call on POSIX based systems (like Linux)
+is <a href=#mmap>mmap</a>.</p><hr><h4 id=memory-mode>Memory Mode</h4><p>(2LM)</p><p><a href=#optane>Intel&rsquo;s Optane PMem</a> product can be provisioned into
 two modes: <a href=#app-direct>App Direct</a> and <strong>Memory Mode</strong>. See
 <a href=http://intel.com/optane>Intel&rsquo;s website</a> for product details.
 Here we describe enough about <strong>Memory Mode</strong> to provide an overview
-of how it pertains to persistent memory in general.</p>
-<p><strong>Memory Mode</strong> combines two tiers of memory, DRAM and PMem,
-and it is sometimes referred to as <strong>2LM</strong> or <strong>two-level memory</strong>.</p>
-<p><img src=memory-mode/memory_mode.jpg alt="Memory Mode"></p>
-<p>When configured this way, the system DRAM acts as a memory-side cache.
+of how it pertains to persistent memory in general.</p><p><strong>Memory Mode</strong> combines two tiers of memory, DRAM and PMem,
+and it is sometimes referred to as <strong>2LM</strong> or <strong>two-level memory</strong>.</p><p><img src=memory-mode/memory_mode.jpg alt="Memory Mode"></p><p>When configured this way, the system DRAM acts as a memory-side cache.
 When an access is a cache hit, the data is returned from DRAM (<em>Near Memory</em>)
 at DRAM performance. When an access is a cache miss, the data is is fetched
 from PMem (<em>Far Memory</em>) at PMem performance. Intel&rsquo;s Memory Mode uses a
-64-byte cache line size in the memory side cache.</p>
-<p><strong>Memory Mode</strong> is a volatile use of persistent memory &ndash; there&rsquo;s no
+64-byte cache line size in the memory side cache.</p><p><strong>Memory Mode</strong> is a volatile use of persistent memory &ndash; there&rsquo;s no
 expectation by software that the memory range is persistent and, in fact,
 the Optane PMem device cryptographically scrambles the data on each boot
-to ensure the expected volatile semantics.</p>
-<p>Although this <strong>2LM</strong> configuration is technically possible between any
+to ensure the expected volatile semantics.</p><p>Although this <strong>2LM</strong> configuration is technically possible between any
 two tiers of memory, its primary popularity is to provide a high-capacity
-system main memory without incurring the cost of DRAM for the entire capacity.</p>
-<hr>
-<h4 id=memory-pooling>Memory Pooling</h4>
-<p>In this glossary, we use the term
+system main memory without incurring the cost of DRAM for the entire capacity.</p><hr><h4 id=memory-pooling>Memory Pooling</h4><p>In this glossary, we use the term
 <strong>Memory Pooling</strong> to refer to the disaggregation of memory into a shared
 pool, such that memory could be assigned to different hosts that are
 physically connected to the pool. The reason to use Memory Pooling is
@@ -1033,17 +408,11 @@ avoiding <em>stranded memory</em> where a host&rsquo;s compute resources are exh
 while having unused memory capacity. Typically, an <em>orchestrator</em>
 determines the optimal use of resources in a group of machines, and
 with Memory Pooling, that would include the assignment of memory
-capacity to individual hosts.</p>
-<p>The <a href=#cxl>CXL</a> 2.0 specification includes some support for Memory Pooling.</p>
-<p>Do not confuse this term with <a href=#memory-tiering>Memory Tiering</a>, which is
+capacity to individual hosts.</p><p>The <a href=#cxl>CXL</a> 2.0 specification includes some support for Memory Pooling.</p><p>Do not confuse this term with <a href=#memory-tiering>Memory Tiering</a>, which is
 a different concept. Memory Pooling is about sharing capacity between
 multiple hosts, where Memory Tiering is how a host chooses to use multiple
-types of memory available to it.</p>
-<p>Note that the term <a href=https://en.wikipedia.org/wiki/Memory_pool>Memory Pool</a>
-is also in common use and is unrelated to the concept described here.</p>
-<hr>
-<h4 id=memory-tiering>Memory Tiering</h4>
-<p>The term <strong>Memory Tiering</strong> refers to data placement between multiple
+types of memory available to it.</p><p>Note that the term <a href=https://en.wikipedia.org/wiki/Memory_pool>Memory Pool</a>
+is also in common use and is unrelated to the concept described here.</p><hr><h4 id=memory-tiering>Memory Tiering</h4><p>The term <strong>Memory Tiering</strong> refers to data placement between multiple
 types of memory in order to take advantage of the most useful attributes
 of each type. For example, tiering between DRAM and Optane is done to
 leverage the higher performance of DRAM with the cheaper capacity of Optane.
@@ -1052,106 +421,68 @@ reduction because if cost isn&rsquo;t an issue, one could just populate the
 entire system with the fastest type of memory available. However, in
 some cases tiering is used to provide capacities otherwise unavailable,
 for example creating a 6 TB main memory system using 512 GB Optane modules
-when 512 GB DRAM modules are not yet available.</p>
-<p>Memory Tiering can be done by modifying the application to perform the
+when 512 GB DRAM modules are not yet available.</p><p>Memory Tiering can be done by modifying the application to perform the
 data placement in the appropriate tiers. <a href=#libmemkind>libmemkind</a> is
 commonly used to provide malloc-like interfaces to such applications.
 The <a href=https://man7.org/linux/man-pages/man3/numa.3.html>libnuma library</a>
 provides a lower-level, page-based interface for application-aware
-memory tiering.</p>
-<p>Memory Tiering can also be done in a way that is transparent to applications.
+memory tiering.</p><p>Memory Tiering can also be done in a way that is transparent to applications.
 A hardware implementation of this is <a href=#memory-mode>Memory Mode</a>. Software
 implementations of transparent Memory Tiering include the experimental
 <a href="https://git.kernel.org/pub/scm/linux/kernel/git/vishal/tiering.git/tree/README-tiering.txt?h=tiering-0.72">Linux Memory Tiering</a>,
-and the <a href=https://www.memverge.com/>MemVerge product</a>.</p>
-<p>Do not confuse Memory Tiering with <a href=#memory-pooling>Memory Pooling</a>, which is
+and the <a href=https://www.memverge.com/>MemVerge product</a>.</p><p>Do not confuse Memory Tiering with <a href=#memory-pooling>Memory Pooling</a>, which is
 a different concept. The two concepts can work together, though, for example
 if memory accessed from a pool has high latency, a platform could use
 Memory Tiering to cache data from the pooled memory in a lower-latency
-tier such as local DRAM.</p>
-<hr>
-<h4 id=mmap>mmap</h4>
-<p>(POSIX Memory Map System Call)</p>
-<p>The POSIX file API includes the ability to memory map
-a file using the system call <strong>mmap</strong>.</p>
-<p>A memory mapped file appears as a range of virtual memory
+tier such as local DRAM.</p><hr><h4 id=mmap>mmap</h4><p>(POSIX Memory Map System Call)</p><p>The POSIX file API includes the ability to memory map
+a file using the system call <strong>mmap</strong>.</p><p>A memory mapped file appears as a range of virtual memory
 in the application&rsquo;s address space, allowing the application
 to access it like memory with loads and stores. For files on
 storage, this works because the OS uses <a href=#paging>paging</a> to
 bring the contents of a page into <a href=#dram>DRAM</a> when the application
 accesses that page. For <a href=#persistent-memory>persistent memory</a>,
 a PMem-aware file system allows a memory mapped file to access
-the PMem directly, a feature known as <a href=#dax>DAX</a>.</p>
-<p>Linux persistent memory support includes a new flag to mmap, <code>MAP_SYNC</code>.
+the PMem directly, a feature known as <a href=#dax>DAX</a>.</p><p>Linux persistent memory support includes a new flag to mmap, <code>MAP_SYNC</code>.
 A successful DAX mapping with MAP_SYNC means it is safe for applications
 to flush their changes to persistence using instructions like <a href=#clwb>CLWB</a>.
 Without <code>MAP_SYNC</code>, the only way to ensure persistence is to use standard
-flushing system calls like <a href=#msync>msync</a>.</p>
-<p>The <a href=https://man7.org/linux/man-pages/man2/mmap.2.html>Linux man page</a>
-contains the details on how to use this system call.</p>
-<p>The equivalent system call on Windows
-is <a href=#mapviewoffile>MapViewOfFile</a>.</p>
-<hr>
-<h4 id=msync>msync</h4>
-<p>(POSIX Flush System Call)</p>
-<p>One principle of the <a href=#programming-model>PMem programming model</a>
+flushing system calls like <a href=#msync>msync</a>.</p><p>The <a href=https://man7.org/linux/man-pages/man2/mmap.2.html>Linux man page</a>
+contains the details on how to use this system call.</p><p>The equivalent system call on Windows
+is <a href=#mapviewoffile>MapViewOfFile</a>.</p><hr><h4 id=msync>msync</h4><p>(POSIX Flush System Call)</p><p>One principle of the <a href=#programming-model>PMem programming model</a>
 is that standard file APIs work as expected on PMem files. For
 POSIX systems like Linux, the standard API for memory mapping a file is
 <a href=#mmap>mmap</a> and the standard way to flush
-any stores to that range to make them persistent is <strong>msync</strong>.</p>
-<p>On Linux, when a PMem file is successfully <a href=#dax>DAX</a> mapped using the
+any stores to that range to make them persistent is <strong>msync</strong>.</p><p>On Linux, when a PMem file is successfully <a href=#dax>DAX</a> mapped using the
 <code>MAP_SYNC</code> flag to mmap, it is also
 possible to flush stores directly from user space using flush
 instructions like <a href=#clwb>CLWB</a>. This is typically much faster
-than using the system calls for flushing, but both will work.</p>
-<p>msync on POSIX systems is roughly equivalent to
-<a href=#flushviewoffile>FlushViewOfFile</a> on Windows.</p>
-<hr>
-<h4 id=namespace>Namespace</h4>
-<p>A <strong>namespace</strong> is a way to partition capacity into logical devices. It is
+than using the system calls for flushing, but both will work.</p><p>msync on POSIX systems is roughly equivalent to
+<a href=#flushviewoffile>FlushViewOfFile</a> on Windows.</p><hr><h4 id=namespace>Namespace</h4><p>A <strong>namespace</strong> is a way to partition capacity into logical devices. It is
 a similar concept to the way a SCSI storage array can be
 partitioned into SCSI logical units
 (LUNs). The NVM Express specification defines how namespaces work on NVMe
 SSDs, and the ACPI specification defines how namespaces work on
 <a href=#nvdimm>NVDIMMs</a>. The NVDIMM version was extended and added to the
 <a href=#cxl>CXL</a> specification in CXL 2.0 so that PMem on CXL can define
-namespaces in the same way.</p>
-<p>Persistent Memory namespaces are more complex to manage than traditional
+namespaces in the same way.</p><p>Persistent Memory namespaces are more complex to manage than traditional
 storage, since the capacity is often interleaved across devices. To manage
 this, namespaces are defined by storing <em>namespace labels</em> on each device
 that contributes to a namespace. These labels are stored
-in a <a href=#label-storage-area>label storage area</a> on each device.</p>
-<p>On Linux, the <a href=#ndctl>ndctl</a> command provides a product-neutral way to
+in a <a href=#label-storage-area>label storage area</a> on each device.</p><p>On Linux, the <a href=#ndctl>ndctl</a> command provides a product-neutral way to
 manage namespaces. See the <a href=/ndctl/ndctl-create-namespace.html>create-namespace</a>
-command for more details.</p>
-<hr>
-<h4 id=ndctl>ndctl</h4>
-<p>On Linux systems, the <strong>ndctl</strong> command provides the management of
+command for more details.</p><hr><h4 id=ndctl>ndctl</h4><p>On Linux systems, the <strong>ndctl</strong> command provides the management of
 <a href=#nvdimm>NVDIMM</a> devices. This command is vendor-neutral, following
-open standards like the NVDIMM details on the ACPI specification.</p>
-<p>Some products may also have a vendor-specific command to perform
+open standards like the NVDIMM details on the ACPI specification.</p><p>Some products may also have a vendor-specific command to perform
 additional management tasks. For example, Intel&rsquo;s <a href=#optane>Optane PMem</a>
-is managed using the command <code>ipmctl</code>.</p>
-<p>See the <a href=/ndctl/>ndctl man pages</a> for details.</p>
-<hr>
-<h4 id=nfit>NFIT</h4>
-<p>(NVDIMM Firmware Interface Table)</p>
-<p>The <a href=https://uefi.org>ACPI specification</a> defines a table known as
+is managed using the command <code>ipmctl</code>.</p><p>See the <a href=/ndctl/>ndctl man pages</a> for details.</p><hr><h4 id=nfit>NFIT</h4><p>(NVDIMM Firmware Interface Table)</p><p>The <a href=https://uefi.org>ACPI specification</a> defines a table known as
 the NVDIMM Firmware Interface Table, or <strong>NFIT</strong>. This table is used
 to report the existence of <a href=#persistent-memory>persistent memory</a> in
 the system. When the OS detects this table, it typically triggers the
-loading of the various modules/drivers that support NVDIMMs.</p>
-<p>As the name implies, the NFIT only applies to NVDIMMs. PMem attached
+loading of the various modules/drivers that support NVDIMMs.</p><p>As the name implies, the NFIT only applies to NVDIMMs. PMem attached
 to <a href=#cxl>CXL</a> will be found by the OS using the standard PCIe bus
-enumeration, just like any PCIe devices.</p>
-<hr>
-<h4 id=nt-store>NT Store</h4>
-<p>(Non-Temporal Store)</p>
-<p>The Intel <a href=http://intel.com/sdm>Software Development Manuals</a> (SDM)
+enumeration, just like any PCIe devices.</p><hr><h4 id=nt-store>NT Store</h4><p>(Non-Temporal Store)</p><p>The Intel <a href=http://intel.com/sdm>Software Development Manuals</a> (SDM)
 describe a type of store known as _non-temporal stores* or <strong>NT Stores</strong>.
-This excerpt from the manuals describes why they exist:</p>
-<blockquote>
-<p>Data referenced by a program can be temporal (data will be used again) or
+This excerpt from the manuals describes why they exist:</p><blockquote><p>Data referenced by a program can be temporal (data will be used again) or
 non-temporal (data will be referenced once and not reused in the immediate
 future). For example, program code is generally temporal, whereas, multimedia
 data, such as the display list in a 3-D graphics application, is often
@@ -1160,43 +491,28 @@ desirable to cache temporal data and not cache non-temporal data. Overloading
 the processor’s caches with non-temporal data is sometimes referred to as
 “polluting the caches.” The SSE and SSE2 cacheability control instructions
 enable a program to write non-temporal data to memory in a manner that
-minimizes pollution of caches.</p>
-</blockquote>
-<p>For <a href=#persistent-memory>persistent memory</a>, NT stores are additionally
+minimizes pollution of caches.</p></blockquote><p>For <a href=#persistent-memory>persistent memory</a>, NT stores are additionally
 useful as they bypass the CPU cache so that the stores become persistent
 without requiring an additional flushing instruction like <a href=#clwb>CLWB</a>.
 <img src=clwb/flush_isa.jpg alt="Flush ISA" style=float:right>
 It is important to note that Intel&rsquo;s NT stores are <em>write combining</em> rather
 than <em>write back</em> like normal memory stores. This means that the stores are
 not necessarily globally visible to other threads until a <a href=#fence>fence</a>
-instruction like SFENCE is issued.</p>
-<p>Libraries like <a href=#pmdk>PMDK</a> make heavy use of NT stores.
+instruction like SFENCE is issued.</p><p>Libraries like <a href=#pmdk>PMDK</a> make heavy use of NT stores.
 The <a href=#libpmem>libpmem</a>
 library, for example, uses heuristics to determine a it is better to copy
-a memory range using write-back-cached instructions or NT stores.</p>
-<hr>
-<h4 id=nvdimm>NVDIMM</h4>
-<p>(Non-Volatile Dual In-line Memory Module)</p>
-<p>The JEDEC standards organization defines multiple types of
+a memory range using write-back-cached instructions or NT stores.</p><hr><h4 id=nvdimm>NVDIMM</h4><p>(Non-Volatile Dual In-line Memory Module)</p><p>The JEDEC standards organization defines multiple types of
 <strong>NVDIMM</strong> which provide some sort of persistence in the DIMM
 form factor. For <a href=#persistent-memory>persistent memory</a>, the
 two types of NVDIMM that can provide the
 <a href=#programming-model>PMem programming model</a> are <em>NVDIMM-N</em> and <em>NVDIMM-P</em>.
 A third type of PMem in the DIMM form factor is Intel&rsquo;s <a href=#optane>Optane PMem</a>,
-which uses the proprietary <a href=#ddr-t>DDR-T</a> protocol.</p>
-<hr>
-<h4 id=nvm>NVM</h4>
-<p>(Non-Volatile Memory)</p>
-<p>In modern usage, the term <strong>NVM</strong> refers to a class of products that do not
+which uses the proprietary <a href=#ddr-t>DDR-T</a> protocol.</p><hr><h4 id=nvm>NVM</h4><p>(Non-Volatile Memory)</p><p>In modern usage, the term <strong>NVM</strong> refers to a class of products that do not
 lose their contents when power is removed. Compare this to the modern usage of
 the term [persistent memory(#persistent-memory), which adds attribute that it
 is load/store accessible. The general term, NVM, can refer to storage like
 SSDs, or PMem. The more specific term, persistent memory, does not refer to a
-product that can only be used as <a href=#block-storage>block storage</a>.</p>
-<hr>
-<h4 id=optane>Optane</h4>
-<p>(DCPMM, DCPM)</p>
-<p><strong>Optane</strong> is the brand name for Intel&rsquo;s product line using
+product that can only be used as <a href=#block-storage>block storage</a>.</p><hr><h4 id=optane>Optane</h4><p>(DCPMM, DCPM)</p><p><strong>Optane</strong> is the brand name for Intel&rsquo;s product line using
 <a href=#3d-xpoint>3D XPoint</a> media. The line includes
 Optane SSDs, providing the <a href=#block-storage>block storage</a> interfaces,
 and Optane PMem, providing the <a href=#programming-model>PMem programming model</a>.
@@ -1204,62 +520,33 @@ and Optane PMem, providing the <a href=#programming-model>PMem programming model
 As shown in the diagram above, the Optane PMem product supports a volatile
 mode, known as <a href=#memory-mode>Memory Mode</a>, which uses <a href=#dram>DRAM</a> as a
 cache in front of the PMem. Optane PMem also supports a persistent mode,
-known as <a href=#app-direct>App Direct</a>, for PMem use cases.</p>
-<p>The <a href=#pmdk>PMDK</a> libraries are design for PMem programming, so their use
-with Optane PMem is intended for App Direct mode.</p>
-<p>For details on Optane, see <a href=https://intel.com/optane>Intel&rsquo;s Optane page</a>.</p>
-<hr>
-<h4 id=paging>Paging</h4>
-<p>When accessing data structures on <a href=#block-storage>block storage</a>, <strong>paging</strong>
+known as <a href=#app-direct>App Direct</a>, for PMem use cases.</p><p>The <a href=#pmdk>PMDK</a> libraries are design for PMem programming, so their use
+with Optane PMem is intended for App Direct mode.</p><p>For details on Optane, see <a href=https://intel.com/optane>Intel&rsquo;s Optane page</a>.</p><hr><h4 id=paging>Paging</h4><p>When accessing data structures on <a href=#block-storage>block storage</a>, <strong>paging</strong>
 is used to bring the appropriate blocks into DRAM as required. The paging
 can be transparent to the application (i.e. kernel paging), or the application
-can manage the paging itself (the case for most high-end databases).</p>
-<p><a href=#persistent-memory>Persistent memory</a> doesn&rsquo;t require paging for access,
+can manage the paging itself (the case for most high-end databases).</p><p><a href=#persistent-memory>Persistent memory</a> doesn&rsquo;t require paging for access,
 since it is, by definition, byte-addressable. This is an advantage over
 storage in multiple ways, since the lack of paging means lower latency,
 consistent latency, and it removes the need to evict other data from DRAM
 to make room for the inbound pages. However, some PMem-aware applications
 may still move blocks between PMem and DRAM to leverage the higher
-performance of DRAM for hot data.</p>
-<p><img src=paging/paging.jpg alt=Paging></p>
-<p>The diagram above illustrates how a storage-based memory mapped file
+performance of DRAM for hot data.</p><p><img src=paging/paging.jpg alt=Paging></p><p>The diagram above illustrates how a storage-based memory mapped file
 is implemented with paging. The application accesses the file data in
 DRAM as if it were byte-addressable, but when there&rsquo;s a <strong>page cache miss</strong>,
 the system suspends the application while it moves the page from block
-storage into DRAM, potentially evicting another page first to make room.</p>
-<hr>
-<h4 id=pcj>PCJ</h4>
-<p>(Persistent Collections for Java)</p>
-<p><strong>PCJ</strong> is an <em>experimental</em> Library providing
+storage into DRAM, potentially evicting another page first to make room.</p><hr><h4 id=pcj>PCJ</h4><p>(Persistent Collections for Java)</p><p><strong>PCJ</strong> is an <em>experimental</em> Library providing
 persistent collections for Java.
-More information can be found on the <a href=https://github.com/pmem/pcj>PCJ GitHub Page</a>.</p>
-<hr>
-<h4 id=persistence-domain>Persistence Domain</h4>
-<p>(Power Fail Safe Domain)</p>
-<p>The term <strong>Persistence Domain</strong> refers to the portion of the data
+More information can be found on the <a href=https://github.com/pmem/pcj>PCJ GitHub Page</a>.</p><hr><h4 id=persistence-domain>Persistence Domain</h4><p>(Power Fail Safe Domain)</p><p>The term <strong>Persistence Domain</strong> refers to the portion of the data
 path where a store operation is considered persistent by software.
 For <a href=#adr>ADR</a> systems, the persistence domain is the memory controller &ndash;
 applications can assume a store is persistent once it has been accepted
 by the memory sub-system. For <a href=#eadr>eADR</a> systems, the persistence
-domain is reached when a store reached global visibility.</p>
-<hr>
-<h4 id=persistent-memory>Persistent Memory</h4>
-<p>(PMem, pmem, PM)</p>
-<p>The <a href=#snia>SNIA</a> NVM Programming Technical Workgroup defined
+domain is reached when a store reached global visibility.</p><hr><h4 id=persistent-memory>Persistent Memory</h4><p>(PMem, pmem, PM)</p><p>The <a href=#snia>SNIA</a> NVM Programming Technical Workgroup defined
 <strong>persistent memory</strong> in their paper defining the
-<a href=#programming-model>PMem programming model</a>:</p>
-<blockquote>
-<p>storage technology with performance characteristics suitable
-for a load and store programming model</p>
-</blockquote>
-<p>For a device to be considered persistent memory, it must support the
+<a href=#programming-model>PMem programming model</a>:</p><blockquote><p>storage technology with performance characteristics suitable
+for a load and store programming model</p></blockquote><p>For a device to be considered persistent memory, it must support the
 load/store programming model and be fast enough that it is reasonable
-for software use it that way.</p>
-<p>The full <a href=https://www.snia.org/tech_activities/standards/curr_standards/npm>SNIA NVM Programming Specification</a> contains more detail on persistent memory semantics.</p>
-<hr>
-<h4 id=pmdk>PMDK</h4>
-<p>(Persistent Memory Development Kit)</p>
-<p>The <strong>Persistent Memory Development Kit</strong>, or <strong>PMDK</strong>
+for software use it that way.</p><p>The full <a href=https://www.snia.org/tech_activities/standards/curr_standards/npm>SNIA NVM Programming Specification</a> contains more detail on persistent memory semantics.</p><hr><h4 id=pmdk>PMDK</h4><p>(Persistent Memory Development Kit)</p><p>The <strong>Persistent Memory Development Kit</strong>, or <strong>PMDK</strong>
 is a growing collection of libraries and tools with the stated
 goal of making persistent memory programming easier.
 Tuned and validated on both
@@ -1267,70 +554,44 @@ Linux and Windows, the libraries build on the <a href=#dax>DAX</a>
 feature of those operating
 systems (short for <em>Direct Access</em>) which allows applications to access
 persistent memory as memory-mapped files, as described in the
-<a href=#programming-model>SNIA NVM Programming Model</a>.</p>
-<p>The source for PMDK is spread across multiple
+<a href=#programming-model>SNIA NVM Programming Model</a>.</p><p>The source for PMDK is spread across multiple
 <a href=/repoindex>GitHub repositories</a>.
 <img src=pmdk/pmdk.jpg alt=PMDK style=float:right width=50%>
 The PMDK libraries fit into the PMem programming model
 as shown in the diagram, where applications pull in just
 what they need from PMDK, but otherwise continue to
-use the direct access provided by the model.</p>
-<p>Since the normal file APIs work with PMem, the application
+use the direct access provided by the model.</p><p>Since the normal file APIs work with PMem, the application
 could use them, or use any library build on storage APIs.
 However, those APIs are all <em>buffer based</em>, requiring data
 copies into and out of DRAM buffers supplied by the
 application. PMDK libraries are designed to provide
 features like allocation and transactions, while still
 allow the application direct load/store access to its
-data structures.</p>
-<p><img src=pmdk/pmdklibs.jpg alt="PMDK Libraries"></p>
-<p>The diagram above shows a quick overview of most of the PMDK
+data structures.</p><p><img src=pmdk/pmdklibs.jpg alt="PMDK Libraries"></p><p>The diagram above shows a quick overview of most of the PMDK
 libraries. The volatile libraries use PMem for its capacity,
 but provide no persistence &ndash; the <a href=#libmemkind>memkind</a> library
-is the most common for volatile use cases.</p>
-<p>Low level libraries, like <a href=#libpmem2>libpmem2</a> provide basic
+is the most common for volatile use cases.</p><p>Low level libraries, like <a href=#libpmem2>libpmem2</a> provide basic
 data movement and cache flushing. The higher level libraries
-are built on top of them.</p>
-<p>The most flexible and commonly-used library is <a href=#libpmemobj>libpmemobj</a>.</p>
-<p>The <a href=#libpmemkv>pmemkv</a> libraries provide the highest-level, easiest
-to use interfaces in the form of a PMem-aware key-value store.</p>
-<p>The <a href=/pmdk>PMDK web page</a> contains detailed information
-on the libraries and how to use them.</p>
-<hr>
-<h4 id=pmem-programming-model>PMem Programming Model</h4>
-<p>See <a href=#programming-model>programming model</a> for details about the
-<strong>PMem programming model</strong>.</p>
-<hr>
-<h4 id=pmemhackathon>pmemhackathon</h4>
-<p>(Persistent Memory Programming Workshop)</p>
-<p>A series of workshops about programming with
+are built on top of them.</p><p>The most flexible and commonly-used library is <a href=#libpmemobj>libpmemobj</a>.</p><p>The <a href=#libpmemkv>pmemkv</a> libraries provide the highest-level, easiest
+to use interfaces in the form of a PMem-aware key-value store.</p><p>The <a href=/pmdk>PMDK web page</a> contains detailed information
+on the libraries and how to use them.</p><hr><h4 id=pmem-programming-model>PMem Programming Model</h4><p>See <a href=#programming-model>programming model</a> for details about the
+<strong>PMem programming model</strong>.</p><hr><h4 id=pmemhackathon>pmemhackathon</h4><p>(Persistent Memory Programming Workshop)</p><p>A series of workshops about programming with
 <a href=#persistent-memory>persistent memory</a> have been held over the years,
 often referred to as <strong>PMem Hackathons</strong>. Each workshop includes a
 series of fully-functional examples, meant to me used as starting points
 for PMem programming. The archive of these workshop examples is
 at <a href=https://pmemhackathon.io>pmemhackathon.io</a>,
-each named after the date of the workshop.</p>
-<hr>
-<h4 id=pmof>PMoF</h4>
-<p>(Persistent Memory over Fabrics)</p>
-<p>The term <strong>PMoF</strong> has been used in the past to refer to using RDMA to
+each named after the date of the workshop.</p><hr><h4 id=pmof>PMoF</h4><p>(Persistent Memory over Fabrics)</p><p>The term <strong>PMoF</strong> has been used in the past to refer to using RDMA to
 access remote persistent memory. The newer term, <a href=#rpmem>rpmem</a> is
-now more commonly used.</p>
-<hr>
-<h4 id=poison>Poison</h4>
-<p>On Intel servers, a special <strong>poison</strong> value is returned when accessing
+now more commonly used.</p><hr><h4 id=poison>Poison</h4><p>On Intel servers, a special <strong>poison</strong> value is returned when accessing
 a memory location that has experienced data loss, such as an uncorrectable
 error. Consuming poison triggers a <em>machine check</em> event, which the kernel
 will turn into an exception to the application consuming the poison if
 possible (it isn&rsquo;t possible if the poisons is consumed by the kernel itself,
-which is can cause a system crash, if the kernel has no way to recover).</p>
-<p>For more information about how poison impacts
+which is can cause a system crash, if the kernel has no way to recover).</p><p>For more information about how poison impacts
 <a href=#persistent-memory>persistent memory</a> aware applications,
 see the entry on <a href=#uncorrectable-error>uncorrectable errors</a>
-and on the <a href=#blast-radius>blast radius</a> concept.</p>
-<hr>
-<h4 id=pool>Pool</h4>
-<p>A <strong>pool</strong> is a <a href=#pmdk>PMDK</a> concept which refers to an allocation of
+and on the <a href=#blast-radius>blast radius</a> concept.</p><hr><h4 id=pool>Pool</h4><p>A <strong>pool</strong> is a <a href=#pmdk>PMDK</a> concept which refers to an allocation of
 some <a href=#persistent-memory>persistent memory</a> capacity by the system. A pool
 is often just a file on a PMem-aware file system, available for use
 with the PMDK libraries. The term <em>pool</em> is used instead of <em>file</em> because
@@ -1338,33 +599,22 @@ sometimes a pool may consist of multiple files (see the entry on
 <a href=#poolset>poolset</a>), and sometimes a pool may be a <a href=#device-dax>device DAX</a>
 device. The application using PMDK has these differences abstracted away,
 depending on the pool concept instead of having to deal with all the ways
-the capacity might be presented to PMDK.</p>
-<hr>
-<h4 id=poolset>Poolset</h4>
-<p>A <strong>poolset</strong> is a <a href=#pmdk>PMDK</a> concept where multiple files or
+the capacity might be presented to PMDK.</p><hr><h4 id=poolset>Poolset</h4><p>A <strong>poolset</strong> is a <a href=#pmdk>PMDK</a> concept where multiple files or
 <a href=#device-dax>device DAX</a> devices are combined and used as a single,
 logical pool. Poolsets also support replication that is application
 transparent (at least until a failure occurs and administrative
-actions are required).</p>
-<p>See the
+actions are required).</p><p>See the
 <a href=/pmdk/manpages/linux/v1.4/poolset/poolset.5>poolset man page</a>
-for details.</p>
-<hr>
-<h4 id=programming-model>Programming Model</h4>
-<p>The term <strong>programming model</strong> can refer to multiple aspects of
-<a href=#persistent-memory>persistent memory</a>.</p>
-<p>At the lowest level, the programming model describes how to interface
+for details.</p><hr><h4 id=programming-model>Programming Model</h4><p>The term <strong>programming model</strong> can refer to multiple aspects of
+<a href=#persistent-memory>persistent memory</a>.</p><p>At the lowest level, the programming model describes how to interface
 with the hardware. For persistent memory, the interface is similar to
 system memory, where accesses happen with load and store CPU instructions.
 At this level, <a href=#persistent-domain>persistence domain</a> is also defined.
 For example, on Intel hardware, instructions like <a href=#clwb>CLWB</a> are used
 to make stores persistent and features like <a href=#adr>ADR</a> and <a href=#eadr>eADR</a>
-define how and when those instructions are used.</p>
-<p>Another use of the term <em>programming model</em> is to describe how applications
+define how and when those instructions are used.</p><p>Another use of the term <em>programming model</em> is to describe how applications
 get access to persistent memory from the OS. This is where the SNIA
-NVM Programming Model applies.</p>
-<p><img src=programming-model/nvmp.jpg alt="PMem Programming Model"></p>
-<p>As shown in the diagram above, the PMem programming model is a
+NVM Programming Model applies.</p><p><img src=programming-model/nvmp.jpg alt="PMem Programming Model"></p><p>As shown in the diagram above, the PMem programming model is a
 generic, OS- and vendor-neutral model, where persistent memory
 is managed by a kernel driver (called <em>Generic NVDIMM Driver</em> in
 the diagram). That driver provides access for managing the PMem&rsquo;s
@@ -1374,8 +624,7 @@ access for standard
 that file systems and applications designed for traditional storage
 will work without modification. The right path is focus of most
 persistent memory programming, where a PMem-aware file system
-exposes PMem as files.</p>
-<p>The definition of a <em>PMem-aware file system</em> is a file system
+exposes PMem as files.</p><p>The definition of a <em>PMem-aware file system</em> is a file system
 that bypasses the system page cache when a file is memory mapped.
 This means applications can map the PMem file using standard APIs
 like <a href=#mmap>mmap</a> on Linux and <a href=#mapviewoffile>MapViewOfFile</a>
@@ -1384,8 +633,7 @@ giving the application direct load/store access to the persistent
 memory itself. Unlike memory mapped files on storage, where
 the OS performs <a href=#paging>paging</a> to DRAM as necessary, the application
 is able to access persistent memory data structures in-place, right
-where they are located in PMem.</p>
-<p>The <a href=#pmdk>PMDK</a> libraries build on top of this programming model to
+where they are located in PMem.</p><p>The <a href=#pmdk>PMDK</a> libraries build on top of this programming model to
 provide more convenient abstractions for working with persistent memory.
 This environment at the application level, where there are tools and libraries
 available, is often described using the term <em>programming model</em> as well.
@@ -1393,77 +641,44 @@ This means we&rsquo;ve described three definitions of the term <em>programming m
 (the interface to the hardware, the way the OS exposes PMem, and the full
 programming environment available to the application). All of these usages
 of the term are valid, but the most common use is to refer to the SNIA
-model described above.</p>
-<p>In addition to the PMem programming model described above, Linux systems
+model described above.</p><p>In addition to the PMem programming model described above, Linux systems
 provide an alternative called <a href=#device-dax>device DAX</a>. The diagram below
-summarizes the various ways available to access persistent memory.</p>
-<p><img src=programming-model/access_slide.jpg alt="Access Paths"></p>
-<hr>
-<h4 id=region>Region</h4>
-<p>A <strong>region</strong> is another term for <a href=#interleave-set>interleave set</a>. The
+summarizes the various ways available to access persistent memory.</p><p><img src=programming-model/access_slide.jpg alt="Access Paths"></p><hr><h4 id=region>Region</h4><p>A <strong>region</strong> is another term for <a href=#interleave-set>interleave set</a>. The
 Linux tools, such as <a href=#ndctl>ndctl</a> use this term, as does the <a href=#cxl>CXL</a>
-specification.</p>
-<hr>
-<h4 id=rpmem>RPMEM</h4>
-<p>(Remote Persistent Memory)</p>
-<p>Since PMem is accessible like memory, technologies that work directly with
+specification.</p><hr><h4 id=rpmem>RPMEM</h4><p>(Remote Persistent Memory)</p><p>Since PMem is accessible like memory, technologies that work directly with
 memory also work with PMem. RDMA is an exciting example of this, allowing
-low-latency, direct access to <strong>remote persistent memory</strong>.</p>
-<p>The <a href=#pmdk>PMDK</a> library <a href=#librpma>librpma</a> was designed to help applications
-use RDMA with <a href=#persistent-memory>persistent memory</a>.</p>
-<p>One major application that has published impressive results around RPMEM
-is Oracle Exadata, as described in <a href=https://blogs.oracle.com/exadata/persistent-memory-in-exadata-x8m>their blog</a>.</p>
-<hr>
-<h4 id=snia>SNIA</h4>
-<p>(Storage Networking Industry Association)</p>
-<p>According to the <a href=https://snia.org>SNIA website</a>, their mission statement is:</p>
-<blockquote>
-<p>Lead the storage industry worldwide in developing and promoting vendor-neutral
+low-latency, direct access to <strong>remote persistent memory</strong>.</p><p>The <a href=#pmdk>PMDK</a> library <a href=#librpma>librpma</a> was designed to help applications
+use RDMA with <a href=#persistent-memory>persistent memory</a>.</p><p>One major application that has published impressive results around RPMEM
+is Oracle Exadata, as described in <a href=https://blogs.oracle.com/exadata/persistent-memory-in-exadata-x8m>their blog</a>.</p><hr><h4 id=snia>SNIA</h4><p>(Storage Networking Industry Association)</p><p>According to the <a href=https://snia.org>SNIA website</a>, their mission statement is:</p><blockquote><p>Lead the storage industry worldwide in developing and promoting vendor-neutral
 architectures, standards, and educational services that facilitate the
-efficient management, movement, and security of information.</p>
-</blockquote>
-<p>For <a href=#persistent-memory>persistent memory</a>, SNIA played a central role
+efficient management, movement, and security of information.</p></blockquote><p>For <a href=#persistent-memory>persistent memory</a>, SNIA played a central role
 in defining the <a href=#programming-model>PMem programming model</a> which is
-described by the <a href=https://www.snia.org/tech_activities/standards/curr_standards/npm>NVM Programming Specification</a>.</p>
-<hr>
-<h4 id=storage-class-memory>Storage Class Memory</h4>
-<p>(SCM)</p>
-<p>The term <strong>Storage Class Memory</strong> is a synonym for
+described by the <a href=https://www.snia.org/tech_activities/standards/curr_standards/npm>NVM Programming Specification</a>.</p><hr><h4 id=storage-class-memory>Storage Class Memory</h4><p>(SCM)</p><p>The term <strong>Storage Class Memory</strong> is a synonym for
 <a href=#persistent-memory>persistent memory</a>. The <a href=#snia>SNIA</a>
 documentation prefers the term <em>persistent memory</em> but both terms
-are found in academic papers on the topic.</p>
-<hr>
-<h4 id=transaction>Transaction</h4>
-<p>In the world of persistent memory programming, <strong>transactions</strong> are a
+are found in academic papers on the topic.</p><hr><h4 id=transaction>Transaction</h4><p>In the world of persistent memory programming, <strong>transactions</strong> are a
 common tool to maintain a consistent persistent data structure.
 Traditionally, programmers are familiar with the need to maintain
 consistent data structures on storage, such as a database stored on
 a disk. Techniques such as <em>write ahead logging</em> are often used to ensure
 the database is in a consistent state in the face of unexpected failure
-such as a system crash or power failure.</p>
-<p>For data structures in traditional <a href=#dram>DRAM</a>, application programmers
+such as a system crash or power failure.</p><p>For data structures in traditional <a href=#dram>DRAM</a>, application programmers
 are familiar with <em>multi-threaded</em> programming techniques, to ensure each
 thread sees a consistent state when accessing the data structure. But
 if the program crashes or the system looses power, those DRAM-resident
 data structures are gone so there&rsquo;s no need for logging like the above
-database example.</p>
-<p><a href=#persistent-memory>Persistent memory</a>
+database example.</p><p><a href=#persistent-memory>Persistent memory</a>
 brings these two worlds together: a persistent memory
 resident data structure is often covered by multi-threaded programming
 techniques, as well as transaction/logging techniques to ensure consistency
 of the persistent data structure in the face of failure. Since PMem is
 load/store accessible, it is possible to implement transactions in a
 much more optimal and fine-grained manner than with
-<a href=#block-storage>block storage</a>.</p>
-<p>The <a href=#pmdk>PMDK</a> library <a href=#libpmemobj>libpmemobj</a> provides support
-for arbitrary transactions on PMem-resident data structures.</p>
-<hr>
-<h4 id=uncorrectable-error>Uncorrectable Error</h4>
-<p>When a storage device experiences an <strong>uncorrectable error</strong>, it typically
+<a href=#block-storage>block storage</a>.</p><p>The <a href=#pmdk>PMDK</a> library <a href=#libpmemobj>libpmemobj</a> provides support
+for arbitrary transactions on PMem-resident data structures.</p><hr><h4 id=uncorrectable-error>Uncorrectable Error</h4><p>When a storage device experiences an <strong>uncorrectable error</strong>, it typically
 results in an error passed back to applications when they use the storage
 APIs to access the lost data. But for <a href=#persistent-memory>persistent memory</a>,
-such errors behave more similarly to <a href=#dram>DRAM</a> than to storage.</p>
-<p>When a server application reads a memory location containing an
+such errors behave more similarly to <a href=#dram>DRAM</a> than to storage.</p><p>When a server application reads a memory location containing an
 uncorrectable error, the system must cause an exception to prevent the
 application from consuming corrupted data. On Intel servers, the CPU
 is sent a <em>poison value</em> to indicate the lost data, and when poison
@@ -1471,13 +686,11 @@ is consumed by software, Intel servers generate a <em>machine check exception</e
 This exception allows the kernel to raise an exception to the application,
 such as sending a Linux application a <em>SIGBUS</em> signal. Under some cases,
 a machine check is fatal to the system and it crashes as a result (an example
-of this is when the kernel itself is the consumer of the poison).</p>
-<p>Persistent memory aware applications will experience uncorrectable errors
+of this is when the kernel itself is the consumer of the poison).</p><p>Persistent memory aware applications will experience uncorrectable errors
 in PMem much like they do for DRAM. The difference is that when an
 application crashes due to a DRAM uncorrectable error, that location is
 gone when the application restarts &ndash; volatile memory always starts out
-new and the contents from previous runs is not expected to stay around.</p>
-<p>Obviously, PMem is different and the contents are designed to stay around.
+new and the contents from previous runs is not expected to stay around.</p><p>Obviously, PMem is different and the contents are designed to stay around.
 Thus, if an application crashes due to an uncorrectable error in PMem,
 it may very well try to access the same location again after restarting,
 and crash again due to the same uncorrectable. This leads to more
@@ -1486,28 +699,9 @@ crash loops. To help this situation, the system may provide a list of
 known <a href=#bad-blocks>bad blocks</a>, so that an application can avoid accessing
 those areas. The application architect must also be aware of the
 <a href=#blast-radius>blast radius</a> of uncorrectable errors, which may result
-in more data loss than a single memory location when they occur.</p>
-<p>This <a href=https://software.intel.com/content/www/us/en/develop/articles/pmem-RAS.html>article on Optane RAS</a>
-contains more details on this topic.</p>
-<hr>
-<br style=margin-top:30em>
-</div>
-</div>
-</div>
-</div>
-<footer id=footer class="border-0 bg-white">
-<div id=copyrights>
-<div class="container clearfix">
-<div class="row justify-content-between col-mb-30">
-<div class="col-12 col-lg-auto text-center text-lg-start">
-<div id=logo>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-</div>
-</div>
-<div class="col-12 col-lg-auto text-center text-lg-end">
-<div class="copyrights-menu copyright-links clearfix text-uppercase">
-<a href=https://pmem.io/about>about</a>/
+in more data loss than a single memory location when they occur.</p><p>This <a href=https://software.intel.com/content/www/us/en/develop/articles/pmem-RAS.html>article on Optane RAS</a>
+contains more details on this topic.</p><hr><br style=margin-top:30em></div></div></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -1515,23 +709,9 @@ contains more details on this topic.</p>
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a>
-</div>
-<div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2022 pmem.io</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</footer>
-</div>
-<div id=gotoTop class=icon-angle-up></div>
-<script src=/js/jquery.js></script>
+<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2022 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script>
 <script src=/js/plugins.min.js></script>
 <script src=/js/custom.js></script>
 <script src=/js/darkmode.js></script>
 <script src=/js/functions.js></script>
-<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
-</body>
-</html>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>

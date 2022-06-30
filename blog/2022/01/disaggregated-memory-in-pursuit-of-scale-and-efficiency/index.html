@@ -1,324 +1,15 @@
-<!doctype html><html dir=ltr lang=en-us><head>
-<link rel=stylesheet type=text/css href=/css/style.css>
-<meta property="og:title" content="Disaggregated Memory - In pursuit of scale and efficiency">
-<meta property="og:description" content="A software person perspective on new upcoming interconnect technologies.
-Existing Server Landscape Servers are expensive. And difficult to maintain properly. That&rsquo;s why most people turn to the public cloud for their hosting and computing needs. Dynamic virtual server instances have been key to unlocking efficiency gains for both Cloud Service Providers (CSPs) and their users. CSPs can leverage virtualization to colocate many workloads on fewer physical servers. And cloud users have access to a huge pool of on-demand processing power, only having to pay for what they use.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/"><meta property="article:section" content="blog">
-<meta property="article:published_time" content="2022-01-21T10:00:00+01:00">
-<meta property="article:modified_time" content="2022-01-21T10:00:00+01:00">
-<meta charset=utf-8>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/site.webmanifest>
-<title>Disaggregated Memory - In pursuit of scale and efficiency</title>
-<meta name=author content="PMem.io">
-<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
-<meta name=robots content="index, follow, archive">
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
-<link rel=stylesheet href=/css/bootstrap.css type=text/css>
-<link rel=stylesheet href=/css/style.css type=text/css>
-<link rel=stylesheet href=/css/dark.css type=text/css>
-<link rel=stylesheet href=/css/font-icons.css type=text/css>
-<link rel=stylesheet href=/css/animate.css type=text/css>
-<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
-<link rel=stylesheet href=/css/et-line.css type=text/css>
-<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
-<link rel=stylesheet href=/css/custom.css type=text/css>
-<meta name=viewport content="initial-scale=1,viewport-fit=cover">
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
-<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
-<link rel=stylesheet href=/css/template/fonts.css type=text/css>
-<link rel=stylesheet href=/css/template/seo.css type=text/css>
-</head>
-<body class=stretched>
-<div id=wrapper class=clearfix>
-<header id=header class="transparent-header floating-header header-size-md sticky-header">
-<div id=header-wrap class=dark-mode>
-<div class="container dark-mode">
-<div class=header-row>
-<div id=logo class=logo_dark>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-</div>
-<div id=logo class=logo_light>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-</div>
-<div class=header-misc>
-<div id=top-search class=header-misc-icon>
-<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
-</div>
-<div class=top-links>
-<ul class=top-links-container>
-<li>
-<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
-<a href=#><i id=darkSwitchToggle></i></a>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
-</div>
-<nav class="primary-menu with-arrows">
-<ul class=menu-container>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/developer-hub>Developer Hub</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>For Developers</p>
-<p>Everything you need to know about Persistent Memory.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
-<p>Get started <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/pmdk>
-<p>PMDK <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/repoindex>
-<p>PMem Repositories <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/pmemkv>
-<p>PMemKV <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=http://memkind.github.io/memkind/>
-<p>Memkind <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#newsletter>
-<p>Newsletter <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://tieredmemdb.github.io/>
-<p>TieredMemDB <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/learn>Learn</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>Access our Documentation</p>
-<p>Learn more about Persistent Memory features and capabilities.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/books>
-<p>Books <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/persistent-memory/>
-<p>Docs <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/glossary>
-<p>Glossary <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/ipmctl-user-guide/>
-<p>ipmctl User Guide <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/ndctl-user-guide/>
-<p>ndctl User Guide <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/faq>
-<p>FAQ <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/knowledgebase>
-<p>Knowledge base <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/tutorials>
-<p>Tutorials <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/videos>
-<p>Videos <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/webinars>
-<p>Webinars <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/community>Community</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>Get Connected</p>
-<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/events>
-<p>Events <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://groups.google.com/group/pmem>
-<p>Forum <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
-<p>Slack channel <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/announcements>
-<p>Announcements <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
-<p>Contribute <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#newsletter>
-<p>Newsletter <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#social-media>
-<p>Social Media <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/about><div>About</div></a>
-</li>
-</ul>
-</nav>
-<form class=top-search-form method=get>
-<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
-</form>
-</div>
-</div>
-</div>
-<div class="header-wrap-clone dark-mode"></div>
-</header>
-<div id=customSearch>
-<div id=bcs_js_snippet></div>
-</div>
-<section id=content>
-<div class="content-wrap dark-mode">
-<div class="container clearfix">
-<div class="row gutter-40 col-mb-80">
-<div class="postcontent col-lg-9 order-lg-last">
-<div class="single-post mb-0">
-<div class="entry clearfix">
-<div class=entry-title>
-<h2>Disaggregated Memory - In pursuit of scale and efficiency</h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> 21 Jan, 2022</li>
-<li><i class=icon-user></i> Piotr Balcer</li>
-<li>
-<i class=icon-folder-open></i>
-PMDK
-</li>
-</ul>
-</div>
-<div class="entry-content mt-0">
-<p>A software person perspective on new upcoming interconnect technologies.</p>
-<h2 id=existing-server-landscape>Existing Server Landscape</h2>
-<p>Servers are expensive. And difficult to maintain properly. That&rsquo;s why most
+<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta property="og:title" content="Disaggregated Memory - In pursuit of scale and efficiency"><meta property="og:description" content="A software person perspective on new upcoming interconnect technologies.
+Existing Server Landscape Servers are expensive. And difficult to maintain properly. That&rsquo;s why most people turn to the public cloud for their hosting and computing needs. Dynamic virtual server instances have been key to unlocking efficiency gains for both Cloud Service Providers (CSPs) and their users. CSPs can leverage virtualization to colocate many workloads on fewer physical servers. And cloud users have access to a huge pool of on-demand processing power, only having to pay for what they use."><meta property="og:type" content="article"><meta property="og:url" content="https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/"><meta property="article:section" content="blog"><meta property="article:published_time" content="2022-01-21T10:00:00+01:00"><meta property="article:modified_time" content="2022-01-21T10:00:00+01:00"><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Disaggregated Memory - In pursuit of scale and efficiency</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>Memkind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://tieredmemdb.github.io/><p>TieredMemDB <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/knowledgebase><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Disaggregated Memory - In pursuit of scale and efficiency</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 21 Jan, 2022</li><li><i class=icon-user></i> Piotr Balcer</li><li><i class=icon-folder-open></i>
+PMDK</li></ul></div><div class="entry-content mt-0"><p>A software person perspective on new upcoming interconnect technologies.</p><h2 id=existing-server-landscape>Existing Server Landscape</h2><p>Servers are expensive. And difficult to maintain properly. That&rsquo;s why most
 people turn to the public cloud for their hosting and computing needs. Dynamic
 virtual server instances have been key to unlocking efficiency gains for
 both Cloud Service Providers (CSPs) and their users. CSPs can leverage
 virtualization to colocate many workloads on fewer physical servers. And cloud
 users have access to a huge pool of on-demand processing power, only having to
 pay for what they use. It&rsquo;s a win-win scenario in terms of efficiency.
-More people share fewer resources.</p>
-<p>However, there are still many resources that are not utilized as efficiently
+More people share fewer resources.</p><p>However, there are still many resources that are not utilized as efficiently
 as they could be. Most pertinently, memory. And memory is pricey; it&rsquo;s often
 the single most expensive component in a typical server.
 Also, DRAM technology scaling is <a href=https://ieeexplore.ieee.org/document/9108122>increasingly challenging</a> [1], which, combined
@@ -326,17 +17,13 @@ with the rapidly increasing number of cores in modern processors, means that it&
 increasingly difficult for CSPs and hardware vendors to provide sufficient
 memory capacity and bandwidth per CPU core. And there are only so many memory
 channels you can add to a server before you physically run out of space on the
-motherboard.</p>
-<p><img src=/images/posts/cxl-stranded-memory.png alt="stranded memory"></p>
-<p>On top of all that, we are likely not utilizing existing memory capacity as
+motherboard.</p><p><img src=/images/posts/cxl-stranded-memory.png alt="stranded memory"></p><p>On top of all that, we are likely not utilizing existing memory capacity as
 efficiently as we could. <a href=https://arxiv.org/pdf/2112.12946.pdf>&ldquo;Google, Facebook, and Alibaba report that as much as
 50% of server memory in data centers is unutilized&rdquo;</a> [2]. Some
 of that memory is left unallocated at a hypervisor level. Some is stranded
 because all local cores are already allocated. Some is also left unused at
 the application/OS level.
-At cloud scale, that&rsquo;s literally billions of dollars in hardware sitting idle.</p>
-<h2 id=scaling-memory>Scaling memory</h2>
-<p>So, how can we continue scaling memory capacity and bandwidth while keeping
+At cloud scale, that&rsquo;s literally billions of dollars in hardware sitting idle.</p><h2 id=scaling-memory>Scaling memory</h2><p>So, how can we continue scaling memory capacity and bandwidth while keeping
 costs under control? By moving most of the memory outside of the server. This
 has already happened, to an extent, with block storage. Cloud storage services,
 such as Amazon&rsquo;s Simple Storage Service (S3), let servers access remote data,
@@ -346,8 +33,7 @@ scale their storage needs over time. And yes, there&rsquo;s some cost to it. Rem
 storage is not as fast as a local NVMe drive can be. But, based on the popularity
 of cloud storage solutions, horizontal scalability benefits clearly outweigh
 the costs of reduced vertical scaling.
-For many, locally attached storage has become a cache.</p>
-<p>So, M3 (Magnificent Memory Manager?) anyone? But is moving memory outside of the
+For many, locally attached storage has become a cache.</p><p>So, M3 (Magnificent Memory Manager?) anyone? But is moving memory outside of the
 server even possible? Many people in the industry and academia considered
 approaches that use regular network hardware. Remote Direct Memory Access (RDMA)
 technologies, such as Infiniband, can be leveraged to create approximate
@@ -355,30 +41,22 @@ solutions to disaggregated memory with fairly low latency.
 But not memory-like latency. So we end up with swap-style implementations
 (e.g., <a href=https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/gu>INFINISWAP</a> [3]), and not true remote attached memory.
 But if RDMA isn&rsquo;t the answer, then what is? Modern high-speed cache-coherent
-interconnects with memory pooling.</p>
-<h2 id=cxl>CXL</h2>
-<p>An example of such technology is <a href=https://www.computeexpresslink.org/>CXL</a> [4]. It&rsquo;s an interconnect standard
+interconnects with memory pooling.</p><h2 id=cxl>CXL</h2><p>An example of such technology is <a href=https://www.computeexpresslink.org/>CXL</a> [4]. It&rsquo;s an interconnect standard
 built on top of PCIe. It has many features, but, most notably for this
 discussion, CXL facilitates cache-coherent memory access between CPUs and
 supporting PCIe-attached devices (pure memory devices but also accelerators).
 This is called CXL.cache and CXL.mem. The 2.0 version of the standard
-additionally enables a single CXL device to connect to multiple hosts.</p>
-<p><img src=/images/posts/cxl-mem-pool.png alt="CXL.memory pool"></p>
-<p>CXL-attached memory, given that it uses PCIe, also has the added benefit of
+additionally enables a single CXL device to connect to multiple hosts.</p><p><img src=/images/posts/cxl-mem-pool.png alt="CXL.memory pool"></p><p>CXL-attached memory, given that it uses PCIe, also has the added benefit of
 being easier to manage (e.g., hot-plugged memory) and easier to scale (both
 in terms of capacity and bandwidth) than DDR memory in a DIMM form-factor. And,
 speaking of form factors, many hardware vendors have already <a href=https://business.kioxia.com/content/dam/kioxia/ncsa/en-us/business/asset/KIOXIA_EDSFF_Intro_White_Paper.pdf>announced plans</a> [5]
 to use EDSFF (Enterprise & Data Center SSD Form Factor) together with CXL.
 So it&rsquo;s likely that in the future we will see servers where both
 memory and storage (among other things) go into exactly the same slot.
-So convenient.</p>
-<h2 id=memory-disaggregation>Memory Disaggregation</h2>
-<p>CXL, in essence, lets infrastructure providers build scalable systems with
+So convenient.</p><h2 id=memory-disaggregation>Memory Disaggregation</h2><p>CXL, in essence, lets infrastructure providers build scalable systems with
 rack-level disaggregated on-demand memory, increasing allocation flexibility.
 This should allow cloud users to downscale their initial memory provision and
-then dynamically allocate and deallocate memory pages based on application demand.</p>
-<p><img src=/images/posts/cxl-m3.png alt=m3></p>
-<p>What&rsquo;s also possible are cloud memory services where applications connect
+then dynamically allocate and deallocate memory pages based on application demand.</p><p><img src=/images/posts/cxl-m3.png alt=m3></p><p>What&rsquo;s also possible are cloud memory services where applications connect
 to named remote memory regions that preserve their content. So just like cloud
 block storage, but with bytes. Such capability might unleash programmers to do
 all sorts of crazy optimizations - from dramatically reducing startup time, through
@@ -387,9 +65,7 @@ storing database indexes purely in shared distributed memory.
 And what&rsquo;s really cool is that those named memory regions wouldn&rsquo;t even have to
 reside in rack-level memory pool while unused. They can be paged out to slower
 block storage. This is all hypothetical at this point, but the possibilities are
-endless. We will see what happens once the hardware hits the market.</p>
-<h2 id=its-not-all-roses-and-sunshine>It&rsquo;s not all roses and sunshine</h2>
-<p>But there&rsquo;s always a but. In the case of cloud storage, it is latency.
+endless. We will see what happens once the hardware hits the market.</p><h2 id=its-not-all-roses-and-sunshine>It&rsquo;s not all roses and sunshine</h2><p>But there&rsquo;s always a but. In the case of cloud storage, it is latency.
 Unsurprisingly, that&rsquo;s also the case for CXL.mem. Memory connected through this
 interconnect will not be as quick to access as ordinary DIMMs due to inherent
 protocol costs. Since this is all upcoming technology, no one has yet
@@ -399,15 +75,11 @@ remote NUMA node access</a> [6]. At least for CXL attached DRAM.
 That&rsquo;s still plenty fast. But is it fast enough for applications not to notice
 if suddenly some of its memory accesses take twice (or more) as long? Only time
 will tell, but I&rsquo;m not so sure. For the most part, software that isn&rsquo;t
-NUMA-aware doesn&rsquo;t really scale all that well across sockets.</p>
-<h2 id=heterogeneous-memory-hierarchy>Heterogeneous memory hierarchy</h2>
-<p>In practice, the CXL.mem protocol expands the increasingly heterogeneous memory
+NUMA-aware doesn&rsquo;t really scale all that well across sockets.</p><h2 id=heterogeneous-memory-hierarchy>Heterogeneous memory hierarchy</h2><p>In practice, the CXL.mem protocol expands the increasingly heterogeneous memory
 hierarchy of modern servers. The specific access latency of remote attached
 memory will depend on the type of media used in the device.
 So it&rsquo;s not impossible to imagine a scenario where there are three or even more
-memory types in a single system, all with different performance characteristics.</p>
-<p><img src=/images/posts/cxl-hierarchy.png alt="CXL hierarchy"></p>
-<p>Given that there might be many different types of memory in a system, there
+memory types in a single system, all with different performance characteristics.</p><p><img src=/images/posts/cxl-hierarchy.png alt="CXL hierarchy"></p><p>Given that there might be many different types of memory in a system, there
 naturally needs to be something that will let software identify the performance
 characteristics of those devices. Luckily, that something already exists. It&rsquo;s
 called Heterogeneous Memory Attribute Table (HMAT), and it&rsquo;s part of the ACPI spec.
@@ -415,177 +87,48 @@ HMAT exposes information required to determine the performance characteristics
 (latency, bandwidth) of a memory device (target) as accessed from a CPU or
 other I/O device (initiator).
 Operating systems can parse that table and <a href=https://www.kernel.org/doc/html/latest/admin-guide/mm/numaperf.html>expose performance information</a> [7]
-to user-space software.</p>
-<p>If you&rsquo;d like to learn more, we&rsquo;ve described HMAT in the context of memkind in
-an <a href=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/>earlier article</a> [8] on pmem.io.</p>
-<h2 id=implications-for-software>Implications for software</h2>
-<p>Armed with this knowledge, software should then be able to make informed data
+to user-space software.</p><p>If you&rsquo;d like to learn more, we&rsquo;ve described HMAT in the context of memkind in
+an <a href=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/>earlier article</a> [8] on pmem.io.</p><h2 id=implications-for-software>Implications for software</h2><p>Armed with this knowledge, software should then be able to make informed data
 placement decisions about which allocations go to which memory.
 But how? And, better yet, why? Wouldn&rsquo;t it be better for some lower-level
-abstraction to handle this transparently for applications?</p>
-<p>And to the extent that transparent data placement is possible, I agree.
-But there are some caveats, in my opinion.</p>
-<p>First, making decisions about data placement is mostly about predicting the
+abstraction to handle this transparently for applications?</p><p>And to the extent that transparent data placement is possible, I agree.
+But there are some caveats, in my opinion.</p><p>First, making decisions about data placement is mostly about predicting the
 system&rsquo;s future behavior. The lower in the stack we make those decisions,
 the less information is available for predictions. And sure, cache
 replacement policies aren&rsquo;t anything new. It&rsquo;s a well-researched topic. The critical
 difference with memory is that data is directly accessible. It doesn&rsquo;t
 have to be moved to DRAM on access. So there are additional considerations to
 make, such as promotion policies or observing data access patterns beyond simple
-<code>get(key)</code> as with typical caching solutions.</p>
-<p>Second, any genuinely transparent universal tiering solution would likely operate
+<code>get(key)</code> as with typical caching solutions.</p><p>Second, any genuinely transparent universal tiering solution would likely operate
 on pages. And pages are typically far larger than individual data objects.
 Especially nowadays, where memory capacities are increasing and using huge pages
 is <a href=https://research.google/pubs/pub50370/>often advisable to increase performance</a> [9]. You wouldn&rsquo;t
 want your OS constantly moving 2MB blocks between different memory tiers.
 Such transparent solutions, to work optimally, would have to be complemented
 by user-space software that considers the spatial locality of memory objects
-within a page during allocation (and probably beyond).</p>
-<h2 id=ongoing-software-enabling-efforts>Ongoing software enabling efforts</h2>
-<p>Ultimately, I think the best solutions are likely to consist of a kernel-level
+within a page during allocation (and probably beyond).</p><h2 id=ongoing-software-enabling-efforts>Ongoing software enabling efforts</h2><p>Ultimately, I think the best solutions are likely to consist of a kernel-level
 (or hypervisor-level) mechanism for memory migration between tiers and
 an optimized user-space software component to ensure hot and cold data is
 stored on separate pages. Both working together to maximize performance.
 And both are already being worked on by many different people.
 There are now <a href=https://linuxplumbersconf.org/event/11/contributions/967/attachments/811/1654/Optimize%20Page%20Placement%20in%20Tiered%20Memory%20System.pdf>many Linux</a> [10] kernel
 <a href=https://lwn.net/Articles/860215/>memory tiering</a> [11] activities. And just as many user-space
-software projects trying to tackle page placement problems. Memkind among them.</p>
-<p><img src=/images/posts/cxl-user-kernel-malloc.png alt="CXL user/kernel malloc"></p>
-<p>That sounds all good and fine for volatile memory, where we care only about
+software projects trying to tackle page placement problems. Memkind among them.</p><p><img src=/images/posts/cxl-user-kernel-malloc.png alt="CXL user/kernel malloc"></p><p>That sounds all good and fine for volatile memory, where we care only about
 additional capacity and efficiency gains. But what about those named memory
 regions I mentioned earlier? In that case, software will need to be modified
 so that it can attach to existing regions instead of just allocating new ones.
 It would also likely need some logic to make safe updates to such regions.
 I hope that Persistent Memory Development Kit (PMDK) can serve those needs when
-they inevitably (hopefully :)) show up.</p>
-<p>And the master plan is revealed. Well, not really. But it&rsquo;s nice when things
-start to align.</p>
-<h2 id=references>References</h2>
-<p>[1] <a href=https://ieeexplore.ieee.org/document/9108122>Scaling and Performance Challenges of Future DRAM</a></p>
-<p>[2] <a href=https://arxiv.org/pdf/2112.12946.pdf>Redy: Remote Dynamic Memory Cache</a></p>
-<p>[3] <a href=https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/gu>Efficient Memory Disaggregation with Infiniswap</a></p>
-<p>[4] <a href=https://www.computeexpresslink.org/>Compute Express Link™: The Breakthrough CPU-to-Device Interconnect</a></p>
-<p>[5] <a href=https://business.kioxia.com/content/dam/kioxia/ncsa/en-us/business/asset/KIOXIA_EDSFF_Intro_White_Paper.pdf>KIOXIA Introducing the EDSFF E3 Family of Form Factors</a></p>
-<p>[6] <a href=https://www.nextplatform.com/2021/09/07/the-cxl-roadmap-opens-up-the-memory-hierarchy/>The CXL Roadmap Opens Up The Memory Hierarchy</a></p>
-<p>[7] <a href=https://www.kernel.org/doc/html/latest/admin-guide/mm/numaperf.html>Linux kernel guide - NUMA Locality</a></p>
-<p>[8] <a href=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/>Memkind support for heterogeneous memory attributes</a></p>
-<p>[9] <a href=https://research.google/pubs/pub50370/>Beyond malloc efficiency to fleet efficiency: a hugepage-aware memory allocator</a></p>
-<p>[10] <a href=https://linuxplumbersconf.org/event/11/contributions/967/attachments/811/1654/Optimize%20Page%20Placement%20in%20Tiered%20Memory%20System.pdf>Optimize Page Placement in Tiered Memory System</a></p>
-<p>[11] <a href=https://lwn.net/Articles/860215/>Migrate Pages in lieu of discard</a></p>
-<div class="tagcloud clearfix bottommargin">
-<a href=https://pmem.io/tags/cxl>CXL</a>
+they inevitably (hopefully :)) show up.</p><p>And the master plan is revealed. Well, not really. But it&rsquo;s nice when things
+start to align.</p><h2 id=references>References</h2><p>[1] <a href=https://ieeexplore.ieee.org/document/9108122>Scaling and Performance Challenges of Future DRAM</a></p><p>[2] <a href=https://arxiv.org/pdf/2112.12946.pdf>Redy: Remote Dynamic Memory Cache</a></p><p>[3] <a href=https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/gu>Efficient Memory Disaggregation with Infiniswap</a></p><p>[4] <a href=https://www.computeexpresslink.org/>Compute Express Link™: The Breakthrough CPU-to-Device Interconnect</a></p><p>[5] <a href=https://business.kioxia.com/content/dam/kioxia/ncsa/en-us/business/asset/KIOXIA_EDSFF_Intro_White_Paper.pdf>KIOXIA Introducing the EDSFF E3 Family of Form Factors</a></p><p>[6] <a href=https://www.nextplatform.com/2021/09/07/the-cxl-roadmap-opens-up-the-memory-hierarchy/>The CXL Roadmap Opens Up The Memory Hierarchy</a></p><p>[7] <a href=https://www.kernel.org/doc/html/latest/admin-guide/mm/numaperf.html>Linux kernel guide - NUMA Locality</a></p><p>[8] <a href=https://pmem.io/blog/2021/05/memkind-support-for-heterogeneous-memory-attributes/>Memkind support for heterogeneous memory attributes</a></p><p>[9] <a href=https://research.google/pubs/pub50370/>Beyond malloc efficiency to fleet efficiency: a hugepage-aware memory allocator</a></p><p>[10] <a href=https://linuxplumbersconf.org/event/11/contributions/967/attachments/811/1654/Optimize%20Page%20Placement%20in%20Tiered%20Memory%20System.pdf>Optimize Page Placement in Tiered Memory System</a></p><p>[11] <a href=https://lwn.net/Articles/860215/>Migrate Pages in lieu of discard</a></p><div class="tagcloud clearfix bottommargin"><a href=https://pmem.io/tags/cxl>CXL</a>
 <a href=https://pmem.io/tags/hmat>HMAT</a>
 <a href=https://pmem.io/tags/pmdk>PMDK</a>
-<a href=https://pmem.io/tags/memkind>Memkind</a>
-</div>
-<div class=clear></div>
-<div class="si-share border-0 d-flex justify-content-between align-items-center">
-<span>Share this Post:</span>
-<div id=share-buttons>
-<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/')">
-<i class=icon-facebook></i>
-<i class=icon-facebook></i>
-</div>
-<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Disaggregated Memory - In pursuit of scale and efficiency&url=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/')">
-<i class=icon-twitter></i>
-<i class=icon-twitter></i>
-</div>
-<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/&title=&summary=&source=')">
-<i class=icon-linkedin></i>
-<i class=icon-linkedin></i>
-</div>
-<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
-<i class=icon-pinterest></i>
-<i class=icon-pinterest></i>
-</div>
-<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/')">
-<i class=icon-email3></i>
-<i class=icon-email3></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row justify-content-between col-mb-30 post-navigation">
-<div class="col-12 col-md-auto text-center">
-<a href="https://pmem.io/blog/2022/01/introduction-to-pmemstream/?ref=footer">&lArr; Introduction to pmemstream</a>
-</div>
-<div class="col-12 col-md-auto text-center">
-<a href="https://pmem.io/blog/2021/10/how-to-contribute-to-pmem.io/?ref=footer">How to Contribute to pmem.io &rArr;</a>
-</div>
-</div>
-<div class=line></div>
-<h4>Related Posts:</h4>
-<div class="related-posts row posts-md col-mb-30">
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/>New release of PMDK</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Pbalcer</li>
-<li><i class=icon-calendar3></i> 11 Oct, 2019</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2018/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk/>New release of PMDK</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Pbalcer</li>
-<li><i class=icon-calendar3></i> 22 Oct, 2018</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2016/12/pmdk-for-windows/ data-lightbox=image><img src=/images/pmem_logo.png alt="PMDK for Windows"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2016/12/pmdk-for-windows/>PMDK for Windows</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Peluse</li>
-<li><i class=icon-calendar3></i> 21 Dec, 2016</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sidebar col-lg-3">
-<div class=sidebar-widgets-wrap>
-<div class="widget clearfix">
-<h4>Tag Cloud</h4>
-<div class=tagcloud>
-<a href=/tags/pmem class=block role=button>pmem</a>
+<a href=https://pmem.io/tags/memkind>Memkind</a></div><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/")'><i class=icon-facebook></i>
+<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick='window.open("http://twitter.com/intent/tweet?text=Disaggregated Memory - In pursuit of scale and efficiency&url=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/")'><i class=icon-twitter></i>
+<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick='window.open("https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/&title=&summary=&source=")'><i class=icon-linkedin></i>
+<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick='window.open("https://pinterest.com/pin/create/button/?url=&media=&description=")'><i class=icon-pinterest></i>
+<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick='window.open("mailto:?&body=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/")'><i class=icon-email3></i>
+<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2022/01/introduction-to-pmemstream/?ref=footer">&lArr; Introduction to pmemstream</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2021/10/how-to-contribute-to-pmem.io/?ref=footer">How to Contribute to pmem.io &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/>New release of PMDK</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Pbalcer</li><li><i class=icon-calendar3></i> 11 Oct, 2019</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2018/10/new-release-of-pmdk/>New release of PMDK</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Pbalcer</li><li><i class=icon-calendar3></i> 22 Oct, 2018</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2016/12/pmdk-for-windows/ data-lightbox=image><img src=/images/pmem_logo.png alt="PMDK for Windows"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2016/12/pmdk-for-windows/>PMDK for Windows</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Peluse</li><li><i class=icon-calendar3></i> 21 Dec, 2016</li></ul></div></div></div></div></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/pmem class=block role=button>pmem</a>
 <a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
@@ -614,28 +157,8 @@ start to align.</p>
 <a href=/tags/crash class=block role=button>crash</a>
 <a href=/tags/create class=block role=button>create</a>
 <a href=/tags/database class=block role=button>database</a>
-<a href=/tags/destroy class=block role=button>destroy</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<footer id=footer class="border-0 bg-white">
-<div id=copyrights>
-<div class="container clearfix">
-<div class="row justify-content-between col-mb-30">
-<div class="col-12 col-lg-auto text-center text-lg-start">
-<div id=logo>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-</div>
-</div>
-<div class="col-12 col-lg-auto text-center text-lg-end">
-<div class="copyrights-menu copyright-links clearfix text-uppercase">
-<a href=https://pmem.io/about>about</a>/
+<a href=/tags/destroy class=block role=button>destroy</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -643,23 +166,9 @@ start to align.</p>
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a>
-</div>
-<div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2022 pmem.io</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</footer>
-</div>
-<div id=gotoTop class=icon-angle-up></div>
-<script src=/js/jquery.js></script>
+<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2022 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script>
 <script src=/js/plugins.min.js></script>
 <script src=/js/custom.js></script>
 <script src=/js/darkmode.js></script>
 <script src=/js/functions.js></script>
-<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
-</body>
-</html>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>

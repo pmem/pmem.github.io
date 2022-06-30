@@ -1,802 +1,315 @@
-<!doctype html><html dir=ltr lang=en-us><head>
-<link rel=stylesheet type=text/css href=/css/style.css>
-<meta property="og:title" content="Basic asynchronous hashmap with Miniasync library">
-<meta property="og:description" content="Miniasync library provides a framework for the composition and execution of asynchronous tasks in C. To accommodate different user-defined tasks and various types of data that they take in, libminiasync makes use of macros.
+<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta property="og:title" content="Basic asynchronous hashmap with Miniasync library"><meta property="og:description" content="Miniasync library provides a framework for the composition and execution of asynchronous tasks in C. To accommodate different user-defined tasks and various types of data that they take in, libminiasync makes use of macros.
 Using libminiasync for the first time can be challenging. There are multiple examples on the miniasync repo to make it easier. One of them is a hashmap example.
-Hashmap example overview The hashmap example on the Miniasync repository presents a hashmap with a fixed size that allocates memory upon key-value pair insertion.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/"><meta property="article:section" content="blog">
-<meta property="article:published_time" content="2022-06-03T00:00:00+00:00">
-<meta property="article:modified_time" content="2022-06-03T00:00:00+00:00">
-<meta charset=utf-8>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/site.webmanifest>
-<title>Basic asynchronous hashmap with Miniasync library</title>
-<meta name=author content="PMem.io">
-<meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode">
-<meta name=robots content="index, follow, archive">
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css>
-<link rel=stylesheet href=/css/bootstrap.css type=text/css>
-<link rel=stylesheet href=/css/style.css type=text/css>
-<link rel=stylesheet href=/css/dark.css type=text/css>
-<link rel=stylesheet href=/css/font-icons.css type=text/css>
-<link rel=stylesheet href=/css/animate.css type=text/css>
-<link rel=stylesheet href=/css/magnific-popup.css type=text/css>
-<link rel=stylesheet href=/css/et-line.css type=text/css>
-<link rel=stylesheet href=/css/components/bs-switches.css type=text/css>
-<link rel=stylesheet href=/css/custom.css type=text/css>
-<meta name=viewport content="initial-scale=1,viewport-fit=cover">
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css>
-<link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css>
-<link rel=stylesheet href=/css/template/fonts.css type=text/css>
-<link rel=stylesheet href=/css/template/seo.css type=text/css>
-</head>
-<body class=stretched>
-<div id=wrapper class=clearfix>
-<header id=header class="transparent-header floating-header header-size-md sticky-header">
-<div id=header-wrap class=dark-mode>
-<div class="container dark-mode">
-<div class=header-row>
-<div id=logo class=logo_dark>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
-</div>
-<div id=logo class=logo_light>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
-</div>
-<div class=header-misc>
-<div id=top-search class=header-misc-icon>
-<a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a>
-</div>
-<div class=top-links>
-<ul class=top-links-container>
-<li>
-<div id=darkSwitch class="dark-mode header-misc-icon d-md-block">
-<a href=#><i id=darkSwitchToggle></i></a>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg>
-</div>
-<nav class="primary-menu with-arrows">
-<ul class=menu-container>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/developer-hub>Developer Hub</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>For Developers</p>
-<p>Everything you need to know about Persistent Memory.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/persistent-memory/getting-started-guide>
-<p>Get started <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/pmdk>
-<p>PMDK <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/repoindex>
-<p>PMem Repositories <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/pmemkv>
-<p>PMemKV <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=http://memkind.github.io/memkind/>
-<p>Memkind <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#newsletter>
-<p>Newsletter <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://tieredmemdb.github.io/>
-<p>TieredMemDB <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/learn>Learn</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>Access our Documentation</p>
-<p>Learn more about Persistent Memory features and capabilities.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/books>
-<p>Books <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/persistent-memory/>
-<p>Docs <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/glossary>
-<p>Glossary <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/ipmctl-user-guide/>
-<p>ipmctl User Guide <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://docs.pmem.io/ndctl-user-guide/>
-<p>ndctl User Guide <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/faq>
-<p>FAQ <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/knowledgebase>
-<p>Knowledge base <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/tutorials>
-<p>Tutorials <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/videos>
-<p>Videos <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/webinars>
-<p>Webinars <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class="menu-item mega-menu">
-<div class=menu-link>
-<div><a href=/community>Community</a></div>
-</div>
-<div class="mega-menu-content mega-menu-style-2 px-0">
-<div class="container dark-mode">
-<div class=row>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class=fbox-content>
-<p class=fw-bold>Get Connected</p>
-<p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/events>
-<p>Events <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://groups.google.com/group/pmem>
-<p>Forum <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email>
-<p>Slack channel <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-<div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4">
-<div class=feature-box>
-<div class="fbox-content h-bg-light">
-<a href=/announcements>
-<p>Announcements <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/blog/2021/10/how-to-contribute-to-pmem.io/>
-<p>Contribute <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#newsletter>
-<p>Newsletter <i class=icon-angle-right></i></p>
-</a>
-</div>
-<div class="fbox-content h-bg-light">
-<a href=/community/#social-media>
-<p>Social Media <i class=icon-angle-right></i></p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/blog><div>Blog</div></a>
-</li>
-<li class=menu-item>
-<a class=menu-link href=https://pmem.io/about><div>About</div></a>
-</li>
-</ul>
-</nav>
-<form class=top-search-form method=get>
-<input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off>
-</form>
-</div>
-</div>
-</div>
-<div class="header-wrap-clone dark-mode"></div>
-</header>
-<div id=customSearch>
-<div id=bcs_js_snippet></div>
-</div>
-<section id=content>
-<div class="content-wrap dark-mode">
-<div class="container clearfix">
-<div class="row gutter-40 col-mb-80">
-<div class="postcontent col-lg-9 order-lg-last">
-<div class="single-post mb-0">
-<div class="entry clearfix">
-<div class=entry-title>
-<h2>Basic asynchronous hashmap with Miniasync library</h2>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-calendar3></i> 03 Jun, 2022</li>
-<li><i class=icon-user></i> Krzysztof Święcicki</li>
-<li>
-<i class=icon-folder-open></i>
-PMDK
-</li>
-</ul>
-</div>
-<div class="entry-content mt-0">
-<p>Miniasync library provides a framework for the composition and execution of asynchronous
+Hashmap example overview The hashmap example on the Miniasync repository presents a hashmap with a fixed size that allocates memory upon key-value pair insertion."><meta property="og:type" content="article"><meta property="og:url" content="https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/"><meta property="article:section" content="blog"><meta property="article:published_time" content="2022-06-03T00:00:00+00:00"><meta property="article:modified_time" content="2022-06-03T00:00:00+00:00"><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Basic asynchronous hashmap with Miniasync library</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>Memkind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://tieredmemdb.github.io/><p>TieredMemDB <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/knowledgebase><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Basic asynchronous hashmap with Miniasync library</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 03 Jun, 2022</li><li><i class=icon-user></i> Krzysztof Święcicki</li><li><i class=icon-folder-open></i>
+PMDK</li></ul></div><div class="entry-content mt-0"><p>Miniasync library provides a framework for the composition and execution of asynchronous
 tasks in C. To accommodate different user-defined tasks and various types of data that they
-take in, libminiasync makes use of macros.</p>
-<p>Using libminiasync for the first time can be challenging. There are multiple examples
+take in, libminiasync makes use of macros.</p><p>Using libminiasync for the first time can be challenging. There are multiple examples
 on the <a href=https://github.com/pmem/miniasync/tree/master/examples>miniasync repo</a> to make it easier. One of them is a
-<a href=https://github.com/pmem/miniasync/blob/master/examples/hashmap/hashmap.c>hashmap</a> example.</p>
-<h2 id=hashmap-example-overview>Hashmap example overview</h2>
-<p>The hashmap example on the Miniasync repository presents a hashmap with a fixed size that
+<a href=https://github.com/pmem/miniasync/blob/master/examples/hashmap/hashmap.c>hashmap</a> example.</p><h2 id=hashmap-example-overview>Hashmap example overview</h2><p>The hashmap example on the Miniasync repository presents a hashmap with a fixed size that
 allocates memory upon key-value pair insertion. This particular implementation uses
 linear probing for hashmap entry lookup. Linear probing means that whenever we encounter a
 collision when inserting a key-value pair, we will move on to the next hashmap entry until
 we find an unoccupied entry. For the hash function, we use the Austin Appleby <a href=https://en.wikipedia.org/wiki/MurmurHash>MurmurHash3</a>
-64-bit finalizer.</p>
-<p>Each operation associated with hashmap entry insertion, deletion and search is implemented
-using Miniasync <a href=https://github.com/pmem/miniasync/blob/master/doc/miniasync_future.7.md>future</a> API.</p>
-<h2 id=creating-a-future>Creating a future</h2>
-<p>Future is an abstraction of an asynchronous task. Each future has to be defined using
+64-bit finalizer.</p><p>Each operation associated with hashmap entry insertion, deletion and search is implemented
+using Miniasync <a href=https://github.com/pmem/miniasync/blob/master/doc/miniasync_future.7.md>future</a> API.</p><h2 id=creating-a-future>Creating a future</h2><p>Future is an abstraction of an asynchronous task. Each future has to be defined using
 <code>FUTURE(_name, _data_type, _output_type)</code> macro. It takes future name <code>_name</code>,
 input data type <code>_data_type</code> and output data type <code>_output_type</code>. For more information
 about the futures, see <a href=https://github.com/pmem/miniasync/blob/master/doc/miniasync_future.7.md>future</a> manpage on Miniasync github
-repository.</p>
-<p>The <code>lookup</code> future definition from the hashmap example:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>struct</span> hashmap_lookup_data {
-	<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm;
-	<span style=color:#66d9ef>uint64_t</span> key;
-	<span style=color:#66d9ef>enum</span> hashmap_entry_state state;
-};
-<span style=color:#66d9ef>struct</span> hashmap_lookup_output {
-	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme;
-};
-FUTURE(hashmap_lookup_fut, <span style=color:#66d9ef>struct</span> hashmap_lookup_data,
-		<span style=color:#66d9ef>struct</span> hashmap_lookup_output);
-</code></pre></div><p>The lookup data <code>struct hashmap_lookup_data</code> contains a pointer to hashmap <code>hm</code>, <code>key</code>, and <code>state</code> of the
+repository.</p><p>The <code>lookup</code> future definition from the hashmap example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> hashmap_lookup_data {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>uint64_t</span> key;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>enum</span> hashmap_entry_state state;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> hashmap_lookup_output {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>FUTURE(hashmap_lookup_fut, <span style=color:#66d9ef>struct</span> hashmap_lookup_data,
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>struct</span> hashmap_lookup_output);
+</span></span></code></pre></div><p>The lookup data <code>struct hashmap_lookup_data</code> contains a pointer to hashmap <code>hm</code>, <code>key</code>, and <code>state</code> of the
 searched entry. <code>hm</code> should point to an actual hashmap instance, <code>key</code> is an entry key used in the hash function,
-<code>state</code> indicates whether the lookup function should search for an existing or unoccupied hashmap entry.</p>
-<p>The output data <code>struct hashmap_lookup_output</code> contains a pointer to the hashmap entry <code>hme</code> that points
-to the found hashmap entry.</p>
-<p><code>FUTURE(...)</code> macro defines a <code>struct hashmap_lookup_fut</code> future struct with <code>struct hashmap_lookup_data</code>
-as input data and <code>struct hashmap_lookup_output</code> as output.</p>
-<h2 id=future-task-function>Future task function</h2>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>enum</span> <span style=color:#a6e22e>future_state</span> (<span style=color:#f92672>*</span>future_task_fn)(<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>context,
-			<span style=color:#66d9ef>struct</span> future_notifier <span style=color:#f92672>*</span>notifier);
-</code></pre></div><p>The future task function contains the actual logic of the future. Every such task implementation
+<code>state</code> indicates whether the lookup function should search for an existing or unoccupied hashmap entry.</p><p>The output data <code>struct hashmap_lookup_output</code> contains a pointer to the hashmap entry <code>hme</code> that points
+to the found hashmap entry.</p><p><code>FUTURE(...)</code> macro defines a <code>struct hashmap_lookup_fut</code> future struct with <code>struct hashmap_lookup_data</code>
+as input data and <code>struct hashmap_lookup_output</code> as output.</p><h2 id=future-task-function>Future task function</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>enum</span> <span style=color:#a6e22e>future_state</span> (<span style=color:#f92672>*</span>future_task_fn)(<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>context,
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>struct</span> future_notifier <span style=color:#f92672>*</span>notifier);
+</span></span></code></pre></div><p>The future task function contains the actual logic of the future. Every such task implementation
 must conform to the definition above. Future context provides access to the input and output data
-of a particular future.</p>
-<blockquote>
-<p>Notifier feature is not used in the hashmap example, hence it will not be discussed. For more information
-about the notifiers take a look <a href=https://github.com/pmem/miniasync/blob/master/doc/miniasync_future.7.md>here</a>.</p>
-</blockquote>
-<p>The return value of future task function indicates the state of the future task.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>enum</span> future_state {
-	FUTURE_STATE_IDLE,
-	FUTURE_STATE_COMPLETE,
-	FUTURE_STATE_RUNNING,
-};
-</code></pre></div><p><code>FUTURE_STATE_IDLE</code> indicates that the future task did not start yet, <code>FUTURE_STATE_COMPLETE</code>
-means that it has already completed, and <code>FUTURE_STATE_RUNNING</code> signalizes that it&rsquo;s still running.</p>
-<p>The <code>lookup</code> future task function:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>enum</span> future_state
-<span style=color:#a6e22e>hashmap_lookup_impl</span>(<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>ctx,
-		<span style=color:#66d9ef>struct</span> future_notifier <span style=color:#f92672>*</span>notifier)
-{
-	<span style=color:#66d9ef>struct</span> hashmap_lookup_data <span style=color:#f92672>*</span>data <span style=color:#f92672>=</span>
-			future_context_get_data(ctx);
-	<span style=color:#66d9ef>struct</span> hashmap_lookup_output <span style=color:#f92672>*</span>output <span style=color:#f92672>=</span>
-			future_context_get_output(ctx);
-	<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>hm;
-	<span style=color:#66d9ef>uint64_t</span> key <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>key;
-	<span style=color:#66d9ef>enum</span> hashmap_entry_state state <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>state;
-	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme <span style=color:#f92672>=</span> NULL;
-	<span style=color:#66d9ef>if</span> (key <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
-		printf(<span style=color:#e6db74>&#34;invalid key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
-		<span style=color:#66d9ef>goto</span> set_output;
-	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
-			hm<span style=color:#f92672>-&gt;</span>capacity <span style=color:#f92672>==</span> hm<span style=color:#f92672>-&gt;</span>length) {
-		printf(<span style=color:#e6db74>&#34;no space left for key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
-		<span style=color:#66d9ef>goto</span> set_output;
-	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
-			hashmap_entry_lookup(hm, key,
-					HASHMAP_ENTRY_STATE_PRESENT) <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
-		printf(<span style=color:#e6db74>&#34;key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34; already exists</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
-		<span style=color:#66d9ef>goto</span> set_output;
-	}
-	<span style=color:#66d9ef>int</span> index <span style=color:#f92672>=</span> hashmap_entry_lookup(hm, key, state);
-	<span style=color:#66d9ef>if</span> (index <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
-		<span style=color:#66d9ef>switch</span> (state) {
-			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_PRESENT:
-			<span style=color:#75715e>/* Entry with given key is not present in the hashmap */</span>
-				<span style=color:#66d9ef>goto</span> set_output;
-			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_UNOCCUPIED:
-			<span style=color:#75715e>/*
-</span><span style=color:#75715e>			 * An unoccupied entry wasn&#39;t found despite hashmap not
-</span><span style=color:#75715e>			 * being full. Re-run the lookup future.
-</span><span style=color:#75715e>			 */</span>
-				<span style=color:#66d9ef>return</span> FUTURE_STATE_RUNNING;
-			<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
-				assert(<span style=color:#ae81ff>0</span>); <span style=color:#75715e>/* should not be reachable */</span>
-		}
-	}
-	hme <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>hm<span style=color:#f92672>-&gt;</span>entries[index];
-set_output:
-	output<span style=color:#f92672>-&gt;</span>hme <span style=color:#f92672>=</span> hme;
-	<span style=color:#66d9ef>return</span> FUTURE_STATE_COMPLETE;
-}
-</code></pre></div><p>Let&rsquo;s break down the above code snippet.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>	<span style=color:#66d9ef>struct</span> hashmap_lookup_data <span style=color:#f92672>*</span>data <span style=color:#f92672>=</span>
-			future_context_get_data(ctx);
-	<span style=color:#66d9ef>struct</span> hashmap_lookup_output <span style=color:#f92672>*</span>output <span style=color:#f92672>=</span>
-			future_context_get_output(ctx);
-	<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>hm;
-	<span style=color:#66d9ef>uint64_t</span> key <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>key;
-	<span style=color:#66d9ef>enum</span> hashmap_entry_state state <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>state;
-</code></pre></div><p>We get the pointers to the data and output structures through the <code>ctx</code> parameter
+of a particular future.</p><blockquote><p>Notifier feature is not used in the hashmap example, hence it will not be discussed. For more information
+about the notifiers take a look <a href=https://github.com/pmem/miniasync/blob/master/doc/miniasync_future.7.md>here</a>.</p></blockquote><p>The return value of future task function indicates the state of the future task.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>enum</span> future_state {
+</span></span><span style=display:flex><span>	FUTURE_STATE_IDLE,
+</span></span><span style=display:flex><span>	FUTURE_STATE_COMPLETE,
+</span></span><span style=display:flex><span>	FUTURE_STATE_RUNNING,
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p><code>FUTURE_STATE_IDLE</code> indicates that the future task did not start yet, <code>FUTURE_STATE_COMPLETE</code>
+means that it has already completed, and <code>FUTURE_STATE_RUNNING</code> signalizes that it&rsquo;s still running.</p><p>The <code>lookup</code> future task function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>enum</span> future_state
+</span></span><span style=display:flex><span><span style=color:#a6e22e>hashmap_lookup_impl</span>(<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>ctx,
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>struct</span> future_notifier <span style=color:#f92672>*</span>notifier)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_data <span style=color:#f92672>*</span>data <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_data(ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_output <span style=color:#f92672>*</span>output <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_output(ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>hm;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>uint64_t</span> key <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>key;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>enum</span> hashmap_entry_state state <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>state;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme <span style=color:#f92672>=</span> NULL;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (key <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;invalid key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>			hm<span style=color:#f92672>-&gt;</span>capacity <span style=color:#f92672>==</span> hm<span style=color:#f92672>-&gt;</span>length) {
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;no space left for key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>			hashmap_entry_lookup(hm, key,
+</span></span><span style=display:flex><span>					HASHMAP_ENTRY_STATE_PRESENT) <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34; already exists</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span> index <span style=color:#f92672>=</span> hashmap_entry_lookup(hm, key, state);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (index <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>switch</span> (state) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_PRESENT:
+</span></span><span style=display:flex><span>			<span style=color:#75715e>/* Entry with given key is not present in the hashmap */</span>
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_UNOCCUPIED:
+</span></span><span style=display:flex><span>			<span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>			 * An unoccupied entry wasn&#39;t found despite hashmap not
+</span></span></span><span style=display:flex><span><span style=color:#75715e>			 * being full. Re-run the lookup future.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>			 */</span>
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>return</span> FUTURE_STATE_RUNNING;
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>				assert(<span style=color:#ae81ff>0</span>); <span style=color:#75715e>/* should not be reachable */</span>
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	hme <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>hm<span style=color:#f92672>-&gt;</span>entries[index];
+</span></span><span style=display:flex><span>set_output:
+</span></span><span style=display:flex><span>	output<span style=color:#f92672>-&gt;</span>hme <span style=color:#f92672>=</span> hme;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> FUTURE_STATE_COMPLETE;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Let&rsquo;s break down the above code snippet.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_data <span style=color:#f92672>*</span>data <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_data(ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_output <span style=color:#f92672>*</span>output <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_output(ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>hm;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>uint64_t</span> key <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>key;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>enum</span> hashmap_entry_state state <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>state;
+</span></span></code></pre></div><p>We get the pointers to the data and output structures through the <code>ctx</code> parameter
 using <code>future_context_get_data(...)</code> and <code>future_context_get_output(...)</code> functions.
-Data and output types are the same types provided to the <code>FUTURE(...)</code> macro.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>	<span style=color:#66d9ef>if</span> (key <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
-		printf(<span style=color:#e6db74>&#34;invalid key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
-		<span style=color:#66d9ef>goto</span> set_output;
-	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
-			hm<span style=color:#f92672>-&gt;</span>capacity <span style=color:#f92672>==</span> hm<span style=color:#f92672>-&gt;</span>length) {
-		printf(<span style=color:#e6db74>&#34;no space left for key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
-		<span style=color:#66d9ef>goto</span> set_output;
-	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
-			hashmap_entry_lookup(hm, key,
-					HASHMAP_ENTRY_STATE_PRESENT) <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
-		printf(<span style=color:#e6db74>&#34;key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34; already exists</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
-		<span style=color:#66d9ef>goto</span> set_output;
-	}
-</code></pre></div><p>Then, we perform some checks on the obtained input data. In case one of the checks
-failed, we set the output entry address to <code>NULL</code> and return <code>FUTURE_STATE_COMPLETE</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>int</span> index <span style=color:#f92672>=</span> hashmap_entry_lookup(hm, key, state);
-</code></pre></div><p>Next, we use the obtained input data to find the index of the hashmap entry.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>	<span style=color:#66d9ef>if</span> (index <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
-		<span style=color:#66d9ef>switch</span> (state) {
-			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_PRESENT:
-			<span style=color:#75715e>/* Entry with given key is not present in the hashmap */</span>
-				<span style=color:#66d9ef>goto</span> set_output;
-			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_UNOCCUPIED:
-			<span style=color:#75715e>/*
-</span><span style=color:#75715e>			 * An unoccupied entry wasn&#39;t found despite hashmap not
-</span><span style=color:#75715e>			 * being full. Re-run the lookup future.
-</span><span style=color:#75715e>			 */</span>
-				<span style=color:#66d9ef>return</span> FUTURE_STATE_RUNNING;
-			<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
-				assert(<span style=color:#ae81ff>0</span>); <span style=color:#75715e>/* should not be reachable */</span>
-		}
-	}
-</code></pre></div><p>If searching for the index of an existing entry failed, we proceed similarly to the
-failed check case.</p>
-<p>If we were looking for the index of an unoccupied entry and nothing was found, we return
+Data and output types are the same types provided to the <code>FUTURE(...)</code> macro.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (key <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;invalid key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>			hm<span style=color:#f92672>-&gt;</span>capacity <span style=color:#f92672>==</span> hm<span style=color:#f92672>-&gt;</span>length) {
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;no space left for key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (state <span style=color:#f92672>==</span> HASHMAP_ENTRY_STATE_UNOCCUPIED <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>			hashmap_entry_lookup(hm, key,
+</span></span><span style=display:flex><span>					HASHMAP_ENTRY_STATE_PRESENT) <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		printf(<span style=color:#e6db74>&#34;key %&#34;</span> PRIu64 <span style=color:#e6db74>&#34; already exists</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, key);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>	}
+</span></span></code></pre></div><p>Then, we perform some checks on the obtained input data. In case one of the checks
+failed, we set the output entry address to <code>NULL</code> and return <code>FUTURE_STATE_COMPLETE</code>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>int</span> index <span style=color:#f92672>=</span> hashmap_entry_lookup(hm, key, state);
+</span></span></code></pre></div><p>Next, we use the obtained input data to find the index of the hashmap entry.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (index <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>switch</span> (state) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_PRESENT:
+</span></span><span style=display:flex><span>			<span style=color:#75715e>/* Entry with given key is not present in the hashmap */</span>
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>goto</span> set_output;
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>case</span> HASHMAP_ENTRY_STATE_UNOCCUPIED:
+</span></span><span style=display:flex><span>			<span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>			 * An unoccupied entry wasn&#39;t found despite hashmap not
+</span></span></span><span style=display:flex><span><span style=color:#75715e>			 * being full. Re-run the lookup future.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>			 */</span>
+</span></span><span style=display:flex><span>				<span style=color:#66d9ef>return</span> FUTURE_STATE_RUNNING;
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>				assert(<span style=color:#ae81ff>0</span>); <span style=color:#75715e>/* should not be reachable */</span>
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>	}
+</span></span></code></pre></div><p>If searching for the index of an existing entry failed, we proceed similarly to the
+failed check case.</p><p>If we were looking for the index of an unoccupied entry and nothing was found, we return
 <code>FUTURE_STATE_RUNNING</code>. <code>hashmap_lookup_impl</code> will be re-run upon the next poll,
-preserving all the changes made to the data and output.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>	hme <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>hm<span style=color:#f92672>-&gt;</span>entries[index];
-set_output:
-	output<span style=color:#f92672>-&gt;</span>hme <span style=color:#f92672>=</span> hme;
-	<span style=color:#66d9ef>return</span> FUTURE_STATE_COMPLETE;
-</code></pre></div><p>Lastly, when we found an entry, we set the output entry pointer to its address and
-return <code>FUTURE_STATE_COMPLETE</code>.</p>
-<h2 id=initializing-a-future>Initializing a future</h2>
-<p>Having defined the future input, output and task function, we can create an instance of
-the <code>lookup</code> future.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> hashmap_lookup_fut
-<span style=color:#a6e22e>hashmap_lookup</span>(<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm, <span style=color:#66d9ef>uint64_t</span> key, <span style=color:#66d9ef>enum</span> hashmap_entry_state state)
-{
-	<span style=color:#66d9ef>struct</span> hashmap_lookup_fut future;
-	<span style=color:#75715e>/* Set input values */</span>
-	future.data.hm <span style=color:#f92672>=</span> hm;
-	future.data.key <span style=color:#f92672>=</span> key;
-	future.data.state <span style=color:#f92672>=</span> state;
-	<span style=color:#75715e>/* Set default output value */</span>
-	future.output.hme <span style=color:#f92672>=</span> NULL;
-	FUTURE_INIT(<span style=color:#f92672>&amp;</span>future, hashmap_lookup_impl);
-	<span style=color:#66d9ef>return</span> future;
-}
-</code></pre></div><p>In the above code fragment, we create a <code>struct hashmap_lookup_fut</code> structure and set its input data and
+preserving all the changes made to the data and output.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>	hme <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>hm<span style=color:#f92672>-&gt;</span>entries[index];
+</span></span><span style=display:flex><span>set_output:
+</span></span><span style=display:flex><span>	output<span style=color:#f92672>-&gt;</span>hme <span style=color:#f92672>=</span> hme;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> FUTURE_STATE_COMPLETE;
+</span></span></code></pre></div><p>Lastly, when we found an entry, we set the output entry pointer to its address and
+return <code>FUTURE_STATE_COMPLETE</code>.</p><h2 id=initializing-a-future>Initializing a future</h2><p>Having defined the future input, output and task function, we can create an instance of
+the <code>lookup</code> future.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> hashmap_lookup_fut
+</span></span><span style=display:flex><span><span style=color:#a6e22e>hashmap_lookup</span>(<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm, <span style=color:#66d9ef>uint64_t</span> key, <span style=color:#66d9ef>enum</span> hashmap_entry_state state)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_fut future;
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* Set input values */</span>
+</span></span><span style=display:flex><span>	future.data.hm <span style=color:#f92672>=</span> hm;
+</span></span><span style=display:flex><span>	future.data.key <span style=color:#f92672>=</span> key;
+</span></span><span style=display:flex><span>	future.data.state <span style=color:#f92672>=</span> state;
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* Set default output value */</span>
+</span></span><span style=display:flex><span>	future.output.hme <span style=color:#f92672>=</span> NULL;
+</span></span><span style=display:flex><span>	FUTURE_INIT(<span style=color:#f92672>&amp;</span>future, hashmap_lookup_impl);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> future;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>In the above code fragment, we create a <code>struct hashmap_lookup_fut</code> structure and set its input data and
 default output values. After that, we initialize this future and bind it with a <code>hashmap_lookup_impl(...)</code>
 task function using the <code>FUTURE_INIT(...)</code> macro. After those operations, <code>struct hashmap_lookup_fut</code> is
-ready to be polled.</p>
-<h2 id=creating-a-chained-future>Creating a chained future</h2>
-<p>Multiple futures can be composed into a single chained future. When polled, chained
+ready to be polled.</p><h2 id=creating-a-chained-future>Creating a chained future</h2><p>Multiple futures can be composed into a single chained future. When polled, chained
 future executes its future entries sequentially in the order they were defined.
 We can define a future as the chained future entry using <code>FUTURE_CHAIN_ENTRY(_future_type, _name)</code>
 macro. It takes two parameters, <code>_future_type</code> is the type of the future, and <code>_name</code>
-is the name of the variable stored in the data structure.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_data {
-	FUTURE_CHAIN_ENTRY(<span style=color:#66d9ef>struct</span> hashmap_lookup_fut, lookup);
-	FUTURE_CHAIN_ENTRY(<span style=color:#66d9ef>struct</span> hashmap_entry_set_state_fut, set_state);
-	FUTURE_CHAIN_ENTRY_LAST(<span style=color:#66d9ef>struct</span> chain_entries_rerun_fut, entries_rerun);
-	<span style=color:#66d9ef>struct</span> future_chain_entry <span style=color:#f92672>*</span>entriesp[<span style=color:#ae81ff>2</span>];
-};
-<span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_output {
-	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme;
-};
-FUTURE(hashmap_lookup_lock_entry_fut, <span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_data,
-		<span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_output);
-</code></pre></div><p>Here, <code>struct hashmap_lookup_lock_entry_fut</code> future consists of three other futures,
+is the name of the variable stored in the data structure.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_data {
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY(<span style=color:#66d9ef>struct</span> hashmap_lookup_fut, lookup);
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY(<span style=color:#66d9ef>struct</span> hashmap_entry_set_state_fut, set_state);
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_LAST(<span style=color:#66d9ef>struct</span> chain_entries_rerun_fut, entries_rerun);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> future_chain_entry <span style=color:#f92672>*</span>entriesp[<span style=color:#ae81ff>2</span>];
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_output {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>FUTURE(hashmap_lookup_lock_entry_fut, <span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_data,
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_output);
+</span></span></code></pre></div><p>Here, <code>struct hashmap_lookup_lock_entry_fut</code> future consists of three other futures,
 <code>struct hashmap_lookup_fut</code> that was discussed, <code>struct hashmap_entry_set_state_fut</code>,
 and &lsquo;struct chain_entries_rerun_fut&rsquo; that follow the same principles the <code>lookup</code> future does.
 <code>struct hashmap_lookup_lock_entry_fut</code> is a chained future responsible for finding an appropriate
 hashmap entry and locking it in the <code>HASHMAP_ENTRY_STATE_LOCKED</code> state. Hashmap entry locking ensures
-that no other future will interact with this hashmap entry until we finish processing it and change its state.</p>
-<p>If we would like to store some additional data in the <code>struct hashmap_lookup_lock_entry_data</code>
+that no other future will interact with this hashmap entry until we finish processing it and change its state.</p><p>If we would like to store some additional data in the <code>struct hashmap_lookup_lock_entry_data</code>
 structure, besides the future entries, we can use the <code>FUTURE_CHAIN_ENTRY_LAST(_future_type, _name)</code> macro.
 It works as the <code>FUTURE_CHAIN_ENTRY(...)</code> macro, but we should use it to define the last future entry.
 Then, we can safely declare some additional data after it. For example, <code>struct hashmap_lookup_lock_entry_data</code>
 stores <code>entriesp</code>, an array of pointers to <code>struct future_chain_entry</code>. We use <code>entriesp</code> to save the chained future
-entries that should be re-run. Then, we employ the <code>chain_entry_rerun_fut</code> future to re-run those future entries.</p>
-<blockquote>
-<p>We should declare additional chained future data only after using the <code>FUTURE_CHAIN_ENTRY_LAST(...)</code> macro.</p>
-</blockquote>
-<h2 id=initializing-a-chained-future>Initializing a chained future</h2>
-<p>Chained futures are initialized quite differently from regular futures. Each member future
+entries that should be re-run. Then, we employ the <code>chain_entry_rerun_fut</code> future to re-run those future entries.</p><blockquote><p>We should declare additional chained future data only after using the <code>FUTURE_CHAIN_ENTRY_LAST(...)</code> macro.</p></blockquote><h2 id=initializing-a-chained-future>Initializing a chained future</h2><p>Chained futures are initialized quite differently from regular futures. Each member future
 must be initialized using either <code>FUTURE_CHAIN_ENTRY_INIT(_entry, _fut, _map, _map_arg)</code>
 or <code>FUTURE_CHAIN_ENTRY_LAZY_INIT(_entry, _init, _init_arg, _map, _map_arg)</code> macro.
-We will focus on <code>FUTURE_CHAIN_ENTRY_INIT(...)</code> macro.</p>
-<p><code>FUTURE_CHAIN_ENTRY_INIT(...)</code> takes four parameters. <code>_entry</code> is a pointer to the
+We will focus on <code>FUTURE_CHAIN_ENTRY_INIT(...)</code> macro.</p><p><code>FUTURE_CHAIN_ENTRY_INIT(...)</code> takes four parameters. <code>_entry</code> is a pointer to the
 future entry. <code>_fut</code> is an initialized future structure. <code>_map</code> defines the mapping behavior
 of the data between the future currently being initialized and the next future in the chain.
 Mapping function of the last future entry should map the data between this entry and the chained
-future containing it. <code>_map_arg</code> is the mapping function argument.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_fut
-<span style=color:#a6e22e>hashmap_lookup_lock_entry</span>(<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm, <span style=color:#66d9ef>uint64_t</span> key,
-		<span style=color:#66d9ef>enum</span> hashmap_entry_state state)
-{
-	<span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_fut chain;
-	<span style=color:#75715e>/* Initialize chained future entries */</span>
-	FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.lookup,
-			hashmap_lookup(hm, key, state),
-			lookup_to_set_state_map, NULL);
-	FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.set_state,
-			hashmap_entry_set_state(NULL, state,
-					HASHMAP_ENTRY_STATE_LOCKED),
-			NULL, NULL);
-	FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.entries_rerun,
-			chain_entry_rerun_init, NULL, NULL, NULL);
-	<span style=color:#75715e>/* Set default chained future output value */</span>
-	chain.output.hme <span style=color:#f92672>=</span> NULL;
-	FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
-	<span style=color:#66d9ef>return</span> chain;
-}
-</code></pre></div><p>In this code fragment we create and initialize a <code>struct hashmap_lookup_lock_entry_fut</code>
-future structure and its future entries.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.lookup,
-			hashmap_lookup(hm, key, state),
-			lookup_to_set_state_map, NULL);
-</code></pre></div><p>We initialize the <code>lookup</code> future entry using <code>FUTURE_CHAIN_ENTRY_INIT(...)</code> macro.
+future containing it. <code>_map_arg</code> is the mapping function argument.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_fut
+</span></span><span style=display:flex><span><span style=color:#a6e22e>hashmap_lookup_lock_entry</span>(<span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm, <span style=color:#66d9ef>uint64_t</span> key,
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>enum</span> hashmap_entry_state state)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_lock_entry_fut chain;
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* Initialize chained future entries */</span>
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.lookup,
+</span></span><span style=display:flex><span>			hashmap_lookup(hm, key, state),
+</span></span><span style=display:flex><span>			lookup_to_set_state_map, NULL);
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.set_state,
+</span></span><span style=display:flex><span>			hashmap_entry_set_state(NULL, state,
+</span></span><span style=display:flex><span>					HASHMAP_ENTRY_STATE_LOCKED),
+</span></span><span style=display:flex><span>			NULL, NULL);
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.entries_rerun,
+</span></span><span style=display:flex><span>			chain_entry_rerun_init, NULL, NULL, NULL);
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* Set default chained future output value */</span>
+</span></span><span style=display:flex><span>	chain.output.hme <span style=color:#f92672>=</span> NULL;
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> chain;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>In this code fragment we create and initialize a <code>struct hashmap_lookup_lock_entry_fut</code>
+future structure and its future entries.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.lookup,
+</span></span><span style=display:flex><span>			hashmap_lookup(hm, key, state),
+</span></span><span style=display:flex><span>			lookup_to_set_state_map, NULL);
+</span></span></code></pre></div><p>We initialize the <code>lookup</code> future entry using <code>FUTURE_CHAIN_ENTRY_INIT(...)</code> macro.
 <code>&chain.data.lookup</code> is an address of the <code>lookup</code> future entry. <code>hashmap_lookup(hm, key, state)</code>
 returns a new, initialized <code>struct hashmap_lookup_fut</code> future. <code>lookup_to_set_state_map</code> maps the
-data from <code>lookup</code> future to the <code>set_state</code> future.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
-<span style=color:#a6e22e>lookup_to_set_state_map</span>(<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>lookup_ctx,
-		<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>set_state_ctx, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
-{
-	<span style=color:#66d9ef>struct</span> hashmap_lookup_output <span style=color:#f92672>*</span>lookup_unoccupied_output <span style=color:#f92672>=</span>
-			future_context_get_output(lookup_ctx);
-	<span style=color:#66d9ef>struct</span> hashmap_entry_set_state_data <span style=color:#f92672>*</span>set_state_data <span style=color:#f92672>=</span>
-			future_context_get_data(set_state_ctx);
-	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme <span style=color:#f92672>=</span> lookup_unoccupied_output<span style=color:#f92672>-&gt;</span>hme;
-	<span style=color:#66d9ef>if</span> (hme <span style=color:#f92672>==</span> NULL) {
-		<span style=color:#75715e>/*
-</span><span style=color:#75715e>		 * Entry lookup failed, no need to lock the entry in
-</span><span style=color:#75715e>		 * &#39;locked&#39; state.
-</span><span style=color:#75715e>		 */</span>
-		set_state_ctx<span style=color:#f92672>-&gt;</span>state <span style=color:#f92672>=</span> FUTURE_STATE_COMPLETE;
-	}
-	set_state_data<span style=color:#f92672>-&gt;</span>hme <span style=color:#f92672>=</span> hme;
-}
-</code></pre></div><p>In the <code>lookup_to_set_state_map</code> mapping function we access the data of <code>lookup</code>
+data from <code>lookup</code> future to the <code>set_state</code> future.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>lookup_to_set_state_map</span>(<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>lookup_ctx,
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>set_state_ctx, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_lookup_output <span style=color:#f92672>*</span>lookup_unoccupied_output <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_output(lookup_ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry_set_state_data <span style=color:#f92672>*</span>set_state_data <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_data(set_state_ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme <span style=color:#f92672>=</span> lookup_unoccupied_output<span style=color:#f92672>-&gt;</span>hme;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (hme <span style=color:#f92672>==</span> NULL) {
+</span></span><span style=display:flex><span>		<span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 * Entry lookup failed, no need to lock the entry in
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 * &#39;locked&#39; state.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 */</span>
+</span></span><span style=display:flex><span>		set_state_ctx<span style=color:#f92672>-&gt;</span>state <span style=color:#f92672>=</span> FUTURE_STATE_COMPLETE;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	set_state_data<span style=color:#f92672>-&gt;</span>hme <span style=color:#f92672>=</span> hme;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>In the <code>lookup_to_set_state_map</code> mapping function we access the data of <code>lookup</code>
 and <code>set_state</code> futures through their contexts. Then, we check if the <code>lookup</code> future has found a
 hashmap entry. If <code>lookup</code> future didn&rsquo;t find an entry, we mark the <code>set_state</code> future as completed.
 <code>set_state</code> will not be executed when it&rsquo;s marked as completed.
-Lastly, we set the <code>lookup</code> output entry in the <code>set_state</code> input data.</p>
-<p>We initialize the <code>set_state</code>, and &lsquo;entries_rerun&rsquo; futures entries similarly to the <code>lookup</code> future
-entry.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
-</code></pre></div><p>After initializing each chained future entry, we initialize the chained future by passing
+Lastly, we set the <code>lookup</code> output entry in the <code>set_state</code> input data.</p><p>We initialize the <code>set_state</code>, and &rsquo;entries_rerun&rsquo; futures entries similarly to the <code>lookup</code> future
+entry.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
+</span></span></code></pre></div><p>After initializing each chained future entry, we initialize the chained future by passing
 its address to the <code>FUTURE_CHAIN_INIT(...)</code> macro. <code>hashmap_lookup_lock_entry_fut</code> future
-is now ready to be polled.</p>
-<h2 id=initializing-chained-future-entries-lazily>Initializing chained future entries lazily</h2>
-<p>We can also initialize chained future entries lazily using
+is now ready to be polled.</p><h2 id=initializing-chained-future-entries-lazily>Initializing chained future entries lazily</h2><p>We can also initialize chained future entries lazily using
 <code>FUTURE_CHAIN_ENTRY_LAZY_INIT(_entry, _init, _init_arg, _map, _map_arg)</code> macro.
 <code>_entry</code>, <code>_map</code>, and <code>_map_arg</code> parameters are the same as in the <code>FUTURE_CHAIN_ENTRY_INIT(...)</code> macro.
 <code>_init</code> is an entry initialization function that has to conform to the
 <code>typedef void (*future_init_fn)(void *future, struct future_context *chain_fut, void *arg)</code> definition,
-<code>_init_arg</code> is the initialization function argument.</p>
-<blockquote>
-<p>Lazily initialized future entry is initialized right before its execution.</p>
-</blockquote>
-<p>We can find an example of a lazy entry initialization in the <code>hashmap_get_copy_fut</code> future.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> hashmap_get_copy_fut
-<span style=color:#a6e22e>hashmap_get_copy</span>(<span style=color:#66d9ef>struct</span> vdm <span style=color:#f92672>*</span>vdm, <span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm, <span style=color:#66d9ef>uint64_t</span> key)
-{
-	<span style=color:#66d9ef>struct</span> hashmap_get_copy_fut chain;
-	<span style=color:#75715e>/* Initialize chained future entries */</span>
-	FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.lookup_lock_entry,
-			hashmap_lookup_lock_entry(hm, key,
-					HASHMAP_ENTRY_STATE_PRESENT), NULL,
-					NULL);
-	FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.memcpy_value,
-			memcpy_value_init, vdm, NULL, NULL);
-	FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.set_state,
-			set_state_init_for_get, NULL, NULL, NULL);
-	<span style=color:#75715e>/* Set default output values */</span>
-	chain.output.size <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-	chain.output.value <span style=color:#f92672>=</span> NULL;
-	FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
-	<span style=color:#66d9ef>return</span> chain;
-}
-</code></pre></div><p><code>hashmap_get_copy(...)</code> looks similar to the already discussed <code>hashmap_lookup_lock_entry(...)</code>
+<code>_init_arg</code> is the initialization function argument.</p><blockquote><p>Lazily initialized future entry is initialized right before its execution.</p></blockquote><p>We can find an example of a lazy entry initialization in the <code>hashmap_get_copy_fut</code> future.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> hashmap_get_copy_fut
+</span></span><span style=display:flex><span><span style=color:#a6e22e>hashmap_get_copy</span>(<span style=color:#66d9ef>struct</span> vdm <span style=color:#f92672>*</span>vdm, <span style=color:#66d9ef>struct</span> hashmap <span style=color:#f92672>*</span>hm, <span style=color:#66d9ef>uint64_t</span> key)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_get_copy_fut chain;
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* Initialize chained future entries */</span>
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_INIT(<span style=color:#f92672>&amp;</span>chain.data.lookup_lock_entry,
+</span></span><span style=display:flex><span>			hashmap_lookup_lock_entry(hm, key,
+</span></span><span style=display:flex><span>					HASHMAP_ENTRY_STATE_PRESENT), NULL,
+</span></span><span style=display:flex><span>					NULL);
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.memcpy_value,
+</span></span><span style=display:flex><span>			memcpy_value_init, vdm, NULL, NULL);
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.set_state,
+</span></span><span style=display:flex><span>			set_state_init_for_get, NULL, NULL, NULL);
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* Set default output values */</span>
+</span></span><span style=display:flex><span>	chain.output.size <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>	chain.output.value <span style=color:#f92672>=</span> NULL;
+</span></span><span style=display:flex><span>	FUTURE_CHAIN_INIT(<span style=color:#f92672>&amp;</span>chain);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> chain;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><code>hashmap_get_copy(...)</code> looks similar to the already discussed <code>hashmap_lookup_lock_entry(...)</code>
 function, except we initialize some of its future entries lazily. We will focus
-on the <code>set_state</code> entry.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C>FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.set_state,
-			set_state_init_for_get, NULL, NULL, NULL);
-</code></pre></div><p>Previously we have used <code>hashmap_entry_set_state(...)</code> to initialize the <code>set_state</code> entry.
+on the <code>set_state</code> entry.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>FUTURE_CHAIN_ENTRY_LAZY_INIT(<span style=color:#f92672>&amp;</span>chain.data.set_state,
+</span></span><span style=display:flex><span>			set_state_init_for_get, NULL, NULL, NULL);
+</span></span></code></pre></div><p>Previously we have used <code>hashmap_entry_set_state(...)</code> to initialize the <code>set_state</code> entry.
 Now, we pass along an address of the <code>set_state_init_for_get(...)</code> function that is responsible
-for initializaing the <code>set_state</code> entry.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
-<span style=color:#a6e22e>set_state_init_for_get</span>(<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>future,
-		<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>hashmap_get_copy_ctx, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
-{
-	<span style=color:#66d9ef>struct</span> hashmap_get_copy_data <span style=color:#f92672>*</span>data <span style=color:#f92672>=</span>
-			future_context_get_data(hashmap_get_copy_ctx);
-	<span style=color:#66d9ef>struct</span> hashmap_entry_set_state_fut fut <span style=color:#f92672>=</span> {.output.changed <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>};
-	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>lookup_lock_entry.fut.output.hme;
-	<span style=color:#66d9ef>if</span> (hme <span style=color:#f92672>==</span> NULL) {
-		<span style=color:#75715e>/*
-</span><span style=color:#75715e>		 * &#39;lookup_lock_entry&#39; future entry failed to find a hashmap
-</span><span style=color:#75715e>		 * entry. &#39;set_state&#39; future entry shouldn&#39;t be executed.
-</span><span style=color:#75715e>		 */</span>
-		FUTURE_INIT_COMPLETE(<span style=color:#f92672>&amp;</span>fut);
-	} <span style=color:#66d9ef>else</span> {
-		<span style=color:#75715e>/*
-</span><span style=color:#75715e>		 * &#39;lookup_lock_entry&#39; was successful.
-</span><span style=color:#75715e>		 * Set hashmap entry state to &#39;present&#39;.
-</span><span style=color:#75715e>		 */</span>
-		fut <span style=color:#f92672>=</span> hashmap_entry_set_state(hme,
-				HASHMAP_ENTRY_STATE_LOCKED,
-				HASHMAP_ENTRY_STATE_PRESENT);
-	}
-	memcpy(future, <span style=color:#f92672>&amp;</span>fut, <span style=color:#66d9ef>sizeof</span>(fut));
-}
-</code></pre></div><p>In the <code>set_state_init_for_get</code> function, we get the output from the <code>lookup_lock_entry</code>
+for initializaing the <code>set_state</code> entry.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>set_state_init_for_get</span>(<span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>future,
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>struct</span> future_context <span style=color:#f92672>*</span>hashmap_get_copy_ctx, <span style=color:#66d9ef>void</span> <span style=color:#f92672>*</span>arg)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_get_copy_data <span style=color:#f92672>*</span>data <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>			future_context_get_data(hashmap_get_copy_ctx);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry_set_state_fut fut <span style=color:#f92672>=</span> {.output.changed <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>};
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>struct</span> hashmap_entry <span style=color:#f92672>*</span>hme <span style=color:#f92672>=</span> data<span style=color:#f92672>-&gt;</span>lookup_lock_entry.fut.output.hme;
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (hme <span style=color:#f92672>==</span> NULL) {
+</span></span><span style=display:flex><span>		<span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 * &#39;lookup_lock_entry&#39; future entry failed to find a hashmap
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 * entry. &#39;set_state&#39; future entry shouldn&#39;t be executed.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 */</span>
+</span></span><span style=display:flex><span>		FUTURE_INIT_COMPLETE(<span style=color:#f92672>&amp;</span>fut);
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>		<span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 * &#39;lookup_lock_entry&#39; was successful.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 * Set hashmap entry state to &#39;present&#39;.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		 */</span>
+</span></span><span style=display:flex><span>		fut <span style=color:#f92672>=</span> hashmap_entry_set_state(hme,
+</span></span><span style=display:flex><span>				HASHMAP_ENTRY_STATE_LOCKED,
+</span></span><span style=display:flex><span>				HASHMAP_ENTRY_STATE_PRESENT);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	memcpy(future, <span style=color:#f92672>&amp;</span>fut, <span style=color:#66d9ef>sizeof</span>(fut));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>In the <code>set_state_init_for_get</code> function, we get the output from the <code>lookup_lock_entry</code>
 future entry and check if we found and locked a valid hashmap entry. We want to omit the
 <code>set_state</code> future entry execution when <code>lookup_lock_entry</code> output is invalid. In that case, we
 use the <code>FUTURE_INIT_COMPLETE(_futurep)</code> macro to mark the <code>set_state</code> future as completed.
 In case the <code>lookup_lock_entry</code> future output is valid, we call the <code>hashmap_entry_set_state(...)</code>
 function with appropriate parameters. Finally, we copy the initialized future <code>fut</code> to the
 address pointed by the <code>future</code> parameter using the <code>memset(...)</code> function. <code>future</code> points to the
-future entry that we are currently initializing.</p>
-<h2 id=summary>Summary</h2>
-<p>In summary, we have covered the future creation and initialization. We have also discussed the
+future entry that we are currently initializing.</p><h2 id=summary>Summary</h2><p>In summary, we have covered the future creation and initialization. We have also discussed the
 concept of chained futures and how we should initialize their entries. Lastly, we have talked
-over the lazy future initialization.</p>
-<p>For more information about the Miniasync library, see its <a href=https://github.com/pmem/miniasync>GitHub repository</a>.</p>
-<div class="tagcloud clearfix bottommargin">
-<a href=https://pmem.io/tags/miniasync>miniasync</a>
+over the lazy future initialization.</p><p>For more information about the Miniasync library, see its <a href=https://github.com/pmem/miniasync>GitHub repository</a>.</p><div class="tagcloud clearfix bottommargin"><a href=https://pmem.io/tags/miniasync>miniasync</a>
 <a href=https://pmem.io/tags/concurrency>concurrency</a>
 <a href=https://pmem.io/tags/async>async</a>
-<a href=https://pmem.io/tags/asynchronous>asynchronous</a>
-</div>
-<div class=clear></div>
-<div class="si-share border-0 d-flex justify-content-between align-items-center">
-<span>Share this Post:</span>
-<div id=share-buttons>
-<div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/')">
-<i class=icon-facebook></i>
-<i class=icon-facebook></i>
-</div>
-<div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/intent/tweet?text=Basic asynchronous hashmap with Miniasync library&url=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/')">
-<i class=icon-twitter></i>
-<i class=icon-twitter></i>
-</div>
-<div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/&title=&summary=&source=')">
-<i class=icon-linkedin></i>
-<i class=icon-linkedin></i>
-</div>
-<div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=&description=')">
-<i class=icon-pinterest></i>
-<i class=icon-pinterest></i>
-</div>
-<div class="social-icon si-borderless si-email3" title="Share this through Email" onclick="window.open('mailto:?&body=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/')">
-<i class=icon-email3></i>
-<i class=icon-email3></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row justify-content-between col-mb-30 post-navigation">
-<div class="col-12 col-md-auto text-center">
-<a href="https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/?ref=footer">&lArr; Similarity Search -...</a>
-</div>
-<div class="col-12 col-md-auto text-center">
-<a href="https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/?ref=footer">Upcoming asynchronous... &rArr;</a>
-</div>
-</div>
-<div class=line></div>
-<h4>Related Posts:</h4>
-<div class="related-posts row posts-md col-mb-30">
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/ data-lightbox=image><img src=/images/pmem_logo.png alt="Upcoming asynchronous interfaces in PMDK libraries"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/>Upcoming asynchronous interfaces in PMDK libraries</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Piotr Balcer</li>
-<li><i class=icon-calendar3></i> 11 May, 2022</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/ data-lightbox=image><img src=/images/pmem_logo.png alt="Leveraging asynchronous hardware accelerators for fun and profit"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/>Leveraging asynchronous hardware accelerators for fun and profit</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Piotr Balcer</li>
-<li><i class=icon-calendar3></i> 28 Feb, 2022</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/ data-lightbox=image><img src=/images/pmem_logo.png alt="Disaggregated Memory - In pursuit of scale and efficiency"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/>Disaggregated Memory - In pursuit of scale and efficiency</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Piotr Balcer</li>
-<li><i class=icon-calendar3></i> 21 Jan, 2022</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="entry col-12 col-md-6">
-<div class="grid-inner row align-items-center gutter-20">
-<div class=col-4>
-<div class=entry-image>
-<a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a>
-</div>
-</div>
-<div class=col-8>
-<div class="entry-title title-xs">
-<h3><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/>New release of PMDK</a></h3>
-</div>
-<div class=entry-meta>
-<ul>
-<li><i class=icon-user></i> Pbalcer</li>
-<li><i class=icon-calendar3></i> 11 Oct, 2019</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sidebar col-lg-3">
-<div class=sidebar-widgets-wrap>
-<div class="widget clearfix">
-<h4>Tag Cloud</h4>
-<div class=tagcloud>
-<a href=/tags/pmem class=block role=button>pmem</a>
+<a href=https://pmem.io/tags/asynchronous>asynchronous</a></div><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/")'><i class=icon-facebook></i>
+<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick='window.open("http://twitter.com/intent/tweet?text=Basic asynchronous hashmap with Miniasync library&url=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/")'><i class=icon-twitter></i>
+<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick='window.open("https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/&title=&summary=&source=")'><i class=icon-linkedin></i>
+<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick='window.open("https://pinterest.com/pin/create/button/?url=&media=&description=")'><i class=icon-pinterest></i>
+<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick='window.open("mailto:?&body=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/")'><i class=icon-email3></i>
+<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2022/06/similarity-search-opportunity-for-pmem/?ref=footer">&lArr; Similarity Search -...</a></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/?ref=footer">Upcoming asynchronous... &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/ data-lightbox=image><img src=/images/pmem_logo.png alt="Upcoming asynchronous interfaces in PMDK libraries"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/>Upcoming asynchronous interfaces in PMDK libraries</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Piotr Balcer</li><li><i class=icon-calendar3></i> 11 May, 2022</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/ data-lightbox=image><img src=/images/pmem_logo.png alt="Leveraging asynchronous hardware accelerators for fun and profit"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/>Leveraging asynchronous hardware accelerators for fun and profit</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Piotr Balcer</li><li><i class=icon-calendar3></i> 28 Feb, 2022</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/ data-lightbox=image><img src=/images/pmem_logo.png alt="Disaggregated Memory - In pursuit of scale and efficiency"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/01/disaggregated-memory-in-pursuit-of-scale-and-efficiency/>Disaggregated Memory - In pursuit of scale and efficiency</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Piotr Balcer</li><li><i class=icon-calendar3></i> 21 Jan, 2022</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/ data-lightbox=image><img src=/images/pmem_logo.png alt="New release of PMDK"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2019/10/new-release-of-pmdk/>New release of PMDK</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Pbalcer</li><li><i class=icon-calendar3></i> 11 Oct, 2019</li></ul></div></div></div></div></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/pmem class=block role=button>pmem</a>
 <a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
 <a href=/tags/ndctl class=block role=button>ndctl</a>
 <a href=/tags/daxctl class=block role=button>daxctl</a>
@@ -825,28 +338,8 @@ over the lazy future initialization.</p>
 <a href=/tags/crash class=block role=button>crash</a>
 <a href=/tags/create class=block role=button>create</a>
 <a href=/tags/database class=block role=button>database</a>
-<a href=/tags/destroy class=block role=button>destroy</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<footer id=footer class="border-0 bg-white">
-<div id=copyrights>
-<div class="container clearfix">
-<div class="row justify-content-between col-mb-30">
-<div class="col-12 col-lg-auto text-center text-lg-start">
-<div id=logo>
-<a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
-</div>
-</div>
-<div class="col-12 col-lg-auto text-center text-lg-end">
-<div class="copyrights-menu copyright-links clearfix text-uppercase">
-<a href=https://pmem.io/about>about</a>/
+<a href=/tags/destroy class=block role=button>destroy</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
 <a href=https://pmem.io/cookies.html>Cookies</a>/
@@ -854,23 +347,9 @@ over the lazy future initialization.</p>
 <a href=https://pmem.io/learn>learn</a>/
 <a href=https://pmem.io/privacy.html>Privacy</a>/
 <a href=https://pmem.io/solutions>solutions</a>/
-<a href=https://pmem.io/terms.html>Terms</a>
-</div>
-<div class="col-lg-auto text-center mt-0">
-<p>Copyright &copy; 2022 pmem.io</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</footer>
-</div>
-<div id=gotoTop class=icon-angle-up></div>
-<script src=/js/jquery.js></script>
+<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2022 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script>
 <script src=/js/plugins.min.js></script>
 <script src=/js/custom.js></script>
 <script src=/js/darkmode.js></script>
 <script src=/js/functions.js></script>
-<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script>
-</body>
-</html>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
