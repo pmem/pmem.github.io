@@ -50,7 +50,7 @@ possible.
 
 As always, we are going to start with an example:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #include <libpmemobj/p.hpp>
 #include <libpmemobj/persistent_ptr.hpp>
 
@@ -62,10 +62,9 @@ p<int> b;
 };
 
 struct root {
-persistent_ptr<rectangle> rect;
+    persistent_ptr<rectangle> rect;
 };
-
-{{< /highlight >}}
+```
 
 It's a modified rectangle example from transactional allocations tutorial.
 Layout declaration using macros is no longer required :)
@@ -73,42 +72,38 @@ Layout declaration using macros is no longer required :)
 As I previously said, the persistent pointers can be constructed from PMEMoids,
 and as such, we are going to allocate the rectangle by using the regular C API.
 
-{{< highlight C "linenos=table" >}}
-
+```c++
 persistent_ptr<root> rootp = pmemobj_root(pop, sizeof (root));
 
 TX_BEGIN(pop) {
-persistent_ptr<rectangle> rect = pmemobj_tx_alloc(sizeof (rectangle), 0);
-rect->x = 5;
-rect->y = 10;
+    persistent_ptr<rectangle> rect = pmemobj_tx_alloc(sizeof (rectangle), 0);
+    rect->x = 5;
+    rect->y = 10;
 
     rootp->rect = rect; /* assignments are automatically added to TX */
 
 } TX_END
+```
 
-{{< /highlight >}}
-
-As you can see, pretty easy. No more ugly D_RW or D_RO macros ! :)
+As you can see, pretty easy. No more ugly `D_RW` or `D_RO` macros ! :)
 
 There's one thing to highlight here: The rectangle constructor is NOT called in
 this example. This is because we are using C allocation function.
 This is equivalent to a following construct in a regular C++:
 
-{{< highlight C "linenos=table" >}}
-shared_ptr<rectangle> rect((rectangle \*)malloc(sizeof (rectangle)));
-{{< /highlight >}}
+```c++
+shared_ptr<rectangle> rect((rectangle *)malloc(sizeof(rectangle)));
+```
 
 To free a `persistent_ptr` using the C API, a special `raw()` function is available
 that returns a const reference to the PMEMoid.
 
-{{< highlight C "linenos=table" >}}
-
+```c++
 TX_BEGIN(pop) {
-pmemobj_tx_free(rootp->rect.raw());
-rootp->rect = nullptr;
+    pmemobj_tx_free(rootp->rect.raw());
+    rootp->rect = nullptr;
 } TX_END
-
-{{< /highlight >}}
+```
 
 Later tutorials will introduce proper allocator functions that do
 call the constructor and destructors accordingly.

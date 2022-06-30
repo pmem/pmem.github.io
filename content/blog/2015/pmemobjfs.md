@@ -50,7 +50,7 @@ because it may be lost.**
 
 The definition of **libpmemobj** layout looks like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 typedef uint8_t objfs_block_t;
 
 POBJ_LAYOUT_BEGIN(pmemobjfs);
@@ -60,7 +60,7 @@ POBJ_LAYOUT_TOID(pmemobjfs, struct objfs_dir_entry);
 POBJ_LAYOUT_TOID(pmemobjfs, objfs_block_t);
 POBJ_LAYOUT_TOID(pmemobjfs, char);
 POBJ_LAYOUT_END(pmemobjfs);
-{{< /highlight >}}
+```
 
 It consists of a _root object_ and four _typed OIDs_. The `objfs_block_t` is
 a typedef for the `uint8_t` type in order to bind an unique type number for
@@ -75,13 +75,13 @@ structures are described in details in the following chapters.
 The main data structure of the **pmemobjfs** is the `struct objfs_super` which
 plays a role of a super-block in traditional file systems:
 
-{{< highlight C "linenos=table" >}}
-struct objfs*super {
-TOID(struct objfs_inode) root_inode; /* root dir inode _/
-TOID(struct tree_map) opened; /_ map of opened files / dirs _/
-uint64_t block_size; /_ size of data block \_/
+```c++
+struct objfs_super {
+TOID(struct objfs_inode) root_inode; /* root dir inode */
+TOID(struct tree_map) opened; /* map of opened files/dirs */
+uint64_t block_size; /* size of data block */
 };
-{{< /highlight >}}
+```
 
 The `root_inode` field holds the inode object of the root directory which is
 created during creation of the file system layout.
@@ -97,24 +97,24 @@ opened files.
 
 The next important data structure used by the **pmemobjfs** is the
 `struct objfs_inode` which represents a file system object.
-{{< highlight C "linenos=table" >}}
-struct objfs*inode {
-uint64_t size; /* size of file _/
-uint64_t flags; /_ file flags _/
-uint64_t dev; /_ device info _/
-uint32_t ctime; /_ time of last status change _/
-uint32_t mtime; /_ time of last modification _/
-uint32_t atime; /_ time of last access _/
-uint32_t uid; /_ user ID _/
-uint32_t gid; /_ group ID _/
-uint32_t ref; /_ reference counter _/
-union {
-struct objfs_file file; /_ file specific data _/
-struct objfs_dir dir; /_ directory specific data _/
-struct objfs_symlink symlink; /_ symlink specific data \_/
-} d;
+```c++
+struct objfs_inode {
+    uint64_t size; /* size of file */
+    uint64_t flags; /* file flags */
+    uint64_t dev; /* device info */
+    uint32_t ctime; /* time of last status change */
+    uint32_t mtime; /* time of last modification */
+    uint32_t atime; /* time of last access */
+    uint32_t uid; /* user ID */
+    uint32_t gid; /* group ID */
+    uint32_t ref; /* reference counter */
+    union {
+        struct objfs_file file; /* file specific data */
+        struct objfs_dir dir; /* directory specific data */
+        struct objfs_symlink symlink; /* symlink specific data */
+    } d;
 };
-{{< /highlight >}}
+```
 
 It contains basic attributes of an object:
 
@@ -136,11 +136,11 @@ the specific type of inode:
 The data specific for directory object contains a doubly-linked list of
 directory entries.
 
-{{< highlight C "linenos=table" >}}
+```c++
 struct objfs*dir {
-PDLL_HEAD(struct objfs_dir_entry) entries; /* directory entries \_/
+    PDLL_HEAD(struct objfs_dir_entry) entries; /* directory entries */
 };
-{{< /highlight >}}
+```
 
 ##### File:
 
@@ -148,21 +148,21 @@ The data specific for file object contains a
 [tree map](/blog/2015/07/transactional-key-value-store-using-libpmemobj-diy) of blocks. The map key consist
 of block number and the value contains a **PMEMoid** to the data block.
 
-{{< highlight C "linenos=table" >}}
+```c++
 struct objfs*file {
-TOID(struct tree_map) blocks; /* blocks map \_/
+    TOID(struct tree_map) blocks; /* blocks map */
 };
-{{< /highlight >}}
+```
 
 ##### Symbolic link:
 
 The data specific for symbolic link contains a length of link and the link data.
-{{< highlight C "linenos=table" >}}
-struct objfs*symlink {
-uint64_t len; /* length of symbolic link _/
-TOID(char) name; /_ symbolic link data \_/
+```c++
+struct objfs_symlink {
+    uint64_t len; /* length of symbolic link */
+    TOID(char) name; /* symbolic link data */
 };
-{{< /highlight >}}
+```
 
 #### Directory entry
 
@@ -170,13 +170,13 @@ The `struct objfs_dir_entry` represents a directory entry. It contains a
 persistent pointers to the neighbours, a pointer to corresponding inode and
 a name:
 
-{{< highlight C "linenos=table" >}}
-struct objfs*dir_entry {
-PDLL_ENTRY(struct objfs_dir_entry) pdll; /* list entry _/
-TOID(struct objfs_inode) inode; /_ pointer to inode _/
-char name[]; /_ name \_/
+```c++
+struct objfs_dir_entry {
+    PDLL_ENTRY(struct objfs_dir_entry) pdll; /* list entry */
+    TOID(struct objfs_inode) inode; /* pointer to inode */
+    char name[]; /* name */
 };
-{{< /highlight >}}
+```
 
 The maximum length of the name of a directory entry is forced by the block size
 specified when creating a file system. It is equal to
@@ -199,7 +199,7 @@ and there is no need for synchronization mechanisms.
 
 To create the **pmemobjfs** layout you can use the `mkfs.pmemobjfs` command:
 
-```
+```bash
 mkfs.pmemobjfs -s <size> -b <block size> /mnt/pmem/pmemobjfs.obj
 ```
 
@@ -217,15 +217,14 @@ The file system layout is created within a transaction. The following listing
 shows the most important parts of the routing for creating the **pmemobjfs**
 layout:
 
-{{< highlight C "linenos=table" >}}
+```c++
 ...
-objfs->pop = pmemobj_create(fname,
-POBJ_LAYOUT_NAME(pmemobjfs), size, mode);
+objfs->pop = pmemobj_create(fname, POBJ_LAYOUT_NAME(pmemobjfs), size, mode);
 ...
 TOID(struct objfs_super) super = POBJ_ROOT(objfs->pop, struct objfs_super);
 ...
 TX_BEGIN(objfs->pop) {
-TX_ADD(super);
+    TX_ADD(super);
 
     /* create an opened files map */
     tree_map_new(objfs->pop, &D_RW(super)->opened);
@@ -238,13 +237,12 @@ TX_ADD(super);
     D_RW(super)->block_size = bsize;
 
 } TX_ONABORT {
-fprintf(stderr, "error: creating pmemobjfs aborted\n");
-ret = (-ECANCELED);
+    fprintf(stderr, "error: creating pmemobjfs aborted\n");
+    ret = (-ECANCELED);
 } TX_END
 ...
 pmemobj_close(objfs->pop);
-...
-{{< /highlight >}}
+```
 
 At the beginning the **pmemobj** pool is created with specified name of layout,
 size and mode. Next the _root object_ is allocated when calling the `POBJ_ROOT`
@@ -262,11 +260,11 @@ layout initialized.
 The following listing presents the most important operations performed when
 creating new directory on **pmemobjfs** file system:
 
-{{< highlight C "linenos=table" >}}
+```c++
 ...
 TX_BEGIN(objfs->pop) {
-TOID(struct objfs_inode) new_inode =
-pmemobjfs_new_dir(objfs, inode, name, flags, uid, gid);
+    TOID(struct objfs_inode) new_inode = 
+        pmemobjfs_new_dir(objfs, inode, name, flags, uid, gid);
 
     TOID(struct objfs_dir_entry) entry =
     	pmemobjfs_dir_entry_alloc(objfs, name, new_inode);
@@ -277,10 +275,10 @@ pmemobjfs_new_dir(objfs, inode, name, flags, uid, gid);
     D_RW(inode)->mtime = time(NULL);
 
 } TX_ONABORT {
-ret = (-ECANCELED);
+    ret = (-ECANCELED);
 } TX_END
 ...
-{{< /highlight >}}
+```
 
 After beginning a new transaction the new directory is allocated and
 initialized. After creating the inode with new directory, the
@@ -290,9 +288,9 @@ directory's doubly-linked list of entries and modification time is updated.
 
 The `pmemobjfs_new_dir` function is presented on the following listing:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TX_BEGIN(objfs->pop) {
-inode = pmemobjfs_inode_alloc(objfs, flags, uid, gid, 0);
+    inode = pmemobjfs_inode_alloc(objfs, flags, uid, gid, 0);
 
     pmemobjfs_inode_init_dir(objfs, inode);
 
@@ -306,11 +304,11 @@ inode = pmemobjfs_inode_alloc(objfs, flags, uid, gid, 0);
     pmemobjfs_add_dir_entry(objfs, inode, dotdot);
 
 } TX_ONABORT {
-inode = TOID_NULL(struct objfs_inode);
+    inode = TOID_NULL(struct objfs_inode);
 } TX_END
 
 return inode;
-{{< /highlight >}}
+```
 
 First of all the new inode is allocated with specified permissions and
 ownership and the directory specific data of inode is initialized.
@@ -327,13 +325,13 @@ transaction before committing the outermost one.
 The next interesting operation is allocating the file blocks. The following
 listing shows how it is implemented:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TX*BEGIN(objfs->pop) {
-/* allocate blocks from requested range \_/
-uint64_t b_off = offset / objfs->block_size;
-uint64_t e_off = (offset + size) / objfs->block_size;
-for (uint64_t off = b_off; off <= e_off; off += 1)
-pmemobjfs_file_get_block_for_write(objfs, inode, off);
+    /* allocate blocks from requested range */
+    uint64_t b_off = offset / objfs->block_size;
+    uint64_t e_off = (offset + size) / objfs->block_size;
+    for (uint64_t off = b_off; off <= e_off; off += 1)
+        pmemobjfs_file_get_block_for_write(objfs, inode, off);
 
     time_t t = time(NULL);
     /* update modification time */
@@ -349,9 +347,9 @@ pmemobjfs_file_get_block_for_write(objfs, inode, off);
     TX_ADD_FIELD(inode, size);
 
 } TX_ONABORT {
-ret = (-ECANCELED);
+    ret = (-ECANCELED);
 } TX_END
-{{< /highlight >}}
+```
 
 The most important function is `pmemobjfs_file_get_block_for_write` which
 either allocates new block or returns previously allocated block. In the latter
@@ -359,24 +357,26 @@ case the previously allocated block is added to the transaction's undo log in
 order to track all file's modifications. The following listing shows the
 implementation of this function:
 
-{{< highlight C "linenos=table" >}}
-TOID(objfs_block_t) block =
-pmemobjfs_file_get_block(objfs, inode, offset);
+```c++
+TOID(objfs_block_t) block = pmemobjfs_file_get_block(objfs, inode, offset);
+
 if (TOID_IS_NULL(block)) {
-TX_BEGIN(objfs->pop) {
-block = TX_ALLOC(objfs_block_t,
-objfs->block_size);
-tree_map_insert(objfs->pop, D_RW(inode)->file.blocks,
-GET_KEY(offset), block.oid);
-} TX_ONABORT {
-block = TOID_NULL(objfs_block_t);
-} TX_END
+
+    TX_BEGIN(objfs->pop) {
+        block = TX_ALLOC(objfs_block_t,
+        objfs->block_size);
+        tree_map_insert(objfs->pop, D_RW(inode)->file.blocks,
+        GET_KEY(offset), block.oid);
+    } TX_ONABORT {
+        block = TOID_NULL(objfs_block_t);
+    } TX_END
+
 } else {
-TX_ADD(block);
+    TX_ADD(block);
 }
 
 return block;
-{{< /highlight >}}
+```
 
 The `pmemobjfs_file_get_block` function returns a block at given offset or
 returns `OID_NULL` if the block is missing.
@@ -395,30 +395,29 @@ which operates on inode's reference counter are `pmemobjfs_inode_get` and
 
 The **unlink** operation is really simple:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TX_BEGIN(objfs->pop) {
-pmemobjfs_remove_dir_entry(objfs, inode, entry);
+    pmemobjfs_remove_dir_entry(objfs, inode, entry);
 
     TX_ADD_FIELD(inode, size);
     D_RW(inode)->size--;
 
 } TX_ONABORT {
-ret = (-ECANCELED);
+    ret = (-ECANCELED);
 } TX_END
-{{< /highlight >}}
+```
 
 All the work is performed by the `pmemobjfs_remove_dir_entry` function:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TX_BEGIN(objfs->pop) {
-pmemobjfs_inode_put(objfs, D_RO(entry)->inode);
+    pmemobjfs_inode_put(objfs, D_RO(entry)->inode);
 
     PDLL_REMOVE(D_RW(inode)->dir.entries, entry, pdll);
 
     pmemobjfs_dir_entry_free(objfs, entry);
-
 } TX_END
-{{< /highlight >}}
+```
 
 The reference counter is decreased and the directory entry is removed from
 the doubly-linked list of current directory and freed. The inode is freed if the
@@ -428,17 +427,17 @@ In case of unlinking an opened file the inode will not be freed immediately
 because the _open_ operation increases the inode's reference counter and
 adds the inode to the _tree map_ of opened inodes:
 
-{{< highlight C "linenos=table" >}}
-TX*BEGIN(objfs->pop) {
-/* insert inode to opened inodes map _/
-tree_map_insert(objfs->pop, D_RW(super)->opened,
-inode.oid.off, inode.oid);
-/_ hold inode \_/
-pmemobjfs_inode_get(objfs, inode);
+```c++
+TX_BEGIN(objfs->pop) {
+    /* insert inode to opened inodes map */
+    tree_map_insert(objfs->pop, D_RW(super)->opened,
+    inode.oid.off, inode.oid);
+    /* hold inode */
+    pmemobjfs_inode_get(objfs, inode);
 } TX_ONABORT {
-ret = (-ECANCELED);
+    ret = (-ECANCELED);
 } TX_END
-{{< /highlight >}}
+```
 
 Using those two mechanism it is really simple to implement the **unlink**
 operations with respect to opened files or directories and creating hard links.
@@ -456,11 +455,11 @@ specified directories or files. The transaction is controlled via the ioctl
 calls. For simplicity there have been developed three simple commands which do
 the required work:
 
-{{< highlight sh >}}
+```bash
 pmemobjfs.tx_begin
 pmemobjfs.tx_abort
 pmemobjfs.tx_end
-{{< /highlight >}}
+```
 
 For the above commands the path to the **pmemobjfs** mount point or any other
 directory must be given. After beginning the transaction all modifications
@@ -482,7 +481,7 @@ other process is writing to the file leads to undefined behavior.
 In this section I would like to present some performance tests results executed
 using the **fio** utility with the following configuration file:
 
-{{< highlight INI >}}
+```ini
 [job1]
 ioengine=sync
 runtime=60
@@ -490,7 +489,7 @@ time_based=1
 filesize=128M
 bs=448
 rw=randrw
-{{< /highlight >}}
+```
 
 The block size value has been chosen in order to minimize internal
 fragmentation on **pmemobjfs** file system.
@@ -506,8 +505,8 @@ The tests were run on the following file systems:
 - pmemobjfs (NTB)
 
 The _pmemobjfs (NTB)_ is a **pmemobjfs** version without tracking file blocks
-(PMEMOBJFS*TRACK_BLOCKS=0).
-The \_fusexmp_fh* is a file system which redirects all operations to the
+(PMEMOBJFS_TRACK_BLOCKS=0).
+The **fusexmp_fh** is a file system which redirects all operations to the
 root file system. It is available in the [FUSE](https://sourceforge.net/projects/fuse/)
 examples.
 

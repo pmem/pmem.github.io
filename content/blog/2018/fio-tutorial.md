@@ -58,12 +58,13 @@ already as a namespace). For this step you can use command `ndctl create-namespa
 case, either you choose mode `fsdax` or `devdax`. Namespace configured with
 **fsdax** is a block device with support of dax operations. It can host a
 dax-capable file system (e.g. ext4 or xfs) and should be configured like:
-{{< highlight bash >}}
+```bash
 ndctl create-namespace --type=pmem --mode=fsdax --region=X [--align=4k]
 mkfs.ext4 /dev/pmemX
 mkdir /mnt/pmem
 mount /dev/pmemX /mnt/pmem -o dax
-{{< /highlight >}}
+```
+
 In all cases regions should be created and maintained using administrative tool
 specific for your platform. Optional parameter **align** can be used to change
 alignment, while default for both mentioned modes is 2M.
@@ -71,15 +72,16 @@ alignment, while default for both mentioned modes is 2M.
 Namespace with **devdax** mode is a character device and is a raw access
 analogue of filesystem-dax. Configuration is simpler, because there's no need
 for file system preparation:
-{{< highlight bash >}}
+```bash
 ndctl create-namespace --type=pmem --mode=devdax --region=X [--align=4k]
-{{< /highlight >}}
+```
 
 To sum up, when you execute the following commands:
-{{< highlight bash >}}
+```bash
 ls /mnt/pmem
 ls /dev/dax\*
-{{< /highlight >}}
+```
+
 You should see mounted file system or dev-dax device available to use.
 
 ### FIO
@@ -135,11 +137,11 @@ This engine is using libpmemblk library. Results delivered by this engine will
 not show you the best performance of your hardware, only what this specific
 library is capable of. While using this engine, `blocksize` and
 `size` of a file are given as part of `filename` option, like here:
-{{< highlight bash >}}
+```bash
 filename=/mnt/pmem6/testjob,512,1024000
 #size=1024000M
 #bs=512
-{{< /highlight >}}
+```
 
 This is a bit different approach, comparing with other engines which use
 parameter "bs" and "size" (see commented part above). Full example workload
@@ -161,7 +163,9 @@ Command to run FIO is: `fio [options] [jobfile] ...`.
 Since we use workloads defined in a file (as opposed to specifying parameters
 in command line), we execute FIO with command like:
 
-`numactl -N 0 fio --output=my_workload.json --output-format=json my_workload.fio`
+```bash
+numactl -N 0 fio --output=my_workload.json --output-format=json my_workload.fio
+```
 
 [numactl command][nctl1234] guarantees that processes are pinned to selected
 numa node. The same can also be achieved by assigning CPU mask for FIO using

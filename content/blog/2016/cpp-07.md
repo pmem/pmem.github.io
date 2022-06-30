@@ -51,23 +51,23 @@ to worry about it. As the worker for the transactions, it accepts a
 you don't want to. The transactions however look really nice and clear, so don't
 be discouraged by the peculiar C++ lambda syntax. Here is an example:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] {
 pentry = make_persistent<entry>();
 // make other changes inside the transaction
 });
-{{< /highlight >}}
+```
 
 Of course, if you need to take locks for the whole durations of the transaction,
 you can do that. The `transaction::exec_tx`, takes a `locks` variadic template
 parameter:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 transaction::exec_tx(pop, transaction_fn, locks...);
-{{< /highlight >}}
+```
 
 By `locks`, I of course mean the C++ persistent memory resident locks which
 are available in the libpmemobj bindings.
@@ -89,13 +89,13 @@ The manual transactions are a little tricky to use, because they abort the
 transaction by default. What I mean by that is that the following example will
 abort:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 {
 transaction::manual tx(pop);
 auto pentry = make_persistent<entry>();
 } // here the transaction aborts
-{{< /highlight >}}
+```
 
 You might wonder, why did we at all decide to do manual transactions if the
 `std::uncaught_exception` is available in C++11? Why not go automatic from the
@@ -110,14 +110,14 @@ abort or commit the transaction - there would already be an active exception
 at the start of the transaction. The only way out of this predicament in C++11
 is to manually commit the transaction:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 {
 transaction::manual tx(pop);
 auto pentry = make_persistent<entry>();
 transaction::commit(); // here the transaction commits
 }
-{{< /highlight >}}
+```
 
 By now, you are probably wondering
 
@@ -136,13 +136,13 @@ The automatic scoped RAII transactions leverage the improved
 since GCC 6.1(libstdc++) and clang 3.7(libc++). The automatic version releases
 the developer from the burden of manually committing the transaction.
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 {
 transaction::automatic tx(pop);
 auto pentry = make_persistent<entry>();
 } // here the transaction commits
-{{< /highlight >}}
+```
 
 However you still don't know whether the transaction committed or aborted and
 still have to use the `transaction::get_last_tx_error()`. So if you really need

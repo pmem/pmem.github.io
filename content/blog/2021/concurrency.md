@@ -53,9 +53,7 @@ using atomic operations and the second one reading from it:
 // initial value of pmem->a is 0
 atomic_store(&pmem->a, 1);                  // visible = 1, persistent = ?
 pmem_persist(&pmem->a, sizeof(pmem->a));    // visible = 1, persistent = 1
-```
 
-```c++
 // thread 2
 // initial value of pmem->b is 0
 if (atomic_load(&pmem->a) == 1) {

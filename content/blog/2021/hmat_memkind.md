@@ -125,12 +125,12 @@ to any **memory target**.
 
 HMAT support is required both in hardware and the OS\*:
 
-{{< highlight console >}}
+```bash
 $ make nconfig
 Power management and ACPI options --->
 [*] ACPI (Advanced Configuration and Power Interface) Support ---> -_- NUMA support
 [_] ACPI Heterogeneous Memory Attribute Table Support
-{{< /highlight >}}
+```
 
 \*Option **CONFIG_ACPI_HMAT** is available since Linux Kernel version 5.5
 

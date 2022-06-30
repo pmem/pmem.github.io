@@ -65,7 +65,7 @@ Jekyll automatically, but it is convenient to install it locally
 for previewing content before pushing changes to the repo. On Debian Linux,
 these steps did the trick:
 
-{{< highlight sh >}}
+```bash
 $ sudo apt-get install ruby ruby-dev node python-pygments
 $ sudo gem install jekyll
 $ sudo gem install jekyll-mentions
@@ -73,13 +73,13 @@ $ sudo gem install jekyll-mentions
 # to start the jekyll server:
 
 $ jekyll serve --watch
-{{< /highlight >}}
+```
 
 [Edit: Fedora steps added December 11, 2017]
 
 On Fedora 26, here are steps that for running jekyll locally:
 
-{{< highlight sh >}}
+```bash
 $ sudo dnf install ruby ruby-devel python-pygments nodejs
 $ sudo dnf install redhat-rpm-config zlib-devel gcc-c++
 $ gem install jekyll
@@ -93,7 +93,7 @@ $ bundle install
 # to start the jekyll server:
 
 $ bundle exec jekyll serve --watch
-{{< /highlight >}}
+```
 
 Once the jekyll server is running, it watches for changes, re-generating
 the web pages as necessary, and provides the content for preview

@@ -61,7 +61,7 @@ First and foremost, if you're switching to C++11, and you obviously are if you
 want to use our C++ bindings, use `auto` as much as possible. This will greatly
 reduce the amount of changes you need to make. So for example:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 // do this
 auto new_node = new node();
 auto leaf = get_leaf(key, &parent);
@@ -69,7 +69,7 @@ auto leaf = get_leaf(key, &parent);
 // instead of this
 node *new_node = new node();
 entry *lead = get_leaf(key, &parent);
-{{< /highlight >}}
+```
 
 If you have this and are used to defining typedefs for your structure types, you
 have most of the work done already! If you think that this will be a
@@ -83,31 +83,31 @@ The first thing you need to do is change all your data members to persistent
 data members. Just wrap the simple types with the `p<>` template and the rest in
 `persistent_ptr<>`. So in the case of the ctree example:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 typedef T *value_type;
 ...
 key_type key;
 node *inode;
 ...
 entry \*root;
-{{< /highlight >}}
+```
 
 Change to:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 typedef pmem::obj::persistent_ptr<T> value_type;
 ...
 pmem::obj::p<key_type> key;
 pmem::obj::persistent_ptr<node> inode;
 ...
 pmem::obj::persistent_ptr<entry> root;
-{{< /highlight >}}
+```
 
 The next thing you have to take into account are the allocations and frees. You
 have to use the `make_persistent` and `delete_persistent` respectively. This is
 where it gets just a bit tricky, because:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 ctree_map_transient() : root(new entry())
 {
 }
@@ -120,7 +120,7 @@ auto pop = pmem::obj::pool_by_vptr(this); // get the pool handle
     	pop, [&] { root = pmem::obj::make_persistent<entry>(); });
 
 }
-{{< /highlight >}}
+```
 
 You might be wondering, why not just use the `make_persistent_atomic` and not do
 a one-line transaction? Well, the constructor itself might be called in a
@@ -129,19 +129,19 @@ are not meant to be used together.
 
 Besides the constructor, all the other allocations are just mechanical changes:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto new_node = new node();
 // changes to
 auto new_node = pmem::obj::make_persistent<node>();
-{{< /highlight >}}
+```
 
 The necessary changes to deletions are also straightforward:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 delete dest_entry->value;
 // changes to
 pmem::obj::delete_persistent<T>(dest_entry->value);
-{{< /highlight >}}
+```
 
 Because the API of the ctree has to be atomic with respect to persistence, there
 are a lot of `transaction::exec_tx` calls inside each public method. This is

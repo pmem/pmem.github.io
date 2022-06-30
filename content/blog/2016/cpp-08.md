@@ -54,13 +54,13 @@ such case.
 
 You can use the `pmem::obj::mutex` with standard wrapper classes like:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 pmem::obj::mutex pmutex;
 {
 std::lock_guard<pmem::obj::mutex> lock(pmutex);
 }
 std::unique_lock<pmem::obj::mutex> lock(pmutex);
-{{< /highlight >}}
+```
 
 ### Shared Mutex and Timed Mutex
 
@@ -69,7 +69,7 @@ to their `std` counterparts. They also satisfy their respective _SharedMutex_
 and _TimedMutex_ as well as the _StandardLayoutType_ concepts. Their usage is
 also very straightforward:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 pmem::obj::shared_mutex smutex;
 pmem::obj::timed_mutex tmutex;
 {
@@ -79,7 +79,7 @@ std::unique_lock<pmem::obj::shared_mutex> lock(smutex);
 
 tmutex.try_lock_for(std::chrono::milliseconds(100));
 std::unique_lock<pmem::obj::timed_mutex> lock(tmutex);
-{{< /highlight >}}
+```
 
 The `pmem::obj::shared_mutex` and `pmem::obj::timed_mutex` are persistent
 memory resident synchronization mechanisms.
@@ -90,14 +90,14 @@ The `pmem::obj::condition_variable`, as you probably by now noticed, is pretty
 much the standard `std::condition_variable`, with the exception of it being
 persistent memory resident. The usage is also very similar:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 pmem::obj::mutex pmutex;
 pmem::obj::condition*variable cond;
 pmutex.lock();
-cond.wait(proot->pmutex, [&]() { /* check condition here \_/ });
+cond.wait(proot->pmutex, [&]() { /* check condition here */ });
 // do some meaningful work here
 pmutex.unlock();
-{{< /highlight >}}
+```
 
 With this we have ended the introduction to the core classes and functions of
 the C++ bindings to libpmemobj. If you ever find yourself in doubt about the

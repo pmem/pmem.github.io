@@ -49,7 +49,7 @@ from these new persistent memory NUMA nodes.
 If support of **KMEM DAX** driver isn't enabled in your kernel you will have to configure
 proper driver installation by run `nconfig` and enable driver.
 
-{{< highlight console >}}
+```bash
 $ make nconfig
 Device Drivers --->
 -\*- DAX: direct access to differentiated memory --->
@@ -57,7 +57,7 @@ Device Drivers --->
 <M> PMEM DAX: direct access to persistent memory
 <M> KMEM DAX: volatile-use of persistent memory
 < > PMEM DAX: support the deprecated /sys/class/dax interface
-{{< /highlight >}}
+```
 
 <span>2.</span> [ndctl and daxctl][ndctl-release] version 66 or later.
 
@@ -72,7 +72,7 @@ Kernel should support `/sys/bus/dax` model. To migrate it from
 The list of available NUMA nodes on the system can be retrieved using `numactl`.
 An example of initial configuration is presented below:
 
-{{< highlight sh >}}
+```bash
 $ numactl -H
 
 available: 2 nodes (0-1)
@@ -86,17 +86,17 @@ node distances:
 node 0 1
 0: 10 21
 1: 21 10
-{{< /highlight >}}
+```
 
 To [create a namespace][ndctl-create-namespace] in Device-DAX mode as a standard memory from all the available capacity of NVDIMM:
 
-{{< highlight sh >}}
+```bash
 $ ndctl create-namespace --mode=devdax --map=mem
-{{< /highlight >}}
+```
 
 To [list DAX devices][daxctl-list]:
 
-{{< highlight sh >}}
+```bash
 $ daxctl list
 
 [
@@ -107,18 +107,18 @@ $ daxctl list
 "mode":"devdax"
 }
 ]
-{{< /highlight >}}
+```
 
 To [reconfigure][daxctl-reconfigure-device] DAX device from `devdax` mode to a `system-ram` mode:
 
-{{< highlight console >}}
+```bash
 $ daxctl reconfigure-device dax1.0 --mode=system-ram
-{{< /highlight >}}
+```
 
 After this operation, persistent memory is configured as a separate NUMA node and can be used as a volatile memory.
 For the example configuration below, persistent memory NUMA node is Node 3 (NUMA node without any assigned CPU):
 
-{{< highlight sh >}}
+```bash
 $ numactl -H
 
 available: 3 nodes (0-1,3)
@@ -136,7 +136,7 @@ node 0 1 3
 0: 10 21 28
 1: 21 10 17
 3: 28 17 10
-{{< /highlight >}}
+```
 
 ### Support in memkind library
 
@@ -144,7 +144,7 @@ Libmemkind supports the **KMEM DAX** option in three variants.
 For a better description of memory policies from these variants, see the animations below.
 The example configuration on which the animations are based on is as follows:
 
-{{< highlight sh >}}
+```bash
 $ numactl -H
 
 available: 4 nodes (0-3)
@@ -166,7 +166,7 @@ node 0 1 2 3
 1: 21 10 28 17
 2: 17 28 10 28
 3: 28 17 28 10
-{{< /highlight >}}
+```
 
 Which corresponds to:
 

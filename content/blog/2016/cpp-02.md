@@ -45,23 +45,23 @@ transaction undo log.
 Let's start with the vector example from the previous tutorial series. It looked
 like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 struct vector {
-int x;
-int y;
-int z;
+    int x;
+    int y;
+    int z;
 }
 
 PMEMoid root = pmemobj_root(pop, sizeof (struct vector));
 
-struct vector \*vectorp = pmemobj_direct(root);
+struct vector *vectorp = pmemobj_direct(root);
 TX_BEGIN(pop) {
-pmemobj_tx_add_range(root, 0, sizeof (struct vector));
-vectorp->x = 5;
-vectorp->y = 10;
-vectorp->z = 15;
+    pmemobj_tx_add_range(root, 0, sizeof (struct vector));
+    vectorp->x = 5;
+    vectorp->y = 10;
+    vectorp->z = 15;
 } TX_END
-{{< /highlight >}}
+```
 
 As you can see, the programmer has to remember to call `pmemobj_tx_add_range`
 function before any modifications to the memory. In a simple case like this one
@@ -70,26 +70,26 @@ some difficult to find consistency issues.
 
 By using the C++ API we can simplify this code like so:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #include <libpmemobj/p.hpp>
 
 using namespace pmem::obj;
 
 struct vector {
-p<int> x;
-p<int> y;
-p<int> z;
+    p<int> x;
+    p<int> y;
+    p<int> z;
 }
 
 PMEMoid root = pmemobj_root(pop, sizeof (struct vector));
 
-struct vector \*vectorp = pmemobj_direct(root);
+struct vector *vectorp = pmemobj_direct(root);
 TX_BEGIN(pop) {
-vectorp->x = 5;
-vectorp->y = 10;
-vectorp->z = 15;
+    vectorp->x = 5;
+    vectorp->y = 10;
+    vectorp->z = 15;
 } TX_END
-{{< /highlight >}}
+```
 
 The template class `pmem::obj::p` does not add storage overhead. The size of
 the vector structure is exactly the same as in the C version.

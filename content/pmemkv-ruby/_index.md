@@ -33,40 +33,37 @@ Start by installing [pmemkv](https://github.com/pmem/pmemkv/blob/master/INSTALLI
 
 Install Bundler:
 
-{{< highlight cmd >}}
+```bash
 gem install bundler -v '< 2.0'
-{{< /highlight >}}
+```
 
 Clone the pmemkv-ruby tree:
 
-{{< highlight cmd >}}
+```bash
 git clone https://github.com/pmem/pmemkv-ruby.git
 cd pmemkv-ruby
-{{< /highlight >}}
+```
 
 Download and install gems: 
 
-{{< highlight cmd >}}
+```bash
 bundle install
-{{< /highlight >}}
+```
 ### Testing
 
 This library includes a set of automated tests that exercise all functionality.
 
-{{< highlight cmd >}}
+```bash
 LD_LIBRARY_PATH=path_to_your_libs bundle exec rspec
-{{< /highlight >}}
+```
 
 ### Example
 
-We are using `/dev/shm` to
-[emulate persistent memory](/2016/02/22/pm-emulation.html)
-in example.
+We are using `/dev/shm` to [emulate persistent memory](/2016/02/22/pm-emulation.html) in example.
 
-Example can be found within this repository in [examples directory](https://github.com/pmem/pmemkv-ruby/tree/master/examples).
+Example can be found within *pmemkv-ruby* repository in [examples directory](https://github.com/pmem/pmemkv-ruby/tree/master/examples).
 To execute the example:
 
-{{< highlight cmd >}}
+```bash
 PMEM_IS_PMEM_FORCE=1 ruby basic_example.rb
-{{< /highlight >}}
-
+```

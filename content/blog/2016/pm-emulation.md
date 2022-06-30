@@ -54,7 +54,7 @@ Support for persistent memory devices and emulation is present in Kernel since 4
 Please note, that features and bug fixes around DAX support are being implemented as we speak, therefore it is recommended to use the newest stable Kernel if possible.
 To configure proper driver installation run `nconfig` and enable driver.
 
-{{< highlight console >}}
+```bash
 $ make nconfig
 Device Drivers --->
 {_} NVDIMM (Non-Volatile Memory Device) Support --->
@@ -62,58 +62,56 @@ Device Drivers --->
 <M> BLK: Block data window (aperture) device support
 [_] BTT: Block Translation Table (atomic sector updates)
 [*] PFN: Map persistent (device) memory
-{{< /highlight >}}
+```
 
 Additionally you need to enable treatment of memory marked using the non-standard e820 type of 12 as used by the Intel Sandy Bridge-EP reference BIOS as protected memory. The kernel will offer these regions to the 'pmem' driver so they can be used for persistent storage.
 
-{{< highlight console >}}
+```bash
 $ make nconfig
 Processor type and features --->
 [*] Support non-standard NVDIMMs and ADR protected memory
 [*] Device memory (pmem, etc...) hotplug support
 File systems --->
 [*] Direct Access (DAX) support
-
-{{< /highlight >}}
+```
 
 You are ready to build your Kernel
 
-{{< highlight console >}}
+```bash
 $ make -jX
 where X is the number of cores on the machine
-{{< /highlight >}}
+```
 
 Install the kernel
 
-{{< highlight console >}}
-
+```
 # sudo make modules_install install
-
-{{< /highlight >}}
+```
 
 [Reserve memory region](https://nvdimm.wiki.kernel.org/how_to_choose_the_correct_memmap_kernel_parameter_for_pmem_on_your_system) so it appears to be a persistent memory by modifying Kernel command line parameters.
 Region of memory to be used, from ss to ss+nn. [KMG] refers to kilo, mega, giga.
-{{< highlight text >}}
+
+```
 memmap=nn[KMG]!ss[KMG]
-{{< /highlight >}}
+```
+
 E.g. `memmap=4G!12G` reserves 4GB of memory between 12th and 16th GB.
 Configuration is done within GRUB, and varies between Linux distributions.
 Here are two examples of GRUB configuration.
 
 Ubuntu Server 15.04
-{{< highlight console "linenos=table" >}}
 
+```
 # sudo vi /etc/default/grub
 
 GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"
 
 # sudo update-grub2
-
-{{< /highlight >}}
+```
 
 CentOS 7.0
-{{< highlight console "linenos=table" >}}
 
+```
 # sudo vi /etc/default/grub
 
 GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"
@@ -124,8 +122,7 @@ On BIOS-based machines:
 On UEFI-based machines:
 
 # sudo grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
-
-{{< /highlight >}}
+```
 
 After machine reboot you should be able to see the emulated device as `/dev/pmem0`. Please be aware of the memory ranges available to your OS, and try not to overlap with those. Trying to get reserved memory regions for persistent memory emulation will result in split memory ranges defining persistent (type 12) regions. General recommendation would be to either use memory from 4GB+ range (`memmap=nnG!4G`) or checking upfront e820 memory map and fitting within.
 If you don't see the device, verify the `memmap` setting correctness, followed by `dmesg(1)` analysis. You should be able to see reserved ranges as shown on the dmesg output snapshot:
@@ -140,15 +137,14 @@ Having filesystem brings easy and reliable rights management, while with DAX add
 For those files there is no paging, and load/store operations provide direct access to persistent memory.
 
 Install filesystem with DAX (available today for ext4 and xfs):
-{{< highlight console "linenos=table" >}}
 
+```
 # sudo mkdir /mnt/mem
 
 ### sudo mkfs.ext4 /dev/pmem0 OR #sudo mkfs.xfs -m reflink=0 /dev/pmem0
 
 ### sudo mount -o dax /dev/pmem0 /mnt/mem
-
-{{< /highlight >}}
+```
 
 Now files can be created on the freshly mounted partition, and given as an input to PMDK pools.
 

@@ -49,9 +49,9 @@ The `pool` is a class template, where the single template parameter is the type
 of the root object. So if your root object was a `struct root`, you would use
 a similar definition to the following:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 pool<root> pop;
-{{< /highlight >}}
+```
 
 There are three basic operations you can do on a pool, that is
 
@@ -61,14 +61,13 @@ There are three basic operations you can do on a pool, that is
 
 An example usage would be:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 if (access(path.c_str(), F_OK) != 0) {
-pop = pool<root>::create(path, "some_layout", PMEMOBJ_MIN_POOL,
-S_IRWXU);
+    pop = pool<root>::create(path, "some_layout", PMEMOBJ_MIN_POOL, S_IRWXU);
 } else {
-pop = pool<root>::open(path, "some_layout");
+    pop = pool<root>::open(path, "some_layout");
 }
-{{< /highlight >}}
+```
 
 And that's pretty much it, you now have an opened and mapped pmemobj pool file
 ready to use. You can also perform a consistency check by calling the `check()`
@@ -77,9 +76,9 @@ method. When you are done with the pmemobj pool you can close it with the
 
 The next step you probably want to do is get the pool's root object.
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto q = pop.get_root();
-{{< /highlight >}}
+```
 
 There is one thing I have to mention here that is of utmost importance. The
 root object's constructor **will _NOT_ be called**. This is a design decision

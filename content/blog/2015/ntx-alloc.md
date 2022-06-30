@@ -42,21 +42,21 @@ This API is **not** similar to the APIs most programmers are used to when it com
 
 The rectangle example using this API looks like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 int rect_construct(PMEMobjpool *pop, void *ptr, void *arg) {
-struct rectangle *rect = ptr;
-rect->x = 5;
-rect->y = 10;
-pmemobj_persist(pop, rect, sizeof \*rect);
+    struct rectangle *rect = ptr;
+    rect->x = 5;
+    rect->y = 10;
 
-    return 0;
-
+    pmemobj_persist(pop, rect, sizeof(*rect));
+        return 0;
 }
-POBJ*NEW(pop, &D_RW(root)->rect, struct rectangle, rect_construct, NULL);
+
+POBJ_NEW(pop, &D_RW(root)->rect, struct rectangle, rect_construct, NULL);
 int p = perimeter_calc(D_RO(root)->rect);
-/* busy work \_/
+/* busy work */
 POBJ_FREE(&D_RW(root)->rect);
-{{< /highlight >}}
+```
 
 Certainly looks different, whether it's more complicated that's for you to decide. But in terms of performance, if you allocate a non-trivial number of objects - there may a significant benefit of adopting this approach. It also allows for more fine-grained control of using `_persist` functions - they are required in the constructor - this is especially beneficial when operating on large objects, because you can flush only the part you really need.
 
@@ -74,25 +74,25 @@ I didn't introduced this topic before because I didn't want to confuse anyone. A
 
 For example, to access the rectangle from the previous example, following expression can be used:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID(struct rectangle) rect = POBJ_FIRST(pop, struct rectangle);
-{{< /highlight >}}
+```
 
 If you had more then one `struct rectangle` then:
 
-{{< highlight C "linenos=table" >}}
+```c++
 rect = POBJ_NEXT(rect, struct rectangle);
-{{< /highlight >}}
+```
 
 will allow you access them. But you don't have to iterate objects by hand, there are macros for that:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID(struct rectangle) iter;
 POBJ_FOREACH_TYPE(pop, iter) {
-int p = perimeter_calc(D_RO(iter));
-printf("Perimeter of rectangle = %d", p);
+    int p = perimeter_calc(D_RO(iter));
+    printf("Perimeter of rectangle = %d", p);
 }
-{{< /highlight >}}
+```
 
 This will iterate over the collection of `struct rectangle` objects, if you want to iterate over everything there's `POBJ_FOREACH` macro for that. A `SAFE` variant of both macros is also available that allows you to deallocate all of the objects.
 

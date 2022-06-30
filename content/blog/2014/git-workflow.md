@@ -63,31 +63,31 @@ branch are the first steps in development and are done like this:
 
 - [Fork the repo](https://github.com/pmem/pmdk) using the GitHub web interface
 - Create a local clone of your repo and add a remote called `upstream` to point to the original repo:
-  {{< highlight sh >}}
+  ```bash
   $ git clone git@github.com:username/pmdk.git
   $ cd pmdk
   $ git remote add upstream git://github.com/pmem/pmdk.git
   $ git checkout -b my-feature-branch
-  {{< /highlight >}}
+  ```
 
 #### Developing and merging locally
 
 Now that you have your local feature branch, do your development
 with frequent commits recommended. Be sure git is configured
 with your correct name and email address:
-{{< highlight sh >}}
+```bash
 $ git config --global user.name "Firstname Lastname"
 $ git config --global user.email "emailaddr@domain.com"
-{{< /highlight >}}
+```
 
 Now you can work on your changes locally, committing them to your
 local feature branch:
-{{< highlight sh >}}
+```bash
 edit files, run tests...
 $ git add ...
 $ git commit ...
 repeat as necessary...
-{{< /highlight >}}
+```
 
 Please follow the common conventions for git commit messages:
 
@@ -97,7 +97,7 @@ Please follow the common conventions for git commit messages:
 - Any references to GitHub issues are at the end of the commit message.
 
 For example, here is a properly-formatted commit message:
-{{< highlight sh >}}
+```bash
 doc: fix code formatting in man pages
 
 The indentation in code examples contained in the man pages
@@ -105,24 +105,24 @@ was not formatting correctly due to a bug in groff. This
 fix avoids the issue by using man2html instead of groff.
 
 Ref: pmem/issues#1
-{{< /highlight >}}
+```
 
 #### Rebasing
 
 At convenient points in your development, you will want to re-sync with
 any changes that have happened in the upstream repo. Do this using
 `git rebase` rather than `git merge`.
-{{< highlight sh >}}
+```bash
 $ git fetch upstream
 $ git rebase upstream/master # or upstream/0.1 if patching release 0.1, for example
-{{< /highlight >}}
+```
 
 #### Before submitting changes
 
 Before asking for your changes to be merged, you are expected to perform
 these steps at a minimum:
 
-{{< highlight sh >}}
+```bash
 
 # from top-level of repository...
 
@@ -131,15 +131,15 @@ $ make
 $ make test
 $ cp src/test/testconfig.sh.example src/test/testconfig.sh # edit as necessary
 $ make check
-{{< /highlight >}}
+```
 
 We also require all the above to pass using the `clang` compiler:
-{{< highlight sh >}}
+```bash
 $ make clobber
 $ make CC=clang CXX=clang++
 $ make CC=clang CXX=clang++ test
 $ make CC=clang CXX=clang++ check
-{{< /highlight >}}
+```
 
 Please add the appropriate unit tests to verify new features you've added.
 
@@ -152,10 +152,10 @@ those that fix typos or head down a wrong path that you later discarded,
 you should consider
 squashing those commits into a cleaner set of commits. The command
 `git rebase -i` is a very useful tool for this. For example:
-{{< highlight sh >}}
+```bash
 $ git fetch upstream
 $ git rebase -i upstream/master
-{{< /highlight >}}
+```
 
 The above rebase command will put you in the editor with a list of all
 the commits you made on your feature branch. This is a very powerful
@@ -164,24 +164,24 @@ a quick remind may help you use it. Say you had four commits but two of
 them were annoying typo changes that you'd rather just squash away. You'll
 see the four commits in the edit like this:
 
-{{< highlight sh >}}
+```bash
 pick 60d3a42 subsystem: this is the first commit message
 pick 7c970de subsystem: oops, stupid typo
 pick d951f42 subsystem: this is the second commit message
 pick dc80ecd subsystem: oops, another stupid typo
-{{< /highlight >}}
+```
 
 Let's say you want to convert this to two commits, folding the typo
 fixes into the commits before them. Change the word **pick** to **squash**
 for the commits being squashed -- actually, you only need the letter **s**,
 like this:
 
-{{< highlight sh >}}
+```bash
 pick 60d3a42 subsystem: this is the first commit message
 s 7c970de subsystem: oops, stupid typo
 pick d951f42 subsystem: this is the second commit message
 s dc80ecd subsystem: oops, another stupid typo
-{{< /highlight >}}
+```
 
 When you write and exit the editor, git will allow you to edit and clean
 up the commit messages for each set of squashed commits (twice in this
@@ -194,9 +194,9 @@ of your repo before doing this, just in case!**
 
 Now that you've your changes are cleanup and fully tested, you'll want to
 push them back to your fork of the repo on GitHub:
-{{< highlight sh >}}
+```bash
 $ git push origin my-feature-branch
-{{< /highlight >}}
+```
 
 And finally, send the changes back to the original PMDK repository:
 

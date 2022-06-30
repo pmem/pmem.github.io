@@ -34,7 +34,7 @@ aliases: ['/2015/11/23/replication-intro.html']
 type: 'post'
 ---
 
-Replication is a means for raising the reliability of your _pmemobj_ based applications. You can basically think of it as RAID 1 within _PMDK_. What happens is, when you write to your pool using the **pmemobj\_\*** (memcpy, persist, and so on) primitives, it gets copied to your replicas. Yes, you can have more than one replica. In fact you can have as many as you want, but you have to keep in mind the performance penalty.
+Replication is a means for raising the reliability of your _pmemobj_ based applications. You can basically think of it as RAID 1 within _PMDK_. What happens is, when you write to your pool using the `pmemobj_*` (memcpy, persist, and so on) primitives, it gets copied to your replicas. Yes, you can have more than one replica. In fact you can have as many as you want, but you have to keep in mind the performance penalty.
 
 Replication, although not directly, is related to pool sets. This is a simple concept which I will try to briefly explain.
 
@@ -48,11 +48,11 @@ Replicas can also be made of multiple files, just like your primary pool. These 
 
 ### How to set-up replication
 
-There are two ways of setting up your replica/pool set. As you might expect, one is the easy and preferred way and one is the opposite. You can do it using the **pmemobj_create()** function. You have to keep in mind that it has to point to a well formed _set_ file (more on that later) and that the _poolsize_ argument must be equal to 0. Other than that it is a standard **pmemobj_create()** call. The _mode_ parameter applies to all the files created from the _set_ file (both the primary set and the replicas). This a perfectly valid approach, but we prefer doing this using the [pmempool][6d977c8e] tool. In fact this is the preferred way of doing administrative tasks on any type of pool. It's less error prone and less of a hassle to create/manage/debug your pools. I suggest you get acquainted with it. Also, expect a blog entry on it, once the features it supports and the tool itself stabilize.
+There are two ways of setting up your replica/pool set. As you might expect, one is the easy and preferred way and one is the opposite. You can do it using the `pmemobj_create()` function. You have to keep in mind that it has to point to a well formed _set_ file (more on that later) and that the _poolsize_ argument must be equal to 0. Other than that it is a standard `pmemobj_create()` call. The _mode_ parameter applies to all the files created from the _set_ file (both the primary set and the replicas). This a perfectly valid approach, but we prefer doing this using the [pmempool][6d977c8e] tool. In fact this is the preferred way of doing administrative tasks on any type of pool. It's less error prone and less of a hassle to create/manage/debug your pools. I suggest you get acquainted with it. Also, expect a blog entry on it, once the features it supports and the tool itself stabilize.
 
 As I mentioned before, to create a set/replica you need a _.set_ file. The way this file is composed is subject to change (especially if we implement support for some kind of remote replication) so I urge you to look at our [manpages][1d90594e]. Let's take a look at an example.
 
-{{< highlight sh linenos >}}
+```bash
 PMEMPOOLSET
 
 # first set/replica foo
@@ -71,15 +71,15 @@ REPLICA
 # third set/replica baz
 
 800G /mountpoint5/baz.part0
-{{< /highlight >}}
+```
 
 This represents a 700GB pool set and two replicas. As you probably noticed, the number of files in the replicas, as well as the cumulative size of each part do not have to match. The library will chose the size of the smallest set as the actual pool size. All of the replicas are binary copies and are interchangeable. This is however not hassle-free and should be done by an external tool - _pmempool_ (it does not have support for this yet, but we plan to implement it). The first line of the set file has to be _PMEMPOOLSET_ - don't try to put a comment there.
 
-Once you have the set file ready and have appropriate permissions to all the mountpoints, run the **pmempool** tool to create all the necessary files.
+Once you have the set file ready and have appropriate permissions to all the mountpoints, run the `pmempool` tool to create all the necessary files.
 
-{{< highlight sh linenos >}}
+```c++
 pmempool create --layout="mylayout" obj myobjpool.set
-{{< /highlight >}}
+```
 
 If pmempool does not report an error, you're good to go, to do a **pmemobj_open** on the set file and use your pool.
 

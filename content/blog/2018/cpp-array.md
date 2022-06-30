@@ -58,20 +58,18 @@ automatically adds modified elements to the enclosing transaction.
 
 Let's start with a simple example:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #include <libpmemobj++/experimental/array.hpp>
 
 struct data {
-data() {
-array = {6, 5, 4, 3, 2, 1};
-}
-
+    data() {
+        array = {6, 5, 4, 3, 2, 1};
+    }
     pmem::obj::experimental::array<int, 6> array;
-
 }
 
 pmem::obj::transaction::run(pop, [&] {
-ptr = pmem::obj::make_persistent<data>();
+    ptr = pmem::obj::make_persistent<data>();
 
     for (auto &e : ptr->array)
     	e++;
@@ -81,20 +79,18 @@ ptr = pmem::obj::make_persistent<data>();
 
     for (int i = 0; i < ptr->array.size(); i++)
     	ptr->array[i]--;
-
 });
-
-{{< /highlight >}}
+```
 
 As seen above, `pmem::obj::array` can be used just like an ordinary `std::array`.
 For iterating over it you can use indexing operator, range-based for loops or
 iterators. Array can also be processed using `std::algorithms`:
 
-{{< highlight C "linenos=table" >}}
+```c++
 pmem::obj::transaction::run(pop, [&] {
-std::sort(ptr->array.begin(), ptr->array.end());
-}
-{{< /highlight >}}
+    std::sort(ptr->array.begin(), ptr->array.end());
+});
+```
 
 If there is an active transaction, elements (accessed using any of the listed
 methods) are snapshotted. In case of iterators returned by begin() and end()
@@ -116,9 +112,9 @@ variants).
 
 Here's sample usage:
 
-{{< highlight C "linenos=table" >}}
+```c++
 pmem::obj::transaction::run(pop, [&] {
-auto slice = ptr->array.range(0, ptr->array.size(), 2);
+    auto slice = ptr->array.range(0, ptr->array.size(), 2);
 
     for (auto it = slice.begin(); it != slice.end(); it++)
     	*it++;
@@ -131,8 +127,8 @@ auto slice = ptr->array.range(0, ptr->array.size(), 2);
     for (int i = 0; i < slice.size(); i++)
     	slice[i]--;
 
-}
-{{< /highlight >}}
+});
+```
 
 This examples shows that `pmem::obj::slice` can be iterated the same way as `pmem::obj::array`.
 The difference is that elements are not snapshotted one by one, instead they are
@@ -148,9 +144,9 @@ also described [here][cpp_array_iterator].
 
 If all elements (or most of them) are expected to be modified, `range()` can be called like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 auto slice = ptr->array.range(0, ptr->array.size());
-{{< /highlight >}}
+```
 
 This will add the entire array to a transaction once.
 
@@ -164,18 +160,17 @@ Above examples used `pmem::obj::array` as a struct member but it is also possibl
 to have direct `pmem::obj::persistent_ptr` to it. There is, however, one thing users
 should be aware of while using this approach. Consider the following code:
 
-{{< highlight C "linenos=table" >}}
+```c++
 using array_type = pmem::obj::experimental::array<int, 5>;
 
 pmem::obj::transaction::run(pop, [&] {
-// not possible before C++17
-ptr = pmem::obj::make_persistent<array_type>(1, 2, 3, 4, 5);
+    // not possible before C++17
+    ptr = pmem::obj::make_persistent<array_type>(1, 2, 3, 4, 5);
 
-    	// always works
-    	ptr2 = pmem::obj::make_persistent<array_type>();
-    });
-
-{{< /highlight >}}
+    // always works
+    ptr2 = pmem::obj::make_persistent<array_type>();
+});
+```
 
 As stated in the comment, initializing `pmem::obj::array` in `pmem::obj::make_persistent`
 with list of values is only possible since C++17. This is because `pmem::obj::array`,
