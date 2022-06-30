@@ -1,0 +1,202 @@
+<!doctype html><html dir=ltr lang=en-us><head><link rel=stylesheet type=text/css href=/css/style.css><meta property="og:title" content="Introduction to libpmem2 (part 1)"><meta property="og:description" content="A new beginning This blog post will be about the recently created library libpmem2, which is a part of PMDK repository. Before we go into details it&rsquo;s worth having a short look at the history. About seven years ago, the first persistent memory library known as libpmem was started. The concept of persistent memory was becoming a reality. Initially, libpmem provided simple support for memory memory management on pmem. Over time, the development of hardware, software, as well as changing customer needs made it necessary to evolve the library to include new features such as support for Windows, DevDax, RAS, eADR, and others."><meta property="og:type" content="article"><meta property="og:url" content="https://pmem.io/blog/2022/06/introduction-to-libpmem2-part-1/"><meta property="article:section" content="blog"><meta property="article:published_time" content="2022-06-30T10:00:00+00:00"><meta property="article:modified_time" content="2022-06-30T10:00:00+00:00"><meta charset=utf-8><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Introduction to libpmem2 (part 1)</title><meta name=author content="PMem.io"><meta name=description content="Persistent Memory Development Kit (PMDK) provides support for transactional and atomic operations to keep the data consistent and durable.  PMDK is a collection of open-source libraries and tools that are available for both Linux and Windows OS.  PMDK facilitates persistent memory programming adoption with higher level language support.  Currently, Java, Python, Rust, Go, C and C++ support is fully validated and delivered on Linux and Windows.  This new generation of persistent memory from Intel has introduced a third memory tier (memory persistence, memory tiering).  In addition to memory and storage tiers, the persistent memory tier offers greater capacity than DRAM and significantly faster performance than storage.  Applications can access persistent memory-resident data structures in-place, like they do with traditional memory, eliminating the need to page blocks of data back and forth between memory and storage. PMDK provides a toolkit for memory hierarchy, memory caching, virtual memory and memory tiering.  PMDK-PMEM toolkit provides operational modes in either app direct mode or memory mode. App Direct Mode provides memory persistent, high availability less downtime and significantly faster storage.  In memory mode provides high memory capacity at lower cost and is transparent to applications.  Memory is volatile in memory mode and persistent in App Direct mode"><meta name=robots content="index, follow, archive"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900&display=swap" rel=stylesheet type=text/css><link rel=stylesheet href=/css/bootstrap.css type=text/css><link rel=stylesheet href=/css/style.css type=text/css><link rel=stylesheet href=/css/dark.css type=text/css><link rel=stylesheet href=/css/font-icons.css type=text/css><link rel=stylesheet href=/css/animate.css type=text/css><link rel=stylesheet href=/css/magnific-popup.css type=text/css><link rel=stylesheet href=/css/et-line.css type=text/css><link rel=stylesheet href=/css/components/bs-switches.css type=text/css><link rel=stylesheet href=/css/custom.css type=text/css><meta name=viewport content="initial-scale=1,viewport-fit=cover"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css type=text/css><link rel=stylesheet href="/css/colors.php?color=FE9603" type=text/css><link rel=stylesheet href=/css/template/fonts.css type=text/css><link rel=stylesheet href=/css/template/seo.css type=text/css></head><body class=stretched><div id=wrapper class=clearfix><header id=header class="transparent-header floating-header header-size-md sticky-header"><div id=header-wrap class=dark-mode><div class="container dark-mode"><div class=header-row><div id=logo class=logo_dark><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt=PMem.io></a></div><div id=logo class=logo_light><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo_white.png alt=PMem.io></a></div><div class=header-misc><div id=top-search class=header-misc-icon><a href=# id=top-search-trigger><i class=icon-line-search></i><i class=icon-line-cross></i></a></div><div class=top-links><ul class=top-links-container><li><div id=darkSwitch class="dark-mode header-misc-icon d-md-block"><a href=#><i id=darkSwitchToggle></i></a></div></li></ul></div></div><div id=primary-menu-trigger><svg class="svg-trigger" viewBox="0 0 100 100"><path d="m30 33h40c3.722839.0 7.5 3.126468 7.5 8.578427C77.5 47.030386 74.772971 50 70 50H50"/><path d="m30 50h40"/><path d="m70 67H30s-7.5-.802118-7.5-8.365747C22.5 51.070624 30 50 30 50h20"/></svg></div><nav class="primary-menu with-arrows"><ul class=menu-container><li class="menu-item mega-menu"><div class=menu-link><div><a href=/developer-hub>Developer Hub</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>For Developers</p><p>Everything you need to know about Persistent Memory.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/getting-started-guide><p>Get started <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmdk><p>PMDK <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/repoindex><p>PMem Repositories <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/pmemkv><p>PMemKV <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=http://memkind.github.io/memkind/><p>Memkind <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://tieredmemdb.github.io/><p>TieredMemDB <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/learn>Learn</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Access our Documentation</p><p>Learn more about Persistent Memory features and capabilities.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/books><p>Books <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/persistent-memory/><p>Docs <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/glossary><p>Glossary <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ipmctl-user-guide/><p>ipmctl User Guide <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://docs.pmem.io/ndctl-user-guide/><p>ndctl User Guide <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/faq><p>FAQ <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/knowledgebase><p>Knowledge base <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/tutorials><p>Tutorials <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/videos><p>Videos <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/webinars><p>Webinars <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class="menu-item mega-menu"><div class=menu-link><div><a href=/community>Community</a></div></div><div class="mega-menu-content mega-menu-style-2 px-0"><div class="container dark-mode"><div class=row><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class=fbox-content><p class=fw-bold>Get Connected</p><p>Join an ever-growing community of PMDK-PMEM developers online or in person.</p></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/events><p>Events <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://groups.google.com/group/pmem><p>Forum <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=https://pmem-io.slack.com/join/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg#/shared-invite/email><p>Slack channel <i class=icon-angle-right></i></p></a></div></div></div><div class="mega-menu-column sub-menu-container col-lg-4 border-bottom py-4"><div class=feature-box><div class="fbox-content h-bg-light"><a href=/announcements><p>Announcements <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/blog/2021/10/how-to-contribute-to-pmem.io/><p>Contribute <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#newsletter><p>Newsletter <i class=icon-angle-right></i></p></a></div><div class="fbox-content h-bg-light"><a href=/community/#social-media><p>Social Media <i class=icon-angle-right></i></p></a></div></div></div></div></div></div></li><li class=menu-item><a class=menu-link href=https://pmem.io/solutions><div>Solutions</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/blog><div>Blog</div></a></li><li class=menu-item><a class=menu-link href=https://pmem.io/about><div>About</div></a></li></ul></nav><form class=top-search-form method=get><input id=bcs-searchbox aria-label="Search input" type=text name=q class="form-control bcs-searchbox pt-4" placeholder="Type & Hit Enter.." autocomplete=off></form></div></div></div><div class="header-wrap-clone dark-mode"></div></header><div id=customSearch><div id=bcs_js_snippet></div></div><section id=content><div class="content-wrap dark-mode"><div class="container clearfix"><div class="row gutter-40 col-mb-80"><div class="postcontent col-lg-9 order-lg-last"><div class="single-post mb-0"><div class="entry clearfix"><div class=entry-title><h2>Introduction to libpmem2 (part 1)</h2></div><div class=entry-meta><ul><li><i class=icon-calendar3></i> 30 Jun, 2022</li><li><i class=icon-user></i> Weronika Lewandowska</li><li><i class=icon-folder-open></i>
+PMDK</li></ul></div><div class="entry-content mt-0"><h2 id=a-new-beginning>A new beginning</h2><p>This blog post will be about the recently created library <a href=/pmdk/manpages/linux/master/libpmem2/libpmem2.7>libpmem2</a>,
+which is a part of PMDK repository. Before we go into details it&rsquo;s worth having a short look
+at the history. About seven years ago, the first persistent memory library
+known as <a href=/pmdk/manpages/linux/master/libpmem/libpmem.7>libpmem</a> was started. The concept of persistent
+memory was becoming a reality. Initially, libpmem provided simple support
+for memory memory management on pmem.
+Over time, the development of hardware, software, as well as changing customer needs made it
+necessary to evolve the library to include new features such as support for Windows,
+<a href=/glossary/>DevDax, RAS, eADR</a>, and others. The initial API design was no longer
+sufficient and it wasn&rsquo;t flexible enough to extend.
+This led us to create an improved version of libpmem: <strong>libpmem2</strong>.</p><h2 id=new-concept-new-structures>New concept, new structures</h2><p><a href=/pmdk/manpages/linux/master/libpmem2/libpmem2.7>Pmem2</a> is a low-level standalone library providing a
+platform-agnostic interface. If you&rsquo;ve used <a href=/pmdk/manpages/linux/master/libpmem/libpmem.7>libpmem</a> before, you&rsquo;re
+probably familiar with the <a href=/pmdk/manpages/linux/master/libpmem/pmem_is_pmem.3>pmem_is_pmem</a> function, which checks
+if the specified mapped area is entirely on a persistent medium.</p><p>As one of the big changes in <em>libpmem2</em>, we dropped this mechanism
+in favor of a more intuitive and structured solution. The user now
+does not have to deal with direct checking for the presence of pmem.
+Instead, software gets a set of structures on which user operates, and
+all the detection happens automatically.</p><p>To best understand the new concept, you can imagine a very simple recipe:
+<strong>result = what + how</strong>, where:</p><p><strong>map (result)</strong> - the virtual address space mapping, represented
+in the library as a <code>pmem2_map</code> structure. Through this object, software can access
+its address (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_map_get_address.3>pmem2_map_get_address</a>), size (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_map_get_size.3>pmem2_map_get_size</a>),
+granularity (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_map_get_store_granularity.3>pmem2_map_get_store_granularity</a>) or flushing pointers (more about these in a moment)
+by calling the appropriate functions.</p><p><strong>source (what)</strong> - information necessary to create a new <code>pmem2_map</code> - the object is represented as
+<code>pmem2_source</code> structure. As a source, you can use a file (providing a file descriptor or a file handle)
+or use a file-independent source, i.e. anonymous mapping. These source types can
+be created using the <em>libpmem2</em> API. Following functions are provided: <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_source_from_fd.3>pmem2_source_from_fd</a>,
+<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_source_from_fd.3>pmem2_source_from_handle</a>, <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_source_from_anon.3>pmem2_source_from_anon</a>.
+Usage of these functions is very simple, it only requires specifying the file handle or size.
+This is enough to create <code>pmem2_source</code> - a component of the recipe for the above-described <code>pmem2_map</code>.</p><p><strong>config (how)</strong> - now that we know what our source is, we can define more features
+that the output mapping should have. In the library the structure that allows configuring such
+information is <code>pmem2_config</code>. Many functions have been created to set mapping parameters,
+starting from very basic features like setting length (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_config_set_length.3>pmem2_config_set_length</a>), setting offset (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_config_set_offset.3>pmem2_config_set_offset</a>), defining mapping visibility (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_config_set_sharing.3>pmem2_config_set_sharing</a>), to more advanced features for indicating
+reservations (<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_config_set_vm_reservation.3>pmem2_config_set_vm_reservation</a>), which will be discussed in the next part
+of this blog post series.</p><h2 id=meet-granularity>Meet granularity</h2><p>The previously discussed parameters are optional. But there&rsquo;s one important configuration
+option that is mandatory - store granularity. It is set using function <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_config_set_required_store_granularity.3>pmem2_config_set_required_store_granularity</a>.
+Setting the granularity is the last step needed to successfully create a complete <code>pmem2_map</code> object.</p><p>Granularity is a value that was not present in the <em>libpmem</em>. This is another big difference
+between the new and the old versions of the library.
+In <em>libpmem</em>, we use a simple pmem/non-pmem distinction to differentiate between different types of mappings.
+However, this distinction is insufficient to capture the full spectrum of available platform types and potential
+differences in power-fail protected domains between systems.</p><p>Thus, for example, we may have three different platforms available:</p><ul><li><p>One that has traditional block storage devices (SSD, HDD) and must use system API calls such as <code>msync()</code>,
+<code>fsync()</code> on Linux, or <code>FlushFileBuffers()</code>, <code>FlushViewOfFile()</code> on Windows to write data reliably.
+In this case, each write is rounded up to page size and it is not possible to do a single write of smaller size.</p></li><li><p>Another one that has NVDIMMS with asynchronous DRAM refresh and requires
+flushing a cache line using <code>CLWB</code> (or <code>CLFLUSHOPT</code> or <code>CLFLUSH</code>) call.
+For these instructions, the best possible write to memory is the size of the cache line.</p></li><li><p>Or, a platform with an available eADR and the largest persistence domain where the processor
+caches are also protected during power failure. Only the <code>SFENCE</code> command is necessary to
+maintain full data persistence. No flushing functions are necessary, so the write granularity is
+the finest possible.</p></li></ul><p>As we can observe, a division into three types of granularity emerges, successively:
+page granularity, cache line granularity, and byte granularity.
+These values are implemented in the <em>libpmem2</em> API using fields:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>enum</span> pmem2_granularity {
+</span></span><span style=display:flex><span>	PMEM2_GRANULARITY_BYTE,
+</span></span><span style=display:flex><span>	PMEM2_GRANULARITY_CACHE_LINE,
+</span></span><span style=display:flex><span>	PMEM2_GRANULARITY_PAGE,
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>So back to creating our map recipe, we need to set the granularity of interest in
+the config using the <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_config_set_required_store_granularity.3>pmem2_config_set_required_store_granularity</a> function.
+The specific feature of this function is that the granularity value passed is not
+the precision with which the data should be written to the medium, but the largest acceptable value
+that you as the user allow in this case. In other words, this is the maximum granularity allowed.</p><p>Let&rsquo;s look at some examples:</p><ol><li>If you have a platform with only a <strong>traditional storage device</strong>.</li></ol><ul><li>set the required store granularity to PAGE - the setting is correct,
+and writes will be performed using the highest-performance option available,
+in this case, page granularity.</li><li>set the required store granularity to CACHELINE - your platform does not support it,
+the requirement is not fulfilled, and you get an unhandled granularity error.</li><li>set the required store granularity to BYTE - your platform does not support it,
+the requirement is not fulfilled, and you get an unhandled granularity error.</li></ul><ol start=2><li>If you have a platform with full <strong>persistent memory support, but no eADR</strong>.</li></ol><ul><li>set the required store granularity to PAGE - the setting is correct,
+and writes will be performed using the highest-performance option available,
+in this case, cache line granularity.</li><li>set the required store granularity to CACHELINE - the setting is correct,
+and writes will be performed using the highest-performance option available,
+in this case, cache line granularity.</li><li>set the required store granularity to BYTE - your platform does not support this,
+the requirement is not fulfilled, and you get an unhandled granularity error.</li></ul><ol start=3><li>If you have a platform with full <strong>persistent memory support and eADR</strong>.</li></ol><ul><li>set the required store granularity to PAGE - the setting is correct,
+and writes will be performed using the highest-performance option available,
+in this case, byte granularity.</li><li>set the required store granularity to CACHELINE - the setting is correct,
+and the writes will be performed using the highest-performance option available,
+in this case, byte granularity.</li><li>set the required store granularity to BYTE - the setting is correct,
+and writes will be performed using the highest-performance option available,
+in this case, byte granularity.</li></ul><p>To sum up, user software chooses a maximum store granularity it will support
+based on what makes sense for the storage algorithms that it uses.
+At runtime, pmem2 will detect what is the actual store granularity of the underlying
+storage media, compare that against the chosen granularity, and then will either allow or
+decline to create a mapping. If created, the mapping will have the highest-performance
+granularity option available at that moment. This is correct because <em>libpmem2</em> does not define
+any functional differences between granularities.</p><p>If you are not sure what the effective granularity is for the mapping you&rsquo;ve created,
+you can use a function that will return this information <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_map_get_store_granularity.3>pmem2_map_get_store_granularity</a>.
+Just pass in the <code>pmem2_map</code> created as described and you will get the information
+about the granularity used based on the platform capabilities and the requirement
+defined in the config.</p><h2 id=look-at-the-example>Look at the example</h2><p>Basic configuration and mapping should not be a problem at this stage, and the following
+<a href=https://github.com/pmem/pmdk/blob/master/src/examples/libpmem2/basic/basic.c>example</a> should be clear:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmem2.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>int</span> argc, <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>argv[])
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* in this example we are going to use a mapping file */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> fd;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>struct</span> pmem2_config <span style=color:#f92672>*</span>cfg;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>struct</span> pmem2_map <span style=color:#f92672>*</span>map;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>struct</span> pmem2_source <span style=color:#f92672>*</span>src;
+</span></span><span style=display:flex><span>    pmem2_persist_fn persist;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* basic checking of the input arguments */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (argc <span style=color:#f92672>!=</span> <span style=color:#ae81ff>2</span>) {
+</span></span><span style=display:flex><span>       fprintf(stderr, <span style=color:#e6db74>&#34;usage: %s file&#34;</span>, argv[<span style=color:#ae81ff>0</span>]);
+</span></span><span style=display:flex><span>       exit(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ((fd <span style=color:#f92672>=</span> open(argv[<span style=color:#ae81ff>1</span>], O_RDWR)) <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>        perror(<span style=color:#e6db74>&#34;open&#34;</span>);
+</span></span><span style=display:flex><span>        exit(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* define what we want to map using pmem2_source */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (pmem2_source_from_fd(<span style=color:#f92672>&amp;</span>src, fd)) {
+</span></span><span style=display:flex><span>        pmem2_perror(<span style=color:#e6db74>&#34;pmem2_source_from_fd&#34;</span>);
+</span></span><span style=display:flex><span>        exit(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* define how we want to map using pmem2_config */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (pmem2_config_new(<span style=color:#f92672>&amp;</span>cfg)) {
+</span></span><span style=display:flex><span>        pmem2_perror(<span style=color:#e6db74>&#34;pmem2_config_new&#34;</span>);
+</span></span><span style=display:flex><span>        exit(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* set the maximum granularity allowed */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (pmem2_config_set_required_store_granularity(cfg,
+</span></span><span style=display:flex><span>        PMEM2_GRANULARITY_PAGE)) {
+</span></span><span style=display:flex><span>        pmem2_perror(<span style=color:#960050;background-color:#1e0010>&#39;</span>pmem2_config_set_required_store_granularity<span style=color:#960050;background-color:#1e0010>&#39;</span>);
+</span></span><span style=display:flex><span>        exit(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* all ready to create pmem2_map, we just pass the source and config */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (pmem2_map_new(<span style=color:#f92672>&amp;</span>map, cfg, src)) {
+</span></span><span style=display:flex><span>        pmem2_perror(<span style=color:#e6db74>&#34;pmem2_map_new&#34;</span>);
+</span></span><span style=display:flex><span>        exit(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* we can perform any operation on the read address */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>char</span> <span style=color:#f92672>*</span>addr <span style=color:#f92672>=</span> pmem2_map_get_address(map);
+</span></span><span style=display:flex><span>    size_t size <span style=color:#f92672>=</span> pmem2_map_get_size(map);
+</span></span><span style=display:flex><span>    strcpy(addr, <span style=color:#e6db74>&#34;hello, persistent memory&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* in the line above we have done the copying of the sentence to the specified 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    address, and the only thing missing is flushing to the available medium */</span>
+</span></span><span style=display:flex><span>    persist <span style=color:#f92672>=</span> pmem2_get_persist_fn(map);
+</span></span><span style=display:flex><span>    persist(addr, size);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* don&#39;t forget to clean up after yourself */</span>
+</span></span><span style=display:flex><span>    pmem2_map_delete(<span style=color:#f92672>&amp;</span>map);
+</span></span><span style=display:flex><span>    pmem2_source_delete(<span style=color:#f92672>&amp;</span>src);
+</span></span><span style=display:flex><span>    pmem2_config_delete(<span style=color:#f92672>&amp;</span>cfg);
+</span></span><span style=display:flex><span>    close(fd);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=pointers-to-functions-from-the-map>Pointers to functions from the map</h2><p>If you have read this far, you may have noticed in the example
+above an interesting way of executing the persistence function on the map.
+First, the pointer to the persistence function for the given map was read
+and then the function was called. No additional action from the user was required.
+The software doesn&rsquo;t have to make any decisions on how to persist data.
+The library has all the information required to perform this operation
+based on the previously declared granularity and the system properties.
+The same mechanism is applied to other functions operating on the <em>pmem2 map</em> object:
+<a href=/pmdk/manpages/linux/master/libpmem2/pmem2_get_flush_fn.3>pmem2_get_flush_fn</a>, <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_get_drain_fn.3>pmem2_get_drain_fn</a>, <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_get_memmove_fn.3>pmem2_get_memmove_fn</a>, <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_get_memmove_fn.3>pmem2_get_memset_fn</a> and <a href=/pmdk/manpages/linux/master/libpmem2/pmem2_get_memmove_fn.3>pmem2_get_memcpy_fn</a>.</p><h2 id=summary>Summary</h2><p>In this blog post, I&rsquo;ve discussed the basic concept and functionality of <em>libpmem2</em>.
+In the next post in this series, I&rsquo;ll be introducing more advanced features of the library,
+such as virtual memory reservation APIs.</p><div class="tagcloud clearfix bottommargin"><a href=https://pmem.io/tags/libpmem2>libpmem2</a>
+<a href=https://pmem.io/tags/intro>Intro</a></div><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2022/06/introduction-to-libpmem2-part-1/")'><i class=icon-facebook></i>
+<i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick='window.open("http://twitter.com/intent/tweet?text=Introduction to libpmem2 (part 1)&url=https://pmem.io/blog/2022/06/introduction-to-libpmem2-part-1/")'><i class=icon-twitter></i>
+<i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick='window.open("https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2022/06/introduction-to-libpmem2-part-1/&title=&summary=&source=")'><i class=icon-linkedin></i>
+<i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick='window.open("https://pinterest.com/pin/create/button/?url=&media=&description=")'><i class=icon-pinterest></i>
+<i class=icon-pinterest></i></div><div class="social-icon si-borderless si-email3" title="Share this through Email" onclick='window.open("mailto:?&body=https://pmem.io/blog/2022/06/introduction-to-libpmem2-part-1/")'><i class=icon-email3></i>
+<i class=icon-email3></i></div></div></div></div></div><div class="row justify-content-between col-mb-30 post-navigation"><div class="col-12 col-md-auto text-center"></div><div class="col-12 col-md-auto text-center"><a href="https://pmem.io/blog/2022/06/memory-tiering-part-2-writing-transparent-tiering-solution/?ref=footer">Memory Tiering (part 2):... &rArr;</a></div></div><div class=line></div><h4>Related Posts:</h4><div class="related-posts row posts-md col-mb-30"><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/06/memory-tiering-part-1/ data-lightbox=image><img src=/images/pmem_logo.png alt="Memory Tiering (part 1)"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/06/memory-tiering-part-1/>Memory Tiering (part 1)</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Rafał Rudnicki</li><li><i class=icon-calendar3></i> 22 Jun, 2022</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/ data-lightbox=image><img src=/images/pmem_logo.png alt="Basic asynchronous hashmap with Miniasync library"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/06/basic-asynchronous-hashmap-with-miniasync-library/>Basic asynchronous hashmap with Miniasync library</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Krzysztof Święcicki</li><li><i class=icon-calendar3></i> 03 Jun, 2022</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/ data-lightbox=image><img src=/images/pmem_logo.png alt="Upcoming asynchronous interfaces in PMDK libraries"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/05/upcoming-asynchronous-interfaces-in-pmdk-libraries/>Upcoming asynchronous interfaces in PMDK libraries</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Piotr Balcer</li><li><i class=icon-calendar3></i> 11 May, 2022</li></ul></div></div></div></div><div class="entry col-12 col-md-6"><div class="grid-inner row align-items-center gutter-20"><div class=col-4><div class=entry-image><a href=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/ data-lightbox=image><img src=/images/pmem_logo.png alt="Leveraging asynchronous hardware accelerators for fun and profit"></a></div></div><div class=col-8><div class="entry-title title-xs"><h3><a href=https://pmem.io/blog/2022/02/leveraging-asynchronous-hardware-accelerators-for-fun-and-profit/>Leveraging asynchronous hardware accelerators for fun and profit</a></h3></div><div class=entry-meta><ul><li><i class=icon-user></i> Piotr Balcer</li><li><i class=icon-calendar3></i> 28 Feb, 2022</li></ul></div></div></div></div></div></div></div><div class="sidebar col-lg-3"><div class=sidebar-widgets-wrap><div class="widget clearfix"><h4>Tag Cloud</h4><div class=tagcloud><a href=/tags/pmem class=block role=button>pmem</a>
+<a href=/tags/persistent-memory class=block role=button>persistent-memory</a>
+<a href=/tags/ndctl class=block role=button>ndctl</a>
+<a href=/tags/daxctl class=block role=button>daxctl</a>
+<a href=/tags/pmdk class=block role=button>pmdk</a>
+<a href=/tags/async class=block role=button>async</a>
+<a href=/tags/asynchronous class=block role=button>asynchronous</a>
+<a href=/tags/concurrency class=block role=button>concurrency</a>
+<a href=/tags/configure class=block role=button>configure</a>
+<a href=/tags/dax class=block role=button>dax</a>
+<a href=/tags/install class=block role=button>install</a>
+<a href=/tags/miniasync class=block role=button>miniasync</a>
+<a href=/tags/setup class=block role=button>setup</a>
+<a href=/tags/cxl class=block role=button>cxl</a>
+<a href=/tags/dml class=block role=button>dml</a>
+<a href=/tags/dsa class=block role=button>dsa</a>
+<a href=/tags/faq class=block role=button>faq</a>
+<a href=/tags/imdb class=block role=button>imdb</a>
+<a href=/tags/intro class=block role=button>intro</a>
+<a href=/tags/memkind class=block role=button>memkind</a>
+<a href=/tags/pmem2 class=block role=button>pmem2</a>
+<a href=/tags/sanitize class=block role=button>sanitize</a>
+<a href=/tags/secure-erase class=block role=button>secure-erase</a>
+<a href=/tags/sql class=block role=button>sql</a>
+<a href=/tags/tiering class=block role=button>tiering</a>
+<a href=/tags/2019 class=block role=button>2019</a>
+<a href=/tags/blogs class=block role=button>blogs</a>
+<a href=/tags/crash class=block role=button>crash</a>
+<a href=/tags/create class=block role=button>create</a>
+<a href=/tags/database class=block role=button>database</a></div></div></div></div></div></div></div></section><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
+<a href=https://pmem.io/blog>blog</a>/
+<a href=https://pmem.io/community>community</a>/
+<a href=https://pmem.io/cookies.html>Cookies</a>/
+<a href=https://pmem.io/developer-hub>developer Hub</a>/
+<a href=https://pmem.io/learn>learn</a>/
+<a href=https://pmem.io/privacy.html>Privacy</a>/
+<a href=https://pmem.io/solutions>solutions</a>/
+<a href=https://pmem.io/terms.html>Terms</a></div><div class="col-lg-auto text-center mt-0"><p>Copyright &copy; 2022 pmem.io</p></div></div></div></div></div></footer></div><div id=gotoTop class=icon-angle-up></div><script src=/js/jquery.js></script>
+<script src=/js/plugins.min.js></script>
+<script src=/js/custom.js></script>
+<script src=/js/darkmode.js></script>
+<script src=/js/functions.js></script>
+<script type=text/javascript src="https://ui.customsearch.ai/api/ux/rendering-js?customConfig=011a90aa-26ea-46b5-bf60-4b5b407c72c6&market=en-US&version=latest&q="></script></body></html>
