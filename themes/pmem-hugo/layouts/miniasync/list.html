@@ -1,0 +1,104 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.slider.enable }} {{ with $data.miniasync.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | safeHTML }}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+<div class="section m-0 bg-transparent library-section border-top dark-mode">
+    <div class="container">
+      <div class="row justify-content-between">
+
+        <div class="col mt-0 lib-content">
+            <!-- c api -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.c_api.enable }} {{ with $data.miniasync.c_api }}
+
+            <!-- ## branch lists -->
+            {{ range .lists }}
+            <p>{{ .content | safeHTML }}</p>
+            <ul class="pmem-list">
+                {{ range .list_items }}
+                <li>
+                    {{ .content | safeHTML }}
+                </li>
+                {{ end }}
+            </ul>
+            {{ end }}  
+            {{ end }} {{ end }}
+            <!-- end c api -->
+
+            <!-- blog entries -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.blog_entries.enable }} {{ with $data.miniasync.blog_entries }}
+            <h3 class>{{ .title | markdownify }}</h3>
+            <p>{{ .content | safeHTML }}</p>
+            {{ end }} {{ end}}
+            <!-- end blog entries -->
+
+            <!-- announcements -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.announcements.enable }} {{ with $data.miniasync.announcements }}
+            <h3 class>{{ .title | markdownify }}</h3>
+            <p>{{ .content | safeHTML }}</p>
+            {{ end }} {{ end}}
+            <!-- end announcements -->
+
+            <!-- releases support -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.releases_support_status.enable }} {{ with $data.miniasync.releases_support_status }}
+            <h3 class>{{ .title | markdownify }}</h3>
+            <p>{{ .content.recent_release_content | safeHTML }}</p>
+
+            <!-- ## release branches table -->
+            <table class="table table-bordered pmem-table dark-mode">
+                <thead>
+                  <tr>
+                      {{ range .table.headers}}
+                      <th>{{ .content | markdownify }}</th>
+                      {{ end }}
+                  </tr>
+                </thead>
+                <tbody>
+                    {{ range .table.rows }}
+                    <tr>
+                        {{ range .cols }}
+                        <td>{{ .content | markdownify }}</td>
+                        {{ end }}
+                    </tr>
+                    {{ end }}
+                </tbody>
+              </table>
+
+            <!-- ## possible statuses list -->
+            <p>{{ .content.possible_statuses_content | safeHTML }}</p>
+            <ol class="pmem-list">
+                {{ range .possible_statuses_list.list_items }}
+                <li>
+                    {{ .content | safeHTML }}
+                    <ul class="pmem-list">
+                        {{ range .children }}
+                        <li>{{ .content | safeHTML }}</li>
+                        {{ end }}
+                    </ul>
+                </li>
+                {{ end }}
+            </ol>
+            {{ end }} {{ end }}
+            <!-- end releases support -->
+
+            <!-- disclaimer -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.disclaimer.enable }} {{ with $data.miniasync.disclaimer }}
+            <div class="divider"></div>
+            <p class="text-center"><small>{{ .content | safeHTML }}</small></p>
+            {{ end }} {{ end }}
+            <!-- end disclaimer -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{ end }}

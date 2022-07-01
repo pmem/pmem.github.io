@@ -1,0 +1,98 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'miniasync'
+  content: "The <strong>Mini Library for Asynchronous Programming in C</strong> is a C low-level concurrency library for asynchronous functions.<br />
+  This is still an experimental, pre-release software.<br />
+  Up-to-date information and the most recent changes can be found on <a href=\"https://github.com/pmem/miniasync\">our GitHub page</a>."
+
+################################# C API #################################
+c_api:
+  enable: true
+  lists:
+    branch_list1: 
+      content: "<p>C API of miniasync is documented in the form of manpages.</p>
+                <p>For the current <strong>master</strong> branch:</p>"
+      list_items:
+        list_item1:
+          content: "(available soon)"
+
+################################# Blog Entries #################################
+blog_entries:
+  enable: true
+  title: "Blog Entries"
+  content: "Blog posts related to miniasync can be found using <a href=\"/tags/miniasync/\">dedicated blog tag</a>."
+
+################################# Blog Entries #################################
+announcements:
+  enable: true
+  title: "Announcements"
+  content: "All news and announcements (e.g., about recent releases) related to miniasync can be found <a href=\"/announcements/miniasync/\">here</a>."
+
+################################# Releases Support Status #################################
+releases_support_status:
+
+  ### to be enabled when library is more mature (after 1.0 release?)
+  enable: false
+  title: "Releases' Support Status"
+  content:
+    recent_release_content: "This is still an experimental, pre-release software developed on a single branch. It should not be used in production systems. APIs and file formats may change at any time without preserving backwards compatibility. All known issues and limitations are logged as GitHub issues. The most recent releases can be found on the <a href=\"https://github.com/pmem/miniasync/releases\">\"releases\" tab on the Github page</a>."
+    possible_statuses_content: "Possible statuses:"
+  table:
+    headers:
+      header1:
+        content: "Version branch"
+      header2:
+        content: "First release date"
+      header3:
+        content: "Last patch release"
+      header4:
+        content: "Maintenance status"
+    rows:
+      row1:
+        cols:
+          col1:
+            content: "master"
+          col2:
+            content: "0.1.0 (May 20, 2022)"
+          col3:
+            content: "N/A"
+          col4:
+            content: "Full, in development"
+  possible_statuses_list:
+      list_items:
+        list_item1:
+          content: "Full maintenance:"
+          children:
+            child_1:
+              content: "All/most of bugs fixed (if possible),"
+            child_2:
+              content: "Patch releases issued based on a number of fixes and their severity,"
+            child_3:
+              content: "At least one release at the end of the maintenance period,"
+            child_4:
+              content: "Full support for at least a year since the initial release."
+        list_item2:
+          content: "Limited scope:"
+          children:
+            child_1:
+              content: "Only critical bugs (security, data integrity, etc.) will be backported,"
+            child_2:
+              content: "Patch versions will be released when needed (based on severity of found issues),"
+            child_3:
+              content: "Branch will remain in “limited maintenance” status based on original release availability in popular distros."
+        list_item3:
+          content: "EOL:"
+          children:
+            child_1:
+              content: "No support,"
+            child_2:
+              content: "No bug fixes,"
+            child_3:
+              content: "No official releases."
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
