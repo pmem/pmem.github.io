@@ -18,7 +18,7 @@ description: ""
 image: "https://opengraph.githubassets.com/706d2635f355e31fa44b50d0e337af4ce73086e7/pmem/miniasync"
 
 # Announcement category
-announcements: ['pmem']
+announcements: ['miniasync']
 
 # Post type
 type: "announcement"
