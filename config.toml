@@ -126,7 +126,7 @@ weight = 1
     [[Languages.en.menu.main]]
     parent = "dev-hub-column2"
     name = "Memkind"
-    url = "http://memkind.github.io/memkind/"
+    url = "/memkind"
 
     [[Languages.en.menu.main]]
     parent = "dev-hub-column2"
