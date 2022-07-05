@@ -1,0 +1,53 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'Memkind'
+  content: "User Extensible Heap Manager built on top of jemalloc which enables control of memory characteristics and a partitioning of the heap between kinds of memory."
+
+################################# Overview #################################
+overview:
+  enable: true
+  title: "Overview"
+  content: "<p>The kinds of memory are defined by operating system memory policies that have been applied to virtual address ranges. Memory characteristics supported by memkind without user extension include control of NUMA and page size features. The jemalloc non-standard interface has been extended to enable specialized arenas to make requests for virtual memory from the operating system through the memkind partition interface. Through the other memkind interfaces the user can control and extend memory partition features and allocate memory while selecting enabled features.</p>
+            <p>Memkind is hosted on <a href=\"https://github.com/memkind\">GitHub</a></p>"
+
+#################################  Sources ################################# 
+sources:
+  enable: true
+  title: "Sources"
+  content: "<code>$ git clone https://github.com/memkind/memkind.git</code>"
+  lists:
+    list_item1:
+      content: "<a href=\"https://github.com/memkind/memkind/tarball/master\">Tarball (master)</a>"
+    list_item2:
+      content: "<a href=\"https://github.com/memkind/memkind/zipball/master\">ZIP (master)</a>"
+    
+################################# Binaries #################################
+binaries:
+  enable: true
+  title: "Binaries"
+  lists:
+    list_item1:
+      content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for misc OSes</a>"
+
+################################# Contact us #################################
+contact_us:
+  enable: true
+  title: "Contact us"
+  lists:
+    link_list1:
+      content: "For more information on this library, contact <a href=\"mailto:rafal.rudnicki@intel.com\">Rafal Rudnicki</a>, <a href=\"mailto:patryk.kaminski@intel.com\">Patryk Kaminski</a> or <a href=\"mailto:piotr.balcer@intel.com\">Piotr Balcer</a>. Your participation, feedback, and questions are welcome. You can:"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://github.com/memkind/memkind/issues/\">Create an issue</a> in our GitHub issues database. This is a good way to report problems or request new features."
+        list_item2:
+          content: "Join our <a href=\"https://groups.google.com/group/pmem\">Google Group</a> to participate in discussions on memkind, including the design of th API and future directions."
+        list_item3:
+          content: "Join our <a href=\"https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg\">#pmem Slack channel</a>"
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
+  
