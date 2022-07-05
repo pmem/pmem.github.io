@@ -1,0 +1,24 @@
+{{ define "main" }}
+<!-- silder -->
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.Params.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+    <div class="container clearfix mt-4">
+      <div class="slider-title text-light">
+        <h2 style="color: white">{{ .Params.header | markdownify }}</h2>
+      </div>
+    </div>
+  </section>
+
+<div class="section m-0 bg-transparent library-section dark-mode">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col mt-0 lib-content">
+          {{ .Content | replaceRE "<table>" "<table class=\"table table-bordered pmem-table dark-mode\">" | markdownify }}
+        </div>
+      </div>
+      <!-- disclaimer -->
+      <div class="divider"></div>
+      <p class="text-center"><small>{{ .Params.disclaimer | safeHTML }}</small></p>
+      <!-- end disclaimer -->
+    </div>
+  </div>
+{{ end }}
