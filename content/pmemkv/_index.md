@@ -12,4 +12,6 @@ type: "/pmemkv"
     This page is generated based on:
     - script page 'themes/pmem-hugo/layouts/pmemkv/list.html', and
     - content in 'data/<lang>/pmemkv'
+
+    + manpages located here (/content/pmemkv)
 -->

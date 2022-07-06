@@ -18,7 +18,7 @@ description: ""
 image: "/images/posts/pmemstream_intro.png"
 
 # Announcement category
-announcements: ['pmem']
+announcements: ['pmemstream']
 
 # Post type
 type: "announcement"

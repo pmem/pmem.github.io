@@ -23,9 +23,10 @@ image: "/images/posts/pmemstream_intro.png"
 author: "lukaszstolarczuk"
 
 # Categories to which this blog post belongs
-blogs: ['Pmemstream']
+blogs: ['pmemstream']
+
 # Blog tags
-tags: ["Intro"]
+tags: ["Intro", "pmemstream", "pmdk", "pmem use case"]
 
 # Blog post type
 type: "post"
@@ -42,6 +43,9 @@ also focuses on delivering a generic, easy-to-use set of functions.
 Current implementation, examples, and known caveats are accessible at the [pmemstream GitHub page][pmemstream_gh].
 Please bear in mind this library is still in an early stage of development. As this is a work in progress,
 its behavior or APIs may change without prior notice.
+
+For more information about pmemstream you can also see
+[its sub-page on this website][pmem_io_subpage].
 
 # Why we implement it?
 
@@ -108,6 +112,7 @@ feedback with us (perhaps, an improvement idea, or just to show your interest), 
 
 [pmdk_feat_issue]: https://github.com/pmem/pmdk/issues/4930
 [pmemstream_gh]: https://github.com/pmem/pmemstream
+[pmem_io_subpage]: /pmemstream
 [pmemstream_gh_issue]: https://github.com/pmem/pmemstream/issues
 [pmemstream_gh_async]: https://github.com/pmem/pmemstream/issues/76
 [pmemstream_gh_multi]: https://github.com/pmem/pmemstream/issues/75
