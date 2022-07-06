@@ -1,0 +1,94 @@
+{{ define "main" }}
+
+<!-- slider -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.slider.enable }} {{ with $data.memkind.slider }}
+<section id="page-title" class="page-title-parallax page-title-center page-title-dark include-header skrollable skrollable-between" style="background-image: url('{{.bg_image}}'); background-size: cover; padding: 120px 0px; margin-top: -157.05px">
+  <div class="container clearfix mt-4">
+    <div class="slider-title">
+      <h2 style="color: white">{{ .title | markdownify }}</h2>
+      <p style="color: white">{{ .content | safeHTML }}</p>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+
+
+
+<div class="section m-0 bg-transparent library-section border-top dark-mode">
+    <div class="container">
+      <div class="row justify-content-between">
+
+        <div class="col mt-0 lib-content">
+            <!-- overview -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.overview.enable }} {{ with $data.memkind.overview }}
+            <h3 class>{{ .title | markdownify }}</h3>
+            <p>{{ .content | safeHTML }}</p>
+            {{ end }} {{ end }}
+            <!-- overview -->
+
+            <!-- Sources -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.sources.enable }} {{ with $data.memkind.sources }}
+                <h3 class>{{ .title | markdownify }}</h3>
+                <p><code>{{ .content | safeHTML }}</code></p>
+                <ul class="memkind-list">
+                    {{ range .lists }}
+                    <li>
+                        {{ .content | safeHTML }}
+                    </li>
+                    {{ end }}
+                </ul> 
+            {{ end }} {{ end }}
+            <!-- end Sources-->
+
+            <!-- Binaries -->
+
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.binaries.enable }} {{ with $data.memkind.binaries }}
+                <h3 class>{{ .title | markdownify }}</h3>
+                <ul class="memkind-list">
+                    {{ range .lists }}
+                    <li>
+                        {{ .content | safeHTML }}
+                    </li>
+                    {{ end }}
+                </ul>
+                {{ end }}  
+                {{ end }}
+
+            <!-- end Binaries -->
+
+            <!-- Contact us -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.contact_us.enable }} {{ with $data.memkind.contact_us }}
+            <h3 class>{{ .title | markdownify }}</h3>
+
+            <!-- link lists -->
+            {{ range .lists }}
+            <p>{{ .content | safeHTML }}</p>
+            <ul class="memkind-list">
+                {{ range .list_items }}
+                <li>
+                    {{ .content | safeHTML }}
+                    <ul class="memkind-list">
+                        {{ range .children }}
+                        <li>{{ .content | safeHTML }}</li>
+                        {{ end }}
+                    </ul>
+                </li>
+                {{ end }}
+            </ul>
+            {{ end }}  
+            {{ end }} {{ end }}
+            <!-- end Contact us -->
+
+            <!-- disclaimer -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.disclaimer.enable }} {{ with $data.memkind.disclaimer }}
+            <div class="divider"></div>
+            <p class="text-center"><small>{{ .content | safeHTML }}</small></p>
+            {{ end }} {{ end }} 
+            <!-- end disclaimer -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ end }} 
+  
