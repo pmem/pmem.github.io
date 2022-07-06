@@ -365,7 +365,8 @@ div.grid-filter-wrap li {
   color: #fff;
 }
 
-.pmemkv-list {
+.pmemkv-list,
+.memkind-list {
   padding-left: 2rem !important;
 }
 
