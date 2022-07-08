@@ -31,6 +31,12 @@ binaries:
     list_item1:
       content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for misc OSes</a>"
 
+################################# Announcements #################################
+announcements:
+  enable: true
+  title: "Annoucements"
+  content: "All news and announcements (e.g., about recent releases) related to memkind can be found <a href=\"/announcements/memkind/\">here</a>."
+
 ################################# Contact us #################################
 contact_us:
   enable: true
