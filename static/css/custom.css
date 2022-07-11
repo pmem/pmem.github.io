@@ -708,8 +708,12 @@ p {
 
 /* Markdown highlight  */
 .highlight pre {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   padding: 10px;
+}
+
+.highlight {
+  margin-bottom: 1em; /* add extra space after code block */
 }
 
 /* Code block number alignment */
