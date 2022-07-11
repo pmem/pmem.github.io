@@ -31,6 +31,13 @@ binaries:
     list_item1:
       content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for misc OSes</a>"
 
+################################# Blog entries #################################
+blog_entries:
+  enable: true
+  title: "Blog entries"
+  content: "Blog posts related to memkind can be found using <a href=\"/blogs/memkind/\">dedicated blog tag</a>."
+
+
 ################################# Announcements #################################
 announcements:
   enable: true
@@ -48,7 +55,7 @@ contact_us:
         list_item1:
           content: "<a href=\"https://github.com/memkind/memkind/issues/\">Create an issue</a> in our GitHub issues database. This is a good way to report problems or request new features."
         list_item2:
-          content: "Join our <a href=\"https://groups.google.com/group/pmem\">Google Group</a> to participate in discussions on memkind, including the design of th API and future directions."
+          content: "Join our <a href=\"https://groups.google.com/group/pmem\">Google Group</a> to participate in discussions on memkind, including the design of the API and future directions."
         list_item3:
           content: "Join our <a href=\"https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg\">#pmem Slack channel</a>"
 
