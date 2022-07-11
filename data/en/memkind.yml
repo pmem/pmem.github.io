@@ -10,7 +10,7 @@ overview:
   enable: true
   title: "Overview"
   content: "<p>The kinds of memory are defined by operating system memory policies that have been applied to virtual address ranges. Memory characteristics supported by memkind without user extension include control of NUMA and page size features. The jemalloc non-standard interface has been extended to enable specialized arenas to make requests for virtual memory from the operating system through the memkind partition interface. Through the other memkind interfaces the user can control and extend memory partition features and allocate memory while selecting enabled features.</p>
-            <p>Memkind is hosted on <a href=\"https://github.com/memkind\">GitHub</a></p>"
+            <p>Memkind is hosted on <a href=\"https://github.com/memkind/memkind\">GitHub</a></p>"
 
 #################################  Sources ################################# 
 sources:
