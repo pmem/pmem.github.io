@@ -23,13 +23,14 @@ with them with almost no effort. We simply created a repository
 named <strong>pmem.github.io</strong> to hold the pages. GitHub pages use
 Jekyll automatically, but it is convenient to install it locally
 for previewing content before pushing changes to the repo. On Debian Linux,
-these steps did the trick:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ sudo apt-get install ruby ruby-dev node python-pygments
+these steps did the trick:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo apt-get install ruby ruby-dev node python-pygments
 </span></span><span style=display:flex><span>$ sudo gem install jekyll
 </span></span><span style=display:flex><span>$ sudo gem install jekyll-mentions
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># to start the jekyll server:</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>$ jekyll serve --watch</span></span></code></pre></div><p>[Edit: Fedora steps added December 11, 2017]</p><p>On Fedora 26, here are steps that for running jekyll locally:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ sudo dnf install ruby ruby-devel python-pygments nodejs
+</span></span><span style=display:flex><span>$ jekyll serve --watch
+</span></span></code></pre></div><p>[Edit: Fedora steps added December 11, 2017]</p><p>On Fedora 26, here are steps that for running jekyll locally:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo dnf install ruby ruby-devel python-pygments nodejs
 </span></span><span style=display:flex><span>$ sudo dnf install redhat-rpm-config zlib-devel gcc-c++
 </span></span><span style=display:flex><span>$ gem install jekyll
 </span></span><span style=display:flex><span>$ gem install jekyll-mentions
@@ -41,7 +42,8 @@ these steps did the trick:</p><div class=highlight><pre tabindex=0 style=color:#
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># to start the jekyll server:</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>$ bundle exec jekyll serve --watch</span></span></code></pre></div><p>Once the jekyll server is running, it watches for changes, re-generating
+</span></span><span style=display:flex><span>$ bundle exec jekyll serve --watch
+</span></span></code></pre></div><p>Once the jekyll server is running, it watches for changes, re-generating
 the web pages as necessary, and provides the content for preview
 at the local URL <code>http://0.0.0.0:4000/</code>.</p><p>The rest of the details (like how to write a <code>_config.yml</code> or create
 templates or includes) can all be found in the

@@ -8,64 +8,40 @@ are somewhat usable. C++ allows us to evolve this concept.</p><h3 id=pmemobjpers
 (for example, <code>std::shared_ptr</code>). Our persistent pointer works in the same way.
 It wraps around a type and provides implementation of <code>operator*</code>, <code>operator-></code>
 and <code>operator[]</code>.</p><p>A constructor from raw PMEMoid is provided, so that mixing the C API with C++ is
-possible.</p><p>As always, we are going to start with an example:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj/p.hpp&gt;</span><span style=color:#75715e>
+possible.</p><p>As always, we are going to start with an example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj/p.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj/persistent_ptr.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span>using namespace pmem<span style=color:#f92672>::</span>obj;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> pmem<span style=color:#f92672>::</span>obj;
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> rectangle {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>rectangle</span> {
 </span></span><span style=display:flex><span>p<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> a;
 </span></span><span style=display:flex><span>p<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> b;
 </span></span><span style=display:flex><span>};
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> root {
-</span></span><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>rectangle<span style=color:#f92672>&gt;</span> rect;
-</span></span><span style=display:flex><span>};</span></span></code></pre></td></tr></table></div></div><p>It&rsquo;s a modified rectangle example from transactional allocations tutorial.
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>root</span> {
+</span></span><span style=display:flex><span>    persistent_ptr<span style=color:#f92672>&lt;</span>rectangle<span style=color:#f92672>&gt;</span> rect;
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>It&rsquo;s a modified rectangle example from transactional allocations tutorial.
 Layout declaration using macros is no longer required :)</p><p>As I previously said, the persistent pointers can be constructed from PMEMoids,
-and as such, we are going to allocate the rectangle by using the regular C API.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>root<span style=color:#f92672>&gt;</span> rootp <span style=color:#f92672>=</span> pmemobj_root(pop, <span style=color:#66d9ef>sizeof</span> (root));
+and as such, we are going to allocate the rectangle by using the regular C API.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>root<span style=color:#f92672>&gt;</span> rootp <span style=color:#f92672>=</span> pmemobj_root(pop, <span style=color:#66d9ef>sizeof</span> (root));
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>TX_BEGIN(pop) {
-</span></span><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>rectangle<span style=color:#f92672>&gt;</span> rect <span style=color:#f92672>=</span> pmemobj_tx_alloc(<span style=color:#66d9ef>sizeof</span> (rectangle), <span style=color:#ae81ff>0</span>);
-</span></span><span style=display:flex><span>rect<span style=color:#f92672>-&gt;</span>x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
-</span></span><span style=display:flex><span>rect<span style=color:#f92672>-&gt;</span>y <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>    persistent_ptr<span style=color:#f92672>&lt;</span>rectangle<span style=color:#f92672>&gt;</span> rect <span style=color:#f92672>=</span> pmemobj_tx_alloc(<span style=color:#66d9ef>sizeof</span> (rectangle), <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>    rect<span style=color:#f92672>-&gt;</span>x <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>    rect<span style=color:#f92672>-&gt;</span>y <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    rootp<span style=color:#f92672>-&gt;</span>rect <span style=color:#f92672>=</span> rect; <span style=color:#75715e>/* assignments are automatically added to TX */</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>} TX_END</span></span></code></pre></td></tr></table></div></div><p>As you can see, pretty easy. No more ugly D_RW or D_RO macros ! :)</p><p>There&rsquo;s one thing to highlight here: The rectangle constructor is NOT called in
+</span></span><span style=display:flex><span>} TX_END
+</span></span></code></pre></div><p>As you can see, pretty easy. No more ugly <code>D_RW</code> or <code>D_RO</code> macros ! :)</p><p>There&rsquo;s one thing to highlight here: The rectangle constructor is NOT called in
 this example. This is because we are using C allocation function.
-This is equivalent to a following construct in a regular C++:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>shared_ptr<span style=color:#f92672>&lt;</span>rectangle<span style=color:#f92672>&gt;</span> rect((rectangle <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>)malloc(<span style=color:#66d9ef>sizeof</span> (rectangle)));</span></span></code></pre></td></tr></table></div></div><p>To free a <code>persistent_ptr</code> using the C API, a special <code>raw()</code> function is available
-that returns a const reference to the PMEMoid.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TX_BEGIN(pop) {
-</span></span><span style=display:flex><span>pmemobj_tx_free(rootp<span style=color:#f92672>-&gt;</span>rect.raw());
-</span></span><span style=display:flex><span>rootp<span style=color:#f92672>-&gt;</span>rect <span style=color:#f92672>=</span> nullptr;
-</span></span><span style=display:flex><span>} TX_END</span></span></code></pre></td></tr></table></div></div><p>Later tutorials will introduce proper allocator functions that do
+This is equivalent to a following construct in a regular C++:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>shared_ptr<span style=color:#f92672>&lt;</span>rectangle<span style=color:#f92672>&gt;</span> rect((rectangle <span style=color:#f92672>*</span>)malloc(<span style=color:#66d9ef>sizeof</span>(rectangle)));
+</span></span></code></pre></div><p>To free a <code>persistent_ptr</code> using the C API, a special <code>raw()</code> function is available
+that returns a const reference to the PMEMoid.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TX_BEGIN(pop) {
+</span></span><span style=display:flex><span>    pmemobj_tx_free(rootp<span style=color:#f92672>-&gt;</span>rect.raw());
+</span></span><span style=display:flex><span>    rootp<span style=color:#f92672>-&gt;</span>rect <span style=color:#f92672>=</span> <span style=color:#66d9ef>nullptr</span>;
+</span></span><span style=display:flex><span>} TX_END
+</span></span></code></pre></div><p>Later tutorials will introduce proper allocator functions that do
 call the constructor and destructors accordingly.</p><p>The <code>persistent_ptr</code> class also implements a <code>raw_ptr()</code> function which returns
 a pointer to the PMEMoid - this enables usage of the C failsafe atomic API.</p><p>Right now the persistent<em>ptr class can only be used with non-polymorphic and
 trivially default constructible classes. Those limitations _might</em> be relaxed

@@ -16,7 +16,7 @@ program to volatile persistent memory by attaching that memory to a separate
 NUMA node you can then assign your program to with <code>numactl -m</code> or
 <code>numactl --preferred</code>.</p><h3 id=effects-on-pmdk>Effects on PMDK</h3><p>Besides separating out unrelated modes of use (PMDK is meant for
 <strong>Persistent</strong> usage), <strong>libvmem</strong> included a different build system and
-a testsuite, frustrating maintenance of PMDK and making clean-ups hard.
+a test suite, frustrating maintenance of PMDK and making clean-ups hard.
 Splitting VMEM out already revealed an issue fixing which sped up compiles
 by a factor of 4.</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2019/10/vmem-is-split-out-of-pmdk/")'><i class=icon-facebook></i>
 <i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick='window.open("http://twitter.com/intent/tweet?text=Vmem is split out of PMDK&url=https://pmem.io/blog/2019/10/vmem-is-split-out-of-pmdk/")'><i class=icon-twitter></i>

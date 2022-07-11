@@ -15,59 +15,71 @@ tagging releases. In the above example, one user has forked the
 repo and has created <code>feature-branch-A</code> locally to work on a change.
 At the same time, another user has forked the repo to work on
 <code>feature-branch-B</code> locally. Forking and creating a local feature
-branch are the first steps in development and are done like this:</p><ul><li><a href=https://github.com/pmem/pmdk>Fork the repo</a> using the GitHub web interface</li><li>Create a local clone of your repo and add a remote called <code>upstream</code> to point to the original repo:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ git clone git@github.com:username/pmdk.git
+branch are the first steps in development and are done like this:</p><ul><li><a href=https://github.com/pmem/pmdk>Fork the repo</a> using the GitHub web interface</li><li>Create a local clone of your repo and add a remote called <code>upstream</code> to point to the original repo:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ git clone git@github.com:username/pmdk.git
 </span></span><span style=display:flex><span>$ cd pmdk
 </span></span><span style=display:flex><span>$ git remote add upstream git://github.com/pmem/pmdk.git
-</span></span><span style=display:flex><span>$ git checkout -b my-feature-branch</span></span></code></pre></div></li></ul><h4 id=developing-and-merging-locally>Developing and merging locally</h4><p>Now that you have your local feature branch, do your development
+</span></span><span style=display:flex><span>$ git checkout -b my-feature-branch
+</span></span></code></pre></div></li></ul><h4 id=developing-and-merging-locally>Developing and merging locally</h4><p>Now that you have your local feature branch, do your development
 with frequent commits recommended. Be sure git is configured
-with your correct name and email address:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ git config --global user.name <span style=color:#e6db74>&#34;Firstname Lastname&#34;</span>
-</span></span><span style=display:flex><span>$ git config --global user.email <span style=color:#e6db74>&#34;emailaddr@domain.com&#34;</span></span></span></code></pre></div></p><p>Now you can work on your changes locally, committing them to your
-local feature branch:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>edit files, run tests...
+with your correct name and email address:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ git config --global user.name <span style=color:#e6db74>&#34;Firstname Lastname&#34;</span>
+</span></span><span style=display:flex><span>$ git config --global user.email <span style=color:#e6db74>&#34;emailaddr@domain.com&#34;</span>
+</span></span></code></pre></div><p>Now you can work on your changes locally, committing them to your
+local feature branch:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>edit files, run tests...
 </span></span><span style=display:flex><span>$ git add ...
 </span></span><span style=display:flex><span>$ git commit ...
-</span></span><span style=display:flex><span>repeat as necessary...</span></span></code></pre></div></p><p>Please follow the common conventions for git commit messages:</p><ul><li>The first line should be 50 characters or shorter and contains a prefix describing the area being changed, followed by a brief description</li><li>The second line is blank</li><li>The remaining lines are 72 characters or shorter and contain English sentences.</li><li>Any references to GitHub issues are at the end of the commit message.</li></ul><p>For example, here is a properly-formatted commit message:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>doc: fix code formatting in man pages
+</span></span><span style=display:flex><span>repeat as necessary...
+</span></span></code></pre></div><p>Please follow the common conventions for git commit messages:</p><ul><li>The first line should be 50 characters or shorter and contains a prefix describing the area being changed, followed by a brief description</li><li>The second line is blank</li><li>The remaining lines are 72 characters or shorter and contain English sentences.</li><li>Any references to GitHub issues are at the end of the commit message.</li></ul><p>For example, here is a properly-formatted commit message:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>doc: fix code formatting in man pages
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>The indentation in code examples contained in the man pages
 </span></span><span style=display:flex><span>was not formatting correctly due to a bug in groff. This
 </span></span><span style=display:flex><span>fix avoids the issue by using man2html instead of groff.
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Ref: pmem/issues#1</span></span></code></pre></div></p><h4 id=rebasing>Rebasing</h4><p>At convenient points in your development, you will want to re-sync with
+</span></span><span style=display:flex><span>Ref: pmem/issues#1
+</span></span></code></pre></div><h4 id=rebasing>Rebasing</h4><p>At convenient points in your development, you will want to re-sync with
 any changes that have happened in the upstream repo. Do this using
-<code>git rebase</code> rather than <code>git merge</code>.<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ git fetch upstream
-</span></span><span style=display:flex><span>$ git rebase upstream/master <span style=color:#75715e># or upstream/0.1 if patching release 0.1, for example</span></span></span></code></pre></div></p><h4 id=before-submitting-changes>Before submitting changes</h4><p>Before asking for your changes to be merged, you are expected to perform
-these steps at a minimum:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># from top-level of repository...</span>
+<code>git rebase</code> rather than <code>git merge</code>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ git fetch upstream
+</span></span><span style=display:flex><span>$ git rebase upstream/master <span style=color:#75715e># or upstream/0.1 if patching release 0.1, for example</span>
+</span></span></code></pre></div><h4 id=before-submitting-changes>Before submitting changes</h4><p>Before asking for your changes to be merged, you are expected to perform
+these steps at a minimum:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># from top-level of repository...</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>$ make cstyle
 </span></span><span style=display:flex><span>$ make
 </span></span><span style=display:flex><span>$ make test
 </span></span><span style=display:flex><span>$ cp src/test/testconfig.sh.example src/test/testconfig.sh <span style=color:#75715e># edit as necessary</span>
-</span></span><span style=display:flex><span>$ make check</span></span></code></pre></div><p>We also require all the above to pass using the <code>clang</code> compiler:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ make clobber
+</span></span><span style=display:flex><span>$ make check
+</span></span></code></pre></div><p>We also require all the above to pass using the <code>clang</code> compiler:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ make clobber
 </span></span><span style=display:flex><span>$ make CC<span style=color:#f92672>=</span>clang CXX<span style=color:#f92672>=</span>clang++
 </span></span><span style=display:flex><span>$ make CC<span style=color:#f92672>=</span>clang CXX<span style=color:#f92672>=</span>clang++ test
-</span></span><span style=display:flex><span>$ make CC<span style=color:#f92672>=</span>clang CXX<span style=color:#f92672>=</span>clang++ check</span></span></code></pre></div></p><p>Please add the appropriate unit tests to verify new features you&rsquo;ve added.</p><p>Please note that the C++ compiler must support the C++11 standard.</p><h4 id=cleaning-up-your-commits>Cleaning up your commits</h4><p>If you&rsquo;d had a good number of <em>uninteresting</em> commits, such as
+</span></span><span style=display:flex><span>$ make CC<span style=color:#f92672>=</span>clang CXX<span style=color:#f92672>=</span>clang++ check
+</span></span></code></pre></div><p>Please add the appropriate unit tests to verify new features you&rsquo;ve added.</p><p>Please note that the C++ compiler must support the C++11 standard.</p><h4 id=cleaning-up-your-commits>Cleaning up your commits</h4><p>If you&rsquo;d had a good number of <em>uninteresting</em> commits, such as
 those that fix typos or head down a wrong path that you later discarded,
 you should consider
 squashing those commits into a cleaner set of commits. The command
-<code>git rebase -i</code> is a very useful tool for this. For example:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ git fetch upstream
-</span></span><span style=display:flex><span>$ git rebase -i upstream/master</span></span></code></pre></div></p><p>The above rebase command will put you in the editor with a list of all
+<code>git rebase -i</code> is a very useful tool for this. For example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ git fetch upstream
+</span></span><span style=display:flex><span>$ git rebase -i upstream/master
+</span></span></code></pre></div><p>The above rebase command will put you in the editor with a list of all
 the commits you made on your feature branch. This is a very powerful
 operation with lots of possibilities &ndash; too many to describe here, but
 a quick remind may help you use it. Say you had four commits but two of
 them were annoying typo changes that you&rsquo;d rather just squash away. You&rsquo;ll
-see the four commits in the edit like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>pick 60d3a42 subsystem: this is the first commit message
+see the four commits in the edit like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pick 60d3a42 subsystem: this is the first commit message
 </span></span><span style=display:flex><span>pick 7c970de subsystem: oops, stupid typo
 </span></span><span style=display:flex><span>pick d951f42 subsystem: this is the second commit message
-</span></span><span style=display:flex><span>pick dc80ecd subsystem: oops, another stupid typo</span></span></code></pre></div><p>Let&rsquo;s say you want to convert this to two commits, folding the typo
+</span></span><span style=display:flex><span>pick dc80ecd subsystem: oops, another stupid typo
+</span></span></code></pre></div><p>Let&rsquo;s say you want to convert this to two commits, folding the typo
 fixes into the commits before them. Change the word <strong>pick</strong> to <strong>squash</strong>
 for the commits being squashed &ndash; actually, you only need the letter <strong>s</strong>,
-like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>pick 60d3a42 subsystem: this is the first commit message
+like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pick 60d3a42 subsystem: this is the first commit message
 </span></span><span style=display:flex><span>s 7c970de subsystem: oops, stupid typo
 </span></span><span style=display:flex><span>pick d951f42 subsystem: this is the second commit message
-</span></span><span style=display:flex><span>s dc80ecd subsystem: oops, another stupid typo</span></span></code></pre></div><p>When you write and exit the editor, git will allow you to edit and clean
+</span></span><span style=display:flex><span>s dc80ecd subsystem: oops, another stupid typo
+</span></span></code></pre></div><p>When you write and exit the editor, git will allow you to edit and clean
 up the commit messages for each set of squashed commits (twice in this
 example).</p><p><strong>Note: if you haven&rsquo;t used rebase -i before, you should make a copy
 of your repo before doing this, just in case!</strong></p><h4 id=submitting-your-change>Submitting your change</h4><p>Now that you&rsquo;ve your changes are cleanup and fully tested, you&rsquo;ll want to
-push them back to your fork of the repo on GitHub:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ git push origin my-feature-branch</span></span></code></pre></div></p><p>And finally, send the changes back to the original PMDK repository:</p><ul><li>Using the GitHub web interface, navigate to your repo
+push them back to your fork of the repo on GitHub:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ git push origin my-feature-branch
+</span></span></code></pre></div><p>And finally, send the changes back to the original PMDK repository:</p><ul><li>Using the GitHub web interface, navigate to your repo
 and submit a <strong>pull request</strong>. This will automatically trigger
 a <a href=https://travis-ci.org>Travis Build</a>, so good thing you already
 made sure your changes build correctly! The PMDK gatekeeper will

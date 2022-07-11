@@ -18,77 +18,39 @@ implemented using libpmem and an atomic algorithm.</p><p>You can find a full imp
 of this example in <a href=https://github.com/pmem/pmdk/tree/master/src/examples/pmreorder>pmdk repository</a>.</p><p>All nodes are allocated statically from a list_node array
 which is located in a list_root structure. The same structure
 contains head field - id of the root node.
-The list insert function of this example looks like this:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>list_insert</span>(<span style=color:#66d9ef>struct</span> list_root <span style=color:#f92672>*</span>root, node_id node, <span style=color:#66d9ef>int</span> value)
+The list insert function of this example looks like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>list_insert</span>(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list_root</span> <span style=color:#f92672>*</span>root, node_id node, <span style=color:#66d9ef>int</span> value)
 </span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> list_node <span style=color:#f92672>*</span>new <span style=color:#f92672>=</span> NODE_PTR(root, node);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list_node</span> <span style=color:#f92672>*</span><span style=color:#66d9ef>new</span> <span style=color:#f92672>=</span> NODE_PTR(root, node);
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    new<span style=color:#f92672>-&gt;</span>next <span style=color:#f92672>=</span> root<span style=color:#f92672>-&gt;</span>head;
-</span></span><span style=display:flex><span>    pmem_persist(<span style=color:#f92672>&amp;</span>new<span style=color:#f92672>-&gt;</span>next, <span style=color:#66d9ef>sizeof</span>(node));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>new</span><span style=color:#f92672>-&gt;</span>next <span style=color:#f92672>=</span> root<span style=color:#f92672>-&gt;</span>head;
+</span></span><span style=display:flex><span>    pmem_persist(<span style=color:#f92672>&amp;</span><span style=color:#66d9ef>new</span><span style=color:#f92672>-&gt;</span>next, <span style=color:#66d9ef>sizeof</span>(node));
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    root<span style=color:#f92672>-&gt;</span>head <span style=color:#f92672>=</span> node;
 </span></span><span style=display:flex><span>    pmem_persist(<span style=color:#f92672>&amp;</span>root<span style=color:#f92672>-&gt;</span>head, <span style=color:#66d9ef>sizeof</span>(root<span style=color:#f92672>-&gt;</span>head));
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    new<span style=color:#f92672>-&gt;</span>value <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>    pmem_persist(<span style=color:#f92672>&amp;</span>new<span style=color:#f92672>-&gt;</span>value, <span style=color:#66d9ef>sizeof</span>(value));
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>}</span></span></code></pre></td></tr></table></div></div><p>First, the next value in the node is set and persisted.
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>new</span><span style=color:#f92672>-&gt;</span>value <span style=color:#f92672>=</span> value;
+</span></span><span style=display:flex><span>    pmem_persist(<span style=color:#f92672>&amp;</span><span style=color:#66d9ef>new</span><span style=color:#f92672>-&gt;</span>value, <span style=color:#66d9ef>sizeof</span>(value));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>First, the next value in the node is set and persisted.
 Then, the node is linked to the beginning of the list,
-its value is set and both are persisted separately.</p><p>When you run this code under pmemcheck you will get the following result:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> Number of stores not made persistent: 0
-</span></span><span style=display:flex><span><span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors</span></span></code></pre></div><p>It means that all stores are persisted properly, as we expected.</p><p>Now it is time to check the list under pmreorder tool.
+its value is set and both are persisted separately.</p><p>When you run this code under pmemcheck you will get the following result:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> Number of stores not made persistent: 0
+</span></span><span style=display:flex><span><span style=color:#f92672>==</span>22161<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors
+</span></span></code></pre></div><p>It means that all stores are persisted properly, as we expected.</p><p>Now it is time to check the list under pmreorder tool.
 To do that you need to consider when your list is consistent
 and on that basis write consistency checker function.</p><h2 id=checker>Checker</h2><p>Consistency checker is just a binary or a function that defines
 conditions necessary to fulfill your consistency assumptions.
-It should return 0 if the state is consistent and 1 if it isn&rsquo;t.</p><p>In case of our list with three elements:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#75715e>// params: root, node_id, value
+It should return 0 if the state is consistent and 1 if it isn&rsquo;t.</p><p>In case of our list with three elements:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>// params: root, node_id, value
 </span></span></span><span style=display:flex><span><span style=color:#75715e></span>list_insert(r, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>55</span>);
 </span></span><span style=display:flex><span>list_insert(r, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>33</span>);
-</span></span><span style=display:flex><span>list_insert(r, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>66</span>);</span></span></code></pre></td></tr></table></div></div><p>We would like to be sure that if nodes (5, 3, 6) are present
+</span></span><span style=display:flex><span>list_insert(r, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>66</span>);
+</span></span></code></pre></div><p>We would like to be sure that if nodes (5, 3, 6) are present
 in the list, then their values (55, 33, 66) are set properly.</p><p>If the node is present in the list, but its value field isn&rsquo;t
 properly assigned, then the scenario should be recognized as
-inconsistent and function should return 1.</p><p>For example:<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>check_consistency</span>(<span style=color:#66d9ef>struct</span> list_root <span style=color:#f92672>*</span>root)
+inconsistent and function should return 1.</p><p>For example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>check_consistency</span>(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list_root</span> <span style=color:#f92672>*</span>root)
 </span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> list_node <span style=color:#f92672>*</span>node <span style=color:#f92672>=</span> NODE_PTR(root, root<span style=color:#f92672>-&gt;</span>head);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list_node</span> <span style=color:#f92672>*</span>node <span style=color:#f92672>=</span> NODE_PTR(root, root<span style=color:#f92672>-&gt;</span>head);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e>/*
 </span></span></span><span style=display:flex><span><span style=color:#75715e>     * If node is linked to the list then its
@@ -105,13 +67,15 @@ inconsistent and function should return 1.</p><p>For example:<div class=highligh
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>}</span></span></code></pre></td></tr></table></div></div></p><p>That&rsquo;s it. List and consistency checker are ready.
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>That&rsquo;s it. List and consistency checker are ready.
 The next step is to generate a log of memory operations
 made by the application. We call that a store log.</p><h2 id=store-log>Store log</h2><p>To get the list of all memory operations we are going to use pmemcheck
-logging functionality. To turn on logging use <code>log-stores</code> parameter:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ valgrind --tool<span style=color:#f92672>=</span>pmemcheck -q --log-stores<span style=color:#f92672>=</span>yes --print-summary<span style=color:#f92672>=</span>yes --log-file<span style=color:#f92672>=</span>store_log.log pmreorder_list</span></span></code></pre></div><p>The above command outputs a text file with a list of stores, flushes,
+logging functionality. To turn on logging use <code>log-stores</code> parameter:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ valgrind --tool<span style=color:#f92672>=</span>pmemcheck -q --log-stores<span style=color:#f92672>=</span>yes --print-summary<span style=color:#f92672>=</span>yes --log-file<span style=color:#f92672>=</span>store_log.log pmreorder_list
+</span></span></code></pre></div><p>The above command outputs a text file with a list of stores, flushes,
 fences, user-defined markers and possibly some other data that can be
 consumed by pmreorder tool.</p><p>Let&rsquo;s look at an excerpt from our example&rsquo;s store log.
-Make sure to read the embedded comments.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>STORE;0x5600060;0x0;0x8| <span style=color:#75715e># set new-&gt;next for node_id 5</span>
+Make sure to read the embedded comments.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>STORE;0x5600060;0x0;0x8| <span style=color:#75715e># set new-&gt;next for node_id 5</span>
 </span></span><span style=display:flex><span>FLUSH;0x5600040;0x40| <span style=color:#75715e># persist next for node_id 5</span>
 </span></span><span style=display:flex><span>FENCE|
 </span></span><span style=display:flex><span>STORE;0x5600000;0x5;0x8| <span style=color:#75715e># set root-&gt;head for node_id 5</span>
@@ -140,7 +104,8 @@ Make sure to read the embedded comments.</p><div class=highlight><pre tabindex=0
 </span></span><span style=display:flex><span>FENCE|
 </span></span><span style=display:flex><span>STOP
 </span></span><span style=display:flex><span><span style=color:#f92672>==</span>32611<span style=color:#f92672>==</span> Number of stores not made persistent: 0
-</span></span><span style=display:flex><span><span style=color:#f92672>==</span>32611<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors</span></span></code></pre></div><p>It often happens that store log contains multiple stores and operations
+</span></span><span style=display:flex><span><span style=color:#f92672>==</span>32611<span style=color:#f92672>==</span> ERROR SUMMARY: <span style=color:#ae81ff>0</span> errors
+</span></span></code></pre></div><p>It often happens that store log contains multiple stores and operations
 made on the pool that are irrelevant for your tests.
 There is a mechanism called markers that enables ignoring selected set of stores
 during consistency check. For more information about this and other features
@@ -159,27 +124,24 @@ For example, full reorder engine generates all possible combinations
 without repetition, a random engine generates a specified number of randomly
 generated combinations and no reorder engine passes-through the stores without
 reordering.</p><p>In this example, I am going to use the reverse accumulative engine which
-checks correctness on a reversed growing subset of the original sequence.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>Example:
+checks correctness on a reversed growing subset of the original sequence.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Example:
 </span></span><span style=display:flex><span>input: <span style=color:#f92672>(</span>a, b, c<span style=color:#f92672>)</span>
 </span></span><span style=display:flex><span>output:
 </span></span><span style=display:flex><span><span style=color:#f92672>()</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>(</span>c<span style=color:#f92672>)</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>(</span>c, b<span style=color:#f92672>)</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>(</span>c, b, a<span style=color:#f92672>)</span></span></span></code></pre></div><p>For more examples and information about engines look at the <a href=/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p><p>Note that pmreorder requires python3 to be present in the system.</p><p>Using that information we can run pmreorder with the following command:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#f92672>{{</span>&lt;  highlight sh &gt;<span style=color:#f92672>}}</span>
-</span></span><span style=display:flex><span>$ python3 pmreorder.py
-</span></span><span style=display:flex><span>-l store_log.log <span style=color:#75715e># file generated by pmemcheck</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    -o output_file.log			<span style=color:#75715e># output from pmreorder</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    -x pmem_memset_persist<span style=color:#f92672>=</span>NoReorderNoCheck	<span style=color:#75715e># do not check stores from pmem_memset_persist</span>
-</span></span><span style=display:flex><span>    					<span style=color:#75715e># available only if PMREORDER_EMIT_LOG=1</span>
-</span></span><span style=display:flex><span>    					<span style=color:#75715e># environment variable is set</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    -r ReorderReverseAccumulative		<span style=color:#75715e># default engine</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    -p <span style=color:#e6db74>&#34;pmreorder_list c&#34;</span>			<span style=color:#75715e># checker binary with parameters</span>
-</span></span><span style=display:flex><span>    					<span style=color:#75715e># (c - checker mode)</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>{{</span>&lt; / highlight &gt;<span style=color:#f92672>}}</span></span></span></code></pre></div><p>Take a look at the result of this command:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ cat output_file.log
+</span></span><span style=display:flex><span><span style=color:#f92672>(</span>c, b, a<span style=color:#f92672>)</span>
+</span></span></code></pre></div><p>For more examples and information about engines look at the <a href=/pmdk/manpages/linux/master/pmreorder/pmreorder.1.html>pmreorder man page</a>.</p><p>Note that pmreorder requires python3 to be present in the system.</p><p>Using that information we can run pmreorder with the following command:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ python3 pmreorder.py
+</span></span><span style=display:flex><span>    -l store_log.log                <span style=color:#75715e># file generated by pmemcheck</span>
+</span></span><span style=display:flex><span>    -o output_file.log			    <span style=color:#75715e># output from pmreorder</span>
+</span></span><span style=display:flex><span>    -x pmem_memset_persist<span style=color:#f92672>=</span>NoReorderNoCheck
+</span></span><span style=display:flex><span>                                <span style=color:#75715e># do not check stores from pmem_memset_persist</span>
+</span></span><span style=display:flex><span>                                <span style=color:#75715e># available only if PMREORDER_EMIT_LOG=1</span>
+</span></span><span style=display:flex><span>                                <span style=color:#75715e># environment variable is set</span>
+</span></span><span style=display:flex><span>    -r ReorderReverseAccumulative	<span style=color:#75715e># default engine</span>
+</span></span><span style=display:flex><span>    -p <span style=color:#e6db74>&#34;pmreorder_list c&#34;</span>		    <span style=color:#75715e># checker binary with parameters</span>
+</span></span><span style=display:flex><span>    					            <span style=color:#75715e># (c - checker mode)</span>
+</span></span></code></pre></div><p>Take a look at the result of this command:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ cat output_file.log
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
 </span></span><span style=display:flex><span>WARNING:pmreorder:Call trace:
@@ -189,12 +151,14 @@ checks correctness on a reversed growing subset of the original sequence.</p><di
 </span></span><span style=display:flex><span>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
 </span></span><span style=display:flex><span>WARNING:pmreorder:Call trace:
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>[</span>...<span style=color:#f92672>]</span></span></span></code></pre></div><p>In this case, output_file.log is not empty,
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>...<span style=color:#f92672>]</span>
+</span></span></code></pre></div><p>In this case, output_file.log is not empty,
 which means that some issues were detected.</p><p>We can see a few scenarios that cause inconsistency,
 but there is no trace available.</p><p>To get more information about the issue we should
 add additional flags to pmemcheck during store log
-generation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>--log-stores-stacktraces<span style=color:#f92672>=</span>yes
-</span></span><span style=display:flex><span>--log-stores-stacktraces-depth<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span></span></span></code></pre></div><p>Afterwards, output log is more comprehensive:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
+generation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>--log-stores-stacktraces<span style=color:#f92672>=</span>yes
+</span></span><span style=display:flex><span>--log-stores-stacktraces-depth<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>
+</span></span></code></pre></div><p>Afterwards, output log is more comprehensive:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
 </span></span><span style=display:flex><span>WARNING:pmreorder:Call trace:
 </span></span><span style=display:flex><span>Store <span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>:
 </span></span><span style=display:flex><span>by 0x400CDB: list_insert_inconsistent <span style=color:#f92672>(</span>pmreorder_list.c:144<span style=color:#f92672>)</span>
@@ -219,7 +183,8 @@ generation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;backgrou
 </span></span><span style=display:flex><span>by 0x400EB0: main <span style=color:#f92672>(</span>pmreorder_list.c:187<span style=color:#f92672>)</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>WARNING:pmreorder:File /tmp/test_ex_pmreorder1/testfile inconsistent
-</span></span><span style=display:flex><span>WARNING:pmreorder:Call trace:</span></span></code></pre></div><p>Now we are able to check specific line in the code where inconsistency occurred.
+</span></span><span style=display:flex><span>WARNING:pmreorder:Call trace:
+</span></span></code></pre></div><p>Now we are able to check specific line in the code where inconsistency occurred.
 Empty call trace means that even if crash occurs before any of these stores,
 state will be also inconsistent.</p><p>Where we made a mistake and how to fix it?
 Look once again at list insert and checker code.</p><p>If the node is linked to the list, then we are checking if the value
@@ -228,32 +193,20 @@ before node&rsquo;s value persist. So it can happen that the node is in the list
 but its value is not set yet, which means that an issue occurs because of
 the order of operations.</p><p>To fix the problem, we have to change their order.
 Also worth noting that we do not need to persist the value
-and next field separately. It can be done by one pmem_persist:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>list_insert_consistent</span>(<span style=color:#66d9ef>struct</span> list_root <span style=color:#f92672>*</span>root, node_id node, <span style=color:#66d9ef>int</span> value)
+and next field separately. It can be done by one pmem_persist:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>list_insert_consistent</span>(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list_root</span> <span style=color:#f92672>*</span>root, node_id node, <span style=color:#66d9ef>int</span> value)
 </span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> list_node <span style=color:#f92672>*</span>new <span style=color:#f92672>=</span> NODE_PTR(root, node);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>list_node</span> <span style=color:#f92672>*</span><span style=color:#66d9ef>new</span> <span style=color:#f92672>=</span> NODE_PTR(root, node);
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    new<span style=color:#f92672>-&gt;</span>value <span style=color:#f92672>=</span> value;
-</span></span><span style=display:flex><span>    new<span style=color:#f92672>-&gt;</span>next <span style=color:#f92672>=</span> root<span style=color:#f92672>-&gt;</span>head;
-</span></span><span style=display:flex><span>    pmem_persist(new, <span style=color:#66d9ef>sizeof</span>(new)); <span style=color:#75715e>/* persist the node */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>new</span><span style=color:#f92672>-&gt;</span>value <span style=color:#f92672>=</span> value;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>new</span><span style=color:#f92672>-&gt;</span>next <span style=color:#f92672>=</span> root<span style=color:#f92672>-&gt;</span>head;
+</span></span><span style=display:flex><span>    pmem_persist(<span style=color:#66d9ef>new</span>, <span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>new</span>)); <span style=color:#75715e>/* persist the node */</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    root<span style=color:#f92672>-&gt;</span>head <span style=color:#f92672>=</span> node;
 </span></span><span style=display:flex><span>    pmem_persist(<span style=color:#f92672>&amp;</span>root<span style=color:#f92672>-&gt;</span>head, <span style=color:#66d9ef>sizeof</span>(root<span style=color:#f92672>-&gt;</span>head)); <span style=color:#75715e>/* add to the list */</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>}</span></span></code></pre></td></tr></table></div></div><p>This insert is constructed properly and consistency check passes.</p><p>I hope that now you have enough knowledge to check your program
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This insert is constructed properly and consistency check passes.</p><p>I hope that now you have enough knowledge to check your program
 with the use of pmreorder tool.
 Good luck!</p><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2019/02/pmreorder-basics/")'><i class=icon-facebook></i>
 <i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick='window.open("http://twitter.com/intent/tweet?text=Pmreorder basics&url=https://pmem.io/blog/2019/02/pmreorder-basics/")'><i class=icon-twitter></i>

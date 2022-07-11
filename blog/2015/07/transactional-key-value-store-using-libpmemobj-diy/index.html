@@ -38,81 +38,44 @@ comes at a cost of considerably more complicated algorithm and far heavier
 usage of transactions. And this is exactly why I&rsquo;ve chosen B-Trees.</p><p>The implementation is available
 <a href=https://github.com/pmem/pmdk/tree/master/src/examples/libpmemobj/tree_map/btree_map.c>here</a>.</p><h3 id=the-end-result>The end result</h3><p>What I&rsquo;ve ended up with is a sorted map collection interface with two different
 implementations. The API supplements the libpmemobj and integrates with it
-seamlessly.<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> store<span style=color:#f92672>*</span>item {
-</span></span><span style=display:flex><span><span style=color:#75715e>/* data \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>struct my_root {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>TOID(struct tree_map) map;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>...
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>/_ create a new collection _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>TX_BEGIN(pop) {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>tree_map_new(pop, &amp;D_RW(root)-&gt;map);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>    /*
+seamlessly.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>store_item</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* data */</span>
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>my_root</span> {
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>tree_map</span>) map;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/* create a new collection */</span>
+</span></span><span style=display:flex><span>TX_BEGIN(pop) {
+</span></span><span style=display:flex><span>    tree_map_new(pop, <span style=color:#f92672>&amp;</span>D_RW(root)<span style=color:#f92672>-&gt;</span>map);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/*
 </span></span></span><span style=display:flex><span><span style=color:#75715e>     * We don&#39;t want an empty collection, so let&#39;s insert
 </span></span></span><span style=display:flex><span><span style=color:#75715e>     * a few new entries in the same transaction.
 </span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
-</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> store_item) n;
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>store_item</span>) n;
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> TX_NEW(<span style=color:#66d9ef>struct</span> store_item);
+</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> TX_NEW(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>store_item</span>);
 </span></span><span style=display:flex><span>    tree_map_insert(pop, D_RO(root)<span style=color:#f92672>-&gt;</span>map, <span style=color:#ae81ff>5</span>, n.oid);
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> TX_NEW(<span style=color:#66d9ef>struct</span> store_item);
+</span></span><span style=display:flex><span>    n <span style=color:#f92672>=</span> TX_NEW(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>store_item</span>);
 </span></span><span style=display:flex><span>    tree_map_insert(pop, D_RO(root)<span style=color:#f92672>-&gt;</span>map, <span style=color:#ae81ff>10</span>, n.oid);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} TX_END
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>/</span>_ the backend is a tree, and so the collection is sorted _<span style=color:#f92672>/</span>
-</span></span><span style=display:flex><span>tree<span style=color:#f92672>*</span>map_foreach(D_RO(root)<span style=color:#f92672>-&gt;</span>map, <span style=color:#75715e>/* ... \_/);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>/_ all functions can be used outside of a transaction as well _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>PMEMoid oid = tree*map_remove(pop, D_RO(root)-&gt;map, 5);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>/* the object type can be verified \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>assert(OID_INSTANCEOF(oid, struct store_item));
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>tree_map_delete(pop, &amp;D_RW(root)-&gt;map);
-</span></span></span></code></pre></td></tr></table></div></div>So a fairly standard kv-store. There&rsquo;s a more complete example
+</span></span><span style=display:flex><span><span style=color:#75715e>/* the backend is a tree, and so the collection is sorted */</span>
+</span></span><span style=display:flex><span>tree_map_foreach(D_RO(root)<span style=color:#f92672>-&gt;</span>map, <span style=color:#75715e>/* ... */</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/* all functions can be used outside of a transaction as well */</span>
+</span></span><span style=display:flex><span>PMEMoid oid <span style=color:#f92672>=</span> tree<span style=color:#f92672>*</span>map_remove(pop, D_RO(root)<span style=color:#f92672>-&gt;</span>map, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span><span style=color:#75715e>/* the object type can be verified */</span>
+</span></span><span style=display:flex><span>assert(OID_INSTANCEOF(oid, <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>store_item</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>tree_map_delete(pop, <span style=color:#f92672>&amp;</span>D_RW(root)<span style=color:#f92672>-&gt;</span>map);
+</span></span></code></pre></div><p>So a fairly standard kv-store. There&rsquo;s a more complete example
 <a href=https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/map/data_store.c>here</a>.</p><h3 id=performance>Performance</h3><p>All tests were ran on a ramdisk with <a href=https://github.com/01org/prd>ext4 + DAX</a>
 filesystem. The numbers are only good for comparison between the two data
 structures. If you want more meaningful data run the benchmarks for yourself.

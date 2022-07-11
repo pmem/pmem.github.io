@@ -9,70 +9,51 @@ That is the reason to work either with the real equipment or emulated environmen
 It should as well work with any distribution able to handle official <a href=https://www.kernel.org/>kernel</a>.</p><h3 id=linux-kernel>Linux Kernel</h3><p>Download kernel sources from <a href=https://www.kernel.org/>official kernel pages</a>.
 Support for persistent memory devices and emulation is present in Kernel since 4.0 version, however it is recommended to use Kernel newer then 4.2 due to easier configuration of it. Following instruction relies on 4.2 or newer. Using Kernel older then 4.2 will require a bit more work to setup, and will not be described here.
 Please note, that features and bug fixes around DAX support are being implemented as we speak, therefore it is recommended to use the newest stable Kernel if possible.
-To configure proper driver installation run <code>nconfig</code> and enable driver.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ make nconfig
+To configure proper driver installation run <code>nconfig</code> and enable driver.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ make nconfig
 </span></span><span style=display:flex><span>Device Drivers ---&gt;
-</span></span><span style=display:flex><span>{_} NVDIMM (Non-Volatile Memory Device) Support ---&gt;
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span>_<span style=color:#f92672>}</span> NVDIMM <span style=color:#f92672>(</span>Non-Volatile Memory Device<span style=color:#f92672>)</span> Support ---&gt;
 </span></span><span style=display:flex><span>&lt;M&gt; PMEM: Persistent memory block device support
-</span></span><span style=display:flex><span>&lt;M&gt; BLK: Block data window (aperture) device support
-</span></span><span style=display:flex><span>[_] BTT: Block Translation Table (atomic sector updates)
-</span></span><span style=display:flex><span>[*] PFN: Map persistent (device) memory
-</span></span></code></pre></div><p>Additionally you need to enable treatment of memory marked using the non-standard e820 type of 12 as used by the Intel Sandy Bridge-EP reference BIOS as protected memory. The kernel will offer these regions to the &lsquo;pmem&rsquo; driver so they can be used for persistent storage.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ make nconfig
+</span></span><span style=display:flex><span>&lt;M&gt; BLK: Block data window <span style=color:#f92672>(</span>aperture<span style=color:#f92672>)</span> device support
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>_<span style=color:#f92672>]</span> BTT: Block Translation Table <span style=color:#f92672>(</span>atomic sector updates<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> PFN: Map persistent <span style=color:#f92672>(</span>device<span style=color:#f92672>)</span> memory
+</span></span></code></pre></div><p>Additionally you need to enable treatment of memory marked using the non-standard e820 type of 12 as used by the Intel Sandy Bridge-EP reference BIOS as protected memory. The kernel will offer these regions to the &lsquo;pmem&rsquo; driver so they can be used for persistent storage.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ make nconfig
 </span></span><span style=display:flex><span>Processor type and features ---&gt;
-</span></span><span style=display:flex><span>[*] Support non-standard NVDIMMs and ADR protected memory
-</span></span><span style=display:flex><span>[*] Device memory (pmem, etc...) hotplug support
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Support non-standard NVDIMMs and ADR protected memory
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Device memory <span style=color:#f92672>(</span>pmem, etc...<span style=color:#f92672>)</span> hotplug support
 </span></span><span style=display:flex><span>File systems ---&gt;
-</span></span><span style=display:flex><span>[*] Direct Access (DAX) support
-</span></span></code></pre></div><p>You are ready to build your Kernel</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ make -jX
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Direct Access <span style=color:#f92672>(</span>DAX<span style=color:#f92672>)</span> support
+</span></span></code></pre></div><p>You are ready to build your Kernel</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ make -jX
 </span></span><span style=display:flex><span>where X is the number of cores on the machine
-</span></span></code></pre></div><p>Install the kernel</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># sudo make modules_install install
-</span></span></code></pre></div><p><a href=https://nvdimm.wiki.kernel.org/how_to_choose_the_correct_memmap_kernel_parameter_for_pmem_on_your_system>Reserve memory region</a> so it appears to be a persistent memory by modifying Kernel command line parameters.
-Region of memory to be used, from ss to ss+nn. [KMG] refers to kilo, mega, giga.<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>memmap=nn[KMG]!ss[KMG]</span></span></code></pre></div>E.g. <code>memmap=4G!12G</code> reserves 4GB of memory between 12th and 16th GB.
+</span></span></code></pre></div><p>Install the kernel</p><pre tabindex=0><code># sudo make modules_install install
+</code></pre><p><a href=https://nvdimm.wiki.kernel.org/how_to_choose_the_correct_memmap_kernel_parameter_for_pmem_on_your_system>Reserve memory region</a> so it appears to be a persistent memory by modifying Kernel command line parameters.
+Region of memory to be used, from ss to ss+nn. [KMG] refers to kilo, mega, giga.</p><pre tabindex=0><code>memmap=nn[KMG]!ss[KMG]
+</code></pre><p>E.g. <code>memmap=4G!12G</code> reserves 4GB of memory between 12th and 16th GB.
 Configuration is done within GRUB, and varies between Linux distributions.
-Here are two examples of GRUB configuration.</p><p>Ubuntu Server 15.04<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># sudo vi /etc/default/grub
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>GRUB_CMDLINE_LINUX=&#34;memmap=nn[KMG]!ss[KMG]&#34;
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># sudo update-grub2
-</span></span></code></pre></td></tr></table></div></div></p><p>CentOS 7.0<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># sudo vi /etc/default/grub
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>GRUB_CMDLINE_LINUX=&#34;memmap=nn[KMG]!ss[KMG]&#34;
-</span></span><span style=display:flex><span>On BIOS-based machines:
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>On UEFI-based machines:
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># sudo grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
-</span></span></code></pre></td></tr></table></div></div></p><p>After machine reboot you should be able to see the emulated device as <code>/dev/pmem0</code>. Please be aware of the memory ranges available to your OS, and try not to overlap with those. Trying to get reserved memory regions for persistent memory emulation will result in split memory ranges defining persistent (type 12) regions. General recommendation would be to either use memory from 4GB+ range (<code>memmap=nnG!4G</code>) or checking upfront e820 memory map and fitting within.
+Here are two examples of GRUB configuration.</p><p>Ubuntu Server 15.04</p><pre tabindex=0><code># sudo vi /etc/default/grub
+
+GRUB_CMDLINE_LINUX=&#34;memmap=nn[KMG]!ss[KMG]&#34;
+
+# sudo update-grub2
+</code></pre><p>CentOS 7.0</p><pre tabindex=0><code># sudo vi /etc/default/grub
+
+GRUB_CMDLINE_LINUX=&#34;memmap=nn[KMG]!ss[KMG]&#34;
+On BIOS-based machines:
+
+# sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+On UEFI-based machines:
+
+# sudo grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
+</code></pre><p>After machine reboot you should be able to see the emulated device as <code>/dev/pmem0</code>. Please be aware of the memory ranges available to your OS, and try not to overlap with those. Trying to get reserved memory regions for persistent memory emulation will result in split memory ranges defining persistent (type 12) regions. General recommendation would be to either use memory from 4GB+ range (<code>memmap=nnG!4G</code>) or checking upfront e820 memory map and fitting within.
 If you don&rsquo;t see the device, verify the <code>memmap</code> setting correctness, followed by <code>dmesg(1)</code> analysis. You should be able to see reserved ranges as shown on the dmesg output snapshot:
 <img src=/images/posts/dmesg.png alt=dmesg></p><p>You can see that there can be multiple non-overlapping regions reserved as a persistent memory. Putting multiple <code>memmap="...!..."</code> entries will result in multiple devices exposed by the kernel, and visible as <code>/dev/pmem0</code>, <code>/dev/pmem1</code>, <code>/dev/pmem2</code>, &mldr;</p><h3 id=dax---direct-access>DAX - Direct Access</h3><p>The DAX (direct access) extensions to the filesystem creates PM-aware environment.
 Having filesystem brings easy and reliable rights management, while with DAX add-on, any file that is memory mapped with <code>mmap(2)</code> is directly mapped from physical address range into process virtual memory addresses.
-For those files there is no paging, and load/store operations provide direct access to persistent memory.</p><p>Install filesystem with DAX (available today for ext4 and xfs):<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># sudo mkdir /mnt/mem
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>#<span style=color:#75715e>## sudo mkfs.ext4 /dev/pmem0 OR #sudo mkfs.xfs -m reflink=0 /dev/pmem0</span>
-</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
-</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>#<span style=color:#75715e>## sudo mount -o dax /dev/pmem0 /mnt/mem</span>
-</span></span></code></pre></td></tr></table></div></div></p><p>Now files can be created on the freshly mounted partition, and given as an input to PMDK pools.</p><p>It is additionally worth mentioning you can emulate persistent memory with ramdisk (i.e. <code>/dev/shm</code>), or force pmem-like behavior by setting environment variable <code>PMEM_IS_PMEM_FORCE=1</code>, that would eliminate performance hit caused by <code>msync(2)</code>.</p><h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712announcing-the-persistent-memory-development-kit>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/announcing-the-persistent-memory-development-kit>NVML to PMDK</a>.]</h6><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/")'><i class=icon-facebook></i>
+For those files there is no paging, and load/store operations provide direct access to persistent memory.</p><p>Install filesystem with DAX (available today for ext4 and xfs):</p><pre tabindex=0><code># sudo mkdir /mnt/mem
+
+### sudo mkfs.ext4 /dev/pmem0 OR #sudo mkfs.xfs -m reflink=0 /dev/pmem0
+
+### sudo mount -o dax /dev/pmem0 /mnt/mem
+</code></pre><p>Now files can be created on the freshly mounted partition, and given as an input to PMDK pools.</p><p>It is additionally worth mentioning you can emulate persistent memory with ramdisk (i.e. <code>/dev/shm</code>), or force pmem-like behavior by setting environment variable <code>PMEM_IS_PMEM_FORCE=1</code>, that would eliminate performance hit caused by <code>msync(2)</code>.</p><h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712announcing-the-persistent-memory-development-kit>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/announcing-the-persistent-memory-development-kit>NVML to PMDK</a>.]</h6><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/")'><i class=icon-facebook></i>
 <i class=icon-facebook></i></div><div class="social-icon si-borderless si-twitter" title="Share this on Twitter" onclick='window.open("http://twitter.com/intent/tweet?text=How to emulate Persistent Memory&url=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/")'><i class=icon-twitter></i>
 <i class=icon-twitter></i></div><div class="social-icon si-borderless si-linkedin" title="Share this on Linkedin" onclick='window.open("https://www.linkedin.com/shareArticle?mini=true&url=https://pmem.io/blog/2016/02/how-to-emulate-persistent-memory/&title=&summary=&source=")'><i class=icon-linkedin></i>
 <i class=icon-linkedin></i></div><div class="social-icon si-borderless si-pinterest" title="Share this on Pinterest" onclick='window.open("https://pinterest.com/pin/create/button/?url=&media=&description=")'><i class=icon-pinterest></i>

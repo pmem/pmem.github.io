@@ -52,86 +52,32 @@ similar API to <code>std::vector</code> as possible. The only usage difference i
 memory version of vector is creation of an object.
 <code>pmem::obj:vector</code> resides on persistent memory so you need a way to access stored
 elements even after program crash, which can be done using pool&rsquo;s root object.
-The root object is the anchor to which all the memory structures should be attached.</p><p>Here is an example how to create <code>pmem::obj:vector</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/make_persistent.hpp&gt;</span><span style=color:#75715e>
+The root object is the anchor to which all the memory structures should be attached.</p><p>Here is an example how to create <code>pmem::obj:vector</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/make_persistent.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/transaction.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/persistent_ptr.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/pool.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/experimental/vector.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;libpmemobj++/experimental/slice.hpp&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span>using vector_type <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>experimental<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> vector_type <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>experimental<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>;
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> root {
-</span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>persistent_ptr<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span> vec_p;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>root</span> {
+</span></span><span style=display:flex><span>  pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>persistent_ptr<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span> vec_p;
 </span></span><span style=display:flex><span>};
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>/</span>_ creating pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>vector in transaction _<span style=color:#f92672>/</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/* creating pmem::obj::vector in transaction */</span>
 </span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>] {
-</span></span><span style=display:flex><span>root<span style=color:#f92672>-&gt;</span>vec<span style=color:#f92672>*</span>p <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span>(<span style=color:#75715e>/* optional constructor arguments \_/);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>});
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>vector_type &amp;pvector = \*(root-&gt;vec_p);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>...
-</span></span></span></code></pre></td></tr></table></div></div><p>As you can see in above code snippet <code>pmem::obj:vector</code> must be created and
+</span></span><span style=display:flex><span>  root<span style=color:#f92672>-&gt;</span>vec<span style=color:#f92672>*</span>p <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span>(<span style=color:#75715e>/* optional constructor arguments */</span>);
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>vector_type <span style=color:#f92672>&amp;</span>pvector <span style=color:#f92672>=</span> <span style=color:#f92672>*</span>(root<span style=color:#f92672>-&gt;</span>vec_p);
+</span></span></code></pre></div><p>As you can see in above code snippet <code>pmem::obj:vector</code> must be created and
 allocated in persistent memory using inside of transaction (an exception will be
 thrown otherwise). Vector&rsquo;s element type constructor may construct an object by
 internally opening another transaction. In this case inner transaction will be
-flattened to outer one.</p><p>From now on usage of <code>pmem::obj:vector</code> is similar to usage of <code>std::vector</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>pvector.reserve(<span style=color:#ae81ff>10</span>);
+flattened to outer one.</p><p>From now on usage of <code>pmem::obj:vector</code> is similar to usage of <code>std::vector</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>pvector.reserve(<span style=color:#ae81ff>10</span>);
 </span></span><span style=display:flex><span>assert(pvector.size() <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>);
 </span></span><span style=display:flex><span>assert(pvector.capacity() <span style=color:#f92672>==</span> <span style=color:#ae81ff>10</span>);
 </span></span><span style=display:flex><span>
@@ -144,7 +90,7 @@ flattened to outer one.</p><p>From now on usage of <code>pmem::obj:vector</code>
 </span></span><span style=display:flex><span>assert(pvector.capacity() <span style=color:#f92672>==</span> <span style=color:#ae81ff>5</span>);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> pvector.size(); <span style=color:#f92672>++</span>i)
-</span></span><span style=display:flex><span>assert(pvector.const_at(i) <span style=color:#f92672>==</span> static_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i));
+</span></span><span style=display:flex><span>assert(pvector.const_at(i) <span style=color:#f92672>==</span> <span style=color:#66d9ef>static_cast</span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i));
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>pvector.push_back(<span style=color:#ae81ff>5</span>);
 </span></span><span style=display:flex><span>assert(pvector.const_at(<span style=color:#ae81ff>5</span>) <span style=color:#f92672>==</span> <span style=color:#ae81ff>5</span>);
@@ -153,9 +99,8 @@ flattened to outer one.</p><p>From now on usage of <code>pmem::obj:vector</code>
 </span></span><span style=display:flex><span>pvector.emplace(pvector.cbegin(), pvector.back());
 </span></span><span style=display:flex><span>assert(pvector.const_at(<span style=color:#ae81ff>0</span>) <span style=color:#f92672>==</span> <span style=color:#ae81ff>5</span>);
 </span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;</span> pvector.size(); <span style=color:#f92672>++</span>i)
-</span></span><span style=display:flex><span>assert(pvector.const_at(i) <span style=color:#f92672>==</span> static_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>));
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>...</span></span></code></pre></td></tr></table></div></div><p>Note that every single modifier method opens transaction internally and guarantees
+</span></span><span style=display:flex><span>assert(pvector.const_at(i) <span style=color:#f92672>==</span> <span style=color:#66d9ef>static_cast</span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>));
+</span></span></code></pre></div><p>Note that every single modifier method opens transaction internally and guarantees
 full exception safety (modifications will be either committed or rolled-back if
 an exception was thrown, or crash happened). There is no need for using transaction
 when calling modifier methods whatsoever.</p><p>As you can see, we are checking <code>i &lt; pvector.size()</code> on every loop iteration.
@@ -166,90 +111,48 @@ that is dereferencing of persistent_ptr in current implementation cannot be
 optimized and cached by compilers. We are working on workaround for this issue,
 but it is recommended to avoid unnecessary persistent_ptr dereferencing operations.</p><p>Iterating over <code>pmem::obj:vector</code> works just like for an ordinary <code>std::vector</code>:
 you can use indexing operator, range-based for loops or iterators. <code>pmem::obj:vector</code>
-can also be processed using <code>std::algorithms</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> stdvector <span style=color:#f92672>=</span> {<span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>1</span>};
+can also be processed using <code>std::algorithms</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>std<span style=color:#f92672>::</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> stdvector <span style=color:#f92672>=</span> {<span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>1</span>};
 </span></span><span style=display:flex><span>pvector <span style=color:#f92672>=</span> stdvector;
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>try {
-</span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>] {
-</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>auto</span> <span style=color:#f92672>&amp;</span>e : pvector)
-</span></span><span style=display:flex><span>e<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span><span style=color:#f92672>/</span>_ <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>2</span> _<span style=color:#f92672>/</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>  pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>] {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>auto</span> <span style=color:#f92672>&amp;</span>e : pvector)
+</span></span><span style=display:flex><span>      e<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* 6, 5, 4, 3, 2 */</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>auto</span> it <span style=color:#f92672>=</span> pvector.begin(); it <span style=color:#f92672>!=</span> pvector.end(); it<span style=color:#f92672>++</span>)
-</span></span><span style=display:flex><span>    	        <span style=color:#f92672>*</span>it <span style=color:#f92672>+=</span> <span style=color:#ae81ff>2</span>;
-</span></span><span style=display:flex><span>                <span style=color:#75715e>/* 8, 7, 6, 5, 4 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>auto</span> it <span style=color:#f92672>=</span> pvector.begin(); it <span style=color:#f92672>!=</span> pvector.end(); it<span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>*</span>it <span style=color:#f92672>+=</span> <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* 8, 7, 6, 5, 4 */</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> pvector.size(); i<span style=color:#f92672>++</span>)
-</span></span><span style=display:flex><span>            	pvector[i]<span style=color:#f92672>--</span>;
-</span></span><span style=display:flex><span>                <span style=color:#75715e>/* 7, 6, 5, 4, 3 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> pvector.size(); i<span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>      pvector[i]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* 7, 6, 5, 4, 3 */</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>                std<span style=color:#f92672>::</span>sort(pvector.begin(), pvector.end());
-</span></span><span style=display:flex><span>                <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> sz; <span style=color:#f92672>++</span>i)
-</span></span><span style=display:flex><span>                        assert(pvector.const_at(i) <span style=color:#f92672>==</span> static_cast<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i <span style=color:#f92672>+</span> <span style=color:#ae81ff>3</span>));
+</span></span><span style=display:flex><span>    std<span style=color:#f92672>::</span>sort(pvector.begin(), pvector.end());
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>unsigned</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> sz; <span style=color:#f92672>++</span>i)
+</span></span><span style=display:flex><span>      assert(pvector.const_at(i) <span style=color:#f92672>==</span> <span style=color:#66d9ef>static_cast</span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>(i <span style=color:#f92672>+</span> <span style=color:#ae81ff>3</span>));
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>                pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>abort(<span style=color:#ae81ff>0</span>);
-</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>    pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>abort(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>catch</span> (pmem<span style=color:#f92672>::</span>manual<span style=color:#f92672>*</span>tx_abort <span style=color:#f92672>&amp;</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#75715e>/* expected transaction abort */</span>
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>catch</span> (std<span style=color:#f92672>::</span>exception <span style=color:#f92672>&amp;</span>e) {
+</span></span><span style=display:flex><span>  std<span style=color:#f92672>::</span>cerr <span style=color:#f92672>&lt;&lt;</span> e.what() <span style=color:#f92672>&lt;&lt;</span> std<span style=color:#f92672>::</span>endl;
+</span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>} catch (pmem<span style=color:#f92672>::</span>manual<span style=color:#f92672>*</span>tx_abort <span style=color:#f92672>&amp;</span>) {
-</span></span><span style=display:flex><span><span style=color:#75715e>/* expected transaction abort \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>} catch (std::exception &amp;e) {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>}
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>assert(pvector == stdvector); /_ pvector element&#39;s value was rolled back _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>try {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>pmem::obj::delete_persistent&lt;vector_type&gt;(&amp;pvector);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>} catch (std::exception &amp;e) {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>}
-</span></span></span></code></pre></td></tr></table></div></div><p>If there is an active transaction elements (accessed using any of the presented
+</span></span><span style=display:flex><span>assert(pvector <span style=color:#f92672>==</span> stdvector); <span style=color:#75715e>/* pvector element&#39;s value was rolled back */</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>  pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>delete_persistent<span style=color:#f92672>&lt;</span>vector_type<span style=color:#f92672>&gt;</span>(<span style=color:#f92672>&amp;</span>pvector);
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>catch</span> (std<span style=color:#f92672>::</span>exception <span style=color:#f92672>&amp;</span>e) {
+</span></span><span style=display:flex><span>  std<span style=color:#f92672>::</span>cerr <span style=color:#f92672>&lt;&lt;</span> e.what() <span style=color:#f92672>&lt;&lt;</span> std<span style=color:#f92672>::</span>endl;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>If there is an active transaction elements (accessed using any of the presented
 above methods) are snapshotted. In case of iterators returned by begin() and end()
 snapshotting happens during iterator dereferencing. Of course, snapshotting is
 done only for mutable elements. In case of <code>const</code> iterators or <code>const</code> versions
 of indexing operator, nothing is added to the transaction. That&rsquo;s why it is extremely
-important to use const qualified function overloads (cbegin(), cend(), etc.) whenever possible
+important to use const qualified function overloads (<code>cbegin()</code>, <code>cend()</code>, etc.) whenever possible
 (if an object was snapshotted in current transaction, second snapshot of
 the same memory address won&rsquo;t be performed and thus won&rsquo;t have performance overhead).
 This will reduce number of snapshots and can significantly reduce the performance

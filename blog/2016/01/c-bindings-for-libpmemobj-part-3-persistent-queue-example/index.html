@@ -26,24 +26,17 @@ clear that when the algorithm is interrupted for some reason, we can end up
 with either <strong>persistent</strong> memory leak or corrupted data structure.</p><h2 id=c-implementation>C++ implementation</h2><p>As the operations were already described, and the actual implementation, in
 alignment to the premise of C++ bindings, is identical to the volatile one, I&rsquo;ll
 talk only about the data structure.</p><p>First let&rsquo;s define our list entry structure. As we just learned, it has to
-contain a <code>next</code> pointer and a value.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> pmem_entry {
-</span></span><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>pmem_entry<span style=color:#f92672>&gt;</span> next;
-</span></span><span style=display:flex><span>p<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>uint64_t</span><span style=color:#f92672>&gt;</span> value;
-</span></span><span style=display:flex><span>};</span></span></code></pre></td></tr></table></div></div><p>Our queue structure, which will also be our root object, consists of two fields:
-<code>head</code> and <code>tail</code>:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>class pmem_queue {
-</span></span><span style=display:flex><span>private:
-</span></span><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>pmem_entry<span style=color:#f92672>&gt;</span> head;
-</span></span><span style=display:flex><span>persistent_ptr<span style=color:#f92672>&lt;</span>pmem_entry<span style=color:#f92672>&gt;</span> tail;
-</span></span><span style=display:flex><span>};</span></span></code></pre></td></tr></table></div></div><p>The <code>pmem_queue::push()</code> and <code>pmem_queue::pop()</code> functions look exactly like a
+contain a <code>next</code> pointer and a value.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>pmem_entry</span> {
+</span></span><span style=display:flex><span>    persistent_ptr<span style=color:#f92672>&lt;</span>pmem_entry<span style=color:#f92672>&gt;</span> next;
+</span></span><span style=display:flex><span>    p<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>uint64_t</span><span style=color:#f92672>&gt;</span> value;
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>Our queue structure, which will also be our root object, consists of two fields:
+<code>head</code> and <code>tail</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>pmem_queue</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    persistent_ptr<span style=color:#f92672>&lt;</span>pmem_entry<span style=color:#f92672>&gt;</span> head;
+</span></span><span style=display:flex><span>    persistent_ptr<span style=color:#f92672>&lt;</span>pmem_entry<span style=color:#f92672>&gt;</span> tail;
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>The <code>pmem_queue::push()</code> and <code>pmem_queue::pop()</code> functions look exactly like a
 volatile implementation, but with a transaction block and
 <code>pmemobj_alloc()</code>/<code>pmemobj_free()</code> instead of <code>new</code>/<code>delete</code>.</p><p>Complete implementation is available
 <a href=https://github.com/pmem/libpmemobj-cpp/blob/master/examples/queue/queue.cpp>here</a>.</p><h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712announcing-the-persistent-memory-development-kit>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/announcing-the-persistent-memory-development-kit>NVML to PMDK</a>.]</h6><h6 id=this-entry-was-edited-on-2018-07-06-to-change-link-to-queuecpp>[This entry was edited on 2018-07-06 to change link to queue.cpp]</h6><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2016/01/c-bindings-for-libpmemobj-part-3-persistent-queue-example/")'><i class=icon-facebook></i>

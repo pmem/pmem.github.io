@@ -27,30 +27,18 @@ consequences for C++ are serious. libpmemobj implements snapshotting by copying 
 given length from given address to another address with <code>memcpy()</code>. If transaction aborts
 or the event of power loss occurs, the data is being copied again from undo log on pool reopen.
 Consider a definition of the following C++ object and think about the consequences
-of memcpying it:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>class nonTriviallyCopyable {
-</span></span><span style=display:flex><span>private:
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span> i;
+of memcpying it:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>nonTriviallyCopyable</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span><span style=color:#f92672>*</span> i;
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        public:
-</span></span><span style=display:flex><span>        nonTriviallyCopyable (<span style=color:#66d9ef>const</span> nonTriviallyCopyable<span style=color:#f92672>&amp;</span> from)
-</span></span><span style=display:flex><span>        {
-</span></span><span style=display:flex><span>                <span style=color:#75715e>/* perform non-trivial copying routine */</span>
-</span></span><span style=display:flex><span>                i <span style=color:#f92672>=</span> new(<span style=color:#66d9ef>int</span>(<span style=color:#f92672>*</span>from.i));
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>};</span></span></code></pre></td></tr></table></div></div><p>Deep and shallow copying is the simplest example. The gist of the problem is that by
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    nonTriviallyCopyable (<span style=color:#66d9ef>const</span> nonTriviallyCopyable<span style=color:#f92672>&amp;</span> from)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/* perform non-trivial copying routine */</span>
+</span></span><span style=display:flex><span>        i <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span>(<span style=color:#66d9ef>int</span>(<span style=color:#f92672>*</span>from.i));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>Deep and shallow copying is the simplest example. The gist of the problem is that by
 copying the data manually, we may break the inherent behavior of the object which may rely on
 the copy constructor. Any shared or unique pointer would be another great example - by simple
 copying it with <code>memcpy()</code> we break the <em>deal</em> we made with that class when we used it and it
@@ -69,8 +57,8 @@ is connected to polymorphic types. Currently there is no reliable and portable w
 implement vtable rebuilding after reopening the pool, polymorphic objects cannot be supported
 with persistent memory.</p><p>If we want to store objects on persistent memory (memory mapped files – to be precise
 and to follow SNIA NVM programming model), we must ensure that following casting will be
-always valid:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>someType A <span style=color:#f92672>=</span> _reinterpret_cast<span style=color:#f92672>&lt;</span>someType_<span style=color:#f92672>&gt;</span>(mmap(...));</span></span></code></pre></td></tr></table></div></div><p>In other words, the bit representation of stored object type must be always the same
+always valid:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>someType A <span style=color:#f92672>=</span> _reinterpret_cast<span style=color:#f92672>&lt;</span>someType_<span style=color:#f92672>&gt;</span>(mmap(...));
+</span></span></code></pre></div><p>In other words, the bit representation of stored object type must be always the same
 and our application should be able to retrieve stored object from memory mapped file without
 serialization.</p><p>It is possible to ensure that a specific type satisfies above requirements. C++11 provides
 another type trait <code>std::is_standard_layout</code>. The standard mentions that it is useful for
@@ -86,36 +74,22 @@ possible to store on persistent memory: pointers.</p><h3 id=pointers>Pointers</h
 limits of types which were safe to snapshot, copy around and which we can binary-cast without
 thinking of fixed-layout. But what about pointers? How does one deal with them in our objects as
 one comes to grips with Persistent Memory Programming Model? Let’s consider the following
-simple code snippet:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>class A {
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span><span style=color:#f92672>*</span> vptr1;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span><span style=color:#f92672>*</span> vptr2;
+simple code snippet:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>A</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span><span style=color:#f92672>*</span> vptr1;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span><span style=color:#f92672>*</span> vptr2;
 </span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> a1 <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#f92672>/</span>_ variable on stack _<span style=color:#f92672>/</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span><span style=color:#f92672>*</span> a2 <span style=color:#f92672>=</span> mmap(...); <span style=color:#75715e>/* pointer to persistent variable */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> a1 <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#75715e>/* variable on stack */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#f92672>*</span>a2 <span style=color:#f92672>=</span> mmap(...); <span style=color:#75715e>/* pointer to persistent variable */</span>
 </span></span><span style=display:flex><span>a2 <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;
 </span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>transaction<span style=color:#f92672>::</span>run(pop, [<span style=color:#f92672>&amp;</span>](){
-</span></span><span style=display:flex><span>root<span style=color:#f92672>-&gt;</span>ptrA <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>A<span style=color:#f92672>&gt;</span>();
-</span></span><span style=display:flex><span>root<span style=color:#f92672>-&gt;</span>ptrA<span style=color:#f92672>-&gt;</span>vptr1 <span style=color:#f92672>=</span> <span style=color:#f92672>*</span>a1;
-</span></span><span style=display:flex><span>root<span style=color:#f92672>-&gt;</span>ptrA<span style=color:#f92672>-&gt;</span>vptr2 <span style=color:#f92672>=</span> a2;
-</span></span><span style=display:flex><span>};);</span></span></code></pre></td></tr></table></div></div><p>We are using libpmemobj++ transactional API. Class <code>A</code> does have two volatile pointers.
+</span></span><span style=display:flex><span>    root<span style=color:#f92672>-&gt;</span>ptrA <span style=color:#f92672>=</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>make_persistent<span style=color:#f92672>&lt;</span>A<span style=color:#f92672>&gt;</span>();
+</span></span><span style=display:flex><span>    root<span style=color:#f92672>-&gt;</span>ptrA<span style=color:#f92672>-&gt;</span>vptr1 <span style=color:#f92672>=</span> <span style=color:#f92672>*</span>a1;
+</span></span><span style=display:flex><span>    root<span style=color:#f92672>-&gt;</span>ptrA<span style=color:#f92672>-&gt;</span>vptr2 <span style=color:#f92672>=</span> a2;
+</span></span><span style=display:flex><span>};);
+</span></span></code></pre></div><p>We are using libpmemobj++ transactional API. Class <code>A</code> does have two volatile pointers.
 Our application is assigning (transactionally) two virtual addresses – one to integer residing on
 stack and the second one to integer residing on persistent medium. What will happen if an
 application crashes or exits after execution of the transaction and if we run application again?
@@ -138,22 +112,15 @@ undefined behavior. There is no golden mean and since C++ standard does not full
 persistent memory programming, we should make sure that copying <code>pmem::obj::persistent_ptr&lt;></code> is safe to use in our case.
 Now we are ready to summarize all standard and programming model related
 restrictions and move forward to the next subchapter.</p><h3 id=summary>Summary</h3><p>C++11 provides a couple of features for persistent memory programmer. The
-most accurate type traits are:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>template <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> std<span style=color:#f92672>::</span>is_pod;
-</span></span><span style=display:flex><span>template <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> std<span style=color:#f92672>::</span>is_trivial;
-</span></span><span style=display:flex><span>template <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> std<span style=color:#f92672>::</span>is_trivially_copyable;
-</span></span><span style=display:flex><span>template <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> std<span style=color:#f92672>::</span>is_standard_layout;</span></span></code></pre></td></tr></table></div></div><p>They are correlated with each other. The most general and restrictive is definition of POD type
+most accurate type traits are:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>std</span><span style=color:#f92672>::</span>is_pod;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>std</span><span style=color:#f92672>::</span>is_trivial;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>std</span><span style=color:#f92672>::</span>is_trivially_copyable;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>template</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>typename</span> T<span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>std</span><span style=color:#f92672>::</span>is_standard_layout;
+</span></span></code></pre></div><p>They are correlated with each other. The most general and restrictive is definition of POD type
 (however, <code>std::is_pod</code> will be deprecated in C++20):</p><p><img src=/images/posts/cpptraitsdiagram.png alt=diagram></p><p>As we already mentioned, persistent memory-resident class must satisfy requirements of:</p><ul><li><code>std::is_trivially_copyable</code></li><li><code>std::is_standard_layout</code></li></ul><p>Persistent memory programmer is free to use more restrictive type traits. If we want to use
 persistent pointers however, we cannot rely on type-traits and must be aware of all problems
 related to copying objects with <code>memcpy()</code> and layout representation of objects. For Persistent

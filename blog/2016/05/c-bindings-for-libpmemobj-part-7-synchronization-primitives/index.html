@@ -14,28 +14,15 @@ difference is that the <code>pmem::obj::mutex</code> has to be placed in persist
 within a libpmemobj pool. This is because the implementation needs to be able to
 reset the mutex the next time the pool is opened after a power failure/crash.
 In persistent memory, the mutex would not be reinitialized automatically in
-such case.</p><p>You can use the <code>pmem::obj::mutex</code> with standard wrapper classes like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex pmutex;
+such case.</p><p>You can use the <code>pmem::obj::mutex</code> with standard wrapper classes like:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex pmutex;
 </span></span><span style=display:flex><span>{
 </span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>lock_guard<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex<span style=color:#f92672>&gt;</span> lock(pmutex);
 </span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>unique_lock<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex<span style=color:#f92672>&gt;</span> lock(pmutex);</span></span></code></pre></td></tr></table></div></div><h3 id=shared-mutex-and-timed-mutex>Shared Mutex and Timed Mutex</h3><p>The <code>pmem::obj::shared_mutex</code> and <code>pmem::obj::timed_mutex</code> are also very similar
+</span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>unique_lock<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex<span style=color:#f92672>&gt;</span> lock(pmutex);
+</span></span></code></pre></div><h3 id=shared-mutex-and-timed-mutex>Shared Mutex and Timed Mutex</h3><p>The <code>pmem::obj::shared_mutex</code> and <code>pmem::obj::timed_mutex</code> are also very similar
 to their <code>std</code> counterparts. They also satisfy their respective <em>SharedMutex</em>
 and <em>TimedMutex</em> as well as the <em>StandardLayoutType</em> concepts. Their usage is
-also very straightforward:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>shared_mutex smutex;
+also very straightforward:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>shared_mutex smutex;
 </span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>timed_mutex tmutex;
 </span></span><span style=display:flex><span>{
 </span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>shared_lock<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>shared_mutex<span style=color:#f92672>&gt;</span> lock(smutex);
@@ -43,22 +30,17 @@ also very straightforward:</p><div class=highlight><div style=color:#f8f8f2;back
 </span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>unique_lock<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>shared_mutex<span style=color:#f92672>&gt;</span> lock(smutex);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>tmutex.try_lock_for(std<span style=color:#f92672>::</span>chrono<span style=color:#f92672>::</span>milliseconds(<span style=color:#ae81ff>100</span>));
-</span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>unique_lock<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>timed_mutex<span style=color:#f92672>&gt;</span> lock(tmutex);</span></span></code></pre></td></tr></table></div></div><p>The <code>pmem::obj::shared_mutex</code> and <code>pmem::obj::timed_mutex</code> are persistent
+</span></span><span style=display:flex><span>std<span style=color:#f92672>::</span>unique_lock<span style=color:#f92672>&lt;</span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>timed_mutex<span style=color:#f92672>&gt;</span> lock(tmutex);
+</span></span></code></pre></div><p>The <code>pmem::obj::shared_mutex</code> and <code>pmem::obj::timed_mutex</code> are persistent
 memory resident synchronization mechanisms.</p><h3 id=condition-variable>Condition Variable</h3><p>The <code>pmem::obj::condition_variable</code>, as you probably by now noticed, is pretty
 much the standard <code>std::condition_variable</code>, with the exception of it being
-persistent memory resident. The usage is also very similar:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex pmutex;
+persistent memory resident. The usage is also very similar:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>mutex pmutex;
 </span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>condition<span style=color:#f92672>*</span>variable cond;
 </span></span><span style=display:flex><span>pmutex.lock();
-</span></span><span style=display:flex><span>cond.wait(proot<span style=color:#f92672>-&gt;</span>pmutex, [<span style=color:#f92672>&amp;</span>]() { <span style=color:#75715e>/* check condition here \_/ });
-</span></span></span><span style=display:flex><span><span style=color:#75715e>// do some meaningful work here
-</span></span></span><span style=display:flex><span><span style=color:#75715e>pmutex.unlock();
-</span></span></span></code></pre></td></tr></table></div></div><p>With this we have ended the introduction to the core classes and functions of
+</span></span><span style=display:flex><span>cond.wait(proot<span style=color:#f92672>-&gt;</span>pmutex, [<span style=color:#f92672>&amp;</span>]() { <span style=color:#75715e>/* check condition here */</span> });
+</span></span><span style=display:flex><span><span style=color:#75715e>// do some meaningful work here
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>pmutex.unlock();
+</span></span></code></pre></div><p>With this we have ended the introduction to the core classes and functions of
 the C++ bindings to libpmemobj. If you ever find yourself in doubt about the
 usage of the C++ bindings or PMDK in general, don&rsquo;t hesitate to send us a
 message on our <a href=https://groups.google.com/forum/#!forum/pmem title="Pmem Google Group">Google Group</a>.</p><h6 id=this-entry-was-edited-on-2017-12-11-to-reflect-the-name-change-from-nvml-to-pmdkblog201712announcing-the-persistent-memory-development-kit>[This entry was edited on 2017-12-11 to reflect the name change from <a href=/blog/2017/12/announcing-the-persistent-memory-development-kit>NVML to PMDK</a>.]</h6><div class=clear></div><div class="si-share border-0 d-flex justify-content-between align-items-center"><span>Share this Post:</span><div id=share-buttons><div class="social-icon si-borderless si-facebook" title="Share this on Facebook" onclick='window.open("http://www.facebook.com/share.php?u=https://pmem.io/blog/2016/05/c-bindings-for-libpmemobj-part-7-synchronization-primitives/")'><i class=icon-facebook></i>

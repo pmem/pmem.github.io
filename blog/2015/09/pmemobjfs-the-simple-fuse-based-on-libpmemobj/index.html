@@ -8,121 +8,77 @@ to <a href=https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/pmem
 file for instructions on how to create a file system layout and mount it.</p><p><strong>NOTE:</strong> This is just an example implementation of file system in user space using
 the <strong>libpmemobj</strong> library and it is <strong>not</strong> considered to be <em>production quality</em>.
 <strong>Please do not use this file system to store your data you care about
-because it may be lost.</strong></p><h3 id=layout>Layout</h3><p>The definition of <strong>libpmemobj</strong> layout looks like this:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>uint8_t</span> objfs_block_t;
+because it may be lost.</strong></p><h3 id=layout>Layout</h3><p>The definition of <strong>libpmemobj</strong> layout looks like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>uint8_t</span> objfs_block_t;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>POBJ_LAYOUT_BEGIN(pmemobjfs);
-</span></span><span style=display:flex><span>POBJ_LAYOUT_ROOT(pmemobjfs, <span style=color:#66d9ef>struct</span> objfs_super);
-</span></span><span style=display:flex><span>POBJ_LAYOUT_TOID(pmemobjfs, <span style=color:#66d9ef>struct</span> objfs_inode);
-</span></span><span style=display:flex><span>POBJ_LAYOUT_TOID(pmemobjfs, <span style=color:#66d9ef>struct</span> objfs_dir_entry);
+</span></span><span style=display:flex><span>POBJ_LAYOUT_ROOT(pmemobjfs, <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_super</span>);
+</span></span><span style=display:flex><span>POBJ_LAYOUT_TOID(pmemobjfs, <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span>);
+</span></span><span style=display:flex><span>POBJ_LAYOUT_TOID(pmemobjfs, <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span>);
 </span></span><span style=display:flex><span>POBJ_LAYOUT_TOID(pmemobjfs, objfs_block_t);
 </span></span><span style=display:flex><span>POBJ_LAYOUT_TOID(pmemobjfs, <span style=color:#66d9ef>char</span>);
-</span></span><span style=display:flex><span>POBJ_LAYOUT_END(pmemobjfs);</span></span></code></pre></td></tr></table></div></div><p>It consists of a <em>root object</em> and four <em>typed OIDs</em>. The <code>objfs_block_t</code> is
+</span></span><span style=display:flex><span>POBJ_LAYOUT_END(pmemobjfs);
+</span></span></code></pre></div><p>It consists of a <em>root object</em> and four <em>typed OIDs</em>. The <code>objfs_block_t</code> is
 a typedef for the <code>uint8_t</code> type in order to bind an unique type number for
 this data structure. The <em>typed OID</em> for a <code>char</code> is required in order to
 allocate a fixed-length string from <strong>pmemobj</strong> pool. The rest of data
 structures are described in details in the following chapters.</p><h3 id=data-structures>Data structures</h3><h4 id=superblock>Superblock</h4><p>The main data structure of the <strong>pmemobjfs</strong> is the <code>struct objfs_super</code> which
-plays a role of a super-block in traditional file systems:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> objfs<span style=color:#f92672>*</span>super {
-</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> objfs_inode) root_inode; <span style=color:#75715e>/* root dir inode _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>TOID(struct tree_map) opened; /_ map of opened files / dirs _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint64_t block_size; /_ size of data block \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span></code></pre></td></tr></table></div></div><p>The <code>root_inode</code> field holds the inode object of the root directory which is
+plays a role of a super-block in traditional file systems:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_super</span> {
+</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span>) root_inode; <span style=color:#75715e>/* root dir inode */</span>
+</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>tree_map</span>) opened; <span style=color:#75715e>/* map of opened files/dirs */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>uint64_t</span> block_size; <span style=color:#75715e>/* size of data block */</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>The <code>root_inode</code> field holds the inode object of the root directory which is
 created during creation of the file system layout.</p><p>The <code>block_size</code> field holds the size of data block which the files content and
 directory entries are stored in.</p><p>The <code>opened</code> field is a <a href=/blog/2015/07/transactional-key-value-store-using-libpmemobj-diy/>tree map</a>
 of opened inodes. This map is required for handling the <strong>unlink</strong> operation on
 opened files.</p><h4 id=inode>Inode</h4><p>The next important data structure used by the <strong>pmemobjfs</strong> is the
-<code>struct objfs_inode</code> which represents a file system object.<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> objfs<span style=color:#f92672>*</span>inode {
-</span></span><span style=display:flex><span><span style=color:#66d9ef>uint64_t</span> size; <span style=color:#75715e>/* size of file _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint64_t flags; /_ file flags _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint64_t dev; /_ device info _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint32_t ctime; /_ time of last status change _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint32_t mtime; /_ time of last modification _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint32_t atime; /_ time of last access _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint32_t uid; /_ user ID _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint32_t gid; /_ group ID _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint32_t ref; /_ reference counter _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>union {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>struct objfs_file file; /_ file specific data _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>struct objfs_dir dir; /_ directory specific data _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>struct objfs_symlink symlink; /_ symlink specific data \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>} d;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span></code></pre></td></tr></table></div></div></p><p>It contains basic attributes of an object:</p><ul><li>file type and permissions flags,</li><li>major and minor device numbers,</li><li>time of last status change,</li><li>time of last modification,</li><li>time of last access (currently this field is not updated),</li><li>user ID of owner,</li><li>group ID of owner,</li><li>number of references.</li></ul><p>The inode may represent a file, directory or a symbolic link. It contains a
+<code>struct objfs_inode</code> which represents a file system object.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint64_t</span> size; <span style=color:#75715e>/* size of file */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint64_t</span> flags; <span style=color:#75715e>/* file flags */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint64_t</span> dev; <span style=color:#75715e>/* device info */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> ctime; <span style=color:#75715e>/* time of last status change */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> mtime; <span style=color:#75715e>/* time of last modification */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> atime; <span style=color:#75715e>/* time of last access */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> uid; <span style=color:#75715e>/* user ID */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> gid; <span style=color:#75715e>/* group ID */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> ref; <span style=color:#75715e>/* reference counter */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>union</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_file</span> file; <span style=color:#75715e>/* file specific data */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir</span> dir; <span style=color:#75715e>/* directory specific data */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_symlink</span> symlink; <span style=color:#75715e>/* symlink specific data */</span>
+</span></span><span style=display:flex><span>    } d;
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>It contains basic attributes of an object:</p><ul><li>file type and permissions flags,</li><li>major and minor device numbers,</li><li>time of last status change,</li><li>time of last modification,</li><li>time of last access (currently this field is not updated),</li><li>user ID of owner,</li><li>group ID of owner,</li><li>number of references.</li></ul><p>The inode may represent a file, directory or a symbolic link. It contains a
 separate structures for each inode type which holds essential information about
 the specific type of inode:</p><h5 id=directory>Directory:</h5><p>The data specific for directory object contains a doubly-linked list of
-directory entries.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> objfs<span style=color:#f92672>*</span>dir {
-</span></span><span style=display:flex><span>PDLL_HEAD(<span style=color:#66d9ef>struct</span> objfs_dir_entry) entries; <span style=color:#75715e>/* directory entries \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span></code></pre></td></tr></table></div></div><h5 id=file>File:</h5><p>The data specific for file object contains a
+directory entries.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs</span><span style=color:#f92672>*</span>dir {
+</span></span><span style=display:flex><span>    PDLL_HEAD(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span>) entries; <span style=color:#75715e>/* directory entries */</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h5 id=file>File:</h5><p>The data specific for file object contains a
 <a href=/blog/2015/07/transactional-key-value-store-using-libpmemobj-diy>tree map</a> of blocks. The map key consist
-of block number and the value contains a <strong>PMEMoid</strong> to the data block.</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> objfs<span style=color:#f92672>*</span>file {
-</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> tree_map) blocks; <span style=color:#75715e>/* blocks map \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span></code></pre></td></tr></table></div></div><h5 id=symbolic-link>Symbolic link:</h5><p>The data specific for symbolic link contains a length of link and the link data.<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> objfs<span style=color:#f92672>*</span>symlink {
-</span></span><span style=display:flex><span><span style=color:#66d9ef>uint64_t</span> len; <span style=color:#75715e>/* length of symbolic link _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>TOID(char) name; /_ symbolic link data \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span></code></pre></td></tr></table></div></div></p><h4 id=directory-entry>Directory entry</h4><p>The <code>struct objfs_dir_entry</code> represents a directory entry. It contains a
+of block number and the value contains a <strong>PMEMoid</strong> to the data block.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs</span><span style=color:#f92672>*</span>file {
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>tree_map</span>) blocks; <span style=color:#75715e>/* blocks map */</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h5 id=symbolic-link>Symbolic link:</h5><p>The data specific for symbolic link contains a length of link and the link data.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_symlink</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint64_t</span> len; <span style=color:#75715e>/* length of symbolic link */</span>
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>char</span>) name; <span style=color:#75715e>/* symbolic link data */</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h4 id=directory-entry>Directory entry</h4><p>The <code>struct objfs_dir_entry</code> represents a directory entry. It contains a
 persistent pointers to the neighbours, a pointer to corresponding inode and
-a name:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:#66d9ef>struct</span> objfs<span style=color:#f92672>*</span>dir_entry {
-</span></span><span style=display:flex><span>PDLL_ENTRY(<span style=color:#66d9ef>struct</span> objfs_dir_entry) pdll; <span style=color:#75715e>/* list entry _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>TOID(struct objfs_inode) inode; /_ pointer to inode _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>char name[]; /_ name \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>};
-</span></span></span></code></pre></td></tr></table></div></div><p>The maximum length of the name of a directory entry is forced by the block size
+a name:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span> {
+</span></span><span style=display:flex><span>    PDLL_ENTRY(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span>) pdll; <span style=color:#75715e>/* list entry */</span>
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span>) inode; <span style=color:#75715e>/* pointer to inode */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>char</span> name[]; <span style=color:#75715e>/* name */</span>
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>The maximum length of the name of a directory entry is forced by the block size
 specified when creating a file system. It is equal to
 <code>block_size - sizeof (struct objfs_dir_entry)</code>.</p><h3 id=operations>Operations</h3><p>All operations which modifies the file system structure are performed within a
 transaction, which protects the <strong>pmemobjfs</strong> layout from being broken if power
 failure occurred during any operation.</p><p>In this chapter I would like to describe in details some of the most important
 operations performed on the file system.</p><p><strong>NOTE:</strong> In current implementation it is recommended to mount the <strong>pmemobjfs</strong>
 with the <em>-s</em> option. In this case the <strong>FUSE</strong> works in single-threaded mode
-and there is no need for synchronization mechanisms.</p><h4 id=creating-file-system-layout>Creating file system layout</h4><p>To create the <strong>pmemobjfs</strong> layout you can use the <code>mkfs.pmemobjfs</code> command:</p><pre tabindex=0><code>mkfs.pmemobjfs -s &lt;size&gt; -b &lt;block size&gt; /mnt/pmem/pmemobjfs.obj
-</code></pre><p>By default it creates a file system layout with the minimal size required for
+and there is no need for synchronization mechanisms.</p><h4 id=creating-file-system-layout>Creating file system layout</h4><p>To create the <strong>pmemobjfs</strong> layout you can use the <code>mkfs.pmemobjfs</code> command:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkfs.pmemobjfs -s &lt;size&gt; -b &lt;block size&gt; /mnt/pmem/pmemobjfs.obj
+</span></span></code></pre></div><p>By default it creates a file system layout with the minimal size required for
 <strong>pmemobj</strong> pool and with block size equal to <code>512 - 64</code>. The default value for
 block size is chosen to such value in order to minimize the internal
 fragmentation of allocated blocks. We must keep in mind the fact that in current
@@ -132,58 +88,31 @@ to the internal layout of the <strong>pmemobj</strong> pool, it is not required 
 mind when creating the file system. An arbitrary value specified for the block
 size is valid and the <strong>pmemobjfs</strong> will work properly.</p><p>The file system layout is created within a transaction. The following listing
 shows the most important parts of the routing for creating the <strong>pmemobjfs</strong>
-layout:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>...
-</span></span><span style=display:flex><span>objfs<span style=color:#f92672>-&gt;</span>pop <span style=color:#f92672>=</span> pmemobj_create(fname,
-</span></span><span style=display:flex><span>POBJ_LAYOUT_NAME(pmemobjfs), size, mode);
+layout:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>...
+</span></span><span style=display:flex><span>objfs<span style=color:#f92672>-&gt;</span>pop <span style=color:#f92672>=</span> pmemobj_create(fname, POBJ_LAYOUT_NAME(pmemobjfs), size, mode);
 </span></span><span style=display:flex><span>...
-</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> objfs_super) super <span style=color:#f92672>=</span> POBJ_ROOT(objfs<span style=color:#f92672>-&gt;</span>pop, <span style=color:#66d9ef>struct</span> objfs_super);
+</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_super</span>) super <span style=color:#f92672>=</span> POBJ_ROOT(objfs<span style=color:#f92672>-&gt;</span>pop, <span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_super</span>);
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span>TX_ADD(super);
+</span></span><span style=display:flex><span>    TX_ADD(super);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e>/* create an opened files map */</span>
 </span></span><span style=display:flex><span>    tree_map_new(objfs<span style=color:#f92672>-&gt;</span>pop, <span style=color:#f92672>&amp;</span>D_RW(super)<span style=color:#f92672>-&gt;</span>opened);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e>/* create root inode, inherit uid and gid from current user */</span>
 </span></span><span style=display:flex><span>    D_RW(super)<span style=color:#f92672>-&gt;</span>root_inode <span style=color:#f92672>=</span>
-</span></span><span style=display:flex><span>    	pmemobjfs_new_dir(objfs, TOID_NULL(<span style=color:#66d9ef>struct</span> objfs_inode),
+</span></span><span style=display:flex><span>    	pmemobjfs_new_dir(objfs, TOID_NULL(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span>),
 </span></span><span style=display:flex><span>    			<span style=color:#e6db74>&#34;/&#34;</span>, root_flags, uid, gid);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    D_RW(super)<span style=color:#f92672>-&gt;</span>block_size <span style=color:#f92672>=</span> bsize;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} TX_ONABORT {
-</span></span><span style=display:flex><span>fprintf(stderr, <span style=color:#e6db74>&#34;error: creating pmemobjfs aborted</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
-</span></span><span style=display:flex><span>ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
+</span></span><span style=display:flex><span>    fprintf(stderr, <span style=color:#e6db74>&#34;error: creating pmemobjfs aborted</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>    ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
 </span></span><span style=display:flex><span>} TX_END
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>pmemobj_close(objfs<span style=color:#f92672>-&gt;</span>pop);
-</span></span><span style=display:flex><span>...</span></span></code></pre></td></tr></table></div></div><p>At the beginning the <strong>pmemobj</strong> pool is created with specified name of layout,
+</span></span></code></pre></div><p>At the beginning the <strong>pmemobj</strong> pool is created with specified name of layout,
 size and mode. Next the <em>root object</em> is allocated when calling the <code>POBJ_ROOT</code>
 macro for the first time. According to the documentation we can be sure the
 root object is zeroed. Next the <em>root object</em> is initialized within a
@@ -193,29 +122,12 @@ are performed within the transaction we can be sure that either the
 <em>root object</em> will be filled up entirely or won&rsquo;t be at all. At the very end the
 <strong>pmemobj</strong> pool is closed and as a result we have a <strong>pmemobjfs</strong> file system
 layout initialized.</p><h4 id=creating-new-directory>Creating new directory</h4><p>The following listing presents the most important operations performed when
-creating new directory on <strong>pmemobjfs</strong> file system:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>...
+creating new directory on <strong>pmemobjfs</strong> file system:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>...
 </span></span><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span>TOID(<span style=color:#66d9ef>struct</span> objfs_inode) new_inode <span style=color:#f92672>=</span>
-</span></span><span style=display:flex><span>pmemobjfs_new_dir(objfs, inode, name, flags, uid, gid);
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span>) new_inode <span style=color:#f92672>=</span> 
+</span></span><span style=display:flex><span>        pmemobjfs_new_dir(objfs, inode, name, flags, uid, gid);
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> objfs_dir_entry) entry <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span>) entry <span style=color:#f92672>=</span>
 </span></span><span style=display:flex><span>    	pmemobjfs_dir_entry_alloc(objfs, name, new_inode);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    pmemobjfs_add_dir_entry(objfs, inode, entry);
@@ -224,50 +136,33 @@ creating new directory on <strong>pmemobjfs</strong> file system:</p><div class=
 </span></span><span style=display:flex><span>    D_RW(inode)<span style=color:#f92672>-&gt;</span>mtime <span style=color:#f92672>=</span> time(NULL);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} TX_ONABORT {
-</span></span><span style=display:flex><span>ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
+</span></span><span style=display:flex><span>    ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
 </span></span><span style=display:flex><span>} TX_END
-</span></span><span style=display:flex><span>...</span></span></code></pre></td></tr></table></div></div><p>After beginning a new transaction the new directory is allocated and
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>After beginning a new transaction the new directory is allocated and
 initialized. After creating the inode with new directory, the
 <code>struct objfs_dir_entry</code> is allocated with the specified name and associated
 newly created inode. The new directory entry is then added to the current
-directory&rsquo;s doubly-linked list of entries and modification time is updated.</p><p>The <code>pmemobjfs_new_dir</code> function is presented on the following listing:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span>inode <span style=color:#f92672>=</span> pmemobjfs_inode_alloc(objfs, flags, uid, gid, <span style=color:#ae81ff>0</span>);
+directory&rsquo;s doubly-linked list of entries and modification time is updated.</p><p>The <code>pmemobjfs_new_dir</code> function is presented on the following listing:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
+</span></span><span style=display:flex><span>    inode <span style=color:#f92672>=</span> pmemobjfs_inode_alloc(objfs, flags, uid, gid, <span style=color:#ae81ff>0</span>);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    pmemobjfs_inode_init_dir(objfs, inode);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e>/* add . and .. to new directory */</span>
-</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> objfs_dir_entry) dot <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span>) dot <span style=color:#f92672>=</span>
 </span></span><span style=display:flex><span>    	pmemobjfs_dir_entry_alloc(objfs, <span style=color:#e6db74>&#34;.&#34;</span>, inode);
-</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> objfs_dir_entry) dotdot <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>    TOID(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_dir_entry</span>) dotdot <span style=color:#f92672>=</span>
 </span></span><span style=display:flex><span>    	pmemobjfs_dir_entry_alloc(objfs, <span style=color:#e6db74>&#34;..&#34;</span>, parent);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    pmemobjfs_add_dir_entry(objfs, inode, dot);
 </span></span><span style=display:flex><span>    pmemobjfs_add_dir_entry(objfs, inode, dotdot);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} TX_ONABORT {
-</span></span><span style=display:flex><span>inode <span style=color:#f92672>=</span> TOID_NULL(<span style=color:#66d9ef>struct</span> objfs_inode);
+</span></span><span style=display:flex><span>    inode <span style=color:#f92672>=</span> TOID_NULL(<span style=color:#66d9ef>struct</span> <span style=color:#a6e22e>objfs_inode</span>);
 </span></span><span style=display:flex><span>} TX_END
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>return</span> inode;</span></span></code></pre></td></tr></table></div></div><p>First of all the new inode is allocated with specified permissions and
+</span></span><span style=display:flex><span><span style=color:#66d9ef>return</span> inode;
+</span></span></code></pre></div><p>First of all the new inode is allocated with specified permissions and
 ownership and the directory specific data of inode is initialized.
 Next the current and parent directory entries are allocated and added to the
 newly created directory. Everything is done within a transaction. In this case
@@ -276,38 +171,15 @@ other transaction, but according to the <strong>libpmemobj</strong> documentatio
 outer transaction aborts all changes made within a nested transaction will be
 rolled back as well so we do not need to worry about committing the nested
 transaction before committing the outermost one.</p><h4 id=allocating-file-blocks>Allocating file blocks</h4><p>The next interesting operation is allocating the file blocks. The following
-listing shows how it is implemented:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TX<span style=color:#f92672>*</span><span style=color:#a6e22e>BEGIN</span>(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span><span style=color:#75715e>/* allocate blocks from requested range \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint64_t b_off = offset / objfs-&gt;block_size;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>uint64_t e_off = (offset + size) / objfs-&gt;block_size;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>for (uint64_t off = b_off; off &lt;= e_off; off += 1)
-</span></span></span><span style=display:flex><span><span style=color:#75715e>pmemobjfs_file_get_block_for_write(objfs, inode, off);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>    time_t t = time(NULL);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>    /* update modification time */</span>
+listing shows how it is implemented:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TX<span style=color:#f92672>*</span><span style=color:#a6e22e>BEGIN</span>(objfs<span style=color:#f92672>-&gt;</span>pop) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* allocate blocks from requested range */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint64_t</span> b_off <span style=color:#f92672>=</span> offset <span style=color:#f92672>/</span> objfs<span style=color:#f92672>-&gt;</span>block_size;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint64_t</span> e_off <span style=color:#f92672>=</span> (offset <span style=color:#f92672>+</span> size) <span style=color:#f92672>/</span> objfs<span style=color:#f92672>-&gt;</span>block_size;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>uint64_t</span> off <span style=color:#f92672>=</span> b_off; off <span style=color:#f92672>&lt;=</span> e_off; off <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        pmemobjfs_file_get_block_for_write(objfs, inode, off);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    time_t t <span style=color:#f92672>=</span> time(NULL);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* update modification time */</span>
 </span></span><span style=display:flex><span>    TX_ADD_FIELD(inode, mtime);
 </span></span><span style=display:flex><span>    D_RW(inode)<span style=color:#f92672>-&gt;</span>mtime <span style=color:#f92672>=</span> t;
 </span></span><span style=display:flex><span>
@@ -320,43 +192,31 @@ listing shows how it is implemented:</p><div class=highlight><div style=color:#f
 </span></span><span style=display:flex><span>    TX_ADD_FIELD(inode, size);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} TX_ONABORT {
-</span></span><span style=display:flex><span>ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
-</span></span><span style=display:flex><span>} TX_END</span></span></code></pre></td></tr></table></div></div><p>The most important function is <code>pmemobjfs_file_get_block_for_write</code> which
+</span></span><span style=display:flex><span>    ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
+</span></span><span style=display:flex><span>} TX_END
+</span></span></code></pre></div><p>The most important function is <code>pmemobjfs_file_get_block_for_write</code> which
 either allocates new block or returns previously allocated block. In the latter
 case the previously allocated block is added to the transaction&rsquo;s undo log in
 order to track all file&rsquo;s modifications. The following listing shows the
-implementation of this function:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TOID(objfs_block_t) block <span style=color:#f92672>=</span>
-</span></span><span style=display:flex><span>pmemobjfs_file_get_block(objfs, inode, offset);
+implementation of this function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TOID(objfs_block_t) block <span style=color:#f92672>=</span> pmemobjfs_file_get_block(objfs, inode, offset);
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (TOID_IS_NULL(block)) {
-</span></span><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span>block <span style=color:#f92672>=</span> TX_ALLOC(objfs_block_t,
-</span></span><span style=display:flex><span>objfs<span style=color:#f92672>-&gt;</span>block_size);
-</span></span><span style=display:flex><span>tree_map_insert(objfs<span style=color:#f92672>-&gt;</span>pop, D_RW(inode)<span style=color:#f92672>-&gt;</span>file.blocks,
-</span></span><span style=display:flex><span>GET_KEY(offset), block.oid);
-</span></span><span style=display:flex><span>} TX_ONABORT {
-</span></span><span style=display:flex><span>block <span style=color:#f92672>=</span> TOID_NULL(objfs_block_t);
-</span></span><span style=display:flex><span>} TX_END
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
+</span></span><span style=display:flex><span>        block <span style=color:#f92672>=</span> TX_ALLOC(objfs_block_t,
+</span></span><span style=display:flex><span>        objfs<span style=color:#f92672>-&gt;</span>block_size);
+</span></span><span style=display:flex><span>        tree_map_insert(objfs<span style=color:#f92672>-&gt;</span>pop, D_RW(inode)<span style=color:#f92672>-&gt;</span>file.blocks,
+</span></span><span style=display:flex><span>        GET_KEY(offset), block.oid);
+</span></span><span style=display:flex><span>    } TX_ONABORT {
+</span></span><span style=display:flex><span>        block <span style=color:#f92672>=</span> TOID_NULL(objfs_block_t);
+</span></span><span style=display:flex><span>    } TX_END
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} <span style=color:#66d9ef>else</span> {
-</span></span><span style=display:flex><span>TX_ADD(block);
+</span></span><span style=display:flex><span>    TX_ADD(block);
 </span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>return</span> block;</span></span></code></pre></td></tr></table></div></div><p>The <code>pmemobjfs_file_get_block</code> function returns a block at given offset or
+</span></span><span style=display:flex><span><span style=color:#66d9ef>return</span> block;
+</span></span></code></pre></div><p>The <code>pmemobjfs_file_get_block</code> function returns a block at given offset or
 returns <code>OID_NULL</code> if the block is missing.
 The <code>pmemobjfs_file_get_block_for_write</code> and <code>pmemobjfs_file_get_block</code>
 functions are used in <strong>write</strong> and <strong>read</strong> operations respectively when operating
@@ -365,61 +225,36 @@ the <strong>pmemobjfs</strong>. The first one is the inode&rsquo;s reference cou
 increased each time the given inode is referenced by other data structure.
 The inode is freed when the reference counter is equal to zero. The functions
 which operates on inode&rsquo;s reference counter are <code>pmemobjfs_inode_get</code> and
-<code>pmemobjfs_inode_put</code>.</p><p>The <strong>unlink</strong> operation is really simple:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span>pmemobjfs_remove_dir_entry(objfs, inode, entry);
+<code>pmemobjfs_inode_put</code>.</p><p>The <strong>unlink</strong> operation is really simple:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
+</span></span><span style=display:flex><span>    pmemobjfs_remove_dir_entry(objfs, inode, entry);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    TX_ADD_FIELD(inode, size);
 </span></span><span style=display:flex><span>    D_RW(inode)<span style=color:#f92672>-&gt;</span>size<span style=color:#f92672>--</span>;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>} TX_ONABORT {
-</span></span><span style=display:flex><span>ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
-</span></span><span style=display:flex><span>} TX_END</span></span></code></pre></td></tr></table></div></div><p>All the work is performed by the <code>pmemobjfs_remove_dir_entry</code> function:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span>pmemobjfs_inode_put(objfs, D_RO(entry)<span style=color:#f92672>-&gt;</span>inode);
+</span></span><span style=display:flex><span>    ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
+</span></span><span style=display:flex><span>} TX_END
+</span></span></code></pre></div><p>All the work is performed by the <code>pmemobjfs_remove_dir_entry</code> function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
+</span></span><span style=display:flex><span>    pmemobjfs_inode_put(objfs, D_RO(entry)<span style=color:#f92672>-&gt;</span>inode);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    PDLL_REMOVE(D_RW(inode)<span style=color:#f92672>-&gt;</span>dir.entries, entry, pdll);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    pmemobjfs_dir_entry_free(objfs, entry);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>} TX_END</span></span></code></pre></td></tr></table></div></div><p>The reference counter is decreased and the directory entry is removed from
+</span></span><span style=display:flex><span>} TX_END
+</span></span></code></pre></div><p>The reference counter is decreased and the directory entry is removed from
 the doubly-linked list of current directory and freed. The inode is freed if the
 reference counter becomes zero after calling the <code>pmemobjfs_inode_put</code> function.</p><p>In case of unlinking an opened file the inode will not be freed immediately
 because the <em>open</em> operation increases the inode&rsquo;s reference counter and
-adds the inode to the <em>tree map</em> of opened inodes:</p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>TX<span style=color:#f92672>*</span><span style=color:#a6e22e>BEGIN</span>(objfs<span style=color:#f92672>-&gt;</span>pop) {
-</span></span><span style=display:flex><span><span style=color:#75715e>/* insert inode to opened inodes map _/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>tree_map_insert(objfs-&gt;pop, D_RW(super)-&gt;opened,
-</span></span></span><span style=display:flex><span><span style=color:#75715e>inode.oid.off, inode.oid);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>/_ hold inode \_/
-</span></span></span><span style=display:flex><span><span style=color:#75715e>pmemobjfs_inode_get(objfs, inode);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>} TX_ONABORT {
-</span></span></span><span style=display:flex><span><span style=color:#75715e>ret = (-ECANCELED);
-</span></span></span><span style=display:flex><span><span style=color:#75715e>} TX_END
-</span></span></span></code></pre></td></tr></table></div></div><p>Using those two mechanism it is really simple to implement the <strong>unlink</strong>
+adds the inode to the <em>tree map</em> of opened inodes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span>TX_BEGIN(objfs<span style=color:#f92672>-&gt;</span>pop) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* insert inode to opened inodes map */</span>
+</span></span><span style=display:flex><span>    tree_map_insert(objfs<span style=color:#f92672>-&gt;</span>pop, D_RW(super)<span style=color:#f92672>-&gt;</span>opened,
+</span></span><span style=display:flex><span>    inode.oid.off, inode.oid);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* hold inode */</span>
+</span></span><span style=display:flex><span>    pmemobjfs_inode_get(objfs, inode);
+</span></span><span style=display:flex><span>} TX_ONABORT {
+</span></span><span style=display:flex><span>    ret <span style=color:#f92672>=</span> (<span style=color:#f92672>-</span>ECANCELED);
+</span></span><span style=display:flex><span>} TX_END
+</span></span></code></pre></div><p>Using those two mechanism it is really simple to implement the <strong>unlink</strong>
 operations with respect to opened files or directories and creating hard links.</p><p>Please note that hard links are not implemented currently due to some problems
 with the <em>FUSE</em> kernel module which cause the appropriate callback function
 is not called.</p><h3 id=transactions>Transactions</h3><p>The <strong>pmemobjfs</strong> provides a feature of creating transactions. The current
@@ -427,9 +262,10 @@ implementation is limited to creating a single transaction at a time for the
 whole file system, but this feature could be extended to more transactions, for
 specified directories or files. The transaction is controlled via the ioctl
 calls. For simplicity there have been developed three simple commands which do
-the required work:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>pmemobjfs.tx_begin
+the required work:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pmemobjfs.tx_begin
 </span></span><span style=display:flex><span>pmemobjfs.tx_abort
-</span></span><span style=display:flex><span>pmemobjfs.tx_end</span></span></code></pre></div><p>For the above commands the path to the <strong>pmemobjfs</strong> mount point or any other
+</span></span><span style=display:flex><span>pmemobjfs.tx_end
+</span></span></code></pre></div><p>For the above commands the path to the <strong>pmemobjfs</strong> mount point or any other
 directory must be given. After beginning the transaction all modifications
 performed on the file system files, directories or links are tracked by the
 <strong>libpmemobj</strong> transactions. It tracks all changes of attributes and data.
@@ -441,17 +277,18 @@ error when allocating file block.</p><p><strong>NOTE:</strong> Aborting the tran
 the file system may lead to undefined behavior. For example if a new file
 was created within a transaction and the transaction is aborted while some
 other process is writing to the file leads to undefined behavior.</p><h3 id=performance-results>Performance results</h3><p>In this section I would like to present some performance tests results executed
-using the <strong>fio</strong> utility with the following configuration file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-INI data-lang=INI><span style=display:flex><span><span style=color:#66d9ef>[job1]</span>
+using the <strong>fio</strong> utility with the following configuration file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#66d9ef>[job1]</span>
 </span></span><span style=display:flex><span><span style=color:#a6e22e>ioengine</span><span style=color:#f92672>=</span><span style=color:#e6db74>sync</span>
 </span></span><span style=display:flex><span><span style=color:#a6e22e>runtime</span><span style=color:#f92672>=</span><span style=color:#e6db74>60</span>
 </span></span><span style=display:flex><span><span style=color:#a6e22e>time_based</span><span style=color:#f92672>=</span><span style=color:#e6db74>1</span>
 </span></span><span style=display:flex><span><span style=color:#a6e22e>filesize</span><span style=color:#f92672>=</span><span style=color:#e6db74>128M</span>
 </span></span><span style=display:flex><span><span style=color:#a6e22e>bs</span><span style=color:#f92672>=</span><span style=color:#e6db74>448</span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>rw</span><span style=color:#f92672>=</span><span style=color:#e6db74>randrw</span></span></span></code></pre></div><p>The block size value has been chosen in order to minimize internal
+</span></span><span style=display:flex><span><span style=color:#a6e22e>rw</span><span style=color:#f92672>=</span><span style=color:#e6db74>randrw</span>
+</span></span></code></pre></div><p>The block size value has been chosen in order to minimize internal
 fragmentation on <strong>pmemobjfs</strong> file system.</p><p>The tests were run on <strong>Fedora 22</strong> distribution, kernel version 4.2.0
 with <strong>DAX</strong> support and on the <strong>pmem</strong> block device.</p><p>The tests were run on the following file systems:</p><ul><li>ext4 + dax</li><li>fusexmp_fh + ext4 + dax</li><li>pmemobjfs</li><li>pmemobjfs (NTB)</li></ul><p>The <em>pmemobjfs (NTB)</em> is a <strong>pmemobjfs</strong> version without tracking file blocks
-(PMEMOBJFS<em>TRACK_BLOCKS=0).
-The _fusexmp_fh</em> is a file system which redirects all operations to the
+(PMEMOBJFS_TRACK_BLOCKS=0).
+The <strong>fusexmp_fh</strong> is a file system which redirects all operations to the
 root file system. It is available in the <a href=https://sourceforge.net/projects/fuse/>FUSE</a>
 examples.</p><p>The results are presented in the following table:</p><table><thead><tr><th>FS</th><th>READ BW [KB/s]</th><th>WRITE BW [KB/s]</th></tr></thead><tbody><tr><td>ext4 + dax</td><td>232030</td><td>231333</td></tr><tr><td>fusexmp_fh + ext4 + dax</td><td>28687</td><td>28602</td></tr><tr><td>pmemobjfs</td><td>29120</td><td>29034</td></tr><tr><td>pmemobjfs (NTB)</td><td>30112</td><td>30023</td></tr></tbody></table><p>The results shows quite huge overhead from the <strong>FUSE</strong> itself, but it shows
 that <strong>pmemobjfs</strong> has slightly better performance than the <strong>fusexmp_fh</strong>

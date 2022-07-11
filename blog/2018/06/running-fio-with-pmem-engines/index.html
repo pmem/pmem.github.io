@@ -14,15 +14,18 @@ execution. First step is to configure a namespace (emulated pmem is delivered
 already as a namespace). For this step you can use command <code>ndctl create-namespace</code>. There are two main options to configure namespace in our
 case, either you choose mode <code>fsdax</code> or <code>devdax</code>. Namespace configured with
 <strong>fsdax</strong> is a block device with support of dax operations. It can host a
-dax-capable file system (e.g. ext4 or xfs) and should be configured like:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ndctl create-namespace --type<span style=color:#f92672>=</span>pmem --mode<span style=color:#f92672>=</span>fsdax --region<span style=color:#f92672>=</span>X <span style=color:#f92672>[</span>--align<span style=color:#f92672>=</span>4k<span style=color:#f92672>]</span>
+dax-capable file system (e.g. ext4 or xfs) and should be configured like:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ndctl create-namespace --type<span style=color:#f92672>=</span>pmem --mode<span style=color:#f92672>=</span>fsdax --region<span style=color:#f92672>=</span>X <span style=color:#f92672>[</span>--align<span style=color:#f92672>=</span>4k<span style=color:#f92672>]</span>
 </span></span><span style=display:flex><span>mkfs.ext4 /dev/pmemX
 </span></span><span style=display:flex><span>mkdir /mnt/pmem
-</span></span><span style=display:flex><span>mount /dev/pmemX /mnt/pmem -o dax</span></span></code></pre></div>In all cases regions should be created and maintained using administrative tool
+</span></span><span style=display:flex><span>mount /dev/pmemX /mnt/pmem -o dax
+</span></span></code></pre></div><p>In all cases regions should be created and maintained using administrative tool
 specific for your platform. Optional parameter <strong>align</strong> can be used to change
 alignment, while default for both mentioned modes is 2M.</p><p>Namespace with <strong>devdax</strong> mode is a character device and is a raw access
 analogue of filesystem-dax. Configuration is simpler, because there&rsquo;s no need
-for file system preparation:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ndctl create-namespace --type<span style=color:#f92672>=</span>pmem --mode<span style=color:#f92672>=</span>devdax --region<span style=color:#f92672>=</span>X <span style=color:#f92672>[</span>--align<span style=color:#f92672>=</span>4k<span style=color:#f92672>]</span></span></span></code></pre></div></p><p>To sum up, when you execute the following commands:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ls /mnt/pmem
-</span></span><span style=display:flex><span>ls /dev/dax<span style=color:#ae81ff>\*</span></span></span></code></pre></div>You should see mounted file system or dev-dax device available to use.</p><h3 id=fio>FIO</h3><p>Installation of FIO is pretty straightforward and is described on <a href=https://github.com/axboe/fio>its
+for file system preparation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ndctl create-namespace --type<span style=color:#f92672>=</span>pmem --mode<span style=color:#f92672>=</span>devdax --region<span style=color:#f92672>=</span>X <span style=color:#f92672>[</span>--align<span style=color:#f92672>=</span>4k<span style=color:#f92672>]</span>
+</span></span></code></pre></div><p>To sum up, when you execute the following commands:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ls /mnt/pmem
+</span></span><span style=display:flex><span>ls /dev/dax<span style=color:#ae81ff>\*</span>
+</span></span></code></pre></div><p>You should see mounted file system or dev-dax device available to use.</p><h3 id=fio>FIO</h3><p>Installation of FIO is pretty straightforward and is described on <a href=https://github.com/axboe/fio>its
 GitHub page</a>. Execution is also not complicated, but it
 requires preparation of the actual benchmark workload (workload is a set
 of options describing how FIO will generate the traffic for
@@ -54,9 +57,10 @@ part over and over (using different threads on the same space) it ends up not
 reading from the device.</p><p><strong>pmemblk</strong></p><p>This engine is using libpmemblk library. Results delivered by this engine will
 not show you the best performance of your hardware, only what this specific
 library is capable of. While using this engine, <code>blocksize</code> and
-<code>size</code> of a file are given as part of <code>filename</code> option, like here:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>filename<span style=color:#f92672>=</span>/mnt/pmem6/testjob,512,1024000
+<code>size</code> of a file are given as part of <code>filename</code> option, like here:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>filename<span style=color:#f92672>=</span>/mnt/pmem6/testjob,512,1024000
 </span></span><span style=display:flex><span><span style=color:#75715e>#size=1024000M</span>
-</span></span><span style=display:flex><span><span style=color:#75715e>#bs=512</span></span></span></code></pre></div></p><p>This is a bit different approach, comparing with other engines which use
+</span></span><span style=display:flex><span><span style=color:#75715e>#bs=512</span>
+</span></span></code></pre></div><p>This is a bit different approach, comparing with other engines which use
 parameter &ldquo;bs&rdquo; and &ldquo;size&rdquo; (see commented part above). Full example workload
 doing traffic of sequential reads for pmemblk can be found <a href=https://gist.github.com/lukaszstolarczuk/b97f2650a29233e7a8aa0dee26892339>here</a>.</p><p><strong>mmap</strong></p><p>It&rsquo;s the most &ldquo;basic&rdquo; of mentioned engines, because its purpose is just to read
 from/write to a memory mapped region. It can be used with pmem, but is not
@@ -64,7 +68,8 @@ tailor-made. It generates traffic doing memcpy to/from memory region. Difference
 between this engine and <code>libpmem</code> is that it doesn&rsquo;t use PMDK library and hence
 doesn&rsquo;t take advantages of functions specific for writing to persistent memory.
 Again, full example working workload is available: <a href=https://gist.github.com/lukaszstolarczuk/939a1241485d51ec7947ad9caf26d00b>MmapSeqR.fio</a></p><h3 id=execution-and-results>Execution and results</h3><p>Command to run FIO is: <code>fio [options] [jobfile] ...</code>.</p><p>Since we use workloads defined in a file (as opposed to specifying parameters
-in command line), we execute FIO with command like:</p><p><code>numactl -N 0 fio --output=my_workload.json --output-format=json my_workload.fio</code></p><p><a href=https://linux.die.net/man/8/numactl>numactl command</a> guarantees that processes are pinned to selected
+in command line), we execute FIO with command like:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>numactl -N <span style=color:#ae81ff>0</span> fio --output<span style=color:#f92672>=</span>my_workload.json --output-format<span style=color:#f92672>=</span>json my_workload.fio
+</span></span></code></pre></div><p><a href=https://linux.die.net/man/8/numactl>numactl command</a> guarantees that processes are pinned to selected
 numa node. The same can also be achieved by assigning CPU mask for FIO using
 option <code>cpus_allowed</code>. We chose JSON format to save our results in
 it, for more convenient automatic parsing. Last parameter is our input file.</p><p>In the resulting file (here called my_workload.json) we look for a list
