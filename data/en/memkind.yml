@@ -31,6 +31,13 @@ binaries:
     list_item1:
       content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for misc OSes</a>"
 
+################################# Blog entries #################################
+blog_entries:
+  enable: true
+  title: "Blog entries"
+  content: Blog posts related to memkind can be found using <a href=\"/blogs/memkind/\">dedicated blog tag</a>.
+
+
 ################################# Announcements #################################
 announcements:
   enable: true
