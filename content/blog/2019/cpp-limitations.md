@@ -99,20 +99,19 @@ or the event of power loss occurs, the data is being copied again from undo log 
 Consider a definition of the following C++ object and think about the consequences
 of memcpying it:
 
-{{< highlight C "linenos=table" >}}
+```c++
 class nonTriviallyCopyable {
 private:
-int\* i;
+    int* i;
 
-        public:
-        nonTriviallyCopyable (const nonTriviallyCopyable& from)
-        {
-                /* perform non-trivial copying routine */
-                i = new(int(*from.i));
-        }
-
+public:
+    nonTriviallyCopyable (const nonTriviallyCopyable& from)
+    {
+        /* perform non-trivial copying routine */
+        i = new(int(*from.i));
+    }
 };
-{{< /highlight >}}
+```
 
 Deep and shallow copying is the simplest example. The gist of the problem is that by
 copying the data manually, we may break the inherent behavior of the object which may rely on
@@ -171,9 +170,9 @@ If we want to store objects on persistent memory (memory mapped files – to be 
 and to follow SNIA NVM programming model), we must ensure that following casting will be
 always valid:
 
-{{< highlight C "linenos=table" >}}
+```c++
 someType A = _reinterpret_cast<someType_>(mmap(...));
-{{< /highlight >}}
+```
 
 In other words, the bit representation of stored object type must be always the same
 and our application should be able to retrieve stored object from memory mapped file without
@@ -223,23 +222,23 @@ thinking of fixed-layout. But what about pointers? How does one deal with them i
 one comes to grips with Persistent Memory Programming Model? Let’s consider the following
 simple code snippet:
 
-{{< highlight C "linenos=table" >}}
+```c++
 class A {
-int* vptr1;
-int* vptr2;
+    int* vptr1;
+    int* vptr2;
 }
 
 ...
 
-int a1 = 1; /_ variable on stack _/
-int* a2 = mmap(...); /* pointer to persistent variable */
+int a1 = 1; /* variable on stack */
+int *a2 = mmap(...); /* pointer to persistent variable */
 a2 = 2;
 pmem::obj::transaction::run(pop, [&](){
-root->ptrA = pmem::obj::make_persistent<A>();
-root->ptrA->vptr1 = *a1;
-root->ptrA->vptr2 = a2;
+    root->ptrA = pmem::obj::make_persistent<A>();
+    root->ptrA->vptr1 = *a1;
+    root->ptrA->vptr2 = a2;
 };);
-{{< /highlight >}}
+```
 
 We are using libpmemobj++ transactional API. Class `A` does have two volatile pointers.
 Our application is assigning (transactionally) two virtual addresses – one to integer residing on
@@ -272,7 +271,7 @@ restrictions and move forward to the next subchapter.
 C++11 provides a couple of features for persistent memory programmer. The
 most accurate type traits are:
 
-{{< highlight C "linenos=table" >}}
+```c++
 template <typename T>
 struct std::is_pod;
 template <typename T>
@@ -281,7 +280,7 @@ template <typename T>
 struct std::is_trivially_copyable;
 template <typename T>
 struct std::is_standard_layout;
-{{< /highlight >}}
+```
 
 They are correlated with each other. The most general and restrictive is definition of POD type
 (however, `std::is_pod` will be deprecated in C++20):

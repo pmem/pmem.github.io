@@ -91,18 +91,18 @@ only `push_back` operation is supported. No inserts at the beginning
 or in the middle. This is all we need for the undo log and the object store.
 Here's the important piece of code:
 
-{{< highlight C "linenos=table" >}}
-n = \_\_sync*fetch_and_add(&v->next, 1); /* v->next is volatile! \_/
+```c++
+n = __sync_fetch_and_add(&v->next, 1); /* v->next is volatile! */
 uint64_t tab;
 uint64_t tab_idx;
 vector_tab_from_idx(v, n, &tab, &tab_idx);
 
 while (v->entries[tab] == 0) {
 if (tab_idx == 0)
-pmalloc(&v->entries[tab], ...);
-sched_yield();
+    pmalloc(&v->entries[tab], ...);
+    sched_yield();
 }
-{{< /highlight >}}
+```
 
 Initially the `v->entries[]` array is zeroed. An insert operation grabs a next
 index `n` in a thread-safe manner. The `tab` variable determines in which

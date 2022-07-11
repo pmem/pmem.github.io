@@ -47,11 +47,11 @@ Probably the most common usage of the allocating functions is within pmemobj
 transactions. The easiest way to allocate an object into a `persistent_ptr` is
 by doing the following:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] { pentry = make_persistent<entry>(); });
-{{< /highlight >}}
+```
 
 Don't be taken aback by the strange transaction syntax. I will clarify
 everything in one of the next blog posts. The second line just starts
@@ -59,17 +59,17 @@ a transaction and allocates one `entry` object. The more vigilant readers might
 point out, that using the default constructor is arguably the most effective
 way of creating objects. I could easily imagine the following constructor:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 entry(int a, double b);
-{{< /highlight >}}
+```
 
 But this is not an issue, you can just type:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] { pentry = make_persistent<entry>(1, 2.0); });
-{{< /highlight >}}
+```
 
 And it forwards the parameters to the appropriate constructor of the `entry`
 class.
@@ -77,11 +77,11 @@ class.
 Say you need an array of objects of type `entry`, or a 2-D array of said
 objects. This is also possible to do using `make_persistent`:
 
-{{< highlight cpp "linenos=table" >}}
-auto a = make*persistent<entry[]>(3); /* allocate an array of three entries _/
-auto b = make_persistent<entry[3]>(); /_ allocate an array of three entries _/
-auto c = make_persistent<entry[3][2]>(); /_ allocate a 3 by 2 array entries \_/
-{{< /highlight >}}
+```c++
+auto a = make_persistent<entry[]>(3);     /* allocate an array of three entries */
+auto b = make_persistent<entry[3]>();     /* allocate an array of three entries */
+auto c = make_persistent<entry[3][2]>();  /* allocate a 3 by 2 array entries */
+```
 
 Unfortunately the constructor arguments passing does not work with arrays of
 objects, so the object has to be default constructible.
@@ -89,12 +89,12 @@ objects, so the object has to be default constructible.
 When you are done with a persistent object and would like for it to be
 deallocated, you need to call the complementary `delete_persistent` function.
 
-{{< highlight cpp "linenos=table" >}}
-delete*persistent<entry>(pentry); /* delete persistent object _/
-delete_persistent<entry[]>(a, 3); /_ delete persistent array 'a' _/
-delete_persistent<entry[3]>(b); /_ delete persistent array 'b' _/
-delete_persistent<entry[3][2]>(c); /_ delete persistent array 'c' \_/
-{{< /highlight >}}
+```c++
+delete*persistent<entry>(pentry); /* delete persistent object */
+delete_persistent<entry[]>(a, 3); /* delete persistent array 'a' */
+delete_persistent<entry[3]>(b);   /* delete persistent array 'b' */
+delete_persistent<entry[3][2]>(c); /* delete persistent array 'c' */
+```
 
 In case of transactional object destruction, the libpmemobj library calls the object's
 destructor. This is however not the case with atomic allocations, where there
@@ -112,31 +112,31 @@ transaction for that. You can do that with the C API and now, of course, the
 same facility is available in C++. For that you use the `make_persistent_atomic`
 function template.
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 make_persistent_atomic<entry>(pop, pentry);
-{{< /highlight >}}
+```
 
 As with transactional allocations, their atomic counterparts support both
 parameter passing and array allocations.
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 persistent_ptr<entry[]> pentry_array;
 make_persistent_atomic<entry>(pop, pentry, 1, 2.0);
 make_persistent_atomic<entry[]>(pop, pentry_array, 3);
-{{< /highlight >}}
+```
 
 Atomic deletions of persistent pointers is done through the
 `delete_persistent_atomic` function template, much like the transactional
 versions.
 
-{{< highlight cpp "linenos=table" >}}
-delete*persistent_atomic<entry>(pentry); /* delete persistent object _/
-delete_persistent_atomic<entry[]>(pentry_array, 3); /_ delete persistent array 'a' \_/
-{{< /highlight >}}
+```c++
+delete*persistent_atomic<entry>(pentry); /* delete persistent object */
+delete_persistent_atomic<entry[]>(pentry_array, 3); /* delete persistent array 'a' */
+```
 
 _An atomic allocation/deletion guarantees an object allocation and
 initialization/deletion that is atomic with respect to persistence_. This is
@@ -147,13 +147,13 @@ important enough to have a separate section to explain.
 This is the thing I absolutely have to convey clearly, **_atomic allocations and
 transactions do NOT mix_**. So something like the following is not a good idea:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool*base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] {
-make_persistent_atomic<entry>(pop, pentry); /* do NOT do this \_/
+  make_persistent_atomic<entry>(pop, pentry); /* do NOT do this */
 });
-{{< /highlight >}}
+```
 
 This might look like a small issue at first, but it could baffle you once you
 encounter a transaction abort. Everything gets rolled-back, except the
@@ -171,19 +171,19 @@ To conclude:
 - The transactional versions can only be used within transactions. If used
   outside of transaction scope, an exception is thrown.
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 auto pop = pool*base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] {
-make_persistent_atomic<entry>(pop, pentry); /* legal but dangerous _/
-auto b = make_persistent<entry>(); /_ OK _/
-delete_persistent<entry>(b); /_ call ~entry() and free memory \_/
+make_persistent_atomic<entry>(pop, pentry); /* legal but dangerous */
+auto b = make_persistent<entry>(); /* OK */
+delete_persistent<entry>(b); /* call ~entry() and free memory */
 });
 
-make*persistent_atomic<entry>(pop, pentry); /* OK _/
-auto b = make_persistent<entry>(); /_ throw an exception _/
-delete_persistent_atomic<entry>(pop, pentry); /_ free memory, no call to ~entry() \_/
-{{< /highlight >}}
+make_persistent_atomic<entry>(pop, pentry); /* OK */
+auto b = make_persistent<entry>(); /* throw an exception */
+delete_persistent_atomic<entry>(pop, pentry); /* free memory, no call to ~entry() */
+```
 
 This concludes the introduction of atomic and transactional allocations. If you
 ever feel like looking at more code, try our [examples][f8602ec1] or

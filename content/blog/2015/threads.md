@@ -40,14 +40,14 @@ All of the pmemobj library **functions** are thread-safe, with following two exc
 
 If you need to put a lock inside a structure that resides on persistent memory, our library provides pthread-like API for that purpose. There's no need to initialize those locks or to verify their state. When an application crashes they are all automatically unlocked. As for the reason why something like this is needed, consider following code:
 
-{{< highlight C "linenos=table" >}}
+```c++
 struct foo {
-pthread_mutex_t lock;
-int bar;
+    pthread_mutex_t lock;
+    int bar;
 };
 
 int fetch_and_add(TOID(struct foo) foo, int val) {
-pthread_mutex_lock(&D_RW(foo)->lock);
+    pthread_mutex_lock(&D_RW(foo)->lock);
 
     int ret = D_RO(foo)->bar;
     D_RW(foo)->bar += val;
@@ -55,20 +55,19 @@ pthread_mutex_lock(&D_RW(foo)->lock);
     pthread_mutex_unlock(&D_RW(foo)->lock);
 
     return ret;
-
 }
-{{< /highlight >}}
+```
 
 If a crash happens, well anywhere in `fetch_and_add` really, the `pthread_mutex_t` structure will contain invalid values and the application will most likely segfault when an attempt to use it is made. The solution to that would be to call `pthread_mutex_init` on every single pmem-resident lock. Manually. Here's the proper way to do it:
 
-{{< highlight C "linenos=table" >}}
+```c++
 struct foo {
-PMEMmutex lock;
-int bar;
+    PMEMmutex lock;
+    int bar;
 };
 
 int fetch_and_add(TOID(struct foo) foo, int val) {
-pmemobj_mutex_lock(pop, &D_RW(foo)->lock);
+    pmemobj_mutex_lock(pop, &D_RW(foo)->lock);
 
     int ret = D_RO(foo)->bar;
     D_RW(foo)->bar += val;
@@ -76,9 +75,8 @@ pmemobj_mutex_lock(pop, &D_RW(foo)->lock);
     pmemobj_mutex_unlock(pop, &D_RW(foo)->lock);
 
     return ret;
-
 }
-{{< /highlight >}}
+```
 
 ### Transactions
 

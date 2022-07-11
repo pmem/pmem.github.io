@@ -43,7 +43,7 @@ In short, we did this to:
 In order to understand what exactly and why we did that, let's review the old
 API. In PMDK 1.4 we had these functions:
 
-{{< highlight C >}}
+```c++
 void *pmem_memmove_persist(void *pmemdest, const void *src, size_t len);
 void *pmem_memcpy_persist (void *pmemdest, const void *src, size_t len);
 void *pmem_memset_persist (void *pmemdest, int c, size_t len);
@@ -53,8 +53,8 @@ void *pmem_memcpy_nodrain (void *pmemdest, const void *src, size_t len);
 void *pmem_memset_nodrain (void *pmemdest, int c, size_t len);
 
 void *pmemobj_memcpy_persist(PMEMobjpool *pop, void *pmemdest, const void *src, size_t len);
-void *pmemobj_memset_persist(PMEMobjpool *pop, void \*pmemdest, int c, size_t len);
-{{< /highlight >}}
+void *pmemobj_memset_persist(PMEMobjpool *pop, void *pmemdest, int c, size_t len);
+```
 
 As you can see, there are two variants of each API - one with `_persist` and
 another one with `_nodrain` suffix. Both variants modify pmemdest argument
@@ -100,7 +100,7 @@ beyond 8 bytes though.
 
 So knowing all of this, in PMDK 1.5 we've introduced these APIs:
 
-{{< highlight C >}}
+```c++
 void *pmem_memmove(void *pmemdest, const void *src, size_t len, unsigned flags);
 void *pmem_memcpy (void *pmemdest, const void *src, size_t len, unsigned flags);
 void *pmem_memset (void *pmemdest, int c, size_t len, unsigned flags);
@@ -109,9 +109,9 @@ void *pmemobj_memcpy (PMEMobjpool *pop, void *dest, const void *src, size_t len,
 unsigned flags);
 void *pmemobj_memmove(PMEMobjpool *pop, void *dest, const void *src, size_t len,
 unsigned flags);
-void *pmemobj_memset (PMEMobjpool *pop, void \*dest, int c, size_t len,
+void *pmemobj_memset (PMEMobjpool *pop, void *dest, int c, size_t len,
 unsigned flags);
-{{< /highlight >}}
+```
 
 As you can see, we removed the `_persist` and `_nodrain` suffixes and
 introduced a more flexible `flags` argument.

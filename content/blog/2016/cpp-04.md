@@ -120,27 +120,23 @@ talk only about the data structure.
 First let's define our list entry structure. As we just learned, it has to
 contain a `next` pointer and a value.
 
-{{< highlight C "linenos=table" >}}
-
+```c++
 struct pmem_entry {
-persistent_ptr<pmem_entry> next;
-p<uint64_t> value;
+    persistent_ptr<pmem_entry> next;
+    p<uint64_t> value;
 };
-
-{{< /highlight >}}
+```
 
 Our queue structure, which will also be our root object, consists of two fields:
 `head` and `tail`:
 
-{{< highlight C "linenos=table" >}}
-
+```c++
 class pmem_queue {
 private:
-persistent_ptr<pmem_entry> head;
-persistent_ptr<pmem_entry> tail;
+    persistent_ptr<pmem_entry> head;
+    persistent_ptr<pmem_entry> tail;
 };
-
-{{< /highlight >}}
+```
 
 The `pmem_queue::push()` and `pmem_queue::pop()` functions look exactly like a
 volatile implementation, but with a transaction block and

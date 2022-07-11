@@ -58,39 +58,39 @@ The two rather obvious choices are GCC's libstdc++ and clang's libc++. We needed
 ## std::vector
 
 The vector implementation is basically identical in both libc++ and libstdc++. It's just three pointers, _begin, end, current_. This is because the vector is a really simple and at the same time really powerful container. This is taken from libc++
-{{< highlight cpp "linenos=table" >}}
+```c++
 pointer **begin\_;
 pointer **end*;
 **compressed_pair<pointer, allocator_type> **end_cap*;
-{{< /highlight >}}
+```
 
-`__compressed_pair` is a fancy way of saving space. You can think of it as a std::pair on a radical diet. These are the only data members. This works, because the pointer type is taken from:
-{{< highlight cpp "linenos=table" >}}
+`**compressed_pair` is a fancy way of saving space. You can think of it as a std::pair on a radical diet. These are the only data members. This works, because the pointer type is taken from:
+```c++
 typedef \_Allocator allocator_type;
 typedef allocator_traits<allocator_type> **alloc_traits;
 typedef typename **alloc_traits::pointer pointer;
-{{< /highlight >}}
+```
 And in turn the allocator defines something like this:
-{{< highlight cpp "linenos=table" >}}
+```c++
 using value_type = T;
 using pointer = persistent_ptr<value_type>;
-{{< /highlight >}}
+```
 
 This is a common pattern for all standard library containers. And finally how to use it:
 
-{{< highlight cpp "linenos=table" >}}
+```c++
 using foovec = std::vector<foo, pmem::obj::allocator<foo>>;
 pmem::obj::transaction::exec_tx(pop, [] {
 auto pvec = pmem::obj::make_persistent<foovec>();
 pvec->push_back(foo());
 pvec->emplace_back(Last_val);
 });
-{{< /highlight >}}
+```
 
 ## std::map
 
 The `std::map` implementation is different and at the same time similar. The typedefs are there, albeit slightly changed:
-{{< highlight cpp "linenos=table" >}}
+```c++
 template <class \_Key, class \_Tp>
 struct \_\_value_type
 {
@@ -114,10 +114,10 @@ class **tree
 ...
 typedef typename **rebind_alloc_helper<**alloc_traits, **node>::type **node_allocator;
 typedef allocator_traits<**node_allocator> \_\_node_traits;
-{{< /highlight >}}
+```
 
 This might be intimidating at first, but bear with me for a moment. What this says is really simple. The `std::map` implementation is in fact a `__tree`, which holds `std::pair<const key_type, value_type>`. However, the last two lines mean, that the tree will be allocating it's nodes using the allocator we specified in `std::map`. So let's see what the nodes look like.
-{{< highlight cpp "linenos=table" >}}
+```c++
 template <class _VoidPtr>
 class **tree_node_base
 {
@@ -126,7 +126,7 @@ pointer **right*;
 **parent_pointer **parent*;
 bool \__is_black_;
 }
-{{< /highlight >}}
+```
 
 ### Let's tell the containers they're persistent!
 
@@ -135,16 +135,13 @@ The vector was just a couple of pointers, but here we can see that nodes have st
 ## std::pointer_traits::persistency_type?
 
 But we can leverage the fact that it does have a `pointer` typedef. So if we place the newly devised `persistency_type` in the `std::pointer_traits` of the `persistent_ptr`, the `__tree` implementation behind `std::map` will have all the necessary information to properly function in a persistent memory context. So how is it done, exactly? Within `persistent_ptr` you can find:
-{{< highlight cpp "linenos=table" >}}
-/\*\*
-
-- The persistency type to be used with this pointer.
-  \*/
-  using persistency_type = p<T>;
-  {{< /highlight >}}
+```c++
+/* The persistency type to be used with this pointer. */
+using persistency_type = p<T>;
+```
 
 And this is all we could do within PMDK to help support more complex containers. The rest of the work has to be done within the standard library. The `pointer_traits` implementation is placed in the _memory_ header file. The `persistency_type` has to be optional and have a default value, not to break existing code. There is a trick for that:
-{{< highlight cpp "linenos=table" >}}
+```c++
 template <class _Ptr>
 struct **has_persistency_type
 {
@@ -167,15 +164,16 @@ struct **pointer_traits_persistency_type<\_Tp, \_Ptr, true>
 {
 typedef typename \_Ptr::persistency_type type;
 };
-{{< /highlight >}}
+```
+
 This piece of code, that might look like gibberish at first, but actually it is a nifty trick. If `_Ptr` defines a `persistency_type` type, the `**test<\_Ptr>(0)`will first resolve to the function returning`char`, therefore the `sizeof`call will return one, setting the`bool value`to true. Thanks to this`**pointer_traits_persistency_type::type`will resolve to the`\_Ptr::persistency_type`only when it is available. Otherwise it will not alter the type. As I said, a nifty trick. Now that we have this, let's use it in the`**tree`.
-{{< highlight cpp "linenos=table" >}}
+```c++
 typedef typename \_\_rebind_persistency_type<pointer, bool>::type bool_type;
 
 pointer **right\_;
 **parent*pointer \_\_parent*;
 bool*type \_\_is_black*;
-{{< /highlight >}}
+```
 The `__rebind_persistency_type` is a helper for simple type change. Here this means that for `pointer` being `pmem::obj::persistent_ptr`, `bool_type` is in fact `std::pointer_traits<pointer>::persistency_type<bool>::type` so in fact `pmem::obj::p<bool>`. All in one clean line. This, in a big shortcut is how we adapted the containers from libc++.
 
 ### Conclusion

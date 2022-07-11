@@ -62,6 +62,6 @@ NUMA node you can then assign your program to with `numactl -m` or
 
 Besides separating out unrelated modes of use (PMDK is meant for
 **Persistent** usage), **libvmem** included a different build system and
-a testsuite, frustrating maintenance of PMDK and making clean-ups hard.
+a test suite, frustrating maintenance of PMDK and making clean-ups hard.
 Splitting VMEM out already revealed an issue fixing which sped up compiles
 by a factor of 4.

@@ -98,20 +98,20 @@ The implementation is available
 What I've ended up with is a sorted map collection interface with two different
 implementations. The API supplements the libpmemobj and integrates with it
 seamlessly.
-{{< highlight C "linenos=table" >}}
-struct store*item {
-/* data \_/
+```c++
+struct store_item {
+    /* data */
 };
 
 struct my_root {
-TOID(struct tree_map) map;
+    TOID(struct tree_map) map;
 };
 
 ...
 
-/_ create a new collection _/
+/* create a new collection */
 TX_BEGIN(pop) {
-tree_map_new(pop, &D_RW(root)->map);
+    tree_map_new(pop, &D_RW(root)->map);
 
     /*
      * We don't want an empty collection, so let's insert
@@ -127,16 +127,17 @@ tree_map_new(pop, &D_RW(root)->map);
 
 } TX_END
 
-/_ the backend is a tree, and so the collection is sorted _/
-tree*map_foreach(D_RO(root)->map, /* ... \_/);
+/* the backend is a tree, and so the collection is sorted */
+tree_map_foreach(D_RO(root)->map, /* ... */);
 
-/_ all functions can be used outside of a transaction as well _/
+/* all functions can be used outside of a transaction as well */
 PMEMoid oid = tree*map_remove(pop, D_RO(root)->map, 5);
-/* the object type can be verified \_/
+/* the object type can be verified */
 assert(OID_INSTANCEOF(oid, struct store_item));
 
 tree_map_delete(pop, &D_RW(root)->map);
-{{< /highlight >}}
+```
+
 So a fairly standard kv-store. There's a more complete example
 [here](https://github.com/pmem/pmdk/blob/master/src/examples/libpmemobj/map/data_store.c).
 

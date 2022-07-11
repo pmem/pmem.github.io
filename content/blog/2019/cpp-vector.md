@@ -131,7 +131,7 @@ The root object is the anchor to which all the memory structures should be attac
 
 Here is an example how to create `pmem::obj:vector`:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #include <libpmemobj++/make_persistent.hpp>
 #include <libpmemobj++/transaction.hpp>
 #include <libpmemobj++/persistent_ptr.hpp>
@@ -142,21 +142,18 @@ Here is an example how to create `pmem::obj:vector`:
 using vector_type = pmem::obj::experimental::vector<int>;
 
 struct root {
-pmem::obj::persistent_ptr<vector_type> vec_p;
+  pmem::obj::persistent_ptr<vector_type> vec_p;
 };
 
 ...
 
-/_ creating pmem::obj::vector in transaction _/
+/* creating pmem::obj::vector in transaction */
 pmem::obj::transaction::run(pop, [&] {
-root->vec*p = pmem::obj::make_persistent<vector_type>(/* optional constructor arguments \_/);
+  root->vec*p = pmem::obj::make_persistent<vector_type>(/* optional constructor arguments */);
 });
 
-vector_type &pvector = \*(root->vec_p);
-
-...
-
-{{< /highlight >}}
+vector_type &pvector = *(root->vec_p);
+```
 
 As you can see in above code snippet `pmem::obj:vector` must be created and
 allocated in persistent memory using inside of transaction (an exception will be
@@ -166,10 +163,7 @@ flattened to outer one.
 
 From now on usage of `pmem::obj:vector` is similar to usage of `std::vector`:
 
-{{< highlight C "linenos=table" >}}
-
-...
-
+```c++
 pvector.reserve(10);
 assert(pvector.size() == 0);
 assert(pvector.capacity() == 10);
@@ -193,10 +187,7 @@ pvector.emplace(pvector.cbegin(), pvector.back());
 assert(pvector.const_at(0) == 5);
 for (unsigned i = 1; i < pvector.size(); ++i)
 assert(pvector.const_at(i) == static_cast<int>(i - 1));
-
-...
-
-{{< /highlight >}}
+```
 
 Note that every single modifier method opens transaction internally and guarantees
 full exception safety (modifications will be either committed or rolled-back if
@@ -215,56 +206,51 @@ Iterating over `pmem::obj:vector` works just like for an ordinary `std::vector`:
 you can use indexing operator, range-based for loops or iterators. `pmem::obj:vector`
 can also be processed using `std::algorithms`:
 
-{{< highlight C "linenos=table" >}}
-
-...
-
+```c++
 std::vector<int> stdvector = {5, 4, 3, 2, 1};
 pvector = stdvector;
 
 try {
-pmem::obj::transaction::run(pop, [&] {
-for (auto &e : pvector)
-e++;
-/_ 6, 5, 4, 3, 2 _/
+  pmem::obj::transaction::run(pop, [&] {
+    for (auto &e : pvector)
+      e++;
+    /* 6, 5, 4, 3, 2 */
 
-            for (auto it = pvector.begin(); it != pvector.end(); it++)
-    	        *it += 2;
-                /* 8, 7, 6, 5, 4 */
+    for (auto it = pvector.begin(); it != pvector.end(); it++)
+      *it += 2;
+    /* 8, 7, 6, 5, 4 */
 
-            for (unsigned i = 0; i < pvector.size(); i++)
-            	pvector[i]--;
-                /* 7, 6, 5, 4, 3 */
+    for (unsigned i = 0; i < pvector.size(); i++)
+      pvector[i]--;
+    /* 7, 6, 5, 4, 3 */
 
-                std::sort(pvector.begin(), pvector.end());
-                for (unsigned i = 0; i < sz; ++i)
-                        assert(pvector.const_at(i) == static_cast<int>(i + 3));
+    std::sort(pvector.begin(), pvector.end());
+    for (unsigned i = 0; i < sz; ++i)
+      assert(pvector.const_at(i) == static_cast<int>(i + 3));
 
-                pmem::obj::transaction::abort(0);
-        });
-
+    pmem::obj::transaction::abort(0);
+  });
 } catch (pmem::manual*tx_abort &) {
-/* expected transaction abort \_/
+  /* expected transaction abort */
 } catch (std::exception &e) {
-std::cerr << e.what() << std::endl;
+  std::cerr << e.what() << std::endl;
 }
 
-assert(pvector == stdvector); /_ pvector element's value was rolled back _/
+assert(pvector == stdvector); /* pvector element's value was rolled back */
 
 try {
-pmem::obj::delete_persistent<vector_type>(&pvector);
+  pmem::obj::delete_persistent<vector_type>(&pvector);
 } catch (std::exception &e) {
-std::cerr << e.what() << std::endl;
+  std::cerr << e.what() << std::endl;
 }
-
-{{< /highlight >}}
+```
 
 If there is an active transaction elements (accessed using any of the presented
 above methods) are snapshotted. In case of iterators returned by begin() and end()
 snapshotting happens during iterator dereferencing. Of course, snapshotting is
 done only for mutable elements. In case of `const` iterators or `const` versions
 of indexing operator, nothing is added to the transaction. That's why it is extremely
-important to use const qualified function overloads (cbegin(), cend(), etc.) whenever possible
+important to use const qualified function overloads (`cbegin()`, `cend()`, etc.) whenever possible
 (if an object was snapshotted in current transaction, second snapshot of
 the same memory address won't be performed and thus won't have performance overhead).
 This will reduce number of snapshots and can significantly reduce the performance

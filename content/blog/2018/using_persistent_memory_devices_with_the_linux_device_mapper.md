@@ -34,8 +34,7 @@ aliases: ['/2018/05/15/using_persistent_memory_devices_with_the_linux_device_map
 type: 'post'
 ---
 
-<br/>
-#### Introduction
+### Introduction
 
 X86/X64 systems do not typically interleave Persistent Memory Devices (also referred to as 'modules' or 'DIMMs') across sockets, so a two-socket system will have two separate interleave sets.  To use these interleave sets as a single device requires using a software device mapper or volume manager.
 
@@ -51,8 +50,7 @@ The `dmsetup` utility is a low-level tool used to create and manage devices. Lin
 
 The rest of this article assumes either physical or emulated persistent memory devices exist and are accessible via /dev/pmem{N}. Refer to [How To Emulate Persistent Memory](/blog/2016/02/how-to-emulate-persistent-memory) for instructions.
 
-<br/>
-#### IO Alignment Considerations
+### IO Alignment Considerations
 
 Traditional storage devices such as Hard Disk Drives, SSD's, NVMe, and SAN LUNs present storage as blocks. A block is an addressable unit of storage measured in bytes. The traditional block size used by hard disks is 512 bytes. Newer devices commonly use 4KiB or 8KiB physical block sizes, but may also choose to present logical/emulated 512 bytes blocks.
 
@@ -75,14 +73,14 @@ The capacity difference between DDR and Persistent Memory Modules is considerabl
 
 The systems default page size can be found by querying its configuration using the `getconf`command:
 
-```
+```bash
 $ getconf PAGE_SIZE
 4096
 ```
 
 or
 
-```
+```bash
 $ getconf PAGESIZE
 4096
 ```
@@ -106,20 +104,19 @@ Depending on the processor, there are at least two different huge page sizes on 
 
 If this commands returns a non-empty string, 2MiB pages are supported.
 
-```
+```bash
 $ grep pse /proc/cpuinfo | uniq
 flags           : [...] pse [...]
 ```
 
 If this commands returns a non-empty string, 1GiB pages are supported.
 
-```
+```bash
 $ grep pdpe1gb /proc/cpuinfo | uniq
 flags           : [...] pdpe1gb [...]
 ```
 
-<br/>
-#### Verifying IO Alignment
+### Verifying IO Alignment
 
 For a DAX filesystem to be able to use 2 MiB hugepages several things have to happen:
 
@@ -133,8 +130,8 @@ The procedure to ensure DAX filesystems use PMDs is shown below as an example. I
 
 1. Verify the namespace is in 'fsdax' mode.
 
-```
-$ ndctl list -u
+```bash
+ndctl list -u
 [
   {
     "dev":"namespace1.0",
@@ -161,9 +158,9 @@ $ ndctl list -u
 
 If the namespace is not in 'fsdax' mode, use the following to switch modes.
 
-```
-$ sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
-$ sudo ndctl create-namespace -f -e namespace1.0 --mode=fsdax
+```bash
+sudo ndctl create-namespace -f -e namespace0.0 --mode=fsdax
+sudo ndctl create-namespace -f -e namespace1.0 --mode=fsdax
 ```
 
 **Note**: This will destroy all data within the namespace so backup any existing data before switching modes.
@@ -174,7 +171,7 @@ This is important because when we ask the filesystem for 2 MiB aligned and sized
 
 Use `/proc/iomem` to verify the starting address of the namespace, eg:
 
-```
+```bash
 $ cat /proc/iomem
 ...
 140000000-23fdfffff : Persistent Memory
@@ -187,7 +184,7 @@ Both namespaces are 2MiB (0x200000) aligned since namespace0.0 starts at 0x14000
 
 When creating filesystems using the namespaces, it's important to maintain the 2MiB alignment (4096 sectors). Depending upon the VTOC type, fdisk creates 1MiB alignment (2048 sectors). For a non-device mapped /dev/pmem0 a partition aligned at the 2MiB boundary can be created using the following:
 
-```
+```bash
 $ fdisk /dev/pmem0
 
 Welcome to fdisk (util-linux 2.32).
@@ -228,14 +225,14 @@ Device       Start     End Sectors Size Type
 
 EXT4:
 
-```
+```bash
 $ mkfs.ext4 -b 4096 -E stride=512 -F /dev/pmem0
 $ mount /dev/pmem0 /mnt/dax
 ```
 
 XFS:
 
-```
+```bash
 $ mkfs.xfs -f -d su=2m,sw=1 /dev/pmem0
 $ mount /dev/pmem0 /mnt/dax
 $ xfs_io -c "extsize 2m" /mnt/dax
@@ -243,14 +240,14 @@ $ xfs_io -c "extsize 2m" /mnt/dax
 
 4. [Optional] Watch IO allocations. Without enabling filesystem debug options, it is possible to confirm the filesystem is allocating in 2MiB blocks using FTrace:
 
-```
+```bash
 $ cd /sys/kernel/debug/tracing
 $ echo 1 > events/fs_dax/dax_pmd_fault_done/enable
 ```
 
 Run test which faults in filesystem DAX mappings, eg:
 
-```
+```bash
 $ fallocate --length 1G /mnt/dax/data
 ```
 
@@ -274,8 +271,7 @@ You can see that this fault resulted in a fallback to 4 KiB faults via the **FAL
 
 To disable tracing run `echo 0 > events/fs_dax/dax_pmd_fault_done/enable `.
 
-<br/>
-#### Creating dm-linear Devices
+### Creating dm-linear Devices
 
 See [Documentation/device-mapper/linear.txt](https://www.kernel.org/doc/Documentation/device-mapper/linear.txt) for parameters and usage.
 
@@ -289,7 +285,7 @@ For this example, two `pmem` devices will be used to create a larger mapped devi
 
 Identify the /dev/pmem\* devices to use
 
-```
+```bash
 $ lsblk /dev/pmem*
 NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 pmem0 259:0    0   4G  0 disk
@@ -298,13 +294,13 @@ pmem1 259:1    0   4G  0 disk
 
 The following creates `'linear-pmem` devices by concatenating `/dev/pmem0` and `/dev/pmem1`
 
-```
+```bash
 $ echo -e "0 `blockdev --getsz /dev/pmem0` linear /dev/pmem0 0 "\\n"`blockdev --getsz /dev/pmem0` `blockdev --getsz /dev/pmem1` linear /dev/pmem1 0" | sudo dmsetup create linear-pmem
 ```
 
 This results in the following
 
-```
+```bash
 $ dmsetup ls --tree
 linear-pmem (253:2)
  ├─ (259:1)
@@ -324,7 +320,7 @@ linear-pmem 253:2    0   8G  0 dm
 
 Create a partition aligned with a 2MiB boundary, if 2MiB alignment is required.
 
-```
+```bash
 $ fdisk /dev/mapper/linear-pmem
 
 Welcome to fdisk (util-linux 2.32).
@@ -345,16 +341,17 @@ Created a new partition 1 of type 'Linux filesystem' and of size 7.9 GiB.
 Command (m for help): w
 The partition table has been altered.
 Syncing disks.
-
 ```
 
 A DAX filesystem can now be created using the `/dev/mapper/linear-pmem` device
 
-` $ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/linear-pmem`
+```bash
+$ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/linear-pmem
+```
 
 Mount the filesystem using the `-o dax` flag
 
-```
+```bash
 $ sudo mkdir /pmem
 $ mount -o dax /dev/mapper/linear-pmem /pmem
 $ df -h /pmem
@@ -362,8 +359,7 @@ Filesystem               Size  Used Avail Use% Mounted on
 /dev/mapper/linear-pmem  7.7G   36M  7.3G   1% /pmem
 ```
 
-<br/>
-#### Creating dm-striped Devices
+### Creating dm-striped Devices
 
 See [Documentation/device-mapper/striped.txt](https://www.kernel.org/doc/Documentation/device-mapper/striped.txt) for parameters and usage.
 
@@ -377,7 +373,7 @@ If the HugePage size (2 MiB) is used as the 'chunk size', it'll end up using PMD
 
 Identify the /dev/pmem\* devices to use
 
-```
+```bash
 $ lsblk /dev/pmem*
 NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 pmem0 259:0    0   4G  0 disk
@@ -386,13 +382,13 @@ pmem1 259:1    0   4G  0 disk
 
 The following creates `'striped-pmem` devices by striping `/dev/pmem0` and `/dev/pmem1` using a 2MiB chunk size, specified as multiples of 512b blocks (4096 x 512 byte == 2MiB).
 
-```
+```bash
 $ echo -e "0 $(( `blockdev --getsz /dev/pmem0` + `blockdev --getsz /dev/pmem0` )) striped 2 4096 /dev/pmem0 0 /dev/pmem1 0" | sudo dmsetup create striped-pmem
 ```
 
 This results in the following
 
-```
+```bash
 $ dmsetup ls --tree
 striped-pmem (253:2)
  ├─ (259:1)
@@ -412,7 +408,7 @@ striped-pmem 253:2    0   8G  0 dm
 
 Create a partition aligned with a 2MiB boundary, if 2MiB alignment is required.
 
-```
+```bash
 $ fdisk /dev/mapper/striped-pmem
 
 Welcome to fdisk (util-linux 2.32).
@@ -439,16 +435,17 @@ Failed to add partition 1 to system: Invalid argument
 
 The kernel still uses the old partitions. The new table will be used at the next reboot.
 Syncing disks.
-
 ```
 
 A DAX filesystem can now be created using the `/dev/mapper/striped-pmem` device
 
-` $ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/striped-pmem`
+```bash
+$ sudo mkfs.ext4 -b 4096 -E stride=512 -F /dev/mapper/striped-pmem
+```
 
 Mount the filesystem using the `-o dax` flag
 
-```
+```bash
 $ sudo mkdir /pmem
 $ mount -o dax /dev/mapper/striped-pmem /pmem
 $ # df -h /pmem
@@ -456,8 +453,7 @@ Filesystem                Size  Used Avail Use% Mounted on
 /dev/mapper/striped-pmem  7.9G   36M  7.4G   1% /pmem
 ```
 
-<br/>
-#### Using Other dm-* Devices
+### Using Other dm-* Devices
 
 In the introduction, we stated the 'raid' and other modules does not implement DAX. `dmsetup` does not validate or prevent creating RAID device mappings using persistent memory devices. However when attempting to mount the resulting virtual device using the `-o dax` option, a warning is recorded to dmesg and the DAX feature is disabled. Therefore it it not recommended to use the 'raid' device-mapper module with persistent memory devices if the applications need DAX support.
 
@@ -465,26 +461,26 @@ The following example shows the expected warning if a non-DAX enabled device map
 
 Create a raid mapping
 
-```
+```bash
 $ dmsetup ...
 ```
 
 Mount the new device using the '-o dax' flag:
 
-```
+```bash
 $ mount -o dax /dev/mapper/raid-pmem /pmem
 ```
 
 A filesystem with DAX disabled will not have the `dax` flag listed using `mount -v`, eg:
 
-```
+```bash
 $ mount -v | grep /pmem
 /dev/pmem0 on /pmem type ext4 (rw,relatime,seclabel)
 ```
 
 Additionally, dmesg may also report a "DAX unsupported by block device. Turning off DAX" warning, eg:
 
-```
+```bash
 $ tail -f /var/log/mesages | grep EXT4-fs
 EXT4-fs (raid-pmem): mounted filesystem with ordered data mode. Opts: (null)
 EXT4-fs (raid-pmem): DAX enabled. Warning: EXPERIMENTAL, use at your own risk
@@ -492,14 +488,13 @@ EXT4-fs (raid-pmem): DAX unsupported by block device. Turning off DAX.
 EXT4-fs (raid-pmem): mounted filesystem with ordered data mode. Opts: dax
 ```
 
-<br/>
-#### Persistent Configuration Across System Reboots
+### Persistent Configuration Across System Reboots
 
 In both the dm-linear and dm-stripe examples above, the configuration will not persist across system reboots because neither solution has any metadata to save. A script executed at boot time is required to reinstate the configuration each time. The UUID of the persistent memory namespaces will not change, but the `/dev/pmem{N}` could. The `create-pmem-dev-links-by-uuid` script provided below uses the `ndctl` utility to gather the uuid for each pmem device and creates symbolic links from /dev/disk/by-uuid to the appropriate `/dev/pmem{N}`. The `dmsetup` command uses the `/dev/disk/by-uuid/{uuid}` convention rather than `/dev/pmem{N}`. Using UUIDs guarantees the correct device(s) are used in the correct order to avoid data corruption.
 
 The `create-pmem-dev-links-by-uuid` service maintains the device links and the `pmem-dev-mapper` service creates the devices and mounts the filesystem.
 
-```
+```bash
 --- create-pmem-dev-links-by-uuid ---
 #!/bin/bash
 
@@ -577,7 +572,6 @@ fi
 --- end ---
 ```
 
-<br/>
 ```
 --- pmem-dev-mapper ---
 #!/bin/bash
@@ -618,45 +612,36 @@ echo -e "0 $(( `blockdev --getsz /dev/disk/by-uuid/af66dc0f-e3ac-4fbe-a854-43867
 
 mount -o dax /dev/mapper/striped-pmem /pmem
 --- end ---
-
 ```
 
 **Note:** The above has been tested on Fedora 27 and Fedora 28.
 
-<br/>
 
-##### Creating Custom systemd Services
+#### Creating Custom systemd Services
 
 Use the following procedure to create a custom systemd services to execute the `create-pmem-dev-links-by-uuid` and `pmem-dev-mapper` scripts at boot time.  Refer to the Fedora '[Understanding and administering systemd](https://docs.fedoraproject.org/quick-docs/en-US/understanding-and-administering-systemd.html)' Documentation for full details.
 
 1. Create an `/opt/pmem` directory, then save the `create-pmem-dev-links-by-uuid` and `pmem-dev-mapper` scripts to `/opt/pmem/`.
 
 ```
-
 # mkdir -p /opt/pmem
-
 ```
 
 2. Make the scripts executable
 
 ```
-
 # chmod +x /opt/pmem/\*
-
 ```
 
 3. Create and edit the new `pmem-uuid-dev-links.service` systemd service configuration file:
 
 ```
-
 # vi /etc/systemd/system/pmem-uuid-dev-links.service
-
 ```
 
 4. Insert the following:
 
 ```
-
 [Unit]
 Description=Create Persistent Memory UUID Device Links
 
@@ -666,21 +651,17 @@ ExecStart=/opt/pmem/create-pmem-dev-links-by-uuid
 
 [Install]
 WantedBy=multi-user.target
-
 ```
 
 5. Create and edit the new `pmem-dev-mapper` systemd service configuration file:
 
 ```
-
 # vi /etc/systemd/system/pmem-dev-mapper.service
-
 ```
 
 6. Insert the following:
 
 ```
-
 [Unit]
 Description=Create Persistent Memory Device Mapper Devices and the Mount Filesystems
 Requires=pmem-uuid-dev-links
@@ -691,33 +672,25 @@ ExecStart=/opt/pmem/pmem-dev-mapper
 
 [Install]
 WantedBy=multi-user.target
-
 ```
 
 7. Add execute permissions to the service files
 
 ```
-
 # chmod +x /etc/systemd/system/pmem-uuid-dev-links.service \
-
 /etc/systemd/system/pmem-dev-mapper.service
-
 ```
 
 8. Start and Enable the services
 
 ```
-
 # systemctl start pmem-dev-mapper
-
 # systemctl enable pmem-uuid-dev-links pmem-dev-mapper
-
 ```
 
 9. Check the status of the service to ensure the service is running:
 
 ```
-
 $ systemctl status pmem-uuid-dev-links pmem-dev-mapper
 ● pmem-uuid-dev-links.service - Create Persistent Memory UUID Device Links
 Loaded: loaded (/etc/systemd/system/pmem-uuid-dev-links.service; enabled; vendor preset: disabled)
@@ -728,15 +701,8 @@ Loaded: loaded (/etc/systemd/system/pmem-dev-mapper.service; enabled; vendor pre
 Active: inactive (dead) since Tue 2018-06-05 17:07:43 MDT; 4s ago
 Process: 6294 ExecStart=/opt/pmem/pmem-dev-mapper (code=exited, status=0/SUCCESS)
 Main PID: 6294 (code=exited, status=0/SUCCESS)
-
 ```
 
-
-
-<br/>
-
-#### Summary
+### Summary
 
 This article has shown how to use the Linux Device Mapper with Persistent Memory Devices (Modules) to create more complex configurations suitable for application requirements.  It describes and demonstrates how to use 2MiB HugePages to improve IO performance with large amounts of persistent memory.
-
-```

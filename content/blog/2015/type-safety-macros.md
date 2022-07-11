@@ -38,12 +38,12 @@ The _PMEMoid_ plays the role of a persistent pointer in a _pmemobj_ pool.
 It consist of a shortened UUID of the pool which the object comes from and an
 offset relative to the beginning of the pool:
 
-{{< highlight C "linenos=table" >}}
+```c++
 typedef struct pmemoid {
-uint64_t pool_uuid_lo;
-uint64_t off;
+  uint64_t pool_uuid_lo;
+  uint64_t off;
 } PMEMoid;
-{{< /highlight >}}
+```
 
 Operating on such _persistent pointers_ is equivalent to operating on raw
 pointers to volatile objects represented by void \*. This approach is error
@@ -56,12 +56,12 @@ errors when trying to assign a _PMEMoids_ of different types.
 
 As an example it is totally acceptable to perform the following operation:
 
-{{< highlight C "linenos=table" >}}
+```c++
 PMEMoid car = pmemobj_tx_alloc(pop, sizeof (struct car), TYPE_CAR);
 PMEMoid pen = pmemobj_tx_alloc(pop, sizeof (struct pen), TYPE_PEN);
 ...
 car = pen;
-{{< /highlight >}}
+```
 
 This code compiles fine, however the programmer probably didn't intend for
 that that to happen and it will probably lead to hard to debug unexpected
@@ -71,12 +71,12 @@ Another problem with untyped pointers is accessing the fields of a structure or
 a union. To do this it is required to convert a _PMEMoid_ to a pointer of the
 desired type and only after that the fields may be accessed:
 
-{{< highlight C "linenos=table" >}}
+```c++
 PMEMoid car;
 ...
-struct car \*carp = pmemobj_direct(car);
+struct car *carp = pmemobj_direct(car);
 carp->velocity = 0;
-{{< /highlight >}}
+```
 
 This leads to a situation where each object must have two representations in
 the code: the _PMEMoid_ and a typed pointer.
@@ -90,41 +90,41 @@ conversion from _PMEMoid_ to a pointer of the desired type.
 
 The macro which declares the anonymous union looks like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #define OID_TYPE(type)\
 union {\
- type \*\_type;\
- PMEMoid oid;\
+  type *_type;\
+  PMEMoid oid;\
 }
-{{< /highlight >}}
+```
 
 When using the _OID_TYPE()_ macro the following code would generate a
 compile-time error:
 
-{{< highlight C "linenos=table" >}}
+```c++
 OID_TYPE(struct car) car;
 OID_TYPE(struct pen) pen;
 ...
 OID_ASSIGN_TYPED(car, pen);
-{{< /highlight >}}
+```
 
 The conversion from _PMEMoid_ to the typed pointer may be achieved using the
 _DIRECT_RW()_ and _DIRECT_RO()_ macros for read-write and read-only access
 respectively:
 
-{{< highlight C "linenos=table" >}}
+```c++
 OID_TYPE(struct car) car1;
 OID_TYPE(struct car) car2;
 ...
 DIRECT_RW(car1)->velocity = DIRECT_RO(car2)->velocity \* 2;
-{{< /highlight >}}
+```
 
 The definition of _DIRECT_RW()_ and _DIRECT_RO()_ macros look like this:
 
-{{< highlight C "linenos=table" >}}
-#define DIRECT*RW(o) ((typeof(*(o).\_type)_)pmemobj_direct((o).oid)))
+```c++
+#define DIRECT_RW(o) ((typeof(*(o).\_type)_)pmemobj_direct((o).oid)))
 #define DIRECT_RO(o) ((const typeof (_(o).\_type)\_)pmemobj_direct((o).oid))
-{{< /highlight >}}
+```
 
 ###### No declaration
 
@@ -138,20 +138,22 @@ The assignment of typed persistent pointers must be performed using special
 macro. The two anonymous unions which consist of fields with exactly the
 same types are not compatible and generates a compilation error:
 
+```
     error: incompatible types when assigning to type ‘union <anonymous>’
     from type ‘union <anonymous>’
+```
 
-The _OID_ASSIGN_TYPED()_ looks like the following:
+The `OID_ASSIGN_TYPED()` looks like the following:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #define OID_ASSIGN_TYPED(lhs, rhs)\
-**builtin_choose_expr(\
- **builtin_types_compatible_p(\
- typeof((lhs).\_type),\
- typeof((rhs).\_type)),\
- (void) ((lhs).oid = (rhs).oid),\
- (lhs.\_type = rhs.\_type))
-{{< /highlight >}}
+  **builtin_choose_expr(\
+  **builtin_types_compatible_p(\
+  typeof((lhs).\_type),\
+  typeof((rhs).\_type)),\
+  (void) ((lhs).oid = (rhs).oid),\
+  (lhs.\_type = rhs.\_type))
+```
 
 It utilizes the gcc builtin operator _\_\_builtin_types_compatible_p_ which checks
 the compatibility of types represented by _typed persistent pointers_. If the
@@ -159,41 +161,45 @@ types are compatible the actual assignment is performed. Otherwise the fake
 assignment of _\_type_ fields is performed in order to get clear message about
 the error:
 
-{{< highlight C "linenos=table" >}}
+```c++
 OID_TYPE(struct car) car;
 OID_TYPE(struct pen) pen;
 
 OID_ASSIGN_TYPED(car, pen);
-{{< /highlight >}}
+```
 
+```
     error: assignment from incompatible pointer type [-Werror]
       (lhs._type = rhs._type))
     	       ^
     note: in expansion of macro ‘OID_ASSIGN_TYPED’
      OID_ASSIGN_TYPED(car, pen);
+```
 
 ###### Passing typed persistent pointer as a function parameter
 
 Passing a typed persistent pointer as a function parameter generates a
 compile-time error:
 
-{{< highlight C "linenos=table" >}}
+```c++
 void stop(OID_TYPE(struct car) car)
 {
-D_RW(car)->velocity = 0;
+  D_RW(car)->velocity = 0;
 }
 ...
 OID_TYPE(struct car) car;
 ...
 stop(car);
-{{< /highlight >}}
+```
 
+```
     error: incompatible type for argument 1 of ‘stop’
       stop(car);
       ^
     note: expected ‘union <anonymous>’ but argument is of type
     ‘union <anonymous>’
      stop(OID_TYPE(struct car) car)
+```
 
 ###### Type numbers
 
@@ -212,7 +218,7 @@ holds the _PMEMoid_ and type information.
 
 The macro which declares the named union may look like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #define TOID(type)\
 union _toid_##type##\_toid
 
@@ -222,21 +228,21 @@ TOID(type)\
  PMEMoid oid;\
  type \*\_type;\
 }
-{{< /highlight >}}
+```
 
 The _TOID_DECLARE()_ macro is used to declare a named union which is used as a
 _typed persistent pointer_. The _TOID()_ macro is used to declare a variable
 of this type:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID_DECLARE(struct car);
 ...
 
 TOID(struct car) car1;
 TOID(struct car) car2;
 ...
-D_RW(car1)->velocity = 2 \* D_RO(car2)->velocity;
-{{< /highlight >}}
+D_RW(car1)->velocity = 2 * D_RO(car2)->velocity;
+```
 
 The name of such a declared union is obtained by concatenating the desired type
 name with a _*toid*_ prefix and a _\_toid_ postfix. The prefix is required to
@@ -247,27 +253,27 @@ would appear, if only postfix or prefix was used.
 For example in case of the _struct car_ the _TOID()_ macro will expand to the
 following:
 
-{{< highlight C "linenos=table" >}}
-\_toid_struct car_toid
-{{< /highlight >}}
+```c++
+*toid_struct car_toid
+```
 
-The _\_toid_struct_ token and analogous for _enum car_ and _union car_ may be
+The `*toid_struct` token and analogous for `enum car` and `union car` may be
 removed by declaring the following empty macros:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #define \_toid_struct
 #define \_toid_union
 #define \_toid_enum
-{{< /highlight >}}
+```
 
 In result the _typed persistent pointer_ for _struct car_ will be named
 _car_toid_. In case of one-token types the name of union will consist of both
 prefix and postfix. For example in case of _size_t_ type, the _TOID()_ macro
 will expand to the following:
 
-{{< highlight C "linenos=table" >}}
-\_toid_size_t_toid
-{{< /highlight >}}
+```c++
+*toid_size_t_toid
+```
 
 Using such mechanism it is possible to declare named unions for two-token types.
 
@@ -280,7 +286,7 @@ In case of named unions there is no issue with assignments encountered in
 anonymous unions. The assignment may be performed without using any additional
 macro:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID_DECLARE(struct car);
 TOID_DECLARE(struct pen);
 ...
@@ -289,12 +295,12 @@ TOID(struct car) car1;
 TOID(struct car) car2;
 ...
 car1 = car2;
-{{< /highlight >}}
+```
 
 The above example compiles without any errors but the following code would
 generate an error:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID_DECLARE(struct car);
 TOID_DECLARE(struct pen);
 ...
@@ -303,12 +309,14 @@ TOID(struct car) car;
 TOID(struct pen) pen;
 ...
 car = pen;
-{{< /highlight >}}
+```
 
+```
     error: incompatible types when assigning to type ‘union car_toid’ from
     type ‘union pen_toid’
       car = pen;
     	^
+```
 
 Which clearly points where the problem is.
 
@@ -316,40 +324,42 @@ Which clearly points where the problem is.
 
 It is also possible to pass the named union as a function parameter:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID_DECLARE(struct car);
 
 void stop(TOID(struct car) car)
 {
-D_RW(car)->velocity = 0;
+  D_RW(car)->velocity = 0;
 }
-..
+...
 
 TOID(struct car) car;
 
 stop(car);
-{{< /highlight >}}
+```
 
 Passing _typed persistent pointer_ of a different type generates a clear error
 message:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID_DECLARE(struct car);
 TOID_DECLARE(struct pen);
 
 void stop(TOID(struct car) car)
 {
-D_RW(car)->velocity = 0;
+  D_RW(car)->velocity = 0;
 }
 ..
 
 TOID(struct pen) pen;
 
 stop(pen);
-{{< /highlight >}}
+```
 
+```
     error: incompatible type for argument 1 of ‘stop’
       stop(pen);
+```
 
 ###### Type numbers
 
@@ -358,7 +368,7 @@ assigned to the type in the declaration. The type number shall be assigned at
 compilation time and it can be embedded in the _typed persistent pointer_ by
 modifying the _TOID_DECLARE()_ macro:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #define TOID*DECLARE(type, type_num)\
 typedef uint8_t \_toid*##type##_toid_id[(type_num)];\
 TOID(type)\
@@ -367,34 +377,34 @@ TOID(type)\
  type \*\_type;\
  \_toid_##type##\_toid_id \*\_id;\
 }
-{{< /highlight >}}
+```
 
 The type id may be obtained using the _sizeof ()_ operator both from type and an
 object:
 
-{{< highlight C "linenos=table" >}}
+```c++
 #define TOID*TYPE_ID(type) (sizeof (\_toid*##type##\_toid_id))
 #define TOID_TYPE_ID_OF(obj) (sizeof (\*(obj).\_id))
-{{< /highlight >}}
+```
 
 The declaration of such _typed persistent pointer_ may look like this:
 
-{{< highlight C "linenos=table" >}}
+```c++
 TOID_DECLARE(struct car, 1);
 TOID_DECLARE(struct pen, 2);
-{{< /highlight >}}
+```
 
 It is also possible to use macros or enums to declare a type id:
 
-{{< highlight C "linenos=table" >}}
+```c++
 enum {
-TYPE_CAR,
-TYPE_PEN
+  TYPE_CAR,
+  TYPE_PEN
 };
 
 TOID_DECLARE(struct car, TYPE_CAR);
 TOID_DECLARE(struct pen, TYPE_PEN);
-{{< /highlight >}}
+```
 
 This solution requires to assign the type id explicitly at declaration time.
 Since the set of types allocated from the _pmemobj_ pool is well known at
@@ -402,16 +412,13 @@ compilation time it is possible to declare all types by declaring a pool's
 layout without explicitly assigning the type id. The layout declaration looks
 like this:
 
-{{< highlight C "linenos=table" >}}
-/\*
-
-- Declaration of layout
-  \*/
-  POBJ_LAYOUT_BEGIN(my_layout)
-  POBJ_LAYOUT_TOID(my_layout, struct car)
-  POBJ_LAYOUT_TOID(my_layout, struct pen)
-  POBJ_LAYOUT_END(my_layout)
-  {{< /highlight >}}
+```c++
+\* Declaration of layout */
+POBJ_LAYOUT_BEGIN(my_layout)
+POBJ_LAYOUT_TOID(my_layout, struct car)
+POBJ_LAYOUT_TOID(my_layout, struct pen)
+POBJ_LAYOUT_END(my_layout)
+```
 
 Using such declaration of layout all types declared inside the
 _POBJ_LAYOUT_BEGIN()_ and _POBJ_LAYOUT_END()_ macros will be assigned with
