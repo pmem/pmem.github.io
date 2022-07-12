@@ -15,7 +15,7 @@ hero_image: "images/news/my_news_article_hero.jpg"
 description: ""
 
 # Event image
-image: "/images/posts/pmemstream_intro.png"
+image: "https://opengraph.githubassets.com/71fe902284914ef5f1f7825d96b406339a6e5d4e/pmem/pmemstream"
 
 # Announcement category
 announcements: ['pmemstream']
