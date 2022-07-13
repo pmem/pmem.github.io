@@ -10,6 +10,14 @@ overview:
   title: "Overview"
   content: "<p><a href=\"https://github.com/memkind/Memkind\">Memkind</a> is an easy-to-use, general-purpose allocator built on top of <a href=\"https://github.com/jemalloc/jemalloc\">jemalloc</a> which emphasizes fragmentation avoidance and scalable concurrency support. Memkind helps to fully utilize various kinds of memory available in the system, including DRAM, NVDIMM, and HBM, mostly by adding one additional argument - destination kind of memory – to standard malloc API calls. It also offers a transparent mode that allows memory tiering without any modification to the existing app, memory kinds based on file-backed memory on specified device or area supplied by the user, and much more.</p>"
 
+################################# Documentation #################################
+documentation:
+  enable: true
+  title: "Documentation"
+  lists:
+    list_item1:
+      content: "<a href=\"./manpages/memkindallocator.3.html\">memkindallocator API</a>"
+
 #################################  Sources ################################# 
 sources:
   enable: true
