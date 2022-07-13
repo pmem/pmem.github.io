@@ -16,9 +16,9 @@ c_api:
                 <p>For the current <strong>master</strong> branch:</p>"
       list_items:
         list_item1:
-          content: "<a href=\"./master/manpages/libpmemstream.3.html\">libpmemstream.3</a>"
+          content: "<a href=\"./manpages/master/libpmemstream.3.html\">libpmemstream.3</a>"
         list_item2:
-          content: "<a href=\"./master/manpages/libpmemstream.7.html\">libpmemstream.7</a>"
+          content: "<a href=\"./manpages/master/libpmemstream.7.html\">libpmemstream.7</a>"
 
 #################################  Performance reports ################################# 
 performance_reports:
