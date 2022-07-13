@@ -29,7 +29,9 @@
             <!-- Sources -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.sources.enable }} {{ with $data.memkind.sources }}
                 <h3 class>{{ .title | markdownify }}</h3>
-                <p><code>{{ .content | safeHTML }}</code></p>
+                <p>{{ .content.content1 | safeHTML }}</p>
+                <p><code>{{ .content.code | safeHTML }}</code></p>
+                <p>{{ .content.content2 | safeHTML }}</p>
                 <ul class="memkind-list">
                     {{ range .lists }}
                     <li>
