@@ -2,21 +2,22 @@
 slider:
   enable: true
   bg_image: '/images/backgrounds/faq_header.jpg'
-  title: 'Memkind'
-  content: "User Extensible Heap Manager built on top of jemalloc which enables control of memory characteristics and a partitioning of the heap between kinds of memory."
+  title: 'memkind'
 
 ################################# Overview #################################
 overview:
   enable: true
   title: "Overview"
-  content: "<p>The kinds of memory are defined by operating system memory policies that have been applied to virtual address ranges. Memory characteristics supported by memkind without user extension include control of NUMA and page size features. The jemalloc non-standard interface has been extended to enable specialized arenas to make requests for virtual memory from the operating system through the memkind partition interface. Through the other memkind interfaces the user can control and extend memory partition features and allocate memory while selecting enabled features.</p>
-            <p>Memkind is hosted on <a href=\"https://github.com/memkind/memkind\">GitHub</a></p>"
+  content: "<p><a href=\"https://github.com/memkind/Memkind\">Memkind</a> is an easy-to-use, general-purpose allocator built on top of <a href=\"https://github.com/jemalloc/jemalloc\">jemalloc</a> which emphasizes fragmentation avoidance and scalable concurrency support. Memkind helps to fully utilize various kinds of memory available in the system, including DRAM, NVDIMM, and HBM, mostly by adding one additional argument - destination kind of memory – to standard malloc API calls. It also offers a transparent mode that allows memory tiering without any modification to the existing app, memory kinds based on file-backed memory on specified device or area supplied by the user, and much more.</p>"
 
 #################################  Sources ################################# 
 sources:
   enable: true
   title: "Sources"
-  content: "<code>$ git clone https://github.com/memkind/memkind.git</code>"
+  content: 
+    content1: "<p>Memkind is hosted on <a href=\"https://github.com/memkind/memkind\">GitHub</a>. To clone memkind repository please run the following command:</p>"
+    code:    "<p>$ git clone https://github.com/memkind/memkind.git</p>"
+    content2: "<p>Needed dependencies and detailed build instructions can be found in memkind's <a href=\"https://github.com/memkind/memkind/blob/master/README.md\">readme</a> file.</p>"
   lists:
     list_item1:
       content: "<a href=\"https://github.com/memkind/memkind/tarball/master\">Tarball (master)</a>"
