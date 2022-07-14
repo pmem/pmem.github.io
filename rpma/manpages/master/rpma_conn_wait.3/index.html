@@ -77,7 +77,7 @@ completion channel from CQ or RCQ</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>   
 
       struct rpma_conn;
       struct rpma_cq
-      int rpma_conn_wait(struct rpma_conn *conn, struct rpma_cq **cq, bool *is_rcq)
+      int rpma_conn_wait(struct rpma_conn *conn, int flags, struct rpma_cq **cq, bool *is_rcq)
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_wait</strong>() waits for a completion event on the shared
 completion channel from CQ or RCQ, acks it and returns a CQ that caused
 the event in the cq argument and a boolean value saying if it is RCQ or
