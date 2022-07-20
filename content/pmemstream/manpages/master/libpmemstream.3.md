@@ -118,7 +118,8 @@ These structures represent *region* and *entry* iterators and should be created 
 is passed to iterator, so such iterator is bound to a selected pmemstream instance and it's not required
 to pass it along to other iterator-related functions.
 
-Refer to a specific function below for its signature and detailed description.
+For high level description of pmemstream or its features/functionalities please see **libpmemstream**(7).
+For detailed description of a specific function and its parameters see below.
 
 `int pmemstream_from_map(struct pmemstream **stream, size_t block_size, struct pmem2_map *map);`
 
