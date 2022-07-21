@@ -87,7 +87,8 @@ representing runtime state of a single <em>pmemstream</em> instance. It has to b
 These structures represent <em>region</em> and <em>entry</em> iterators and should be created using appropriate <em>new</em> functions:
 <code>pmemstream_region_iterator_new</code> or <code>pmemstream_entry_iterator_new</code>. In both these functions <code>stream</code> parameter
 is passed to iterator, so such iterator is bound to a selected pmemstream instance and it&rsquo;s not required
-to pass it along to other iterator-related functions.</p><p>Refer to a specific function below for its signature and detailed description.</p><dl><dt><code>int pmemstream_from_map(struct pmemstream **stream, size_t block_size, struct pmem2_map *map);</code></dt><dd><p>Creates new pmemstream instance from the given <em>pmem2_map</em> <code>map</code> and assigns it to <code>stream</code> pointer.
+to pass it along to other iterator-related functions.</p><p>For high level description of pmemstream or its features/functionalities please see <strong>libpmemstream</strong>(7).
+For detailed description of a specific function and its parameters see below.</p><dl><dt><code>int pmemstream_from_map(struct pmemstream **stream, size_t block_size, struct pmem2_map *map);</code></dt><dd><p>Creates new pmemstream instance from the given <em>pmem2_map</em> <code>map</code> and assigns it to <code>stream</code> pointer.
 <code>block_size</code> defines alignment of regions - must be a power of 2 and multiple of CACHELINE size.
 See <strong>libpmem2</strong>(7) for details on creating pmem2 mapping.
 If this function is called with a map representing an empty file, the new pmemstream instance will be initialized.
