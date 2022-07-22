@@ -33,6 +33,10 @@ type: "post"
 
 # Contributing to this repository
 
+#### [This entry was edited on 2022-07-22 to update Code of Conduct link and add a link to Contributing guide]
+> Please note that this blog post is a snapshot of our CONTRIBUTING file. For always up-to-date information, please see
+> [guideline file on repository with content of this website](https://github.com/pmem/pmem.github.io/blob/main/CONTRIBUTING.md).
+
 ## Getting started
 
 Before you begin:
