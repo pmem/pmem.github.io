@@ -16,6 +16,8 @@ documentation:
   title: "Documentation"
   lists:
     list_item1:
+      content: "<a href=\"./manpages/memkind.3.html\">memkind API</a>"
+    list_item2:
       content: "<a href=\"./manpages/memkindallocator.3.html\">memkind allocator API</a>"
 
 #################################  Sources ################################# 
