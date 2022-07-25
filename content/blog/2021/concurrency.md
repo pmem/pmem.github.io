@@ -133,7 +133,7 @@ struct list {
 
 Just as a reminder (more details can be found [here][cpp-02])
 when a variable of type `pmem::obj::p` (or other persistent-aware structure
-like persistent_ptr or self_relative_ptr) is modified, its old value is saved
+like `persistent_ptr` or `self_relative_ptr`) is modified, its old value is saved
 in an undo log. In case the enclosing transaction aborts or there is a power
 failure, the value is rolled back. If the transaction succeeds, all modified
 variables of persistent-aware types are persisted.
@@ -220,7 +220,7 @@ struct list {
 
 In the above example, we ignored allocating and publishing new nodes - let's
 look at this now. The example below shows an attempt at implementing the
-push_back method in a concurrent, lock-free list. For simplicity, this example
+`push_back` method in a concurrent, lock-free list. For simplicity, this example
 will assume that there can be multiple concurrent operations on the list, but
 only one of them can be `push_back` (it will be a single-writer,
 multi-reader list).
@@ -239,7 +239,7 @@ struct list {
 
     void push_back(Value v) {
         self_relative_ptr<Node> new_node;
-        pmem::obj::transaction::run(pop, [&]{
+        transaction::run(pop, [&]{
             new_node = make_persistent<Node>(v);
             find_last()->next.store(new_node);
         });
@@ -255,12 +255,12 @@ struct list {
 };
 ```
 
-The implementation uses self_relative_ptr as it's currently the only pmem::obj
-pointer type that is working with std::atomic.
+The implementation uses self_relative_ptr as it's currently the only `pmem::obj`
+pointer type that is working with `std::atomic`.
 
 A careful reader will notice that the implementation will not work correctly.
 Here, we encounter the same problem with dirty reads which was described in
-'Shared state consistency'.
+section [Shared state consistency](#shared-state-consistency).
 
 To solve this problem, one can try to move atomic store outside of the
 transaction:
@@ -278,7 +278,8 @@ void push_back(Value v) {
 ```
 
 To make sure there are no visibility problems, iterate method would need to be
-changed to use persist on read, as described in 'Lock-free programming on pmem':
+changed to use persist on read, as described in section
+[Lock-free programming on pmem](#lock-free-programming-on-pmem):
 
 ```c++
 void iterate(F callback) {
@@ -312,8 +313,8 @@ void push_back(Value v) {
         this->new_node = make_persistent<Node>(v);
     });
 
-    find_last()->next.store(tls_ref);
-    pop.persist(&find_last()->next, sizeof(tls_ref));
+    find_last()->next.store(this->new_node);
+    pop.persist(&find_last()->next, sizeof(this->new_node));
 }
 ```
 
