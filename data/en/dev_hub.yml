@@ -22,7 +22,7 @@ dev_section:
       content: 'pmemkv is a local/embedded key-value datastore optimized for persistent memory that provides options for language bindings and pluggable storage engines.'
       link: '/pmemkv'
     card2:
-      title: 'Persistent Memory Developer Kit (PMDK)'
+      title: 'Persistent Memory Development Kit (PMDK)'
       content: 'A collection of libraries and tools that allow developers to rapidly integrate persistent memory into new or existing applications.'
       link: '/pmdk'
     card3:

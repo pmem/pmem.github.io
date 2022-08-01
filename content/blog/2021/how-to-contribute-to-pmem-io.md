@@ -33,11 +33,15 @@ type: "post"
 
 # Contributing to this repository
 
+#### [This entry was edited on 2022-07-22 to update Code of Conduct link and add a link to Contributing guide]
+> Please note that this blog post is a snapshot of our CONTRIBUTING file. For always up-to-date information, please see
+> [guideline file on repository with content of this website](https://github.com/pmem/pmem.github.io/blob/main/CONTRIBUTING.md).
+
 ## Getting started
 
 Before you begin:
 - The [pmem.io](https://pmem.io) website is powered by the [Hugo](https://gohugo.io/) static site generator and hosted on [GitHub Pages](https://pages.github.com/).
-- Have you read the [code of conduct](/CODE_OF_CONDUCT.md)?
+- Have you read the [code of conduct](https://github.com/pmem/pmem.github.io/blob/main/CODE_OF_CONDUCT.md)?
 - Review the [existing issues](https://github.com/pmem/pmem.github.io/issues) and see if we [accept contributions](#types-of-contributions) for your type of issue.
 
 ## Types of contributions

@@ -17,7 +17,7 @@ This document applies to Fedora 23 or later running Linux Kernel 4.2 or later.
 
 ## Introduction
 
-The `ndctl` utility is used to manage persistent memory devices within the system while the `daxctl` utility managed device-dax instances.  `libndctl` is required for several Persistent Memory Developer Kit (PMDK) and `ipmctl` features if compiling from source.  If `ndctl` is not available, the PMDK may not build all components and features.  This page describes how to install `ndctl` and `daxctl` using the Linux package repository.
+The `ndctl` utility is used to manage persistent memory devices within the system while the `daxctl` utility managed device-dax instances.  `libndctl` is required for several Persistent Memory Development Kit (PMDK) and `ipmctl` features if compiling from source.  If `ndctl` is not available, the PMDK may not build all components and features.  This page describes how to install `ndctl` and `daxctl` using the Linux package repository.
 
 Both `ndctl` and `daxctl` are Linux only utilities. 
 

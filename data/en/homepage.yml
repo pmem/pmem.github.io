@@ -17,7 +17,7 @@ banner:
   bg_image: ''
   title: ''
   content_banner:
-    bold_text: 'Persistent Memory Developer Kit Version v1.11.0 is now available!'
+    bold_text: 'Persistent Memory Development Kit Version v1.11.0 is now available!'
     text: 'Adds new libpmem2 APIs, makes pmemobj_open/close() functions thread safe, plus other bug fixes and performance improvements.'
   download_link:
     label: 'Download now!'
