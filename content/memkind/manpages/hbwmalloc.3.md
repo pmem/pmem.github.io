@@ -22,7 +22,7 @@ section: 3
 [**RETURN VALUE**](#return-value)\
 [**ERRORS**](#errors)\
 [**NOTES**](#notes)\
-[**FILES**](#files)\
+[**UTILS**](#utils)\
 [**ENVIRONMENT**](#environment)\
 [**SYSTEM CONFIGURATION**](#system-configuration)\
 [**KNOWN ISSUES**](#known-issues)\
@@ -34,7 +34,7 @@ section: 3
 
 **hbwmalloc** - The high bandwidth memory interface
 
-**Note:** *hbwmalloc.h* functionality is considered as stable API (STANDARD API).
+**Note:** *hbwmalloc.h* functionality is considered as a stable API (STANDARD API).
 
 # SYNOPSIS #
 
@@ -74,7 +74,7 @@ int hbw_verify_memory_region(void *addr, size_t size, int flags);
     **Note:** `hbw_realloc()` cannot be used with a pointer returned by `hbw_posix_memalign_psize()`.
 
 `hbw_free()`
-:    causes the allocated memory referenced by *ptr* to be made available for future allocations. If *ptr* is *NULL*, no action occurs. The address *ptr*, if not *NULL*, must have been returned by a previous call to `hbw_malloc()`, `hbw_calloc()`, `hbw_realloc()`, `hbw_posix_memalign()` or `hbw_posix_memalign_psize()`. Otherwise, if *hbw_free(ptr)* was called before, undefined behavior occurs.
+:    causes the allocated memory referenced by *ptr* to be made available for future allocations. If *ptr* is *NULL*, no action occurs. In other case the address *ptr*, if not *NULL*, must have been returned by a previous call to `hbw_malloc()`, `hbw_calloc()`, `hbw_realloc()`, `hbw_posix_memalign()` or `hbw_posix_memalign_psize()`. Otherwise, if *hbw_free(ptr)* was called before, undefined behavior occurs.
 
 `hbw_malloc_usable_size()`
 :   returns the number of usable bytes in the block pointed to by *ptr*, a pointer to a block of memory allocated by `hbw_malloc()`, `hbw_calloc()`, `hbw_realloc()`, `hbw_posix_memalign()`, or `hbw_posix_memalign_psize()`.
@@ -89,44 +89,44 @@ int hbw_verify_memory_region(void *addr, size_t size, int flags);
 
 >HBW_PAGESIZE_2MB
 >:  The two megabyte page size option.
-**Note:** This page size requires huge pages configuration described in [SYSTEM CONFIGURATION](#system-configuration) section.
+**Note:** This page size requires huge pages configuration described in the [SYSTEM CONFIGURATION](#system-configuration) section.
 
 >HBW_PAGESIZE_1GB (DEPRECATED)
 >:  This option allows the user to specify arbitrary sizes backed by 1GB chunks of huge pages. Huge pages are allocated even if the size is not a modulo of 1GB.
-**Note:** This page size requires huge pages configuration described in [SYSTEM CONFIGURATION](#system-configuration) section.
+**Note:** This page size requires huge pages configuration described in the [SYSTEM CONFIGURATION](#system-configuration) section.
 
 >HBW_PAGESIZE_1GB_STRICT (DEPRECATED)
->:  The total size of the allocation must be a multiple of 1GB with this option, otherwise the allocation will fail. Note: This page size requires huge pages configuration described in [SYSTEM CONFIGURATION](#system-configuration) section.
+>:  The total size of the allocation must be a multiple of 1GB with this option, otherwise the allocation will fail. Note: This page size requires huge pages configuration described in the [SYSTEM CONFIGURATION](#system-configuration) section.
 
->**Note:** **HBW_PAGESIZE_2MB**, **HBW_PAGESIZE_1GB** and **HBW_PAGESIZE_1GB_STRICT** options are not supported with **HBW_POLICY_INTERLEAVE** policy.
+>**Note:** **HBW_PAGESIZE_2MB**, **HBW_PAGESIZE_1GB** and **HBW_PAGESIZE_1GB_STRICT** options are not supported with the **HBW_POLICY_INTERLEAVE** policy.
 
 `hbw_get_policy()`
 :   returns the current fallback policy when insufficient high bandwidth memory is available.
 
 `hbw_set_policy()`
-:   sets the current fallback policy. The policy can be modified only once in the lifetime of an application and before calling `hbw_malloc()`, `hbw_calloc()`, `hbw_realloc()`, `hbw_posix_memalign()`, or `hbw_posix_memalign_psize()` function.\
-**Note:** If the policy is not set, than **HBW_POLICY_PREFERRED** will be used by default.
+:   sets the current fallback policy. The policy can be modified only once in the lifetime of an application and before calling any of: `hbw_malloc()`, `hbw_calloc()`, `hbw_realloc()`, `hbw_posix_memalign()`, or `hbw_posix_memalign_psize()` functions.\
+**Note:** If the policy is not set, then **HBW_POLICY_PREFERRED** will be used by default.
 
 >HBW_POLICY_BIND
->:  If insufficient high bandwidth memory from the nearest NUMA node is available to satisfy a request, the allocated pointer is set to *NULL* and *errno* is set to **ENOMEM**. If insufficient high bandwidth memory pages are available at fault time the Out Of Memory (OOM) Killer is triggered. Note that pages are faulted exclusively from the high bandwidth NUMA node nearest at time of allocation, not at time of fault.
+>:  If insufficient high bandwidth memory from the nearest NUMA node is available to satisfy a request, the allocated pointer is set to *NULL* and *errno* is set to **ENOMEM**. If insufficient high bandwidth memory pages are available at fault time the Out Of Memory (OOM) Killer is triggered. Note that pages are faulted exclusively from the high bandwidth NUMA node nearest at time of allocation, not at the time of fault.
 
 >HBW_POLICY_BIND_ALL
->:  If insufficient high bandwidth memory is available to satisfy a request, the allocated pointer is set to *NULL* and errno is set to **ENOMEM**. If insufficient high bandwidth memory pages are available at fault time the Out Of Memory (OOM) Killer is triggered. Note that pages are faulted from the high bandwidth NUMA nodes. Nearest NUMA node is selected at time of page fault.
+>:  If insufficient high bandwidth memory is available to satisfy a request, the allocated pointer is set to *NULL* and errno is set to **ENOMEM**. If insufficient high bandwidth memory pages are available at fault time the Out Of Memory (OOM) Killer is triggered. Note that pages are faulted from the high bandwidth NUMA nodes. Nearest NUMA node is selected at the time of page fault.
 
 >HBW_POLICY_PREFERRED
->:  If insufficient memory is available from the high bandwidth NUMA node closest at allocation time, fall back to standard memory (default) with the smallest NUMA distance.
+>:  If insufficient memory is available from the high bandwidth NUMA node closest at the allocation time, fall back to standard memory (default) with the smallest NUMA distance.
 
 >HBW_POLICY_INTERLEAVE
 >:  Interleave faulted pages from across all high bandwidth NUMA nodes using standard size pages (the Transparent Huge Page feature is disabled).
 
 `hbw_verify_memory_region()`
-:   verifies if memory region fully falls into high bandwidth memory. Returns 0 if memory address range from *addr* to *addr +* *size* is allocated in high bandwidth memory, -1 if any fragment of memory was not backed by high bandwidth memory (e.g. when memory is not initialized) or one of error codes described in [ERRORS](#errors) section.\
-**Note:** Using this function in production code may result in serious performance penalty.
+:   verifies if a memory region fully falls into high bandwidth memory. Returns 0 if memory address range from *addr* to *addr +* *size* is allocated in high bandwidth memory, -1 if any fragment of memory was not backed by high bandwidth memory (e.g. when memory is not initialized) or one of error codes described in the [ERRORS](#errors) section.\
+**Note:** Using this function in production code may result in a serious performance penalty.
 
 #### The *Flags* argument may include optional flags that modify function behavior: ####
 
 >HBW_TOUCH_PAGES
->:   Before checking pages, function will touch first byte of all pages in address range starting from *addr* to *addr +* *size* by read and write (so the content will be overwritten by the same data as it was read). Using this option may trigger Out Of Memory Killer.
+>:   Before checking pages, function will touch the first byte of all pages in address range starting from *addr* to *addr +* *size* by read and write (so the content will be overwritten by the same data as it was read). Using this option may trigger the Out Of Memory Killer.
 
 ## RETURN VALUE ##
 
@@ -153,7 +153,7 @@ If the *alignment* parameter is not a power of two, or was not a multiple of *si
 
 The <*hbwmalloc.h*> file defines the external functions and enumerations for the hbwmalloc library. These interfaces define a heap manager that targets high bandwidth memory numa nodes.
 
-## FILES ##
+## UTILS ##
 
 */usr/bin/memkind-hbw-nodes*
 :   Prints a comma-separated list of high bandwidth nodes.
@@ -164,7 +164,7 @@ MEMKIND_HBW_NODES
 :   This environment variable is a comma-separated list of NUMA nodes that are treated as high bandwidth. Uses the libnuma routine `numa_parse_nodestring()` for parsing, so the syntax described in the `numa(3)` man page for this routine applies for example: 1-3,5 is a valid setting.
 
 MEMKIND_ARENA_NUM_PER_KIND
-:   This environment variable allows leveraging internal mechanism of the library for setting number of arenas per kind. Value should be a positive integer (not greater than **INT_MAX** defined in <*limits.h*>). The user should set the value based on the characteristics of application that is using the library. Higher value can provide better performance in extremely multithreaded applications at the cost of memory overhead. See section **IMPLEMENTATION NOTES** of **jemalloc**(3) for more details about arenas.
+:   This environment variable allows leveraging internal mechanism of the library for setting number of arenas per kind. Value should be a positive integer (not greater than **INT_MAX** defined in <*limits.h*>). The user should set the value based on the characteristics of the application that is using the library. Higher value can provide better performance in extremely multithreaded applications at the cost of memory overhead. See section **IMPLEMENTATION NOTES** of **jemalloc**(3) for more details about arenas.
 
 MEMKIND_HEAP_MANAGER
 :   Controls heap management behavior in memkind library by switching to one of the available heap managers.\
@@ -180,7 +180,7 @@ Intel Threading Building Blocks library.
 Interfaces for obtaining 2MB (HUGETLB) memory need allocated huge pages in the kernel’s huge page pool.
 
 HUGETLB (huge pages)
-:   Current number of "persistent" huge pages can be read from */proc/sys/vm/nr_hugepages* file. Proposed way of setting hugepages is: `sudo sysctl vm.nr_hugepages=<number_of_hugepages>`. More information can be found here: https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt
+:   Current number of "persistent" huge pages can be read from the */proc/sys/vm/nr_hugepages* file. The proposed way of setting hugepages is: `sudo sysctl vm.nr_hugepages=<number_of_hugepages>`. More information can be found here: https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt
 
 ## KNOWN ISSUES ##
 
