@@ -50,11 +50,11 @@ void libmemkind::static_kind::allocator<T>::destroy(T *p) const;
 # DESCRIPTION #
 
 `libmemkind::static_kind::allocator<T>` 
-:   is intended to be used with STL containers to allocate from static kinds of memory All public member types and functions correspond to standard library allocator concepts and definitions. The current implementation supports C++11 standard.
+:   is intended to be used with STL containers to allocate from static kinds of memory. All public member types and functions correspond to standard library allocator concepts and definitions. The current implementation supports the C++11 standard.
 
 >Template arguments:
 >+ T is an object type aliased by value_type,
->+ U is an object type.Memory management is based on the memkind library. Refer [**memkind**](/memkind/manpages/memkind.3/)(3) man page for more details.
+>+ U is an object type. Memory management is based on the memkind library. Refer to the [**memkind**](/memkind/manpages/memkind.3/)(3) man page for more details.
 
 * `T *libmemkind::static_kind::allocator<T>::allocate(std::size_t n)`
   :   allocates uninitialized memory of size *n* bytes of the specified kind using >`memkind_malloc()`. Throw **std::bad_alloc** when n = 0 or there is not enough memory to satisfy the request.
@@ -140,14 +140,14 @@ void libmemkind::static_kind::allocator<T>::destroy(T *p) const;
 
 HUGETLB (huge pages)
 :   Interfaces for obtaining 2MB (**HUGETLB**) memory need allocated huge pages in the kernel’s huge page pool.
-Current number of "persistent" huge pages can be read from */proc/sys/vm/nr_hugepages* file. Proposed way of setting hugepages is: `sudo sysctl vm.nr_hugepages=<number_of_hugepages>`. More information can be found here: <https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt>
+Current number of "persistent" huge pages can be read from the */proc/sys/vm/nr_hugepages* file. Proposed way of setting hugepages is: `sudo sysctl vm.nr_hugepages=<number_of_hugepages>`. More information can be found here: <https://www.kernel.org/doc/Documentation/vm/hugetlbpage.txt>
 
 Locality information
-:   Interfaces for obtaining locality information are provided by *libhwloc* dependency. Functionality based on locality requires that memkind library is configured and built with the support of [*libhwloc*](https://www.open-mpi.org/projects/hwloc) :\
+:   Interfaces for obtaining locality information are provided by *libhwloc* dependency. Functionality based on locality requires that memkind library is configured and built with the support of the [*libhwloc*](https://www.open-mpi.org/projects/hwloc) :\
 `./configure --enable-hwloc`
 
 Memory performance characteristics information
-:   Interfaces for obtaining memory performance characteristics information are based on *HMAT* (Heterogeneous Memory Attribute Table). See <https://uefi.org/sites/default/files/resources/ACPI_6_3_final_Jan30.pdf> for more information. Functionality based on memory performance characteristics requires that platform configuration fully supports *HMAT* and memkind library is configured and built with the support of [*libhwloc*](https://www.open-mpi.org/projects/hwloc) :\
+:   Interfaces for obtaining memory performance characteristics information are based on *HMAT* (Heterogeneous Memory Attribute Table). See <https://uefi.org/sites/default/files/resources/ACPI_6_3_final_Jan30.pdf> for more information. Functionality based on memory performance characteristics requires that platform configuration fully supports *HMAT* and memkind library is configured and built with the support of the [*libhwloc*](https://www.open-mpi.org/projects/hwloc) :\
 `./configure --enable-hwloc`
 
 **Note:** For a given target NUMA Node, the OS exposes only the performance characteristics of the best performing NUMA node.
