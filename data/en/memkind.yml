@@ -21,6 +21,14 @@ documentation:
       content: "<a href=\"./manpages/memkindallocator.3.html\">memkind allocator API</a>"
     list_item3:
       content: "<a href=\"./manpages/hbwmalloc.3.html\">hbwmalloc</a>"
+    list_item4:
+      content: "<a href=\"./manpages/pmemallocator.3.html\">pmemallocator API</a>"
+    list_item5:
+      content: "<a href=\"./manpages/fixedallocator.3.html\">fixedallocator API</a>"
+    list_item6:
+      content: "<a href=\"./manpages/libmemtier.3.html\">libmemtier(3) API</a>"
+    list_item7:
+      content: "<a href=\"./manpages/libmemtier.7.html\">libmemtier(7) API</a>"
 
 #################################  Sources ################################# 
 sources:
@@ -45,7 +53,7 @@ binaries:
   title: "Binaries"
   lists:
     list_item1:
-      content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for misc OSes</a>"
+      content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for Fedora and OpenSuse OSes</a>"
 
 ################################# Blog entries #################################
 blog_entries:
