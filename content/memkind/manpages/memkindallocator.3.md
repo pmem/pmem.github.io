@@ -54,7 +54,7 @@ void libmemkind::static_kind::allocator<T>::destroy(T *p) const;
 
 >Template arguments:
 >+ T is an object type aliased by value_type,
->+ U is an object type.Memory management is based on the memkind library. Refer [**memkind**](/memkind/manpages/memkind.3/)(3) man page for more details.
+>+ U is an object type. Memory management is based on the memkind library. Refer [**memkind**](/memkind/manpages/memkind.3/)(3) man page for more details.
 
 * `T *libmemkind::static_kind::allocator<T>::allocate(std::size_t n)`
   :   allocates uninitialized memory of size *n* bytes of the specified kind using >`memkind_malloc()`. Throw **std::bad_alloc** when n = 0 or there is not enough memory to satisfy the request.
