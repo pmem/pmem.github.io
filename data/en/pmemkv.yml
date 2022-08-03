@@ -68,7 +68,7 @@ language_bindings:
         list_item3:
           content: "<strong>pmemkv-python</strong> <a href=\"/pmemkv-python\">docs</a>"
         list_item4:
-          content: "<strong>pmemkv-ruby</strong> <a href=\"/pmemkv-ruby\">readme</a>"
+          content: "<strong>pmemkv-ruby</strong> <a href=\"/pmemkv-ruby\">docs</a>"
 
 #################################  Performance reports ################################# 
 performance_reports:
