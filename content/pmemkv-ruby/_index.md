@@ -12,10 +12,14 @@ description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
 ---
 ### pmemkv-ruby
-Ruby bindings for pmemkv
+
+Ruby bindings for **pmemkv**.
 
 The current API is simplified and not functionally equal to its native C/C++ counterpart.
 In the future existing API may be extended in idiomatic way without preserving backward compatibility.
+
+Current code can be accessed on <a href="https://github.com/pmem/pmemkv-ruby">github page</a>.
+
 All known issues and limitations are logged as GitHub issues.
 
 ### Dependencies
