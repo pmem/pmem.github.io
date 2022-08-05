@@ -79,7 +79,7 @@
       struct rpma_mr_remote;
       int rpma_write(struct rpma_conn *conn,
                       struct rpma_mr_remote *dst, size_t dst_offset,
-                      const struct rpma_mr_local *src,  size_t src_offset,
+                      const struct rpma_mr_local *src, size_t src_offset,
                       size_t len, int flags, const void *op_context);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_write</strong>() initiates transferring data from the local memory to
 the remote memory. To write a 0 bytes message, set src and dst to NULL
