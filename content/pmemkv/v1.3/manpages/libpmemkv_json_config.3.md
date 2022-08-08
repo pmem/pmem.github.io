@@ -5,7 +5,9 @@ slider_enable: true
 description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
 aliases: ["libpmemkv_json_config.3.html"]
-title: "libpmemkv | PMDK"
+title: pmemkv_json_config
+section: 3
+secondary_title: pmemkv
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
@@ -13,12 +15,14 @@ title: "libpmemkv | PMDK"
 
 [comment]: <> (libpmemkv_json_config.3 -- man page for libpmemkv_json_config configuration API)
 
-[NAME](#name)<br />
-[SYNOPSIS](#synopsis)<br />
-[DESCRIPTION](#description)<br />
-[EXAMPLE](#example)<br />
-[ERRORS](#errors)<br />
-[SEE ALSO](#see-also)<br />
+# Table of Contents
+
+[NAME](#name)\
+[SYNOPSIS](#synopsis)\
+[DESCRIPTION](#description)\
+[EXAMPLE](#example)\
+[ERRORS](#errors)\
+[SEE ALSO](#see-also)
 
 
 # NAME #
