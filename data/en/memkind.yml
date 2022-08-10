@@ -1,0 +1,89 @@
+################################# Slider #####################################
+slider:
+  enable: true
+  bg_image: '/images/backgrounds/faq_header.jpg'
+  title: 'memkind'
+
+################################# Overview #################################
+overview:
+  enable: true
+  title: "Overview"
+  content: "<p><a href=\"https://github.com/memkind/Memkind\">Memkind</a> is an easy-to-use, general-purpose allocator built on top of <a href=\"https://github.com/jemalloc/jemalloc\">jemalloc</a> which emphasizes fragmentation avoidance and scalable concurrency support. Memkind helps to fully utilize various kinds of memory available in the system, including DRAM, NVDIMM, and HBM, mostly by adding one additional argument - destination kind of memory – to standard malloc API calls. It also offers a transparent mode that allows memory tiering without any modification to the existing app, memory kinds based on file-backed memory on specified device or area supplied by the user, and much more.</p>"
+
+################################# Documentation #################################
+documentation:
+  enable: true
+  title: "Documentation"
+  lists:
+    list_item1:
+      content: "<a href=\"./manpages/memkind.3.html\">memkind API</a>"
+    list_item2:
+      content: "<a href=\"./manpages/memkindallocator.3.html\">memkind allocator API</a>"
+    list_item3:
+      content: "<a href=\"./manpages/hbwmalloc.3.html\">hbwmalloc</a>"
+    list_item4:
+      content: "<a href=\"./manpages/pmemallocator.3.html\">pmemallocator API</a>"
+    list_item5:
+      content: "<a href=\"./manpages/fixedallocator.3.html\">fixedallocator API</a>"
+    list_item6:
+      content: "<a href=\"./manpages/libmemtier.3.html\">libmemtier(3) API</a>"
+    list_item7:
+      content: "<a href=\"./manpages/libmemtier.7.html\">libmemtier(7) API</a>"
+
+#################################  Sources ################################# 
+sources:
+  enable: true
+  title: "Sources"
+  content: "Memkind is hosted on <a href=\"https://github.com/memkind/memkind\">GitHub</a>. To clone memkind repository, please run the following command:"
+  code: "$ git clone https://github.com/memkind/memkind.git"
+  lists:
+    link_list1:
+      content: "You could also download latest packed sources using links below:"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://github.com/memkind/memkind/tarball/master\">Tarball (master)</a>"
+        list_item2:
+          content: "<a href=\"https://github.com/memkind/memkind/zipball/master\">ZIP (master)</a>"
+    link_list2:
+      content: "Needed dependencies and detailed build instructions can be found in the memkind's <a href=\"https://github.com/memkind/memkind#memkind\">readme</a> file."
+
+################################# Binaries #################################
+binaries:
+  enable: true
+  title: "Binaries"
+  lists:
+    list_item1:
+      content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for Fedora and OpenSuse OSes</a>"
+
+################################# Blog entries #################################
+blog_entries:
+  enable: true
+  title: "Blog entries"
+  content: "Blog posts related to memkind can be found using <a href=\"/blogs/memkind/\">the dedicated blog tag</a>."
+
+
+################################# Announcements #################################
+announcements:
+  enable: true
+  title: "Annoucements"
+  content: "All news and announcements (e.g., about recent releases) related to memkind can be found <a href=\"/announcements/memkind/\">here</a>."
+
+################################# Contact us #################################
+contact_us:
+  enable: true
+  title: "Contact us"
+  lists:
+    link_list1:
+      content: "For more information on this library, contact <a href=\"mailto:rafal.rudnicki@intel.com\">Rafal Rudnicki</a>, <a href=\"mailto:patryk.kaminski@intel.com\">Patryk Kaminski</a> or <a href=\"mailto:piotr.balcer@intel.com\">Piotr Balcer</a>. Your participation, feedback and questions are welcome. You can:"
+      list_items:
+        list_item1:
+          content: "<a href=\"https://github.com/memkind/memkind/issues/\">Create an issue</a> in our GitHub issues database. This is a good way to report problems or request new features."
+        list_item2:
+          content: "Join our <a href=\"https://groups.google.com/group/pmem\">Google Group</a> to participate in discussions on memkind, including the design of the API and future directions."
+        list_item3:
+          content: "Join our <a href=\"https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg\">#pmem Slack channel</a>"
+
+################################# Disclaimer #################################
+disclaimer:
+  enable: true
+  content: "The contents of this web site and the associated <a href=\"https://github.com/memkind/memkind\">GitHub repositories</a> are BSD-licensed open source."
