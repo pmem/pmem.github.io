@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Memkind on PMem.io</title><link>https://pmem.io/memkind/</link><description>Recent content in Memkind on PMem.io</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://pmem.io/memkind/index.xml" rel="self" type="application/rss+xml"/><item><title>FIXEDALLOCATOR</title><link>https://pmem.io/memkind/manpages/fixedallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/fixedallocator.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME libmemkind::fixed::allocator - The C++ allocator compatible with the C++ standard library allocator concepts.
+Note: fixed_allocator.h functionality is considered as a stable API (STANDARD API).
+SYNOPSIS #include &amp;lt;fixed_allocator.h&amp;gt; Link with -lmemkind libmemkind::fixed::allocator(void *addr, size_t size); template &amp;lt;typename U&amp;gt; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::fixed::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocator(allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::fixed::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item><item><title>HBWMALLOC</title><link>https://pmem.io/memkind/manpages/hbwmalloc.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/hbwmalloc.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+RETURN VALUE
+ERRORS
+NOTES
+UTILS
+ENVIRONMENT
+SYSTEM CONFIGURATION
+KNOWN ISSUES
+COPYRIGHT
+SEE ALSO
+NAME hbwmalloc - The high bandwidth memory interface.
+Note: hbwmalloc.h functionality is considered as a stable API (STANDARD API).
+SYNOPSIS #include &amp;lt;hbwmalloc.h&amp;gt; Link with -lmemkind int hbw_check_available(void); void* hbw_malloc(size_t size); void* hbw_calloc(size_t nmemb, size_t size); void* hbw_realloc (void *ptr, size_t size); void hbw_free(void *ptr); size_t hbw_malloc_usable_size(void *ptr); int hbw_posix_memalign(void **memptr, size_t alignment, size_t size); int hbw_posix_memalign_psize(void **memptr, size_t alignment, size_t size, hbw_pagesize_t pagesize); hbw_policy_t hbw_get_policy(void); int hbw_set_policy(hbw_policy_t mode); int hbw_verify_memory_region(void *addr, size_t size, int flags); DESCRIPTION hbw_check_available() returns zero if high bandwidth memory is available or an error code described in the ERRORS section if not.</description></item><item><title>LIBMEMTIER</title><link>https://pmem.io/memkind/manpages/libmemtier.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/libmemtier.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+ENVIRONMENT
+COPYRIGHT
+SEE ALSO
+NAME libmemtier - memory tiering interface.
+Note: memkind_memtier.h functionality is considered as a stable API (STANDARD API).
+SYNOPSIS #include &amp;lt;memkind_memtier.h&amp;gt; Link with -lmemkind The API can be used either directly with the usage of C-functions or via environment variables. See also ENVIRONMENT section.
+TIER MANAGEMENT:
+struct memtier_builder *memtier_builder_new(memtier_policy_t policy); void memtier_builder_delete(struct memtier_builder *builder); int memtier_builder_add_tier(struct memtier_builder *builder, memkind_t kind, unsigned kind_ratio); struct memtier_memory *memtier_builder_construct_memtier_memory(struct memtier_builder *builder); void memtier_delete_memtier_memory(struct memtier_memory *memory); HEAP MANAGEMENT:</description></item><item><title>LIBMEMTIER</title><link>https://pmem.io/memkind/manpages/libmemtier.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/libmemtier.7/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+ENVIRONMENT
+TIER PARAMETERS
+POLICIES
+THRESHOLD PARAMETERS
+DRAM FALLBACK POLICY
+EXAMPLES
+NOTES
+COPYRIGHT
+SEE ALSO
+NAME libmemtier.so - interposer library which enables the memkind memory tiering.
+SYNOPSIS In order to use the memkind memory tiering with pre-built binaries, pass the following environment variables along with the command:
+LD_PRELOAD=libmemtier.so MEMKIND_MEM_TIERS=&amp;#34;...&amp;#34; command {arguments ...} DESCRIPTION This library enables the memkind memory tiering mechanism. With this funcionality, allocations will be split between different types of memory automatically.</description></item><item><title>MEMKIND</title><link>https://pmem.io/memkind/manpages/memkind.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+RETURN VALUE
+KINDS
+MEMORY TYPES
+MEMORY BINDING POLICY
+MEMORY FLAGS
+MEMORY USAGE POLICY
+MEMORY STATISTICS TYPE
+MEMORY STATISTICS PRINT OPTIONS
+ERRORS
+UTILS
+ENVIRONMENT
+SYSTEM CONFIGURATION
+STATIC LINKING
+KNOWN ISSUES
+COPYRIGHT
+SEE ALSO
+NAME memkind - A heap manager that enables allocations to memory with different properties.
+This header expose a STANDARD and an EXPERIMENTAL API. API Standards are described below in this man page.</description></item><item><title>MEMKINDALLOCATOR</title><link>https://pmem.io/memkind/manpages/memkindallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkindallocator.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+SYSTEM CONFIGURATION
+COPYRIGHT
+SEE ALSO
+NAME libmemkind::static_kind::allocator - The C++ allocator compatible with the C++ standard library allocator concepts.
+Note: memkind_allocator.h functionality is considered as a stable API (STANDARD API).
+SYNOPSIS #include &amp;lt;memkind_allocator.h&amp;gt; Link with -lmemkind libmemkind::static_kind::allocator(libmemkind::kinds kind); template &amp;lt;typename U&amp;gt; libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::static_kind::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::static_kind::allocator(const allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item><item><title>PMEMALLOCATOR</title><link>https://pmem.io/memkind/manpages/pmemallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/pmemallocator.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME libmemkind::pmem::allocator - The C++ allocator compatible with the C++ standard library allocator concepts.
+Note: pmem_allocator.h functionality is considered as a stable API (STANDARD API).
+SYNOPSIS #include &amp;lt;pmem_allocator.h&amp;gt; Link with -lmemkind libmemkind::pmem::allocator(const char *dir, size_t max_size); libmemkind::pmem::allocator(const char &amp;amp;dir, size_t max_size, libmemkind::allocation_policy alloc_policy); libmemkind::pmem::allocator(const std::string &amp;amp;dir, size_t max_size); libmemkind::pmem::allocator(const std::string &amp;amp;dir, size_t max_size, libmemkind::allocation_policy alloc_policy); template &amp;lt;typename U&amp;gt; libmemkind::pmem::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::pmem::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::pmem::allocator(const allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::pmem::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::pmem::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::pmem::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item></channel></rss>
