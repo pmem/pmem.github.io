@@ -15,20 +15,58 @@ documentation:
   enable: true
   title: "Documentation"
   lists:
-    list_item1:
-      content: "<a href=\"./manpages/memkind.3.html\">memkind API</a>"
-    list_item2:
-      content: "<a href=\"./manpages/memkindallocator.3.html\">memkind allocator API</a>"
-    list_item3:
-      content: "<a href=\"./manpages/hbwmalloc.3.html\">hbwmalloc</a>"
-    list_item4:
-      content: "<a href=\"./manpages/pmemallocator.3.html\">pmemallocator API</a>"
-    list_item5:
-      content: "<a href=\"./manpages/fixedallocator.3.html\">fixedallocator API</a>"
-    list_item6:
-      content: "<a href=\"./manpages/libmemtier.3.html\">libmemtier(3) API</a>"
-    list_item7:
-      content: "<a href=\"./manpages/libmemtier.7.html\">libmemtier(7) API</a>"
+    link_list1:
+      content: "General:"
+      list_items:
+        list_item01:
+          content: "<a href=\"./manpages/memkind.3.html\">memkind(3) API</a>"
+        list_item02:
+          content: "<a href=\"./manpages/memkind_arena.3.html\">memkind_arena(3)</a>"
+        list_item03:
+          content: "<a href=\"./manpages/memkind_dax_kmem.3.html\">memkind_dax_kmem(3)</a>"
+        list_item04:
+          content: "<a href=\"./manpages/memkind_default.3.html\">memkind_default(3)</a>"
+        list_item05:
+          content: "<a href=\"./manpages/memkind_fixed.3.html\">memkind_fixed(3)</a>"
+        list_item06:
+          content: "<a href=\"./manpages/memkind_hugetlb.3.html\">memkind_hugetlb(3)</a>"
+        list_item07:
+          content: "<a href=\"./manpages/memkind_interleave.3.html\">memkind_interleave(3)</a>"
+        list_item08:
+          content: "<a href=\"./manpages/memkind_pmem.3.html\">memkind_pmem(3)</a>"
+        list_item09:
+          content: "<a href=\"./manpages/memkind-auto-dax-kmem-nodes.1.html\">memkind-auto-dax-kmem-nodes(1)</a>"
+    link_list2: 
+      content: "High Bandwidth Memory:"
+      list_items:
+        list_item01:
+          content: "<a href=\"./manpages/hbwmalloc.3.html\">hbwmalloc(3)</a>"
+        list_item03:
+          content: "<a href=\"./manpages/autohbw.7.html\">autohbw(7)</a>"
+        list_item04:
+          content: "<a href=\"./manpages/memkind-hbw-nodes.1.html\">memkind-hbw-nodes(1)</a>"
+        list_item05:
+          content: "<a href=\"./manpages/memkind_hbw.3.html\">memkind_hbw(3)</a>"
+    link_list3: 
+      content: "Allocators:"
+      list_items:
+        list_item01:
+          content: "<a href=\"./manpages/pmemallocator.3.html\">pmemallocator(3) API</a>"
+        list_item02:
+          content: "<a href=\"./manpages/hbwallocator.3.html\">hbwallocator(3) API</a>"
+        list_item03:
+          content: "<a href=\"./manpages/fixedallocator.3.html\">fixedallocator(3) API</a>"
+        list_item04:
+          content: "<a href=\"./manpages/memkindallocator.3.html\">memkind allocator(3) API</a>"
+    link_list4:
+      content: "Memtier:"
+      list_items:
+        list_item01:
+          content: "<a href=\"./manpages/libmemtier.3.html\">libmemtier(3) API</a>"
+        list_item02:
+          content: "<a href=\"./manpages/libmemtier.7.html\">libmemtier(7) API</a>"
+        list_item03:
+          content: "<a href=\"./manpages/memtier.1.html\">memtier(1)</a>"
 
 #################################  Sources ################################# 
 sources:

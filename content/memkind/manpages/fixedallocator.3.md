@@ -25,9 +25,11 @@ section: 3
 
 # NAME #
 
-**libmemkind::fixed::allocator<T>** - The C++ allocator compatible with the C++ standard library allocator concepts.
+**libmemkind::fixed::allocator<T>** - The C++ allocator
+compatible with the C++ standard library allocator concepts.
 
-**Note:** *fixed_allocator.h* functionality is considered as a stable API (STANDARD API).
+**Note:** *fixed_allocator.h* functionality is considered as a
+stable API (STANDARD API).
 
 # SYNOPSIS #
 
@@ -49,7 +51,11 @@ void libmemkind::fixed::allocator<T>::destroy(T *p) const;
 # DESCRIPTION #
 
 `libmemkind::fixed::allocator<T>`
-:   is intended to be used with STL containers to allocate memory on specific area. Memory management is handled by jemalloc on the supplied area. Refer [**memkind**(3)](/memkind/manpages/memkind.3.html) man page for more details.\
+:   is intended to be used with STL containers to allocate
+    memory on specific area. Memory management is handled by
+    jemalloc on the supplied area. Refer
+    [**memkind**(3)](/memkind/manpages/memkind.3.html)
+    man page for more details.\
     All public member types and functions correspond to standard library allocator concepts and definitions. The current implementation supports the C++11 standard.
 
 + Template arguments:
@@ -60,15 +66,19 @@ void libmemkind::fixed::allocator<T>::destroy(T *p) const;
 **Note:**
 
 + **`T *libmemkind::fixed::allocator<T>::allocate(std::size_t n)`**\
-  allocates memory using **memkind_malloc**() on the area supplied to `libmemkind::fixed::allocator()`. Throw *std::bad_alloc* when *n = 0* or there is not enough memory to satisfy the request.
+  allocates memory using **memkind_malloc**() on the area
+  supplied to `libmemkind::fixed::allocator()`. Throw
+  *std::bad_alloc* when *n = 0* or there is not enough memory to
+  satisfy the request.
 
 + **`libmemkind::fixed::allocator<T>::deallocate(T *p, std::size_t n)`**\
-  deallocates memory associated with a pointer returned by `allocate()` using `memkind_free()`.
+  deallocates memory associated with a pointer returned by
+  `allocate()` using `memkind_free()`.
 
-## COPYRIGHT ##
+# COPYRIGHT #
 
 Copyright (C) 2021 - 2022 Intel Corporation. All rights reserved.
 
-## SEE ALSO ##
+# SEE ALSO #
 
 **memkind**(3)

@@ -25,9 +25,11 @@ section: 3
 
 # NAME #
 
-**libmemkind::pmem::allocator<T>** - The C++ allocator compatible with the C++ standard library allocator concepts.
+**libmemkind::pmem::allocator<T>** - The C++ allocator compatible with the
+C++ standard library allocator concepts.
 
-**Note:** *pmem_allocator.h* functionality is considered as a stable API (STANDARD API).
+**Note:** *pmem_allocator.h* functionality is considered as a stable
+API (STANDARD API).
 
 # SYNOPSIS #
 
@@ -52,35 +54,43 @@ void libmemkind::pmem::allocator<T>::destroy(T *p) const;
 # DESCRIPTION #
 
 `libmemkind::pmem::allocator<T>`
-:   is intended to be used with STL containers to allocate persistent memory. Memory management is based on memkind_pmem (memkind library). Refer to the **memkind_pmem**(3) and the [**memkind**](/memkind/manpages/memkind.3.html)(3) man page for more details.
+:   is intended to be used with STL containers to allocate persistent memory.
+  Memory management is based on memkind_pmem (memkind library). Refer to
+  the **memkind_pmem**(3) and the [**memkind**(3)](/memkind/manpages/memkind.3/)
+  man page for more details.
 
 `libmemkind::allocation_policy`
-:   specifies allocator memory usage policy, which allows to tune up memory utilization. The available types of allocator usage policy:
+:   specifies allocator memory usage policy, which allows to tune up memory utilization.
+  The available types of allocator usage policy:
 
 + **`libmemkind::allocation_policy::DEFAULT`**\
   Default allocator memory usage policy.
 
 + **`libmemkind::allocation_policy::CONSERVATIVE`**\
-  Conservative allocator memory usage policy - prioritize memory usage at the cost of performance.\
-  All public member types and functions correspond to standard library allocator concepts and definitions. The current implementation supports the C++11 standard.
+  Conservative allocator memory usage policy - prioritize memory usage at the
+  cost of performance.\
+  All public member types and functions correspond to standard library allocator
+  concepts and definitions. The current implementation supports the C++11 standard.
 
   + Template arguments:
-  
+
     + *T* is an object type aliased by value_type.
     + *U* is an object type.
 
 **Note:**
 
 + **`T *libmemkind::pmem::allocator<T>::allocate(std::size_t n)`**\
-  allocates persistent memory using `memkind_malloc()`. Throw *std::bad_alloc* when *n = 0* or there is not enough memory to satisfy the request.
+  allocates persistent memory using `memkind_malloc()`. Throw *std::bad_alloc*
+  when *n = 0* or there is not enough memory to satisfy the request.
 
 + **`libmemkind::pmem::allocator<T>::deallocate(T *p, std::size_t n)`**\
-  deallocates memory associated with pointer returned by `allocate()` using `memkind_free()`.
+  deallocates memory associated with pointer returned by `allocate()` using
+  `memkind_free()`.
 
-## COPYRIGHT ##
+# COPYRIGHT #
 
 Copyright (C) 2018 - 2022 Intel Corporation. All rights reserved.
 
-## SEE ALSO ##
+# SEE ALSO #
 
 **memkind_pmem**(3), **memkind**(3)
