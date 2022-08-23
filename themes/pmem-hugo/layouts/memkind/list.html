@@ -30,15 +30,17 @@
 
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.memkind.documentation.enable }} {{ with $data.memkind.documentation }}
                 <h3 class>{{ .title | markdownify }}</h3>
+                {{ range .lists }}
+                <p>{{ .content | safeHTML }}</p>
                 <ul class="memkind-list">
-                    {{ range .lists }}
+                    {{ range .list_items }}
                     <li>
                         {{ .content | safeHTML }}
                     </li>
                     {{ end }}
                 </ul>
-                {{ end }}  
                 {{ end }}
+            {{ end }} {{ end }}
 
             <!-- Documentation -->
 
