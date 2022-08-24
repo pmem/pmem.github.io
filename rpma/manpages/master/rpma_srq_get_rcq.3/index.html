@@ -89,14 +89,14 @@
       struct rpma_srq;
       struct rpma_cq;
       int rpma_srq_get_rcq(const struct rpma_srq *srq, struct rpma_cq **rcq_ptr);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_srq_get_rcq() gets the receive CQ from the shared RQ object.</strong>
-The receive CQ created by <strong>rpma_srq_new(3) allows handling all</strong>
-<strong>rpma_srq_recv(3) completions within the shared RQ.
-rpma_srq_cfg_set_rcq_size(3)</strong> can change the receive CQ size.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_srq_get_rcq() function returns 0 on success or a negative
-error</strong> code on failure. <strong>rpma_srq_get_rcq() does not set *rcq_ptr
-value on failure.</strong></p><h1 id=errors>ERRORS</h1><p><strong>rpma_srq_get_rcq() can fail with the following error:</strong></p><ul><li>RPMA_E_INVAL - srq or rcq_ptr is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_cq_wait(3), rpma_cq_get_wc(3), rpma_cq_get_fd(3),</strong>
-<strong>rpma_srq_cfg_set_rcq_size(3), rpma_srq_new(3), librpma(7)</strong> and
-<a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_srq_get_rcq</strong>() gets the receive CQ from the shared RQ object.
+The receive CQ created by <strong>rpma_srq_new</strong>(3) allows handling all
+<strong>rpma_srq_recv</strong>(3) completions within the shared RQ.
+<strong>rpma_srq_cfg_set_rcq_size</strong>(3) can change the receive CQ size.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_srq_get_rcq</strong>() function returns 0 on success or a
+negative error code on failure. <strong>rpma_srq_get_rcq</strong>() does not set
+*rcq_ptr value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_srq_get_rcq</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - srq or rcq_ptr is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_cq_wait</strong>(3), <strong>rpma_cq_get_wc</strong>(3),
+<strong>rpma_cq_get_fd</strong>(3), <strong>rpma_srq_cfg_set_rcq_size</strong>(3),
+<strong>rpma_srq_new</strong>(3), <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

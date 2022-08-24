@@ -88,8 +88,7 @@
 
       struct rpma_conn;
       struct rpma_mr_local;
-      int rpma_send(struct rpma_conn *conn,
-                      const struct rpma_mr_local *src, size_t offset,
+      int rpma_send(struct rpma_conn *conn, const struct rpma_mr_local *src, size_t offset,
                       size_t len, int flags, const void *op_context);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_send</strong>() initiates the send operation which transfers a message
 from the local memory to other side of the connection. To send a 0 byte

@@ -90,9 +90,8 @@ object</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&g
       struct rpma_peer;
       struct rpma_conn_cfg;
       struct rpma_conn_req;
-      int rpma_conn_req_new(struct rpma_peer *peer, const char *addr,
-                      const char *port, const struct rpma_conn_cfg *cfg,
-                      struct rpma_conn_req **req_ptr);
+      int rpma_conn_req_new(struct rpma_peer *peer, const char *addr, const char *port,
+                      const struct rpma_conn_cfg *cfg, struct rpma_conn_req **req_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_req_new</strong>() creates a new outgoing connection request
 object using reliable, connection-oriented and message-based
 (RDMA_PS_TCP) QP communication.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_req_new</strong>() function returns 0 on success or a

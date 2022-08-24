@@ -88,8 +88,7 @@
 
       struct rpma_conn;
       struct rpma_cq;
-      int rpma_conn_get_cq(const struct rpma_conn *conn,
-                      struct rpma_cq **cq_ptr);
+      int rpma_conn_get_cq(const struct rpma_conn *conn, struct rpma_cq **cq_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_get_cq</strong>() gets the main CQ from the connection. When the
 receive CQ is not present the main CQ allows handling all completions
 within the connection. When the receive CQ is present the main CQ allows

@@ -108,7 +108,7 @@ completion is generated.</p><h1 id=direct-write-to-pmem>DIRECT WRITE TO PMEM</h1
 configuration which allows an RDMA-capable network interface to write
 data to platform's PMem in a persistent way. It may be impossible
 because of e.g. caching mechanisms existing on the data's way. When
-<strong>Direct Write</strong> to PMem is impossible, operating in the way assuming it
+<strong>Direct Write to PMem</strong> is impossible, operating in the way assuming it
 is possible may corrupt data on PMem, so this is why <strong>Direct Write to
 PMem</strong> is not enabled by default.</p><p>On the current Intel platforms, the only thing you have to do in order
 to enable <strong>Direct Write to PMem</strong> is turning off Intel Direct Data I/O
@@ -120,7 +120,7 @@ configuration has to be transferred to all the peers which want to
 execute <strong>rpma_flush</strong>() with RPMA_FLUSH_TYPE_PERSISTENT against the
 platform's PMem and applied to the connection object which safeguards
 access to PMem.</p><ul><li><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() - declare
-<strong>Direct Write</strong> to PMem support</p></li><li><p><strong>rpma_peer_cfg_get_descriptor</strong>() - get the descriptor of the
+<strong>Direct Write to PMem</strong> support</p></li><li><p><strong>rpma_peer_cfg_get_descriptor</strong>() - get the descriptor of the
 peer configuration</p></li><li><p><strong>rpma_peer_cfg_from_descriptor</strong>() - create a peer
 configuration from the descriptor</p></li><li><p><strong>rpma_conn_apply_remote_peer_cfg</strong>() - apply remote peer cfg
 to the connection</p></li></ul><p>For details on how to use these APIs please see
@@ -225,7 +225,7 @@ registration process (for example, applications no longer need to pin
 down the underlying physical pages of the address space and track the
 validity of the mappings). On-Demand Paging is available if both the
 hardware and the kernel support it. The detailed description of ODP can
-be found here:</p><pre><code>        https://community.mellanox.com/s/article/understanding-on-demand-paging--odp-x
+be found here:</p><pre><code>     https://community.mellanox.com/s/article/understanding-on-demand-paging--odp-x
 </code></pre><p>State of ODP support can be checked using the
 <strong>rpma_utils_ibv_context_is_odp_capable</strong>() function that queries
 the RDMA device context's capabilities and checks if it supports

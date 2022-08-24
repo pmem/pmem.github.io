@@ -91,8 +91,7 @@ request</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&
       struct rpma_conn_private_data;
       struct rpma_conn;
       int rpma_conn_req_connect(struct rpma_conn_req **req_ptr,
-                      const struct rpma_conn_private_data *pdata,
-                      struct rpma_conn **conn_ptr);
+                      const struct rpma_conn_private_data *pdata, struct rpma_conn **conn_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_req_connect</strong>() initiates processing the connection
 requests both incoming and outgoing. The end of processing is signalled
 by the RPMA_CONN_ESTABLISHED event via <strong>rpma_conn_next_event</strong>().</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_req_connect</strong>() function returns 0 on success or a

@@ -87,8 +87,7 @@
 <a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_conn_cfg_set_rq_size</strong> - set RQ size for the connection</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_conn_cfg;
-      int rpma_conn_cfg_set_rq_size(struct rpma_conn_cfg *cfg,
-                      uint32_t rq_size);
+      int rpma_conn_cfg_set_rq_size(struct rpma_conn_cfg *cfg, uint32_t rq_size);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_cfg_set_rq_size</strong>() sets the RQ size for the
 connection. If this function is not called, the rq_size has the default
 value (10) set by <strong>rpma_conn_cfg_new</strong>(3).</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_cfg_set_rq_size</strong>() function returns 0 on success

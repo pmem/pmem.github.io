@@ -88,8 +88,8 @@
 registration</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_mr_local *mr;
-      int rpma_mr_advise(struct rpma_mr_local *mr, size_t offset, size_t len,
-              int advice, uint32_t flags);
+      int rpma_mr_advise(struct rpma_mr_local *mr, size_t offset, size_t len, int advice,
+              uint32_t flags);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_mr_advise</strong>() gives advice about an address range in a memory
 registration. The usage parameter specifies the operations that can be
 performed on the given memory address range. For available advice and

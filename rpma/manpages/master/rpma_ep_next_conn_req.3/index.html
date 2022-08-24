@@ -89,8 +89,7 @@
       struct rpma_ep;
       struct rpma_conn_cfg;
       struct rpma_conn_req;
-      int rpma_ep_next_conn_req(struct rpma_ep *ep,
-                      const struct rpma_conn_cfg *cfg,
+      int rpma_ep_next_conn_req(struct rpma_ep *ep, const struct rpma_conn_cfg *cfg,
                       struct rpma_conn_req **req_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_ep_next_conn_req</strong>() obtains the next connection request from
 the endpoint.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_ep_next_conn_req</strong>() function returns 0 on success or a

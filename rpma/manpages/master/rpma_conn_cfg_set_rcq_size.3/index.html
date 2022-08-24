@@ -88,8 +88,7 @@
 connection</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_conn_cfg;
-      int rpma_conn_cfg_set_rcq_size(struct rpma_conn_cfg *cfg,
-                      uint32_t rcq_size);
+      int rpma_conn_cfg_set_rcq_size(struct rpma_conn_cfg *cfg, uint32_t rcq_size);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_cfg_set_rcq_size</strong>() sets the receive CQ size for the
 connection. Please see the <strong>rpma_conn_get_rcq</strong>() for details about
 the receive CQ. If this function is not called, the rcq_size has the

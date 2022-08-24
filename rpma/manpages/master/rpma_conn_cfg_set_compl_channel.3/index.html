@@ -88,8 +88,7 @@
 channel can be shared by CQ and RCQ</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_conn_cfg;
-      int rpma_conn_cfg_set_compl_channel(struct rpma_conn_cfg *cfg,
-                      bool shared);
+      int rpma_conn_cfg_set_compl_channel(struct rpma_conn_cfg *cfg, bool shared);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_cfg_set_compl_channel</strong>() sets if the completion event
 channel can be shared by CQ and RCQ or not. The completion event channel
 is not shared by CQ and RCQ by default. See <strong>rpma_conn_cfg_new</strong>(3)

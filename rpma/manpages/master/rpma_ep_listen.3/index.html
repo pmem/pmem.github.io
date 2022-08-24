@@ -88,8 +88,8 @@
 
       struct rpma_peer;
       struct rpma_ep;
-      int rpma_ep_listen(struct rpma_peer *peer, const char *addr,
-                      const char *port, struct rpma_ep **ep_ptr);
+      int rpma_ep_listen(struct rpma_peer *peer, const char *addr, const char *port,
+                      struct rpma_ep **ep_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_ep_listen</strong>() creates an endpoint and initiates listening for
 incoming connections using reliable, connection-oriented and
 message-based (RDMA_PS_TCP) QP communication.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_ep_listen</strong>() function returns 0 on success or a negative

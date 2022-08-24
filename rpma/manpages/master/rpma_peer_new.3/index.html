@@ -88,8 +88,7 @@
 
       struct ibv_context;
       struct rpma_peer;
-      int rpma_peer_new(struct ibv_context *ibv_ctx,
-                      struct rpma_peer **peer_ptr);
+      int rpma_peer_new(struct ibv_context *ibv_ctx, struct rpma_peer **peer_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_peer_new</strong>() creates a new peer object.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_new</strong>() function returns 0 on success or a negative
 error code on failure. <strong>rpma_peer_new</strong>() does not set *peer_ptr
 value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_peer_new</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - ibv_ctx or peer_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - creating a verbs protection domain failed with

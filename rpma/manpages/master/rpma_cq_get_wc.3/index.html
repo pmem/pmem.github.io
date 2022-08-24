@@ -89,8 +89,8 @@
       struct rpma_cq;
       struct ibv_wc;
 
-      int rpma_cq_get_wc(struct rpma_cq *cq, int num_entries,
-                      struct ibv_wc *wc, int *num_entries_got);
+      int rpma_cq_get_wc(struct rpma_cq *cq, int num_entries, struct ibv_wc *wc,
+                      int *num_entries_got);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_cq_get_wc</strong>() polls the CQ for completions and returns the
 first num_entries (or all available completions if the CQ contains
 fewer than this number) in the wc array exactly like

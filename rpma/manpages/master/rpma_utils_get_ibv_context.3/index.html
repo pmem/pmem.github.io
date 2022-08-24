@@ -93,8 +93,7 @@ address</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&
               RPMA_UTIL_IBV_CONTEXT_REMOTE
       };
 
-      int rpma_utils_get_ibv_context(const char *addr,
-              enum rpma_util_ibv_context_type type,
+      int rpma_utils_get_ibv_context(const char *addr, enum rpma_util_ibv_context_type type,
               struct ibv_context **ibv_ctx_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_utils_get_ibv_context</strong>() obtains an RDMA device context by
 the given IPv4/IPv6 address (either local or remote) using the TCP RDMA
