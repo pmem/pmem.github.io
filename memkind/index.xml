@@ -1,11 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Memkind on PMem.io</title><link>https://pmem.io/memkind/</link><description>Recent content in Memkind on PMem.io</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://pmem.io/memkind/index.xml" rel="self" type="application/rss+xml"/><item><title>FIXEDALLOCATOR</title><link>https://pmem.io/memkind/manpages/fixedallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/fixedallocator.3/</guid><description>TABLE OF CONTENTS NAME
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Memkind on PMem.io</title><link>https://pmem.io/memkind/</link><description>Recent content in Memkind on PMem.io</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://pmem.io/memkind/index.xml" rel="self" type="application/rss+xml"/><item><title>AUTOHBW</title><link>https://pmem.io/memkind/manpages/autohbw.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/autohbw.7/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+ENVIRONMENT
+NOTES
+EXAMPLES
+COPYRIGHT
+SEE ALSO
+NAME libautohbw.so - An interposer library for redirecting heap allocations
+SYNOPSIS LD_PRELOAD=libautohbw.so command {arguments ...} DESCRIPTION AutoHBW library (libautohbw.so) is an interposer library for redirecting heap allocations (malloc, calloc, realloc, valloc, posix_memalign, memlign) to high-bandwidth (HBW) memory. Consequently, AutoHBW library can be used to automatically allocate high-bandwidth memory without any modification to source code of an application. For instance, the following command-line runs existing binary /bin/ls with AutoHBW library, automatically redirecting heap allocations (larger than a given threshold) to high-bandwidth memory.</description></item><item><title>FIXEDALLOCATOR</title><link>https://pmem.io/memkind/manpages/fixedallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/fixedallocator.3/</guid><description>TABLE OF CONTENTS NAME
 SYNOPSIS
 DESCRIPTION
 COPYRIGHT
 SEE ALSO
 NAME libmemkind::fixed::allocator - The C++ allocator compatible with the C++ standard library allocator concepts.
 Note: fixed_allocator.h functionality is considered as a stable API (STANDARD API).
-SYNOPSIS #include &amp;lt;fixed_allocator.h&amp;gt; Link with -lmemkind libmemkind::fixed::allocator(void *addr, size_t size); template &amp;lt;typename U&amp;gt; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::fixed::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocator(allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::fixed::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item><item><title>HBWMALLOC</title><link>https://pmem.io/memkind/manpages/hbwmalloc.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/hbwmalloc.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS #include &amp;lt;fixed_allocator.h&amp;gt; Link with -lmemkind libmemkind::fixed::allocator(void *addr, size_t size); template &amp;lt;typename U&amp;gt; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::fixed::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocator(allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::fixed::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::fixed::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::fixed::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item><item><title>HBWALLOCATOR</title><link>https://pmem.io/memkind/manpages/hbwallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/hbwallocator.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+ERRORS
+NOTES
+COPYRIGHT
+SEE ALSO
+NAME hbw::allocator - The C++ allocator compatible with the C++ standard library allocator concepts
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS #include &amp;lt;hbw_allocator.h&amp;gt; Link with -lmemkind hbw::allocator(); template &amp;lt;class U&amp;gt;hbw::allocator&amp;lt;T&amp;gt;::allocator(const hbw::allocator&amp;lt;U&amp;gt;&amp;amp;); hbw::allocator&amp;lt;T&amp;gt;::~allocator()` hbw::allocator&amp;lt;T&amp;gt;::pointer hbw::allocator&amp;lt;T&amp;gt;::address(hbw::allocator&amp;lt;T&amp;gt;::reference x); hbw::allocator&amp;lt;T&amp;gt;::const_pointer hbw::allocator&amp;lt;T&amp;gt;::address(hbw::allocator&amp;lt;T&amp;gt;::const_reference x); hbw::allocator&amp;lt;T&amp;gt;::pointer hbw::allocator&amp;lt;T&amp;gt;::allocate(hbw::allocator&amp;lt;T&amp;gt;::size_type n, const void * = 0); void hbw::allocator&amp;lt;T&amp;gt;::deallocate(hbw::allocator&amp;lt;T&amp;gt;::pointer p, hbw::allocator&amp;lt;T&amp;gt;::size_type n); hbw::allocator&amp;lt;T&amp;gt;::size_type hbw::allocator&amp;lt;T&amp;gt;::max_size(); void hbw::allocator&amp;lt;T&amp;gt;::construct(hbw::allocator&amp;lt;T&amp;gt;::pointer p, const hbw::allocator&amp;lt;T&amp;gt;::value_type&amp;amp; val); void hbw::allocator&amp;lt;T&amp;gt;::destroy(hbw::allocator&amp;lt;T&amp;gt;::pointer p); DESCRIPTION The hbw::allocator is intended to be used with STL containers to allocate high bandwidth memory.</description></item><item><title>HBWMALLOC</title><link>https://pmem.io/memkind/manpages/hbwmalloc.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/hbwmalloc.3/</guid><description>TABLE OF CONTENTS NAME
 SYNOPSIS
 DESCRIPTION
 RETURN VALUE
@@ -63,7 +81,86 @@ KNOWN ISSUES
 COPYRIGHT
 SEE ALSO
 NAME memkind - A heap manager that enables allocations to memory with different properties.
-This header expose a STANDARD and an EXPERIMENTAL API. API Standards are described below in this man page.</description></item><item><title>MEMKINDALLOCATOR</title><link>https://pmem.io/memkind/manpages/memkindallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkindallocator.3/</guid><description>TABLE OF CONTENTS NAME
+This header expose a STANDARD and an EXPERIMENTAL API. API Standards are described below in this man page.</description></item><item><title>MEMKIND_ARENA</title><link>https://pmem.io/memkind/manpages/memkind_arena.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_arena.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+MEMORY STATISTICS PRINT OPTIONS
+COPYRIGHT
+SEE ALSO
+NAME memkind_arena - jemalloc arena allocation memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS int memkind_arena_create(struct memkind *kind, struct memkind_ops *ops, const char *name); int memkind_arena_create_map(struct memkind *kind, extent_hooks_t *hooks); int memkind_arena_destroy(struct memkind *kind); void *memkind_arena_malloc(struct memkind *kind, size_t size); void *memkind_arena_calloc(struct memkind *kind, size_t num, size_t size); int memkind_arena_posix_memalign(struct memkind *kind, void **memptr, size_t alignment, size_t size); void *memkind_arena_realloc(struct memkind *kind, void *ptr, size_t size); void *memkind_arena_realloc_with_kind_detect(void *ptr, size_t size); int memkind_thread_get_arena(struct memkind *kind, unsigned int *arena, size_t size); int memkind_bijective_get_arena(struct memkind *kind, unsigned int *arena, size_t size); struct memkind *get_kind_by_arena(unsigned arena_ind); struct memkind *memkind_arena_detect_kind(void *ptr); int memkind_arena_finalize(struct memkind *kind); void memkind_arena_init(struct memkind *kind); void memkind_arena_free(struct memkind *kind, void *ptr); void memkind_arena_free_with_kind_detect(void *ptr); int memkind_arena_update_memory_usage_policy(struct memkind *kind, memkind_mem_usage_policy policy); int memkind_arena_set_max_bg_threads(size_t threads_limit); int memkind_arena_set_bg_threads(bool state); int memkind_arena_stats_print(void (*write_cb) (void *, const char *), void *cbopaque, memkind_stat_print_opt opts); DESCRIPTION This header file is a collection of functions can be used to populate the memkind operations structure for memory kinds that use jemalloc.</description></item><item><title>MEMKIND_DAX_KMEM</title><link>https://pmem.io/memkind/manpages/memkind_dax_kmem.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_dax_kmem.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_dax_kmem - DAX KMEM memory memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS int memkind_dax_kmem_all_get_mbind_nodemask(struct memkind *kind, unsigned long *nodemask, unsigned long maxnode); DESCRIPTION DAX KMEM memory memkind operations.
+memkind_dax_kmem_all_get_mbind_nodemask() sets the nodemask bits to one that correspond to the all persistent memory NUMA nodes in the system.</description></item><item><title>MEMKIND_DEFAULT</title><link>https://pmem.io/memkind/manpages/memkind_default.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_default.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_default - default implementations for memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes), or removed.
+SYNOPSIS int memkind_default_create(struct memkind *kind, struct memkind_ops *ops, const char *name); int memkind_default_destroy(struct memkind *kind); void *memkind_default_malloc(struct memkind *kind, size_t size); void *memkind_default_calloc(struct memkind *kind, size_t num, size_t size); int memkind_default_posix_memalign(struct memkind *kind, void **memptr, size_t alignment, size_t size); void *memkind_default_realloc(struct memkind *kind, void *ptr, size_t size); void memkind_default_free(struct memkind *kind, void *ptr); void *memkind_default_mmap(struct memkind *kind, void *addr, size_t size); int memkind_default_mbind(struct memkind *kind, void *ptr, size_t len); int memkind_default_get_mmap_flags(struct memkind *kind, int *flags); int memkind_default_get_mbind_mode(struct memkind *kind, int *mode); size_t memkind_default_malloc_usable_size(struct memkind *kind, void *ptr); int memkind_preferred_get_mbind_mode(struct memkind *kind, int *mode); int memkind_interleave_get_mbind_mode(struct memkind *kind, int *mode); int memkind_nohugepage_madvise(struct memkind *kind, void *addr, size_t size); int memkind_posix_check_alignment(struct memkind *kind, size_t alignment); int memkind_default_get_mbind_nodemask(struct memkind *kind, unsigned long *nodemask, unsigned long maxnode); void memkind_default_init_once(void); bool size_out_of_bounds(size_t size); DESCRIPTION Default implementations for memkind operations which include a several useful methods that are not part of the MEMKIND_DEFAULT kind which is a fall through to the jemalloc implementation.</description></item><item><title>MEMKIND_FIXED</title><link>https://pmem.io/memkind/manpages/memkind_fixed.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_fixed.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_fixed - memkind operations on user-defined memory.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS int memkind_fixed_create(struct memkind *kind, struct memkind_ops *ops, const char *name); int memkind_fixed_destroy(struct memkind *kind); void *memkind_fixed_mmap(struct memkind *kind, void *addr, size_t size); DESCRIPTION The fixed memory memkind operations enable memory kinds built on user-defined memory.</description></item><item><title>MEMKIND_HBW</title><link>https://pmem.io/memkind/manpages/memkind_hbw.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_hbw.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_hbw - high bandwidth memory memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS int memkind_hbw_check_available(struct memkind *kind); int memkind_hbw_hugetlb_check_available(struct memkind *kind); int memkind_hbw_get_mbind_nodemask(struct memkind *kind, unsigned long *nodemask, unsigned long maxnode); int memkind_hbw_get_preferred_mbind_nodemask(struct memkind *kind, unsigned long *nodemask, unsigned long maxnode); int memkind_hbw_all_get_mbind_nodemask(struct memkind *kind, unsigned long *nodemask, unsigned long maxnode); void memkind_hbw_init_once(void); void memkind_hbw_hugetlb_init_once(void); void memkind_hbw_all_hugetlb_init_once(void); void memkind_hbw_preferred_init_once(void); void memkind_hbw_preferred_hugetlb_init_once(void); void memkind_hbw_interleave_init_once(void); DESCRIPTION High bandwidth memory memkind operations.</description></item><item><title>MEMKIND_HUGETLB</title><link>https://pmem.io/memkind/manpages/memkind_hugetlb.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_hugetlb.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_hugetlb - hugetlb memory memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS int memkind_hugetlb_check_available_2mb(struct memkind *kind); int memkind_hugetlb_get_mmap_flags(struct memkind *kind, int *flags); void memkind_hugetlb_init_once(void); DESCRIPTION The hugetlb memory memkind operations enable memory kinds which use the Linux hugetlbfs file system. For more information about the hugetlbfs see link below.</description></item><item><title>MEMKIND_INTERLEAVE</title><link>https://pmem.io/memkind/manpages/memkind_interleave.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_interleave.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_interleave - interleave memory memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS void memkind_interleave_init_once(void); DESCRIPTION memkind_interleave_init_once() initializes MEMKIND_INTERLEAVE kind and it should not be called more than once. Note: memkind_interleave_init_once() may reserve some extra memory.
+COPYRIGHT Copyright (C) 2016 - 2022 Intel Corporation. All rights reserved.</description></item><item><title>MEMKIND_PMEM</title><link>https://pmem.io/memkind/manpages/memkind_pmem.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind_pmem.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+COPYRIGHT
+SEE ALSO
+NAME memkind_pmem - file-backed memory memkind operations.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes) or removed.
+SYNOPSIS int memkind_pmem_create(struct memkind *kind, struct memkind_ops *ops, const char *name); int memkind_pmem_destroy(struct memkind *kind); void *memkind_pmem_mmap(struct memkind *kind, void *addr, size_t size); int memkind_pmem_get_mmap_flags(struct memkind *kind, int *flags); int memkind_pmem_validate_dir(const char *dir); DESCRIPTION The pmem memory memkind operations enable memory kinds built on memory-mapped files.</description></item><item><title>MEMKIND-AUTO-DAX-NODES</title><link>https://pmem.io/memkind/manpages/memkind-auto-dax-kmem-nodes.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind-auto-dax-kmem-nodes.1/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+OPTIONS
+EXIT STATUS
+COPYRIGHT
+SEE ALSO
+AUTHOR
+NAME memkind-auto-dax-kmem-nodes - prints comma-separated list of automatically detected persistent memory NUMA nodes.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes), or removed.
+SYNOPSIS memkind-auto-dax-kmem-nodes [-h|--help] DESCRIPTION memkind-auto-dax-kmem-nodes prints a comma-separated list of automatically detected persistent memory NUMA nodes that can be used with the numactl &amp;ndash;membind option.</description></item><item><title>MEMKIND-HBW_NODES</title><link>https://pmem.io/memkind/manpages/memkind-hbw-nodes.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkind-hbw-nodes.1/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+OPTIONS
+EXIT STATUS
+COPYRIGHT
+SEE ALSO
+AUTHOR
+NAME memkind-hbw-nodes - print comma-separated list of high bandwidth nodes.
+Note: This is EXPERIMENTAL API. The functionality and the header file itself can be changed (including non-backward compatible changes), or removed.
+SYNOPSIS memkind-hbw-nodes [-h|--help] DESCRIPTION memkind-hbw-nodes prints a comma-separated list of high bandwidth NUMA nodes that can be used with the numactl &amp;ndash;membind option. OPTIONS -h, &amp;ndash;help Displays help text and exit.</description></item><item><title>MEMKINDALLOCATOR</title><link>https://pmem.io/memkind/manpages/memkindallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memkindallocator.3/</guid><description>TABLE OF CONTENTS NAME
 SYNOPSIS
 DESCRIPTION
 SYSTEM CONFIGURATION
@@ -71,7 +168,15 @@ COPYRIGHT
 SEE ALSO
 NAME libmemkind::static_kind::allocator - The C++ allocator compatible with the C++ standard library allocator concepts.
 Note: memkind_allocator.h functionality is considered as a stable API (STANDARD API).
-SYNOPSIS #include &amp;lt;memkind_allocator.h&amp;gt; Link with -lmemkind libmemkind::static_kind::allocator(libmemkind::kinds kind); template &amp;lt;typename U&amp;gt; libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::static_kind::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::static_kind::allocator(const allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item><item><title>PMEMALLOCATOR</title><link>https://pmem.io/memkind/manpages/pmemallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/pmemallocator.3/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS #include &amp;lt;memkind_allocator.h&amp;gt; Link with -lmemkind libmemkind::static_kind::allocator(libmemkind::kinds kind); template &amp;lt;typename U&amp;gt; libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::allocator(const libmemkind::static_kind::allocator&amp;lt;U&amp;gt;&amp;amp;) noexcept; template &amp;lt;typename U&amp;gt; libmemkind::static_kind::allocator(const allocator&amp;lt;U&amp;gt;&amp;amp;&amp;amp; other) noexcept; libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::~allocator(); T *libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::allocate(std::size_t n) const; void libmemkind::static_kind::allocator&amp;lt;T&amp;gt;::deallocate(T *p, std::size_t n) const; template &amp;lt;class U, class.</description></item><item><title>MEMTIER</title><link>https://pmem.io/memkind/manpages/memtier.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/memtier.1/</guid><description>TABLE OF CONTENTS NAME
+SYNOPSIS
+DESCRIPTION
+OPTIONS
+CAVEATS
+COPYRIGHT
+SEE ALSO
+NAME memtier - redirect malloc calls to memkind memory tiering
+SYNOPSIS memtier [ -r ratio ] [ -t thresholds ] program args... DESCRIPTION memtier runs the given program, redirecting memory allocations to different memory tiers based on a given policy. This allows unmodified programs to run following a non-greedy allocation scheme that avoids a performance cliff when DRAM is exhausted.</description></item><item><title>PMEMALLOCATOR</title><link>https://pmem.io/memkind/manpages/pmemallocator.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/memkind/manpages/pmemallocator.3/</guid><description>TABLE OF CONTENTS NAME
 SYNOPSIS
 DESCRIPTION
 COPYRIGHT
