@@ -6,7 +6,7 @@ layout: "library"
 # Page title background image
 bg_image: '/images/backgrounds/faq_header.jpg'
 # Header
-header: "Performance Reports"
+header: "Remote Persistent Memory Performance Reports"
 # Description
 description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
