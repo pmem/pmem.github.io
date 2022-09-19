@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">PMDK C++ bindings
-   &#160;<span id="projectnumber">1.12-git53.g67ba2be4</span>
+   &#160;<span id="projectnumber">1.12.1-rc1</span>
    </div>
    <div id="projectbrief">This is the C++ bindings documentation for PMDK&#39;s libpmemobj.</div>
   </td>
@@ -82,7 +82,7 @@ $(function() {
 <p>Inherits runtime_error.</p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Custom pool error class. </p>
-<p>Thrown when there is a runtime problem with some action on the pool. </p>
+<p>Thrown when there is a runtime problem with some action on the pool, e.g., when cannot open or create a pool, the wrong handle to pool was passed to some function, or a referenced object is not stored on persistent memory. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>libpmemobj++/<a class="el" href="pexceptions_8hpp_source.html">pexceptions.hpp</a></li>
 </ul>
