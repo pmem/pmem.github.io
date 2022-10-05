@@ -52,9 +52,30 @@ The on-media layout of libpmemobj pools has changed few times since the
 initial release. The mapping between the layout version and corresponding PMDK
 version can be found in the following table:
 
-|              PMDK version | 1.0 | 1.1 | 1.2 | 1.3 | 1.4 | 1.5 |
-| ------------------------: | :-: | :-: | :-: | :-: | :-: | :-: |
-| Libpmemobj layout version | v1  | v2  | v3  | v4  | v4  | v5  |
+<table class="table table-bordered pmem-table dark-mode">
+   <thead>
+   <tr>
+      <th>PMDK version</th>
+      <th>1.0</th>
+      <th>1.1</th>
+      <th>1.2</th>
+      <th>1.3</th>
+      <th>1.4</th>
+      <th>1.5</th>
+   </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>Libpmemobj layout version</td>
+         <td>v1</td>
+         <td>v2</td>
+         <td>v3</td>
+         <td>v4</td>
+         <td>v4</td>
+         <td>v5</td>
+      </tr>
+   </tbody>
+</table>
 
 The on-media layout of the pools created by other PMDK's libraries
 (libpmemblk, libpmemlog) has not changed since initial release, so the

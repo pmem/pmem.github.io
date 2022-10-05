@@ -22,6 +22,8 @@ This tool doesn’t support remote replicas. Before a conversion all remote repl
 
 See the <a href="manpages/master/pmdk-convert.1.html">pmdk-convert man page</a> for current master documentation and examples.
 
+See the [blog post about pool conversion](/blog/2019/02/pool-conversion-tool) for detailed description of the process.
+
 ### Building The Source
 
 Requirements:
