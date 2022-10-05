@@ -92,7 +92,14 @@ descriptor</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma
                       struct rpma_mr_remote **mr_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p>Create a remote memory region's structure based on the provided
 descriptor with a network-transferable description of the memory region
-local to the remote peer.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_mr_remote_from_descriptor</strong>() function returns 0 on
+local to the remote peer.</p><h1 id=security-warning>SECURITY WARNING</h1><p>An attacker might modify the serialized remote memory registration
+configuration while it is transferred via an unsecured connection (e.g.
+rdma_cm private data), which might cause data corruption when writing
+to a different location. Users should avoid using
+<strong>rpma_conn_get_private_data</strong>(3) and
+<strong>rpma_conn_req_get_private_data</strong>(3) API calls and they should
+utilize TLS/SSL connections to transfer all configuration data between
+peers instead.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_mr_remote_from_descriptor</strong>() function returns 0 on
 success or a negative error code on failure.
 <strong>rpma_mr_remote_from_descriptor</strong>() does not set *mr_ptr value on
 failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_mr_remote_from_descriptor</strong>() can fail with the following

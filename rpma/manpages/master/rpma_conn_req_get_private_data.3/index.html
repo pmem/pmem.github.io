@@ -93,7 +93,7 @@ request's private data</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include
                       struct rpma_conn_private_data *pdata);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_req_get_private_data</strong>() obtains the pointer to the
 connection's private data given by the other side of the connection
-before the connection is established.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_req_get_private_data</strong>() function returns 0 on
+before the connection is established.</p><h1 id=security-warning>SECURITY WARNING</h1><p>See <strong>rpma_conn_get_private_data</strong>(3).</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_req_get_private_data</strong>() function returns 0 on
 success or a negative error code on failure.
 <strong>rpma_conn_req_get_private_data</strong>() does not set *pdata value on
 failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_req_get_private_data</strong>() can fail with the following

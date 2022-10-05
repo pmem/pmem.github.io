@@ -91,7 +91,14 @@ descriptor</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma
       int rpma_peer_cfg_from_descriptor(const void *desc, size_t desc_size,
                       struct rpma_peer_cfg **pcfg_ptr);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_peer_cfg_from_descriptor</strong>() creates a peer configuration
-object from the descriptor.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_cfg_from_descriptor</strong>() function returns 0 on
+object from the descriptor.</p><h1 id=security-warning>SECURITY WARNING</h1><p>An attacker might modify the serialized remote node configuration while
+it is transferred via an unsecured connection (e.g. rdma_cm private
+data), which might cause different remote persistency method selections.
+The most dangerous situation is switching from the GPSPM mode to the APM
+one. Users should avoid using <strong>rpma_conn_get_private_data</strong>(3) and
+<strong>rpma_conn_req_get_private_data</strong>(3) API calls and they should
+utilize TLS/SSL connections to transfer all configuration data between
+peers instead.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_cfg_from_descriptor</strong>() function returns 0 on
 success or a negative error code on failure.
 <strong>rpma_peer_cfg_from_descriptor</strong>() does not set *pcfg_ptr value
 on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_peer_cfg_from_descriptor</strong>() can fail with the following
