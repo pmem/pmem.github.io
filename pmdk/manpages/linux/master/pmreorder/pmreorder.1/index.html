@@ -18,9 +18,20 @@ using a store reordering mechanism</p><h1 id=synopsis>SYNOPSIS</h1><pre tabindex
 to parse and replay operations logged by pmemcheck -
 a persistent memory checking tool.</p><p>Pmreorder performs the store reordering between persistent
 memory barriers - a sequence of flush-fence operations.
-It uses a consistency checking routine provided in the
-command line options to check whether files are in a
-consistent state.</p><p>Considering that logging, replaying and reordering of operations
+It uses a consistency checking routine provided
+in the command line options to check whether files are in a consistent state.
+To help with this task, pmreorder sets an environmental variable
+PMREORDER_MARKERS. Said variable contains a subset of markers
+passed from the application, which is visible at the current state
+of pmreordering. Individual markers are separated by vertical bar (‘|’).</p><p>Example of how PMREORDER_MARKERS variable can be parsed in c++ using regex
+based environment variable tokener:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>	<span style=color:#66d9ef>auto</span> env <span style=color:#f92672>=</span> std<span style=color:#f92672>::</span>getenv(<span style=color:#e6db74>&#34;ENV_PASS&#34;</span>);
+</span></span><span style=display:flex><span>	std<span style=color:#f92672>::</span>string senv(env <span style=color:#f92672>?</span> env : <span style=color:#e6db74>&#34;&#34;</span>);
+</span></span><span style=display:flex><span>	std<span style=color:#f92672>::</span>regex rgx(<span style=color:#e6db74>&#34;(</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>w+)(</span><span style=color:#ae81ff>\\</span><span style=color:#e6db74>||$)&#34;</span>);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> (std<span style=color:#f92672>::</span>sregex_iterator it(senv.begin(), senv.end(), rgx), it_end;
+</span></span><span style=display:flex><span>	     it <span style=color:#f92672>!=</span> it_end; <span style=color:#f92672>++</span>it) {
+</span></span><span style=display:flex><span>		std<span style=color:#f92672>::</span>cout <span style=color:#f92672>&lt;&lt;</span> (<span style=color:#f92672>*</span>it)[<span style=color:#ae81ff>1</span>].str() <span style=color:#f92672>&lt;&lt;</span> std<span style=color:#f92672>::</span>endl;
+</span></span><span style=display:flex><span>	}
+</span></span></code></pre></div><p>Considering that logging, replaying and reordering of operations
 are very time consuming, it is recommended to use as few stores as
 possible in test workloads.</p><h1 id=options>OPTIONS</h1><p><code>-h, --help</code></p><p>Prints synopsis and list of options.</p><p><code>-l, --logfile &lt;store_log></code></p><p>The pmemcheck log file to process.</p><p><code>-c, --checker &lt;prog|lib></code></p><p>Consistency checker type.</p><p><code>-p, --path &lt;path></code></p><p>Path to the consistency checker.
 If the checker type is <code>prog</code> - given program <strong>has to take a file name as
@@ -200,7 +211,8 @@ with additional parameters:</p><pre tabindex=0><code>valgrind \
 	test_binary writer_parameter
 </code></pre><p>For further details of pmemcheck parameters see
 <a href=https://pmem.io/valgrind/generated/pmc-manual.html>pmemcheck documentation</a></p><h1 id=environment>ENVIRONMENT</h1><p>By default all logging from PMDK libraries is disabled.
-To enable API macros logging set environment variable:</p><ul><li><strong>PMREORDER_EMIT_LOG</strong>=1</li></ul><h1 id=example>EXAMPLE</h1><pre tabindex=0><code>python pmreorder.py \
+To enable API macros logging set environment variable:</p><ul><li><strong>PMREORDER_EMIT_LOG</strong>=1</li></ul><p>User defined markers passed from an application
+are stored in the variable:</p><ul><li><strong>PMREORDER_MARKERS</strong></li></ul><h1 id=example>EXAMPLE</h1><pre tabindex=0><code>python pmreorder.py \
 		-l store_log.log \
 		-r NoReorderDoCheck \
 		-o pmreorder_out.log \
