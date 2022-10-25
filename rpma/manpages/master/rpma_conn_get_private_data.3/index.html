@@ -92,7 +92,7 @@ private data</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librp
       int rpma_conn_get_private_data(const struct rpma_conn *conn,
                       struct rpma_conn_private_data *pdata);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_get_private_data</strong>() obtains the pointer to the private
-data given by the other side of the connection.</p><h1 id=security-warning>SECURITY WARNING</h1><p>The connection's private data is unsecure. An attacker might modify all
+data given by the other side of the connection.</p><h1 id=security-warning>SECURITY WARNING</h1><p>The connection's private data is insecure. An attacker might modify all
 data transferred via the rdma_cm private data. Users should avoid using
 <strong>rpma_conn_get_private_data</strong>(3) and
 <strong>rpma_conn_req_get_private_data</strong>(3) API calls and they should
