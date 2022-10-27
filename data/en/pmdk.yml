@@ -47,7 +47,7 @@ libraries_section:
                 <p>See the <a href=\"/vmem/libvmmalloc\">libvmmalloc page</a> for documentation and examples.</p>"
     library_item9:
       title: 'libpmempool'
-      content: "<p>The <strong>libpmempool</strong> provides support for off-line pool management and diagnostics. Currently it provides only “check” and “repair” operations for pmemlog and pmemblk memory pools, and for BTT devices.</p>
+      content: "<p>The <strong>libpmempool</strong> provides support for off-line pool management and diagnostics.</p>
                 <p>See the <a href=\"./libpmempool\">libpmempool page</a> for documentation and examples.</p>"
     library_itemA1:
       title: 'pmempool'
