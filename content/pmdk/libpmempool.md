@@ -19,78 +19,12 @@ BTT layout, independent of the underlying storage.
 The **libpmempool** is for applications that need high reliability or built-in
 troubleshooting. It may be useful for testing and debugging purposes also.
 
-Man pages that contains a list of the **Linux** interfaces provided:
+Man pages contains an example and a list of the OS-specific interfaces:
+* Man page for [Linux libpmempool(7) current master](../manpages/linux/master/libpmempool/libpmempool.7.html)
+* Man page for [Windows libpmempool(7) current master](../manpages/windows/master/libpmempool/libpmempool.7.html)
 
-* Man page for <a href="../manpages/linux/master/libpmempool/libpmempool.7.html">libpmempool current master</a>
+For up-to-date **libpmempool** example and its building steps, please see GitHub repository
+["examples" directory](https://github.com/pmem/pmdk/tree/master/src/examples/libpmempool).
 
-
-Man pages that contains a list of the **Windows** interfaces provided:
-
-* Man page for <a href="../manpages/windows/master/libpmempool/libpmempool.7.html">libpmempool current master</a>
-
-### libpmempool Examples
-
-#### More Detail Coming Soon
-
-{{< highlight c "linenos=true,hl_lines=5,linenostart=37">}}
-#include <stddef.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <libpmempool.h>
-
-#define PATH "./pmem-fs/myfile"
-#define CHECK_FLAGS (PMEMPOOL_CHECK_FORMAT_STR|PMEMPOOL_CHECK_REPAIR|\
-		PMEMPOOL_CHECK_VERBOSE)
-
-int
-main(int argc, char *argv[])
-{
-	PMEMpoolcheck *ppc;
-	struct pmempool_check_status *status;
-	enum pmempool_check_result ret;
-
-	/* arguments for check */
-	struct pmempool_check_args args = {
-		.path		= PATH,
-		.backup_path	= NULL,
-		.pool_type	= PMEMPOOL_POOL_TYPE_DETECT,
-		.flags		= CHECK_FLAGS
-	};
-
-	/* initialize check context */
-	if ((ppc = pmempool_check_init(&args, sizeof(args))) == NULL) {
-		perror("pmempool_check_init");
-		exit(EXIT_FAILURE);
-	}
-
-	/* perform check and repair, answer 'yes' for each question */
-	while ((status = pmempool_check(ppc)) != NULL) {
-		switch (status->type) {
-		case PMEMPOOL_CHECK_MSG_TYPE_ERROR:
-			printf("%s\n", status->str.msg);
-			break;
-		case PMEMPOOL_CHECK_MSG_TYPE_INFO:
-			printf("%s\n", status->str.msg);
-			break;
-		case PMEMPOOL_CHECK_MSG_TYPE_QUESTION:
-			printf("%s\n", status->str.msg);
-			status->str.answer = "yes";
-			break;
-		default:
-			pmempool_check_end(ppc);
-			exit(EXIT_FAILURE);
-		}
-	}
-
-	/* finalize the check and get the result */
-	ret = pmempool_check_end(ppc);
-	switch (ret) {
-		case PMEMPOOL_CHECK_RESULT_CONSISTENT:
-		case PMEMPOOL_CHECK_RESULT_REPAIRED:
-			return 0;
-		default:
-			return 1;
-	}
-}
-{{< /highlight >}}
+Please note:
+> If you are rather looking for a standalone tool instead of a library, see [**pmempool**](/pmdk/pmempool/).
