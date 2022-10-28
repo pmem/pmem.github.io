@@ -13,6 +13,9 @@ disclaimer: "The contents of this web site and the associated <a href=\"https://
 
 ### The librpmem library
 
+> **Note:** The alternative solution for accessing remote persistent memory is implemented by the [librpma](/librpma).
+> **Note:** This is a **deprecated** API and should not be used in production environments.
+
 **librpmem** provides low-level support for remote access to
 *persistent memory* (pmem) utilizing RDMA-capable RNICs. The library can be
 used to replicate remotely a memory region over RDMA protocol.
@@ -27,20 +30,17 @@ allocation. Higher-level libraries that build on **libpmem** are
 available and are recommended for most applications, see:
 
 Man pages that contains a list of the **Linux** interfaces provided:
-
-* Man page for <a href="../manpages/linux/master/librpmem/librpmem.7.html">librpmem current master</a>
+* Man page for [librpmem on the latest stable release](../manpages/linux/v1.12/librpmem/librpmem.7.html)
 
 ### The rpmemd utility
 
 The **rpmemd** process is executed on target node by **librpmem** library over
 **ssh**(1) and facilitates access to persistent memory over RDMA.
 
-See the [rpmemd man page](../manpages/linux/master/rpmemd/rpmemd.1.html)
-for current master documentation and examples or see older version:
+See the [rpmemd man page](../manpages/linux/v1.12/rpmemd/rpmemd.1.html)
+for the latest stable release documentation and examples or see older version:
 
 ### librpmem Examples
-
-#### More Detail Coming Soon 
 
 {{< highlight c "linenos=true,hl_lines=7,linenostart=36">}}
 #include <assert.h>
