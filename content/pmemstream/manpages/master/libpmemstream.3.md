@@ -129,6 +129,7 @@ For detailed description of a specific function and its parameters see below.
 	If this function is called with a map representing an empty file, the new pmemstream instance will be initialized.
 	If a mapping points to a previously existing pmemstream instance, it re-opens it and reads persisted header's data.
 	In any other case, it's undefined behavior.
+	To force prefault at create/open time set env variable PMEMSTREAM_PREFAULT_AT_OPEN.
 	It returns 0 on success, error code otherwise.
 
 `void pmemstream_delete(struct pmemstream **stream);`
