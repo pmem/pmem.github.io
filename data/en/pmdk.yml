@@ -62,7 +62,7 @@ libraries_section:
       content: "<p><strong>librpmem</strong> provides low-level support for remote access to persistent memory utilizing RDMA-capable RNICs.</p>
                 <p>See the <a href=\"./librpmem\">librpmem page</a> for documentation and examples.</p>
                 <blockquote><p><strong>Note:</strong> This is a <strong>deprecated</strong> API and should not be used in production environments.</p></blockquote>
-                <blockquote><p><strong>Note:</strong> The alternative solution for accessing remote persistent memory is implemented by the <a href=\"#librpma\">librpma</a> library (see above).</p></blockquote>"
+                <blockquote><p><strong>Note:</strong> The alternative solution for accessing remote persistent memory is implemented by <a href=\"#librpma\">librpma</a> (see above).</p></blockquote>"
     library_itemA4:
       title: 'libvmemcache'
       content: "<p><strong>libvmemcache</strong> is an embeddable and lightweight in-memory caching solution. It’s designed to fully take advantage of large capacity memory, such as persistent memory with DAX, through memory mapping in an efficient and scalable way.</p>
