@@ -94,6 +94,7 @@ See <strong>libpmem2</strong>(7) for details on creating pmem2 mapping.
 If this function is called with a map representing an empty file, the new pmemstream instance will be initialized.
 If a mapping points to a previously existing pmemstream instance, it re-opens it and reads persisted header&rsquo;s data.
 In any other case, it&rsquo;s undefined behavior.
+To force prefault at create/open time set env variable PMEMSTREAM_PREFAULT_AT_OPEN.
 It returns 0 on success, error code otherwise.</p></dd><dt><code>void pmemstream_delete(struct pmemstream **stream);</code></dt><dd><p>Releases the given &lsquo;stream&rsquo; resources and sets &lsquo;stream&rsquo; pointer to NULL.</p></dd><dt><code>int pmemstream_region_allocate(struct pmemstream *stream, size_t size, struct pmemstream_region *region);</code></dt><dd><p>Allocates new region with specified &lsquo;size&rsquo;. Actual size might be bigger due to alignment requirements.
 Only fixed-sized regions are supported for now (all <code>pmemstream_region_allocate</code> calls within a single
 pmemstream instance have to use the same size).
