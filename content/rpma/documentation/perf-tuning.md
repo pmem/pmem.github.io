@@ -205,9 +205,9 @@ $ ifconfig ens785f0 mtu 4200
 [mlx-mtu]: https://support.mellanox.com/s/article/mtu-considerations-for-roce-based-applications
 
 ## Running workloads
-In order to learn how to run the individual workloads, please visit: [https://github.com/pmem/rpma/master/tools/perf/BENCHMARKING.md][perf-bench]
+In order to learn how to run the individual workloads, please visit: [https://github.com/pmem/rpma/main/tools/perf/BENCHMARKING.md][perf-bench]
 
-[perf-bench]: https://github.com/pmem/rpma/blob/master/tools/perf/BENCHMARKING.md
+[perf-bench]: https://github.com/pmem/rpma/blob/main/tools/perf/BENCHMARKING.md
 
 ## Disclaimer
 

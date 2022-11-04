@@ -842,7 +842,7 @@ The **librpma** provides an API for _remote persistent memory access_.
 This [PMDK](#pmdk) library is designed to help applications use
 RDMA to access remote PMem.
 
-See the [librpma man page](/rpma/manpages/master/librpma.7.html)
+See the [librpma man page](/rpma/manpages/main/librpma.7.html)
 for details.
 
 ---
