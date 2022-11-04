@@ -109,7 +109,7 @@ access to PMem.</p><ul><li><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</st
 peer configuration</p></li><li><p><strong>rpma_peer_cfg_from_descriptor</strong>() - create a peer
 configuration from the descriptor</p></li><li><p><strong>rpma_conn_apply_remote_peer_cfg</strong>() - apply remote peer cfg
 to the connection</p></li></ul><p>For details on how to use these APIs please see
-<a href=https://github.com/pmem/rpma/tree/master/examples/05-flush-to-persistent>https://github.com/pmem/rpma/tree/master/examples/05-flush-to-persistent</a>.</p><h1 id=client-operation>CLIENT OPERATION</h1><p>A client is the active side of the process of establishing a connection.
+<a href=https://github.com/pmem/rpma/tree/main/examples/05-flush-to-persistent>https://github.com/pmem/rpma/tree/main/examples/05-flush-to-persistent</a>.</p><h1 id=client-operation>CLIENT OPERATION</h1><p>A client is the active side of the process of establishing a connection.
 A role of the peer during the process of establishing connection does
 not determine direction of the data flow (neither via Remote Memory
 Access nor via Messaging). After establishing the connection both peers
@@ -182,7 +182,7 @@ modifying the respective file descriptors:</p><ul><li><p><strong>rpma_ep_get_fd<
         fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 </code></pre><p>Such change makes the respective API call non-blocking automatically.</p><p>The provided file descriptors can also be used for scalable I/O handling
 like <strong>epoll</strong>(7).</p><p>Please see the example showing how to make use of RPMA file descriptors:
-<a href=https://github.com/pmem/rpma/tree/master/examples/06-multiple-connections>https://github.com/pmem/rpma/tree/master/examples/06-multiple-connections</a></p><h1 id=queues-performance-and-resource-use>QUEUES, PERFORMANCE AND RESOURCE USE</h1><p><strong>Remote Memory Access</strong> operations, <strong>Messaging</strong> operations and their
+<a href=https://github.com/pmem/rpma/tree/main/examples/06-multiple-connections>https://github.com/pmem/rpma/tree/main/examples/06-multiple-connections</a></p><h1 id=queues-performance-and-resource-use>QUEUES, PERFORMANCE AND RESOURCE USE</h1><p><strong>Remote Memory Access</strong> operations, <strong>Messaging</strong> operations and their
 <strong>Completions</strong> consume space in queues allocated in an RDMA-capable
 network interface (RNIC) hardware for each of the connections. You must
 be aware of the existence of these queues:</p><ul><li><p>completion queue <strong>(CQ)</strong> where completions of operations are
@@ -236,7 +236,7 @@ thread-safe, function. The default logging function can write messages
 to <strong>syslog</strong>(3) and <strong>stderr</strong>(3). The logging threshold level can be
 set or got using <strong>rpma_log_set_threshold</strong>() or
 <strong>rpma_log_get_threshold</strong>() respectively.</p><p>There is an example of the usage of the logging functions:
-<a href=https://github.com/pmem/rpma/tree/master/examples/log>https://github.com/pmem/rpma/tree/master/examples/log</a></p><h1 id=examples>EXAMPLES</h1><p>See <a href=https://github.com/pmem/rpma/tree/master/examples>https://github.com/pmem/rpma/tree/master/examples</a> for examples of
+<a href=https://github.com/pmem/rpma/tree/main/examples/log>https://github.com/pmem/rpma/tree/main/examples/log</a></p><h1 id=examples>EXAMPLES</h1><p>See <a href=https://github.com/pmem/rpma/tree/main/examples>https://github.com/pmem/rpma/tree/main/examples</a> for examples of
 using the librpma API.</p><h1 id=acknowledgements>ACKNOWLEDGEMENTS</h1><p>librpma is built on the top of libibverbs and librdmacm APIs.</p><h1 id=deprecating>DEPRECATING</h1><p>Using of the API calls which are marked as deprecated should be avoided,
 because they will be removed in a new major release.</p><p>NOTE: API calls deprecated in 0.X release will be removed in <strong>0.</strong>(X+1)
 release usually.</p><h1 id=see-also>SEE ALSO</h1><p><a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
