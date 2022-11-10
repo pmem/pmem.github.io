@@ -85,14 +85,6 @@ sources:
     link_list2:
       content: "Needed dependencies and detailed build instructions can be found in the memkind's <a href=\"https://github.com/memkind/memkind#memkind\">readme</a> file."
 
-################################# Binaries #################################
-binaries:
-  enable: true
-  title: "Binaries"
-  lists:
-    list_item1:
-      content: "<a href=\"http://download.opensuse.org/repositories/home:/patrykka/\">RPMs for Fedora and OpenSuse OSes</a>"
-
 ################################# Blog entries #################################
 blog_entries:
   enable: true
