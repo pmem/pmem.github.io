@@ -67,7 +67,7 @@ detection may be enabled by setting <em>pool_type</em> to
 performed. <em>path</em> must be a single file <em>pool</em>.</p></li><li><p>an existing <em>pool set</em> file: Backup will be performed as defined by the
 <em>backup_path</em> pool set. <em>path</em> must be a pool set, and <em>backup_path</em> must have
 the same structure (the same number of parts with exactly the same size) as the
-<em>path</em> pool set.</p></li></ul><p>Backup is supported only if the source <em>pool set</em> has no defined replicas.</p><p>Neither <em>path</em> nor <em>backup_path</em> may specify a pool set with remote replicas.</p><p>The <strong>pmempool_checkU</strong>()/<strong>pmempool_checkW</strong>() function starts or resumes the check indicated by <em>ppc</em>.
+<em>path</em> pool set.</p></li></ul><p>Backup is supported only if the source <em>pool set</em> has no defined replicas.</p><p>The <strong>pmempool_checkU</strong>()/<strong>pmempool_checkW</strong>() function starts or resumes the check indicated by <em>ppc</em>.
 When the next status is generated, the check is paused and <strong>pmempool_checkU</strong>()/<strong>pmempool_checkW</strong>()
 returns a pointer to the <em>struct pmempool_check_statusU</em>/<em>struct pmempool_check_statusW</em> structure:</p><p>{</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>struct</span> pmempool_check_statusU
 </span></span><span style=display:flex><span>{

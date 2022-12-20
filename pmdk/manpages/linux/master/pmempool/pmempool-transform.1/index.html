@@ -14,27 +14,7 @@ defined by the <code>poolset_file_src</code> file, according to a structure desc
 the <code>poolset_file_dst</code> file.</p><p>The following operations are supported:</p><ul><li><p>adding replicas - one or more new replicas can be added and synchronized with
 other replicas in the pool set,</p></li><li><p>removing replicas - one or more replicas can be removed from the pool set
 ,</p></li><li><p>adding or removing pool set options.</p></li></ul><p>Only one of the above operations can be performed at a time.</p><p>Currently adding and removing replicas are allowed only for <strong>pmemobj</strong> pools
-(see <strong>libpmemobj</strong>(7)).</p><p>The <em>poolset_file_src</em> argument provides the source pool set to be changed.</p><p>The <em>poolset_file_dst</em> argument points to the target pool set.</p><p>When adding or deleting replicas, the two pool set files can differ
-only in the definitions of replicas which are to be added or deleted. When
-adding or removing pool set options (see <strong>poolset</strong>(5)), the rest of both pool
-set files have to be of the same structure. The operation of adding/removing
-a pool set option can be performed on a pool set with local replicas only. To
-add/remove a pool set option to/from a pool set with remote replicas, one has
-to remove the remote replicas first, then add/remove the option, and finally
-recreate the remote replicas having added/removed the pool set option to/from
-the remote replicas&rsquo; poolset files.
-To add a replica it is necessary for its effective size to match or exceed the
-pool size. Otherwise the whole operation fails and no changes are applied.
-If none of the poolset options is used, the effective size of a replica is the
-sum of sizes of all its part files decreased by 4096 bytes per each part file.
-The 4096 bytes of each part file is utilized for storing internal metadata of
-the pool part files.
-If the option <em>SINGLEHDR</em> is used, the effective size of a replica is the sum of
-sizes of all its part files decreased once by 4096 bytes. In this case only
-the first part contains internal metadata.
-If the option <em>NOHDRS</em> is used, the effective size of a replica is the sum of
-sizes of all its part files. In this case none of the parts contains internal
-metadata.</p><h5 id=available-options>Available options:</h5><dl><dt><code>-d, --dry-run</code></dt><dd><p>Enable dry run mode. In this mode no changes are applied, only check for
+(see <strong>libpmemobj</strong>(7)).</p><p>The <em>poolset_file_src</em> argument provides the source pool set to be changed.</p><p>The <em>poolset_file_dst</em> argument points to the target pool set.</p><h5 id=available-options>Available options:</h5><dl><dt><code>-d, --dry-run</code></dt><dd><p>Enable dry run mode. In this mode no changes are applied, only check for
 viability of the operation is performed.</p></dd><dt><code>-v, --verbose</code></dt><dd><p>Increase verbosity level.</p></dd><dt><code>-h, --help</code></dt><dd><p>Display help message and exit.</p></dd></dl><h1 id=examples>EXAMPLES</h1><h5 id=example-1>Example 1.</h5><p>Let files <code>/path/poolset_file_src</code> and <code>/path/poolset_file_dst</code> have the
 following contents:</p><pre tabindex=0><code>PMEMPOOLSET
 20M /0/partfile1

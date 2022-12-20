@@ -22,9 +22,7 @@ regarding <em>correctness</em> of internal meta-data (correct offsets, sizes etc
 If it is <em>not</em> possible to analyze the rest of the file, <strong>pmempool</strong> exits
 with error code and prints appropriate error message.</p><p>Currently there is lack of interprocess synchronization for pool files,
 so the <em>info</em> command should be invoked off-line. Using <strong>pmempool</strong> on pool file which
-may be modified by another process may lead to unexpected errors in pool file.</p><p>A poolset file passed to <strong>pmempool info</strong> may contain multiple replicas,
-also remote ones, but <strong>pmempool</strong> currently does not read any data from remote replicas.
-It prints only a remote node address and a remote replica descriptor.</p><p><strong>pmempool info</strong> opens pool file in <em>read-only</em> mode so the file
+may be modified by another process may lead to unexpected errors in pool file.</p><p><strong>pmempool info</strong> opens pool file in <em>read-only</em> mode so the file
 will remain untouched after processing.</p><p>The <em>info</em> command may collect and print basic statistics about data usage.
 The statistics are specific to the type of pool. See <strong>STATISTICS</strong> section for details.</p><p>Although the pool consistency is <em>not</em> checked by the <em>info</em> command,
 it prints information about checksum errors and/or offsets errors.</p><h5 id=common-options>Common options:</h5><p>By default the <em>info</em> command of <strong>pmempool</strong> prints information about the most important

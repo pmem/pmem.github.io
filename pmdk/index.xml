@@ -5551,7 +5551,7 @@ DESCRIPTION
 RETURN VALUE
 SEE ALSO
 NAME pmempool_rm() - remove persistent memory pool
-SYNOPSIS #include &amp;lt;libpmempool.h&amp;gt; int pmempool_rm(const char *path, int flags); DESCRIPTION The pmempool_rm() function removes the pool pointed to by path. The path can point to a regular file, device dax or pool set file. If path is a pool set file, pmempool_rm() will remove all part files from local replicas using unlink(2), and all remote replicas using rpmem_remove(3) (see librpmem(7)), before removing the pool set file itself.</description></item><item><title>libpmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_sync.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_sync.3/</guid><description>NAME
+SYNOPSIS #include &amp;lt;libpmempool.h&amp;gt; int pmempool_rm(const char *path, int flags); DESCRIPTION The pmempool_rm() function removes the pool pointed to by path. The path can point to a regular file, device dax or pool set file. If path is a pool set file, pmempool_rm() will remove all part files from replicas using unlink(2) before removing the pool set file itself.</description></item><item><title>libpmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_sync.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_sync.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 RETURN VALUE
@@ -7286,36 +7286,7 @@ ERRORS
 SEE ALSO
 NAME pmemset_source_set_sds() - store SDS parameter in the source structure
 SYNOPSIS #include &amp;lt;libpmemset.h&amp;gt; #define PMEMSET_SDS_DEVICE_ID_LEN ((size_t)512ULL) PMEMSET_SDS_INITIALIZE() struct pmemset_sds { char id[PMEMSET_SDS_DEVICE_ID_LEN + 1]; uint64_t usc; int refcount; }; enum pmemset_part_state { PMEMSET_PART_STATE_INDETERMINATE = (1 &amp;lt;&amp;lt; 0), PMEMSET_PART_STATE_OK = (1 &amp;lt;&amp;lt; 1), PMEMSET_PART_STATE_OK_BUT_INTERRUPTED = (1 &amp;lt;&amp;lt; 2), PMEMSET_PART_STATE_CORRUPTED = (1 &amp;lt;&amp;lt; 3), }; struct pmemset_source; int pmemset_source_set_sds(struct pmemset_source *src, struct pmemset_sds *sds, enum pmemset_part_state *state_ptr); DESCRIPTION The pmemset_source_set_sds() stores SDS parameter sds in the source src structure.</description></item><item><title>librpmem | PMDK</title><link>https://pmem.io/pmdk/librpmem/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/librpmem/</guid><description>The librpmem library Note: The alternative solution for accessing remote persistent memory is implemented by librpma. Note: This is a deprecated API and should not be used in production environments.
-librpmem provides low-level support for remote access to persistent memory (pmem) utilizing RDMA-capable RNICs. The library can be used to replicate remotely a memory region over RDMA protocol. It utilizes appropriate persistency mechanism based on remote node&amp;rsquo;s platform capabilities. The librpmem utilizes the ssh client to authenticate a user on remote node and for encryption of connection&amp;rsquo;s out-of-band configuration data.</description></item><item><title>librpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/librpmem/librpmem.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/librpmem/librpmem.7/</guid><description>NAME
-SYNOPSIS
-DESCRIPTION
-TARGET NODE ADDRESS FORMAT
-REMOTE POOL ATTRIBUTES
-SSH
-FORK
-CAVEATS
-LIBRARY API VERSIONING
-ENVIRONMENT
-DEBUGGING AND ERROR HANDLING
-EXAMPLE
-ACKNOWLEDGEMENTS
-SEE ALSO
-NAME librpmem - remote persistent memory support library (DEPRECATED)
-SYNOPSIS #include &amp;lt;librpmem.h&amp;gt; cc ... -lrpmem Library API versioning: const char *rpmem_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *rpmem_errormsg(void); Other library functions: A description of other librpmem functions can be found on the following manual pages:</description></item><item><title>librpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/librpmem/rpmem_create.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/librpmem/rpmem_create.3/</guid><description>NAME
-SYNOPSIS
-DESCRIPTION
-RETURN VALUE
-NOTES
-SEE ALSO
-NAME rpmem_create()(DEPRECATED), rpmem_open()(DEPRECATED), rpmem_set_attr()(DEPRECATED), rpmem_close()(DEPRECATED), rpmem_remove()(DEPRECATED),
-most commonly used functions for remote access to persistent memory SYNOPSIS #include &amp;lt;librpmem.h&amp;gt; RPMEMpool *rpmem_create(const char *target, const char *pool_set_name, void *pool_addr, size_t pool_size, unsigned *nlanes, const struct rpmem_pool_attr *create_attr); RPMEMpool *rpmem_open(const char *target, const char *pool_set_name, void *pool_addr, size_t pool_size, unsigned *nlanes, struct rpmem_pool_attr *open_attr); int rpmem_set_attr(RPMEMpool *rpp, const struct rpmem_pool_attr *attr); int rpmem_close(RPMEMpool *rpp); int rpmem_remove(const char *target, const char *pool_set_name, int flags); DESCRIPTION The rpmem_create() function creates a remote pool on a given target node, using pool set file pool_set_name to map the remote pool.</description></item><item><title>librpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/librpmem/rpmem_persist.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/librpmem/rpmem_persist.3/</guid><description>NAME
-SYNOPSIS
-DESCRIPTION
-RETURN VALUE
-CAVEATS
-SEE ALSO
-NAME rpmem_persist()(DEPRECATED), rpmem_deep_persist()(DEPRECATED), rpmem_flush()(DEPRECATED), rpmem_drain()(DEPRECATED), rpmem_read()(DEPRECATED) - functions to copy and read remote pools
-SYNOPSIS #include &amp;lt;librpmem.h&amp;gt; int rpmem_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_deep_persist(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane); int rpmem_flush(RPMEMpool *rpp, size_t offset, size_t length, unsigned lane, unsigned flags); int rpmem_drain(RPMEMpool *rpp, unsigned lane, unsigned flags); int rpmem_read(RPMEMpool *rpp, void *buff, size_t offset, size_t length, unsigned lane); DESCRIPTION The rpmem_persist() function copies data of given length at given offset from the associated local memory pool and makes sure the data is persistent on the remote node before the function returns.</description></item><item><title>librpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.10/librpmem/librpmem.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.10/librpmem/librpmem.7/</guid><description>NAME
+librpmem provides low-level support for remote access to persistent memory (pmem) utilizing RDMA-capable RNICs. The library can be used to replicate remotely a memory region over RDMA protocol. It utilizes appropriate persistency mechanism based on remote node&amp;rsquo;s platform capabilities. The librpmem utilizes the ssh client to authenticate a user on remote node and for encryption of connection&amp;rsquo;s out-of-band configuration data.</description></item><item><title>librpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.10/librpmem/librpmem.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.10/librpmem/librpmem.7/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 TARGET NODE ADDRESS FORMAT
@@ -7541,7 +7512,7 @@ DESCRIPTION
 EXAMPLE
 SEE ALSO
 NAME pmempool-rm - remove a persistent memory pool
-SYNOPSIS $ pmempool rm [&amp;lt;options&amp;gt;] &amp;lt;file&amp;gt;.. DESCRIPTION The pmempool rm command removes each specified file. If the specified file is a pool set file, all pool files (single-file pool or part files) and remote replicas are removed. By default the pmempool rm does not remove pool set files. All local and remote pool files are removed using unlink(3) call, except the pools created on device dax which are zeroed instead.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-sync.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-sync.1/</guid><description>NAME
+SYNOPSIS $ pmempool rm [&amp;lt;options&amp;gt;] &amp;lt;file&amp;gt;.. DESCRIPTION The pmempool rm command removes each specified file. If the specified file is a pool set file, all pool files (single-file pool or part files) are removed. By default the pmempool rm does not remove pool set files. All pool files are removed using unlink(3) call, except the pools created on device dax which are zeroed instead.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-sync.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/pmempool/pmempool-sync.1/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 EXAMPLES
@@ -7967,7 +7938,7 @@ DESCRIPTION
 EXAMPLE
 SEE ALSO
 NAME pmempool-rm - remove a persistent memory pool
-SYNOPSIS $ pmempool rm [&amp;lt;options&amp;gt;] &amp;lt;file&amp;gt;.. DESCRIPTION The pmempool rm command removes each specified file. If the specified file is a pool set file, all pool files (single-file pool or part files) and remote replicas are removed. By default the pmempool rm does not remove pool set files. All local and remote pool files are removed using unlink(3) call, except the pools created on device dax which are zeroed instead.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/windows/master/pmempool/pmempool-sync.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/windows/master/pmempool/pmempool-sync.1/</guid><description>NAME
+SYNOPSIS $ pmempool rm [&amp;lt;options&amp;gt;] &amp;lt;file&amp;gt;.. DESCRIPTION The pmempool rm command removes each specified file. If the specified file is a pool set file, all pool files (single-file pool or part files) are removed. By default the pmempool rm does not remove pool set files. All pool files are removed using unlink(3) call, except the pools created on device dax which are zeroed instead.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/windows/master/pmempool/pmempool-sync.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/windows/master/pmempool/pmempool-sync.1/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 EXAMPLES
@@ -8449,18 +8420,7 @@ POOL SET OPTIONS
 NOTES
 SEE ALSO
 NAME poolset - persistent memory pool configuration file format
-SYNOPSIS mypool.set DESCRIPTION Depending on the configuration of the system, the available non-volatile memory space may be divided into multiple memory devices. In such case, the maximum size of the transactional object store could be limited by the capacity of a single memory device. Therefore, libpmemobj(7), libpmemblk(7) and libpmemlog(7) allow building object stores spanning multiple memory devices by creation of persistent memory pools consisting of multiple files, where each part of such a pool set may be stored on a different pmem-aware filesystem.</description></item><item><title>rpmemd | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/rpmemd/rpmemd.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/rpmemd/rpmemd.1/</guid><description>NAME
-SYNOPSIS
-DESCRIPTION
-OPTIONS
-CONFIGURATION FILES
-EXAMPLE
-DEFAULT CONFIGURATION
-PERSISTENCY METHODS
-SEE ALSO
-NAME rpmemd - librpmem target node process (DEPRECATED)
-SYNOPSIS $ rpmemd [--help] [--version] [&amp;lt;args&amp;gt;] DESCRIPTION The rpmemd process is executed on target node by librpmem(7) library over ssh(1) and facilitates access to persistent memory over RDMA. The rpmemd should not be run manually under normal conditions.
-OPTIONS Command line options overwrite the default rpmemd configuration, the global configuration file and the user configuration file.</description></item><item><title>rpmemd | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.10/rpmemd/rpmemd.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.10/rpmemd/rpmemd.1/</guid><description>NAME
+SYNOPSIS mypool.set DESCRIPTION Depending on the configuration of the system, the available non-volatile memory space may be divided into multiple memory devices. In such case, the maximum size of the transactional object store could be limited by the capacity of a single memory device. Therefore, libpmemobj(7), libpmemblk(7) and libpmemlog(7) allow building object stores spanning multiple memory devices by creation of persistent memory pools consisting of multiple files, where each part of such a pool set may be stored on a different pmem-aware filesystem.</description></item><item><title>rpmemd | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.10/rpmemd/rpmemd.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.10/rpmemd/rpmemd.1/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 OPTIONS

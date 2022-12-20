@@ -36,34 +36,13 @@ It supports the following operations:</p><ul><li><p>adding one or more replicas,
 pool set to be changed,</p></li><li><p><em>poolset_file_dst</em> - pathname of the pool <em>set</em> file that defines the new
 structure of the pool set,</p></li><li><p><em>flags</em> - a combination of flags (ORed) which modify how synchronization
 is performed.</p></li></ul><p>The following flags are available:</p><ul><li><strong>PMEMPOOL_TRANSFORM_DRY_RUN</strong> - do not apply changes, only check for viability of
-transformation.</li></ul><p>When adding or deleting replicas, the two pool set files can differ
-only in the definitions of replicas which are to be added or deleted. When
-adding or removing pool set options (see <strong>poolset</strong>(5)), the rest of both pool
-set files have to be of the same structure. The operation of adding/removing
-a pool set option can be performed on a pool set with local replicas only. To
-add/remove a pool set option to/from a pool set with remote replicas, one has
-to remove the remote replicas first, then add/remove the option, and finally
-recreate the remote replicas having added/removed the pool set option to/from
-the remote replicas&rsquo; poolset files.
-To add a replica it is necessary for its effective size to match or exceed the
-pool size. Otherwise the whole operation fails and no changes are applied.
-If none of the pool set options is used, the effective size of a replica is the
-sum of sizes of all its part files decreased by 4096 bytes per each part file.
-The 4096 bytes of each part file is utilized for storing internal metadata of
-the pool part files.
-If the option <em>SINGLEHDR</em> is used, the effective size of a replica is the sum of
-sizes of all its part files decreased once by 4096 bytes. In this case only
-the first part contains internal metadata.
-If the option <em>NOHDRS</em> is used, the effective size of a replica is the sum of
-sizes of all its part files. In this case none of the parts contains internal
-metadata.</p><blockquote><p>NOTE: At the moment, <em>transform</em> operation is only supported for
+transformation.</li></ul><blockquote><p>NOTE: At the moment, <em>transform</em> operation is only supported for
 <strong>libpmemobj</strong>(7) pools, so <strong>pmempool_transform</strong>() cannot be used with other
 pool types (<strong>libpmemlog</strong>(7), <strong>libpmemblk</strong>(7)).</p></blockquote><h1 id=return-value>RETURN VALUE</h1><p><strong>pmempool_sync</strong>() and <strong>pmempool_transform</strong>() return 0 on success.
 Otherwise, they return -1 and set <em>errno</em> appropriately.</p><h1 id=errors>ERRORS</h1><p><strong>EINVAL</strong> Invalid format of the input/output pool set file.</p><p><strong>EINVAL</strong> Unsupported <em>flags</em> value.</p><p><strong>EINVAL</strong> There is only master replica defined in the input pool set passed
 to <strong>pmempool_sync</strong>().</p><p><strong>EINVAL</strong> The source pool set passed to <strong>pmempool_transform</strong>() is not a
 <strong>libpmemobj</strong> pool.</p><p><strong>EINVAL</strong> The input and output pool sets passed to <strong>pmempool_transform</strong>()
-are identical.</p><p><strong>EINVAL</strong> Attempt to perform more than one transform operation at a time.</p><p><strong>ENOTSUP</strong> The pool set contains a remote replica, but remote replication
-is not supported (<strong>librpmem</strong>(7) is not available).</p><h1 id=notes>NOTES</h1><p>The <strong>pmempool_sync</strong>() API is experimental and it may change in future
+are identical.</p><p><strong>EINVAL</strong> Attempt to perform more than one transform operation at a time.</p><h1 id=notes>NOTES</h1><p>The <strong>pmempool_sync</strong>() API is experimental and it may change in future
 versions of the library.</p><p>The <strong>pmempool_transform</strong>() API is experimental and it may change in future
 versions of the library.</p><h1 id=see-also>SEE ALSO</h1><p><strong>libpmemlog</strong>(7), <strong>libpmemobj</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/

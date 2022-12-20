@@ -46,7 +46,7 @@ OPTION NOHDRS
 To create a block pool:</p><pre tabindex=0><code>$ pmempool create blk &lt;bsize&gt; mypool.set
 </code></pre><p>To create a log pool:</p><pre tabindex=0><code>$ pmempool create log mypool.set
 </code></pre><h1 id=replicas>REPLICAS</h1><p>Sections defining replica sets are optional. There may be multiple replica
-sections.</p><p>Local replica sections begin with a line containing only the literal string
+sections.</p><p>Replica sections begin with a line containing only the literal string
 &ldquo;REPLICA&rdquo;, followed by one or more pool part lines as described above.</p><p>Here is an example &ldquo;myobjpool.set&rdquo; file with replicas:</p><pre tabindex=0><code>PMEMPOOLSET
 100G /mountpoint0/myfile.part0
 200G /mountpoint1/myfile.part1
@@ -55,21 +55,14 @@ sections.</p><p>Local replica sections begin with a line containing only the lit
 # local replica
 REPLICA
 500G /mountpoint3/mymirror.part0
-200G /mountpoint4/mymirror.part1 
+200G /mountpoint4/mymirror.part1
 </code></pre><p>The files in the object pool set may be created by running the following command:</p><pre tabindex=0><code>$ pmempool create --layout=&#34;mylayout&#34; obj myobjpool.set
 </code></pre><h1 id=pool-set-options>POOL SET OPTIONS</h1><p>Pool set options can appear anywhere after the line with <em>PMEMPOOLSET</em> string.
 Pool set file can contain several pool set options. The following options are
-supported:</p><ul><li><p><em>SINGLEHDR</em></p></li><li><p><em>NOHDRS</em></p></li></ul><p>If the <em>SINGLEHDR</em> option is used, only the first part in each replica contains
+supported:</p><ul><li><em>SINGLEHDR</em></li></ul><p>If the <em>SINGLEHDR</em> option is used, only the first part in each replica contains
 the pool part internal metadata. In that case the effective size of a replica
-is the sum of sizes of all its part files decreased once by 4096 bytes.</p><p>The <em>NOHDRS</em> option can appear only in the remote pool set file, when
-<strong>librpmem</strong> does not serve as a means of replication for <strong>libpmemobj</strong> pool.
-In that case none of the pool parts contains internal metadata.
-The effective size of such a replica is the sum of sizes of all its part files.</p><p>Options <em>SINGLEHDR</em> and <em>NOHDRS</em> are mutually exclusive. If both are specified
-in a pool set file, creating or opening the pool will fail with an error.</p><p>When using the <em>SINGLEHDR</em> or <em>NOHDRS</em> option, one can concatenate more than one
-Device DAX devices with any internal alignments in one replica.</p><p>The <em>SINGLEHDR</em> option concerns only replicas that are local to the pool set
-file. That is if one wants to create a pool set with the <em>SINGLEHDR</em> option
-and with remote replicas, one has to add this option to the local pool set file
-as well as to every single remote pool set file.</p><p>Using the <em>SINGLEHDR</em> and <em>NOHDRS</em> options has important implications for data
+is the sum of sizes of all its part files decreased once by 4096 bytes.</p><p>When using the <em>SINGLEHDR</em> option, one can concatenate more than one
+Device DAX devices with any internal alignments in one replica.</p><p>Using the <em>SINGLEHDR</em> option has important implications for data
 integrity checking and recoverability in case of a pool set damage.
 See <strong>pmempool_syncU</strong>()/<strong>pmempool_syncW</strong>() API for more information about pool set recovery.</p><h1 id=directories>DIRECTORIES</h1><p>Providing a directory as a part&rsquo;s <em>pathname</em> allows the pool to dynamically
 create files and consequently removes the user-imposed limit on the size
@@ -87,7 +80,7 @@ consist of one or more directories. If there are multiple directories, the
 address space reservation is equal to the sum of the sizes.</p><p>The order in which the files are created is unspecified, but the library will
 try to maintain equal usage of the directories.</p><p>By default pools grow in 128 megabyte increments.</p><p>Only poolsets with the <em>SINGLEHDR</em> option can safely use directories.</p><h1 id=notes>NOTES</h1><p>Creation of all the parts of the pool set and the associated replica sets can
 be done with the <strong>pmemobj_create</strong>(3), <strong>pmemblk_create</strong>(3) or
-<strong>pmemlog_create</strong>(3) function, or by using the <strong>pmempool</strong>(1) utility.</p><p>Restoring data from a local replica can be done by using the
+<strong>pmemlog_create</strong>(3) function, or by using the <strong>pmempool</strong>(1) utility.</p><p>Restoring data from a replica can be done by using the
 <strong>pmempool-sync</strong>(1) command or the <strong>pmempool_syncU</strong>()/<strong>pmempool_syncW</strong>() API from the
 <strong>libpmempool</strong>(7) library.</p><p>Modifications of a pool set file configuration can be done by using the
 <strong>pmempool-transform</strong>(1) command or the <strong>pmempool_transformU</strong>()/<strong>pmempool_transformW</strong>() API from the
