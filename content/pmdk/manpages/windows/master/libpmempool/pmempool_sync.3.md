@@ -9,7 +9,7 @@ header: "pmempool API version 1.3"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2017-2018, Intel Corporation)
+[comment]: <> (Copyright 2017-2022, Intel Corporation)
 
 [comment]: <> (pmempool_sync.3 -- man page for pmempool sync and transform)
 
@@ -114,8 +114,6 @@ applied. The effective size of a replica is the sum of sizes of all its part
 files decreased by 4096 bytes per each part file. The 4096 bytes of each part
 file is utilized for storing internal metadata of the pool part files.
 
-
-
 >NOTE: At the moment, *transform* operation is only supported for
 **libpmemobj**(7) pools, so **pmempool_transformU**()/**pmempool_transformW**() cannot be used with other
 pool types (**libpmemlog**(7), **libpmemblk**(7)).
@@ -141,9 +139,6 @@ Otherwise, they return -1 and set *errno* appropriately.
   are identical.
 
 **EINVAL** Attempt to perform more than one transform operation at a time.
-
-**ENOTSUP** The pool set contains a remote replica, but remote replication
-  is not supported (**librpmem**(7) is not available).
 
 # NOTES #
 
