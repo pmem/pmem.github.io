@@ -57,6 +57,7 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 >
 > **A:** Please see below for a summary table of the specific support. Intel will only address issues and bug fixes related to Intel Optane PMem products.
 
+{{<table "table table-striped table-bordered">}}
 | Library | URL | Support Summary |
 |---|---|---|
 | libpmem<br /> libpmem2<br /> libpmemobj<br /> libpmempool<br /> pmempool<br /> pmreorder | https://github.com/pmem/pmdk | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Release planned for Crow Pass |
@@ -74,6 +75,7 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 | pmdk-convert | https://github.com/pmem/pmdk-convert | No further support or maintenance planned |
 | vmemcache | https://github.com/pmem/vmemcache | No further support or maintenance planned |
 | pmemfile | https://github.com/pmem/pmemfile | No further support or maintenance planned |
+{{</table>}}
 
 > **Q:** What documentation is available for PMDK?
 >
