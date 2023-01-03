@@ -25,16 +25,14 @@ contact_us:
   title: 'Contacting Us'
   content: 'This site and the Persistent Memory Development Kit project (PMDK)
     are open source projects that welcome contributions from anyone interested
-    in persistent memory.  They are currently under the technical leadership
-    of [Piotr Balcer](mailto:piotr.balcer@intel.com) of
-    [Intel](https://www.intel.com).
+    in persistent memory.  They are currently maintained via a
+    [shared governance model](https://pmem.io/documents/Governance_2023-01.pdf) [PDF].
 
     To find the source for a specific component of PMDK, see the [repo index page](/repoindex/).'
   list:
     item1: '[Join our Google Group](https://groups.google.com/group/pmem) to participate in discussions on persistent memory programming, including the design of the libraries and future directions.'
     item2: 'Join our **#pmem** Slack channel using this [invite link](https://join.slack.com/t/pmem-io/shared_invite/enQtNzU4MzQ2Mzk3MDQwLWQ1YThmODVmMGFkZWI0YTdhODg4ODVhODdhYjg3NmE4N2ViZGI5NTRmZTBiNDYyOGJjYTIyNmZjYzQxODcwNDg).'
-    item3: 'Find us on IRC on the **#pmem** channel on [OFTC](https://www.oftc.net).'
-    item4: 'Create an issue in the appropriate [GitHub repo](/repoindex/). If you are unsure which repo the issue belongs in, file it as a [core PMDK](https://github.com/pmem/pmdk/issues) issue.'
+    item3: 'Create an issue in the appropriate [GitHub repo](/repoindex/). If you are unsure which repo the issue belongs in, file it as a [core PMDK](https://github.com/pmem/pmdk/issues) issue.'
 
 ################################# More info #####################################
 more:
