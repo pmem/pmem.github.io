@@ -84,31 +84,30 @@
 <a href=../rpma_utils_get_ibv_context.3.html>rpma_utils_get_ibv_context.3</a>
 <a href=../rpma_utils_ibv_context_is_odp_capable.3.html>rpma_utils_ibv_context_is_odp_capable.3</a>
 <a href=../rpma_write.3.html>rpma_write.3</a>
-<a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_conn_req_connect</strong> - initiate processing the connection
-request</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
+<a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_conn_req_connect</strong> - initiate processing the connection request</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_conn_req;
       struct rpma_conn_private_data;
       struct rpma_conn;
       int rpma_conn_req_connect(struct rpma_conn_req **req_ptr,
                       const struct rpma_conn_private_data *pdata, struct rpma_conn **conn_ptr);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_req_connect</strong>() initiates processing the connection
-requests both incoming and outgoing. The end of processing is signalled
-by the RPMA_CONN_ESTABLISHED event via <strong>rpma_conn_next_event</strong>().</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_req_connect</strong>() function returns 0 on success or a
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_req_connect</strong>() initiates processing the connection requests
+both incoming and outgoing. The end of processing is signalled by the
+RPMA_CONN_ESTABLISHED event via <strong>rpma_conn_next_event</strong>().</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_req_connect</strong>() function returns 0 on success or a
 negative error code on failure. On success, the newly created connection
-object is stored in *conn_ptr whereas *req_ptr is consumed and set
-to NULL. On failure, <strong>rpma_conn_req_connect</strong>() does not set
-*conn_ptr whereas *req_ptr is consumed and set to NULL.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_req_connect</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - req_ptr, *req_ptr or conn_ptr is NULL</p></li><li><p>RPMA_E_INVAL - pdata is not NULL whereas pdata->len == 0</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li><li><p>RPMA_E_PROVIDER - initiating a connection request failed (active
+object is stored in *conn_ptr whereas *req_ptr is consumed and set to
+NULL. On failure, <strong>rpma_conn_req_connect</strong>() does not set *conn_ptr
+whereas *req_ptr is consumed and set to NULL.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_req_connect</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - req_ptr, *req_ptr or conn_ptr is NULL</p></li><li><p>RPMA_E_INVAL - pdata is not NULL whereas pdata->len == 0</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li><li><p>RPMA_E_PROVIDER - initiating a connection request failed (active
 side only)</p></li><li><p>RPMA_E_PROVIDER - accepting the connection request failed (passive
 side only)</p></li><li><p>RPMA_E_PROVIDER - freeing a communication event failed (passive
 side only)</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_apply_remote_peer_cfg</strong>(3), <strong>rpma_conn_delete</strong>(3),
 <strong>rpma_conn_disconnect</strong>(3), <strong>rpma_conn_get_cq</strong>(3),
-<strong>rpma_conn_get_event_fd</strong>(3),
-<strong>rpma_conn_get_private_data</strong>(3), <strong>rpma_conn_get_rcq</strong>(3),
-<strong>rpma_conn_next_event</strong>(3), <strong>rpma_conn_req_new</strong>(3),
-<strong>rpma_ep_next_conn_req</strong>(3), <strong>rpma_flush</strong>(3), <strong>rpma_read</strong>(3),
-<strong>rpma_recv</strong>(3), <strong>rpma_send</strong>(3), <strong>rpma_write</strong>(3),
-<strong>rpma_atomic_write</strong>(3), <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<strong>rpma_conn_get_event_fd</strong>(3), <strong>rpma_conn_get_private_data</strong>(3),
+<strong>rpma_conn_get_rcq</strong>(3), <strong>rpma_conn_next_event</strong>(3),
+<strong>rpma_conn_req_new</strong>(3), <strong>rpma_ep_next_conn_req</strong>(3),
+<strong>rpma_flush</strong>(3), <strong>rpma_read</strong>(3), <strong>rpma_recv</strong>(3), <strong>rpma_send</strong>(3),
+<strong>rpma_write</strong>(3), <strong>rpma_atomic_write</strong>(3), <strong>librpma</strong>(7) and
+<a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

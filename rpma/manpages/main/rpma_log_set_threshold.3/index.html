@@ -106,21 +106,20 @@
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_log_set_threshold</strong>() sets the logging <em>threshold</em> <em>level</em>.</p><p>Available thresholds are:</p><ul><li><p><em>RPMA_LOG_THRESHOLD</em> - the main <em>threshold</em> used to filter out
 undesired logging messages. Messages on a higher <em>level</em> than the
 primary <em>threshold</em> <em>level</em> are ignored. <em>RPMA_LOG_DISABLED</em> shall
-be used to suppress logging. The default value is
-RPMA_LOG_WARNING.</p></li><li><p><em>RPMA_LOG_THRESHOLD_AUX</em> - the auxiliary <em>threshold</em> intended for
+be used to suppress logging. The default value is RPMA_LOG_WARNING.</p></li><li><p><em>RPMA_LOG_THRESHOLD_AUX</em> - the auxiliary <em>threshold</em> intended for
 use inside the logging function (please see
-<strong>rpma_log_get_threshold</strong>(3)). The logging function may or may
-not take this <em>threshold</em> into consideration. The default value is
+<strong>rpma_log_get_threshold</strong>(3)). The logging function may or may not
+take this <em>threshold</em> into consideration. The default value is
 <em>RPMA_LOG_DISABLED</em>.</p></li></ul><p>Available <em>threshold</em> levels are defined by enum rpma_log_level:</p><ul><li><p><em>RPMA_LOG_DISABLED</em> - all messages will be suppressed</p></li><li><p><em>RPMA_LOG_LEVEL_FATAL</em> - an error that causes the library to stop
 working immediately</p></li><li><p><em>RPMA_LOG_LEVEL_ERROR</em> - an error that causes the library to stop
 working properly</p></li><li><p><em>RPMA_LOG_LEVEL_WARNING</em> - an error that could be handled in the
-upper <em>level</em></p></li><li><p><em>RPMA_LOG_LEVEL_NOTICE</em> - non-massive info mainly related to
-public API function completions e.g. connection established</p></li><li><p><em>RPMA_LOG_LEVEL_INFO</em> - massive info e.g. every write operation
+upper <em>level</em></p></li><li><p><em>RPMA_LOG_LEVEL_NOTICE</em> - non-massive info mainly related to public
+API function completions e.g. connection established</p></li><li><p><em>RPMA_LOG_LEVEL_INFO</em> - massive info e.g. every write operation
 indication</p></li><li><p><em>RPMA_LOG_LEVEL_DEBUG</em> - debug info e.g. write operation dump</p></li></ul><h1 id=the-default-logging-function>THE DEFAULT LOGGING FUNCTION</h1><p>The default logging function writes messages to <strong>syslog</strong>(3) and to
 <strong>stderr</strong>(3), where <strong>syslog</strong>(3) is the primary destination
 (<em>RPMA_LOG_THRESHOLD</em> applies) whereas <strong>stderr</strong>(3) is the secondary
-destination (<em>RPMA_LOG_THRESHOLD_AUX</em> applies).</p><h1 id=return-value>RETURN VALUE</h1><p><strong>rpma_log_syslog_set_threshold</strong>() function returns 0 on success or
-a negative error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_log_set_threshold</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - <em>threshold</em> is not <em>RPMA_LOG_THRESHOLD</em> nor
+destination (<em>RPMA_LOG_THRESHOLD_AUX</em> applies).</p><h1 id=return-value>RETURN VALUE</h1><p><strong>rpma_log_syslog_set_threshold</strong>() function returns 0 on success or a
+negative error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_log_set_threshold</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - <em>threshold</em> is not <em>RPMA_LOG_THRESHOLD</em> nor
 <em>RPMA_LOG_THRESHOLD_AUX</em></p></li><li><p>RPMA_E_INVAL - <em>level</em> is not a value defined by enum
 rpma_log_level type</p></li><li><p>RPMA_E_AGAIN - a temporary error occurred, the retry may fix the
 problem</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_log_get_threshold</strong>(3), <strong>rpma_log_set_function</strong>(3),

@@ -88,10 +88,10 @@
 
       struct rpma_conn_cfg;
       int rpma_conn_cfg_set_sq_size(struct rpma_conn_cfg *cfg, uint32_t sq_size);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_cfg_set_sq_size</strong>() sets the SQ size for the
-connection. If this function is not called, the sq_size has the default
-value (10) set by <strong>rpma_conn_cfg_new</strong>(3).</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_cfg_set_sq_size</strong>() function returns 0 on success
-or a negative error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_cfg_set_sq_size</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - cfg is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_cfg_new</strong>(3), <strong>rpma_conn_cfg_get_sq_size</strong>(3),
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_cfg_set_sq_size</strong>() sets the SQ size for the connection. If
+this function is not called, the sq_size has the default value (10) set
+by <strong>rpma_conn_cfg_new</strong>(3).</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_cfg_set_sq_size</strong>() function returns 0 on success or a
+negative error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_cfg_set_sq_size</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - cfg is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_cfg_new</strong>(3), <strong>rpma_conn_cfg_get_sq_size</strong>(3),
 <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/

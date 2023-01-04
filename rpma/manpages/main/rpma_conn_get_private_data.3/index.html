@@ -91,17 +91,15 @@ private data</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librp
       struct rpma_conn_private_data;
       int rpma_conn_get_private_data(const struct rpma_conn *conn,
                       struct rpma_conn_private_data *pdata);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_get_private_data</strong>() obtains the pointer to the private
-data given by the other side of the connection.</p><h1 id=security-warning>SECURITY WARNING</h1><p>The connection's private data is insecure. An attacker might modify all
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_get_private_data</strong>() obtains the pointer to the private data
+given by the other side of the connection.</p><h1 id=security-warning>SECURITY WARNING</h1><p>The connection's private data is insecure. An attacker might modify all
 data transferred via the rdma_cm private data. Users should avoid using
 <strong>rpma_conn_get_private_data</strong>(3) and
-<strong>rpma_conn_req_get_private_data</strong>(3) API calls and they should
-utilize TLS/SSL connections to transfer all configuration data between
-peers instead.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_get_private_data</strong>() function returns 0 on success
-or a negative error code on failure.
-<strong>rpma_conn_get_private_data</strong>() does not set *pdata value on
-failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_get_private_data</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - conn or pdata is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_req_connect</strong>(3), <strong>librpma</strong>(7) and
-<a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<strong>rpma_conn_req_get_private_data</strong>(3) API calls and they should utilize
+TLS/SSL connections to transfer all configuration data between peers
+instead.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_get_private_data</strong>() function returns 0 on success or a
+negative error code on failure. <strong>rpma_conn_get_private_data</strong>() does
+not set *pdata value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_get_private_data</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - conn or pdata is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_req_connect</strong>(3), <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

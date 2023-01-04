@@ -89,12 +89,12 @@
       struct rpma_cq;
       int rpma_cq_wait(struct rpma_cq *cq);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_cq_wait</strong>() waits for an incoming completion event and acks it.
-If <strong>rpma_cq_wait</strong>() succeeds, then all available completions should
-be collected using <strong>rpma_cq_get_wc</strong>(3) before the next
-<strong>rpma_cq_wait</strong>() call.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_cq_wait</strong>() function returns 0 on success or a negative
-error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_cq_wait</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - cq is NULL</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_req_notify_cq</strong>(3) failed with a
-provider error</p></li><li><p>RPMA_E_NO_COMPLETION - no completions available</p></li><li><p>RPMA_E_SHARED_CHANNEL - the completion event channel is shared
-and cannot be handled by any particular CQ</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_get_cq</strong>(3), <strong>rpma_conn_get_rcq</strong>(3),
+If <strong>rpma_cq_wait</strong>() succeeds, then all available completions should be
+collected using <strong>rpma_cq_get_wc</strong>(3) before the next <strong>rpma_cq_wait</strong>()
+call.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_cq_wait</strong>() function returns 0 on success or a negative error
+code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_cq_wait</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - cq is NULL</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_req_notify_cq</strong>(3) failed with a provider
+error</p></li><li><p>RPMA_E_NO_COMPLETION - no completions available</p></li><li><p>RPMA_E_SHARED_CHANNEL - the completion event channel is shared and
+cannot be handled by any particular CQ</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_get_cq</strong>(3), <strong>rpma_conn_get_rcq</strong>(3),
 <strong>rpma_cq_get_wc</strong>(3), <strong>rpma_cq_get_fd</strong>(3), <strong>librpma</strong>(7) and
 <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/

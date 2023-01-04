@@ -88,17 +88,16 @@
 
       struct rpma_srq_cfg;
       int rpma_srq_cfg_new(struct rpma_srq_cfg **cfg_ptr);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_srq_cfg_new</strong>() creates a new shared RQ configuration object
-and fills it with the default values:</p><pre><code>        .rcq_size = 100
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_srq_cfg_new</strong>() creates a new shared RQ configuration object and
+fills it with the default values:</p><pre><code>        .rcq_size = 100
         .rq_size = 100
-</code></pre><p>Note that <strong>rpma_srq_new</strong>(3) with the default rcq_size creates its
-own receive CQ.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_srq_cfg_new</strong>() function returns 0 on success or a
-negative error code on failure. <strong>rpma_srq_cfg_new</strong>() does not set
-*cfg_ptr value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_srq_cfg_new</strong>() can fail with the following error:</p><ul><li><p>RPMA_E_INVAL - cfg_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_srq_cfg_delete</strong>(3), <strong>rpma_srq_cfg_get_rcq_size</strong>(3),
-<strong>rpma_srq_cfg_get_rq_size</strong>(3),
-<strong>rpma_srq_cfg_set_rcq_size</strong>(3),
-<strong>rpma_srq_cfg_set_rq_size</strong>(3), <strong>rpma_srq_new</strong>(3),
-<strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</code></pre><p>Note that <strong>rpma_srq_new</strong>(3) with the default rcq_size creates its own
+receive CQ.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_srq_cfg_new</strong>() function returns 0 on success or a negative
+error code on failure. <strong>rpma_srq_cfg_new</strong>() does not set *cfg_ptr
+value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_srq_cfg_new</strong>() can fail with the following error:</p><ul><li><p>RPMA_E_INVAL - cfg_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_srq_cfg_delete</strong>(3), <strong>rpma_srq_cfg_get_rcq_size</strong>(3),
+<strong>rpma_srq_cfg_get_rq_size</strong>(3), <strong>rpma_srq_cfg_set_rcq_size</strong>(3),
+<strong>rpma_srq_cfg_set_rq_size</strong>(3), <strong>rpma_srq_new</strong>(3), <strong>librpma</strong>(7) and
+<a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

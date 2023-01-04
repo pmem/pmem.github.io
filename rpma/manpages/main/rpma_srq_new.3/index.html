@@ -91,11 +91,11 @@
       struct rpma_srq;
       int rpma_srq_new(struct rpma_peer *peer, const struct rpma_srq_cfg *cfg,
                       struct rpma_srq **srq_ptr);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_srq_new</strong>() creates a new shared RQ object including a new
-shared RQ and a new shared receive CQ. It does not create the shared
-receive CQ if the size of the receive CQ in cfg equals 0.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_srq_new</strong>() function returns 0 on success or a negative
-error code on failure. <strong>rpma_srq_new</strong>() does not set *srq_ptr
-value on failure. If cfg is NULL, then the default values are used</p><ul><li>see <strong>rpma_srq_cfg_new</strong>(3) for more details.</li></ul><h1 id=errors>ERRORS</h1><p><strong>rpma_srq_new</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - peer or srq_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_create_srq</strong>(3),
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_srq_new</strong>() creates a new shared RQ object including a new shared
+RQ and a new shared receive CQ. It does not create the shared receive CQ
+if the size of the receive CQ in cfg equals 0.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_srq_new</strong>() function returns 0 on success or a negative error
+code on failure. <strong>rpma_srq_new</strong>() does not set *srq_ptr value on
+failure. If cfg is NULL, then the default values are used</p><ul><li>see <strong>rpma_srq_cfg_new</strong>(3) for more details.</li></ul><h1 id=errors>ERRORS</h1><p><strong>rpma_srq_new</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - peer or srq_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_create_srq</strong>(3),
 <strong>ibv_create_comp_channel</strong>(3), <strong>ibv_create_cq</strong>(3) or
 <strong>ibv_req_notify_cq</strong>(3) failed</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_srq_delete</strong>(3), <strong>rpma_srq_get_rcq</strong>(3), <strong>librpma</strong>(7) and
 <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>

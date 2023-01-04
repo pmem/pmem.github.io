@@ -95,20 +95,20 @@
               ...);
 
       int rpma_log_set_function(rpma_log_function *log_function);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_log_set_function</strong>() allows choosing the function which will
-get all the generated logging messages. The <em>log_function</em> can be
-either RPMA_LOG_USE_DEFAULT_FUNCTION which will use the default
-logging function (built into the library) or a pointer to a user-defined
-function.</p><p>Parameters of a user-defined log function are as follow:</p><ul><li><p><em>level</em> - the log <em>level</em> of the message</p></li><li><p><em>file_name</em> - name of the source file where the message coming
-from. It could be set to NULL and in such case neither <em>line_no</em>
-nor <em>function_name</em> are provided.</p></li><li><p><em>line_no</em> - the source file line where the message coming from</p></li><li><p><em>function_name</em> - the function name where the message coming from</p></li><li><p><em>message_format</em> - <strong>printf</strong>(3)<strong>-like</strong> format string of the
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_log_set_function</strong>() allows choosing the function which will get
+all the generated logging messages. The <em>log_function</em> can be either
+RPMA_LOG_USE_DEFAULT_FUNCTION which will use the default logging
+function (built into the library) or a pointer to a user-defined
+function.</p><p>Parameters of a user-defined log function are as follow:</p><ul><li><p><em>level</em> - the log <em>level</em> of the message</p></li><li><p><em>file_name</em> - name of the source file where the message coming from.
+It could be set to NULL and in such case neither <em>line_no</em> nor
+<em>function_name</em> are provided.</p></li><li><p><em>line_no</em> - the source file line where the message coming from</p></li><li><p><em>function_name</em> - the function name where the message coming from</p></li><li><p><em>message_format</em> - <strong>printf</strong>(3)<strong>-like</strong> format string of the
 message</p></li><li><p>"..." - additional arguments of the message format string</p></li></ul><h1 id=the-default-logging-function>THE DEFAULT LOGGING FUNCTION</h1><p>The initial value of the logging function is
 RPMA_LOG_USE_DEFAULT_FUNCTION. This function writes messages to
 <strong>syslog</strong>(3) (the primary destination) and to <strong>stderr</strong>(3) (the
-secondary destination).</p><h1 id=return-value>RETURN VALUE</h1><p><strong>rpma_log_set_function</strong>() function returns 0 on success or error
-code on failure.</p><h1 id=errors>ERRORS</h1><ul><li>RPMA_E_AGAIN - a temporary error occurred, the retry may fix the
-problem</li></ul><h1 id=note>NOTE</h1><p>The logging messages on the levels above the RPMA_LOG_THRESHOLD
-<em>level</em> won't trigger the logging function.</p><p>The user defined function must be thread-safe.</p><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_log_get_threshold</strong>(3), <strong>rpma_log_set_threshold</strong>(3),
+secondary destination).</p><h1 id=return-value>RETURN VALUE</h1><p><strong>rpma_log_set_function</strong>() function returns 0 on success or error code
+on failure.</p><h1 id=errors>ERRORS</h1><ul><li>RPMA_E_AGAIN - a temporary error occurred, the retry may fix the
+problem</li></ul><h1 id=note>NOTE</h1><p>The logging messages on the levels above the RPMA_LOG_THRESHOLD <em>level</em>
+won't trigger the logging function.</p><p>The user defined function must be thread-safe.</p><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_log_get_threshold</strong>(3), <strong>rpma_log_set_threshold</strong>(3),
 <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/

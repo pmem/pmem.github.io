@@ -95,20 +95,17 @@ address</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&
 
       int rpma_utils_get_ibv_context(const char *addr, enum rpma_util_ibv_context_type type,
               struct ibv_context **ibv_ctx_ptr);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_utils_get_ibv_context</strong>() obtains an RDMA device context by
-the given IPv4/IPv6 address (either local or remote) using the TCP RDMA
-port space (RDMA_PS_TCP) - reliable, connection-oriented and
-message-based QP communication. Possible values of the 'type'
-argument:</p><ul><li><p>RPMA_UTIL_IBV_CONTEXT_LOCAL - lookup for a device based on the
-given local address</p></li><li><p>RPMA_UTIL_IBV_CONTEXT_REMOTE - lookup for a device based on the
-given remote address</p></li></ul><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_utils_get_ibv_context</strong>() function returns 0 on success
-or a negative error code on failure.
-<strong>rpma_utils_get_ibv_context</strong>() does not set *ibv_ctx_ptr value
-on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_utils_get_ibv_context</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - addr or ibv_ctx_ptr is NULL or type is unknown</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li><li><p>RPMA_E_PROVIDER - <strong>rdma_getaddrinfo</strong>(), <strong>rdma_create_id</strong>(),
-<strong>rdma_bind_addr</strong>() or <strong>rdma_resolve_addr</strong>() failed, the
-exact cause of the error can be read from the log</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_peer_new</strong>(3),
-<strong>rpma_utils_ibv_context_is_odp_capable</strong>(3), <strong>librpma</strong>(7) and
-<a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_utils_get_ibv_context</strong>() obtains an RDMA device context by the
+given IPv4/IPv6 address (either local or remote) using the TCP RDMA port
+space (RDMA_PS_TCP) - reliable, connection-oriented and message-based QP
+communication. Possible values of the 'type' argument:</p><ul><li><p>RPMA_UTIL_IBV_CONTEXT_LOCAL - lookup for a device based on the given
+local address</p></li><li><p>RPMA_UTIL_IBV_CONTEXT_REMOTE - lookup for a device based on the
+given remote address</p></li></ul><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_utils_get_ibv_context</strong>() function returns 0 on success or a
+negative error code on failure. <strong>rpma_utils_get_ibv_context</strong>() does
+not set *ibv_ctx_ptr value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_utils_get_ibv_context</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - addr or ibv_ctx_ptr is NULL or type is unknown</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li><li><p>RPMA_E_PROVIDER - <strong>rdma_getaddrinfo</strong>(), <strong>rdma_create_id</strong>(),
+<strong>rdma_bind_addr</strong>() or <strong>rdma_resolve_addr</strong>() failed, the exact
+cause of the error can be read from the log</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_peer_new</strong>(3), <strong>rpma_utils_ibv_context_is_odp_capable</strong>(3),
+<strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

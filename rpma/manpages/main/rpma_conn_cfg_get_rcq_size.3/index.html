@@ -84,17 +84,15 @@
 <a href=../rpma_utils_get_ibv_context.3.html>rpma_utils_get_ibv_context.3</a>
 <a href=../rpma_utils_ibv_context_is_odp_capable.3.html>rpma_utils_ibv_context_is_odp_capable.3</a>
 <a href=../rpma_write.3.html>rpma_write.3</a>
-<a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_conn_cfg_get_rcq_size</strong> - get receive CQ size for the
-connection</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
+<a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_conn_cfg_get_rcq_size</strong> - get receive CQ size for the connection</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_conn_cfg;
       int rpma_conn_cfg_get_rcq_size(const struct rpma_conn_cfg *cfg, uint32_t *rcq_size);
 </code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_conn_cfg_get_rcq_size</strong>() gets the receive CQ size for the
-connection. Please see the <strong>rpma_conn_get_rcq</strong>() for details about
-the receive CQ.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_cfg_get_rcq_size</strong>() function returns 0 on success
-or a negative error code on failure.
-<strong>rpma_conn_cfg_get_rcq_size</strong>() does not set *rcq_size value on
-failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_cfg_get_rcq_size</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - cfg or rcq_size is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_cfg_new</strong>(3), <strong>rpma_conn_cfg_set_rcq_size</strong>(3),
+connection. Please see the <strong>rpma_conn_get_rcq</strong>() for details about the
+receive CQ.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_conn_cfg_get_rcq_size</strong>() function returns 0 on success or a
+negative error code on failure. <strong>rpma_conn_cfg_get_rcq_size</strong>() does
+not set *rcq_size value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_conn_cfg_get_rcq_size</strong>() can fail with the following error:</p><ul><li>RPMA_E_INVAL - cfg or rcq_size is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_cfg_new</strong>(3), <strong>rpma_conn_cfg_set_rcq_size</strong>(3),
 <strong>rpma_conn_get_rcq</strong>(3), <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/

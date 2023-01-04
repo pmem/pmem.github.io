@@ -84,18 +84,18 @@
 <a href=../rpma_utils_get_ibv_context.3.html>rpma_utils_get_ibv_context.3</a>
 <a href=../rpma_utils_ibv_context_is_odp_capable.3.html>rpma_utils_ibv_context_is_odp_capable.3</a>
 <a href=../rpma_write.3.html>rpma_write.3</a>
-<a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong> - declare direct write
-to PMEM support</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
+<a href=../rpma_write_with_imm.3.html>rpma_write_with_imm.3</a></br></br><h1 id=name>NAME</h1><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong> - declare direct write to
+PMEM support</p><h1 id=synopsis>SYNOPSIS</h1><pre><code>      #include &lt;librpma.h&gt;
 
       struct rpma_peer_cfg;
       int rpma_peer_cfg_set_direct_write_to_pmem(struct rpma_peer_cfg *pcfg, bool supported);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() declares the support
-of the direct write to PMEM.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() function returns
-0 on success or a negative error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() can fail with the
-following error:</p><ul><li>RPMA_E_INVAL - pcfg is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_apply_remote_peer_cfg</strong>(3),
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() declares the support of the
+direct write to PMEM.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() function returns 0 on
+success or a negative error code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_peer_cfg_set_direct_write_to_pmem</strong>() can fail with the following
+error:</p><ul><li>RPMA_E_INVAL - pcfg is NULL</li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_apply_remote_peer_cfg</strong>(3),
 <strong>rpma_peer_cfg_get_descriptor</strong>(3),
-<strong>rpma_peer_cfg_get_direct_write_to_pmem</strong>(3),
-<strong>rpma_peer_cfg_new</strong>(3), <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<strong>rpma_peer_cfg_get_direct_write_to_pmem</strong>(3), <strong>rpma_peer_cfg_new</strong>(3),
+<strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

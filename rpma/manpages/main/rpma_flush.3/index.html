@@ -97,17 +97,16 @@
                       struct rpma_mr_remote *dst, size_t dst_offset,
                       size_t len, enum rpma_flush_type type, int flags,
                       const void *op_context);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_flush</strong>() initiates the flush operation (finalizing a transfer
-of data to the remote memory). Possible types of <strong>rpma_flush</strong>()
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_flush</strong>() initiates the flush operation (finalizing a transfer of
+data to the remote memory). Possible types of <strong>rpma_flush</strong>()
 operation:</p><ul><li><p>RPMA_FLUSH_TYPE_PERSISTENT - flush data down to the persistent
 domain</p></li><li><p>RPMA_FLUSH_TYPE_VISIBILITY - flush data deep enough to make it
 visible on the remote node</p></li></ul><p>The attribute flags set the completion notification indicator:</p><ul><li><p>RPMA_F_COMPLETION_ON_ERROR - generate the completion on error</p></li><li><p>RPMA_F_COMPLETION_ALWAYS - generate the completion regardless of
 result of the operation.</p></li></ul><p>op_context is returned in the wr_id field of the completion (struct
 ibv_wc).</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_flush</strong>() function returns 0 on success or a negative error
-code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_flush</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - conn or dst is NULL</p></li><li><p>RPMA_E_INVAL - unknown type value</p></li><li><p>RPMA_E_INVAL - flags are not set</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_post_send</strong>(3) failed</p></li><li><p>RPMA_E_NOSUPP - type is RPMA_FLUSH_TYPE_PERSISTENT and the
-direct write to pmem is not supported</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_req_connect</strong>(3),
-<strong>rpma_mr_remote_from_descriptor</strong>(3), <strong>librpma</strong>(7) and
-<a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+code on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_flush</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - conn or dst is NULL</p></li><li><p>RPMA_E_INVAL - unknown type value</p></li><li><p>RPMA_E_INVAL - flags are not set</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_post_send</strong>(3) failed</p></li><li><p>RPMA_E_NOSUPP - type is RPMA_FLUSH_TYPE_PERSISTENT and the direct
+write to pmem is not supported</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_req_connect</strong>(3), <strong>rpma_mr_remote_from_descriptor</strong>(3),
+<strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

@@ -91,31 +91,28 @@
 
       int rpma_cq_get_wc(struct rpma_cq *cq, int num_entries, struct ibv_wc *wc,
                       int *num_entries_got);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_cq_get_wc</strong>() polls the CQ for completions and returns the
-first num_entries (or all available completions if the CQ contains
-fewer than this number) in the wc array exactly like
-<strong>ibv_poll_cq</strong>(3) does. The argument wc is a pointer to an array of
-ibv_wc structs, as defined in &lt;infiniband/verbs.h>. The number of got
-completions is returned in the num_entries_got argument if it is not
-NULL. It can be NULL only if num_entries equals 1. All operations
-generate completions on error. The operations posted with the
-RPMA_F_COMPLETION_ALWAYS flag also generate completions on success.</p><p>Note that if the provided cq is the main CQ and the receive CQ is
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_cq_get_wc</strong>() polls the CQ for completions and returns the first
+num_entries (or all available completions if the CQ contains fewer than
+this number) in the wc array exactly like <strong>ibv_poll_cq</strong>(3) does. The
+argument wc is a pointer to an array of ibv_wc structs, as defined in
+&lt;infiniband/verbs.h>. The number of got completions is returned in the
+num_entries_got argument if it is not NULL. It can be NULL only if
+num_entries equals 1. All operations generate completions on error. The
+operations posted with the RPMA_F_COMPLETION_ALWAYS flag also generate
+completions on success.</p><p>Note that if the provided cq is the main CQ and the receive CQ is
 present on the same connection this function won't return IBV_WC_RECV
-and IBV_WC_RECV_RDMA_WITH_IMM at any time. The receive CQ has to be
-used instead to collect these completions. Please see the
+and IBV_WC_RECV_RDMA_WITH_IMM at any time. The receive CQ has to be used
+instead to collect these completions. Please see the
 <strong>rpma_conn_get_rcq</strong>(3) for details about the receive CQ.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_cq_get_wc</strong>() function returns 0 on success or a negative
 error code on failure. On success, it saves all got completions and
-their number into the wc and num_entries_got respectively. If the
-status of a completion is not equal to IBV_WC_SUCCESS then only the
-following attributes are valid: wr_id, status, qp_num, and
-vendor_err.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_cq_get_wc</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - num_entries &lt; 1, cq or wc is NULL,
-num_entries > 1 and num_entries_got is NULL</p></li><li><p>RPMA_E_NO_COMPLETION - no completions available</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_poll_cq</strong>(3) failed with a provider
-error</p></li><li><p>RPMA_E_UNKNOWN - <strong>ibv_poll_cq</strong>(3) failed but no provider error
-is available</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_get_cq</strong>(3), <strong>rpma_conn_get_rcq</strong>(3),
-<strong>rpma_conn_req_recv</strong>(3), <strong>rpma_cq_wait</strong>(3),
-<strong>rpma_cq_get_fd</strong>(3), <strong>rpma_flush</strong>(3), <strong>rpma_read</strong>(3),
-<strong>rpma_recv</strong>(3), <strong>rpma_send</strong>(3), <strong>rpma_send_with_imm</strong>(3),
-<strong>rpma_write</strong>(3), <strong>rpma_atomic_write</strong>(3),
+their number into the wc and num_entries_got respectively. If the status
+of a completion is not equal to IBV_WC_SUCCESS then only the following
+attributes are valid: wr_id, status, qp_num, and vendor_err.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_cq_get_wc</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - num_entries &lt; 1, cq or wc is NULL, num_entries > 1
+and num_entries_got is NULL</p></li><li><p>RPMA_E_NO_COMPLETION - no completions available</p></li><li><p>RPMA_E_PROVIDER - <strong>ibv_poll_cq</strong>(3) failed with a provider error</p></li><li><p>RPMA_E_UNKNOWN - <strong>ibv_poll_cq</strong>(3) failed but no provider error is
+available</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_get_cq</strong>(3), <strong>rpma_conn_get_rcq</strong>(3),
+<strong>rpma_conn_req_recv</strong>(3), <strong>rpma_cq_wait</strong>(3), <strong>rpma_cq_get_fd</strong>(3),
+<strong>rpma_flush</strong>(3), <strong>rpma_read</strong>(3), <strong>rpma_recv</strong>(3), <strong>rpma_send</strong>(3),
+<strong>rpma_send_with_imm</strong>(3), <strong>rpma_write</strong>(3), <strong>rpma_atomic_write</strong>(3),
 <strong>rpma_write_with_imm</strong>(3), <strong>librpma</strong>(7) and <a href=https://pmem.io/rpma/>https://pmem.io/rpma/</a></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/

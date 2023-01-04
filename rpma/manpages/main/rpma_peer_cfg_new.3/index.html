@@ -88,10 +88,9 @@
 
       struct rpma_peer_cfg;
       int rpma_peer_cfg_new(struct rpma_peer_cfg **pcfg_ptr);
-</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_peer_cfg_new</strong>() creates a new peer configuration object.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_cfg_new</strong>() function returns 0 on success or a
-negative error code on failure. <strong>rpm_peer_cfg_new</strong>() does not set
-*pcfg_ptr value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_peer_cfg_new</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - pcfg_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_apply_remote_peer_cfg</strong>(3),
-<strong>rpma_peer_cfg_delete</strong>(3),
+</code></pre><h1 id=description>DESCRIPTION</h1><p><strong>rpma_peer_cfg_new</strong>() creates a new peer configuration object.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>rpma_peer_cfg_new</strong>() function returns 0 on success or a negative
+error code on failure. <strong>rpm_peer_cfg_new</strong>() does not set *pcfg_ptr
+value on failure.</p><h1 id=errors>ERRORS</h1><p><strong>rpma_peer_cfg_new</strong>() can fail with the following errors:</p><ul><li><p>RPMA_E_INVAL - pcfg_ptr is NULL</p></li><li><p>RPMA_E_NOMEM - out of memory</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>rpma_conn_apply_remote_peer_cfg</strong>(3), <strong>rpma_peer_cfg_delete</strong>(3),
 <strong>rpma_peer_cfg_from_descriptor</strong>(3),
 <strong>rpma_peer_cfg_get_descriptor</strong>(3),
 <strong>rpma_peer_cfg_get_descriptor_size</strong>(3),
