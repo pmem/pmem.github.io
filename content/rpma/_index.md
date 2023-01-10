@@ -21,7 +21,7 @@ The source code of the library is available at [https://github.com/pmem/rpma](ht
 The documentation is available for:
 
 * the current [main](manpages/main/librpma.7.html)
-* [v1.1.1](manpages/v1.1.1/librpma.7.html)
+* [v1.2.0](manpages/v1.2.0/librpma.7.html)
 * [v1.1.0](manpages/v1.1.0/librpma.7.html)
 * [v1.0.0](manpages/v1.0.0/librpma.7.html)
 * [v0.14.0](manpages/v0.14.0/librpma.7.html)
