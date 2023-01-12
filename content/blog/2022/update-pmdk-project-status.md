@@ -60,8 +60,8 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 {{<table "table table-striped table-bordered">}}
 | Library | URL | Support Summary |
 |---|---|---|
-| libpmem<br /> libpmem2<br /> libpmemobj<br /> libpmempool<br /> pmempool<br /> pmreorder | https://github.com/pmem/pmdk | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Release planned for Crow Pass |
-| valgrind<br /> pmemcheck | https://github.com/pmem/valgrind | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Release planned for Crow Pass |
+| libpmem<br /> libpmem2<br /> libpmemobj<br /> libpmempool<br /> pmempool<br /> pmreorder | https://github.com/pmem/pmdk | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Release planned for Crow Pass<br /> Seeking new co-maintainer(s) to continue development towards production release |
+| valgrind<br /> pmemcheck | https://github.com/pmem/valgrind | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Release planned for Crow Pass<br /> Seeking new co-maintainer(s) to continue development towards production release |
 | libmemkind<br /> TieredMemDB | https://github.com/memkind/memkind<br /> https://github.com/TieredMemDB | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com |
 | PMUL<br /> LLPL<br /> PCJ | https://github.com/pmem/pmul<br /> https://github.com/pmem/llpl<br /> https://github.com/pmem/pcj | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel JAVA Team Maintaining |
 | ndctl | https://github.com/pmem/ndctl | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel Linux Kernel Team Maintaining and continuing development for CXL-based memory devices & NVDIMMs |
