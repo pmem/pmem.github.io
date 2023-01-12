@@ -67,7 +67,7 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 | ndctl | https://github.com/pmem/ndctl | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel Linux Kernel Team Maintaining and continuing development for CXL-based memory devices & NVDIMMs |
 | librpma | https://github.com/pmem/rpma | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Seeking new co-maintainer(s) to continue development towards production release |
 | Libpmemstream | https://github.com/pmem/pmemstream | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Seeking new co-maintainer(s) to continue development towards production release |
-| Libpmemblk<br /> Libpmemlog<br /> Librpmem<br /> Libpmemset | https://github.com/pmem/pmdk | No further support or maintenance planned |
+| Libpmemblk<br /> Libpmemlog<br /> Libpmemset | https://github.com/pmem/pmdk | No further support or maintenance planned |
 | Libvmem | https://github.com/pmem/vmem | No further support or maintenance planned |
 | Libpmemobj-cpp | https://github.com/pmem/libpmemobj-cpp | No further support or maintenance planned |
 | Libpmemkv | https://github.com/pmem/pmemkv | No further support or maintenance planned |
