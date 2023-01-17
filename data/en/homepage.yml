@@ -17,11 +17,11 @@ banner:
   bg_image: ''
   title: ''
   content_banner:
-    bold_text: 'Persistent Memory Development Kit Version v1.11.0 is now available!'
-    text: 'Adds new libpmem2 APIs, makes pmemobj_open/close() functions thread safe, plus other bug fixes and performance improvements.'
+    bold_text: 'Winding down of PMDK development!'
+    text: 'Libraries and all related resources will continue to be available, but development and maintenance will be limited.'
   download_link:
-    label: 'Download now!'
-    link: 'https://github.com/pmem/pmdk/releases/tag/1.11.0'
+    label: 'Read our blog post for more details and Q&A!'
+    link: 'https://pmem.io/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/'
 
 ################################# Feature #####################################
 feature:
