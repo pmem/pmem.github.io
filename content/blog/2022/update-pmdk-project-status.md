@@ -66,15 +66,17 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 | PMUL<br /> LLPL<br /> PCJ | https://github.com/pmem/pmul<br /> https://github.com/pmem/llpl<br /> https://github.com/pmem/pcj | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel JAVA Team Maintaining |
 | ndctl | https://github.com/pmem/ndctl | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel Linux Kernel Team Maintaining and continuing development for CXL-based memory devices & NVDIMMs |
 | librpma | https://github.com/pmem/rpma | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Seeking new co-maintainer(s) to continue development towards production release |
-| Libpmemstream | https://github.com/pmem/pmemstream | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Seeking new co-maintainer(s) to continue development towards production release |
+| pmdk-convert | https://github.com/pmem/pmdk-convert | No further support or maintenance planned |
+| Libpmemstream | https://github.com/pmem/pmemstream | No further support or maintenance planned |
 | Libpmemblk<br /> Libpmemlog | https://github.com/pmem/pmdk | No further support or maintenance planned |
 | Libvmem | https://github.com/pmem/vmem | No further support or maintenance planned |
 | Libpmemobj-cpp | https://github.com/pmem/libpmemobj-cpp | No further support or maintenance planned |
 | Libpmemkv | https://github.com/pmem/pmemkv | No further support or maintenance planned |
 | Libminiasync | https://github.com/pmem/miniasync | No further support or maintenance planned |
-| pmdk-convert | https://github.com/pmem/pmdk-convert | No further support or maintenance planned |
 | vmemcache | https://github.com/pmem/vmemcache | No further support or maintenance planned |
 | pmemfile | https://github.com/pmem/pmemfile | No further support or maintenance planned |
+| kb.pmem.io | https://github.com/pmem/knowledge-base | No further support or maintenance planned |
+| syscall-intercept | https://github.com/pmem/syscall_intercept | No further support or maintenance planned |
 {{</table>}}
 
 > **Q:** What documentation is available for PMDK?
