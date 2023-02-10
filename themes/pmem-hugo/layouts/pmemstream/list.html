@@ -17,6 +17,7 @@
       <div class="row justify-content-between">
 
         <div class="col mt-0 lib-content">
+
             <!-- c api -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.c_api.enable }} {{ with $data.pmemstream.c_api }}
 
@@ -33,6 +34,23 @@
             {{ end }}  
             {{ end }} {{ end }}
             <!-- end c api -->
+
+            <!-- Discontinuation of the project -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.Discontinuation.enable }} {{ with $data.pmemstream.Discontinuation }}
+            <h3 class>{{ .title | markdownify }}</h3>
+
+            {{ range .lists }}
+            <p>{{ .content | safeHTML }}</p>
+            <ul class="pmem-list">
+                {{ range .list_items }}
+                <li>
+                    {{ .content | safeHTML }}
+                </li>
+                {{ end }}
+            </ul>
+            {{ end }}  
+            {{ end }} {{ end }}
+            <!-- Discontinuation of the project -->
 
             <!-- performance reports -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.performance_reports.enable }} {{ with $data.pmemstream.performance_reports }}
