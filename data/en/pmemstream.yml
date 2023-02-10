@@ -4,8 +4,8 @@ slider:
   bg_image: '/images/backgrounds/faq_header.jpg'
   title: 'pmemstream'
   content: "<strong>pmemstream</strong> is a logging data structure optimized for persistent memory.<br />
-  This is still an experimental, pre-release software.<br />
-  Up-to-date information and the most recent changes can be found on <a href=\"https://github.com/pmem/pmemstream\">our GitHub page</a>."
+  This is an experimental, pre-release software.<br />
+  More information can be found on <a href=\"https://github.com/pmem/pmemstream\">our GitHub page</a>."
 
 ################################# C API #################################
 c_api:
@@ -19,6 +19,25 @@ c_api:
           content: "<a href=\"./manpages/master/libpmemstream.3.html\">libpmemstream.3</a>"
         list_item2:
           content: "<a href=\"./manpages/master/libpmemstream.7.html\">libpmemstream.7</a>"
+
+################################# Discontinuation of the project #################################
+Discontinuation:
+  enable: true
+  title: "Discontinuation of the project"
+  lists:
+    branch_list1: 
+      content: "<p>The <strong>pmemstream</strong> project will no longer be maintained by Intel.</p>"
+      list_items:
+        list_item1:
+          content: "Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+                    or updates, to this project."
+        list_item2:
+          content: "Intel no longer accepts patches to this project."
+        list_item3:
+          content: "If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+                    maintain patches for the open source software community, please create your own fork of this project."
+        list_item3:
+          content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
 
 #################################  Performance reports ################################# 
 performance_reports:
