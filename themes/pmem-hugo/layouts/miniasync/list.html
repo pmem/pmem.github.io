@@ -34,6 +34,23 @@
             {{ end }} {{ end }}
             <!-- end c api -->
 
+            <!-- Discontinuation of the project -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.Discontinuation.enable }} {{ with $data.pmemstream.Discontinuation }}
+            <h3 class>{{ .title | markdownify }}</h3>
+
+            {{ range .lists }}
+            <p>{{ .content | safeHTML }}</p>
+            <ul class="pmem-list">
+                {{ range .list_items }}
+                <li>
+                    {{ .content | safeHTML }}
+                </li>
+                {{ end }}
+            </ul>
+            {{ end }}  
+            {{ end }} {{ end }}
+            <!-- Discontinuation of the project -->
+
             <!-- blog entries -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.miniasync.blog_entries.enable }} {{ with $data.miniasync.blog_entries }}
             <h3 class>{{ .title | markdownify }}</h3>

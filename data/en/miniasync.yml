@@ -18,6 +18,25 @@ c_api:
         list_item1:
           content: "(available soon)"
 
+################################# Discontinuation of the project #################################
+Discontinuation:
+  enable: true
+  title: "Discontinuation of the project"
+  lists:
+    branch_list1: 
+      content: "<p>The **pmemstream** project will no longer be maintained by Intel.</p>"
+      list_items:
+        list_item1:
+          content: "Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+                    or updates, to this project."
+        list_item2:
+          content: "Intel no longer accepts patches to this project."
+        list_item3:
+          content: "If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+                    maintain patches for the open source software community, please create your own fork of this project."
+        list_item3:
+          content: "You will find more information <a href=\"https://pmem.io/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
+
 ################################# Blog Entries #################################
 blog_entries:
   enable: true
