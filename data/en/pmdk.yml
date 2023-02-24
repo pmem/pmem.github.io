@@ -7,6 +7,25 @@ slider:
             <p>The source for PMDK is in this <a href=\"https://github.com/pmem/pmdk/\">GitHub repository</a>.</p>
             <p>The following libraries are part of the PMDK.</p>"
 
+################################# Discontinuation of the project #################################
+Discontinuation:
+  enable: true
+  title: 'Discontinuation of the project'
+  lists:
+    branch_list1: 
+      content: "<p>The <strong>libpmemblk</strong>, <strong>libpmemlog</strong>, <strong>libpmemset</strong>, <strong>libvmem</strong>, <strong>librpmem</strong>, <strong>libvmemcache</strong>, <strong>pmdk-convert</strong>, <strong>libpmemobj-cpp</strong> and <strong>pmemkv</strong> libraries will no longer be maintained by Intel.</p>"
+      list_items:
+        list_item1:
+          content: "Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+                    or updates, to this project."
+        list_item2:
+          content: "Intel no longer accepts patches to this project."
+        list_item3:
+          content: "If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+                    maintain patches for the open source software community, please create your own fork of this project."
+        list_item3:
+          content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
+
 ################################# Libraries Section #################################
 libraries_section:
   enable: true
@@ -37,8 +56,9 @@ libraries_section:
     library_item6:
       title: 'libpmemset'
       content: "<p><strong>libpmemset</strong> aims to provide support for persistent file I/O operations, runtime mapping concatenation and multi-part support across poolsets. It relies on synchronous event streams for pool modifications.</p>
-                <blockquote><p><strong>Note:</strong> This is still an <strong>experimental API</strong> and should not be used in production environments.</p></blockquote>
-                <p>See the <a href=\"./libpmemset\">libpmemset page</a> for updates</p>"
+                <blockquote><p><strong>Note:</strong> <strong>libpmemset</strong> is available only in the release 1.12.1 and before. It is no longer available on the master branch. </p></blockquote>
+                <blockquote><p><strong>Note:</strong> This is an <strong>experimental API</strong> and should not be used in production environments.</p></blockquote>
+                <p>See the <a href=\"./libpmemset\">libpmemset page</a> for documentation.</p>"
     library_item7:
       title: 'libvmem'
       content: "<p>The <strong>libvmem</strong> library turns a pool of persistent memory into a volatile memory pool, similar to the system heap but kept separate and with its own malloc-style API.</p>
@@ -64,6 +84,7 @@ libraries_section:
       title: 'librpmem'
       content: "<p><strong>librpmem</strong> provides low-level support for remote access to persistent memory utilizing RDMA-capable RNICs.</p>
                 <p>See the <a href=\"./librpmem\">librpmem page</a> for documentation and examples.</p>
+                <blockquote><p><strong>Note:</strong> <strong>librpmem</strong> is available only in the release 1.12.1 and before. It is no longer available on the master branch. </p></blockquote>
                 <blockquote><p><strong>Note:</strong> This is a <strong>deprecated</strong> API and should not be used in production environments.</p></blockquote>
                 <blockquote><p><strong>Note:</strong> The alternative solution for accessing remote persistent memory is implemented by <a href=\"#librpma\">librpma</a> (see above).</p></blockquote>"
     library_itemA4:
