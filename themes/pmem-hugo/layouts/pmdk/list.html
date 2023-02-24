@@ -12,6 +12,29 @@
 </section>
 {{ end }} {{ end }}
 
+<!-- Discontinuation of the project -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.Discontinuation.enable }} {{ with $data.pmdk.Discontinuation }}
+
+  <div class="container">
+    
+    <div class="col mt-0">
+      <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
+        <h3 id="{{ .title }}"class="nott ls0">{{ .title | markdownify }}</h3>
+      </div>
+      {{ range .lists }}
+      <p>{{ .content | safeHTML }}</p>
+      <ul class="pmem-list">
+        {{ range .list_items }}
+        <li>
+            {{ .content | safeHTML }}
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+{{ end }}
+{{ end }} {{ end }}
+<!-- end Discontinuation of the project -->
+
 <!-- libraries -->
 {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section.enable }} {{ with $data.pmdk.libraries_section }}
 
