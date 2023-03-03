@@ -133,6 +133,10 @@ reading from the device.
 
 **pmemblk**
 
+**Note:**
+This engine is no longer supported in the upstream version of FIO. Last version
+of FIO supporting it is `fio-3.33`.
+
 This engine is using libpmemblk library. Results delivered by this engine will
 not show you the best performance of your hardware, only what this specific
 library is capable of. While using this engine, `blocksize` and
@@ -183,6 +187,7 @@ page][191te3w2] (you can look at "normal" output, since it has similar
 attributes as in "json" formatted output).
 
 ###### [This entry was edited on 2018-09-03 to update one of the ndctl's legacy parameter and change the way workloads are presented.]
+###### [This entry was edited on 2023-03-03 to mention [end of support of pmemblk engine in FIO](https://github.com/axboe/fio/pull/1519).]
 
 [1fiolink]: https://github.com/axboe/fio
 [ndctllnk]: https://github.com/pmem/ndctl
