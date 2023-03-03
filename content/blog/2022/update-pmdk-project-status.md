@@ -76,7 +76,7 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 | vmemcache | https://github.com/pmem/vmemcache | No further support or maintenance planned |
 | pmemfile | https://github.com/pmem/pmemfile | No further support or maintenance planned |
 | kb.pmem.io | https://github.com/pmem/knowledge-base | No further support or maintenance planned |
-| syscall-intercept | https://github.com/pmem/syscall_intercept | No further support or maintenance planned |
+| syscall-intercept | https://github.com/pmem/syscall_intercept | External maintainer took over the maintenance and development of this repository<br /> Issues reporting and bug fixes via GitHub only |
 {{</table>}}
 
 > **Q:** What documentation is available for PMDK?
