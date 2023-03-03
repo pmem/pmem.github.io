@@ -102,5 +102,4 @@ Libmemkind also provides:
 
 
 # Documentation
-The complete libmemkind manual can be found at
-[memkind.github.io](https://memkind.github.io/memkind/man_pages/memkind.html).
+All libmemkind manuals can be found in the [memkind sub-page](/memkind/).
