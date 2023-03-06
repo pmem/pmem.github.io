@@ -11,10 +11,22 @@ description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
 ---
 
+### Discontinuation of the project
+The **librpmem** library will no longer be maintained by Intel.
+- Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+or updates, to this project.
+- Intel no longer accepts patches to this project.
+- If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+maintain patches for the open source software community, please create your own fork of this project.
+- You will find more information [here](/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/).
+
 ### The librpmem library
 
 > **Note:** The alternative solution for accessing remote persistent memory is implemented by [librpma](/librpma).
+
 > **Note:** This is a **deprecated** API and should not be used in production environments.
+
+The last PMDK release, which contains this library is [stable-1.12](https://github.com/pmem/pmdk/tree/stable-1.12).
 
 **librpmem** provides low-level support for remote access to
 *persistent memory* (pmem) utilizing RDMA-capable RNICs. The library can be
@@ -30,7 +42,7 @@ allocation. Higher-level libraries that build on **libpmem** are
 available and are recommended for most applications, see:
 
 Man pages that contains a list of the **Linux** interfaces provided:
-* Man page for [librpmem in the latest stable release](../manpages/linux/v1.12/librpmem/librpmem.7.html)
+* Man page for [librpmem in the latest stable release](https://github.com/pmem/pmdk/tree/stable-1.12/doc/librpmem)
 
 ### The rpmemd utility
 
