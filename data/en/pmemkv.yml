@@ -5,9 +5,30 @@ slider:
   title: 'pmemkv'
   content: "<strong>pmemkv</strong> is a local/embedded key-value datastore optimized for persistent memory. Rather than being tied to a single language or backing implementation, <strong>pmemkv</strong> provides different options for language bindings and storage engines."
 
+################################# Discontinuation of the project #################################
+Discontinuation:
+  enable: true
+  title: 'Discontinuation of the project'
+  lists:
+    branch_list1: 
+      content: "<p>The <strong>pmemkv</strong> library and its <strong>language bindings</strong> will no longer be maintained by Intel.</p>"
+      list_items:
+        list_item1:
+          content: "Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+                    or updates, to this project."
+        list_item2:
+          content: "Intel no longer accepts patches to this project."
+        list_item3:
+          content: "If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+                    maintain patches for the open source software community, please create your own fork of this project."
+        list_item3:
+          content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
+
+
 ################################# C API #################################
 c_api:
   enable: true
+  title: 'Documentation'
   lists:
     branch_list1: 
       content: "<p>The <strong>C API</strong> of pmemkv is documented in the manuals and the <strong>C++ API</strong> is documented in the form of Doxygen documentation:</p>
@@ -121,7 +142,7 @@ releases_support_status:
           col3:
             content: "N/A"
           col4:
-            content: "Full"
+            content: "EOL"
       row2:
         cols:
           col1:
@@ -131,7 +152,7 @@ releases_support_status:
           col3:
             content: "N/A"
           col4:
-            content: "Full"
+            content: "EOL"
       row3:
         cols:
           col1:
@@ -141,7 +162,7 @@ releases_support_status:
           col3:
             content: "N/A"
           col4:
-            content: "Full"   
+            content: "EOL"   
       row4:
         cols:
           col1:
