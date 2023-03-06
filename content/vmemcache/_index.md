@@ -12,6 +12,15 @@ description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
 ---
 
+### Discontinuation of the project
+The **libvmemcache** project will no longer be maintained by Intel.
+- Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+or updates, to this project.
+- Intel no longer accepts patches to this project.
+- If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+maintain patches for the open source software community, please create your own fork of this project.
+- You will find more information [here](https://pmem.io/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/).
+
 ### libvmemcache: buffer based LRU cache
 
 **libvmemcache** is an embeddable and lightweight in-memory caching solution. It's designed to fully take advantage of large capacity memory, such as Persistent Memory with DAX, through memory mapping in an efficient and scalable way.
@@ -24,7 +33,7 @@ The things that make it unique are:
 
 The cache is tuned to work optimally with relatively large value sizes. The smallest possible size is 256 bytes, but libvmemcache works best if the expected value sizes are above 1 kilobyte.
 
-See the <a href="./vmemcache/manpages/master/vmemcache.3.html">libvmemcache man page</a> for current master documentation and examples
+See the <a href="https://github.com/pmem/vmemcache/blob/master/doc/vmemcache.md">libvmemcache man page</a> for current master documentation.
 
 ### Building The Source
 
