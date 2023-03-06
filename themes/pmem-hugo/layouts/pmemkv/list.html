@@ -13,6 +13,28 @@
 {{ end }} {{ end }}
 
 
+<!-- Discontinuation of the project -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemkv.Discontinuation.enable }} {{ with $data.pmemkv.Discontinuation }}
+
+  <div class="container">
+    
+    <div class="col mt-0">
+      <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
+        <h3 id="{{ .title }}"class="nott ls0">{{ .title | markdownify }}</h3>
+      </div>
+      {{ range .lists }}
+      <p>{{ .content | safeHTML }}</p>
+      <ul class="pmem-list">
+        {{ range .list_items }}
+        <li>
+            {{ .content | safeHTML }}
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+{{ end }}
+{{ end }} {{ end }}
+<!-- end Discontinuation of the project -->
 
 <div class="section m-0 bg-transparent library-section border-top dark-mode">
     <div class="container">
@@ -21,7 +43,8 @@
         <div class="col mt-0 lib-content">
             <!-- c api -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemkv.c_api.enable }} {{ with $data.pmemkv.c_api }}
-          
+            <h3 class>{{ .title | markdownify }}</h3>
+            
             <!-- branch lists -->
             {{ range .lists }}
             <p>{{ .content | safeHTML }}</p>
