@@ -11,6 +11,16 @@ header: "libpmemobj-cpp"
 description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
 ---
+
+### ⚠️ Discontinuation of the project
+The **libpmemobj-cpp** project will no longer be maintained by Intel.
+- Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+or updates, to this project.
+- Intel no longer accepts patches to this project.
+- If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+maintain patches for the open source software community, please create your own fork of this project.
+- You will find more information [here](https://pmem.io/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/).
+
 ### The C++ bindings to libpmemobj
 
 **libpmemobj-cpp** provides a less error prone version of [libpmemobj](/pmdk/libpmemobj/)
@@ -57,11 +67,11 @@ on the ["releases" tab on the GitHub page](https://github.com/pmem/libpmemobj-cp
 
 | Version branch | First release date | Last patch release | Maintenance status |
 | -------------- | ------------------ | ------------------ | ------------------ |
-| stable-1.13 | Jul 27, 2021 | N/A | Full |
-| stable-1.12 | Feb 15, 2021 | N/A | Full |
-| stable-1.11 | Sep 30, 2020 | N/A | Full |
-| stable-1.10 | May 28, 2020 | N/A | Full |
-| stable-1.9 | Jan 31, 2020 | N/A | Full |
+| stable-1.13 | Jul 27, 2021 | N/A | EOL |
+| stable-1.12 | Feb 15, 2021 | N/A | EOL |
+| stable-1.11 | Sep 30, 2020 | N/A | EOL |
+| stable-1.10 | May 28, 2020 | N/A | EOL |
+| stable-1.9 | Jan 31, 2020 | N/A | EOL |
 | stable-1.8 | Oct 03, 2019 | 1.8.2 (Aug 01, 2022) | EOL |
 | stable-1.7 | Jun 26, 2019 | 1.7.1 (Jul 29, 2022) | EOL |
 | stable-1.6 | Mar 15, 2019 | 1.6.1 (Jul 06, 2021) | EOL |
