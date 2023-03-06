@@ -4,6 +4,14 @@ heading:
   title: "PMem Repositories"
   description: "Here is a list of all the repositories in the pmem organization in GitHub under <a href=\"https://github.com/pmem\">https://github.com/pmem</a>."
 
+################################# Discontinuation of the project #################################
+Discontinuation:
+  enable: true
+  title: 'Discontinuation of the projects'
+  lists:
+    branch_list1: 
+      content: "Some projects will be discontinued, they are crossed out below (in the table). You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
+
 ################################# Cards #################################
 card_groups:
   enable: true
@@ -36,7 +44,7 @@ card_groups:
                     <li>libpmemblk</li>
                     <li>libpmemlog</li>
                     <li>libpmempool</li>
-                    <li>libpmemset (in development)</li>
+                    <li><s>libpmemset</s></li>
                     <li><s>librpmem</s></li>
                     <li>pmempool utility</li>
                     <li>Core PMDK C examples</li>
@@ -47,7 +55,7 @@ card_groups:
             row2:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\">libpmemobj-cpp</a>"
+                  content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\"><s>libpmemobj-cpp</s></a>"
                 cell2:
                   content: "C++ bindings & containers for libpmemobj"
                 cell3:
@@ -71,7 +79,7 @@ card_groups:
             row5:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/miniasync\">miniasync</a>"
+                  content: "<a href=\"https://github.com/pmem/miniasync\"><s>miniasync</s></a>"
                 cell2:
                   content: "C low-level concurrency library for asynchronous functions"
                 cell3:
@@ -79,7 +87,7 @@ card_groups:
             row6:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemstream\">pmemstream</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemstream\"><s>pmemstream</s></a>"
                 cell2:
                   content: "Logging data structure (with stream-like access to data)"
                 cell3:
@@ -87,7 +95,7 @@ card_groups:
             row7:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv\">pmemkv</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemkv\"><s>pmemkv</s></a>"
                 cell2:
                   content: "Transactional Key-Value Store: Top-Level C & C++ API"
                 cell3:
@@ -95,7 +103,7 @@ card_groups:
             row8:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-bench\">pmemkv-bench</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemkv-bench\"><s>pmemkv-bench</s></a>"
                 cell2:
                   content: "Benchmarks for pmemkv"
                 cell3:
@@ -103,7 +111,7 @@ card_groups:
             row9:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-python\">pmemkv-python</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemkv-python\"><s>pmemkv-python</s></a>"
                 cell2:
                   content: "Python bindings for pmemkv"
                 cell3:
@@ -111,7 +119,7 @@ card_groups:
             rowA:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-java\">pmemkv-java</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemkv-java\"><s>pmemkv-java</s></a>"
                 cell2:
                   content: "Java bindings for pmemkv"
                 cell3:
@@ -119,7 +127,7 @@ card_groups:
             rowA1:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\"><s>pmemkv-nodejs</s></a>"
                 cell2:
                   content: "NodeJS bindings for pmemkv"
                 cell3:
@@ -127,7 +135,7 @@ card_groups:
             rowA2:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\"><s>pmemkv-ruby</s></a>"
                 cell2:
                   content: "Ruby bindings for pmemkv"
                 cell3:
@@ -135,7 +143,7 @@ card_groups:
             rowA3:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmdk-convert\">pmdk-convert</a>"
+                  content: "<a href=\"https://github.com/pmem/pmdk-convert\"><s>pmdk-convert</s></a>"
                 cell2:
                   content: "Conversion tool for PMDK pools"
                 cell3:
@@ -177,7 +185,7 @@ card_groups:
               row2:
                 cells:
                   cell1:
-                    content: "<a href=\"https://github.com/pmem/vmemcache\">vmemcache</a>"
+                    content: "<a href=\"https://github.com/pmem/vmemcache\"><s>vmemcache</s></a>"
                   cell2:
                     content: "A buffer based LRU cache"
                   cell3:
@@ -185,7 +193,7 @@ card_groups:
               row3:
                 cells:
                   cell1:
-                    content: "<a href=\"https://github.com/pmem/vmem\">vmem</a>"
+                    content: "<a href=\"https://github.com/pmem/vmem\"><s>vmem</s></a>"
                   cell2:
                     content: "libvmem, the predecessor to <strong>libmemkind</strong>.<br/>Maintenance-only -- use <strong>libmemkind</strong> for all new development."
                   cell3:
@@ -211,7 +219,7 @@ card_groups:
             row2:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemfile\">pmemfile</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemfile\"><s>pmemfile</s></a>"
                 cell2:
                   content: "Userspace implementation of file APIs using pmem"
                 cell3:
@@ -219,7 +227,7 @@ card_groups:
             row3:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/syscall_intercept\">syscall_intercept</a>"
+                  content: "<a href=\"https://github.com/pmem/syscall_intercept\"><s>syscall_intercept</s></a>"
                 cell2:
                   content: "Syscall intercepting library used by libpmemfile"
                 cell3:
@@ -335,7 +343,7 @@ card_groups:
             row5:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/knowledge-base\">knowledge-base</a>"
+                  content: "<a href=\"https://github.com/pmem/knowledge-base\"><s>knowledge-base</s></a>"
                 cell2:
                   content: "Knowledge Base for pmem.io"
                 cell3:
