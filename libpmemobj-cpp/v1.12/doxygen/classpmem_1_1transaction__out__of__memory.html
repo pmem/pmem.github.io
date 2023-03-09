@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">PMDK C++ bindings
-   &#160;<span id="projectnumber">1.12-git53.g67ba2be4</span>
+   &#160;<span id="projectnumber">1.12.1-rc1</span>
    </div>
    <div id="projectbrief">This is the C++ bindings documentation for PMDK&#39;s libpmemobj.</div>
   </td>
@@ -90,7 +90,7 @@ Inheritance diagram for pmem::transaction_out_of_memory:</div>
 </div></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Custom out of memory error class. </p>
-<p>Thrown when there is out of memory error inside of transaction. </p>
+<p>Thrown when there is out of memory error inside of a transaction. It may occur when you run out of space on persistent memory: too many objects or too big object was allocated (current limit for a single element is ~16GB). Bigger pool or smaller object is required. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>libpmemobj++/<a class="el" href="pexceptions_8hpp_source.html">pexceptions.hpp</a></li>
 </ul>
