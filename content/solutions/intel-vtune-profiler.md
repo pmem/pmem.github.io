@@ -18,7 +18,7 @@ product_name: "VTune Profiler"
 solution_url: "https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/vtune-profiler.html"
 
 # Vendor or Product image
-image: "https://software.intel.com/content/dam/develop/public/us/en/images/diagrams-infographics/screen-intel-vtune-profiler-16x9.png.rendition.intel.web.864.486.png"
+image: "https://www.intel.com/content/dam/dita/develop/vtune-cookbook-dec8-1/F972456F-9D56-4FAE-972A-F28753864812.png/_jcr_content/renditions/original"
 
 # Brief description
 description: "Performance Analysis for Applications and Systems. Intel® VTune™ Profiler optimizes application performance, system performance, and system configuration for HPC, cloud, IoT, media, storage, and more."
