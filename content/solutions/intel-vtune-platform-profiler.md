@@ -12,7 +12,7 @@ draft: false
 vendor_name: "Intel"
 
 # Product Name
-product_name: "VTune Profiler"
+product_name: "VTune Platform Profiler"
 
 # Product or Project home page URL
 solution_url: "https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/vtune-profiler.html"
