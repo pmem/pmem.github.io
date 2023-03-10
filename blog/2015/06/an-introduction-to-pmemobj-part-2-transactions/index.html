@@ -4,14 +4,14 @@
 Libpmemobj</li></ul></div><div class="entry-content mt-0"><p>By now you should be fairly familiar with the basics persistent memory programming, but to make sure the application is always in a consistent state you had to rely on your own solutions and tricks - like the length of a buffer in the previous example. Now, we will learn a generic solution provided by pmemobj to this type of problems - transactions. For now we will focus on a single-threaded applications with no locking.</p><h3 id=the-lifecycle>The lifecycle</h3><p>Transactions are managed by the usage of <code>pmemobj_tx_*</code> family of functions. A single transaction goes through a series of stages listed in <code>enum pobj_tx_stage</code> and illustrated by the following diagram:</p><p><img src=/images/posts/lifecycle.png alt=lifecycle></p><p>You can see here how to use each of the stage-managing functions. The <code>pmemobj_tx_process</code> function can be used <strong>instead</strong> of others to move the transaction forward - you can call it if you don&rsquo;t know in which stage you are currently in. All of this can get fairly complicated, for more information please check out the <a href=/pmdk/manpages/linux/master/libpmemobj/libpmemobj.7.html>manpage</a>. To avoid having to micro-manage this entire process the pmemobj library provides a set of macros that are built on top of these functions that greatly simplify using the transactions and this tutorial will exclusively use them.
 So, this is how an entire transaction block looks like:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>/* TX_STAGE_NONE */</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>TX<span style=color:#f92672>*</span><span style=color:#a6e22e>BEGIN</span>(pop) {
-</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX*STAGE_WORK */</span>
-</span></span><span style=display:flex><span>} TX<span style=color:#f92672>*</span>ONCOMMIT {
-</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX*STAGE_ONCOMMIT */</span>
-</span></span><span style=display:flex><span>} TX<span style=color:#f92672>*</span>ONABORT {
-</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX*STAGE_ONABORT */</span>
-</span></span><span style=display:flex><span>} TX<span style=color:#f92672>*</span>FINALLY {
-</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX*STAGE_FINALLY */</span>
+</span></span><span style=display:flex><span>TX_BEGIN(pop) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX_STAGE_WORK */</span>
+</span></span><span style=display:flex><span>} TX_ONCOMMIT {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX_STAGE_ONCOMMIT */</span>
+</span></span><span style=display:flex><span>} TX_ONABORT {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX_STAGE_ONABORT */</span>
+</span></span><span style=display:flex><span>} TX_FINALLY {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/* TX_STAGE_FINALLY */</span>
 </span></span><span style=display:flex><span>} TX_END
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>/* TX_STAGE_NONE */</span>

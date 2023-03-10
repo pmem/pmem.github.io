@@ -38,7 +38,7 @@ data members. Just wrap the simple types with the <code>p&lt;></code> template a
 </span></span><span style=display:flex><span>key_type key;
 </span></span><span style=display:flex><span>node <span style=color:#f92672>*</span>inode;
 </span></span><span style=display:flex><span>...
-</span></span><span style=display:flex><span>entry <span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>*</span>root;
+</span></span><span style=display:flex><span>entry <span style=color:#f92672>*</span>root;
 </span></span></code></pre></div><p>Change to:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#66d9ef>typedef</span> pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>persistent_ptr<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> value_type;
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>pmem<span style=color:#f92672>::</span>obj<span style=color:#f92672>::</span>p<span style=color:#f92672>&lt;</span>key_type<span style=color:#f92672>&gt;</span> key;
