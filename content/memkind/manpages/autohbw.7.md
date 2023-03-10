@@ -109,9 +109,7 @@ following environment variables.
     **MEMKIND_INTERLEAVE**, **MEMKIND_HBW**,
     **MEMKIND_HBW_PREFERRED**, **MEMKIND_HBW_HUGETLB**,
     **MEMKIND_HBW_PRE‐FERRED_HUGETLB**,
-    **MEMKIND_HBW_GBTLB (DEPRECATED)**,
-    **MEMKIND_HBW_PREFERRED_GBTLB (DEPRECATED)**,
-    **MEMKIND_GBTLB (DEPRECATED)**, **MEMKIND_HBW_INTERLEAVE**
+    **MEMKIND_HBW_INTERLEAVE**
 
 If you are requesting any huge TLB pages, please make sure
 that the requested type is currently enabled in your OS.
@@ -143,6 +141,13 @@ If high-bandwidth memory is not physically present in your
 system, the environment variable **MEMKIND_HBW_NODES** must be
 set to indicate the high-bandwidth node as indicated in
 [**memkind**(3)](/memkind/manpages/memkind.3.html).
+
+When **libautohbw** is loaded with **LD_PRELOAD**, allocations with
+size zero, like **malloc**(0), have the same result as the system's
+standard library call.
+Most notably, a valid pointer may be returned in such calls,
+contrary to the default memkind behavior of returning NULL when
+size zero is passed to malloc-like functions.
 
 # EXAMPLES #
 
