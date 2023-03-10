@@ -57,7 +57,7 @@ Windows port:
 
 #### Common Code
 
-You will only find a few areas where there are Widnows specific files
+You will only find a few areas where there are Windows specific files
 and/or directories in the repository and there were added only in
 cases where there was really no other choice; OS specific implementations
 of locks and threads for example. Use of OS compilation switches,

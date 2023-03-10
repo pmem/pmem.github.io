@@ -184,7 +184,7 @@ memcpy(D_RW(row)->buf, buf, table->s->reclength);
 Looks good, right? Maybe at the first glance, but there are in fact two things wrong here. First of all, the data is never 'persisted' to the memory which means that there's no way of knowing when the record data will be in fact stored on the desired storage medium and not in cache. Luckily there's an easy fix for that in the library - the `pmemobj_memcpy_persist` function, that, where possible, uses non-temporal stores to bypass the cache and write the data directly to the memory. So what's the other wrong thing? Well, imagine someone pulled the plug from the server right in the middle of the memcpy operation - the object will be there in the table but with only half the data and, what's worse, there is no way of detecting if this row is invalid. There are two different tools our library provides to combat this fundamental problem: transactions and allocation constructors. Using the first approach, correct implementation of this method might look like this:
 
 ```c++
-TX*BEGIN(objtab) {
+TX_BEGIN(objtab) {
     TOID(struct table_row) row = TX_ALLOC(struct table_row, table->s->reclength);
     /* don't do pmemobj_tx_add_range, the object is new */
     memcpy(D_RW(row)->buf, buf, table->s->reclength);

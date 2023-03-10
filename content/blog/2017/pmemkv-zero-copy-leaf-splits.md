@@ -274,8 +274,6 @@ Gains in both `Put` operation performance (our slowest operation)
 and storage efficiency for larger strings easily outweigh losses in
 storage efficiency for the specific case of very small strings. This
 seems like the right tradeoffs for the large and semi-structured
-datasets that we'd like to enable with
+datasets that we'd like to enable with [pmemkv](https://github.com/pmem/pmemkv).
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]
-
-[pmemkv](https://github.com/pmem/pmemkv).

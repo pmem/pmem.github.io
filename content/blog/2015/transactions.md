@@ -48,14 +48,14 @@ So, this is how an entire transaction block looks like:
 ```c++
 /* TX_STAGE_NONE */
 
-TX*BEGIN(pop) {
-	/* TX*STAGE_WORK */
-} TX*ONCOMMIT {
-	/* TX*STAGE_ONCOMMIT */
-} TX*ONABORT {
-	/* TX*STAGE_ONABORT */
-} TX*FINALLY {
-	/* TX*STAGE_FINALLY */
+TX_BEGIN(pop) {
+	/* TX_STAGE_WORK */
+} TX_ONCOMMIT {
+	/* TX_STAGE_ONCOMMIT */
+} TX_ONABORT {
+	/* TX_STAGE_ONABORT */
+} TX_FINALLY {
+	/* TX_STAGE_FINALLY */
 } TX_END
 
 /* TX_STAGE_NONE */
