@@ -180,7 +180,7 @@ static void *make_tx(void *args)
 int main(int argc, char** argv)
 {
     /* create a pool within an existing file */
-    PMEMobjpool *pop = pmemobj*create("testfile1",
+    PMEMobjpool *pop = pmemobj_create("testfile1",
         POBJ_LAYOUT_NAME(example),
         1024 * 1024 * 1024, S_IWUSR | S_IRUSR);
 
@@ -245,9 +245,9 @@ The last type of errors pmemcheck reports in context of transactions are leftove
 int main(int argc, char** argv)
 {
     /* create a pool within an existing file */
-    PMEMobjpool *pop = pmemobj*create("testfile1",
+    PMEMobjpool *pop = pmemobj_create("testfile1",
         POBJ_LAYOUT_NAME(example),
-        1024 * 1024 \_ 1024, S_IWUSR | S_IRUSR);
+        1024 * 1024 * 1024, S_IWUSR | S_IRUSR);
 
     TX_BEGIN(pop) {
     	TOID(struct my_root) root = POBJ_ROOT(pop, struct my_root);

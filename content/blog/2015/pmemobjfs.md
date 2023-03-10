@@ -137,7 +137,7 @@ The data specific for directory object contains a doubly-linked list of
 directory entries.
 
 ```c++
-struct objfs*dir {
+struct objfs_dir {
     PDLL_HEAD(struct objfs_dir_entry) entries; /* directory entries */
 };
 ```
@@ -149,7 +149,7 @@ The data specific for file object contains a
 of block number and the value contains a **PMEMoid** to the data block.
 
 ```c++
-struct objfs*file {
+struct objfs_file {
     TOID(struct tree_map) blocks; /* blocks map */
 };
 ```
@@ -326,7 +326,7 @@ The next interesting operation is allocating the file blocks. The following
 listing shows how it is implemented:
 
 ```c++
-TX*BEGIN(objfs->pop) {
+TX_BEGIN(objfs->pop) {
     /* allocate blocks from requested range */
     uint64_t b_off = offset / objfs->block_size;
     uint64_t e_off = (offset + size) / objfs->block_size;

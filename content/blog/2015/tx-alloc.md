@@ -134,10 +134,10 @@ If you have been reading carefully, you should be able tell why the following fu
 
 ```c++
 void rectangle_modify(TOID(struct rectangle) rect, int new_a, int new_b) {
-TX_BEGIN(pop) {
-    TX_SET(rect, a, new_a);
-    TX_SET(rect, b, new_b);
-} TX_END
+    TX_BEGIN(pop) {
+        TX_SET(rect, a, new_a);
+        TX_SET(rect, b, new_b);
+    } TX_END
 }
 ```
 

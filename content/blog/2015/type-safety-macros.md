@@ -46,7 +46,7 @@ typedef struct pmemoid {
 ```
 
 Operating on such _persistent pointers_ is equivalent to operating on raw
-pointers to volatile objects represented by void \*. This approach is error
+pointers to volatile objects represented by void *. This approach is error
 prone and such errors are very hard to find.
 
 There is a real need to provide some mechanism which would associate
@@ -116,14 +116,14 @@ respectively:
 OID_TYPE(struct car) car1;
 OID_TYPE(struct car) car2;
 ...
-DIRECT_RW(car1)->velocity = DIRECT_RO(car2)->velocity \* 2;
+DIRECT_RW(car1)->velocity = DIRECT_RO(car2)->velocity * 2;
 ```
 
 The definition of _DIRECT_RW()_ and _DIRECT_RO()_ macros look like this:
 
 ```c++
-#define DIRECT_RW(o) ((typeof(*(o).\_type)_)pmemobj_direct((o).oid)))
-#define DIRECT_RO(o) ((const typeof (_(o).\_type)\_)pmemobj_direct((o).oid))
+#define DIRECT_RW(o) ((typeof(*(o)._type)*)pmemobj_direct((o).oid)))
+#define DIRECT_RO(o) ((const typeof (*(o)._type)*)pmemobj_direct((o).oid))
 ```
 
 ###### No declaration
@@ -147,18 +147,18 @@ The `OID_ASSIGN_TYPED()` looks like the following:
 
 ```c++
 #define OID_ASSIGN_TYPED(lhs, rhs)\
-  **builtin_choose_expr(\
-  **builtin_types_compatible_p(\
-  typeof((lhs).\_type),\
-  typeof((rhs).\_type)),\
+  __builtin_choose_expr(\
+  __builtin_types_compatible_p(\
+    typeof((lhs)._type),\
+    typeof((rhs)._type)),\
   (void) ((lhs).oid = (rhs).oid),\
-  (lhs.\_type = rhs.\_type))
+  (lhs._type = rhs._type))
 ```
 
-It utilizes the gcc builtin operator _\_\_builtin_types_compatible_p_ which checks
-the compatibility of types represented by _typed persistent pointers_. If the
+It utilizes the gcc builtin operator *__builtin_types_compatible_p* which checks
+the compatibility of types represented by *typed persistent pointers*. If the
 types are compatible the actual assignment is performed. Otherwise the fake
-assignment of _\_type_ fields is performed in order to get clear message about
+assignment of *_type* fields is performed in order to get clear message about
 the error:
 
 ```c++
@@ -220,13 +220,13 @@ The macro which declares the named union may look like this:
 
 ```c++
 #define TOID(type)\
-union _toid_##type##\_toid
+union _toid_##type##_toid
 
 #define TOID_DECLARE(type)\
 TOID(type)\
 {\
  PMEMoid oid;\
- type \*\_type;\
+ type *_type;\
 }
 ```
 
@@ -245,7 +245,7 @@ D_RW(car1)->velocity = 2 * D_RO(car2)->velocity;
 ```
 
 The name of such a declared union is obtained by concatenating the desired type
-name with a _*toid*_ prefix and a _\_toid_ postfix. The prefix is required to
+name with a *_toid_* prefix and a *_toid_* postfix. The prefix is required to
 handle the two token type names like _struct name_, _union name_ and
 _enum name_. In such case the macro expands to two tokens in which the first
 one is declared as an empty macro thus avoiding the compilation errors which
@@ -254,16 +254,16 @@ For example in case of the _struct car_ the _TOID()_ macro will expand to the
 following:
 
 ```c++
-*toid_struct car_toid
+_toid_struct car_toid
 ```
 
-The `*toid_struct` token and analogous for `enum car` and `union car` may be
+The `_toid_struct` token and analogous for `enum car` and `union car` may be
 removed by declaring the following empty macros:
 
 ```c++
-#define \_toid_struct
-#define \_toid_union
-#define \_toid_enum
+#define _toid_struct
+#define _toid_union
+#define _toid_enum
 ```
 
 In result the _typed persistent pointer_ for _struct car_ will be named
@@ -272,7 +272,7 @@ prefix and postfix. For example in case of _size_t_ type, the _TOID()_ macro
 will expand to the following:
 
 ```c++
-*toid_size_t_toid
+_toid_size_t_toid
 ```
 
 Using such mechanism it is possible to declare named unions for two-token types.
@@ -369,13 +369,13 @@ compilation time and it can be embedded in the _typed persistent pointer_ by
 modifying the _TOID_DECLARE()_ macro:
 
 ```c++
-#define TOID*DECLARE(type, type_num)\
-typedef uint8_t \_toid*##type##_toid_id[(type_num)];\
+#define TOID_DECLARE(type, type_num)\
+typedef uint8_t _toid_##type##_toid_id[(type_num)];\
 TOID(type)\
 {\
  PMEMoid oid;\
- type \*\_type;\
- \_toid_##type##\_toid_id \*\_id;\
+ type *_type;\
+ _toid_##type##_toid_id *_id;\
 }
 ```
 
@@ -383,8 +383,8 @@ The type id may be obtained using the _sizeof ()_ operator both from type and an
 object:
 
 ```c++
-#define TOID*TYPE_ID(type) (sizeof (\_toid*##type##\_toid_id))
-#define TOID_TYPE_ID_OF(obj) (sizeof (\*(obj).\_id))
+#define TOID_TYPE_ID(type) (sizeof (_toid_##type##_toid_id))
+#define TOID_TYPE_ID_OF(obj) (sizeof (*(obj)._id))
 ```
 
 The declaration of such _typed persistent pointer_ may look like this:
@@ -413,7 +413,7 @@ layout without explicitly assigning the type id. The layout declaration looks
 like this:
 
 ```c++
-\* Declaration of layout */
+/* Declaration of layout */
 POBJ_LAYOUT_BEGIN(my_layout)
 POBJ_LAYOUT_TOID(my_layout, struct car)
 POBJ_LAYOUT_TOID(my_layout, struct pen)

@@ -90,7 +90,7 @@ When you are done with a persistent object and would like for it to be
 deallocated, you need to call the complementary `delete_persistent` function.
 
 ```c++
-delete*persistent<entry>(pentry); /* delete persistent object */
+delete_persistent<entry>(pentry); /* delete persistent object */
 delete_persistent<entry[]>(a, 3); /* delete persistent array 'a' */
 delete_persistent<entry[3]>(b);   /* delete persistent array 'b' */
 delete_persistent<entry[3][2]>(c); /* delete persistent array 'c' */
@@ -134,7 +134,7 @@ Atomic deletions of persistent pointers is done through the
 versions.
 
 ```c++
-delete*persistent_atomic<entry>(pentry); /* delete persistent object */
+delete_persistent_atomic<entry>(pentry); /* delete persistent object */
 delete_persistent_atomic<entry[]>(pentry_array, 3); /* delete persistent array 'a' */
 ```
 
@@ -148,7 +148,7 @@ This is the thing I absolutely have to convey clearly, **_atomic allocations and
 transactions do NOT mix_**. So something like the following is not a good idea:
 
 ```c++
-auto pop = pool*base::create(...);
+auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] {
   make_persistent_atomic<entry>(pop, pentry); /* do NOT do this */
@@ -172,12 +172,12 @@ To conclude:
   outside of transaction scope, an exception is thrown.
 
 ```c++
-auto pop = pool*base::create(...);
+auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] {
-make_persistent_atomic<entry>(pop, pentry); /* legal but dangerous */
-auto b = make_persistent<entry>(); /* OK */
-delete_persistent<entry>(b); /* call ~entry() and free memory */
+  make_persistent_atomic<entry>(pop, pentry); /* legal but dangerous */
+  auto b = make_persistent<entry>(); /* OK */
+  delete_persistent<entry>(b); /* call ~entry() and free memory */
 });
 
 make_persistent_atomic<entry>(pop, pentry); /* OK */

@@ -57,8 +57,8 @@ As always, we are going to start with an example:
 using namespace pmem::obj;
 
 struct rectangle {
-p<int> a;
-p<int> b;
+    p<int> a;
+    p<int> b;
 };
 
 struct root {
@@ -111,8 +111,8 @@ call the constructor and destructors accordingly.
 The `persistent_ptr` class also implements a `raw_ptr()` function which returns
 a pointer to the PMEMoid - this enables usage of the C failsafe atomic API.
 
-Right now the persistent*ptr class can only be used with non-polymorphic and
-trivially default constructible classes. Those limitations \_might* be relaxed
+Right now the persistent_ptr class can only be used with non-polymorphic and
+trivially default constructible classes. Those limitations *might* be relaxed
 in later versions of the bindings.
 
 ###### [This entry was edited on 2017-12-11 to reflect the name change from [NVML to PMDK](/blog/2017/12/announcing-the-persistent-memory-development-kit).]

@@ -57,7 +57,7 @@ You can use the `pmem::obj::mutex` with standard wrapper classes like:
 ```c++
 pmem::obj::mutex pmutex;
 {
-std::lock_guard<pmem::obj::mutex> lock(pmutex);
+    std::lock_guard<pmem::obj::mutex> lock(pmutex);
 }
 std::unique_lock<pmem::obj::mutex> lock(pmutex);
 ```
@@ -73,7 +73,7 @@ also very straightforward:
 pmem::obj::shared_mutex smutex;
 pmem::obj::timed_mutex tmutex;
 {
-std::shared_lock<pmem::obj::shared_mutex> lock(smutex);
+    std::shared_lock<pmem::obj::shared_mutex> lock(smutex);
 }
 std::unique_lock<pmem::obj::shared_mutex> lock(smutex);
 
@@ -92,7 +92,7 @@ persistent memory resident. The usage is also very similar:
 
 ```c++
 pmem::obj::mutex pmutex;
-pmem::obj::condition*variable cond;
+pmem::obj::condition_variable cond;
 pmutex.lock();
 cond.wait(proot->pmutex, [&]() { /* check condition here */ });
 // do some meaningful work here

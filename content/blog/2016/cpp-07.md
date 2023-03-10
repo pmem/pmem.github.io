@@ -55,8 +55,8 @@ be discouraged by the peculiar C++ lambda syntax. Here is an example:
 auto pop = pool_base::create(...);
 persistent_ptr<entry> pentry;
 transaction::exec_tx(pop, [&] {
-pentry = make_persistent<entry>();
-// make other changes inside the transaction
+  pentry = make_persistent<entry>();
+  // make other changes inside the transaction
 });
 ```
 
@@ -92,8 +92,8 @@ abort:
 ```c++
 auto pop = pool_base::create(...);
 {
-transaction::manual tx(pop);
-auto pentry = make_persistent<entry>();
+  transaction::manual tx(pop);
+  auto pentry = make_persistent<entry>();
 } // here the transaction aborts
 ```
 
@@ -113,9 +113,9 @@ is to manually commit the transaction:
 ```c++
 auto pop = pool_base::create(...);
 {
-transaction::manual tx(pop);
-auto pentry = make_persistent<entry>();
-transaction::commit(); // here the transaction commits
+  transaction::manual tx(pop);
+  auto pentry = make_persistent<entry>();
+  transaction::commit(); // here the transaction commits
 }
 ```
 
@@ -139,8 +139,8 @@ the developer from the burden of manually committing the transaction.
 ```c++
 auto pop = pool_base::create(...);
 {
-transaction::automatic tx(pop);
-auto pentry = make_persistent<entry>();
+  transaction::automatic tx(pop);
+  auto pentry = make_persistent<entry>();
 } // here the transaction commits
 ```
 

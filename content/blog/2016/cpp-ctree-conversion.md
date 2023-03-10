@@ -89,7 +89,7 @@ typedef T *value_type;
 key_type key;
 node *inode;
 ...
-entry \*root;
+entry *root;
 ```
 
 Change to:

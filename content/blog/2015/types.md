@@ -110,7 +110,7 @@ struct my_root_v2 {
 To check whether your version of the layout corresponds with the existing objects, you can use following expression:
 
 ```c++
-if (TOID*VALID(D_RO(root)->data)) {
+if (TOID_VALID(D_RO(root)->data)) {
     /* can use the data ptr safely */
 } else {
     /* declared type doesn't match the object */
