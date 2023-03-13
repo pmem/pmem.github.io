@@ -33,8 +33,6 @@ Man pages that contains a list of the **Windows** interfaces provided:
 
 ### libpmemblk Examples
 
-#### More Detail Coming Soon
-
 {{< highlight c "linenos=true,hl_lines=7,linenostart=37" >}}
 #include <stdio.h>
 #include <fcntl.h>
