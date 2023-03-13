@@ -25,7 +25,7 @@ by setting the environment variable **LD_PRELOAD**.
 
 Man pages that contains a list of the **Linux** interfaces provided:
 
-* Man page for <a href="../manpages/linux/master/libvmmalloc/libvmmalloc.7.html">libvmmalloc current master</a>
+* Man page for <a href="https://github.com/pmem/vmem/tree/master/doc/libvmmalloc">libvmmalloc current master</a>
 
 
 ### libvmmalloc Examples
