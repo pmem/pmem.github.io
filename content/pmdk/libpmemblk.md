@@ -39,8 +39,6 @@ and will be removed in the PMDK 1.14.0 release.
 
 ### libpmemblk Examples
 
-#### More Detail Coming Soon
-
 {{< highlight c "linenos=true,hl_lines=7,linenostart=37" >}}
 #include <stdio.h>
 #include <fcntl.h>
