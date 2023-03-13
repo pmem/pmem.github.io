@@ -115,7 +115,13 @@ runtime in order to maintain the ratio. <em>MIN_VAL=1</em> and
 <em>MAX_VAL=10000</em> set the lower and upper limits of the
 threshold value. Note that the <em>DYNAMIC_THRESHOLD</em> policy has
 to be set in <strong>MEMKIND_MEM_TIERS</strong> environment variable:</p><ul><li><code>LD_PRELOAD=libmemtier.so MEMKIND_MEM_TIERS="KIND:DRAM,RATIO:1;KIND:KMEM_DAX,RATIO:4;POLICY:DYNAMIC_THRESHOLD" MEMKIND_MEM_THRESHOLDS="INIT_VAL:64,MIN_VAL:1,MAX_VAL:10000"</code></li></ul><h1 id=notes>NOTES</h1><p><strong>libmemtier</strong> works for applications that do not statically
-link a <strong>malloc</strong> implementation.</p><h1 id=copyright>COPYRIGHT</h1><p>Copyright (C) 2021 - 2022 Intel Corporation. All rights
+link a <strong>malloc</strong> implementation.
+When <strong>libmemtier</strong> is loaded with <strong>LD_PRELOAD</strong>, allocations with
+size zero, like <strong>malloc</strong>(0), have the same result as the system&rsquo;s
+standard library call.
+Most notably, a valid pointer may be returned in such calls,
+contrary to the default memkind behavior of returning NULL when
+size zero is passed to malloc-like functions.</p><h1 id=copyright>COPYRIGHT</h1><p>Copyright (C) 2021 - 2022 Intel Corporation. All rights
 reserved.</p><h1 id=see-also>SEE ALSO</h1><p><strong>memkind</strong>(3), <strong>malloc</strong>(3)</p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/memkind>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/

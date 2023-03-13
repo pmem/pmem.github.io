@@ -82,16 +82,7 @@ huge pages enabled these allocations may be promoted by the
 operating system to two megabyte pages.</p></li><li><p><strong>HBW_PAGESIZE_2MB</strong><br>The two megabyte page size option.
 <strong>Note:</strong> This page size requires huge pages configuration
 described in the <a href=#system-configuration>SYSTEM CONFIGURATION</a>
-section.</p></li><li><p><strong>HBW_PAGESIZE_1GB (DEPRECATED)</strong><br>This option allows the user to specify arbitrary sizes backed
-by 1GB chunks of huge pages. Huge pages are allocated even if
-the size is not a modulo of 1GB.
-<strong>Note:</strong> This page size requires huge pages configuration
-described in the <a href=#system-configuration>SYSTEM CONFIGURATION</a>
-section.</p></li><li><p><strong>HBW_PAGESIZE_1GB_STRICT (DEPRECATED)</strong><br>The total size of the allocation must be a multiple of 1GB with
-this option, otherwise the allocation will fail. <strong>Note:</strong> This
-page size requires huge pages configuration described in the
-<a href=#system-configuration>SYSTEM CONFIGURATION</a> section.</p></li></ul><p><strong>Note:</strong> <strong>HBW_PAGESIZE_2MB</strong>, <strong>HBW_PAGESIZE_1GB</strong> and
-<strong>HBW_PAGESIZE_1GB_STRICT</strong> options are not supported with the
+section.</p></li></ul><p><strong>Note:</strong> <strong>HBW_PAGESIZE_2MB</strong>, option is not supported with the
 <strong>HBW_POLICY_INTERLEAVE</strong> policy which is described below.</p><dl><dt><code>hbw_set_policy()</code></dt><dd>sets the current fallback policy. The policy can be modified
 only once in the lifetime of an application and before calling
 any of: <code>hbw_malloc()</code>, <code>hbw_calloc()</code>, <code>hbw_realloc()</code>,

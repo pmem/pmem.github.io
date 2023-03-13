@@ -42,9 +42,7 @@ man page. The <em>memory_type</em> has to be one of
 <strong>MEMKIND_INTERLEAVE</strong>, <strong>MEMKIND_HBW</strong>,
 <strong>MEMKIND_HBW_PREFERRED</strong>, <strong>MEMKIND_HBW_HUGETLB</strong>,
 <strong>MEMKIND_HBW_PRE‐FERRED_HUGETLB</strong>,
-<strong>MEMKIND_HBW_GBTLB (DEPRECATED)</strong>,
-<strong>MEMKIND_HBW_PREFERRED_GBTLB (DEPRECATED)</strong>,
-<strong>MEMKIND_GBTLB (DEPRECATED)</strong>, <strong>MEMKIND_HBW_INTERLEAVE</strong></dd></dl><p>If you are requesting any huge TLB pages, please make sure
+<strong>MEMKIND_HBW_INTERLEAVE</strong></dd></dl><p>If you are requesting any huge TLB pages, please make sure
 that the requested type is currently enabled in your OS.</p><p><strong>Examples:</strong></p><dl><dt><code>AUTO_HBW_MEM_TYPE=MEMKIND_HBW_PREFERRED</code></dt><dd>(default, if MCDRAM present)</dd><dt><code>AUTO_HBW_MEM_TYPE=MEMKIND_DEFAULT</code></dt><dd>(default, if MCDRAM absent)</dd></dl><p><code>AUTO_HBW_MEM_TYPE=MEMKIND_HBW_HUGETLB</code></p><p><code>AUTO_HBW_MEM_TYPE=MEMKIND_HUGETLB</code></p><dl><dt><code>AUTO_HBW_DEBUG=0|1|2</code></dt><dd>Set the debug message printing level. Default is 0.
 This is mainly for development.</dd></dl><h1 id=notes>NOTES</h1><p>It is possible to temporarily disable/enable automatic HBW
 allocations by calling <code>disableAutoHBW()</code> and <code>enableAutoHBW()</code>
@@ -52,7 +50,12 @@ in source code. To call these routines, please include
 autohbw_api.h header file and link with -lautohbw.</p><p>If high-bandwidth memory is not physically present in your
 system, the environment variable <strong>MEMKIND_HBW_NODES</strong> must be
 set to indicate the high-bandwidth node as indicated in
-<a href=/memkind/manpages/memkind.3.html><strong>memkind</strong>(3)</a>.</p><h1 id=examples>EXAMPLES</h1><p>The following will run <em>/bin/ls</em> with <strong>AutoHBW</strong> library. Make
+<a href=/memkind/manpages/memkind.3.html><strong>memkind</strong>(3)</a>.</p><p>When <strong>libautohbw</strong> is loaded with <strong>LD_PRELOAD</strong>, allocations with
+size zero, like <strong>malloc</strong>(0), have the same result as the system&rsquo;s
+standard library call.
+Most notably, a valid pointer may be returned in such calls,
+contrary to the default memkind behavior of returning NULL when
+size zero is passed to malloc-like functions.</p><h1 id=examples>EXAMPLES</h1><p>The following will run <em>/bin/ls</em> with <strong>AutoHBW</strong> library. Make
 sure that paths to both <em>libautohbw.so</em> and <em>libmemkind.so</em> are
 included in <strong>LD_LIBRARY_PATH</strong>.</p><ul><li><code>LD_PRELOAD=libautohbw.so /bin/ls -l</code></li></ul><p>To run with <strong>MPI</strong>, a shell script must be created, with the
 correct <strong>LD_PRELOAD</strong> command for each rank. For example, if we
