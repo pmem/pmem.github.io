@@ -18,7 +18,8 @@ libraries_section:
     library_item2:
       title: 'libpmemblk'
       content: "<p>The <strong>libpmemblk</strong> library supports arrays of pmem-resident blocks, all the same size, that are atomically updated. For example, a program keeping a cache of fixed-size objects in pmem might find this library useful.</p>
-                <p>See the <a href=\"./libpmemblk\">libpmemblk page</a> for documentation and examples.</p>"
+                <p>See the <a href=\"./libpmemblk\">libpmemblk page</a> for documentation and examples.</p>
+                <blockquote><p><strong>Note:</strong> The <strong>libpmemblk</strong> library is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.</p></blockquote>"
     library_item3:
       title: 'libpmemlog'
       content: "<p>The <strong>libpmemlog</strong> library provides a pmem-resident log file. This is useful for programs like databases that append frequently to a log file.</p>
