@@ -34,7 +34,7 @@ card_groups:
                     <li>libpmem2</li>
                     <li>libpmemobj</li>
                     <li>libpmemblk</li>
-                    <li>libpmemlog</li>
+                    <li><s>libpmemlog</s></li>
                     <li>libpmempool</li>
                     <li>libpmemset (in development)</li>
                     <li><s>librpmem</s></li>

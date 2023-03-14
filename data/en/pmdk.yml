@@ -22,7 +22,8 @@ libraries_section:
     library_item3:
       title: 'libpmemlog'
       content: "<p>The <strong>libpmemlog</strong> library provides a pmem-resident log file. This is useful for programs like databases that append frequently to a log file.</p>
-                <p>See the <a href=\"./libpmemlog\">libpmemlog page</a> for documentation and examples.</p>"
+                <p>See the <a href=\"./libpmemlog\">libpmemlog page</a> for documentation and examples.</p>
+                <blockquote><p><strong>Note:</strong> The <strong>libpmemlog</strong> library is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.</p></blockquote>"
     library_item4:
       title: 'libpmem'
       content: "<p>The <strong>libpmem</strong> library provides low level persistent memory support. The libraries above are implemented using <strong>libpmem</strong>. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above and let that library call <strong>libpmem</strong> for them.</p>
