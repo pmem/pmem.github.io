@@ -28,6 +28,12 @@ Man pages that contains a list of the **Windows** interfaces provided:
 
 * Man page for <a href="../manpages/windows/master/libpmemlog/libpmemlog.7.html">libpmemlog current master</a>
 
+# NOTE #
+
+> NOTICE:
+The **libpmemlog** library is deprecated since PMDK 1.13.0 release
+and will be removed in the PMDK 1.14.0 release.
+
 ### libpmemlog Examples
 
 #### More Detail Coming Soon
