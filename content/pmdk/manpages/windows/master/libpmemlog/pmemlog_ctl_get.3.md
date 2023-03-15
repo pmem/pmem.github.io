@@ -9,7 +9,7 @@ header: "pmemlog API version 1.1"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2018-2019, Intel Corporation)
+[comment]: <> (Copyright 2018-2023, Intel Corporation)
 
 [comment]: <> (pmemlog_ctl_get.3 -- man page for libpmemlog CTL)
 
@@ -22,10 +22,10 @@ header: "pmemlog API version 1.1"
 
 # NAME #
 
-**pmemlog_ctl_getU**()/**pmemlog_ctl_getW**(),
-**pmemlog_ctl_setU**()/**pmemlog_ctl_setW**(),
-**pmemlog_ctl_execU**()/**pmemlog_ctl_execW**()
-- Query and modify libpmemlog internal behavior (EXPERIMENTAL)
+**pmemlog_ctl_getU**()/**pmemlog_ctl_getW**()(DEPRECATED),
+**pmemlog_ctl_setU**()/**pmemlog_ctl_setW**()(DEPRECATED),
+**pmemlog_ctl_execU**()/**pmemlog_ctl_execW**()(DEPRECATED)
+- Query and modify libpmemlog internal behavior (DEPRECATED)
 
 # SYNOPSIS #
 
