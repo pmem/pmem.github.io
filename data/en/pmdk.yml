@@ -32,7 +32,8 @@ libraries_section:
     library_item5:
       title: 'libpmem2'
       content: "<p>The <strong>libpmem2</strong> library provides low level persistent memory support. The library is a new version of <strong>libpmem</strong>. <strong>libpmem2</strong> provides a more universal and platform-agnostic interface. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above that provides memory allocation and transactions support.</p>
-                <p>See the <a href=\"./libpmem2\">libpmem2 page</a> for documentation and examples.</p>"
+                <p>See the <a href=\"./libpmem2\">libpmem2 page</a> for documentation and examples.</p>
+                <blockquote><p><strong>Note:</strong> Support for async functions is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.</p></blockquote>"
     library_item6:
       title: 'libpmemset'
       content: "<p><strong>libpmemset</strong> aims to provide support for persistent file I/O operations, runtime mapping concatenation and multi-part support across poolsets. It relies on synchronous event streams for pool modifications.</p>
