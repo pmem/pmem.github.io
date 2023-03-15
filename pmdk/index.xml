@@ -3788,7 +3788,7 @@ SYNOPSIS #include &amp;lt;libpmemblk.h&amp;gt; int pmemblk_set_zero(PMEMblkpool 
 This library is provided for cases requiring an append-mostly file to record variable length entries. Most developers will find higher level libraries like libpmemobj to be more generally useful.
 Man pages that contains a list of the Linux interfaces provided:
 Man page for libpmemlog current master Man pages that contains a list of the Windows interfaces provided:
-Man page for libpmemlog current master libpmemlog Examples More Detail Coming Soon 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 #include &amp;lt;stdio.</description></item><item><title>libpmemlog | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7/</guid><description>NAME
+Man page for libpmemlog current master NOTE NOTICE: The libpmemlog library is deprecated since PMDK 1.</description></item><item><title>libpmemlog | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/libpmemlog.7/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 CAVEATS
