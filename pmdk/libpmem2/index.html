@@ -8,7 +8,9 @@ In particular, support for the persistent memory instructions
 for flushing changes to pmem is provided.</p><p>This library is provided for software that tracks every store
 to pmem and needs to flush those changes to durability. Most
 developers will find higher level libraries like
-<a href=../libpmemobj>libpmemobj</a> to be much more convenient.</p><p>Man pages that contain a list of the <strong>Linux</strong> interfaces provided:</p><ul><li>Man page for <a href=../manpages/linux/master/libpmem2/libpmem2.7.html>libpmem2 current master</a></li></ul><p>Man pages that contain a list of the <strong>Windows</strong> interfaces provided:</p><ul><li>Man page for <a href=../manpages/windows/master/libpmem2/libpmem2.7.html>libpmem2 current master</a></li></ul><h3 id=libpmem2-example>libpmem2 Example</h3><h4 id=the-basics>The Basics</h4><p>If you&rsquo;ve decided to handle persistent memory allocation
+<a href=../libpmemobj>libpmemobj</a> to be much more convenient.</p><p>Man pages that contain a list of the <strong>Linux</strong> interfaces provided:</p><ul><li>Man page for <a href=../manpages/linux/master/libpmem2/libpmem2.7.html>libpmem2 current master</a></li></ul><p>Man pages that contain a list of the <strong>Windows</strong> interfaces provided:</p><ul><li>Man page for <a href=../manpages/windows/master/libpmem2/libpmem2.7.html>libpmem2 current master</a></li></ul><blockquote><p>NOTICE:
+Support for async functions is deprecated since PMDK 1.13.0 release
+and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.</p></blockquote><h3 id=libpmem2-example>libpmem2 Example</h3><h4 id=the-basics>The Basics</h4><p>If you&rsquo;ve decided to handle persistent memory allocation
 and consistency across program interruption yourself, you will
 find the functions in libpmem2 useful. It is important to
 understand that programming to raw pmem means you must create
