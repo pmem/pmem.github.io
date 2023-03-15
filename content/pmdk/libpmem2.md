@@ -29,6 +29,10 @@ Man pages that contain a list of the **Windows** interfaces provided:
 
 * Man page for <a href="../manpages/windows/master/libpmem2/libpmem2.7.html">libpmem2 current master</a>
 
+> NOTICE:
+Support for async functions is deprecated since PMDK 1.13.0 release
+and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.
+
 ### libpmem2 Example
 
 #### The Basics
