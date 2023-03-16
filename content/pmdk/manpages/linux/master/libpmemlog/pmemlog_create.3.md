@@ -9,7 +9,7 @@ header: "pmemlog API version 1.1"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2017-2018, Intel Corporation)
+[comment]: <> (Copyright 2017-2023, Intel Corporation)
 
 [comment]: <> (pmemlog_create.3 -- man page for libpmemlog create, open, close and  validate)
 
@@ -22,8 +22,8 @@ header: "pmemlog API version 1.1"
 
 # NAME #
 
-**pmemlog_create**(), **pmemlog_open**(),
-**pmemlog_close**(), **pmemlog_check**()
+**pmemlog_create**()(DEPRECATED), **pmemlog_open**()(DEPRECATED),
+**pmemlog_close**()(DEPRECATED), **pmemlog_check**()(DEPRECATED)
 - create, open, close and validate persistent memory resident log file
 
 # SYNOPSIS #

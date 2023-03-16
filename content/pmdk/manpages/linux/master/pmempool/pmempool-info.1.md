@@ -9,7 +9,7 @@ header: "pmem Tools version 1.4"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2016-2022, Intel Corporation)
+[comment]: <> (Copyright 2016-2023, Intel Corporation)
 
 [comment]: <> (pmempool-info.1 -- man page for pmempool-info)
 
@@ -30,6 +30,13 @@ header: "pmem Tools version 1.4"
 ```
 $ pmempool info [<options>] <file>
 ```
+
+# NOTE #
+
+> NOTICE:
+
+The **libpmemblk** and **libpmemlog** libraries are deprecated (this affects pool types
+**blk**, **btt** and **log**) since PMDK 1.13.0 release.
 
 # DESCRIPTION #
 

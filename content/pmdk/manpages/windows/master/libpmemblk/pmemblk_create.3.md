@@ -9,7 +9,7 @@ header: "pmemblk API version 1.1"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2017-2018, Intel Corporation)
+[comment]: <> (Copyright 2017-2023, Intel Corporation)
 
 [comment]: <> (pmemblk_create.3 -- man page for libpmemblk create, open, close and validate functions)
 
@@ -21,8 +21,8 @@ header: "pmemblk API version 1.1"
 
 # NAME #
 
-**pmemblk_createU**()/**pmemblk_createW**(), **pmemblk_openU**()/**pmemblk_openW**(),
-**pmemblk_close**(), **pmemblk_checkU**()/**pmemblk_checkW**()
+**pmemblk_createU**()/**pmemblk_createW**()(DEPRECATED), **pmemblk_openU**()/**pmemblk_openW**()(DEPRECATED),
+**pmemblk_close**()(DEPRECATED), **pmemblk_checkU**()/**pmemblk_checkW**()(DEPRECATED)
 - create, open, close and validate block pool
 
 # SYNOPSIS #

@@ -9,7 +9,7 @@ header: "pmemblk API version 1.1"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2018-2019, Intel Corporation)
+[comment]: <> (Copyright 2018-2023, Intel Corporation)
 
 [comment]: <> (pmemblk_ctl_get.3 -- man page for libpmemblk CTL)
 
@@ -22,9 +22,9 @@ header: "pmemblk API version 1.1"
 
 # NAME #
 
-**pmemblk_ctl_getU**()/**pmemblk_ctl_getW**(),
-**pmemblk_ctl_setU**()/**pmemblk_ctl_setW**(),
-**pmemblk_ctl_execU**()/**pmemblk_ctl_execW**()
+**pmemblk_ctl_getU**()/**pmemblk_ctl_getW**()(DEPRECATED),
+**pmemblk_ctl_setU**()/**pmemblk_ctl_setW**()(DEPRECATED),
+**pmemblk_ctl_execU**()/**pmemblk_ctl_execW**()(DEPRECATED)
 - Query and modify libpmemblk internal behavior (EXPERIMENTAL)
 
 # SYNOPSIS #
