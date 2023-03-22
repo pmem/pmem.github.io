@@ -10,6 +10,16 @@ header: "libpmemblk"
 description: ""
 disclaimer: "The contents of this web site and the associated <a href=\"https://github.com/pmem\">GitHub repositories</a> are BSD-licensed open source."
 ---
+
+### Discontinuation of the project
+The **libpmemblk** project will no longer be maintained by Intel.
+- Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+or updates, to this project.
+- Intel no longer accepts patches to this project.
+- If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+maintain patches for the open source software community, please create your own fork of this project.
+- You will find more information [here](/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/).
+
 ### The libpmemblk library
 
 **libpmemblk** implements a pmem-resident array of blocks,
@@ -38,8 +48,6 @@ The **libpmemblk** library is deprecated since PMDK 1.13.0 release
 and will be removed in the PMDK 1.14.0 release.
 
 ### libpmemblk Examples
-
-#### More Detail Coming Soon
 
 {{< highlight c "linenos=true,hl_lines=7,linenostart=37" >}}
 #include <stdio.h>

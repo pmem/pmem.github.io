@@ -4,6 +4,14 @@ heading:
   title: "PMem Repositories"
   description: "Here is a list of all the repositories in the pmem organization in GitHub under <a href=\"https://github.com/pmem\">https://github.com/pmem</a>."
 
+################################# Discontinuation of the project #################################
+Discontinuation:
+  enable: true
+  title: 'Discontinuation of the projects'
+  lists:
+    branch_list1: 
+      content: "Some projects will be discontinued, they are crossed out below (in the table). You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
+
 ################################# Cards #################################
 card_groups:
   enable: true
@@ -36,7 +44,7 @@ card_groups:
                     <li><s>libpmemblk</s></li>
                     <li><s>libpmemlog</s></li>
                     <li>libpmempool</li>
-                    <li>libpmemset (in development)</li>
+                    <li><s>libpmemset</s></li>
                     <li><s>librpmem</s></li>
                     <li>pmempool utility</li>
                     <li>Core PMDK C examples</li>
@@ -47,108 +55,12 @@ card_groups:
             row2:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\">libpmemobj-cpp</a>"
-                cell2:
-                  content: "C++ bindings & containers for libpmemobj"
-                cell3:
-                  content: "<a href=\"../libpmemobj-cpp\">pmem.io/libpmemobj-cpp</a>"
-            row3:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/llpl\">llpl</a>"
-                cell2:
-                  content: "Low-Level Persistence Library for Java"
-                cell3:
-                  content: "<a href=\"../java/llpl\">pmem.io/java/llpl</a>"
-            row4:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/libpmemobj-js\">libpmemobj-js</a>"
-                cell2:
-                  content: "JavaScript bindings for libpmemobj"
-                cell3:
-                  content: "-"
-            row5:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/miniasync\">miniasync</a>"
-                cell2:
-                  content: "C low-level concurrency library for asynchronous functions"
-                cell3:
-                  content: "<a href=\"../miniasync\">pmem.io/miniasync</a>"
-            row6:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemstream\">pmemstream</a>"
-                cell2:
-                  content: "Logging data structure (with stream-like access to data)"
-                cell3:
-                  content: "<a href=\"../pmemstream\">pmem.io/pmemstream</a>"
-            row7:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv\">pmemkv</a>"
-                cell2:
-                  content: "Transactional Key-Value Store: Top-Level C & C++ API"
-                cell3:
-                  content: "<a href=\"../pmemkv\">pmem.io/pmemkv</a>"
-            row8:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-bench\">pmemkv-bench</a>"
-                cell2:
-                  content: "Benchmarks for pmemkv"
-                cell3:
-                  content: "-"
-            row9:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-python\">pmemkv-python</a>"
-                cell2:
-                  content: "Python bindings for pmemkv"
-                cell3:
-                  content: "<a href=\"../pmemkv-python\">pmem.io/pmemkv-python</a>"
-            rowA:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-java\">pmemkv-java</a>"
-                cell2:
-                  content: "Java bindings for pmemkv"
-                cell3:
-                  content: "<a href=\"../pmemkv-java\">pmem.io/pmemkv-java</a>"
-            rowA1:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
-                cell2:
-                  content: "NodeJS bindings for pmemkv"
-                cell3:
-                  content: "<a href=\"../pmemkv-nodejs\">pmem.io/pmemkv-nodejs</a>"
-            rowA2:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
-                cell2:
-                  content: "Ruby bindings for pmemkv"
-                cell3:
-                  content: "<a href=\"../pmemkv-ruby\">pmem.io/pmemkv-ruby</a>"
-            rowA3:
-              cells:
-                cell1:
-                  content: "<a href=\"https://github.com/pmem/pmdk-convert\">pmdk-convert</a>"
-                cell2:
-                  content: "Conversion tool for PMDK pools"
-                cell3:
-                  content: "<a href=\"../pmdk-convert\">pmdk-convert</a>"
-            rowA4:
-              cells:
-                cell1:
                   content: "<a href=\"https://github.com/pmem/valgrind\">valgrind</a>"
                 cell2:
                   content: "Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin"
                 cell3:
                   content: "<a href=\"../valgrind\">pmem.io/valgrind</a>"
-            rowA5:
+            row3:
               cells:
                 cell1:
                   content: "<a href=\"https://github.com/pmem/rpma\">rpma</a>"
@@ -156,6 +68,102 @@ card_groups:
                   content: "C library to simplify accessing persistent memory (PMem) on remote hosts over Remote Direct Memory Access (RDMA)"
                 cell3:
                   content: "<a href=\"../rpma\">pmem.io/rpma</a>"
+            row4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\"><s>libpmemobj-cpp</s></a>"
+                cell2:
+                  content: "C++ bindings & containers for libpmemobj"
+                cell3:
+                  content: "<a href=\"../libpmemobj-cpp\">pmem.io/libpmemobj-cpp</a>"
+            row5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/llpl\">llpl</a>"
+                cell2:
+                  content: "Low-Level Persistence Library for Java"
+                cell3:
+                  content: "<a href=\"../java/llpl\">pmem.io/java/llpl</a>"
+            row6:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/libpmemobj-js\">libpmemobj-js</a>"
+                cell2:
+                  content: "JavaScript bindings for libpmemobj"
+                cell3:
+                  content: "-"
+            row7:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/miniasync\"><s>miniasync</s></a>"
+                cell2:
+                  content: "C low-level concurrency library for asynchronous functions"
+                cell3:
+                  content: "<a href=\"../miniasync\">pmem.io/miniasync</a>"
+            row8:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemstream\"><s>pmemstream</s></a>"
+                cell2:
+                  content: "Logging data structure (with stream-like access to data)"
+                cell3:
+                  content: "<a href=\"../pmemstream\">pmem.io/pmemstream</a>"
+            row9:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv\"><s>pmemkv</s></a>"
+                cell2:
+                  content: "Transactional Key-Value Store: Top-Level C & C++ API"
+                cell3:
+                  content: "<a href=\"../pmemkv\">pmem.io/pmemkv</a>"
+            rowA:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-bench\"><s>pmemkv-bench</s></a>"
+                cell2:
+                  content: "Benchmarks for pmemkv"
+                cell3:
+                  content: "-"
+            rowA1:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-python\"><s>pmemkv-python</s></a>"
+                cell2:
+                  content: "Python bindings for pmemkv"
+                cell3:
+                  content: "<a href=\"../pmemkv-python\">pmem.io/pmemkv-python</a>"
+            rowA2:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-java\"><s>pmemkv-java</s></a>"
+                cell2:
+                  content: "Java bindings for pmemkv"
+                cell3:
+                  content: "<a href=\"../pmemkv-java\">pmem.io/pmemkv-java</a>"
+            rowA3:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\"><s>pmemkv-nodejs</s></a>"
+                cell2:
+                  content: "NodeJS bindings for pmemkv"
+                cell3:
+                  content: "<a href=\"../pmemkv-nodejs\">pmem.io/pmemkv-nodejs</a>"
+            rowA4:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmemkv-ruby\"><s>pmemkv-ruby</s></a>"
+                cell2:
+                  content: "Ruby bindings for pmemkv"
+                cell3:
+                  content: "<a href=\"../pmemkv-ruby\">pmem.io/pmemkv-ruby</a>"
+            rowA5:
+              cells:
+                cell1:
+                  content: "<a href=\"https://github.com/pmem/pmdk-convert\"><s>pmdk-convert</s></a>"
+                cell2:
+                  content: "Conversion tool for PMDK pools"
+                cell3:
+                  content: "<a href=\"../pmdk-convert\">pmdk-convert</a>"
         table2:
             title: "Components Focused on Volatile Usages of pmem:"
             headers:
@@ -177,7 +185,7 @@ card_groups:
               row2:
                 cells:
                   cell1:
-                    content: "<a href=\"https://github.com/pmem/vmemcache\">vmemcache</a>"
+                    content: "<a href=\"https://github.com/pmem/vmemcache\"><s>vmemcache</s></a>"
                   cell2:
                     content: "A buffer based LRU cache"
                   cell3:
@@ -185,7 +193,7 @@ card_groups:
               row3:
                 cells:
                   cell1:
-                    content: "<a href=\"https://github.com/pmem/vmem\">vmem</a>"
+                    content: "<a href=\"https://github.com/pmem/vmem\"><s>vmem</s></a>"
                   cell2:
                     content: "libvmem, the predecessor to <strong>libmemkind</strong>.<br/>Maintenance-only -- use <strong>libmemkind</strong> for all new development."
                   cell3:
@@ -211,7 +219,7 @@ card_groups:
             row2:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/pmemfile\">pmemfile</a>"
+                  content: "<a href=\"https://github.com/pmem/pmemfile\"><s>pmemfile</s></a>"
                 cell2:
                   content: "Userspace implementation of file APIs using pmem"
                 cell3:
@@ -219,7 +227,7 @@ card_groups:
             row3:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/syscall_intercept\">syscall_intercept</a>"
+                  content: "<a href=\"https://github.com/pmem/syscall_intercept\"><s>syscall_intercept</s></a>"
                 cell2:
                   content: "Syscall intercepting library used by libpmemfile"
                 cell3:
@@ -335,7 +343,7 @@ card_groups:
             row5:
               cells:
                 cell1:
-                  content: "<a href=\"https://github.com/pmem/knowledge-base\">knowledge-base</a>"
+                  content: "<a href=\"https://github.com/pmem/knowledge-base\"><s>knowledge-base</s></a>"
                 cell2:
                   content: "Knowledge Base for pmem.io"
                 cell3:

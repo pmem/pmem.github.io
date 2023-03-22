@@ -17,8 +17,27 @@
       <div class="row justify-content-between">
 
         <div class="col mt-0 lib-content">
-            <!-- c api -->
+
+            <!-- Discontinuation of the project -->
+            {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.Discontinuation.enable }} {{ with $data.pmemstream.Discontinuation }}
+            <h3 class>{{ .title | markdownify }}</h3>
+
+            {{ range .lists }}
+            <p>{{ .content | safeHTML }}</p>
+            <ul class="pmem-list">
+                {{ range .list_items }}
+                <li>
+                    {{ .content | safeHTML }}
+                </li>
+                {{ end }}
+            </ul>
+            {{ end }}  
+            {{ end }} {{ end }}
+            <!-- end Discontinuation of the project -->
+
+            <!-- Documentation -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.c_api.enable }} {{ with $data.pmemstream.c_api }}
+            <h3 class>{{ .title | markdownify }}</h3>
 
             <!-- ## branch lists -->
             {{ range .lists }}
@@ -32,7 +51,7 @@
             </ul>
             {{ end }}  
             {{ end }} {{ end }}
-            <!-- end c api -->
+            <!-- end Documentation -->
 
             <!-- performance reports -->
             {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmemstream.performance_reports.enable }} {{ with $data.pmemstream.performance_reports }}

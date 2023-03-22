@@ -4,19 +4,34 @@ slider:
   bg_image: '/images/backgrounds/faq_header.jpg'
   title: 'miniasync'
   content: "The <strong>Mini Library for Asynchronous Programming in C</strong> is a C low-level concurrency library for asynchronous functions.<br />
-  This is still an experimental, pre-release software.<br />
-  Up-to-date information and the most recent changes can be found on <a href=\"https://github.com/pmem/miniasync\">our GitHub page</a>."
+  This is an experimental, pre-release software.<br />
+  More information can be found on <a href=\"https://github.com/pmem/miniasync\">our GitHub page</a>."
 
-################################# C API #################################
-c_api:
+################################# Discontinuation of the project #################################
+Discontinuation:
   enable: true
+  title: "Discontinuation of the project"
   lists:
     branch_list1: 
-      content: "<p>C API of miniasync is documented in the form of manpages.</p>
-                <p>For the current <strong>master</strong> branch:</p>"
+      content: "<p>The <strong>miniasync</strong> project will no longer be maintained by Intel.</p>"
       list_items:
         list_item1:
-          content: "(available soon)"
+          content: "Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
+                    or updates, to this project."
+        list_item2:
+          content: "Intel no longer accepts patches to this project."
+        list_item3:
+          content: "If you have an ongoing need to use this project, are interested in independently developing it, or would like to
+                    maintain patches for the open source software community, please create your own fork of this project."
+        list_item3:
+          content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
+
+################################# Documentation #################################
+c_api:
+  enable: true
+  title: "Documentation"
+  content: "<p>C API of miniasync is documented in the form of manpages.</p>
+            <p>For the current <strong>master</strong> branch you will find them <a href=\"https://github.com/pmem/miniasync/tree/master/doc\">here</a></p>"
 
 ################################# Blog Entries #################################
 blog_entries:
