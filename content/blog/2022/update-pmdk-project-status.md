@@ -71,11 +71,18 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 | Libpmemblk<br /> Libpmemlog | https://github.com/pmem/pmdk | No further support or maintenance planned |
 | Libvmem | https://github.com/pmem/vmem | No further support or maintenance planned |
 | Libpmemobj-cpp | https://github.com/pmem/libpmemobj-cpp | No further support or maintenance planned |
-| Libpmemkv | https://github.com/pmem/pmemkv | No further support or maintenance planned |
+| Libpmemkv<br/> and its language bindings | https://github.com/pmem/pmemkv | No further support or maintenance planned |
+| pmemkv-java | https://github.com/pmem/pmemkv-java | No further support or maintenance planned |
+| pmemkv-nodejs | https://github.com/pmem/pmemkv-nodejs | No further support or maintenance planned |
+| pmemkv-python | https://github.com/pmem/pmemkv-python | No further support or maintenance planned |
+| pmemkv-ruby | https://github.com/pmem/pmemkv-ruby | No further support or maintenance planned |
+| pmemkv-bench | https://github.com/pmem/pmemkv-bench | No further support or maintenance planned |
 | Libminiasync | https://github.com/pmem/miniasync | No further support or maintenance planned |
 | vmemcache | https://github.com/pmem/vmemcache | No further support or maintenance planned |
 | pmemfile | https://github.com/pmem/pmemfile | No further support or maintenance planned |
 | kb.pmem.io | https://github.com/pmem/knowledge-base | No further support or maintenance planned |
+| vltrace | https://github.com/pmem/vltrace | No further support or maintenance planned |
+| pynvm | https://github.com/pmem/pynvm | No further support or maintenance planned |
 | syscall-intercept | https://github.com/pmem/syscall_intercept | External maintainer took over the maintenance and development of this repository<br /> Issues reporting and bug fixes via GitHub only |
 {{</table>}}
 
