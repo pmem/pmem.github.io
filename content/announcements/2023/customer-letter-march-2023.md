@@ -1,6 +1,6 @@
 ---
 # News article title
-title: "Intel Customer Letter March 2023"
+title: "Optane Customer Letter March 2023"
 
 # Creation date
 date: 2023-03-21
