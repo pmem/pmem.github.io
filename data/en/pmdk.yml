@@ -26,6 +26,10 @@ Discontinuation:
         list_item3:
           content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
 
+    branch_list2:
+      content: "<p>Support for <strong>Windows</strong> and <strong>FreeBSD</strong> are deprecated since <strong>PMDK 1.13.0</strong> release and will be removed in the <strong>PMDK 1.14.0</strong> release.</p>"
+
+
 ################################# Libraries Section #################################
 libraries_section:
   enable: true

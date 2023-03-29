@@ -16,6 +16,10 @@ disclaimer: "The contents of this web site and the associated <a href=\"https://
 flexible object store, supporting transactions, memory
 management, locking, lists, and a number of other features.
 
+>NOTE:
+Support for **Windows** and **FreeBSD** are deprecated since **PMDK 1.13.0** release
+and will be removed in the **PMDK 1.14.0** release.
+
 Man pages that contains a list of the **Linux** interfaces provided:
 
 * Man page for <a href="../manpages/linux/master/libpmemobj/libpmemobj.7.html">libpmemobj current master</a>

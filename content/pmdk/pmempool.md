@@ -16,6 +16,10 @@ disclaimer: "The contents of this web site and the associated <a href=\"https://
 of persistent memory pools. It works for both the *single-file* pools and
 for *pool set files*.
 
+>NOTE:
+Support for **Windows** and **FreeBSD** are deprecated since **PMDK 1.13.0** release
+and will be removed in the **PMDK 1.14.0** release.
+
 See the pmempool(1) man page for documentation and examples:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool.1.html),

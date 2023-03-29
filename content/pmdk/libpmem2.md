@@ -21,6 +21,10 @@ to pmem and needs to flush those changes to durability.  Most
 developers will find higher level libraries like
 [libpmemobj](../libpmemobj) to be much more convenient.
 
+>NOTE:
+Support for **Windows** and **FreeBSD** are deprecated since **PMDK 1.13.0** release
+and will be removed in the **PMDK 1.14.0** release.
+
 Man pages that contain a list of the **Linux** interfaces provided:
 
 * Man page for <a href="../manpages/linux/master/libpmem2/libpmem2.7.html">libpmem2 current master</a>
