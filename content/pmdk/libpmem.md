@@ -49,7 +49,7 @@ in libpmem are **non-transactional**.
 
 To illustrate the basics, let's walk through the man page example first:
 
-{{< highlight c "linenos=true,hl_lines=9,linenostart=37" >}}
+{{< highlight c "linenos=true,hl_lines=9,linenostart=8" >}}
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -62,56 +62,43 @@ To illustrate the basics, let's walk through the man page example first:
 {{< /highlight >}}
 
 The example starts, as shown above, by including the necessary
-headers.  Line 45 (the highlighted line) shows the header file
+headers.  Line 16 (the highlighted line) shows the header file
 you need to include to use libpmem: `libpmem.h`.
 
-{{< highlight c "linenos=true,hl_lines=2,linenostart=47" >}}
+{{< highlight c "linenos=true,hl_lines=2,linenostart=22" >}}
 /* using 4k of pmem for this example */
 #define	PMEM_LEN 4096
+
+#define PATH "/pmem-fs/myfile"
 {{< /highlight >}}
 
 For this simple example, we're just going to hard code a pmem file
 size of 4 kilobytes.
 
-{{< highlight c "linenos=true,hl_lines=21,linenostart=50" >}}
+{{< highlight c "linenos=true,hl_lines=9,linenostart=27" >}}
 int
 main(int argc, char *argv[])
 {
-	int fd;
 	char *pmemaddr;
+	size_t mapped_len;
 	int is_pmem;
 
-	/* create a pmem file */
-	if ((fd = open("/pmem-fs/myfile", O_CREAT|O_RDWR, 0666)) < 0) {
-		perror("open");
+	/* create a pmem file and memory map it */
+	if ((pmemaddr = pmem_map_file(PATH, PMEM_LEN, PMEM_FILE_CREATE,
+				0666, &mapped_len, &is_pmem)) == NULL) {
+		perror("pmem_map_file");
 		exit(1);
 	}
-
-	/* allocate the pmem */
-	if ((errno = posix_fallocate(fd, 0, PMEM_LEN)) != 0) {
-		perror("posix_fallocate");
-		exit(1);
-	}
-
-	/* memory map it */
-	if ((pmemaddr = pmem_map(fd)) == NULL) {
-		perror("pmem_map");
-		exit(1);
-	}
-	close(fd);
 {{< /highlight >}}
 
-The lines above create the file, make sure 4k is allocated, and
-map the file into memory.  This illustrates one of the helper
-functions in libpmem: `pmem_map()` which takes a file descriptor
-and calls `mmap(2)` to memory map the entire file.  Calling `mmap()`
-directly will work just fine -- the main advantage of `pmem_map()`
-is that it tries to find an address where mapping is likely to use
-large page mappings, for better performance when using large ranges
-of pmem.
-
-Note that once the pmem file is mapped into memory, it is not
-necessary to keep the file descriptor open.
+The lines above create the file under specified path, with the
+size of 4k, and map the file into memory. This illustrates one of
+the helper functions in libpmem: `pmem_map_file()` which takes a path
+of a file and desired size. It calls `mmap(2)` to memory map the
+entire file.  Calling `mmap()` directly will work just fine --
+the main advantage of `pmem_map_file()` is that it tries to find an
+address where mapping is likely to use large page mappings,
+for better performance when using large ranges of pmem.
 
 Since the system calls for memory mapping persistent memory
 are the same as the POSIX calls for memory mapping any file,
@@ -125,12 +112,9 @@ map a file and use `msync()` every time you want to flush the
 changes media, it will work correctly for pmem as well as files
 on a traditional file system.  However, you may find your program
 performs better if you detect pmem explicitly and use libpmem
-to flush changes in that case.
-
-{{< highlight c "linenos=true,hl_lines=2,linenostart=76" >}}
-    /* determine if range is true pmem */
-    is_pmem = pmem_is_pmem(pmemaddr, PMEM_LEN);
-{{< /highlight >}}
+to flush changes in that case.  `pmem_map_file` returns that
+information (via `is_pmem` parameter).  It's also possible to
+explicitly call `pmem_is_pmem(pmemaddr, mapped_len)` if needed.
 
 The libpmem function `pmem_is_pmem()` can be used to determine
 if the memory in the given range is really persistent memory or if
@@ -138,18 +122,17 @@ it is just a memory mapped file on a traditional file system.  Using
 this call in your program will allow you to decide what to do when
 given a non-pmem file.  Your program could decide to print an error
 message and exit (for example: "ERROR: This program only works on pmem").
-But it seems more likely you will want to save the result of
-`pmem_is_pmem()` as shown above, and then use that flag to decide
-what to do when flushing changes to persistence as later in
-this example program.
+But it seems more likely you will want to save the value of `is_pmem`,
+and then use that flag to decide what to do when flushing changes to
+persistence as later in this example program.
 
-{{< highlight c "linenos=true,hl_lines=2,linenostart=79" >}}
+{{< highlight c "linenos=true,hl_lines=2,linenostart=41" >}}
     /* store a string to the persistent memory */
     strcpy(pmemaddr, "hello, persistent memory");
 {{< /highlight >}}
 
 The novel thing about pmem is you can copy to it directly, like any
-memory.  The `strcpy()` call shown on line 80 above is just the usual
+memory.  The `strcpy()` call shown on line 42 above is just the usual
 _libc_ function that stores a string to memory.  If this example program
 were to be interrupted either during or just after the `strcpy()` call,
 you can't be sure which parts of the string made it all the way to the
@@ -168,25 +151,25 @@ in any order.  Most processors have barrier instructions (like
 `SFENCE` on the Intel platform) but those instructions deal with
 ordering in the visibility of stores to other threads, not with
 the order that changes reach persistence.  The only barriers for
-flushing to persistence are functions like `msync()` or `pmem_persist()`
-as shown below.
+flushing to persistence are functions like `msync()` or
+`pmem_persist()` as shown below.
 
-{{< highlight c "linenos=true,hl_lines=3,linenostart=82" >}}
+{{< highlight c "linenos=true,hl_lines=3,linenostart=44" >}}
     /* flush above strcpy to persistence */
     if (is_pmem)
-        pmem_persist(pmemaddr, PMEM_LEN);
+        pmem_persist(pmemaddr, mapped_len);
     else
-        pmem_msync(pmemaddr, PMEM_LEN);
+        pmem_msync(pmemaddr, mapped_len);
 {{< /highlight >}}
 
-As shown above, this example uses the `is_pmem` flag it saved from the
-previous call to `pmem_is_pmem()`.  This is the recommended way to
+As shown above, this example uses the `is_pmem` flag saved from the
+previous call to `pmem_map_file()`.  This is the recommended way to
 use this information rather than calling `pmem_is_pmem()` each time
 you want to make changes durable.  That's because `pmem_is_pmem()`
 can have a high overhead, having to search through data structures to
 ensure the entire range is really persistent memory.
 
-For true pmem, the highlighted line 84 above is the most optimal way
+For true pmem, the highlighted line 46 above is the most optimal way
 to flush changes to persistence.  `pmem_persist()` will, if possible,
 perform the flush directly from user space, without calling into the
 OS.  This is made possible on the Intel platform using instructions like
@@ -220,25 +203,28 @@ caches (eliminating the need to flush that portion of the data path).
 The first copy example, called *simple_copy*, illustrates how
 `pmem_memcpy()` is used.
 
-{{< highlight c "linenos=true,hl_lines=9,linenostart=97" >}}
+{{< highlight c "linenos=true,hl_lines=10,linenostart=58" >}}
 	/* read up to BUF_LEN from srcfd */
 	if ((cc = read(srcfd, buf, BUF_LEN)) < 0) {
+		pmem_unmap(pmemaddr, mapped_len);
 		perror("read");
 		exit(1);
 	}
 
 	/* write it to the pmem */
 	if (is_pmem) {
-		pmem_memcpy(pmemaddr, buf, cc);
+		pmem_memcpy_persist(pmemaddr, buf, cc);
 	} else {
 		memcpy(pmemaddr, buf, cc);
 		pmem_msync(pmemaddr, cc);
 	}
 {{< /highlight >}}
 
-The highlighted line, line 105 above, shows how `pmem_memcpy()` is
+The highlighted line, line 67 above, shows how `pmem_memcpy_persist()` is
 used just like `memcpy(3)` except that when the destination is pmem,
 libpmem handles flushing the data to persistence as part of the copy.
+Please note: `pmem_memcpy_persist()` is an alias for `pmem_memcpy()`
+with flags equal to 0.
 
 Buildable source for the
 [libpmem simple_copy.c](https://github.com/pmem/pmdk/tree/master/src/examples/libpmem)
@@ -267,11 +253,11 @@ step, the drain step does not take an address range -- it is a system-wide
 drain operation so can happen at the end of the loop that copies
 individual blocks of data.
 
-{{< highlight c "linenos=true,hl_lines=12 22,linenostart=54" >}}
+{{< highlight c "linenos=true,hl_lines=12 22,linenostart=29" >}}
 /*
  * do_copy_to_pmem -- copy to pmem, postponing drain step until the end
  */
-void
+static void
 do_copy_to_pmem(char *pmemaddr, int srcfd, off_t len)
 {
 	char buf[BUF_LEN];
@@ -293,10 +279,10 @@ do_copy_to_pmem(char *pmemaddr, int srcfd, off_t len)
 }
 {{< /highlight >}}
 
-As each block is copied, line 65 in the above example copies a block of
+As each block is copied, line 40 in the above example copies a block of
 data to pmem, effectively flushing it from the processor caches.  But
 rather than waiting for the hardware queues to drain each time, that
-step is saved until the end, as shown on line 75 above.
+step is saved until the end, as shown on line 50 above.
 
 Buildable source for the
 [libpmem full_copy.c](https://github.com/pmem/pmdk/tree/master/src/examples/libpmem)
