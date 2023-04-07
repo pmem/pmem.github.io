@@ -27,7 +27,7 @@
   {{ $dc_title_ext := $.Scratch.Get "dc_title_ext"}}
   {{ $dc_title_ext_old := $.Scratch.Get "dc_title_ext_old"}}
 
-  {{ if in (slice "pmempool" "poolset" "rpmemd" "daxio" "pmreorder" "pmem_ctl") $dc_title }}
+  {{ if in (slice "pmempool" "poolset" "rpmemd" "daxio" "pmreorder" "pmem_ctl" "librpmem" "libpmemset") $dc_title }}
     <!-- no libraries -->
   {{ else }}
     <div id="manpage_shortcut">
