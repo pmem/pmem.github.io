@@ -18,7 +18,7 @@ description: ""
 image: "https://opengraph.githubassets.com/73d8f958e855904dc0776a7d77d0f0d3698a65b1/pmem/pmdk"
 
 # Announcement category
-announcements: [PMDK']
+announcements: ['PMDK']
 
 # Post type
 type: "announcement"
