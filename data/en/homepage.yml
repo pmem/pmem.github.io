@@ -70,16 +70,6 @@ news:
     link: '/announcements'
   # news item comes from "content/**/news" folder.
 
-################################# Form #####################################
-form:
-  enable: true
-  bg_image: '/images/devinstance.jpg'
-  title: 'Develop, Build, and Experiment with Persistent Memory'
-  content: 'Need a development environment with PMem? PMem Development Instances are a perfect environment to integrate persistent memory functionality into your application(s). All the libraries and tools developers need to be productive when writing, testing, and debugging PMem applications are available in a simple and easy to use environment.'
-  button:
-    label: 'Reserve a PMem Developer Instance'
-    link: 'mailto:james.mclaurin@intel.com?Subject=Reserve%20a%20PMem%20Developer%20Instance'
-
 ################################# Events #####################################
 event:
   enable: true
