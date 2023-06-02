@@ -7,8 +7,8 @@
     </div>
 
     <div id="portfolio" class="portfolio row grid-container gutter-20">
-      {{ $announcements2show := where site.RegularPages "Type" "announcement" }}
-      {{ $announcements2show := $announcements2show | union (sort (where (where site.RegularPages "Type" "announcement") ".Params.featured" "=" true ) ".Params.date" "desc") }}
+      {{ $announcements2show := sort (where site.RegularPages "Type" "announcement") ".Params.date" "desc" }}
+      {{ $announcements2show := $announcements2show | intersect (where $announcements2show ".Params.featured" "=" true ) }}
       {{ range first 3 $announcements2show }} 
         {{ .Render "announcement" }}
       {{ end }}
