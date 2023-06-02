@@ -24,7 +24,7 @@ announcements: ['Memkind']
 type: "announcement"
 
 # Featured. Specify true or false to show on homepage
-featured: 
+featured: true
 ---
 
 We've recently released a new version of the memkind library. Many thanks to all who contributed for making this release happen.

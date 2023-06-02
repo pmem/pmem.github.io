@@ -5,7 +5,7 @@ title: "Optane Customer Letter March 2023"
 # Creation date
 date: 2023-03-21
 
-# Publish immediately. 
+# Publish immediately.
 draft: false
 
 # Hero image
@@ -24,7 +24,7 @@ announcements: ['pmem']
 type: "announcement"
 
 # Featured. Specify true or false to show on homepage
-featured: 
+featured: true
 ---
 
 ## Dear Customer
