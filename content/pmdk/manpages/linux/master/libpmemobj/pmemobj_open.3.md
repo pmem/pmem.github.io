@@ -9,7 +9,7 @@ header: "pmemobj API version 2.3"
 ---
 
 [comment]: <> (SPDX-License-Identifier: BSD-3-Clause)
-[comment]: <> (Copyright 2017-2022, Intel Corporation)
+[comment]: <> (Copyright 2017-2023, Intel Corporation)
 
 [comment]: <> (pmemobj_open.3 -- man page for most commonly used functions from libpmemobj library)
 
@@ -163,8 +163,6 @@ perform the consistency check due to other errors.
 
 Not all file systems support **posix_fallocate**(3). **pmemobj_create**() will
 fail if the underlying file system does not support **posix_fallocate**(3).
-
-
 
 # SEE ALSO #
 
