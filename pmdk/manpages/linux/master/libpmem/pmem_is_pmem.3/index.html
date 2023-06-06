@@ -77,10 +77,10 @@ range. See also <strong>CAVEATS</strong>.</p><p>On success, <strong>pmem_map_fil
 and sets *<em>mapped_lenp</em> and *<em>is_pmemp</em> if they are not NULL.
 On error, it returns NULL, sets <em>errno</em> appropriately, and does not modify
 *<em>mapped_lenp</em> or *<em>is_pmemp</em>.</p><p>On success, <strong>pmem_unmap</strong>() returns 0. On error, it returns -1 and sets
-<em>errno</em> appropriately.</p><h1 id=notes>NOTES</h1><p>On Linux, <strong>pmem_is_pmem</strong>() returns true if the entire range
-was mapped directly from Device DAX (/dev/daxX.Y) without an intervening
-file system, or <strong>MAP_SYNC</strong> flag of <strong>mmap(2)</strong> is supported by the
-file system on Filesystem DAX.</p><h1 id=caveats>CAVEATS</h1><p>The result of <strong>pmem_is_pmem</strong>() query is only valid for the mappings
+<em>errno</em> appropriately.</p><h1 id=notes>NOTES</h1><p><strong>pmem_is_pmem</strong>() returns true if the entire range was mapped directly
+from Device DAX (/dev/daxX.Y) without an intervening file system,
+or <strong>MAP_SYNC</strong> flag of <strong>mmap(2)</strong> is supported by the file system
+on Filesystem DAX.</p><h1 id=caveats>CAVEATS</h1><p>The result of <strong>pmem_is_pmem</strong>() query is only valid for the mappings
 created using <strong>pmem_map_file</strong>(). For other memory regions, in particular
 those created by a direct call to <strong>mmap</strong>(2), <strong>pmem_is_pmem</strong>() always
 returns false, even if the queried range is entirely persistent memory.</p><p>Not all file systems support <strong>posix_fallocate</strong>(3). <strong>pmem_map_file</strong>() will

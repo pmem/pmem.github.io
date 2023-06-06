@@ -281,7 +281,7 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmem - persistent memory support library
-NOTE: Support for Windows and FreeBSD are deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmem.h&amp;gt; cc ... -lpmem Library API versioning: const char *pmem_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmem_errormsg(void); Other library functions: A description of other libpmem functions can be found on the following manual pages:</description></item><item><title>libpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_flush.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_flush.3/</guid><description>comment: &amp;lt;&amp;gt; (pmem_flush.3 &amp;ndash; man page for partial flushing operations
 NAME
 SYNOPSIS
@@ -709,7 +709,7 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmem2 - persistent memory support library
-NOTE: Support for Windows and FreeBSD deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; cc ... -lpmem2 DESCRIPTION libpmem2 provides low-level persistent memory (pmem) support for applications using direct access storage (DAX), which is storage that supports load/store access without paging blocks from a block storage device.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2_unsafe_shutdown.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2_unsafe_shutdown.7/</guid><description>NAME
 DESCRIPTION
 UNSAFE SHUTDOWN DETECTION
@@ -745,7 +745,6 @@ RETURN VALUE
 SEE ALSO
 NAME pmem2_badblock_next() - read the next bad block for the given bad block context *bbctx.
 SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; struct pmem2_badblock; struct pmem2_badblock_context; int pmem2_badblock_next( struct pmem2_badblock_context *bbctx, struct pmem2_badblock *bb); DESCRIPTION The pmem2_badblock_next() function reads the next bad block for the given bad block context *bbctx.
-It is not supported on Windows.
 RETURN VALUE The pmem2_badblock_next() function returns 0 and stores the next bad block in *bb on success or it returns a negative error code when there are no more bad blocks for the given bad block context *bbctx.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_config_new.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_config_new.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -934,8 +933,9 @@ RETURN VALUE
 ERRORS
 CAVEATS
 SEE ALSO
-NAME pmem2_source_from_fd(), pmem2_source_from_handle(), pmem2_source_delete() - creates or deletes an instance of persistent memory data source
-SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; int pmem2_source_from_fd(struct pmem2_source *src, int fd); int pmem2_source_from_handle(struct pmem2_source *src, HANDLE handle); /* Windows only */ int pmem2_source_delete(struct pmem2_source **src); DESCRIPTION On Linux the pmem2_source_from_fd() function validates the file descriptor and instantiates a new struct pmem2_source* object describing the data source.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_get_fd.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_get_fd.3/</guid><description>comment: &amp;lt;&amp;gt; (pmem2_source_get_fd.3 &amp;ndash; man page for pmem2_source_get_fd
+NAME pmem2_source_from_fd(), pmem2_source_delete() - creates or deletes an instance of persistent memory data source
+SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; int pmem2_source_from_fd(struct pmem2_source *src, int fd); int pmem2_source_delete(struct pmem2_source **src); DESCRIPTION The pmem2_source_from_fd() function validates the file descriptor and instantiates a new struct pmem2_source* object describing the data source.
+fd must be opened with O_RDONLY or O_RDWR mode.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_get_fd.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_get_fd.3/</guid><description>comment: &amp;lt;&amp;gt; (pmem2_source_get_fd.3 &amp;ndash; man page for pmem2_source_get_fd
 NAME
 SYNOPSIS
 DESCRIPTION
@@ -944,17 +944,7 @@ ERRORS
 SEE ALSO
 NAME pmem2_source_get_fd() - reads file descriptor of the data source
 SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; int pmem2_source_get_fd(const struct pmem2_source *src, int *fd); DESCRIPTION The pmem2_source_get_fd() function reads the file descriptor of struct pmem2_source* object describing the data source and returns it by fd parameter.
-This function is Linux only, on Windows use pmem2_source_get_handle(3).
-RETURN VALUE The pmem2_source_get_fd() function returns 0 on success or a negative error code on failure.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_get_handle.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_get_handle.3/</guid><description>comment: &amp;lt;&amp;gt; (pmem2_source_get_handsle.3 &amp;ndash; man page for pmem2_source_get_handle
-NAME
-SYNOPSIS
-DESCRIPTION
-RETURN VALUE
-ERRORS
-SEE ALSO
-NAME pmem2_source_get_handle() - reads file handler of the data source
-SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; int pmem2_source_get_handle(const struct pmem2_source *src, HANDLE *h); DESCRIPTION The pmem2_source_get_handle() function reads the file handler of struct pmem2_source* object describing the data source and returns it by h parameter.
-This function is Windows only, on Linux use pmem2_source_get_fd(3). If the source was created using pmem2_source_from_fd(3) then pmem2_source_get_handle() is also valid function to read handler, because file descriptor is converted to file handle during source creation.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_numa_node.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_numa_node.3/</guid><description>NAME
+RETURN VALUE The pmem2_source_get_fd() function returns 0 on success or a negative error code on failure.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_numa_node.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_source_numa_node.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 RETURN VALUE
@@ -976,7 +966,7 @@ RETURN VALUE
 ERRORS
 SEE ALSO
 NAME pmem2_source_size() - returns the size of the data source
-SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; struct pmem2_source; int pmem2_source_size(const struct pmem2_source *source, size_t *size); DESCRIPTION The pmem2_source_size() function retrieves the size of the file in bytes pointed by file descriptor or handle stored in the source and puts it in *size.
+SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; struct pmem2_source; int pmem2_source_size(const struct pmem2_source *source, size_t *size); DESCRIPTION The pmem2_source_size() function retrieves the size of the file in bytes pointed by file descriptor stored in the source and puts it in *size.
 This function is a portable replacement for OS-specific APIs. On Linux, it hides the quirkiness of Device DAX size detection.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_vm_reservation_extend.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_vm_reservation_extend.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -4307,7 +4297,7 @@ BUGS
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmemblk - persistent memory resident array of blocks (DEPRECATED)
-NOTE: Support for Windows and FreeBSD deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmemblk.h&amp;gt; cc ... -lpmemblk -lpmem Library API versioning: const char *pmemblk_check_version( unsigned major_required, unsigned minor_required); Managing library behavior: void pmemblk_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s)); Error handling: const char *pmemblk_errormsg(void); Other library functions: A description of other libpmemblk functions can be found on the following manual pages:</description></item><item><title>libpmemblk | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemblk/pmemblk_bsize.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemblk/pmemblk_bsize.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -4999,7 +4989,7 @@ BUGS
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmemlog - persistent memory resident log file (DEPRECATED)
-NOTE: Support for Windows and FreeBSD deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmemlog.h&amp;gt; cc ... -lpmemlog -lpmem Library API versioning: const char *pmemlog_check_version( unsigned major_required, unsigned minor_required); Managing library behavior: void pmemlog_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s)); Error handling: int pmemlog_check(const char *path); Other library functions: A description of other libpmemlog functions can be found on the following manual pages:</description></item><item><title>libpmemlog | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/pmemlog_append.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/pmemlog_append.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -5562,7 +5552,7 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmemobj - persistent memory transactional object store
-NOTE: Support for Windows and FreeBSD deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmemobj.h&amp;gt; cc -std=gnu99 ... -lpmemobj -lpmem Library API versioning: const char *pmemobj_check_version( unsigned major_required, unsigned minor_required); Managing library behavior: void pmemobj_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s)); Error handling: const char *pmemobj_errormsg(void); Other library functions: A description of other libpmemobj functions can be found on the following manual pages:</description></item><item><title>libpmemobj | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -7070,7 +7060,7 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmempool - persistent memory pool management library
-NOTE: Support for Windows and FreeBSD deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmempool.h&amp;gt; cc -std=gnu99 ... -lpmempool -lpmem Library API versioning: const char *pmempool_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmempool_errormsg(void); Other library functions: A description of other libpmempool functions can be found on the following manual pages:</description></item><item><title>libpmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -8933,7 +8923,7 @@ COMMANDS
 DEBUGGING
 SEE ALSO
 NAME pmempool - Persistent Memory Pool Management Tool
-NOTE: Support for Windows and FreeBSD deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
+NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS $ pmempool [--help] [--version] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] NOTE NOTICE: The libpmemblk and libpmemlog libraries are deprecated since PMDK 1.13.0 release.
 DESCRIPTION The pmempool is a management tool for Persistent Memory pool files created by PMDK libraries.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-check.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-check.1/</guid><description>NAME pmempool-check - Check and repair Persistent Memory Pool
 SYNOPSIS pmempool check [&amp;lt;options&amp;gt;] &amp;lt;file&amp;gt;
