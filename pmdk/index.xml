@@ -55,8 +55,9 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmem - persistent memory support library
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
-SYNOPSIS #include &amp;lt;libpmem.h&amp;gt; cc ... -lpmem Library API versioning: const char *pmem_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmem_errormsg(void); Other library functions: A description of other libpmem functions can be found on the following manual pages:</description></item><item><title>libpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_flush.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_flush.3/</guid><description>comment: &amp;lt;&amp;gt; (pmem_flush.3 &amp;ndash; man page for partial flushing operations
+SYNOPSIS #include &amp;lt;libpmem.h&amp;gt; cc ... -lpmem Library API versioning: const char *pmem_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmem_errormsg(void); Other library functions: A description of other libpmem functions can be found on the following manual pages:
+most commonly used functions: pmem_is_pmem(3)
+partial flushing operations: pmem_flush(3)</description></item><item><title>libpmem | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_flush.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem/pmem_flush.3/</guid><description>comment: &amp;lt;&amp;gt; (pmem_flush.3 &amp;ndash; man page for partial flushing operations
 NAME
 SYNOPSIS
 DESCRIPTION
@@ -483,8 +484,7 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmem2 - persistent memory support library
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
-SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; cc ... -lpmem2 DESCRIPTION libpmem2 provides low-level persistent memory (pmem) support for applications using direct access storage (DAX), which is storage that supports load/store access without paging blocks from a block storage device.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2_unsafe_shutdown.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2_unsafe_shutdown.7/</guid><description>NAME
+SYNOPSIS #include &amp;lt;libpmem2.h&amp;gt; cc ... -lpmem2 DESCRIPTION libpmem2 provides low-level persistent memory (pmem) support for applications using direct access storage (DAX), which is storage that supports load/store access without paging blocks from a block storage device. Some types of non-volatile memory DIMMs (NVDIMMs) provide this type of byte addressable access to storage. A persistent memory aware file system is typically used to expose the direct access to applications.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2_unsafe_shutdown.7/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/libpmem2_unsafe_shutdown.7/</guid><description>NAME
 DESCRIPTION
 UNSAFE SHUTDOWN DETECTION
 SEE ALSO
@@ -4071,7 +4071,6 @@ BUGS
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmemblk - persistent memory resident array of blocks (DEPRECATED)
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmemblk.h&amp;gt; cc ... -lpmemblk -lpmem Library API versioning: const char *pmemblk_check_version( unsigned major_required, unsigned minor_required); Managing library behavior: void pmemblk_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s)); Error handling: const char *pmemblk_errormsg(void); Other library functions: A description of other libpmemblk functions can be found on the following manual pages:</description></item><item><title>libpmemblk | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemblk/pmemblk_bsize.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemblk/pmemblk_bsize.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -4587,7 +4586,6 @@ BUGS
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmemlog - persistent memory resident log file (DEPRECATED)
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmemlog.h&amp;gt; cc ... -lpmemlog -lpmem Library API versioning: const char *pmemlog_check_version( unsigned major_required, unsigned minor_required); Managing library behavior: void pmemlog_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s)); Error handling: int pmemlog_check(const char *path); Other library functions: A description of other libpmemlog functions can be found on the following manual pages:</description></item><item><title>libpmemlog | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/pmemlog_append.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemlog/pmemlog_append.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -5150,7 +5148,6 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmemobj - persistent memory transactional object store
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS #include &amp;lt;libpmemobj.h&amp;gt; cc -std=gnu99 ... -lpmemobj -lpmem Library API versioning: const char *pmemobj_check_version( unsigned major_required, unsigned minor_required); Managing library behavior: void pmemobj_set_funcs( void *(*malloc_func)(size_t size), void (*free_func)(void *ptr), void *(*realloc_func)(void *ptr, size_t size), char *(*strdup_func)(const char *s)); Error handling: const char *pmemobj_errormsg(void); Other library functions: A description of other libpmemobj functions can be found on the following manual pages:</description></item><item><title>libpmemobj | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmemobj/oid_is_null.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
@@ -6658,8 +6655,9 @@ EXAMPLE
 ACKNOWLEDGEMENTS
 SEE ALSO
 NAME libpmempool - persistent memory pool management library
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
-SYNOPSIS #include &amp;lt;libpmempool.h&amp;gt; cc -std=gnu99 ... -lpmempool -lpmem Library API versioning: const char *pmempool_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmempool_errormsg(void); Other library functions: A description of other libpmempool functions can be found on the following manual pages:</description></item><item><title>libpmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3/</guid><description>NAME
+SYNOPSIS #include &amp;lt;libpmempool.h&amp;gt; cc -std=gnu99 ... -lpmempool -lpmem Library API versioning: const char *pmempool_check_version( unsigned major_required, unsigned minor_required); Error handling: const char *pmempool_errormsg(void); Other library functions: A description of other libpmempool functions can be found on the following manual pages:
+health check functions: pmempool_check_init(3)
+pool set synchronization and transformation: pmempool_sync(3)</description></item><item><title>libpmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmempool/pmempool_check_init.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 RETURN VALUE
@@ -8291,9 +8289,9 @@ COMMANDS
 DEBUGGING
 SEE ALSO
 NAME pmempool - Persistent Memory Pool Management Tool
-NOTE: Support for FreeBSD is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.
 SYNOPSIS $ pmempool [--help] [--version] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] NOTE NOTICE: The libpmemblk and libpmemlog libraries are deprecated since PMDK 1.13.0 release.
-DESCRIPTION The pmempool is a management tool for Persistent Memory pool files created by PMDK libraries.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-check.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-check.1/</guid><description>NAME pmempool-check - Check and repair Persistent Memory Pool
+DESCRIPTION The pmempool is a management tool for Persistent Memory pool files created by PMDK libraries.
+The main purpose of pmempool is to provide a user with a set of utilities for off-line analysis and manipulation of pools created by pmem libraries.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-check.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-check.1/</guid><description>NAME pmempool-check - Check and repair Persistent Memory Pool
 SYNOPSIS pmempool check [&amp;lt;options&amp;gt;] &amp;lt;file&amp;gt;
 DESCRIPTION The pmempool invoked with check command checks consistency of a given pool file. If the pool file is consistent pmempool exits with 0 value. If the pool file is not consistent non-zero error code is returned.
 In case of any errors, the proper message is printed. The verbosity level may be increased using -v option. The output messages may be also suppressed using -q option.</description></item><item><title>pmempool | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-convert.1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/v1.1/pmempool/pmempool-convert.1/</guid><description>NAME pmempool-convert - Convert pool files from old layout versions to the newest one.

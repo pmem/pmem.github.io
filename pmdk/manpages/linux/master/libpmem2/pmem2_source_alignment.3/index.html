@@ -15,16 +15,14 @@ RETURN VALUE The pmem2_source_alignment() function returns 0 on success. If the 
 </span></span></code></pre></div><h1 id=description>DESCRIPTION</h1><p>The <strong>pmem2_source_alignment</strong>() function retrieves the alignment of offset and
 length needed for <strong>pmem2_map_new</strong>(3) to succeed. The alignment is stored in
 <em>*alignment</em>.</p><h1 id=return-value>RETURN VALUE</h1><p>The <strong>pmem2_source_alignment</strong>() function returns 0 on success.
-If the function fails, the <em>*alignment</em> variable is left unmodified and a negative error code is returned.</p><h1 id=errors>ERRORS</h1><p>The <strong>pmem2_source_alignment</strong>() can fail with the following errors:</p><p>On all systems:</p><ul><li><strong>PMEM2_E_INVALID_ALIGNMENT_VALUE</strong> - operating system returned unexpected
-alignment value (eg. it is not a power of two).</li></ul><p>on Linux:</p><ul><li><p><strong>PMEM2_E_INVALID_FILE_TYPE</strong> - file descriptor points to a character
+If the function fails, the <em>*alignment</em> variable is left unmodified and a negative error code is returned.</p><h1 id=errors>ERRORS</h1><p>The <strong>pmem2_source_alignment</strong>() can fail with the following errors:</p><ul><li><p><strong>PMEM2_E_INVALID_ALIGNMENT_VALUE</strong> - operating system returned unexpected
+alignment value (eg. it is not a power of two).</p></li><li><p><strong>PMEM2_E_INVALID_FILE_TYPE</strong> - file descriptor points to a character
 device other than Device DAX.</p></li><li><p><strong>PMEM2_E_INVALID_ALIGNMENT_FORMAT</strong> - kernel query for Device DAX alignment
 returned data in invalid format.</p></li><li><p>-<strong>errno</strong> set by failing <strong>fstat</strong>(2), while trying to validate the file
 descriptor.</p></li><li><p>-<strong>errno</strong> set by failing <strong>realpath</strong>(3), while trying to determine whether
 fd points to a Device DAX.</p></li><li><p>-<strong>errno</strong> set by failing <strong>read</strong>(2), while trying to determine Device DAX&rsquo;s
 alignment.</p></li><li><p>-<strong>errno</strong> set by failing <strong>strtoull</strong>(3), while trying to determine
-Device DAX&rsquo;s alignment.</p></li></ul><p>On FreeBSD:</p><ul><li><p><strong>PMEM2_E_INVALID_FILE_TYPE</strong> - file descriptor points to a directory,
-block device, pipe, socket, or character device.</p></li><li><p>-<strong>errno</strong> set by failing <strong>fstat</strong>(2), while trying to validate the file
-descriptor.</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>errno</strong>(3), <strong>fstat</strong>(2), <strong>realpath</strong>(3), <strong>read</strong>(2), <strong>strtoull</strong>(3),
+Device DAX&rsquo;s alignment.</p></li></ul><h1 id=see-also>SEE ALSO</h1><p><strong>errno</strong>(3), <strong>fstat</strong>(2), <strong>realpath</strong>(3), <strong>read</strong>(2), <strong>strtoull</strong>(3),
 <strong>pmem2_config_new</strong>(3), <strong>pmem2_source_from_fd</strong>(3),
 <strong>libpmem2</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/

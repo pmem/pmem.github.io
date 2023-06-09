@@ -82,11 +82,10 @@ only with:</p><ul><li><p><strong>pmemobj_pool_by_oid</strong>()</p></li><li><p><
 represented by <em>oid</em>.</p><p>The <strong>pmemobj_pool_by_oid</strong>() function returns a handle to the pool that
 contains the object represented by <em>oid</em>. If the pool is not open or
 <em>oid</em> is <strong>OID_NULL</strong>, <strong>pmemobj_pool_by_oid</strong>() returns NULL.</p><p>The <strong>pmemobj_pool_by_ptr</strong>() function returns a handle to the pool that
-contains the address, or NULL if the address does not belong to any open pool.</p><h1 id=notes>NOTES</h1><p>For performance reasons, on Linux and FreeBSD the <strong>pmemobj_direct</strong>()
-function is inlined by default. To use the non-inlined variant of
-<strong>pmemobj_direct</strong>(), define <strong>PMEMOBJ_DIRECT_NON_INLINE</strong> prior
-to the <em>#include</em> of <strong>&lt;libpmemobj.h></strong>, either with <em>#define</em> or with
-the <em>-D</em> option to the compiler.</p><h1 id=examples>EXAMPLES</h1><p>The following code shows how to store transient variables on persistent memory.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>struct</span> my_data {
+contains the address, or NULL if the address does not belong to any open pool.</p><h1 id=notes>NOTES</h1><p>For performance reasons the <strong>pmemobj_direct</strong>() function is inlined by default.
+To use the non-inlined variant of <strong>pmemobj_direct</strong>(),
+define <strong>PMEMOBJ_DIRECT_NON_INLINE</strong> prior to the <em>#include</em> of <strong>&lt;libpmemobj.h></strong>,
+either with <em>#define</em> or with the <em>-D</em> option to the compiler.</p><h1 id=examples>EXAMPLES</h1><p>The following code shows how to store transient variables on persistent memory.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>struct</span> my_data {
 </span></span><span style=display:flex><span>	PMEMvlt(<span style=color:#66d9ef>uint64_t</span>) foo;
 </span></span><span style=display:flex><span>	<span style=color:#66d9ef>uint64_t</span> bar;
 </span></span><span style=display:flex><span>};
