@@ -490,14 +490,7 @@ UNSAFE SHUTDOWN DETECTION
 SEE ALSO
 NAME libpmem2_unsafe_shutdown - libpmem2 unsafe shutdown
 DESCRIPTION In systems with the persistent memory support, a power-fail protected domain covers a set of resources from which the platform will flush data to the persistent medium in case of a power-failure. Data stored on the persistent medium is preserved across power cycles.
-The hardware guarantees the feature to flush all data stored in the power-fail protected domain to the persistent medium.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_async.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_async.3/</guid><description>NAME
-SYNOPSIS
-DESCRIPTION
-RETURN VALUE
-SEE ALSO
-NAME pmem2_config_set_vdm()(DEPRECATED), pmem2_memcpy_async()(DEPRECATED), pmem2_memmove_async()(DEPRECATED), pmem2_memset_async()(DEPRECATED) - asynchronous data movement operations
-NOTICE: Support for async functions is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.
-SYNOPSIS #define PMEM2_USE_MINIASYNC 1 #include &amp;lt;libpmem2.h&amp;gt; struct pmem2_future; int pmem2_config_set_vdm(struct pmem2_config *cfg, struct vdm *vdm); struct pmem2_future pmem2_memcpy_async(struct pmem2_map *map, void *pmemdest, const void *src, size_t len, unsigned flags); struct pmem2_future pmem2_memmove_async(struct pmem2_map *map, void *pmemdest, const void *src, size_t len, unsigned flags) struct pmem2_future pmem2_memset_async(struct pmem2_map *map, void *pmemstr, int c, size_t n, unsigned flags) { DESCRIPTION To use those functions, you must have libminiasync installed.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_badblock_clear.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_badblock_clear.3/</guid><description>NAME
+The hardware guarantees the feature to flush all data stored in the power-fail protected domain to the persistent medium.</description></item><item><title>libpmem2 | PMDK</title><link>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_badblock_clear.3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pmem.io/pmdk/manpages/linux/master/libpmem2/pmem2_badblock_clear.3/</guid><description>NAME
 SYNOPSIS
 DESCRIPTION
 RETURN VALUE
