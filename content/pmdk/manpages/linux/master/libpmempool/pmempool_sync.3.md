@@ -56,9 +56,7 @@ for syncing the pool.
 >NOTE: The **pmempool_sync**() cannot do anything useful if there
 are no replicas in the pool set.  In such case, it fails with an error.
 
->NOTE: At the moment, replication is only supported for **libpmemobj**(7)
-pools, so **pmempool_sync**() cannot be used with other pool types
-(**libpmemlog**(7), **libpmemblk**(7)).
+>NOTE: Replication is only supported for **libpmemobj**(7) pools.
 
 The following flags are available:
 
@@ -105,9 +103,7 @@ transformation.
 
 
 
->NOTE: At the moment, *transform* operation is only supported for
-**libpmemobj**(7) pools, so **pmempool_transform**() cannot be used with other
-pool types (**libpmemlog**(7), **libpmemblk**(7)).
+>NOTE: The *transform* operation is only supported for **libpmemobj**(7) pools.
 
 # RETURN VALUE #
 
@@ -141,4 +137,4 @@ versions of the library.
 
 # SEE ALSO #
 
-**libpmemlog**(7), **libpmemobj**(7) and **<https://pmem.io>**
+**libpmemobj**(7) and **<https://pmem.io>**

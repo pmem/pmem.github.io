@@ -184,11 +184,10 @@ This is an example of a *check context* initialization:
 ```c
 struct pmempool_check_args args =
 {
-	.path = "/path/to/blk.pool",
+	.path = "/path/to/obj.pool",
 	.backup_path = NULL,
-	.pool_type = PMEMPOOL_POOL_TYPE_BLK,
-	.flags = PMEMPOOL_CHECK_REPAIR | PMEMPOOL_CHECK_DRY_RUN |
-		PMEMPOOL_CHECK_VERBOSE | PMEMPOOL_CHECK_FORMAT_STR
+	.pool_type = PMEMPOOL_POOL_TYPE_OBJ,
+	.flags = PMEMPOOL_CHECK_VERBOSE | PMEMPOOL_CHECK_FORMAT_STR
 };
 ```
 
@@ -196,16 +195,10 @@ struct pmempool_check_args args =
 PMEMpoolcheck *ppc = pmempool_check_init(&args, sizeof(args));
 ```
 
-The check will process a *pool* of type **PMEMPOOL_POOL_TYPE_BLK**
-located in the path */path/to/blk.pool*. Before the check it will
+The check will process a *pool* of type **PMEMPOOL_POOL_TYPE_OBJ**
+located in the path */path/to/obj.pool*. Before the check it will
 not create a backup of the *pool* (*backup_path == NULL*).
-If the check finds any issues it will try to
-perform repair steps (**PMEMPOOL_CHECK_REPAIR**), but it
-will not make any changes to the *pool*
-(**PMEMPOOL_CHECK_DRY_RUN**) and it will not perform any
-dangerous repair steps (no **PMEMPOOL_CHECK_ADVANCED**).
-The check will ask before performing any repair steps (no
-**PMEMPOOL_CHECK_ALWAYS_YES**). It will also generate
+It will also generate
 detailed information about the check (**PMEMPOOL_CHECK_VERBOSE**).
 The **PMEMPOOL_CHECK_FORMAT_STR** flag indicates string
 format statuses (*struct pmempool_check_status*).
@@ -218,4 +211,4 @@ Currently, checking the consistency of a *pmemobj* pool is
 
 # SEE ALSO #
 
-**libpmemlog**(7), **libpmemobj**(7) and **<https://pmem.io>**
+**libpmemobj**(7) and **<https://pmem.io>**
