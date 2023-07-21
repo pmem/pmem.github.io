@@ -31,8 +31,6 @@ header: "pmem2 API version 1.0"
 const char *pmem2_errormsg(void);
 ```
 
-
-
 # DESCRIPTION #
 
 If an error is detected during the call to a **libpmem2**(7) function, the

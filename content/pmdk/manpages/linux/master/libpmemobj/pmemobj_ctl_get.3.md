@@ -37,8 +37,6 @@ int pmemobj_ctl_set(PMEMobjpool *pop, const char *name, void *arg); (EXPERIMENTA
 int pmemobj_ctl_exec(PMEMobjpool *pop, const char *name, void *arg); (EXPERIMENTAL)
 ```
 
-
-
 # DESCRIPTION #
 
 The **pmemobj_ctl_get**(), **pmemobj_ctl_set**() and **pmemobj_ctl_exec**()

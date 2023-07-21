@@ -39,8 +39,6 @@ int pmempool_feature_enable(const char *path, enum pmempool_feature feature, uns
 int pmempool_feature_disable(const char *path, enum pmempool_feature feature, unsigned flags);
 ```
 
-
-
 # DESCRIPTION #
 
 The *feature* argument accepts following values:
