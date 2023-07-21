@@ -23,7 +23,7 @@ header: "pmemobj API version 2.3"
 # NAME #
 
 **pmemobj_open**(), **pmemobj_create**(),
-**pmemobj_close**(), **pmemobj_check**()
+**pmemobj_close**(), **pmemobj_check**(),
 **pmemobj_set_user_data**(), **pmemobj_get_user_data**()
 - create, open, close and validate persistent memory transactional object store
 
@@ -41,8 +41,6 @@ int pmemobj_check(const char *path, const char *layout);
 void pmemobj_set_user_data(PMEMobjpool *pop, void *data);
 void *pmemobj_get_user_data(PMEMobjpool *pop);
 ```
-
-
 
 # DESCRIPTION #
 
