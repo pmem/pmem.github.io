@@ -22,7 +22,7 @@ header: "daxio version 1.4"
 
 # NAME #
 
-**daxio** - Perform I/O on Device DAX devices or zero a Device DAX device
+**daxio** - Perform I/O on Device DAX devices or zero a Device DAX device. :-)
 
 # SYNOPSIS #
 

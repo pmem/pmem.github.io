@@ -30,13 +30,10 @@ header: "pmempool API version 1.3"
 ```c
 #include <libpmempool.h>
 
-int pmempool_sync(const char *poolset_file, 
-	unsigned flags); (EXPERIMENTAL)
+int pmempool_sync(const char *poolset_file, unsigned flags); (EXPERIMENTAL)
 int pmempool_transform(const char *poolset_file_src,
 	const char *poolset_file_dst, unsigned flags); (EXPERIMENTAL)
 ```
-
-
 
 # DESCRIPTION #
 
@@ -56,9 +53,7 @@ for syncing the pool.
 >NOTE: The **pmempool_sync**() cannot do anything useful if there
 are no replicas in the pool set.  In such case, it fails with an error.
 
->NOTE: At the moment, replication is only supported for **libpmemobj**(7)
-pools, so **pmempool_sync**() cannot be used with other pool types
-(**libpmemlog**(7), **libpmemblk**(7)).
+>NOTE: Replication is only supported for **libpmemobj**(7) pools.
 
 The following flags are available:
 
@@ -81,7 +76,7 @@ It supports the following operations:
 
 * adding one or more replicas,
 
-* removing one or more replicas ,
+* removing one or more replicas,
 
 * adding or removing pool set options.
 
@@ -103,11 +98,7 @@ The following flags are available:
 * **PMEMPOOL_TRANSFORM_DRY_RUN** - do not apply changes, only check for viability of
 transformation.
 
-
-
->NOTE: At the moment, *transform* operation is only supported for
-**libpmemobj**(7) pools, so **pmempool_transform**() cannot be used with other
-pool types (**libpmemlog**(7), **libpmemblk**(7)).
+>NOTE: The *transform* operation is only supported for **libpmemobj**(7) pools.
 
 # RETURN VALUE #
 
@@ -141,4 +132,4 @@ versions of the library.
 
 # SEE ALSO #
 
-**libpmemlog**(7), **libpmemobj**(7) and **<https://pmem.io>**
+**libpmemobj**(7) and **<https://pmem.io>**

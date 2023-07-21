@@ -31,8 +31,6 @@ header: "pmempool API version 1.3"
 int pmempool_rm(const char *path, int flags);
 ```
 
-
-
 # DESCRIPTION #
 
 The **pmempool_rm**() function removes the pool pointed to by *path*. The *path*
@@ -54,4 +52,4 @@ On success, **pmempool_rm**() returns 0. On error, it returns -1 and sets
 
 # SEE ALSO #
 
-**unlink**(3), **libpmemlog**(7), **libpmemobj**(7) and **<https://pmem.io>**
+**unlink**(3), **libpmemobj**(7) and **<https://pmem.io>**
