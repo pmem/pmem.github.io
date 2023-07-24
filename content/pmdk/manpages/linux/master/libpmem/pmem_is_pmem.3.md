@@ -33,12 +33,10 @@ header: "pmem API version 1.1"
 #include <libpmem.h>
 
 int pmem_is_pmem(const void *addr, size_t len);
-void *pmem_map_file(const char *path, size_t len, int flags,
-	mode_t mode, size_t *mapped_lenp, int *is_pmemp);
+void *pmem_map_file(const char *path, size_t len, int flags, mode_t mode,
+	size_t *mapped_lenp, int *is_pmemp);
 int pmem_unmap(void *addr, size_t len);
 ```
-
-
 
 # DESCRIPTION #
 

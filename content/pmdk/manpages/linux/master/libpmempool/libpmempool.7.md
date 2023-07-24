@@ -33,8 +33,6 @@ header: "pmempool API version 1.3"
 cc -std=gnu99 ... -lpmempool -lpmem
 ```
 
-
-
 ##### Library API versioning: #####
 
 ```c
@@ -67,8 +65,7 @@ manual pages:
 **libpmempool**
 provides a set of utilities for off-line analysis and
 manipulation of a *pool*. A *pool* in this
-manpage means a pmemobj pool, pmemblk pool, pmemlog pool or
-BTT layout, independent of the underlying storage. Some
+manpage means a pmemobj pool independent of the underlying storage. Some
 **libpmempool** functions are required to work without
 any impact on the *pool* but some may create a new or modify
 an existing *pool*.
@@ -151,11 +148,11 @@ that impact performance and never logs any trace information or performs any
 run-time assertions.
 
 A second version of **libpmempool**, accessed when a program uses the libraries
-under **/usr/lib/pmdk_debug**, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-**LD_LIBRARY_PATH** to **/usr/lib/pmdk_debug** or **/usr/lib64/pmdk_debug**, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.
+under **/usr/lib/pmdk_debug**, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+**LD_LIBRARY_PATH** to **/usr/lib/pmdk_debug** or **/usr/lib64/pmdk_debug**,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.
 
 + **PMEMPOOL_LOG_LEVEL**
 
@@ -268,5 +265,4 @@ recommended by the SNIA NVM Programming Technical Work Group:
 
 **dlclose**(3), **pmempool_check_init**(3), **pmempool_feature_query**(3),
 **pmempool_rm**(3), **pmempool_sync**(3), **strerror**(3), **libpmem**(7),
-**libpmemblk**(7), **libpmemlog**(7), **libpmemobj**(7)**
-and **<https://pmem.io>**
+**libpmemobj**(7)** and **<https://pmem.io>**

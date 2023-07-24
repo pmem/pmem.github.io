@@ -30,8 +30,6 @@ header: "pmem2 API version 1.0"
 void pmem2_perror(const char *format, ...);
 ```
 
-
-
 # DESCRIPTION #
 
 The **pmem2_perror**() function produces a message on standard error stream describing

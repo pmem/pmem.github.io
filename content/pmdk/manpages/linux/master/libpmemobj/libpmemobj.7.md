@@ -34,7 +34,6 @@ header: "pmemobj API version 2.3"
 cc -std=gnu99 ... -lpmemobj -lpmem
 ```
 
-
 ##### Library API versioning: #####
 
 ```c
@@ -110,14 +109,7 @@ changes to persistence, and managing recovery for the application.
 build properly.
 
 **libpmemobj** is one of a collection of persistent memory libraries available.
-The others are:
-
-+ **libpmemblk**(7), providing pmem-resident arrays of fixed-sized blocks with
-atomic updates.
-
-+ **libpmemlog**(7), providing a pmem-resident log file.
-
-+ **libpmem**(7), low-level persistent memory support.
+The other is **libpmem**(7), low-level persistent memory support.
 
 Under normal usage, **libpmemobj** will never print messages or intentionally
 cause the process to exit. The only exception to this is the debugging
@@ -136,8 +128,7 @@ the compile-time version information, supplied by defines in
 **\<libpmemobj.h\>**, like this:
 
 ```c
-reason = pmemobj_check_version(PMEMOBJ_MAJOR_VERSION,
-                               PMEMOBJ_MINOR_VERSION);
+reason = pmemobj_check_version(PMEMOBJ_MAJOR_VERSION, PMEMOBJ_MINOR_VERSION);
 if (reason != NULL) {
 	/* version check failed, reason string tells you why */
 }
@@ -193,11 +184,11 @@ that impact performance and never logs any trace information or performs any
 run-time assertions.
 
 A second version of **libpmemobj**, accessed when a program uses the libraries
-under **/usr/lib/pmdk_debug**, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-**LD_LIBRARY_PATH** to **/usr/lib/pmdk_debug** or **/usr/lib64/pmdk_debug**, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.
+under **/usr/lib/pmdk_debug**, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+**LD_LIBRARY_PATH** to **/usr/lib/pmdk_debug** or **/usr/lib64/pmdk_debug**,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.
 
 + **PMEMOBJ_LOG_LEVEL**
 
@@ -243,5 +234,4 @@ by the SNIA NVM Programming Technical Work Group:
 
 # SEE ALSO #
 
-**OID_IS_NULL**(3), **pmemobj_alloc**(3), **pmemobj_ctl_exec**(3), **pmemobj_ctl_get**(3), **pmemobj_ctl_set**(3), **pmemobj_first**(3), **pmemobj_list_insert**(3), **pmemobj_memcpy_persist**(3), **pmemobj_mutex_zero**(3), **pmemobj_open**(3), **pmemobj_root**(3), **pmemobj_tx_add_range**(3), **pmemobj_tx_alloc**(3), **pmemobj_tx_begin**(3), **POBJ_LAYOUT_BEGIN**(3), **POBJ_LIST_HEAD**(3), **strerror**(3), **TOID_DECLARE**(3), **libpmem**(7), **libpmemblk**(7), **libpmemlog**(7)
-and **<https://pmem.io>**
+**OID_IS_NULL**(3), **pmemobj_alloc**(3), **pmemobj_ctl_exec**(3), **pmemobj_ctl_get**(3), **pmemobj_ctl_set**(3), **pmemobj_first**(3), **pmemobj_list_insert**(3), **pmemobj_memcpy_persist**(3), **pmemobj_mutex_zero**(3), **pmemobj_open**(3), **pmemobj_root**(3), **pmemobj_tx_add_range**(3), **pmemobj_tx_alloc**(3), **pmemobj_tx_begin**(3), **POBJ_LAYOUT_BEGIN**(3), **POBJ_LIST_HEAD**(3), **strerror**(3), **TOID_DECLARE**(3), **libpmem**(7) and **<https://pmem.io>**

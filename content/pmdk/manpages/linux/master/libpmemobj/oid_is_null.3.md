@@ -148,8 +148,6 @@ contains the object represented by *oid*. If the pool is not open or
 The **pmemobj_pool_by_ptr**() function returns a handle to the pool that
 contains the address, or NULL if the address does not belong to any open pool.
 
-
-
 # NOTES #
 
 For performance reasons the **pmemobj_direct**() function is inlined by default.

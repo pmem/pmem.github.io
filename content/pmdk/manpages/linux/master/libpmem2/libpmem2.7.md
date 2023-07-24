@@ -48,17 +48,12 @@ results in the load/store, non-paged access to pmem.
 
 This library is for applications that use persistent memory directly,
 without the help of any library-supplied transactions or memory
-allocation. Higher-level libraries that *currently* build on **libpmem**
-(previous variation of libpmem2) are available and are recommended for
-most applications, see:
+allocation. A higher-level library that *currently* build on **libpmem**
+(previous variation of libpmem2) is available and recommended
+for most applications, see:
 
 + **libpmemobj**(7), a general use persistent memory API, providing memory
   allocation and transactional operations on variable-sized objects.
-
-+ **libpmemblk**(7), providing pmem-resident arrays of fixed-sized blocks
-  with atomic updates.
-
-+ **libpmemlog**(7), providing a pmem-resident log file.
 
 The **libpmem2** library provides a comprehensive set of functions for
 robust use of Persistent Memory. It relies on three core concepts:
@@ -238,11 +233,11 @@ that impact performance and never logs any trace information or performs any
 run-time assertions.
 
 A second version of **libpmem2**, accessed when a program uses the libraries
-under **/usr/lib/pmdk_debug**, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-**LD_LIBRARY_PATH** to **/usr/lib/pmdk_debug** or **/usr/lib64/pmdk_debug**, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.
+under **/usr/lib/pmdk_debug**, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+**LD_LIBRARY_PATH** to **/usr/lib/pmdk_debug** or **/usr/lib64/pmdk_debug**,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.
 
 + **PMEM2_LOG_LEVEL**
 
@@ -303,5 +298,4 @@ by the SNIA NVM Programming Technical Work Group:
 **pmem2_get_persist_fn**(3),**pmem2_map_get_store_granularity**(3),
 **pmem2_map_new**(3), **pmem2_source_from_anon**(3),
 **pmem2_source_from_fd**(3), **libpmem2_unsafe_shutdown**(7),
-**libpmemblk**(7), **libpmemlog**(7), **libpmemobj**(7)
-and **<https://pmem.io>**
+**libpmemobj**(7) and **<https://pmem.io>**
