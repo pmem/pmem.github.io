@@ -37,9 +37,9 @@ of the file. The file is too small.</p></li><li><p><strong>PMEM2_E_SOURCE_EMPTY<
 the alignment required for specific <em>*source</em>. Please see
 <strong>pmem2_source_alignment</strong>(3).</p></li><li><p><strong>PMEM2_E_LENGTH_UNALIGNED</strong> - argument unaligned, length is not a multiple of
 the alignment required for specific <em>*source</em>. Please see
-<strong>pmem2_source_alignment</strong>(3).</p></li><li><p><strong>PMEM2_E_SRC_DEVDAX_PRIVATE</strong> - device DAX mapped with MAP_PRIVATE. (Linux only)</p></li><li><p><strong>PMEM2_E_ADDRESS_UNALIGNED</strong> - when mapping device DAX to a virtual memory reservation
+<strong>pmem2_source_alignment</strong>(3).</p></li><li><p><strong>PMEM2_E_SRC_DEVDAX_PRIVATE</strong> - device DAX mapped with MAP_PRIVATE.</p></li><li><p><strong>PMEM2_E_ADDRESS_UNALIGNED</strong> - when mapping device DAX to a virtual memory reservation
 and the base mapping address (reservation address + reservation offset) is not aligned
-to the device DAX granularity. Please see <strong>pmem2_config_set_vm_reservation</strong>(3). (Linux only)</p></li><li><p><strong>PMEM2_E_ADDRESS_UNALIGNED</strong> - when mapping to a virtual memory reservation and the region
+to the device DAX granularity. Please see <strong>pmem2_config_set_vm_reservation</strong>(3).</p></li><li><p><strong>PMEM2_E_ADDRESS_UNALIGNED</strong> - when mapping to a virtual memory reservation and the region
 for the mapping exceeds reservation size. Please see <strong>pmem2_config_set_vm_reservation</strong>(3).</p></li><li><p><strong>PMEM2_E_NOSUPP</strong> - when config-provided protection flags combination is not supported.</p></li><li><p><strong>PMEM2_E_NO_ACCESS</strong> - there is a conflict between mapping protection and file opening mode.</p></li></ul><p>It can also return <strong>-EACCES</strong>, <strong>-EAGAIN</strong>, <strong>-EBADF</strong>, <strong>-ENFILE</strong>,
 <strong>-ENODEV</strong>, <strong>-ENOMEM</strong>, <strong>-EPERM</strong>, <strong>-ETXTBSY</strong> from the underlying
 <strong>mmap</strong>(2) function. It is used with and without <strong>MAP_ANONYMOUS</strong>.</p><p><strong>-EACCES</strong> may be returned only if the file descriptor points to an

@@ -22,11 +22,10 @@ file system</em> is typically used to expose the direct access to
 applications. Memory mapping a file from this type of file system
 results in the load/store, non-paged access to pmem.</p><p>This library is for applications that use persistent memory directly,
 without the help of any library-supplied transactions or memory
-allocation. Higher-level libraries that <em>currently</em> build on <strong>libpmem</strong>
-(previous variation of libpmem2) are available and are recommended for
-most applications, see:</p><ul><li><p><strong>libpmemobj</strong>(7), a general use persistent memory API, providing memory
-allocation and transactional operations on variable-sized objects.</p></li><li><p><strong>libpmemblk</strong>(7), providing pmem-resident arrays of fixed-sized blocks
-with atomic updates.</p></li><li><p><strong>libpmemlog</strong>(7), providing a pmem-resident log file.</p></li></ul><p>The <strong>libpmem2</strong> library provides a comprehensive set of functions for
+allocation. A higher-level library that <em>currently</em> build on <strong>libpmem</strong>
+(previous variation of libpmem2) is available and recommended
+for most applications, see:</p><ul><li><strong>libpmemobj</strong>(7), a general use persistent memory API, providing memory
+allocation and transactional operations on variable-sized objects.</li></ul><p>The <strong>libpmem2</strong> library provides a comprehensive set of functions for
 robust use of Persistent Memory. It relies on three core concepts:
 <em>struct pmem2_src source</em>, <em>struct pmem2_config config</em> and <em>struct pmem2_map map</em>:</p><ul><li><p><em>source</em> - an object describing the data source for mapping.
 The data source can be a file descriptor or an anonymous mapping.
@@ -126,11 +125,11 @@ system. The normal version, accessed when a program is linked using the
 <strong>-lpmem2</strong> option, is optimized for performance. That version skips checks
 that impact performance and never logs any trace information or performs any
 run-time assertions.</p><p>A second version of <strong>libpmem2</strong>, accessed when a program uses the libraries
-under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.</p><ul><li><strong>PMEM2_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEM2_LOG_LEVEL</strong> enables trace points in the debug version
+under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.</p><ul><li><strong>PMEM2_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEM2_LOG_LEVEL</strong> enables trace points in the debug version
 of the library, as follows:</p><ul><li><p><strong>0</strong> - This is the default level when <strong>PMEM2_LOG_LEVEL</strong> is not set.
 No log messages are emitted at this level.</p></li><li><p><strong>1</strong> - Additional details on any errors detected are logged, in addition
 to returning the <em>errno</em>-based errors as usual. The same information
@@ -155,8 +154,7 @@ by the SNIA NVM Programming Technical Work Group:
 <strong>pmem2_get_persist_fn</strong>(3),<strong>pmem2_map_get_store_granularity</strong>(3),
 <strong>pmem2_map_new</strong>(3), <strong>pmem2_source_from_anon</strong>(3),
 <strong>pmem2_source_from_fd</strong>(3), <strong>libpmem2_unsafe_shutdown</strong>(7),
-<strong>libpmemblk</strong>(7), <strong>libpmemlog</strong>(7), <strong>libpmemobj</strong>(7)
-and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<strong>libpmemobj</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

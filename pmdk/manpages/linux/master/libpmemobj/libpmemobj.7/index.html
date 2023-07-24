@@ -36,8 +36,7 @@ builds on this type of memory mapped file using the low-level pmem support
 provided by <strong>libpmem</strong>(7), handling the transactional updates, flushing
 changes to persistence, and managing recovery for the application.</p><p><strong>libpmemobj</strong> requires the <strong>-std=gnu99</strong> compilation flag to
 build properly.</p><p><strong>libpmemobj</strong> is one of a collection of persistent memory libraries available.
-The others are:</p><ul><li><p><strong>libpmemblk</strong>(7), providing pmem-resident arrays of fixed-sized blocks with
-atomic updates.</p></li><li><p><strong>libpmemlog</strong>(7), providing a pmem-resident log file.</p></li><li><p><strong>libpmem</strong>(7), low-level persistent memory support.</p></li></ul><p>Under normal usage, <strong>libpmemobj</strong> will never print messages or intentionally
+The other is <strong>libpmem</strong>(7), low-level persistent memory support.</p><p>Under normal usage, <strong>libpmemobj</strong> will never print messages or intentionally
 cause the process to exit. The only exception to this is the debugging
 information, when enabled, as described under <strong>DEBUGGING AND ERROR HANDLING</strong>,
 below.</p><h1 id=library-api-versioning-1>LIBRARY API VERSIONING</h1><p>This section describes how the library API is versioned,
@@ -45,8 +44,7 @@ allowing applications to work with an evolving API.</p><p>The <strong>pmemobj_ch
 <strong>libpmemobj</strong> supports the version of the library API required by an
 application. The easiest way to do this is for the application to supply
 the compile-time version information, supplied by defines in
-<strong>&lt;libpmemobj.h></strong>, like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>reason <span style=color:#f92672>=</span> pmemobj_check_version(PMEMOBJ_MAJOR_VERSION,
-</span></span><span style=display:flex><span>                               PMEMOBJ_MINOR_VERSION);
+<strong>&lt;libpmemobj.h></strong>, like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>reason <span style=color:#f92672>=</span> pmemobj_check_version(PMEMOBJ_MAJOR_VERSION, PMEMOBJ_MINOR_VERSION);
 </span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (reason <span style=color:#f92672>!=</span> NULL) {
 </span></span><span style=display:flex><span>	<span style=color:#75715e>/* version check failed, reason string tells you why */</span>
 </span></span><span style=display:flex><span>}
@@ -82,11 +80,11 @@ system. The normal version, accessed when a program is linked using the
 <strong>-lpmemobj</strong> option, is optimized for performance. That version skips checks
 that impact performance and never logs any trace information or performs any
 run-time assertions.</p><p>A second version of <strong>libpmemobj</strong>, accessed when a program uses the libraries
-under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.</p><ul><li><strong>PMEMOBJ_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEMOBJ_LOG_LEVEL</strong> enables trace points in the debug version
+under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.</p><ul><li><strong>PMEMOBJ_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEMOBJ_LOG_LEVEL</strong> enables trace points in the debug version
 of the library, as follows:</p><ul><li><p><strong>0</strong> - This is the default level when <strong>PMEMOBJ_LOG_LEVEL</strong> is not set.
 No log messages are emitted at this level.</p></li><li><p><strong>1</strong> - Additional details on any errors detected are logged,
 in addition to returning the <em>errno</em>-based errors as usual.
@@ -98,8 +96,7 @@ be appended to the file name when the log file is created. If
 <strong>PMEMOBJ_LOG_FILE</strong> is not set, logging output is written to <em>stderr</em>.</p><p>See also <strong>libpmem</strong>(7) to get information
 about other environment variables affecting <strong>libpmemobj</strong> behavior.</p><h1 id=example>EXAMPLE</h1><p>See <a href=https://pmem.io/pmdk/libpmemobj>https://pmem.io/pmdk/libpmemobj</a> for examples using the <strong>libpmemobj</strong> API.</p><h1 id=acknowledgements>ACKNOWLEDGEMENTS</h1><p><strong>libpmemobj</strong> builds on the persistent memory programming model recommended
 by the SNIA NVM Programming Technical Work Group:
-<a href=https://snia.org/nvmp>https://snia.org/nvmp</a></p><h1 id=see-also>SEE ALSO</h1><p><strong>OID_IS_NULL</strong>(3), <strong>pmemobj_alloc</strong>(3), <strong>pmemobj_ctl_exec</strong>(3), <strong>pmemobj_ctl_get</strong>(3), <strong>pmemobj_ctl_set</strong>(3), <strong>pmemobj_first</strong>(3), <strong>pmemobj_list_insert</strong>(3), <strong>pmemobj_memcpy_persist</strong>(3), <strong>pmemobj_mutex_zero</strong>(3), <strong>pmemobj_open</strong>(3), <strong>pmemobj_root</strong>(3), <strong>pmemobj_tx_add_range</strong>(3), <strong>pmemobj_tx_alloc</strong>(3), <strong>pmemobj_tx_begin</strong>(3), <strong>POBJ_LAYOUT_BEGIN</strong>(3), <strong>POBJ_LIST_HEAD</strong>(3), <strong>strerror</strong>(3), <strong>TOID_DECLARE</strong>(3), <strong>libpmem</strong>(7), <strong>libpmemblk</strong>(7), <strong>libpmemlog</strong>(7)
-and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<a href=https://snia.org/nvmp>https://snia.org/nvmp</a></p><h1 id=see-also>SEE ALSO</h1><p><strong>OID_IS_NULL</strong>(3), <strong>pmemobj_alloc</strong>(3), <strong>pmemobj_ctl_exec</strong>(3), <strong>pmemobj_ctl_get</strong>(3), <strong>pmemobj_ctl_set</strong>(3), <strong>pmemobj_first</strong>(3), <strong>pmemobj_list_insert</strong>(3), <strong>pmemobj_memcpy_persist</strong>(3), <strong>pmemobj_mutex_zero</strong>(3), <strong>pmemobj_open</strong>(3), <strong>pmemobj_root</strong>(3), <strong>pmemobj_tx_add_range</strong>(3), <strong>pmemobj_tx_alloc</strong>(3), <strong>pmemobj_tx_begin</strong>(3), <strong>POBJ_LAYOUT_BEGIN</strong>(3), <strong>POBJ_LIST_HEAD</strong>(3), <strong>strerror</strong>(3), <strong>TOID_DECLARE</strong>(3), <strong>libpmem</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

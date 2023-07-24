@@ -29,10 +29,9 @@ file system</em> is typically used to expose the direct access to
 applications. Memory mapping a file from this type of file system
 results in the load/store, non-paged access to pmem.</p><p>This library is for applications that use persistent memory directly,
 without the help of any library-supplied transactions or memory
-allocation. Higher-level libraries that build on <strong>libpmem</strong> are
-available and are recommended for most applications, see:</p><ul><li><p><strong>libpmemobj</strong>(7), a general use persistent memory API, providing memory
-allocation and transactional operations on variable-sized objects.</p></li><li><p><strong>libpmemblk</strong>(7), providing pmem-resident arrays of fixed-sized blocks
-with atomic updates.</p></li><li><p><strong>libpmemlog</strong>(7), providing a pmem-resident log file.</p></li></ul><p>Under normal usage, <strong>libpmem</strong> will never print messages or
+allocation. A higher-level library that relies on <strong>libpmem</strong> is available
+and recommended for most applications, see:</p><ul><li><strong>libpmemobj</strong>(7), a general use persistent memory API, providing memory
+allocation and transactional operations on variable-sized objects.</li></ul><p>Under normal usage, <strong>libpmem</strong> will never print messages or
 intentionally cause the process to exit.
 The only exception to this is the debugging information, when enabled,
 as described under <strong>DEBUGGING AND ERROR HANDLING</strong> below.</p><h1 id=caveats>CAVEATS</h1><p><strong>libpmem</strong> relies on the library destructor being called from the main thread.
@@ -43,8 +42,7 @@ applications to work with an evolving API.</p><p>The <strong>pmem_check_version<
 <strong>libpmem</strong> supports the version of the library API required by an
 application. The easiest way to do this is for the application to supply
 the compile-time version information, supplied by defines in
-<strong>&lt;libpmem.h></strong>, like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>reason <span style=color:#f92672>=</span> pmem_check_version(PMEM_MAJOR_VERSION,
-</span></span><span style=display:flex><span>                            PMEM_MINOR_VERSION);
+<strong>&lt;libpmem.h></strong>, like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>reason <span style=color:#f92672>=</span> pmem_check_version(PMEM_MAJOR_VERSION, PMEM_MINOR_VERSION);
 </span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (reason <span style=color:#f92672>!=</span> NULL) {
 </span></span><span style=display:flex><span>	<span style=color:#75715e>/* version check failed, reason string tells you why */</span>
 </span></span><span style=display:flex><span>}
@@ -70,8 +68,7 @@ pmem for some reason.</p><blockquote><p>NOTE:
 Unlike the other variables, the value of
 <strong>PMEM_IS_PMEM_FORCE</strong> is not queried (and cached) at
 library initialization time, but on the first call to
-<strong>pmem_is_pmem</strong>(3). This means that in case of
-<strong>libpmemlog</strong>(7), <strong>libpmemblk</strong>(7), and <strong>libpmemobj</strong>(7),
+<strong>pmem_is_pmem</strong>(3). This means that in case of <strong>libpmemobj</strong>(7),
 <strong>PMEM_IS_PMEM_FORCE</strong> may still be set or modified by the program
 until the first attempt to create or open the persistent
 memory pool.</p></blockquote><ul><li><strong>PMEM_NO_CLWB</strong>=1</li></ul><p>Setting this environment variable to 1 forces <strong>libpmem</strong> to never issue
@@ -133,11 +130,11 @@ system. The normal version, accessed when a program is linked using the
 <strong>-lpmem</strong> option, is optimized for performance. That version skips checks
 that impact performance and never logs any trace information or performs any
 run-time assertions.</p><p>A second version of <strong>libpmem</strong>, accessed when a program uses the libraries
-under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.</p><ul><li><strong>PMEM_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEM_LOG_LEVEL</strong> enables trace points in the debug version
+under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.</p><ul><li><strong>PMEM_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEM_LOG_LEVEL</strong> enables trace points in the debug version
 of the library, as follows:</p><ul><li><p><strong>0</strong> - This is the default level when <strong>PMEM_LOG_LEVEL</strong> is not set.
 No log messages are emitted at this level.</p></li><li><p><strong>1</strong> - Additional details on any errors detected are logged, in addition
 to returning the <em>errno</em>-based errors as usual. The same information
@@ -204,8 +201,7 @@ recommended by the SNIA NVM Programming Technical Work Group:
 <a href=https://snia.org/nvmp>https://snia.org/nvmp</a></p><h1 id=see-also>SEE ALSO</h1><p><strong>dlclose</strong>(3),
 <strong>pmem_flush</strong>(3), <strong>pmem_is_pmem</strong>(3), <strong>pmem_memmove_persist</strong>(3),
 <strong>pmem_msync</strong>(3), <strong>pmem_persist</strong>(3), <strong>strerror</strong>(3),
-<strong>libpmemblk</strong>(7), <strong>libpmemlog</strong>(7), <strong>libpmemobj</strong>(7)
-and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<strong>libpmemobj</strong>(7) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

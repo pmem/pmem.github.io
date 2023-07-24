@@ -14,11 +14,10 @@ have an associated string identifier. The index itself is provided by the user.
 A collection of indexes present on the path of an entry point is provided to
 the handler functions as name and index pairs.</p><p>Entry points are the leaves of the CTL namespace structure. Each entry point
 can read from the internal state, write to the internal state,
-exec a function or a combination of these operations.</p><p>The entry points are listed in the following format:</p><p>name | r(ead)w(rite)x(ecute) | global/- | read argument type | write argument type | exec argument type | config argument type</p><p>A description of <strong>pmem_ctl</strong> functions can be found on the following
-manual pages:
-<strong>libpmemblk_ctl_get</strong>(3), <strong>libpmemlog_ctl_get</strong>(3), <strong>libpmemobj_ctl_get</strong>(3)</p><h1 id=ctl-external-configuration>CTL EXTERNAL CONFIGURATION</h1><p>In addition to direct function call, each write entry point can also be set
+exec a function or a combination of these operations.</p><p>The entry points are listed in the following format:</p><p>name | r(ead)w(rite)x(ecute) | global/- | read argument type | write argument type | exec argument type | config argument type</p><p>A description of <strong>pmem_ctl</strong> functions can be found on the
+<strong>libpmemobj_ctl_get</strong>(3) manual page.</p><h1 id=ctl-external-configuration>CTL EXTERNAL CONFIGURATION</h1><p>In addition to direct function call, each write entry point can also be set
 using two alternative methods.</p><p>The first method is to load a configuration directly from the
-<strong>PMEMBLK_CONF</strong>/ <strong>PMEMLOG_CONF</strong>/ <strong>PMEMOBJ_CONF</strong> environment variable.
+<strong>PMEMOBJ_CONF</strong> environment variable.
 A properly formatted ctl config string is a single-line
 sequence of queries separated by &lsquo;;&rsquo;:</p><pre tabindex=0><code>query0;query1;...;queryN
 </code></pre><p>A single query is constructed from the name of the ctl write entry point and
@@ -34,14 +33,14 @@ are three predefined primitives:</p><pre><code>*) integer: represented by a sequ
 separated by a &lsquo;,&rsquo;:</p><pre tabindex=0><code>first_arg,second_arg
 </code></pre><p>In summary, a full configuration sequence looks like this:</p><pre tabindex=0><code>(first_entry_point)=(arguments, ...);...;(last_entry_point)=(arguments, ...);
 </code></pre><p>As an example, to set both prefault at_open and at_create variables:</p><pre tabindex=0><code>
-PMEMBLK_CONF=&#34;prefault.at_open=1;prefault.at_create=1&#34;
+PMEMOBJ_CONF=&#34;prefault.at_open=1;prefault.at_create=1&#34;
 </code></pre><p>The second method of loading an external configuration is to set the
-<strong>PMEMBLK_CONF_FILE</strong>/ <strong>PMEMLOG_CONF_FILE</strong>/ <strong>PMEMOBJ_CONF_FILE</strong>
+<strong>PMEMOBJ_CONF_FILE</strong>
 environment variable to point to a file that contains
 a sequence of ctl queries. The parsing rules are all the same, but the file
 can also contain white-spaces and comments.</p><p>To create a comment, simply use &lsquo;#&rsquo; anywhere in a line and everything
 afterwards, until a new line, will be ignored.</p><p>An example configuration file:</p><pre tabindex=0><code>#########################
-# My pmemblk configuration
+# My pmemobj configuration
 #########################
 #
 # Global settings:
@@ -53,8 +52,7 @@ prefault.
 
 # Per-pool settings:
 # ...
-</code></pre><h1 id=see-also>SEE ALSO</h1><p><strong>libpmemblk_ctl_get</strong>(3), <strong>libpmemlog_ctl_get</strong>(3), <strong>libpmemobj_ctl_get</strong>(3)
-and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+</code></pre><h1 id=see-also>SEE ALSO</h1><p><strong>libpmemobj_ctl_get</strong>(3) and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/

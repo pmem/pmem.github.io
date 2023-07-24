@@ -61,7 +61,7 @@ program, for example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>/* ... */</span>
 </span></span></code></pre></div><blockquote><p>WARNING:
-On Linux, <strong>pmem_msync</strong>() and <strong>msync</strong>(2) have no effect on memory ranges
+<strong>pmem_msync</strong>() and <strong>msync</strong>(2) have no effect on memory ranges
 mapped from Device DAX. In case of memory ranges where <strong>pmem_is_pmem</strong>(3)
 returns true use <strong>pmem_persist</strong>() to force the changes to be stored durably
 in persistent memory.</p></blockquote><p>The <strong>pmem_flush</strong>() and <strong>pmem_drain</strong>() functions provide

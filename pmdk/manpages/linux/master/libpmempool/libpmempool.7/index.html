@@ -21,8 +21,7 @@ pool set synchronization and transformation: pmempool_sync(3)"><meta property="o
 manual pages:</p><ul><li><p>health check functions: <strong>pmempool_check_init</strong>(3)</p></li><li><p>pool set synchronization and transformation: <strong>pmempool_sync</strong>(3)</p></li><li><p>pool set management functions: <strong>pmempool_rm</strong>(3)</p></li><li><p>toggle or query pool set features: <strong>pmempool_feature_query</strong>(3)</p></li></ul><h1 id=description>DESCRIPTION</h1><p><strong>libpmempool</strong>
 provides a set of utilities for off-line analysis and
 manipulation of a <em>pool</em>. A <em>pool</em> in this
-manpage means a pmemobj pool, pmemblk pool, pmemlog pool or
-BTT layout, independent of the underlying storage. Some
+manpage means a pmemobj pool independent of the underlying storage. Some
 <strong>libpmempool</strong> functions are required to work without
 any impact on the <em>pool</em> but some may create a new or modify
 an existing <em>pool</em>.</p><p><strong>libpmempool</strong>
@@ -72,11 +71,11 @@ system. The normal version, accessed when a program is linked using the
 <strong>-lpmempool</strong> option, is optimized for performance. That version skips checks
 that impact performance and never logs any trace information or performs any
 run-time assertions.</p><p>A second version of <strong>libpmempool</strong>, accessed when a program uses the libraries
-under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points. The
-typical way to access the debug version is to set the environment variable
-<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>, as appropriate. Debugging output is
-controlled using the following environment variables. These variables have
-no effect on the non-debug version of the library.</p><ul><li><strong>PMEMPOOL_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEMPOOL_LOG_LEVEL</strong> enables trace points in the debug version
+under <strong>/usr/lib/pmdk_debug</strong>, contains run-time assertions and trace points.
+The typical way to access the debug version is to set the environment variable
+<strong>LD_LIBRARY_PATH</strong> to <strong>/usr/lib/pmdk_debug</strong> or <strong>/usr/lib64/pmdk_debug</strong>,
+as appropriate. Debugging output is controlled using the following environment
+variables. These variables have no effect on the non-debug version of the library.</p><ul><li><strong>PMEMPOOL_LOG_LEVEL</strong></li></ul><p>The value of <strong>PMEMPOOL_LOG_LEVEL</strong> enables trace points in the debug version
 of the library, as follows:</p><ul><li><p><strong>0</strong> - This is the default level when <strong>PMEMPOOL_LOG_LEVEL</strong> is not set.
 No log messages are emitted at this level.</p></li><li><p><strong>1</strong> - Additional details on any errors detected are logged (in addition
 to returning the <em>errno</em>-based errors as usual). The same information
@@ -152,8 +151,7 @@ If there are any issues detected, the pool is automatically repaired.</p><div cl
 recommended by the SNIA NVM Programming Technical Work Group:
 <a href=https://snia.org/nvmp>https://snia.org/nvmp</a></p><h1 id=see-also>SEE ALSO</h1><p><strong>dlclose</strong>(3), <strong>pmempool_check_init</strong>(3), <strong>pmempool_feature_query</strong>(3),
 <strong>pmempool_rm</strong>(3), <strong>pmempool_sync</strong>(3), <strong>strerror</strong>(3), <strong>libpmem</strong>(7),
-<strong>libpmemblk</strong>(7), <strong>libpmemlog</strong>(7), <strong>libpmemobj</strong>(7)**
-and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
+<strong>libpmemobj</strong>(7)** and <strong><a href=https://pmem.io>https://pmem.io</a></strong></p></div></div><div class=divider></div><p class=text-center><small>The contents of this web site and the associated <a href=https://github.com/pmem>GitHub repositories</a> are BSD-licensed open source.</small></p></div></div><footer id=footer class="border-0 bg-white"><div id=copyrights><div class="container clearfix"><div class="row justify-content-between col-mb-30"><div class="col-12 col-lg-auto text-center text-lg-start"><div id=logo><a href=/ class=standard-logo data-dark-logo=images/logo-dark.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a>
 <a href=/ class=retina-logo data-dark-logo=images/logo-dark@2x.png><img src=https://pmem.io/images/pmem_logo.png alt="PMem Logo"></a></div></div><div class="col-12 col-lg-auto text-center text-lg-end"><div class="copyrights-menu copyright-links clearfix text-uppercase"><a href=https://pmem.io/about>about</a>/
 <a href=https://pmem.io/blog>blog</a>/
 <a href=https://pmem.io/community>community</a>/
