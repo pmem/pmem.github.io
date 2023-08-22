@@ -3,9 +3,52 @@ slider:
   enable: true
   bg_image: '/images/backgrounds/faq_header.jpg'
   title: 'Persistent Memory Development Kit'
-  content: "<p>The Persistent Memory Development Kit (PMDK) is a growing collection of libraries and tools. Tuned and validated on both Linux and Windows, the libraries build on the DAX (Direct Access) feature of those operating systems which allows applications to access persistent memory as memory-mapped files, as described in the <a href=\"https://www.snia.org/sites/default/files/technical_work/final/NVMProgrammingModel_v1.2.pdf\">SNIA NVM Programming Model</a>.</p>
-            <p>The source for PMDK is in this <a href=\"https://github.com/pmem/pmdk/\">GitHub repository</a>.</p>
-            <p>The following libraries are part of the PMDK.</p>"
+  content: "<p>The Persistent Memory Development Kit (PMDK) is a collection of libraries and tools. Tuned and validated on Linux OS, the libraries build on the DAX (Direct Access) feature allows applications to access persistent memory as memory-mapped files, as described in the <a href=\"https://www.snia.org/sites/default/files/technical_work/final/NVMProgrammingModel_v1.2.pdf\">SNIA NVM Programming Model</a>.</p>
+            <p>The source for PMDK is in this <a href=\"https://github.com/pmem/pmdk/\">GitHub repository</a>.</p>"
+
+################################# Banner #####################################
+banner:
+  enable: true
+  bg_image: ''
+  title: ''
+  content_banner:
+    bold_text: '<p>The <a href=\"https://github.com/pmem/pmdk/\">PMDK repository on the GitHub</a> has been the ultimate source of information since the release 2.0.0!</p>'
+    text: 'This website is valid up to PMDK release 1.13.0. It is not guaranteed that the content of this site reflects the latest state of PMDK-related knowledge.'
+
+################################# Libraries Section #################################
+libraries_section:
+  enable: true
+  title: "<p>The following libraries are part of the PMDK starting release 2.0.0.</p>"
+  libraries:
+    library_item1:
+      title: 'libpmemobj'
+      content: "<p>The <strong>libpmemobj</strong> library provides a transactional object store, providing memory allocation, transactions, and general facilities for persistent memory programming. Developers new to persistent memory probably want to start with this library.</p>
+                <p>See the <a href=\"./libpmemobj\">libpmemobj page</a> for documentation and examples.</p>"
+    library_item2:
+      title: 'libpmem'
+      content: "<p>The <strong>libpmem</strong> library provides low level persistent memory support. The libraries above are implemented using <strong>libpmem</strong>. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above and let that library call <strong>libpmem</strong> for them.</p>
+                <p>See the <a href=\"./libpmem\">libpmem page</a> for documentation and examples.</p>"
+    library_item3:
+      title: 'libpmem2'
+      content: "<p>The <strong>libpmem2</strong> library provides low level persistent memory support. The library is a new version of <strong>libpmem</strong>. <strong>libpmem2</strong> provides a more universal and platform-agnostic interface. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above that provides memory allocation and transactions support.</p>
+                <p>See the <a href=\"./libpmem2\">libpmem2 page</a> for documentation and examples.</p>
+                <blockquote><p><strong>Note:</strong>Support for experimental <strong>async</strong> functions is available only in the release 1.13.0 and before.</p></blockquote>"
+    library_item4:
+      title: 'libpmempool'
+      content: "<p>The <strong>libpmempool</strong> library provides support for off-line pool management and diagnostics.</p>
+                <p>See the <a href=\"./libpmempool\">libpmempool page</a> for documentation and examples.</p>"
+    library_itemA1:
+      title: 'pmempool'
+      content: "<p><strong>pmempool</strong> is a management tool for persistent memory pool files created by the PMDK libraries. It may be useful for system administrators as well as for software developers for troubleshooting and debugging.</p>
+                <p>See the <a href=\"./pmempool\">pmempool page</a> for available commands and documentation.</p>"
+    library_itemA2:
+      title: 'daxio'
+      content: "<p>The <strong>daxio</strong> is a utility that performs I/O on Device DAX devices or zero a Device DAX device.</p>
+                <p>See the <a href=\"./daxio\">daxio page</a> for available commands and documentation.</p>"
+    library_itemA3:
+      title: 'pmreorder'
+      content: "<p>The <strong>pmreorder</strong> is an utility that performs a consistency check of a persistent program.</p>
+                <p>See the <a href=\"./pmreorder\">pmreorder page</a> for available commands and documentation.</p>"
 
 ################################# Discontinuation of the project #################################
 Discontinuation:
@@ -13,7 +56,7 @@ Discontinuation:
   title: 'Discontinuation of the project'
   lists:
     branch_list1: 
-      content: "<p>The <strong>libpmemblk</strong>, <strong>libpmemlog</strong>, <strong>libpmemset</strong>, <strong>libvmem</strong>, <strong>librpmem</strong>, <strong>libvmemcache</strong>, <strong>pmdk-convert</strong>, <strong>libpmemobj-cpp</strong> and <strong>pmemkv</strong> libraries will no longer be maintained by Intel.</p>"
+      content: "<p>The <strong>libpmemblk</strong>, <strong>libpmemlog</strong>, <strong>librpma</strong>, <strong>libpmemset</strong>, <strong>libvmem</strong>, <strong>librpmem</strong>, <strong>libvmemcache</strong>, <strong>pmdk-convert</strong>, <strong>libpmemobj-cpp</strong> and <strong>pmemkv</strong> libraries will no longer be maintained by Intel.</p>"
       list_items:
         list_item1:
           content: "Intel has ceased development and contributions including, but not limited to, maintenance, bug fixes, new releases,
@@ -23,95 +66,68 @@ Discontinuation:
         list_item3:
           content: "If you have an ongoing need to use this project, are interested in independently developing it, or would like to
                     maintain patches for the open source software community, please create your own fork of this project."
-        list_item3:
+        list_item4:
           content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
 
     branch_list2:
       content: "<p>Support for <strong>Windows</strong> and <strong>FreeBSD</strong> are deprecated since <strong>PMDK 1.13.0</strong> release and will be removed in the <strong>PMDK 2.0.0</strong> release.</p>"
 
-
-################################# Libraries Section #################################
-libraries_section:
+################################# Libraries Section Deprecated #################################
+libraries_section_deprecated:
   enable: true
+  title: 'Documentation of discontinuated componennts'
+  content: "<p>The <strong>libpmemblk</strong> library supports arrays of pmem-resident blocks, all the same size, that are atomically updated. For example, a program keeping a cache of fixed-size objects in pmem might find this library useful.</p>"
   libraries:
     library_item1:
-      title: 'libpmemobj'
-      content: "<p>The <strong>libpmemobj</strong> library provides a transactional object store, providing memory allocation, transactions, and general facilities for persistent memory programming. Developers new to persistent memory probably want to start with this library.</p>
-                <p>See the <a href=\"./libpmemobj\">libpmemobj page</a> for documentation and examples.</p>"
-    library_item2:
       title: 'libpmemblk'
       content: "<p>The <strong>libpmemblk</strong> library supports arrays of pmem-resident blocks, all the same size, that are atomically updated. For example, a program keeping a cache of fixed-size objects in pmem might find this library useful.</p>
                 <p>See the <a href=\"./libpmemblk\">libpmemblk page</a> for documentation and examples.</p>
-                <blockquote><p><strong>Note:</strong> The <strong>libpmemblk</strong> library is deprecated since PMDK 1.13.0 release and was removed in the PMDK 2.0.0 release.</p></blockquote>"
-    library_item3:
+                <blockquote><p><strong>Note:</strong> The <strong>libpmemblk</strong> library is available only in the release 1.13.0 and before.</p></blockquote>"
+    library_item2:
       title: 'libpmemlog'
       content: "<p>The <strong>libpmemlog</strong> library provides a pmem-resident log file. This is useful for programs like databases that append frequently to a log file.</p>
                 <p>See the <a href=\"./libpmemlog\">libpmemlog page</a> for documentation and examples.</p>
-                <blockquote><p><strong>Note:</strong> The <strong>libpmemlog</strong> library is deprecated since PMDK 1.13.0 release and was removed in the PMDK 2.0.0 release.</p></blockquote>"
-    library_item4:
-      title: 'libpmem'
-      content: "<p>The <strong>libpmem</strong> library provides low level persistent memory support. The libraries above are implemented using <strong>libpmem</strong>. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above and let that library call <strong>libpmem</strong> for them.</p>
-                <p>See the <a href=\"./libpmem\">libpmem page</a> for documentation and examples.</p>"
-    library_item5:
-      title: 'libpmem2'
-      content: "<p>The <strong>libpmem2</strong> library provides low level persistent memory support. The library is a new version of <strong>libpmem</strong>. <strong>libpmem2</strong> provides a more universal and platform-agnostic interface. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above that provides memory allocation and transactions support.</p>
-                <p>See the <a href=\"./libpmem2\">libpmem2 page</a> for documentation and examples.</p>
-                <blockquote><p><strong>Note:</strong> Support for async functions is deprecated since PMDK 1.13.0 release and was removed in the PMDK 2.0.0 release along with the miniasync dependency.</p></blockquote>"
-    library_item6:
+                <blockquote><p><strong>Note:</strong> The <strong>libpmemlog</strong> library is available only in the release 1.13.0 and before.</p></blockquote>"
+    library_item3:
       title: 'libpmemset'
       content: "<p><strong>libpmemset</strong> aims to provide support for persistent file I/O operations, runtime mapping concatenation and multi-part support across poolsets. It relies on synchronous event streams for pool modifications.</p>
                 <blockquote><p><strong>Note:</strong> <strong>libpmemset</strong> is available only in the release 1.12.1 and before. It is no longer available on the master branch. </p></blockquote>
                 <blockquote><p><strong>Note:</strong> This is an <strong>experimental API</strong> and should not be used in production environments.</p></blockquote>
                 <p>See the <a href=\"./libpmemset\">libpmemset page</a> for documentation.</p>"
-    library_item7:
+    library_item4:
       title: 'libvmem'
       content: "<p>The <strong>libvmem</strong> library turns a pool of persistent memory into a volatile memory pool, similar to the system heap but kept separate and with its own malloc-style API.</p>
                 <p>See the <a href=\"/vmem/libvmem\">libvmem page</a> for updates</p>
                 <blockquote><p><strong>Note:</strong> Since persistent memory support has been integrated into <a href=\"https://github.com/memkind/memkind\">libmemkind</a>, that library is the <strong>recommended</strong> choice for any new volatile usages, since it combines support for multiple types of volatile memory into a single, convenient API.</p></blockquote>"
-    library_item8:
+    library_item5:
       title: 'libvmmalloc'
       content: "<p>The <strong>libvmmalloc</strong> library <strong>transparently</strong> converts all the dynamic memory allocations into persistent memory allocations. This allows the use of persistent memory as volatile memory without modifying the target application.</p>
                 <p>See the <a href=\"/vmem/libvmmalloc\">libvmmalloc page</a> for documentation and examples.</p>"
-    library_item9:
-      title: 'libpmempool'
-      content: "<p>The <strong>libpmempool</strong> library provides support for off-line pool management and diagnostics.</p>
-                <p>See the <a href=\"./libpmempool\">libpmempool page</a> for documentation and examples.</p>"
-    library_itemA1:
-      title: 'pmempool'
-      content: "<p><strong>pmempool</strong> is a management tool for persistent memory pool files created by the PMDK libraries. It may be useful for system administrators as well as for software developers for troubleshooting and debugging.</p>
-                <p>See the <a href=\"./pmempool\">pmempool page</a> for available commands and documentation.</p>"
-    library_itemA2:
+    library_item6:
       title: 'librpma'
       content: "<p><strong>librpma</strong> is a C library to simplify accessing persistent memory on remote hosts over Remote Direct Memory Access (RDMA).</p>
-                <p>See the <a href=\"/rpma/\">librpma page</a> for available documentation.</p>"
-    library_itemA3:
+                <p>See the <a href=\"/rpma/\">librpma page</a> for available documentation.</p>
+                <blockquote><p><strong>Note:</strong> The <strong>librpma</strong> library release 1.3.0 is the last available release.</p></blockquote>"
+    library_item7:
       title: 'librpmem'
       content: "<p><strong>librpmem</strong> provides low-level support for remote access to persistent memory utilizing RDMA-capable RNICs.</p>
                 <p>See the <a href=\"./librpmem\">librpmem page</a> for documentation and examples.</p>
                 <blockquote><p><strong>Note:</strong> <strong>librpmem</strong> is available only in the release 1.12.1 and before. It is no longer available on the master branch. </p></blockquote>
                 <blockquote><p><strong>Note:</strong> This is a <strong>deprecated</strong> API and should not be used in production environments.</p></blockquote>
                 <blockquote><p><strong>Note:</strong> The alternative solution for accessing remote persistent memory is implemented by <a href=\"#librpma\">librpma</a> (see above).</p></blockquote>"
-    library_itemA4:
+    library_item8:
       title: 'libvmemcache'
       content: "<p><strong>libvmemcache</strong> is an embeddable and lightweight in-memory caching solution. It’s designed to fully take advantage of large capacity memory, such as persistent memory with DAX, through memory mapping in an efficient and scalable way.</p>
                 <p>See the <a href=\"/vmemcache\">libvmemcache</a> for current documentation.</p>"
-    library_itemA5:
-      title: 'daxio'
-      content: "<p>The <strong>daxio</strong> is a utility that performs I/O on Device DAX devices or zero a Device DAX device.</p>
-                <p>See the <a href=\"./daxio\">daxio page</a> for available commands and documentation.</p>"
-    library_itemA6:
-      title: 'pmreorder'
-      content: "<p>The <strong>pmreorder</strong> is an utility that performs a consistency check of a persistent program.</p>
-                <p>See the <a href=\"./pmreorder\">pmreorder page</a> for available commands and documentation.</p>"
-    library_itemA7:
+    library_item9:
       title: 'pmdk-convert'
       content: "<p>The <strong>pmdk-convert</strong> tool performs conversion of the specified pool from the old layout versions to the newest one supported by this tool.</p>
                 <p>See the <a href=\"/pmdk-convert\">pmdk-convert</a> for current documentation.</p>"
-    library_itemA8:
+    library_item10:
       title: 'C++ bindings'
       content: "<p>The C++ bindings aim at providing an easier to use, less error prone implementation of <strong>libpmemobj</strong>. The C++ implementation requires a compiler compliant with C++11 and one feature requires C++17.</p>
                 <p>See the <a href=\"/libpmemobj-cpp/\">C++ bindings page</a> for documentation and examples.</p>"
-    library_itemA9:
+    library_item11:
       title: 'pmemkv'
       content: "<p><strong>pmemkv</strong> is a local/embedded key-value datastore optimized for persistent memory. Rather than being tied to a single language or backing implementation, <strong>pmemkv</strong> provides different options for language bindings and storage engines.</p>
                 <p>See the <a href=\"/pmemkv/\">pmemkv page</a> for available documentation.</p>"

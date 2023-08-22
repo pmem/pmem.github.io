@@ -12,11 +12,46 @@
 </section>
 {{ end }} {{ end }}
 
+
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.banner.enable }} {{ with $data.pmdk.banner }}
+<div class="section m-0 border-top border-bottom py-3 information-banner-wrapper dark-mode">
+  <div class="container">
+    <div class="information-banner">
+      {{ .content | markdownify }}
+      <span class="fw-bold">{{ .content_banner.bold_text | markdownify }}</span>
+      <p>{{ .content_banner.text | markdownify }}</p>
+<!-- 
+      <span class="fw-bold"><a href="{{ .download_link.link | absLangURL }}">{{ .download_link.label }}</a></span>
+-->
+    </div>
+  </div>
+</div>
+{{ end }} {{ end }}
+
+<!-- libraries -->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section.enable }} {{ with $data.pmdk.libraries_section }}
+
+<div class="section m-0 bg-transparent library-section border-top dark-mode">
+    <div class="container">
+      <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
+        <h3 id="{{ .title }}"class="nott ls0">{{ .title | markdownify }}</h3>
+      </div>
+      {{ range .libraries }}
+      <div class="row justify-content-between">
+        <div class="col mt-0">
+          <p>{{ .content | safeHTML }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }} {{ end }}
+  <!-- end libraries -->
+
 <!-- Discontinuation of the project -->
 {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.Discontinuation.enable }} {{ with $data.pmdk.Discontinuation }}
 
   <div class="container">
-    
     <div class="col mt-0">
       <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
         <h3 id="{{ .title }}"class="nott ls0">{{ .title | markdownify }}</h3>
@@ -35,8 +70,8 @@
 {{ end }} {{ end }}
 <!-- end Discontinuation of the project -->
 
-<!-- libraries -->
-{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section.enable }} {{ with $data.pmdk.libraries_section }}
+<!-- libraries deprecated-->
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section_deprecated.enable }} {{ with $data.pmdk.libraries_section_deprecated }}
 
 <div class="section m-0 bg-transparent library-section border-top dark-mode">
     <div class="container">
@@ -50,15 +85,16 @@
         </div>
       </div>
       {{ end }}
+    </div>
+  </div>
+  {{ end }} {{ end }}
+  <!-- end libraries deprecated -->
+
       <!-- disclaimer -->
       {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.disclaimer.enable }} {{ with $data.pmdk.disclaimer }}
       <div class="divider"></div>
       <p class="text-center"><small>{{ .content | safeHTML }}</small></p>
       {{ end }} {{ end }}
       <!-- end disclaimer -->
-    </div>
-  </div>
-  {{ end }} {{ end }}
-  <!-- end libraries -->
 
 {{ end }}
