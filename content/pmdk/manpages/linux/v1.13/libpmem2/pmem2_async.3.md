@@ -25,7 +25,7 @@ header: "pmem2 API version 1.0"
 
 > NOTICE:
 Support for async functions is deprecated since PMDK 1.13.0 release
-and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.
+and will be removed in the PMDK 2.0.0 release along with the miniasync dependency.
 
 # SYNOPSIS #
 
