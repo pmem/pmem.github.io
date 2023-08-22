@@ -21,7 +21,7 @@ troubleshooting. It may be useful for testing and debugging purposes also.
 
 >NOTE:
 Support for **Windows** and **FreeBSD** are deprecated since **PMDK 1.13.0** release
-and will be removed in the **PMDK 1.14.0** release.
+and was removed in the **PMDK 2.0.0** release.
 
 Each of the following man pages contain an example and a list of the OS-specific interfaces:
 * Man page for [Linux libpmempool(7) current master](../manpages/linux/master/libpmempool/libpmempool.7.html)
