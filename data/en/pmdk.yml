@@ -27,7 +27,7 @@ Discontinuation:
           content: "You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
 
     branch_list2:
-      content: "<p>Support for <strong>Windows</strong> and <strong>FreeBSD</strong> are deprecated since <strong>PMDK 1.13.0</strong> release and will be removed in the <strong>PMDK 1.14.0</strong> release.</p>"
+      content: "<p>Support for <strong>Windows</strong> and <strong>FreeBSD</strong> are deprecated since <strong>PMDK 1.13.0</strong> release and will be removed in the <strong>PMDK 2.0.0</strong> release.</p>"
 
 
 ################################# Libraries Section #################################
@@ -42,12 +42,12 @@ libraries_section:
       title: 'libpmemblk'
       content: "<p>The <strong>libpmemblk</strong> library supports arrays of pmem-resident blocks, all the same size, that are atomically updated. For example, a program keeping a cache of fixed-size objects in pmem might find this library useful.</p>
                 <p>See the <a href=\"./libpmemblk\">libpmemblk page</a> for documentation and examples.</p>
-                <blockquote><p><strong>Note:</strong> The <strong>libpmemblk</strong> library is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.</p></blockquote>"
+                <blockquote><p><strong>Note:</strong> The <strong>libpmemblk</strong> library is deprecated since PMDK 1.13.0 release and was removed in the PMDK 2.0.0 release.</p></blockquote>"
     library_item3:
       title: 'libpmemlog'
       content: "<p>The <strong>libpmemlog</strong> library provides a pmem-resident log file. This is useful for programs like databases that append frequently to a log file.</p>
                 <p>See the <a href=\"./libpmemlog\">libpmemlog page</a> for documentation and examples.</p>
-                <blockquote><p><strong>Note:</strong> The <strong>libpmemlog</strong> library is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release.</p></blockquote>"
+                <blockquote><p><strong>Note:</strong> The <strong>libpmemlog</strong> library is deprecated since PMDK 1.13.0 release and was removed in the PMDK 2.0.0 release.</p></blockquote>"
     library_item4:
       title: 'libpmem'
       content: "<p>The <strong>libpmem</strong> library provides low level persistent memory support. The libraries above are implemented using <strong>libpmem</strong>. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above and let that library call <strong>libpmem</strong> for them.</p>
@@ -56,7 +56,7 @@ libraries_section:
       title: 'libpmem2'
       content: "<p>The <strong>libpmem2</strong> library provides low level persistent memory support. The library is a new version of <strong>libpmem</strong>. <strong>libpmem2</strong> provides a more universal and platform-agnostic interface. Developers wishing to roll their own persistent memory algorithms will find this library useful, but most developers will likely use <strong>libpmemobj</strong> above that provides memory allocation and transactions support.</p>
                 <p>See the <a href=\"./libpmem2\">libpmem2 page</a> for documentation and examples.</p>
-                <blockquote><p><strong>Note:</strong> Support for async functions is deprecated since PMDK 1.13.0 release and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.</p></blockquote>"
+                <blockquote><p><strong>Note:</strong> Support for async functions is deprecated since PMDK 1.13.0 release and was removed in the PMDK 2.0.0 release along with the miniasync dependency.</p></blockquote>"
     library_item6:
       title: 'libpmemset'
       content: "<p><strong>libpmemset</strong> aims to provide support for persistent file I/O operations, runtime mapping concatenation and multi-part support across poolsets. It relies on synchronous event streams for pool modifications.</p>

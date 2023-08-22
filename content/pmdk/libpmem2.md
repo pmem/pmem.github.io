@@ -23,7 +23,7 @@ developers will find higher level libraries like
 
 >NOTE:
 Support for **Windows** and **FreeBSD** are deprecated since **PMDK 1.13.0** release
-and will be removed in the **PMDK 1.14.0** release.
+and was removed in the **PMDK 2.0.0** release.
 
 Man pages that contain a list of the **Linux** interfaces provided:
 
@@ -35,7 +35,7 @@ Man pages that contain a list of the **Windows** interfaces provided:
 
 > NOTICE:
 Support for async functions is deprecated since PMDK 1.13.0 release
-and will be removed in the PMDK 1.14.0 release along with the miniasync dependency.
+and was removed in the PMDK 2.0.0 release along with the miniasync dependency.
 
 ### libpmem2 Example
 
