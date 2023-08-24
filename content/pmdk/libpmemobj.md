@@ -18,7 +18,7 @@ management, locking, lists, and a number of other features.
 
 >NOTE:
 Support for **Windows** and **FreeBSD** are deprecated since **PMDK 1.13.0** release
-and will be removed in the **PMDK 1.14.0** release.
+and was removed in the **PMDK 2.0.0** release.
 
 Man pages that contains a list of the **Linux** interfaces provided:
 
