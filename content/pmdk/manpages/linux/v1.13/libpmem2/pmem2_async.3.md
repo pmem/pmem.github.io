@@ -85,4 +85,3 @@ The **pmem2_memset_async** returns a new instance of **pmem2_future** performing
 **pmem2_get_memcpy_fn**(3), **pmem2_get_memset_fn**(3), **pmem2_map_new**(3),
 **pmem2_get_persist_fn**(3), **vdm_memcpy**(3), **miniasync**(7), **miniasync_future**(7),
 **libpmem2**(7) and **<https://pmem.io>**
-
