@@ -23,7 +23,7 @@ and was removed in the **PMDK 2.0.0** release.
 See the pmempool(1) man page for documentation and examples:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool.1.html).
 
 To see man pages for older releases, go to the section ["Older versions"](#older-versions) below.
 
@@ -45,7 +45,7 @@ pool files may simplify the user application.
 See the pmempool-create(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-create.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-create.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-create.1.html).
 
 ### info
 
@@ -59,7 +59,7 @@ additional information about the pool.
 See the pmempool-info(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-info.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-info.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-info.1.html).
 
 ### dump
 
@@ -71,7 +71,7 @@ the range of desired data.
 See the pmempool-dump(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-dump.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-dump.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-dump.1.html).
 
 ### check
 
@@ -84,7 +84,7 @@ available in the near feature.
 See the pmempool-check(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-check.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-check.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-check.1.html).
 
 ### rm
 
@@ -97,7 +97,7 @@ as the standard system **rm** command.
 See the pmempool-rm(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-rm.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-rm.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-rm.1.html).
 
 ### convert
 
@@ -115,7 +115,7 @@ See the [pmdk-convert man page](../../pmdk-convert/manpages/master/pmdk-convert.
 For documentation of the **pmempool convert** command see the man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-convert.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-convert.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-convert.1.html).
 
 ### sync
 
@@ -128,7 +128,7 @@ the healthy replicas.
 See the pmempool-sync(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-sync.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-sync.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-sync.1.html).
 
 ### transform
 
@@ -139,7 +139,7 @@ another poolset file.
 See the pmempool-transform(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-transform.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-transform.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-transform.1.html).
 
 ### feature
 
@@ -148,9 +148,22 @@ The **pmempool feature** command enables / disables or query pool set features.
 See the pmempool-feature(1) man page:
 
 - for the [current master](../manpages/linux/master/pmempool/pmempool-feature.1.html),
-- or the latest [stable version (1.12)](../manpages/linux/v1.12/pmempool/pmempool-feature.1.html).
+- or the latest [stable version (1.13)](../manpages/linux/v1.13/pmempool/pmempool-feature.1.html).
 
 ## Older versions
+
+### Version 1.12
+
+* [pmempool(1)](../manpages/linux/v1.12/pmempool/pmempool.1.html)
+* [pmempool-check(1)](../manpages/linux/v1.12/pmempool/pmempool-check.1.html)
+* [pmempool-convert(1)](../manpages/linux/v1.12/pmempool/pmempool-convert.1.html)
+* [pmempool-create(1)](../manpages/linux/v1.12/pmempool/pmempool-create.1.html)
+* [pmempool-dump(1)](../manpages/linux/v1.12/pmempool/pmempool-dump.1.html)
+* [pmempool-feature(1)](../manpages/linux/v1.12/pmempool/pmempool-feature.1.html)
+* [pmempool-info(1)](../manpages/linux/v1.12/pmempool/pmempool-info.1.html)
+* [pmempool-rm(1)](../manpages/linux/v1.12/pmempool/pmempool-rm.1.html)
+* [pmempool-sync(1)](../manpages/linux/v1.12/pmempool/pmempool-sync.1.html)
+* [pmempool-transform(1)](../manpages/linux/v1.12/pmempool/pmempool-transform.1.html)
 
 ### Version 1.11
 
