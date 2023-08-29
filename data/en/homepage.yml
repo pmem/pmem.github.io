@@ -11,18 +11,6 @@ slider:
     label: 'Join the community'
     link: '/community/'
 
-################################# Banner #####################################
-banner:
-  enable: true
-  bg_image: ''
-  title: ''
-  content_banner:
-    bold_text: 'Winding down of PMDK development!'
-    text: 'Libraries and all related resources will continue to be available, but development and maintenance will be limited.'
-  download_link:
-    label: 'Read our blog post for more details and Q&A!'
-    link: 'https://pmem.io/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/'
-
 ################################# Feature #####################################
 feature:
   enable: true

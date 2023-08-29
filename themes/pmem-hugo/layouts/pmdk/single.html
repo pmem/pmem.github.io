@@ -10,6 +10,9 @@
   </section>
 {{ end }}
 
+<!-- banner -->
+{{- partial "content/banner.html" . -}}
+
 <div class="section m-0 bg-transparent library-section dark-mode">
   <!-- manpage shortcuts -->
   {{ $dc_title := strings.TrimSuffix " | pmdk" (.Params.title | lower) }}
