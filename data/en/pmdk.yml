@@ -9,11 +9,9 @@ slider:
 ################################# Banner #####################################
 banner:
   enable: true
-  bg_image: ''
-  title: ''
   content_banner:
-    bold_text: '<p>The <a href=\"https://github.com/pmem/pmdk/\">PMDK repository</a> on GitHub is the ultimate source from release 2.0!</p>'
-    text: 'The PMDK documentation collected here should be valid up to the 1.13.1 release but is maintained only on a best-effort basis and may not reflect the latest state of the art.'
+    bold_text: 'The [PMDK repository](https://github.com/pmem/pmdk/) on GitHub is the ultimate source of information on PMDK from release 2.0!'
+    text: 'For all questions and to submit eventual issues please follow to [that repository](https://github.com/pmem/pmdk/issues). The PMDK documentation collected here should be valid up to the 1.13.1 release but is maintained only on a best-effort basis and may not reflect the latest state of the art.'
 
 ################################# Libraries Section #################################
 libraries_section:
@@ -94,7 +92,7 @@ libraries_section_deprecated:
                 <p>See the <a href=\"./librpmem\">librpmem page</a> for documentation and examples.</p>
                 <blockquote><p><strong>Note:</strong> <strong>librpmem</strong> is available only in the release 1.12.1 and before. It is no longer available on the master branch. </p></blockquote>
                 <blockquote><p><strong>Note:</strong> This is a <strong>deprecated</strong> API and should not be used in production environments.</p></blockquote>
-                <blockquote><p><strong>Note:</strong> The alternative solution for accessing remote persistent memory is implemented by <a href=\"#librpma\">librpma</a> (see above).</p></blockquote>"
+                <blockquote><p><strong>Note:</strong> The alternative solution for accessing remote persistent memory is implemented by <a href=\"/rpma/\">librpma</a> (see above).</p></blockquote>"
     library_item8:
       title: 'libvmemcache'
       content: "<p><strong>libvmemcache</strong> is an embeddable and lightweight in-memory caching solution. It’s designed to fully take advantage of large capacity memory, such as persistent memory with DAX, through memory mapping in an efficient and scalable way.</p>

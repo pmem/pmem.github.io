@@ -1,11 +1,9 @@
-{{ $data := index site.Data site.Language.Lang }} {{ if $data.homepage.banner.enable }} {{ with $data.homepage.banner }}
+{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.banner.enable }} {{ with $data.pmdk.banner }}
 <div class="section m-0 border-top border-bottom py-3 information-banner-wrapper dark-mode">
   <div class="container">
     <div class="information-banner">
-      {{ .content | markdownify }}
       <span class="fw-bold">{{ .content_banner.bold_text | markdownify }}</span>
       {{ .content_banner.text | markdownify }}
-      <span class="fw-bold"><a href="{{ .download_link.link | absLangURL }}">{{ .download_link.label }}</a></span>
     </div>
   </div>
 </div>

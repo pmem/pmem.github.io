@@ -13,17 +13,8 @@
 {{ end }} {{ end }}
 
 
-{{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.banner.enable }} {{ with $data.pmdk.banner }}
-<div class="section m-0 border-top border-bottom py-3 information-banner-wrapper dark-mode">
-  <div class="container">
-    <div class="information-banner">
-      {{ .content | markdownify }}
-      <span class="fw-bold">{{ .content_banner.bold_text | markdownify }}</span>
-      <p>{{ .content_banner.text | markdownify }}</p>
-    </div>
-  </div>
-</div>
-{{ end }} {{ end }}
+<!-- banner -->
+{{- partial "content/banner.html" . -}}
 
 <!-- libraries -->
 {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section.enable }} {{ with $data.pmdk.libraries_section }}
@@ -48,9 +39,9 @@
 <!-- libraries deprecated-->
 {{ $data := index site.Data site.Language.Lang }} {{ if $data.pmdk.libraries_section_deprecated.enable }} {{ with $data.pmdk.libraries_section_deprecated }}
 
-<div class="section m-0 bg-transparent library-section dark-mode">
+<div class="section m-0 bg-transparent library-section dark-mode border-top">
     <div class="container">
-      <div class="heading-block lib-block border-top border-bottom-0 bottommargin-sm">
+      <div class="heading-block lib-block border-bottom-0 bottommargin-sm">
         <h3 id="{{ .title }}"class="nott ls0">{{ .title | markdownify }}</h3>
       </div>
       {{ .content | safeHTML }}
