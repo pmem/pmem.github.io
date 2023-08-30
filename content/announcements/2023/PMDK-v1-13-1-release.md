@@ -24,7 +24,7 @@ announcements: ['PMDK']
 type: "announcement"
 
 # Featured. Specify true or false to show on homepage
-featured: true
+featured: false
 ---
 
 We are pleased to announce the PMDK 1.13.1 patch release.
