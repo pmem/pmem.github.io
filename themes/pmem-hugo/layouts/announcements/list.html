@@ -48,14 +48,9 @@
 
             <!-- Check if lastUrlElement equal to webinars (no filter applied) -->
             {{ if eq $lastUrlElement "announcements" }}
-            <!-- Iterate taxonomies -->
-            {{ range $key, $taxonomy := .Site.Taxonomies.announcements }}
-            <div style="display: flex; justify-content: space-between">
-              <h4 class="text-capitalize m-0 mt-3" style="float: left">{{ $key }}</h4>
-              <p class="m-0 mt-3" style="right: 0"><a href="{{ .Page.RelPermalink }}">View all ({{ len $taxonomy.Pages }})</a></p>
-            </div>
-            <!-- Iterate through each webinars -->
-            {{ range first 4 $taxonomy.Pages }}
+            <!-- Iterate through all announcements -->
+            {{ range .Site.Pages }}
+            {{ if eq .Params.type "announcement" }}
             <article class="card h-shadow h-translate-y-sm all-ts portfolio-item col-md-5 col-12 m-3 border dark-mode">
               <div class="grid-inner">
                 <div class="portfolio-desc" style="height: 100px">
