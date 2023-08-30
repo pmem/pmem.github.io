@@ -4,14 +4,6 @@ heading:
   title: "PMem Repositories"
   description: "Here is a list of all the repositories in the pmem organization in GitHub under <a href=\"https://github.com/pmem\">https://github.com/pmem</a>."
 
-################################# Discontinuation of the project #################################
-Discontinuation:
-  enable: true
-  title: 'Discontinuation of the projects'
-  lists:
-    branch_list1: 
-      content: "Some projects will be discontinued, they are crossed out below (in the table). You will find more information <a href=\"/blog/2022/11/update-on-pmdk-and-our-long-term-support-strategy/\">here</a>."
-
 ################################# Cards #################################
 card_groups:
   enable: true
@@ -33,11 +25,7 @@ card_groups:
                     <li>libpmem</li>
                     <li>libpmem2</li>
                     <li>libpmemobj</li>
-                    <li><s>libpmemblk</s></li>
-                    <li><s>libpmemlog</s></li>
                     <li>libpmempool</li>
-                    <li><s>libpmemset</s></li>
-                    <li><s>librpmem</s></li>
                     <li>pmempool utility</li>
                     <li>Core PMDK C examples</li>
                     <li>Web content for pmem.io/pmdk (in <strong>gh-pages</strong> branch)</li>
@@ -48,14 +36,6 @@ card_groups:
               - content: "Enhanced Valgrind containing the <strong>pmemcheck</strong> plugin"
               - content: "<a href=\"../valgrind\">pmem.io/valgrind</a>"
             - cells:
-              - content: "<a href=\"https://github.com/pmem/rpma\">rpma</a>"
-              - content: "C library to simplify accessing persistent memory (PMem) on remote hosts over Remote Direct Memory Access (RDMA)"
-              - content: "<a href=\"../rpma\">pmem.io/rpma</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\"><s>libpmemobj-cpp</s></a>"
-              - content: "C++ bindings & containers for libpmemobj"
-              - content: "<a href=\"../libpmemobj-cpp\">pmem.io/libpmemobj-cpp</a>"
-            - cells:
               - content: "<a href=\"https://github.com/pmem/llpl\">llpl</a>"
               - content: "Low-Level Persistence Library for Java"
               - content: "<a href=\"../java/llpl\">pmem.io/java/llpl</a>"
@@ -64,41 +44,9 @@ card_groups:
               - content: "JavaScript bindings for libpmemobj"
               - content: "-"
             - cells:
-              - content: "<a href=\"https://github.com/pmem/miniasync\"><s>miniasync</s></a>"
-              - content: "C low-level concurrency library for asynchronous functions"
-              - content: "<a href=\"../miniasync\">pmem.io/miniasync</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemstream\"><s>pmemstream</s></a>"
-              - content: "Logging data structure (with stream-like access to data)"
-              - content: "<a href=\"../pmemstream\">pmem.io/pmemstream</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemkv\"><s>pmemkv</s></a>"
-              - content: "Transactional Key-Value Store: Top-Level C & C++ API"
-              - content: "<a href=\"../pmemkv\">pmem.io/pmemkv</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemkv-bench\"><s>pmemkv-bench</s></a>"
-              - content: "Benchmarks for pmemkv"
+              - content: "<a href=\"https://github.com/pmem/pmdk-tests\">pmdk-tests</a>"
+              - content: "Extended PMDK tests"
               - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemkv-python\"><s>pmemkv-python</s></a>"
-              - content: "Python bindings for pmemkv"
-              - content: "<a href=\"../pmemkv-python\">pmem.io/pmemkv-python</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemkv-java\"><s>pmemkv-java</s></a>"
-              - content: "Java bindings for pmemkv"
-              - content: "<a href=\"../pmemkv-java\">pmem.io/pmemkv-java</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\"><s>pmemkv-nodejs</s></a>"
-              - content: "NodeJS bindings for pmemkv"
-              - content: "<a href=\"../pmemkv-nodejs\">pmem.io/pmemkv-nodejs</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemkv-ruby\"><s>pmemkv-ruby</s></a>"
-              - content: "Ruby bindings for pmemkv"
-              - content: "<a href=\"../pmemkv-ruby\">pmem.io/pmemkv-ruby</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmdk-convert\"><s>pmdk-convert</s></a>"
-              - content: "Conversion tool for PMDK pools"
-              - content: "<a href=\"../pmdk-convert\">pmdk-convert</a>"
         - title: "Components Focused on Volatile Usages of pmem:"
           headers:
             - content: "Repo Name"
@@ -109,14 +57,6 @@ card_groups:
               - content: "<a href=\"https://github.com/memkind/memkind\">memkind</a>"
               - content: "General-purpose malloc/free-style library<br/>(Actually lives outside the pmem GitHub org since it has a life outside of pmem as well)"
               - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/vmemcache\"><s>vmemcache</s></a>"
-              - content: "A buffer based LRU cache"
-              - content: "<a href=\"../vmemcache\">pmem.io/vmemcache</a>"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/vmem\"><s>vmem</s></a>"
-              - content: "libvmem, the predecessor to <strong>libmemkind</strong>.<br/>Maintenance-only -- use <strong>libmemkind</strong> for all new development."
-              - content: "<a href=\"../vmem/libvmem\">pmem.io/vmem/libvmem</a>"
         - title: "Experimental PMDK components (not yet ready for production use):"
           headers:
             - content: "Repo Name"
@@ -126,22 +66,6 @@ card_groups:
             - cells:
               - content: "<a href=\"https://github.com/pmem/pcj\">pcj</a>"
               - content: "Persistent Collections for Java"
-              - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pmemfile\"><s>pmemfile</s></a>"
-              - content: "Userspace implementation of file APIs using pmem"
-              - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/syscall_intercept\"><s>syscall_intercept</s></a>"
-              - content: "Syscall intercepting library used by libpmemfile"
-              - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/vltrace\"><s>vltrace</s></a>"
-              - content: "Tool for tracing syscalls"
-              - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/pynvm\"><s>pynvm</s></a>"
-              - content: "Experimental prototype Python bindings for libpmemobj"
               - content: "-"
         - title: "Other:"
           headers:
@@ -193,10 +117,6 @@ card_groups:
               - content: "<a href=\"https://github.com/pmem/book\">book</a>"
               - content: "Examples used in the <a href=\"https://pmem.io/book/\">pmem Programming Book</a>"
               - content: "-"
-            - cells:
-              - content: "<a href=\"https://github.com/pmem/knowledge-base\"><s>knowledge-base</s></a>"
-              - content: "Knowledge Base for pmem.io"
-              - content: "<a href=\"../knowledgebase\">pmem.io/knowledgebase</a>"
     - title: "pmem-aware Software"
       description: "These repos contain <strong>experimental</strong> versions of software modified to leverage persistent memory. Typically, when the features are mature and tested they become part of the upstream repo."
       tables:
@@ -228,7 +148,105 @@ card_groups:
     - title: "Inactive"
       description: "These repos are no longer under active development or use. We archive them here for reference."
       tables:
-        - headers:
+        - title: "Components Focused on Persistence:"
+          headers:
+            - content: "Repo Name"
+            - content: "Description"
+            - content: "Microsite"
+          rows:
+            - cells:
+              - content: "pmdk"
+              - content: "PMDK Core C libraries and tools:
+                  <br>
+                  <ul class=\"repoindex-list\">
+                    <li><a href=\"https://github.com/pmem/pmdk/releases/tag/1.13.1\">libpmemblk</a></li>
+                    <li><a href=\"https://github.com/pmem/pmdk/releases/tag/1.13.1\">libpmemlog</a></li>
+                    <li><a href=\"https://github.com/pmem/pmdk/releases/tag/1.12.1\">libpmemset</a></li>
+                    <li><a href=\"https://github.com/pmem/pmdk/releases/tag/1.12.1\">librpmem</a></li>
+                  </ul>"
+              - content: "<a href=\"../pmdk\">pmem.io/pmdk</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/rpma\">rpma</a>"
+              - content: "C library to simplify accessing persistent memory (PMem) on remote hosts over Remote Direct Memory Access (RDMA)"
+              - content: "<a href=\"../rpma\">pmem.io/rpma</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/libpmemobj-cpp\">libpmemobj-cpp</a>"
+              - content: "C++ bindings & containers for libpmemobj"
+              - content: "<a href=\"../libpmemobj-cpp\">pmem.io/libpmemobj-cpp</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/miniasync\">miniasync</a>"
+              - content: "C low-level concurrency library for asynchronous functions"
+              - content: "<a href=\"../miniasync\">pmem.io/miniasync</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemstream\">pmemstream</a>"
+              - content: "Logging data structure (with stream-like access to data)"
+              - content: "<a href=\"../pmemstream\">pmem.io/pmemstream</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemkv\">pmemkv</a>"
+              - content: "Transactional Key-Value Store: Top-Level C & C++ API"
+              - content: "<a href=\"../pmemkv\">pmem.io/pmemkv</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemkv-bench\">pmemkv-bench</a>"
+              - content: "Benchmarks for pmemkv"
+              - content: "-"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemkv-python\">pmemkv-python</a>"
+              - content: "Python bindings for pmemkv"
+              - content: "<a href=\"../pmemkv-python\">pmem.io/pmemkv-python</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemkv-java\">pmemkv-java</a>"
+              - content: "Java bindings for pmemkv"
+              - content: "<a href=\"../pmemkv-java\">pmem.io/pmemkv-java</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemkv-nodejs\">pmemkv-nodejs</a>"
+              - content: "NodeJS bindings for pmemkv"
+              - content: "<a href=\"../pmemkv-nodejs\">pmem.io/pmemkv-nodejs</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemkv-ruby\">pmemkv-ruby</a>"
+              - content: "Ruby bindings for pmemkv"
+              - content: "<a href=\"../pmemkv-ruby\">pmem.io/pmemkv-ruby</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmdk-convert\">pmdk-convert</a>"
+              - content: "Conversion tool for PMDK pools"
+              - content: "<a href=\"../pmdk-convert\">pmdk-convert</a>"
+        - title: "Components Focused on Volatile Usages of pmem:"
+          headers:
+            - content: "Repo Name"
+            - content: "Description"
+            - content: "Microsite"
+          rows:
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/vmemcache\">vmemcache</a>"
+              - content: "A buffer based LRU cache"
+              - content: "<a href=\"../vmemcache\">pmem.io/vmemcache</a>"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/vmem\">vmem</a>"
+              - content: "libvmem, the predecessor to <strong>libmemkind</strong>.<br/>Maintenance-only -- use <strong>libmemkind</strong> for all new development."
+              - content: "<a href=\"../vmem/libvmem\">pmem.io/vmem/libvmem</a>"
+        - title: "Experimental PMDK components (not ready for production use):"
+          headers:
+            - content: "Repo Name"
+            - content: "Description"
+            - content: "Microsite"
+          rows:
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pmemfile\">pmemfile</a>"
+              - content: "Userspace implementation of file APIs using pmem"
+              - content: "-"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/syscall_intercept\">syscall_intercept</a>"
+              - content: "Syscall intercepting library used by libpmemfile"
+              - content: "-"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/vltrace\">vltrace</a>"
+              - content: "Tool for tracing syscalls"
+              - content: "-"
+            - cells:
+              - content: "<a href=\"https://github.com/pmem/pynvm\">pynvm</a>"
+              - content: "Experimental prototype Python bindings for libpmemobj"
+              - content: "-"
+        - title: "Miscellaneous:"
+          headers:
             - content: "Repo Name"
             - content: "Description"
             - content: "Microsite"
@@ -262,9 +280,9 @@ card_groups:
               - content: "Java bindings via JNI for pmemkv"
               - content: "-"
             - cells:
-              - content: "<a href=\"https://github.com/pmem/pmdk-tests\">pmdk-tests</a>"
-              - content: "Extended PMDK tests"
-              - content: "-"
+              - content: "<a href=\"https://github.com/pmem/knowledge-base\">knowledge-base</a>"
+              - content: "Knowledge Base for pmem.io"
+              - content: "<a href=\"../knowledgebase\">pmem.io/knowledgebase</a>"
 
 ################################# Disclaimer #################################
 disclaimer:
