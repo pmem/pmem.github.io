@@ -66,7 +66,7 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 | libmemkind<br /> TieredMemDB | https://github.com/memkind/memkind<br /> https://github.com/TieredMemDB | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com |
 | PMUL<br /> LLPL<br /> PCJ | https://github.com/pmem/pmul<br /> https://github.com/pmem/llpl<br /> https://github.com/pmem/pcj | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel JAVA Team Maintaining |
 | ndctl | https://github.com/pmem/ndctl | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Intel Linux Kernel Team Maintaining and continuing development for CXL-based memory devices & NVDIMMs |
-| librpma | https://github.com/pmem/rpma | Issue Reporting and Bug Fixes via GitHub and pmdk_support@intel.com<br /> Seeking new co-maintainer(s) to continue development towards production release |
+| librpma | https://github.com/pmem/rpma | No further support or maintenance planned |
 | pmdk-convert | https://github.com/pmem/pmdk-convert | No further support or maintenance planned |
 | Libpmemstream | https://github.com/pmem/pmemstream | No further support or maintenance planned |
 | Libpmemblk<br /> Libpmemlog | https://github.com/pmem/pmdk | No further support or maintenance planned |
@@ -112,3 +112,4 @@ Andy Rudoff – Persistent Memory Software Architect, Intel Labs
 > **A:** For the libraries Intel continues to support, the critical security and bug fixes will follow the Intel Optane persistent memory lifecycle. Once an Optane persistent memory product reaches end of life (EOL), the associated bug fix support for PMDK on that product will also end. Some libraries will not have bug fix support, those are outlined in the table above.
 
 ###### [This entry was edited on 2023-03-28 to reflect the latest [announcement](/announcements/2023/customer-letter-march-2023/)]
+###### [This entry was edited on 2023-09-05 to reflect [announcement](https://github.com/pmem/rpma#%EF%B8%8F-discontinuation-of-the-project) about librpma discontinuation]
