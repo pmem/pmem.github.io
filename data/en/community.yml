@@ -7,7 +7,7 @@ slider:
 
 ################################# Social Section #################################
 social_section:
-  enable: true
+  enable: false
   title: 'Connect with us on Social Media'
   image: ''
   social_links:
@@ -79,7 +79,7 @@ videos:
 
 ################################# Newsletter Form #################################
 newsletter:
-  enable: true
+  enable: false
   title: 'Join our Newsletter'
   required_message: 'Required Fields(*)'
   disclaimer: 'By submitting this form, you are confirming you are an adult 18 years or older and you agree to share your personal information with Intel to use for this business request. You also agree to subscribe to stay connected to the latest Intel technologies and industry trends by email and telephone. You may unsubscribe at any time. Intel’s web sites and communications are subject to our <a href="http://www.intel.com/privacy" target="_blank">Privacy Notice</a> and <a href="http://www.intel.com/content/www/us/en/legal/terms-of-use.html" target="_blank">Terms of Use</a>.'
