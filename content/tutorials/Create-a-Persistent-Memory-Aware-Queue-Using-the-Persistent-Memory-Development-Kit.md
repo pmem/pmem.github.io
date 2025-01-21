@@ -3,7 +3,7 @@
 title: "Create a Persistent Memory Aware Queue Using the Persistent Memory Development Kit"
 
 # Tutorial post date
-date: 2018-30-12T23:06:17Z
+date: 2018-12-30T23:06:17Z
 
 # Publish immediately
 draft: false
